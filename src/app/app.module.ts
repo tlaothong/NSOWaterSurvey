@@ -11,13 +11,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BuyingPage } from '../pages/buying/buying';
 import { DisasterousPage } from '../pages/disasterous/disasterous';
 
+
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     BuyingPage,
-    DisasterousPage
+    DisasterousPage,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,9 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     HomePage,
     ListPage,
     BuyingPage,
-    DisasterousPage
+    DisasterousPage,
+    
+    
   ],
   providers: [
     StatusBar,
