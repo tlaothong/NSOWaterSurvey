@@ -8,16 +8,16 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { PlumbingPage } from '../pages/plumbing/plumbing';
-import { GroundWaterPage } from '../pages/ground-water/ground-water';
-import { RiverPage } from '../pages/river/river';
+import { BuyingPage } from '../pages/buying/buying';
+import { DisasterousPage } from '../pages/disasterous/disasterous';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
-    
+    ListPage,
+    BuyingPage,
+    DisasterousPage
   ],
   imports: [
     BrowserModule,
@@ -27,13 +27,14 @@ import { RiverPage } from '../pages/river/river';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
-   
+    ListPage,
+    BuyingPage,
+    DisasterousPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

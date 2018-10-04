@@ -17,6 +17,80 @@
 
 
 <ion-content padding>
-  <h2>หน้าศูนย์</h2>
+
+  <h3>ตอนที่ 4 การค้าและบริการ</h3>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>4.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="กรอกชื่อ"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด(ระบุบริการหลักที่ทำ)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="กรอกชื่อ"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง(ถามเฉพาะกรณีเป็นยูนิตย่อย)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>เลือกประเภท</ion-label>
+          <ion-select [(ngModel)]="gender">
+            <ion-option value="a1">1.บ้านเดี่ยว</ion-option>
+            <ion-option value="a2">2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
+            <ion-option value="a3">3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
+            <ion-option value="a4">4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
+            <ion-option value="a5">5.อาคารสำนักงานเอกชน</ion-option>
+            <ion-option value="a6">6.โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
+            <ion-option value="a7">7.สถานพยาบาล:ภาครัฐ</ion-option>
+            <ion-option value="a8">8.สถานพยาบาล:ภาคเอกชน</ion-option>
+            <ion-option value="a9">9.สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
+            <ion-option value="a10">10.ศาสนสถาน</ion-option>
+            <ion-option value="a11">11.สถานศึกษา : ภาครัฐ</ion-option>
+            <ion-option value="a12">12.สถานศึกษา : เอกชน</ion-option>
+            <ion-option value="a13">13.โกดังโรงงาน</ion-option>
+            <ion-option value="a14">14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
+            <ion-option value="a15">15.อาคารกำลังก่อสร้าง</ion-option>
+            <ion-option value="a16">16.อื่นๆ</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <water-sources8-a [headline]="'4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง'"></water-sources8-a>
+
+  <ion-card>
+    <ion-card-header>
+      4.4 (1) สถานศึกษา/โรงเรียน/สถาบันการศึกษา
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          1) โรงเรียน/สถานบันการศึกษาแห่งนี้เปิดสอน นักเรียน/นักศึกษา ระดับใดบ้าง
+        </ion-item>
+        <ion-item>
+          <ion-label col-8>1.ก่อนวัยเรียน</ion-label>
+          <ion-input type="number"></ion-input>
+          <span item-end>คน</span>
+        </ion-item>
+        <ion-item>
+          <ion-label col-8>2.อนุบาล</ion-label>
+          <ion-input type="number"></ion-input>
+          <span item-end>คน</span>
+        </ion-item>
+        <ion-item>
+          <ion-label col-8>3.ประถมศึกษา</ion-label>
+          <ion-input type="number"></ion-input>
+          <span item-end>คน</span>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
