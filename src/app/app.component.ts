@@ -24,7 +24,10 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'Factorial', component: "FactorialPage" },
+      { title: 'Disaster', component: "DisasterPage" },
+      { title: 'Residential', component: "ResidentialPage" },
     ];
 
   }
