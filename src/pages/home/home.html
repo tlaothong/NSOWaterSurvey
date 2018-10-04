@@ -8,11 +8,54 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>สำมะโนน้ำฯ</h3>
+  <!-- <h3>สำมะโนน้ำฯ</h3>
 
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button secondary menuToggle>Toggle Menu</button> -->
+  
+
+  <div padding>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="engine1">
+          เครื่องที่ 1
+        </ion-segment-button>
+        <ion-segment-button value="engine2">
+          เครื่องที่ 2
+        </ion-segment-button>
+        <ion-segment-button value="engine3">
+          เครื่องที่ 3
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    
+    <div [ngSwitch]="pet">
+      <ion-list *ngSwitchCase="'engine1'">
+      
+      </ion-list>
+    
+      <ion-list *ngSwitchCase="'engine2'">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="img/thumbnail-puppy-1.jpg">
+          </ion-thumbnail>
+          <h2>Ruby</h2>
+        </ion-item>
+    
+      </ion-list>
+    
+      <ion-list *ngSwitchCase="'engine3'">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="img/thumbnail-kitten-1.jpg">
+          </ion-thumbnail>
+          <h2>Luna</h2>
+        </ion-item>
+        ...
+      </ion-list>
+      
+    </div>
+  <pool></pool>
 </ion-content>
