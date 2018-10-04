@@ -16,25 +16,20 @@
 </ion-header>
 
 
-<ion-content padding>
-  <h3>ข้อมูลพื้นฐานส่วนบุคคล</h3>
-
+<ion-content padding>  
+  <h3>ตอนที่ 1 ครัวเรือนอยู่อาศัย</h3>
   <ion-card>
     <ion-card-header>
-      4.1 ชื่อสถานประกอบการ/หน่วยงาน
+      <!-- 4.1 ชื่อสถานประกอบการ/หน่วยงาน -->
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-label col-8>ชื่อผู้ให้ข้อมูล</ion-label>
-        <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
+        <ion-label col-6>1.1 จ้านวนสมาชิกในครัวเรือนที่อยู่ประจ าติดต่อกันตั้งแต่ 3 เดือนขึ้นไปมีกี่คน </ion-label>
+        <ion-input class="backgroundinput" type="text" placeholder="จำนวนคน"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>ประเภทสถานประกอบการผลิต </ion-label>
-        <ion-select [(ngModel)]="gender">
-          <ion-option value="a1">1.บ้านเดี่ยว</ion-option>
-          <ion-option value="a2">2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
-          <ion-option value="a3">3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
-        </ion-select>
+        <ion-label>1.2 คนที่อายุ 15 – 59 ปี     มีกี่คน  </ion-label>
+        <ion-input class="backgroundinput" type="text" placeholder="จำนวนคน"></ion-input>          
       </ion-item>
       <ion-item>
         <ion-label>ประเภทสถานประกอบการบริการ </ion-label>
