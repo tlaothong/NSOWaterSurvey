@@ -11,15 +11,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
 import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
 import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
+import { BuyingPage } from '../pages/buying/buying';
+import { DisasterousPage } from '../pages/disasterous/disasterous';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
     // FlowerCropPage,
     // HerbsPlantPage,
-    // AnimalFarmPage
+    // AnimalFarmPage,
+    BuyingPage,
+    DisasterousPage
   ],
   imports: [
     BrowserModule,
@@ -29,15 +33,17 @@ import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
     // FlowerCropPage,
     // HerbsPlantPage,
-    // AnimalFarmPage
+    // AnimalFarmPage,
+    BuyingPage,
+    DisasterousPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
