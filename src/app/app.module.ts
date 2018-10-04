@@ -19,7 +19,7 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     HomePage,
     ListPage,
     BuyingPage,
-    DisasterousPage,
+    DisasterousPage
     
     
   ],
@@ -33,7 +33,7 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     HomePage,
     ListPage,
     BuyingPage,
-    DisasterousPage,
+    DisasterousPage
     
     
   ],

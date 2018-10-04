@@ -32,7 +32,7 @@ export class MyApp {
       { title: 'Residential', component: "ResidentialPage" },
       { title: 'Buying', component: BuyingPage},
       { title: 'Disasterous', component: DisasterousPage},
-      { title: 'DryCropPlanting', component: "DryCropPlantingPage"},
+      { title: 'DryCropPlanting', component: "DryCropPlantingPage"}
     ];
 
   }
