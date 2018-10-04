@@ -22,7 +22,8 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
+    this.pages = [ 
+      { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
@@ -31,8 +32,7 @@ export class MyApp {
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'Residential', component: "ResidentialPage" },
       { title: 'Buying', component: BuyingPage},
-      { title: 'Disasterous', component: DisasterousPage},
-      { title: 'Gun', component: "GunPage" }
+      { title: 'Disasterous', component: DisasterousPage}
     ];
 
   }
