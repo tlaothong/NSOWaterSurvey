@@ -19,9 +19,94 @@
       1.น้ำประปานครหลวง
     </ion-card-header>
     <ion-card-content>
-      <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
+      <ion-item>
+        <ion-label>ใช้</ion-label>
+        <ion-radio ></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>ไม่ใช้</ion-label>
+        <ion-radio ></ion-radio>
+      </ion-item>
     </ion-card-content>
+    
+    <ion-card-header>
+      มีปัญหาคุณภาพน้ำหรือไม่
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>ไม่มีปัญหา</ion-label>
+        <ion-radio ></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>มีปัญหา คือ</ion-label>
+        <ion-radio ></ion-radio>
+      </ion-item>
+    </ion-card-content>
+
+    <ion-item>
+  <ion-label>ขุ่น/ตะกอน</ion-label>
+  <ion-checkbox checked="true"></ion-checkbox>
+</ion-item>
+<ion-item>
+  <ion-label>เค็ม/กร่อย</ion-label>
+  <ion-checkbox checked="true"></ion-checkbox>
+</ion-item>
+<ion-item>
+  <ion-label>กระด้าง</ion-label>
+  <ion-checkbox checked="true"></ion-checkbox>
+</ion-item>
+<ion-item>
+  <ion-label>มีกลิ่น</ion-label>
+  <ion-checkbox checked="true"></ion-checkbox>
+</ion-item>
+<ion-item>
+  <ion-label>คราบมัน</ion-label>
+  <ion-checkbox checked="true"></ion-checkbox>
+</ion-item>
+<ion-item>
+  <ion-label>ฝ้าขาว</ion-label>
+  <ion-checkbox checked="true"></ion-checkbox>
+</ion-item>
+
+<ion-card-header>
+  ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไหร่
+</ion-card-header>
+<ion-card-content>
+    <ion-item>
+      <ion-label>ทราบปริมาณน้ำ</ion-label>
+      <ion-radio ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label col-5>ทราบปริมาณน้ำ</ion-label>
+      <ion-input></ion-input>
+      <span item-end>ลบ.ม./เดือน</span>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
+      <ion-radio ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label col-5>ทราบค่าน้ำ</ion-label>
+      <ion-input></ion-input>
+      <span item-end>บาท/เดือน</span>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>ไม่ทราบปริมาณน้ำ และค่าน้ำ เนื่องจากไม่มีมิเตอร์แยกจากส่วนกลาง</ion-label>
+      <ion-radio ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>ไม่ทราบปริมาณน้ำ และค่าน้ำ เนื่องจากได้รับการยกเว้น</ion-label>
+      <ion-radio ></ion-radio>
+    </ion-item>
+    </ion-card-content>
+
   </ion-card>
+  
+
+
+
 
   <ion-card>
     <ion-card-header>
