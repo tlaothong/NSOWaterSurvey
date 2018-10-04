@@ -8,12 +8,18 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
+import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
+import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage
+    // FlowerCropPage,
+    // HerbsPlantPage,
+    // AnimalFarmPage
   ],
   imports: [
     BrowserModule,
@@ -24,6 +30,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage
+    // FlowerCropPage,
+    // HerbsPlantPage,
+    // AnimalFarmPage
   ],
   providers: [
     StatusBar,

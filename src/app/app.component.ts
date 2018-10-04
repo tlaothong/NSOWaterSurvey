@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
+import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
+import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +27,11 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'FlowerCrop', component: "FlowerCropPage" },
+      { title: 'HerbsPlant', component: "HerbsPlantPage" },
+      { title: 'AnimalFarm', component: "AnimalFarmPage" }
+      
     ];
 
   }
