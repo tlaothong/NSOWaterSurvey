@@ -8,8 +8,8 @@ import { ComponentsModule } from '../../components/components.module';
     DemoPage,
   ],
   imports: [
-    ComponentsModule,
     IonicPageModule.forChild(DemoPage),
+    ComponentsModule,
   ],
 })
 export class DemoPageModule {}
