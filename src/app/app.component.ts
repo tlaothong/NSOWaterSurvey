@@ -23,6 +23,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [ 
+      // test push
       { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
