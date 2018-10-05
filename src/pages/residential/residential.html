@@ -19,45 +19,45 @@
 <ion-content padding>
   <h3>ตอนที่ 1 ครัวเรือนอยู่อาศัย</h3>
   <ion-card>
-    <ion-item>
-      <ion-label col-6>1.1 จ้านวนสมาชิกในครัวเรือนที่อยู่ประจำติดต่อกันตั้งแต่ 3 เดือนขึ้นไปมีกี่คน </ion-label>
-      <ion-input class="backgroundinput" type="text" placeholder="จำนวนคน"></ion-input>
-      <span item-end>คน</span>
-
-    </ion-item>
+    <ion-card-header>
+      <ion-label>1.1 จ้านวนสมาชิกในครัวเรือนที่อยู่ประจำติดต่อกันตั้งแต่ 3 เดือนขึ้นไปมีกี่คน </ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="จำนวนคน"></ion-input>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
-  <ion-card>
 
-    <ion-item>
+  <ion-card>
+    <ion-card-header>
       <ion-label>1.2 คนที่อายุ 15 – 59 ปี มีกี่คน </ion-label>
-      <ion-input class="backgroundinput" type="text" placeholder="จำนวนคน"></ion-input>
-      <span item-end>คน</span>
-
-    </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="จำนวนคน"></ion-input>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
 
-  <ion-card>
-      <ion-card-header>
-          1.3 ครัวเรือนนี้ใช้น้้าเพื่อการอุปโภคบริโภค จากแหล่งใดบ้าง 
-      </ion-card-header>
-      <water-sources8-a></water-sources8-a>
-    </ion-card>
+  <water-sources8-a [headline]="'1.3 ครัวเรือนนี้ใช้น้้าเพื่อการอุปโภคบริโภค จากแหล่งใดบ้าง'"></water-sources8-a>
 
   <ion-card>
-    <ion-item>
-      <ion-label>1.4 ครัวเรือนนี้มีการใช้น้้าเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่
-      </ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-3>
-        <ion-label>ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-      <ion-item col-3>
-        <ion-label>ไม่ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-    </ion-row>
+    <ion-label>1.4 ครัวเรือนนี้มีการใช้น้้าเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่</ion-label>
+      <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-label>ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label>ไม่ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>
