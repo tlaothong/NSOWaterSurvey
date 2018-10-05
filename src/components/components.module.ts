@@ -8,6 +8,10 @@ import { WaterSources9Component } from './water-sources9/water-sources9';
 import { EnginewaterActivity4Component } from './enginewater-activity4/enginewater-activity4';
 import { EnginewaterActivity6Component } from './enginewater-activity6/enginewater-activity6';
 
+import { FieldAreaComponent } from './field-area/field-area';
+import { PoolAreaComponent } from './pool-area/pool-area';
+import { RectanglePoolComponent } from './rectangle-pool/rectangle-pool';
+import { CirclePoolComponent } from './circle-pool/circle-pool';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -18,6 +22,10 @@ import { EnginewaterActivity6Component } from './enginewater-activity6/enginewat
     EnginewaterActivity4Component,
     EnginewaterActivity6Component,
     
+    FieldAreaComponent,
+    PoolAreaComponent,
+    RectanglePoolComponent,
+    CirclePoolComponent
     ],
 	imports: [
         IonicPageModule.forChild(WaterSources8AComponent)
@@ -30,6 +38,10 @@ import { EnginewaterActivity6Component } from './enginewater-activity6/enginewat
     EnginewaterActivity4Component,
     EnginewaterActivity6Component,
     
+    FieldAreaComponent,
+    PoolAreaComponent,
+    RectanglePoolComponent,
+    CirclePoolComponent
     ]
 })
 export class ComponentsModule {}

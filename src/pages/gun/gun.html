@@ -43,7 +43,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label>เลือกประเภท</ion-label>
-        <ion-select [(ngModel)]="gender">
+        <ion-select>
           <ion-option value="a1">1. บ้านเดี่ยว</ion-option>
           <ion-option value="a2">2. บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
           <ion-option value="a3">3. ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
@@ -75,19 +75,17 @@
 
         <div>1) โรงเรียน/สถานบันการศึกษาแห่งนี้เปิดสอน นักเรียน/นักศึกษา ระดับใดบ้าง</div>
         <ion-row>
-          <button ion-button clear color="light" full (click)="showModal(do1)">
             <ion-col col-6>
               <ion-item>
                 <ion-label>1. ก่อนวัยเรียน</ion-label>
-                <ion-checkbox [(ngModel)]="do1.IsChecked" [disabled]="!do1.IsChecked"></ion-checkbox>
+                <ion-checkbox [(ngModel)]="do1.IsChecked" (click)="showModal(do1)"></ion-checkbox>
               </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item>
-                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do1.amount" [disabled]="!do1.IsChecked"></ion-input>
+                <ion-input type="number" placeholder="จำนวน" [disabled]="!do1.IsChecked" (click)="showModal(do1)"></ion-input>
               </ion-item>
             </ion-col>
-          </button>
         </ion-row>
 
         <ion-row>
