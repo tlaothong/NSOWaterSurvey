@@ -51,5 +51,106 @@
       </ion-list>
     </ion-card-content>
 
+
+  
+    (segment แปลง)
+    <ion-card>
+      <ion-card-header>
+        1) ตั้งอยู่ที่ใด (ตำบล อำเภอ จังหวัด)
+      </ion-card-header>
+      <ion-list>
+        <ion-item>
+          <ion-label>จังหวัด</ion-label>
+          <ion-select>
+            <ion-option>อุบลราชธานี</ion-option>
+            <ion-option>ขอนแก่น</ion-option>
+            <ion-option>ยโสธร</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+  
+      <ion-list>
+        <ion-item>
+          <ion-label>อำเภอ</ion-label>
+          <ion-select>
+            <ion-option>เมือง</ion-option>
+  
+          </ion-select>
+        </ion-item>
+      </ion-list>
+  
+      <ion-list>
+        <ion-item>
+          <ion-label>ตำบล</ion-label>
+          <ion-select>
+            <ion-option>ในเมือง</ion-option>
+  
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-header>
+        2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
+      </ion-card-header>
+      <ion-card-content>
+  
+        <ion-row style="align-items: center">
+          <ion-col>
+            <button ion-button outline block color="dark"></button>
+          </ion-col>
+          <ion-col>ไร่</ion-col>
+          <ion-col>
+            <button ion-button outline block color="dark"></button>
+          </ion-col>
+          <ion-col>งาน</ion-col>
+          <ion-col>
+            <button ion-button outline block color="dark"></button>
+          </ion-col>
+          <ion-col>ตารางวา</ion-col>
+        </ion-row>
+  
+      </ion-card-content>
+  
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-header>
+       3)ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ 
+      </ion-card-header>
+      <ion-card-content>
+    
+        <ion-row radio-group>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>อยู่</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่อยู่</ion-label>
+          </ion-item>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  
+  
+    <ion-card>
+        <ion-card-header>
+          4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด)
+        </ion-card-header>
+        <ion-list>
+          <ion-item>
+            <ion-label>รายชื่อพืช</ion-label>
+            <ion-select>
+              <ion-option>ยาสูบ</ion-option>
+              <ion-option>ละหุ่ง</ion-option>
+              <ion-option>สาคู</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+    </ion-card>
+      
+    <water-sources8-a [headline]="'5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources8-a>
   </ion-card>
 </ion-content>
