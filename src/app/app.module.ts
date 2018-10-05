@@ -8,22 +8,30 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ComponentsModule } from '../components/components.module';
+import { IrrigationPage } from '../pages/irrigation/irrigation';
+import { RainPage } from '../pages/rain/rain';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    IrrigationPage,
+    RainPage  
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    IrrigationPage,
+    RainPage
   ],
   providers: [
     StatusBar,
