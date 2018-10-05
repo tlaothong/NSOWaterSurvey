@@ -13,8 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { RainPage } from '../pages/rain/rain';
-import { BuyingPage } from '../pages/buying/buying';
-import { DisasterousPage } from '../pages/disasterous/disasterous';
+
+
 
 @NgModule({
   declarations: [
@@ -23,10 +23,9 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     ListPage,
     IrrigationPage,
     RainPage , 
-    BuyingPage,
-    DisasterousPage,
     ModalGunPage,
     ModalGun2Page
+
   ],
   imports: [
     BrowserModule,
@@ -40,8 +39,6 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     ListPage,
     IrrigationPage,
     RainPage,
-    BuyingPage,
-    DisasterousPage,
     ModalGunPage,
     ModalGun2Page
   ],
