@@ -5,13 +5,15 @@ import { DemoNaComponent } from './demo-na/demo-na';
 import { PoolComponent } from './pool/pool';
 import { WaterSources8BComponent } from './water-sources8-b/water-sources8-b';
 import { WaterSources9Component } from './water-sources9/water-sources9';
+import { FieldAreaComponent } from './field-area/field-area';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
     DemoNaComponent,
     PoolComponent,
     WaterSources8BComponent,
-    WaterSources9Component
+    WaterSources9Component,
+    FieldAreaComponent
     ],
 	imports: [
         IonicPageModule.forChild(WaterSources8AComponent)
@@ -20,7 +22,8 @@ import { WaterSources9Component } from './water-sources9/water-sources9';
     DemoNaComponent,
     PoolComponent,
     WaterSources8BComponent,
-    WaterSources9Component
+    WaterSources9Component,
+    FieldAreaComponent
     ]
 })
 export class ComponentsModule {}
