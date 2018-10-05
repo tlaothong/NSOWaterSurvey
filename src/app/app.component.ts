@@ -50,7 +50,9 @@ export class MyApp {
       { title: 'Rain', component: RainPage },
       { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
       { title: 'RubberTree', component: "RubberTreePage" },
-      { title: 'PerennialPlanting', component: "PerennialPlantingPage" }
+      { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
+      { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" }
+
 
     ];
 
