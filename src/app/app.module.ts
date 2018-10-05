@@ -1,3 +1,5 @@
+import { ModalGun2Page } from './../pages/modal-gun2/modal-gun2';
+import { ModalGunPage } from './../pages/modal-gun/modal-gun';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -17,7 +19,9 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     HomePage,
     ListPage,
     BuyingPage,
-    DisasterousPage
+    DisasterousPage,
+    ModalGunPage,
+    ModalGun2Page
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,9 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     HomePage,
     ListPage,
     BuyingPage,
-    DisasterousPage
+    DisasterousPage,
+    ModalGunPage,
+    ModalGun2Page
   ],
   providers: [
     StatusBar,

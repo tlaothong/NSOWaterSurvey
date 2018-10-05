@@ -1,0 +1,364 @@
+<!--
+  Generated template for the GunPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>ตอนที่ 4 การค้าและบริการ</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- 1 -->
+  <ion-card>
+    <ion-card-header>
+      4.1 ชื่อสถานประกอบการ/หน่วยงาน
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="text" placeholder="ชื่อ"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  <!-- 2 -->
+  <ion-card>
+    <ion-card-header>
+      4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด (ระบุบริการหลักที่ทำ)
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="text" placeholder="สถานประกอบการ"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  <!-- 3 -->
+  <ion-card>
+    <ion-card-header>
+      4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง (ถามเฉพาะกรณีเป็นยูนิตย่อย)
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>เลือกประเภท</ion-label>
+        <ion-select [(ngModel)]="gender">
+          <ion-option value="a1">1. บ้านเดี่ยว</ion-option>
+          <ion-option value="a2">2. บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
+          <ion-option value="a3">3. ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
+          <ion-option value="a4">4. อาคารสูง/คอนโด/แมนชั่น</ion-option>
+          <ion-option value="a5">5. อาคารสำนักงานเอกชน</ion-option>
+          <ion-option value="a6">6. โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
+          <ion-option value="a7">7. สถานพยาบาล:ภาครัฐ</ion-option>
+          <ion-option value="a8">8. สถานพยาบาล:ภาคเอกชน</ion-option>
+          <ion-option value="a9">9. สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
+          <ion-option value="a10">10. ศาสนสถาน</ion-option>
+          <ion-option value="a11">11. สถานศึกษา : ภาครัฐ</ion-option>
+          <ion-option value="a12">12. สถานศึกษา : เอกชน</ion-option>
+          <ion-option value="a13">13. โกดังโรงงาน</ion-option>
+          <ion-option value="a14">14. โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
+          <ion-option value="a15">15. อาคารกำลังก่อสร้าง</ion-option>
+          <ion-option value="a16">16. อื่นๆ</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <!-- 4 -->
+  <ion-card>
+    <ion-card-header>
+      4.4 (1) สถานศึกษา/โรงเรียน/สถาบันการศึกษา
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+
+        <div>1) โรงเรียน/สถานบันการศึกษาแห่งนี้เปิดสอน นักเรียน/นักศึกษา ระดับใดบ้าง</div>
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal(do1)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>1. ก่อนวัยเรียน</ion-label>
+                <ion-checkbox [(ngModel)]="do1.IsChecked" [disabled]="!do1.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do1.amount" [disabled]="!do1.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal(do2)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>2. อนุบาล</ion-label>
+                <ion-checkbox [(ngModel)]="do2.IsChecked" [disabled]="!do2.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do2.amount" [disabled]="!do2.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal(do3)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>3. ประถมศึกษา</ion-label>
+                <ion-checkbox [(ngModel)]="do3.IsChecked" [disabled]="!do3.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do3.amount" [disabled]="!do3.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal(do4)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>4. มัธยมศึกษา</ion-label>
+                <ion-checkbox [(ngModel)]="do4.IsChecked" [disabled]="!do4.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do4.amount" [disabled]="!do4.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal(do5)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>5. ปวช./ปวส.</ion-label>
+                <ion-checkbox [(ngModel)]="do5.IsChecked" [disabled]="!do5.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do5.amount" [disabled]="!do5.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal(do6)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>6. อุดมศึกษา</ion-label>
+                <ion-checkbox [(ngModel)]="do6.IsChecked" [disabled]="!do6.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวน" [(ngModel)]="do6.amount" [disabled]="!do6.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <div>2) มีจำนวนบุลคลากรรวมทั้งหมดทุกประเภทกี่คน (รวมครู, นักวิชาการ, พนักงาน, ภารโรง, ฯลฯ)</div>
+        <ion-row>
+          <ion-input type="text" placeholder="จำนวน"></ion-input>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!-- 5 -->
+  <ion-card>
+    <ion-card-header>
+      4.4 (2) โรงแรม/รีสอร์ท/เกสต์เฮาส์
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <label>1) มีจำนวนห้องพักรวมทั้งหมดกี่ห้อง</label>
+        <ion-input type="text" placeholder="จำนวนห้องพัก"></ion-input>
+      </div>
+      <div>
+        <label>2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน</label>
+        <ion-input type="text" placeholder="จำนวนบุคลากร"></ion-input>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <!-- 6 -->
+  <ion-card>
+    <ion-card-header>
+      4.4 (3) สถานพยาบาล/โรงบยาบาล/สถานสงเคราะห์
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <label>1) มีจำนวนห้องพักรวมทั้งหมดกี่ห้อง</label>
+        <ion-input type="text" placeholder="จำนวนห้องพัก"></ion-input>
+      </div>
+      <div>
+        <label>2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน</label>
+        <ion-input type="text" placeholder="จำนวนบุคลากร"></ion-input>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <!-- 7 -->
+  <ion-card>
+    <ion-card-header>
+      4.4 (4) คอนโด/อพาร์ทเม้นต์/หอพัก/แมนชั่น/แฟลต
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <label>1) มีจำนวนห้องทั้งหมดกี่ห้อง</label>
+        <ion-input type="text" placeholder="จำนวนห้องพัก"></ion-input>
+      </div>
+      <div>
+        <label>2) จำนวนห้องที่มีผู้อยู่อาศัยมีกี่ห้อง(ณ วันที่สำรวจ)</label>
+        <ion-input type="text" placeholder="จำนวนห้องที่มีผู้อยู่อาศัย"></ion-input>
+      </div>
+      <div>
+        <label>3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน(ผู้จัดการ, แม่บ้าน, คนสวน, รปภ, ฯลฯ)</label>
+        <ion-input type="text" placeholder="จำนวนบุคลากร"></ion-input>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <!-- 8 -->
+  <ion-card>
+    <ion-card-header>
+      4.4 (5) ศาสนสถาน/วัด/สำนักสงฆ์/สำนักปฏิบัติธรรม
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <label>1) มีจำนวนพระสงฆ์ สามเณร ชี เด็กวัด ผู้มาประกอบศสนกิจ ผู้ปฏิบัติธรรมโดยเฉลี่ยเดือนละกี่คน</label>
+        <ion-input type="text" placeholder="จำนวนคน"></ion-input>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <!-- 9 -->
+  <ion-card>
+    <ion-card-header>
+      4.4 (6) สถานประกอบการบรริการประเภทอื่นๆ หรือรหัสประเภทบ้าน/อาคาร/สิ่งปลูกสร้างอื่นๆ ในข้อ 4.6 (เช่น ร้านค้า
+      ร้านขายของชำ ร้านเสริมสวย เป็นต้น)
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <label>1) มีจำนวนบุคลากร/คนทำงานรวมทั้งหมดกี่คน</label>
+        <ion-input type="text" placeholder="จำนวนคน"></ion-input>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <!-- 10 -->
+  <ion-card>
+    <ion-card-header>
+      4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>1. น้ำประปา</ion-label>
+                <ion-checkbox [(ngModel)]="act1.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>2. น้ำบาดาล</ion-label>
+                <ion-checkbox [(ngModel)]="act2.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>3. น้ำจากสระ</ion-label>
+                <ion-checkbox [(ngModel)]="act3.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>4. น้ำจากแม้น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ</ion-label>
+                <ion-checkbox [(ngModel)]="act4.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>5. น้ำจากชลประทาน</ion-label>
+                <ion-checkbox [(ngModel)]="act5.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>6. น้ำฝนที่กักเก็บไว้</ion-label>
+                <ion-checkbox [(ngModel)]="act6.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light">
+            <ion-col>
+              <ion-item>
+                <ion-label>7. น้ำที่ซื้อมาใช้</ion-label>
+                <ion-checkbox [(ngModel)]="act7.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+        <ion-row>
+          <button ion-button clear color="light" full (click)="showModal2(act8)">
+            <ion-col col-6>
+              <ion-item>
+                <ion-label>8. อื่นๆ</ion-label>
+                <ion-checkbox [(ngModel)]="act8.IsChecked" [disabled]="!act8.IsChecked"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="text" placeholder="โปรดระบุ" [(ngModel)]="act8.description" [disabled]="!act8.IsChecked"></ion-input>
+              </ion-item>
+            </ion-col>
+          </button>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
