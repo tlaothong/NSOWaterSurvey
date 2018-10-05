@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { IrrigationPage } from './irrigation';
+import { DryCropPlantingPage } from './dry-crop-planting';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    IrrigationPage,
+    DryCropPlantingPage,
   ],
   imports: [
-    IonicPageModule.forChild(IrrigationPage),
+    IonicPageModule.forChild(DryCropPlantingPage),
     ComponentsModule,
   ],
 })
-export class IrrigationPageModule {}
+export class DryCropPlantingPageModule {}

@@ -5,6 +5,9 @@ import { DemoNaComponent } from './demo-na/demo-na';
 import { PoolComponent } from './pool/pool';
 import { WaterSources8BComponent } from './water-sources8-b/water-sources8-b';
 import { WaterSources9Component } from './water-sources9/water-sources9';
+import { EnginewaterActivity4Component } from './enginewater-activity4/enginewater-activity4';
+import { EnginewaterActivity6Component } from './enginewater-activity6/enginewater-activity6';
+
 import { FieldAreaComponent } from './field-area/field-area';
 import { PoolAreaComponent } from './pool-area/pool-area';
 import { RectanglePoolComponent } from './rectangle-pool/rectangle-pool';
@@ -16,6 +19,9 @@ import { CirclePoolComponent } from './circle-pool/circle-pool';
     PoolComponent,
     WaterSources8BComponent,
     WaterSources9Component,
+    EnginewaterActivity4Component,
+    EnginewaterActivity6Component,
+    
     FieldAreaComponent,
     PoolAreaComponent,
     RectanglePoolComponent,
@@ -29,6 +35,9 @@ import { CirclePoolComponent } from './circle-pool/circle-pool';
     PoolComponent,
     WaterSources8BComponent,
     WaterSources9Component,
+    EnginewaterActivity4Component,
+    EnginewaterActivity6Component,
+    
     FieldAreaComponent,
     PoolAreaComponent,
     RectanglePoolComponent,

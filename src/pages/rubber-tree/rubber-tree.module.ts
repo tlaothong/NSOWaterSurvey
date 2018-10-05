@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { IrrigationPage } from './irrigation';
+import { RubberTreePage } from './rubber-tree';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    IrrigationPage,
+    RubberTreePage,
+    
   ],
   imports: [
-    IonicPageModule.forChild(IrrigationPage),
+    IonicPageModule.forChild(RubberTreePage),
     ComponentsModule,
   ],
 })
-export class IrrigationPageModule {}
+export class RubberTreePageModule {}

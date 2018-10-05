@@ -14,6 +14,8 @@ import { ComponentsModule } from '../components/components.module';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { RainPage } from '../pages/rain/rain';
 
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,6 +25,7 @@ import { RainPage } from '../pages/rain/rain';
     RainPage , 
     ModalGunPage,
     ModalGun2Page
+
   ],
   imports: [
     BrowserModule,

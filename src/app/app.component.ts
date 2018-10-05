@@ -22,7 +22,7 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [ 
+    this.pages = [
       // test push
       { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
@@ -42,6 +42,12 @@ export class MyApp {
       { title: 'Disasterous', component: "DisasterousPage" },
       { title: 'Irrigation', component: IrrigationPage },
       { title: 'Rain', component: RainPage },
+      { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
+      { title: 'RubberTree', component: "RubberTreePage" },
+      { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
+      { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
+
+
       { title: 'User', component: "UserPage" },
     ];
 
