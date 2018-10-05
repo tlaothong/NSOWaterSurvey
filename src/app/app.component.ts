@@ -6,12 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
-import { PlumbingPage } from '../pages/plumbing/plumbing';
-import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
-import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
-import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
-import { BuyingPage } from '../pages/buying/buying';
-import { DisasterousPage } from '../pages/disasterous/disasterous';
 import { RainPage } from '../pages/rain/rain';
 
 @Component({
@@ -20,7 +14,7 @@ import { RainPage } from '../pages/rain/rain';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = "DisasterousPage";
 
   pages: Array<{ title: string, component: any }>;
 
@@ -28,7 +22,7 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [ 
+    this.pages = [
       // test push
       { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
@@ -44,10 +38,17 @@ export class MyApp {
       { title: 'Factorial', component: "FactorialPage" },
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'Residential', component: "ResidentialPage" },
-      { title: 'Buying', component: BuyingPage },
-      { title: 'Disasterous', component: DisasterousPage },
+      { title: 'Buying', component: "BuyingPage" },
+      { title: 'Disasterous', component: "DisasterousPage" },
       { title: 'Irrigation', component: IrrigationPage },
-      { title: 'Rain', component: RainPage }
+      { title: 'Rain', component: RainPage },
+      { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
+      { title: 'RubberTree', component: "RubberTreePage" },
+      { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
+      { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
+
+
+      { title: 'User', component: "UserPage" },
     ];
 
   }
