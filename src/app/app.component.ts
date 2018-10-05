@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { PlumbingPage } from '../pages/plumbing/plumbing';
 import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
 import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
 import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
@@ -25,11 +26,16 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
+    this.pages = [ 
+      // test push
+      { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
       { title: 'List', component: ListPage },
+      { title: 'Plumbing', component: "PlumbingPage" },
+      { title: 'GroundWater', component: "GroundWaterPage" },
+      { title: 'River', component: "RiverPage" },
       { title: 'FlowerCrop', component: "FlowerCropPage" },
       { title: 'HerbsPlant', component: "HerbsPlantPage" },
       { title: 'AnimalFarm', component: "AnimalFarmPage" },
