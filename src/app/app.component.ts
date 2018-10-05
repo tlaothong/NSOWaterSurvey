@@ -5,10 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { PlumbingPage } from '../pages/plumbing/plumbing';
-import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
-import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
-import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
+
+
 import { BuyingPage } from '../pages/buying/buying';
 import { DisasterousPage } from '../pages/disasterous/disasterous';
 
@@ -18,7 +16,7 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = BuyingPage;
 
   pages: Array<{ title: string, component: any }>;
 
