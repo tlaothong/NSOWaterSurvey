@@ -5,6 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { PlumbingPage } from '../pages/plumbing/plumbing';
+import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
+import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
+import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
 import { BuyingPage } from '../pages/buying/buying';
 import { DisasterousPage } from '../pages/disasterous/disasterous';
 
@@ -14,9 +18,9 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = BuyingPage;
+  rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
@@ -29,11 +33,17 @@ export class MyApp {
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
       { title: 'List', component: ListPage },
+      { title: 'Plumbing', component: "PlumbingPage" },
+      { title: 'GroundWater', component: "GroundWaterPage" },
+      { title: 'River', component: "RiverPage" },
+      { title: 'FlowerCrop', component: "FlowerCropPage" },
+      { title: 'HerbsPlant', component: "HerbsPlantPage" },
+      { title: 'AnimalFarm', component: "AnimalFarmPage" },
       { title: 'Factorial', component: "FactorialPage" },
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'Residential', component: "ResidentialPage" },
-      { title: 'Buying', component: BuyingPage},
-      { title: 'Disasterous', component: DisasterousPage}
+      { title: 'Buying', component: BuyingPage },
+      { title: 'Disasterous', component: DisasterousPage }
     ];
 
   }
