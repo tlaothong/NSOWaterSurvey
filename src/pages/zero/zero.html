@@ -228,4 +228,44 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card>
+    <ion-card-header>
+      บ่อหรือร่องสวนที่ 1 (ตัวอย่าง radio + input) test
+    </ion-card-header>
+    <ion-card-content radio-group>
+
+      <ion-item>
+        <ion-radio item-left></ion-radio>
+        <ion-label>ทราบพื้นที่</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <pool-area></pool-area>
+      </ion-item>
+
+      <ion-item>
+        <ion-radio item-left></ion-radio>
+        <ion-label>ไม่ทราบพื้นที่ บ่อเป็นสี่เหลี่ยมหรือวงกลม</ion-label>
+      </ion-item>
+      <div style="padding-left: 50px" radio-group>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>สี่เหลี่ยม</ion-label>
+        </ion-item>
+        <ion-item>
+          <rectangle-pool></rectangle-pool>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>วงกลม</ion-label>
+        </ion-item>
+        <ion-item>
+          <circle-pool></circle-pool>
+        </ion-item>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>
