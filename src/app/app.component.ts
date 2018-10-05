@@ -13,6 +13,7 @@ import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
 import { BuyingPage } from '../pages/buying/buying';
 import { DisasterousPage } from '../pages/disasterous/disasterous';
 import { RainPage } from '../pages/rain/rain';
+import {RisePage} from '../pages/rise/rise'
 
 @Component({
   templateUrl: 'app.html'
@@ -34,6 +35,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
+      { title: 'Rise', component: "RisePage" },
       { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
       { title: 'GroundWater', component: "GroundWaterPage" },
