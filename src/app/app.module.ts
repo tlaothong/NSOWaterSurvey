@@ -10,13 +10,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
+import { RainPage } from '../pages/rain/rain';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    IrrigationPage
+    IrrigationPage,
+    RainPage  
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { IrrigationPage } from '../pages/irrigation/irrigation';
     MyApp,
     HomePage,
     ListPage,
-    IrrigationPage
+    IrrigationPage,
+    RainPage
   ],
   providers: [
     StatusBar,
