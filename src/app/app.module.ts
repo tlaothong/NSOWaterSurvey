@@ -29,6 +29,7 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     DisasterousPage,
     ModalGunPage,
     ModalGun2Page
+
   ],
   imports: [
     BrowserModule,
