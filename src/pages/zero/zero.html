@@ -20,7 +20,7 @@
 
   <h3>ตอนที่ 4 การค้าและบริการ</h3>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-content>
       <ion-list>
         <ion-item>
@@ -61,36 +61,107 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-  </ion-card>
-
-  <water-sources8-a [headline]="'4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง'"></water-sources8-a>
+  </ion-card> -->
 
   <ion-card>
     <ion-card-header>
-      4.4 (1) สถานศึกษา/โรงเรียน/สถาบันการศึกษา
+      ตัวอย่าง 1 question 1 input
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        <ion-item>
-          1) โรงเรียน/สถานบันการศึกษาแห่งนี้เปิดสอน นักเรียน/นักศึกษา ระดับใดบ้าง
-        </ion-item>
-        <ion-item>
-          <ion-label col-8>1.ก่อนวัยเรียน</ion-label>
-          <ion-input type="number"></ion-input>
-          <span item-end>คน</span>
-        </ion-item>
-        <ion-item>
-          <ion-label col-8>2.อนุบาล</ion-label>
-          <ion-input type="number"></ion-input>
-          <span item-end>คน</span>
-        </ion-item>
-        <ion-item>
-          <ion-label col-8>3.ประถมศึกษา</ion-label>
-          <ion-input type="number"></ion-input>
-          <span item-end>คน</span>
-        </ion-item>
-      </ion-list>
+      <ion-item>
+        <ion-input placeholder="กรอกชื่อ"></ion-input>
+      </ion-item>
     </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-card-header>
+      4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด(ระบุบริการหลักที่ทำ)
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input placeholder="กรอกชื่อ"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card>
+    <ion-card-header>
+      ตัวอย่าง selector
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>เลือกประเภท</ion-label>
+        <ion-select>
+          <ion-option>1.บ้านเดี่ยว</ion-option>
+          <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
+          <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
+          <ion-option>4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
+          <ion-option>5.อาคารสำนักงานเอกชน</ion-option>
+          <ion-option>6.โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
+          <ion-option>7.สถานพยาบาล:ภาครัฐ</ion-option>
+          <ion-option>8.สถานพยาบาล:ภาคเอกชน</ion-option>
+          <ion-option>9.สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
+          <ion-option>10.ศาสนสถาน</ion-option>
+          <ion-option>11.สถานศึกษา : ภาครัฐ</ion-option>
+          <ion-option>12.สถานศึกษา : เอกชน</ion-option>
+          <ion-option>13.โกดังโรงงาน</ion-option>
+          <ion-option>14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
+          <ion-option>15.อาคารกำลังก่อสร้าง</ion-option>
+          <ion-option>16.อื่นๆ</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      ตัวอย่าง radio
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          1.4 ครัวเรือนนี้มีการใช้น้้าเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <water-sources8-a [headline]="'ตัวอย่างการใช้ component'"></water-sources8-a>
+
+  <ion-card>
+    <ion-card-header>
+      ตัวอย่าง modals (ส่วน input ใช้ button)
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-row style="align-items: center">
+        <ion-col>
+          <button ion-button outline block color="dark"></button>
+        </ion-col>
+        <ion-col>ไร่</ion-col>
+        <ion-col>
+          <button ion-button outline block color="dark"></button>
+        </ion-col>
+        <ion-col>งาน</ion-col>
+        <ion-col>
+          <button ion-button outline block color="dark"></button>
+        </ion-col>
+        <ion-col>ตารางวา</ion-col>
+      </ion-row>
+
+    </ion-card-content>
+
   </ion-card>
 
 </ion-content>
