@@ -10,16 +10,12 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { DisasterousPage } from '../pages/disasterous/disasterous';
-import { BuyingPage } from '../pages/buying/buying';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    BuyingPage,
-    DisasterousPage,
     ModalGunPage,
     ModalGun2Page
   ],
@@ -32,8 +28,6 @@ import { BuyingPage } from '../pages/buying/buying';
     MyApp,
     HomePage,
     ListPage,
-    BuyingPage,
-    DisasterousPage,
     ModalGunPage,
     ModalGun2Page
   ],
