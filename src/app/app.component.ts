@@ -5,12 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { PlumbingPage } from '../pages/plumbing/plumbing';
 import { FlowerCropPage } from '../pages/flower-crop/flower-crop';
 import { HerbsPlantPage } from '../pages/herbs-plant/herbs-plant';
 import { AnimalFarmPage } from '../pages/animal-farm/animal-farm';
 import { BuyingPage } from '../pages/buying/buying';
 import { DisasterousPage } from '../pages/disasterous/disasterous';
+import { RainPage } from '../pages/rain/rain';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +28,9 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
+    this.pages = [ 
+      // test push
+      { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
@@ -41,7 +45,10 @@ export class MyApp {
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'Residential', component: "ResidentialPage" },
       { title: 'Buying', component: BuyingPage },
-      { title: 'Disasterous', component: DisasterousPage }
+      { title: 'Disasterous', component: DisasterousPage },
+      { title: 'Irrigation', component: IrrigationPage },
+      { title: 'Rain', component: RainPage },
+      { title: 'User', component: "UserPage" },
     ];
 
   }
