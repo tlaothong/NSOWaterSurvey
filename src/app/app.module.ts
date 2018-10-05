@@ -1,3 +1,5 @@
+import { ModalGun2Page } from './../pages/modal-gun2/modal-gun2';
+import { ModalGunPage } from './../pages/modal-gun/modal-gun';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -11,6 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { RainPage } from '../pages/rain/rain';
+import { BuyingPage } from '../pages/buying/buying';
+import { DisasterousPage } from '../pages/disasterous/disasterous';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { RainPage } from '../pages/rain/rain';
     HomePage,
     ListPage,
     IrrigationPage,
-    RainPage  
+    RainPage , 
+    BuyingPage,
+    DisasterousPage,
+    ModalGunPage,
+    ModalGun2Page
   ],
   imports: [
     BrowserModule,
@@ -31,12 +39,16 @@ import { RainPage } from '../pages/rain/rain';
     HomePage,
     ListPage,
     IrrigationPage,
-    RainPage
+    RainPage,
+    BuyingPage,
+    DisasterousPage,
+    ModalGunPage,
+    ModalGun2Page
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
