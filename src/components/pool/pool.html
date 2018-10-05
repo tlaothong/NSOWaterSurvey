@@ -43,6 +43,7 @@
           <ion-row radio-group>
             <ion-item col-6>
               <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
+              <span item-end>ชม.</span>
             </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
@@ -58,8 +59,8 @@
           </ion-item>
 
           <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="ครั้ง"></ion-input>
-            <!-- <span>ครั้ง</span> -->
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
+            <span item-end>ครั้ง</span>
           </ion-item>
 
           <ion-item>
@@ -68,11 +69,9 @@
             </ion-label>
           </ion-item>
           <ion-row radio-group>
-            <ion-item col-6>
+            <ion-item col-12>
               <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</ion-label>
+              <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
             </ion-item>
             <ion-item>
               <ion-radio item-left></ion-radio>
@@ -112,53 +111,43 @@
             <ion-label>4.6) เครื่องสูบชนิดใด</ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
+            <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label>4.7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>แรงม้า / วัตต์ </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
+            <span item-end>แรงม้า / วัตต์ </span>
+          </ion-item>
 
           <ion-item>
             <ion-label>4.8) ขนาดท่อดูดเท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>
-                นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)
-              </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
+            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+          </ion-item>
+
 
           <ion-item>
             <ion-label>4.9) ขนาดท่อส่งเท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>
-                นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)
-              </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
+            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+          </ion-item>
+
+
+
 
         </ion-list>
       </ion-card-content>
     </ion-card>
+    <enginewater-activity4></enginewater-activity4>
   </ion-list>
+ 
   <ion-list *ngSwitchCase="'engine2'">
     <ion-card>
       <ion-card-content>
@@ -189,6 +178,7 @@
           <ion-row radio-group>
             <ion-item col-6>
               <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
+              <span item-end>ชม.</span>
             </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
@@ -204,8 +194,8 @@
           </ion-item>
 
           <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="ครั้ง"></ion-input>
-            <!-- <span>ครั้ง</span> -->
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
+            <span item-end>ครั้ง</span>
           </ion-item>
 
           <ion-item>
@@ -214,11 +204,9 @@
             </ion-label>
           </ion-item>
           <ion-row radio-group>
-            <ion-item col-6>
+            <ion-item col-12>
               <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</ion-label>
+              <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
             </ion-item>
             <ion-item>
               <ion-radio item-left></ion-radio>
@@ -258,53 +246,43 @@
             <ion-label>4.6) เครื่องสูบชนิดใด</ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
+            <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label>4.7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>แรงม้า / วัตต์ </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
+            <span item-end>แรงม้า / วัตต์ </span>
+          </ion-item>
 
           <ion-item>
             <ion-label>4.8) ขนาดท่อดูดเท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>
-                นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)
-              </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
+            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+          </ion-item>
+
 
           <ion-item>
             <ion-label>4.9) ขนาดท่อส่งเท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>
-                นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)
-              </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
+            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+          </ion-item>
+
+
+
 
         </ion-list>
       </ion-card-content>
     </ion-card>
+    <enginewater-activity4></enginewater-activity4>
   </ion-list>
+ 
   <ion-list *ngSwitchCase="'engine3'">
     <ion-card>
       <ion-card-content>
@@ -335,6 +313,7 @@
           <ion-row radio-group>
             <ion-item col-6>
               <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
+              <span item-end>ชม.</span>
             </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
@@ -350,8 +329,8 @@
           </ion-item>
 
           <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="ครั้ง"></ion-input>
-            <!-- <span>ครั้ง</span> -->
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
+            <span item-end>ครั้ง</span>
           </ion-item>
 
           <ion-item>
@@ -360,11 +339,9 @@
             </ion-label>
           </ion-item>
           <ion-row radio-group>
-            <ion-item col-6>
+            <ion-item col-12>
               <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</ion-label>
+              <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
             </ion-item>
             <ion-item>
               <ion-radio item-left></ion-radio>
@@ -404,56 +381,43 @@
             <ion-label>4.6) เครื่องสูบชนิดใด</ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
+            <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label>4.7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>แรงม้า / วัตต์ </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
+            <span item-end>แรงม้า / วัตต์ </span>
+          </ion-item>
 
           <ion-item>
             <ion-label>4.8) ขนาดท่อดูดเท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>
-                นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)
-              </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
+            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+          </ion-item>
+
 
           <ion-item>
             <ion-label>4.9) ขนาดท่อส่งเท่าไร</ion-label>
           </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
-            </ion-item>
-            <ion-item col-6>
-              <ion-label>
-                นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)
-              </ion-label>
-            </ion-item>
-          </ion-row>
+          <ion-item>
+            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
+            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+          </ion-item>
+
+
+
 
         </ion-list>
       </ion-card-content>
     </ion-card>
+    <enginewater-activity4></enginewater-activity4>
   </ion-list>
-
-
-
+ 
 </div>
 <!-- 
  -->
