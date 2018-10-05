@@ -10,6 +10,9 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ComponentsModule } from '../components/components.module';
+import { IrrigationPage } from '../pages/irrigation/irrigation';
+import { RainPage } from '../pages/rain/rain';
 import { BuyingPage } from '../pages/buying/buying';
 import { DisasterousPage } from '../pages/disasterous/disasterous';
 
@@ -18,6 +21,8 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
     MyApp,
     HomePage,
     ListPage,
+    IrrigationPage,
+    RainPage , 
     BuyingPage,
     DisasterousPage,
     ModalGunPage,
@@ -26,12 +31,15 @@ import { DisasterousPage } from '../pages/disasterous/disasterous';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ListPage,
+    IrrigationPage,
+    RainPage,
     BuyingPage,
     DisasterousPage,
     ModalGunPage,
