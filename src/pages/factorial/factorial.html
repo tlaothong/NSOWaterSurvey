@@ -23,18 +23,22 @@
     <ion-card-header>
       <ion-label>3.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
     </ion-card-header>
-    <ion-item>
-      <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
-    </ion-item>
+    <ion-card-content>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
       <ion-label>3.2 สถานประกอบการแห่งนี้ผลิตสินค้าประเภทใด (ระบุสินค้าหลักที่ผลิต)</ion-label>
     </ion-card-header>
-    <ion-item>
-      <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
-    </ion-item>
+    <ion-card-content>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
 
 
@@ -42,86 +46,90 @@
     <ion-card-header>
       <ion-label>3.3 สถานประกอบการแห่งนี้มีคนท้างานรวมทั้งหมดกี่คน </ion-label>
     </ion-card-header>
-    <ion-item>
-      <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
-    </ion-item>
-  </ion-card>
-
-  <ion-card>
-
-    <ion-item>
-      <ion-label>3.4 สถานประกอบการแห่งนี้ใช้เครื่องจักรที่มีขนาดแรงม้าตั้งแต่ 5 แรงม้าหรือ 3,725 วัตต์ขึ้นไป
-        หรือไม่ </ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-3>
-        <ion-label>ใช้</ion-label>
-        <ion-radio></ion-radio>
+    <ion-card-content>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
       </ion-item>
-      <ion-item col-3>
-        <ion-label>ไม่ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-    </ion-row>
+    </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
-        3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง
+      <ion-label>3.4 สถานประกอบการแห่งนี้ใช้เครื่องจักรที่มีขนาดแรงม้าตั้งแต่ 5 แรงม้าหรือ 3,725 วัตต์ขึ้นไป
+        หรือไม่ </ion-label>
     </ion-card-header>
-    <water-sources8-a></water-sources8-a>
+    <ion-card-content>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-label>ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label>ไม่ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
   </ion-card>
+
+  <water-sources8-a [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง'"></water-sources8-a>
+
 
 
 
   <!-- <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input> -->
   <ion-card>
-    <ion-item>
+    <ion-card-header>
       <ion-label>3.6 ในรอบ 12 เดือนที่ผ่านมาสถานประกอบการนี้มีน้ำเสียจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-3>
-        <ion-label>ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-      <ion-item col-3>
-        <ion-label>ไม่ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-    </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-label>ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label>ไม่ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
   </ion-card>
-  <ion-card>
 
-    <ion-item>
+  <ion-card>
+    <ion-card-header>
       <ion-label>3.7 ถ้า“มี”น้้าเสีย สถานประกอบการนี้มีการจัดการน้ำเสียที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-3>
-        <ion-label>ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-      <ion-item col-3>
-        <ion-label>ไม่ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-    </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-label>ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label>ไม่ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
   </ion-card>
-  <ion-card>
 
-    <ion-item>
+  <ion-card>
+    <ion-card-header>
       <ion-label>3.8 ในรอบ 12
         เดือนที่ผ่านมาสถานประกอบการนี้มีการน้าน้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่หรือไม่</ion-label>
-
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-3>
-        <ion-label>ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-      <ion-item col-3>
-        <ion-label>ไม่ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-    </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-label>ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label>ไม่ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
   </ion-card>
 </ion-content>
