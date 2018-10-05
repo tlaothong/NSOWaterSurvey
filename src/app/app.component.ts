@@ -48,12 +48,16 @@ export class MyApp {
       { title: 'Disasterous', component: DisasterousPage },
       { title: 'Irrigation', component: IrrigationPage },
       { title: 'Rain', component: RainPage },
+<<<<<<< HEAD
       { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" }
 
 
+=======
+      { title: 'User', component: "UserPage" },
+>>>>>>> ui
     ];
 
   }

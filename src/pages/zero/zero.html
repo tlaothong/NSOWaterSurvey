@@ -23,21 +23,26 @@
   <!-- <ion-card>
     <ion-card-content>
       <ion-list>
+
         <ion-item>
           <ion-label>4.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
         </ion-item>
         <ion-item>
           <ion-input placeholder="กรอกชื่อ"></ion-input>
         </ion-item>
+        
         <ion-item>
           <ion-label>4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด(ระบุบริการหลักที่ทำ)</ion-label>
         </ion-item>
+
         <ion-item>
           <ion-input placeholder="กรอกชื่อ"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label>4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง(ถามเฉพาะกรณีเป็นยูนิตย่อย)</ion-label>
         </ion-item>
+
         <ion-item>
           <ion-label>เลือกประเภท</ion-label>
           <ion-select [(ngModel)]="gender">
@@ -59,6 +64,7 @@
             <ion-option value="a16">16.อื่นๆ</ion-option>
           </ion-select>
         </ion-item>
+
       </ion-list>
     </ion-card-content>
   </ion-card> -->
@@ -144,7 +150,6 @@
       ตัวอย่าง modals (ส่วน input ใช้ button)
     </ion-card-header>
     <ion-card-content>
-
       <ion-row style="align-items: center">
         <ion-col>
           <button ion-button outline block color="dark"></button>
@@ -159,9 +164,68 @@
         </ion-col>
         <ion-col>ตารางวา</ion-col>
       </ion-row>
-
     </ion-card-content>
+  </ion-card>
 
+  <ion-card>
+    <ion-card-header>
+      ตัวอย่าง checkBox + input
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row style="align-items: center">
+        <ion-col col-4>
+          <ion-item>
+            <ion-checkbox></ion-checkbox>
+            <ion-label>1. ก่อนวัยเรียน</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <button ion-button outline block color="dark"></button>
+        </ion-col>
+        <ion-col col-2>คน</ion-col>
+      </ion-row>
+      <ion-row style="align-items: center">
+        <ion-col col-4>
+          <ion-item>
+            <ion-checkbox></ion-checkbox>
+            <ion-label>2. อนุบาล</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <button ion-button outline block color="dark"></button>
+        </ion-col>
+        <ion-col>คน</ion-col>
+        <ion-col>
+          <button ion-button outline block color="dark"></button>
+        </ion-col>
+        <ion-col>คน</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      บ่อหรือร่องสวนที่ 1 (ตัวอย่าง radio + input)
+    </ion-card-header>
+    <ion-card-content radio-group>
+      <ion-item>ทราบพื้นที่</ion-item>
+      <ion-item col-4>
+        <ion-radio item-left></ion-radio>
+        <ion-label>พื้นที่</ion-label>
+      </ion-item>
+      <ion-item>
+        <field-area></field-area>
+      </ion-item>
+      <ion-item>ไม่ทราบพื้นที่ บ่อเป็นสี่เหลี่ยมหรือวงกลม</ion-item>
+      <ion-item col-4>
+        <ion-radio item-left></ion-radio>
+        <ion-label>สี่เหลี่ยม</ion-label>
+      </ion-item>
+      <ion-item col-4>
+        <ion-radio item-left></ion-radio>
+        <ion-label>วงกลม</ion-label>
+      </ion-item>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>
