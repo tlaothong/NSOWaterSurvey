@@ -47,7 +47,8 @@ export class MyApp {
       { title: 'Buying', component: BuyingPage },
       { title: 'Disasterous', component: DisasterousPage },
       { title: 'Irrigation', component: IrrigationPage },
-      { title: 'Rain', component: RainPage }
+      { title: 'Rain', component: RainPage },
+      { title: 'User', component: "UserPage" },
     ];
 
   }
