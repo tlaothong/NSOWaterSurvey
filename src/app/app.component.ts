@@ -46,6 +46,11 @@ export class MyApp {
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
+      { title: 'PrivateGroundWater', component: "PrivateGroundWaterPage" },
+      { title: 'PublicGroundWater', component: "PublicGroundWaterPage" },
+      
+
+      
 
 
       { title: 'User', component: "UserPage" },
