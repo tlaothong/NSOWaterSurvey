@@ -29,7 +29,7 @@
           <ion-label>ไม่ใช้</ion-label>
         </ion-item>
       </ion-row>
-    </ion-card-content> 
+    </ion-card-content>
     <ion-card-content>
       <ion-item>
         <ion-label>
@@ -87,29 +87,38 @@
       1.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไหร่
     </ion-card-header>
 
-    <!-- TODO -->
     <ion-card-content radio-group>
+      <ion-item>
+        <ion-label>ทราบปริมาณน้ำ</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+
       <ion-row>
-        <ion-item col-6>
-          <ion-label>ทราบปริมาณน้ำ</ion-label>
-          <ion-radio item-start></ion-radio>
+        <ion-item col-3>
+          <ion-label>ปริมาณน้ำ</ion-label>
         </ion-item>
         <ion-item col-6>
-
-          <ion-input type="number" placeholder="ปริมาณน้ำ"></ion-input>
-          <span item-end>ลบ.ม./เดือน</span>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>ลบ.ม./เดือน </ion-label>
         </ion-item>
       </ion-row>
 
+      <ion-item>
+        <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+
       <ion-row>
-        <ion-item col-6>
-          <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
-          <ion-radio item-start></ion-radio>
+        <ion-item col-3>
+          <ion-label>ค่าน้ำ</ion-label>
         </ion-item>
         <ion-item col-6>
-
-          <ion-input type="number" placeholder="ค่าน้ำ"></ion-input>
-          <span item-end>บาท/เดือน</span>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>บาท/เดือน</ion-label>
         </ion-item>
       </ion-row>
 
@@ -124,107 +133,116 @@
     </ion-card-content>
   </ion-card>
 
-  
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            2. น้ำประปาส่วนภูมิภาค
-          </ion-label>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          2. น้ำประปาส่วนภูมิภาค
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
         </ion-item>
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ใช้</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่ใช้</ion-label>
-          </ion-item>
-        </ion-row>
-      </ion-card-content>
-    
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            2.2 มีปัญหาคุณภาพน้ำหรือไม่
-          </ion-label>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
         </ion-item>
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่มีปัญหา</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>มีปัญหา คือ</ion-label>
-          </ion-item>
-        </ion-row>
-      </ion-card-content>
+      </ion-row>
+    </ion-card-content>
+
+    <ion-card-content>
       <ion-item>
         <ion-label>
-          ขุ่น/ตะกอน
+          2.2 มีปัญหาคุณภาพน้ำหรือไม่
         </ion-label>
-        <ion-checkbox></ion-checkbox>
       </ion-item>
-      <ion-item>
-        <ion-label>
-          เค็ม/กร่อย
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          กระด้าง
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          มีกลิ่น
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          คราบมัน
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          ฝ้าขาว
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่มีปัญหา</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>มีปัญหา คือ</ion-label>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
+    <ion-item>
+      <ion-label>
+        ขุ่น/ตะกอน
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        เค็ม/กร่อย
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        กระด้าง
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        มีกลิ่น
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        คราบมัน
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        ฝ้าขาว
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
 
     <ion-card-header>
       2.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไหร่
     </ion-card-header>
 
-     <!-- TODO -->
     <ion-card-content radio-group>
+      <ion-item>
+        <ion-label>ทราบปริมาณน้ำ</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+
       <ion-row>
-        <ion-item col-6>
-          <ion-label>ทราบปริมาณน้ำ</ion-label>
-          <ion-radio item-start></ion-radio>
+        <ion-item col-3>
+          <ion-label>ปริมาณน้ำ</ion-label>
         </ion-item>
         <ion-item col-6>
-
-          <ion-input type="number" placeholder="ปริมาณน้ำ"></ion-input>
-          <span item-end>ลบ.ม./เดือน</span>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>ลบ.ม./เดือน </ion-label>
         </ion-item>
       </ion-row>
 
+      <ion-item>
+        <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+
       <ion-row>
-        <ion-item col-6>
-          <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
-          <ion-radio item-start></ion-radio>
+        <ion-item col-3>
+          <ion-label>ค่าน้ำ</ion-label>
         </ion-item>
         <ion-item col-6>
-
-          <ion-input type="number" placeholder="ค่าน้ำ"></ion-input>
-          <span item-end>บาท/เดือน</span>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>บาท/เดือน</ion-label>
         </ion-item>
       </ion-row>
 
@@ -237,123 +255,257 @@
         <ion-radio item-start></ion-radio>
       </ion-item>
     </ion-card-content>
-    </ion-card>
-  
+  </ion-card>
 
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            3. น้ำประปาอื่นๆ
-          </ion-label>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          3. น้ำประปาอื่นๆ
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
         </ion-item>
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ใช้</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่ใช้</ion-label>
-          </ion-item>
-        </ion-row>
-      </ion-card-content>
-    
-    
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            3.2 มีปัญหาคุณภาพน้ำหรือไม่
-          </ion-label>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
         </ion-item>
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่มีปัญหา</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>มีปัญหา คือ</ion-label>
-          </ion-item>
-        </ion-row>
-      </ion-card-content>
+      </ion-row>
+    </ion-card-content>
+
+
+    <ion-card-content>
       <ion-item>
         <ion-label>
-          ขุ่น/ตะกอน
+          3.2 มีปัญหาคุณภาพน้ำหรือไม่
         </ion-label>
-        <ion-checkbox></ion-checkbox>
       </ion-item>
-      <ion-item>
-        <ion-label>
-          เค็ม/กร่อย
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          กระด้าง
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          มีกลิ่น
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          คราบมัน
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          ฝ้าขาว
-        </ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-    
-  
-    
-      <ion-card-header>
-        3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไหร่
-      </ion-card-header>
-      
-       <!-- TODO -->
-      <ion-card-content radio-group>
-        <ion-row>
-          <ion-item col-6>
-            <ion-label>ทราบปริมาณน้ำ</ion-label>
-            <ion-radio item-start></ion-radio>
-          </ion-item>
-          <ion-item col-6>
-  
-            <ion-input type="number" placeholder="ปริมาณน้ำ"></ion-input>
-            <span item-end>ลบ.ม./เดือน</span>
-          </ion-item>
-        </ion-row>
-  
-        <ion-row>
-          <ion-item col-6>
-            <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
-            <ion-radio item-start></ion-radio>
-          </ion-item>
-          <ion-item col-6>
-  
-            <ion-input type="number" placeholder="ค่าน้ำ"></ion-input>
-            <span item-end>บาท/เดือน</span>
-          </ion-item>
-        </ion-row>
-  
-        <ion-item>
-          <ion-label>ไม่ทราบปริมาณน้ำ และค่าน้ำ เนื่องจากไม่มีมิเตอร์แยกจากส่วนกลาง</ion-label>
-          <ion-radio item-start></ion-radio>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่มีปัญหา</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-label>ไม่ทราบปริมาณน้ำ และค่าน้ำ เนื่องจากได้รับการยกเว้น</ion-label>
-          <ion-radio item-start></ion-radio>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>มีปัญหา คือ</ion-label>
         </ion-item>
-      </ion-card-content>
-    </ion-card>
+      </ion-row>
+    </ion-card-content>
+    <ion-item>
+      <ion-label>
+        ขุ่น/ตะกอน
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        เค็ม/กร่อย
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        กระด้าง
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        มีกลิ่น
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        คราบมัน
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        ฝ้าขาว
+      </ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+
+
+
+    <ion-card-header>
+      3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไหร่
+    </ion-card-header>
+
+    <ion-card-content radio-group>
+      <ion-item>
+        <ion-label>ทราบปริมาณน้ำ</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+
+      <ion-row>
+        <ion-item col-3>
+          <ion-label>ปริมาณน้ำ</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>ลบ.ม./เดือน </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+
+      <ion-row>
+        <ion-item col-3>
+          <ion-label>ค่าน้ำ</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>บาท/เดือน</ion-label>
+        </ion-item>
+      </ion-row>
+      <ion-item>
+        <ion-label>ไม่ทราบปริมาณน้ำ และค่าน้ำ เนื่องจากไม่มีมิเตอร์แยกจากส่วนกลาง</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>ไม่ทราบปริมาณน้ำ และค่าน้ำ เนื่องจากได้รับการยกเว้น</ion-label>
+        <ion-radio item-start></ion-radio>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      5.1.2 ใช้น้้าเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร (ปรากฏกิจกรรมเฉพาะที่ระบุไว้ก่อนหน้าว่าใช้น้้าประเภทนี้)
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>
+        น้ำประปาส่วนภมูิภาค/นครหลวง สัดส่วนที่ใช้(%)
+      </ion-label>
+      <ion-item>
+        <ion-label col-4>
+          1.เพื่ออุปโภคบริโภค
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          2.เพื่อรดน้้าพืชในบริเวณที่อยู่อาศัย
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          3.เพื่อทำเกษตร
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          4.เพื่อผลิตสินค้า
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          5.เพื่อการบริการ
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          รวมทุกกิจกรรม
+        </ion-label>
+        <ion-input placeholder="100"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      5.1.2 ใช้น้้าเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร (ปรากฏกิจกรรมเฉพาะที่ระบุไว้ก่อนหน้าว่าใช้น้้าประเภทนี้)
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>
+        น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)
+      </ion-label>
+      <ion-item>
+        <ion-label col-4>
+          1.เพื่ออุปโภคบริโภค
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          2.เพื่อรดน้้าพืชในบริเวณที่อยู่อาศัย
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          3.เพื่อทำเกษตร
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          4.เพื่อผลิตสินค้า
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          5.เพื่อการบริการ
+        </ion-label>
+        <ion-input placeholder="สัดส่วนที่ใช้ %"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label col-4>
+          รวมทุกกิจกรรม
+        </ion-label>
+        <ion-input placeholder="100"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      5.1.3 ในรอบ 12 เดือนที่ผ่านมา มีเหตุการณ์ที่น้ำประปาไม่ไหลติดต่อกันเกิน 3 วันหรือไม่
+    </ion-card-header>
+    <ion-card-content radio-group>
+
+      <ion-item>
+        <ion-radio item-left></ion-radio>
+        <ion-label>มี</ion-label>
+      </ion-item>
+      <ion-row>
+        <ion-item col-6>
+          <ion-label>ถ้ามี เกิดเหตุการณ์ลักษณะนี้เป็นเวลากี่เดือน</ion-label>
+        </ion-item>
+        <ion-item col-3>
+          <button ion-button outline block color="dark"></button>
+        </ion-item>
+        <ion-item col-3>
+          <ion-label>เดือน </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-radio item-left></ion-radio>
+        <ion-label>ไม่มี</ion-label>
+      </ion-item>
+
+
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
