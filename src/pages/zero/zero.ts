@@ -22,4 +22,6 @@ export class ZeroPage {
     console.log('ionViewDidLoad ZeroPage');
   }
 
+  public handleSubmit() {}
+
 }

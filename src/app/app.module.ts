@@ -49,3 +49,4 @@ import { RainPage } from '../pages/rain/rain';
   ]
 })
 export class AppModule { }
+  
