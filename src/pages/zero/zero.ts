@@ -19,7 +19,7 @@ export class ZeroPage {
   private f: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
-    this.f = fb.group({
+    this.f = this.fb.group({
       'hasPrimary': false,
       'primaryCount': 0
     });
