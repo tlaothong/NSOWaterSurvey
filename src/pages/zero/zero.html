@@ -18,7 +18,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
     <h3>ตอนที่ 4 การค้าและบริการ</h3>
 
     <!-- <ion-card>
@@ -174,26 +174,26 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
+          <button ion-item (click)="showAlert()">
+            <ion-checkbox item-start formControlName="hasPrimary"></ion-checkbox>
             <ion-label col-7>1. ก่อนวัยเรียน</ion-label>
-            <ion-input clear item-end type="number"></ion-input>
-          </ion-item>
-          <ion-item>
+            <ion-input clear item-end type="number" formControlName="primaryCount"></ion-input>
+          </button>
+          <button ion-item (click)="showAlert()">
             <ion-checkbox></ion-checkbox>
             <ion-label col-7>2. อนุบาล</ion-label>
             <ion-input clear item-end type="number"></ion-input>
-          </ion-item>
-          <ion-item>
+          </button>
+          <button ion-item (click)="showAlert()">
             <ion-checkbox></ion-checkbox>
             <ion-label col-7>3. มัธยม</ion-label>
             <ion-input clear item-end type="number"></ion-input>
-          </ion-item>
-          <ion-item>
+          </button>
+          <button ion-item (click)="showAlert()">
             <ion-checkbox></ion-checkbox>
             <ion-label col-7>4. สายอาชีพ</ion-label>
             <ion-input clear item-end type="number"></ion-input>
-          </ion-item>
+          </button>
         </ion-list>
       </ion-card-content>
     </ion-card>

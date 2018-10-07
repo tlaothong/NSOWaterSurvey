@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ZeroPage page.
@@ -15,13 +16,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ZeroPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private f: FormGroup;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+    this.f = fb.group({
+      'hasPrimary': false,
+      'primaryCount': 0
+    });
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ZeroPage');
   }
 
-  public handleSubmit() {}
+  public handleSubmit() { }
+
+  public showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'New Friend!',
+      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
 }
