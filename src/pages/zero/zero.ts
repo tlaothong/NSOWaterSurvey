@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the ZeroPage page.
@@ -19,6 +20,7 @@ export class ZeroPage {
   public f: FormGroup;
 
   private submitRequested: boolean;
+  @ViewChild('ws8') ws8: ISubmitRequestable;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.f = this.fb.group({
@@ -53,11 +55,12 @@ export class ZeroPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.ws8.submitRequest();
   }
 
   public isValid(name: string) : boolean {
     var ctrl = this.f.get(name);
-    return !ctrl.valid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

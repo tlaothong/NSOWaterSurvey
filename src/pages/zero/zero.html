@@ -147,9 +147,7 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources8-a [headline]="'ตัวอย่างการใช้ component'" [FormItem]="f.get('waterSources')"></water-sources8-a>
-
-    <span *ngIf="isValid('waterSources.other')">Error!</span>
+    <water-sources8-a #ws8 [headline]="'ตัวอย่างการใช้ component'" [FormItem]="f.get('waterSources')"></water-sources8-a>
 
     <ion-card>
       <ion-card-header>
