@@ -203,4 +203,64 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card>
+    <ion-card-header>
+      ตัวอย่าง radio + input
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list radio-group>
+
+        <ion-item>
+          <ion-label>1. ทำทั้งแปลงทุกครั้ง</ion-label>
+          <ion-radio item-left value="Do1"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>2. ไม่ได้ทำทั้งแปลง แต่ทำเท่ากันทุกครั้ง</ion-label>
+          <ion-radio item-left value="Do2"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-row style="align-items: center">
+            <ion-col col-5>
+            <button ion-button outline color="dark" block >กรุณากรอก</button>
+          </ion-col>
+          <ion-col col-1>
+            ไร่
+          </ion-col>
+          <ion-col col-5>
+            <button ion-button outline color="dark" block>กรุณากรอก</button>
+          </ion-col>
+          <ion-col col-1>
+            ตารางวา
+          </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>3. ไม่ได้ทำทั้งแปลง และทำไม่เท่ากันทุกครั้ง</ion-label>
+          <ion-radio item-left value="Do3"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-row style="align-items: center">
+              <ion-col col-5>
+              <button ion-button outline color="dark" block>กรุณากรอก</button>
+            </ion-col>
+            <ion-col col-1>
+              ไร่ 
+            </ion-col>
+            <ion-col col-5>
+              <button ion-button outline color="dark" block>กรุณากรอก</button>
+            </ion-col>
+            <ion-col col-1>
+              ตารางวา
+            </ion-col>
+            </ion-row>
+          </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
