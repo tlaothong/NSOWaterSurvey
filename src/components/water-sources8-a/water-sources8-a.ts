@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the WaterSources8AComponent component.
@@ -21,8 +22,8 @@ export class WaterSources8AComponent {
     this.text = 'Hello World';
   }
 
-  public hasOtherItem() : boolean {
-    return this.FormItem.get('hasOther').value;
+  public hasOtherItem() : Observable<boolean> {
+    return this.FormItem.get('hasOther').valueChanges;
   }
 
 }
