@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the PoolComponent component.
@@ -7,15 +7,15 @@ import { Component } from '@angular/core';
  * Components.
  */
 @Component({
-  selector: 'pool',
-  templateUrl: 'pool.html'
+  selector: 'pump',
+  templateUrl: 'pump.html'
 })
-export class PoolComponent {
+export class PumpComponent {
 
-  text: string;
+  @Input('headline') text: string;
 
   constructor() {
-    console.log('Hello PoolComponent Component');
+    console.log('Hello PumpComponent Component');
     this.text = 'ddd';
   }
 
