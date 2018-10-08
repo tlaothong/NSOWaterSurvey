@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the ZeroPage page.
@@ -18,8 +19,12 @@ export class ZeroPage {
 
   public f: FormGroup;
 
+  private submitRequested: boolean;
+  @ViewChild('ws8') ws8: ISubmitRequestable;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.f = this.fb.group({
+      'name': [null, Validators.required],
       'preSchool': this.fb.group({
         'hasItem': false,
         'itemCount': null
@@ -36,6 +41,10 @@ export class ZeroPage {
         'hasItem': false,
         'itemCount': null
       }),
+      'waterSources': this.fb.group({
+        'hasOther': false,
+        'other': [null, Validators.required]
+      })
     });
 
   }
@@ -44,20 +53,14 @@ export class ZeroPage {
     console.log('ionViewDidLoad ZeroPage');
   }
 
-  public handleSubmit() { }
-
-  public showAlert() {
-    const alert = this.alertCtrl.create({
-      title: 'New Friend!',
-      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
-      buttons: ['OK']
-    });
-    alert.present();
+  public handleSubmit() {
+    this.submitRequested = true;
+    this.ws8.submitRequest();
   }
 
-  public showModal() {
-    const modal = this.modalCtrl.create("DlgTableCheckItemCountPage");
-    modal.present();
+  public isValid(name: string) : boolean {
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

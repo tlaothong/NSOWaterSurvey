@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 
 /**
- * Generated class for the RectanglePoolComponent component.
+ * Generated class for the LocationComponent component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
-  selector: 'rectangle-pool',
-  templateUrl: 'rectangle-pool.html'
+  selector: 'location',
+  templateUrl: 'location.html'
 })
-export class RectanglePoolComponent {
+export class LocationComponent {
 
   text: string;
 
   constructor() {
-    console.log('Hello RectanglePoolComponent Component');
+    console.log('Hello LocationComponent Component');
     this.text = 'Hello World';
   }
 

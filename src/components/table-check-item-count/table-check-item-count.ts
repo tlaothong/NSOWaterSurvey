@@ -1,6 +1,7 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the TableCheckItemCountComponent component.
@@ -21,8 +22,8 @@ export class TableCheckItemCountComponent implements AfterViewInit {
     this.text = 'Hello World';
   }
 
-  public hasCount(): boolean {
-    return this.FormItem.get('itemCount').value || false;
+  public hasCount(): Observable<boolean> {
+    return this.FormItem.get('itemCount').valueChanges;
   }
 
   public ngAfterViewInit() {
