@@ -1,422 +1,268 @@
+
 <div padding>
-  <ion-segment [(ngModel)]="Pool">
-    <ion-segment-button value="engine1">
-      เครื่องที่ 1
-    </ion-segment-button>
-    <ion-segment-button value="engine2">
-      เครื่องที่ 2
-    </ion-segment-button>
-    <ion-segment-button value="engine3">
-      เครื่องที่ 3
-    </ion-segment-button>
-  </ion-segment>
+
+<ion-card>
+  <ion-card-header>
+    เครื่องที่ 1
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+
+      <ion-item>
+        <ion-label>
+          1) เป็นเครื่องสูบน้ำอัตโนมัติ ใช่หรือไม่
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>
+          2) ใช้ระยะเวลาในการสูบน้้าต่อครั้งเท่าไร
+        </ion-label>
+      </ion-item>
+
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
+          <span item-end>ชม.</span>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ เนื่องจากเป็นเครื่องสูบ น้้าอัตโนมัติ </ion-label>
+          <ion-label>(ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>
+          3) ในระยะเวลา 1 ปีสูบน้้ากี่ครั้ง
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
+        <span item-end>ครั้ง</span>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          4) มีอัตราการสูบเท่าไร
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-12>
+          <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
+          <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ 4.5 - 4.7 ต่อ) </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>5) เครื่องสูบน้้าใช้แหล่งพลังงานจากที่ใด</ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>1.ใช้ไฟฟ้า</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>2.ใช้น้้ามันดีเซล(โซล่า) </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>3.ใช้น้้ามันเบนซิน</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>4.รถไถเดินตาม</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            (ให้แสดงภาพชนิดเครื่องสูบน้ า หลังจากเลือกแหล่ง พลังงานแล้ว เช่น ถ้าเลือก 1.ใช้ไฟฟ้า > แสดงชนิดเครื่อง สูบน้ าเฉพาะที่ใช้ไฟฟ้า
+            เช่น ซับเมิส > ดูภาพ)
+          </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>6) เครื่องสูบชนิดใด</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
+        <span item-end>แรงม้า / วัตต์ </span>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>8) ขนาดท่อดูดเท่าไร</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
+        <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
+        <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+      </ion-item>
+
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+<enginewater-activity4></enginewater-activity4>
+<ion-card>
+  <ion-card-header>
+    เครื่องที่ 2
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+
+      <ion-item>
+        <ion-label>
+          1) เป็นเครื่องสูบน้ำอัตโนมัติ ใช่หรือไม่
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>
+          2) ใช้ระยะเวลาในการสูบน้้าต่อครั้งเท่าไร
+        </ion-label>
+      </ion-item>
+
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
+          <span item-end>ชม.</span>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ เนื่องจากเป็นเครื่องสูบ น้้าอัตโนมัติ </ion-label>
+          <ion-label>(ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>
+          3) ในระยะเวลา 1 ปีสูบน้้ากี่ครั้ง
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
+        <span item-end>ครั้ง</span>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          4) มีอัตราการสูบเท่าไร
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-12>
+          <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
+          <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ 4.5 - 4.7 ต่อ) </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>5) เครื่องสูบน้้าใช้แหล่งพลังงานจากที่ใด</ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>1.ใช้ไฟฟ้า</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>2.ใช้น้้ามันดีเซล(โซล่า) </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>3.ใช้น้้ามันเบนซิน</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>4.รถไถเดินตาม</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            (ให้แสดงภาพชนิดเครื่องสูบน้ า หลังจากเลือกแหล่ง พลังงานแล้ว เช่น ถ้าเลือก 1.ใช้ไฟฟ้า > แสดงชนิดเครื่อง สูบน้ าเฉพาะที่ใช้ไฟฟ้า
+            เช่น ซับเมิส > ดูภาพ)
+          </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>6) เครื่องสูบชนิดใด</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
+        <span item-end>แรงม้า / วัตต์ </span>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>8) ขนาดท่อดูดเท่าไร</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
+        <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
+        <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
+      </ion-item>
+
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+<enginewater-activity4></enginewater-activity4>
 </div>
-
-<div [ngSwitch]="Pool">
-  <ion-list *ngSwitchCase="'engine1'">
-    <ion-card>
-      <ion-card-content>
-        <ion-list>
-
-          <ion-item>
-            <ion-label>
-              1) เป็นเครื่องสูบน้ำอัตโนมัติ ใช่หรือไม่
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ใช้</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ใช้</ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>
-              2) ใช้ระยะเวลาในการสูบน้้าต่อครั้งเท่าไร
-            </ion-label>
-          </ion-item>
-
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
-              <span item-end>ชม.</span>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ เนื่องจากเป็นเครื่องสูบ น้้าอัตโนมัติ </ion-label>
-              <ion-label>(ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>
-              3) ในระยะเวลา 1 ปีสูบน้้ากี่ครั้ง
-            </ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
-            <span item-end>ครั้ง</span>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>
-              4) มีอัตราการสูบเท่าไร
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-12>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
-              <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ 4.5 - 4.7 ต่อ) </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>5) เครื่องสูบน้้าใช้แหล่งพลังงานจากที่ใด</ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1.ใช้ไฟฟ้า</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2.ใช้น้้ามันดีเซล(โซล่า) </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>3.ใช้น้้ามันเบนซิน</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>4.รถไถเดินตาม</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                (ให้แสดงภาพชนิดเครื่องสูบน้ า หลังจากเลือกแหล่ง พลังงานแล้ว เช่น ถ้าเลือก 1.ใช้ไฟฟ้า > แสดงชนิดเครื่อง สูบน้ าเฉพาะที่ใช้ไฟฟ้า
-                เช่น ซับเมิส > ดูภาพ)
-              </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>6) เครื่องสูบชนิดใด</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
-            <span item-end>แรงม้า / วัตต์ </span>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>8) ขนาดท่อดูดเท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
-            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
-          </ion-item>
-
-
-          <ion-item>
-            <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
-            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
-          </ion-item>
-
-
-
-
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-    
-  </ion-list>
- 
-  <ion-list *ngSwitchCase="'engine2'">
-    <ion-card>
-      <ion-card-content>
-        <ion-list>
-
-          <ion-item>
-            <ion-label>
-              1) เป็นเครื่องสูบน้ำอัตโนมัติ ใช่หรือไม่
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ใช้</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ใช้</ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>
-              2) ใช้ระยะเวลาในการสูบน้้าต่อครั้งเท่าไร
-            </ion-label>
-          </ion-item>
-
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
-              <span item-end>ชม.</span>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ เนื่องจากเป็นเครื่องสูบ น้้าอัตโนมัติ </ion-label>
-              <ion-label>(ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>
-              3) ในระยะเวลา 1 ปีสูบน้้ากี่ครั้ง
-            </ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
-            <span item-end>ครั้ง</span>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>
-              4) มีอัตราการสูบเท่าไร
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-12>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
-              <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ 4.5 - 4.7 ต่อ) </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>5) เครื่องสูบน้้าใช้แหล่งพลังงานจากที่ใด</ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1.ใช้ไฟฟ้า</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2.ใช้น้้ามันดีเซล(โซล่า) </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>3.ใช้น้้ามันเบนซิน</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>4.รถไถเดินตาม</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                (ให้แสดงภาพชนิดเครื่องสูบน้ า หลังจากเลือกแหล่ง พลังงานแล้ว เช่น ถ้าเลือก 1.ใช้ไฟฟ้า > แสดงชนิดเครื่อง สูบน้ าเฉพาะที่ใช้ไฟฟ้า
-                เช่น ซับเมิส > ดูภาพ)
-              </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>6) เครื่องสูบชนิดใด</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
-            <span item-end>แรงม้า / วัตต์ </span>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>8) ขนาดท่อดูดเท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
-            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
-          </ion-item>
-
-
-          <ion-item>
-            <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
-            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
-          </ion-item>
-
-
-
-
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-    
-  </ion-list>
- 
-  <ion-list *ngSwitchCase="'engine3'">
-    <ion-card>
-      <ion-card-content>
-        <ion-list>
-
-          <ion-item>
-            <ion-label>
-              1) เป็นเครื่องสูบน้ำอัตโนมัติ ใช่หรือไม่
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ใช้</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ใช้</ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>
-              2) ใช้ระยะเวลาในการสูบน้้าต่อครั้งเท่าไร
-            </ion-label>
-          </ion-item>
-
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกเวลา"></ion-input>
-              <span item-end>ชม.</span>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ เนื่องจากเป็นเครื่องสูบ น้้าอัตโนมัติ </ion-label>
-              <ion-label>(ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>
-              3) ในระยะเวลา 1 ปีสูบน้้ากี่ครั้ง
-            </ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกระยะเวลา"></ion-input>
-            <span item-end>ครั้ง</span>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>
-              4) มีอัตราการสูบเท่าไร
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-12>
-              <ion-input class="backgroundinput" type="text" placeholder="กรอกอัตราการสูบน้ำ"></ion-input>
-              <span item-end>ลบ.ม./ชม. (ถ้าไม่ทราบ ข้ามไปถามเครื่องถัดไป) หรือ</span>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ 4.5 - 4.7 ต่อ) </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>5) เครื่องสูบน้้าใช้แหล่งพลังงานจากที่ใด</ion-label>
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1.ใช้ไฟฟ้า</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2.ใช้น้้ามันดีเซล(โซล่า) </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>3.ใช้น้้ามันเบนซิน</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-radio item-left></ion-radio>
-              <ion-label>4.รถไถเดินตาม</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                (ให้แสดงภาพชนิดเครื่องสูบน้ า หลังจากเลือกแหล่ง พลังงานแล้ว เช่น ถ้าเลือก 1.ใช้ไฟฟ้า > แสดงชนิดเครื่อง สูบน้ าเฉพาะที่ใช้ไฟฟ้า
-                เช่น ซับเมิส > ดูภาพ)
-              </ion-label>
-            </ion-item>
-          </ion-row>
-
-          <ion-item>
-            <ion-label>6) เครื่องสูบชนิดใด</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label> ชนิดของเครื่องสูบจะโชว์ตามแหล่งพลังงานที่ตอบใน 4.5)</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>7) ขนาดแรงม้า / วัตต์ เท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกแรงม้า/วัตต์"></ion-input>
-            <span item-end>แรงม้า / วัตต์ </span>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>8) ขนาดท่อดูดเท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่อดูด"></ion-input>
-            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
-          </ion-item>
-
-
-          <ion-item>
-            <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกขนาดท่าส่ง"></ion-input>
-            <span item-end>นิ้ว/หุน/มิลลิเมตร (ให้เลือกหน่วยได้)</span>
-          </ion-item>
-
-
-
-
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
- 
-</div>
-<!-- 
- -->

@@ -16,8 +16,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class DlgTableCheckItemCountPage {
 
-  private FormItem: FormGroup;
-  private text: string;
+  public FormItem: FormGroup;
+  public text: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');

@@ -43,20 +43,21 @@
   <water-sources8-a [headline]="'1.3 ครัวเรือนนี้ใช้น้้าเพื่อการอุปโภคบริโภค จากแหล่งใดบ้าง'"></water-sources8-a>
 
   <ion-card>
-    <ion-item>
-      <ion-label>1.4 ครัวเรือนนี้มีการใช้น้ำเพื่อรดน้ำต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่
-      </ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-3>
-        <ion-label>ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-      <ion-item col-3>
-        <ion-label>ไม่ใช้</ion-label>
-        <ion-radio></ion-radio>
-      </ion-item>
-    </ion-row>
+    <ion-card-header>
+        <ion-label>1.4 ครัวเรือนนี้มีการใช้น้ำเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่</ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-label>ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label>ไม่ใช้</ion-label>
+          <ion-radio item-left></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>

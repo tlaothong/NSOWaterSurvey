@@ -14,7 +14,7 @@ import { RainPage } from '../pages/rain/rain';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = "DisasterousPage";
+  rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any }>;
 
