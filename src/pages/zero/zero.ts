@@ -36,6 +36,10 @@ export class ZeroPage {
         'hasItem': false,
         'itemCount': null
       }),
+      'waterSources': this.fb.group({
+        'hasOther': false,
+        'other': null
+      })
     });
 
   }
