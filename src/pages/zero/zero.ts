@@ -16,7 +16,7 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController }
 })
 export class ZeroPage {
 
-  private f: FormGroup;
+  public f: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.f = this.fb.group({
