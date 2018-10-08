@@ -10,99 +10,99 @@
 
 
 <ion-content padding>
-    <h3>ตอนที่ 5 การใช้น้ำ</h3>
-    <h4>5.2 น้ำบาดาล (แสดงข้อมูลชนิดพืช/การผลิต/การบริการ ที่เลือกใช้น้าบาดาล จากตอนที่ 1-4)</h4>
-    <h5>5.2.4 บ่อน้ำบาดาลสาธารณะ</h5>
-    <ion-card>
-      <ion-card-header>
-          5.2.5 ถ้าใช้น้าบ่อน้าบาดาลสาธารณะ ใช้จ้านวนกี่บ่อ
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-input placeholder="กรอกจำนวนบ่อ"></ion-input>
-          <span item-end>บ่อ</span>
+
+  <h3>ตอนที่ 5 การใช้น้ำ</h3>
+  <h4>5.2 น้ำบาดาล (แสดงข้อมูลชนิดพืช/การผลิต/การบริการ ที่เลือกใช้น้าบาดาล จากตอนที่ 1-4)</h4>
+  <h5>5.2.4 บ่อน้ำบาดาลสาธารณะ</h5>
+  <ion-card>
+    <ion-card-header>
+      5.2.5 ถ้าใช้น้าบ่อน้าบาดาลสาธารณะ ใช้จ้านวนกี่บ่อ
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input placeholder="กรอกจำนวนบ่อ"></ion-input>
+        <span item-end>บ่อ</span>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+  <div padding>
+    <ion-segment>
+      <ion-segment-button value="engine1">
+        บ่อที่ 1
+      </ion-segment-button>
+      <ion-segment-button value="engine2">
+        บ่อที่ 2
+      </ion-segment-button>
+      <ion-segment-button value="engine3">
+        บ่อที่ 3
+      </ion-segment-button>
+      <ion-segment-button value="engine4">
+        บ่อที่ 4
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      5.2.3 บ่อที่ 1
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          1) ในรอบ 1 ปีที่ผ่านมา ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="กรอกจำนวนบ่อ"></ion-input>
+        <span item-end>ลบ.ม./เดือน (ข้ามไปข้อ 5) 6))</span>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ ถามค่าน้ำ</ion-label>
         </ion-item>
-        
-      </ion-card-content>
-    </ion-card>
-    <div padding>
-      <ion-segment>
-        <ion-segment-button value="engine1">
-          บ่อที่ 1
-        </ion-segment-button>
-        <ion-segment-button value="engine2">
-          บ่อที่ 2
-        </ion-segment-button>
-        <ion-segment-button value="engine3">
-          บ่อที่ 3
-        </ion-segment-button>
-        <ion-segment-button value="engine4">
-          บ่อที่ 4
-        </ion-segment-button>
-      </ion-segment>
-    </div>
-  
-    <ion-card>
-      <ion-card-header>
-        5.2.3 บ่อที่ 1
-      </ion-card-header>
-      <ion-card-content>
+        <ion-item>
+          <ion-input placeholder="กรอกค่าน้ำ"></ion-input>
+          <span item-end>บาท</span>
+        </ion-item>
+
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ2) 3) 4) ต่อ)</ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-row radio-group>
         <ion-item>
           <ion-label>
-            1) ในรอบ 1 ปีที่ผ่านมา ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
+            2) ใช้เครื่องสูบน้าเพื่อสูบน้าหรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            3) บ่อนี้ใช้เครื่องสูบน้ากี่เครื่อง
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input placeholder="กรอกจำนวนบ่อ"></ion-input>
-          <span item-end>ลบ.ม./เดือน (ข้ามไปข้อ 5) 6))</span>
+          <ion-input placeholder="กรอกจำนวนเครื่องสูบน้ำ"></ion-input>
+          <span item-end>เครื่อง</span>
         </ion-item>
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่ทราบ ถามค่าน้ำ</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input placeholder="กรอกค่าน้ำ"></ion-input>
-            <span item-end>บาท</span>
-          </ion-item>
-        
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่ทราบ (ถ้าไม่ทราบต้องถามข้อ2) 3) 4) ต่อ)</ion-label>
-          </ion-item>
-        </ion-row>
-  
-        <ion-row radio-group>
-          <ion-item>
-            <ion-label>
-              2) ใช้เครื่องสูบน้าเพื่อสูบน้าหรือไม่
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ใช้</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่ใช้</ion-label>
-          </ion-item>
-          <ion-item>
-              <ion-label>
-                  3) บ่อนี้ใช้เครื่องสูบน้ากี่เครื่อง
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="กรอกจำนวนเครื่องสูบน้ำ"></ion-input>
-              <span item-end>เครื่อง</span>
-            </ion-item>
-            
-           
-                <pool></pool>
-          
-          <enginewater-activity6></enginewater-activity6>
-        
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  
-  </ion-content>
+
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <pool></pool>
+
+  <enginewater-activity6></enginewater-activity6>
+
+</ion-content>
