@@ -28,11 +28,11 @@
       <ion-row radio-group>
         <ion-item col-6>
           <ion-radio item-left></ion-radio>
-          <ion-label>ใช้</ion-label>
+          <ion-label>ทำ</ion-label>
         </ion-item>
         <ion-item col-6>
           <ion-radio item-left></ion-radio>
-          <ion-label>ไม่ใช้</ion-label>
+          <ion-label>ไม่ทำ</ion-label>
         </ion-item>
       </ion-row>
 
@@ -243,24 +243,20 @@
 
   <ion-card>
     <ion-card-header>
-      3) จำนวนทีเลี้ยงในปัจจุบัน(ีรวมบ่อ/รวมสวน)
+      3) จำนวนทีเลี้ยงในปัจจุบันจำนวนเท่าไร(รวมบ่อ/รวมสวน) *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก.
     </ion-card-header>
 
     <ion-card-content>
       <ion-item>
-        <ion-input placeholder="กรอกชื่อ"></ion-input>
-        <span item-end>ตัว(สำหรับ กุ้ง ปู หอย ไรแดง หน่วย กก.)</span>
+        <ion-input ></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
 
 
-  <ion-card>
-    <ion-card-header>
-      4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)
-    </ion-card-header>
-    <water-sources9></water-sources9>
-  </ion-card>
+  
+    <water-sources9 [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'" ></water-sources9>
+  
 
 
 
@@ -312,12 +308,9 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)
-    </ion-card-header>
-    <water-sources9></water-sources9>
-  </ion-card>
+  
+    <water-sources9 [headline]="'3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources9>
+  
 
 
   (page จระเข้)
@@ -355,8 +348,8 @@
 
     <ion-card-content>
       <ion-item>
-        <ion-input placeholder="จำนวน"></ion-input>
-        <span item-end>บ่อ</span>
+        <ion-input ></ion-input>
+      
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -440,17 +433,12 @@
   
       <ion-card-content>
         <ion-item>
-          <ion-input placeholder="จำนวน"></ion-input>
-          <span item-end>ตัว</span>
+          <ion-input></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
   
-    <ion-card>
-      <ion-card-header>
-        4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)
-      </ion-card-header>
-      <water-sources9></water-sources9>
-    </ion-card>
-
+ 
+    <water-sources9 [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources9>
+   
 </ion-content>
