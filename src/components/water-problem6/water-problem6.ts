@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 
 /**
- * Generated class for the CirclePoolComponent component.
+ * Generated class for the WaterProblem6Component component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
-  selector: 'circle-pool',
-  templateUrl: 'circle-pool.html'
+  selector: 'water-problem6',
+  templateUrl: 'water-problem6.html'
 })
-export class CirclePoolComponent {
+export class WaterProblem6Component {
 
   text: string;
 
   constructor() {
-    console.log('Hello CirclePoolComponent Component');
+    console.log('Hello WaterProblem6Component Component');
     this.text = 'Hello World';
   }
 
