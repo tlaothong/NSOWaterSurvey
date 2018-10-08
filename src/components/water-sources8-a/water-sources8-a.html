@@ -63,8 +63,11 @@
 
       <ion-item *ngIf="hasOtherItem() | async">
         <ion-label>โปรดระบุ</ion-label>
-        <ion-input formControlName="other"></ion-input>
+        <ion-input formControlName="other" [class.invalid]="isValid('other')"></ion-input>
       </ion-item>
+      <ion-item *ngIf="isValid('other')" class="invalid-msg">
+        <span>Please specify other.</span>
+      </ion-item>      
 
     </form>
   </ion-card-content>
