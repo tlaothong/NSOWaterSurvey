@@ -7,15 +7,15 @@ import { Component, Input } from '@angular/core';
  * Components.
  */
 @Component({
-  selector: 'pool',
-  templateUrl: 'pool.html'
+  selector: 'pump',
+  templateUrl: 'pump.html'
 })
-export class PoolComponent {
+export class PumpComponent {
 
   @Input('headline') text: string;
 
   constructor() {
-    console.log('Hello PoolComponent Component');
+    console.log('Hello PumpComponent Component');
     this.text = 'ddd';
   }
 

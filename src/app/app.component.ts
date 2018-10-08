@@ -7,7 +7,6 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { RainPage } from '../pages/rain/rain';
-import {RisePage} from '../pages/rise/rise'
 
 @Component({
   templateUrl: 'app.html'
@@ -15,7 +14,7 @@ import {RisePage} from '../pages/rise/rise'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = "DisasterousPage";
+  rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -29,7 +28,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
-      { title: 'Rise', component: "RisePage" },
+      { title: 'Rice', component: "RicePage" },
       { title: 'Mushroom', component: "MushroomPage" },
       { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
