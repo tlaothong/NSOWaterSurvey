@@ -5,6 +5,7 @@ import { DemoNaComponent } from './demo-na/demo-na';
 import { PumpComponent } from './pump/pump';
 import { WaterSources8BComponent } from './water-sources8-b/water-sources8-b';
 import { WaterSources9Component } from './water-sources9/water-sources9';
+import { MachineWaterComponent } from './machine-water/machine-water';
 
 import { FieldAreaComponent } from './field-area/field-area';
 import { PoolAreaComponent } from './pool-area/pool-area';
@@ -23,6 +24,7 @@ import { RainStorageComponent } from './rain-storage/rain-storage';
     PumpComponent,
     WaterSources8BComponent,
     WaterSources9Component,
+    MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
     RectanglePoolComponent,
@@ -36,13 +38,14 @@ import { RainStorageComponent } from './rain-storage/rain-storage';
     RainStorageComponent,
     ],
 	imports: [
-        IonicPageModule.forChild(WaterSources8AComponent)
+        IonicPageModule.forChild(WaterSources8AComponent),
 	],
 	exports: [WaterSources8AComponent,
     DemoNaComponent,
     PumpComponent,
     WaterSources8BComponent,
     WaterSources9Component,
+    MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
     RectanglePoolComponent,
