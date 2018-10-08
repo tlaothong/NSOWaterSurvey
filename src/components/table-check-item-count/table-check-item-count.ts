@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
   selector: 'table-check-item-count',
   templateUrl: 'table-check-item-count.html'
 })
-export class TableCheckItemCountComponent {
+export class TableCheckItemCountComponent implements AfterViewInit {
 
   @Input("ititle") private text: string;
   @Input() public FormItem: FormGroup;
@@ -23,6 +23,10 @@ export class TableCheckItemCountComponent {
 
   public hasCount(): boolean {
     return this.FormItem.get('itemCount').value || false;
+  }
+
+  public ngAfterViewInit() {
+    // this.FormItem.get('hasItem').valueChanges.subscribe(it => this.showModal());
   }
 
   public showModal() {
