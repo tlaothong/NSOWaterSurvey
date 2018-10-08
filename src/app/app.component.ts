@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { RainPage } from '../pages/rain/rain';
+import {RisePage} from '../pages/rise/rise'
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +15,7 @@ import { RainPage } from '../pages/rain/rain';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = "DisasterousPage";
+  rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -22,12 +23,14 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [ 
+    this.pages = [
       // test push
       { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
+      { title: 'Rise', component: "RisePage" },
+      { title: 'Mushroom', component: "MushroomPage" },
       { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
       { title: 'GroundWater', component: "GroundWaterPage" },
@@ -42,6 +45,17 @@ export class MyApp {
       { title: 'Disasterous', component: "DisasterousPage" },
       { title: 'Irrigation', component: IrrigationPage },
       { title: 'Rain', component: RainPage },
+      { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
+      { title: 'RubberTree', component: "RubberTreePage" },
+      { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
+      { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
+      { title: 'PrivateGroundWater', component: "PrivateGroundWaterPage" },
+      { title: 'PublicGroundWater', component: "PublicGroundWaterPage" },
+      
+
+      
+
+
       { title: 'User', component: "UserPage" },
     ];
 
