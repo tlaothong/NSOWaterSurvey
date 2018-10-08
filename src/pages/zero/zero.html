@@ -18,9 +18,10 @@
 
 <ion-content padding>
 
-  <h3>ตอนที่ 4 การค้าและบริการ</h3>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+    <h3>ตอนที่ 4 การค้าและบริการ</h3>
 
-  <!-- <ion-card>
+    <!-- <ion-card>
     <ion-card-content>
       <ion-list>
 
@@ -69,18 +70,18 @@
     </ion-card-content>
   </ion-card> -->
 
-  <ion-card>
-    <ion-card-header>
-      ตัวอย่าง 1 question 1 input
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-input placeholder="กรอกชื่อ"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-card-header>
+        ตัวอย่าง 1 question 1 input
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-input placeholder="กรอกชื่อ"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-  <!-- <ion-card>
+    <!-- <ion-card>
     <ion-card-header>
       4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด(ระบุบริการหลักที่ทำ)
     </ion-card-header>
@@ -91,141 +92,134 @@
     </ion-card-content>
   </ion-card> -->
 
-  <ion-card>
-    <ion-card-header>
-      ตัวอย่าง selector
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>เลือกประเภท</ion-label>
-        <ion-select>
-          <ion-option>1.บ้านเดี่ยว</ion-option>
-          <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
-          <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
-          <ion-option>4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
-          <ion-option>5.อาคารสำนักงานเอกชน</ion-option>
-          <ion-option>6.โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
-          <ion-option>7.สถานพยาบาล:ภาครัฐ</ion-option>
-          <ion-option>8.สถานพยาบาล:ภาคเอกชน</ion-option>
-          <ion-option>9.สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
-          <ion-option>10.ศาสนสถาน</ion-option>
-          <ion-option>11.สถานศึกษา : ภาครัฐ</ion-option>
-          <ion-option>12.สถานศึกษา : เอกชน</ion-option>
-          <ion-option>13.โกดังโรงงาน</ion-option>
-          <ion-option>14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
-          <ion-option>15.อาคารกำลังก่อสร้าง</ion-option>
-          <ion-option>16.อื่นๆ</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      ตัวอย่าง radio
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>
-          1.4 ครัวเรือนนี้มีการใช้น้้าเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่
-        </ion-label>
-      </ion-item>
-      <ion-row radio-group>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ใช้</ion-label>
+    <ion-card>
+      <ion-card-header>
+        ตัวอย่าง selector
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>เลือกประเภท</ion-label>
+          <ion-select>
+            <ion-option>1.บ้านเดี่ยว</ion-option>
+            <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
+            <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
+            <ion-option>4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
+            <ion-option>5.อาคารสำนักงานเอกชน</ion-option>
+            <ion-option>6.โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
+            <ion-option>7.สถานพยาบาล:ภาครัฐ</ion-option>
+            <ion-option>8.สถานพยาบาล:ภาคเอกชน</ion-option>
+            <ion-option>9.สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
+            <ion-option>10.ศาสนสถาน</ion-option>
+            <ion-option>11.สถานศึกษา : ภาครัฐ</ion-option>
+            <ion-option>12.สถานศึกษา : เอกชน</ion-option>
+            <ion-option>13.โกดังโรงงาน</ion-option>
+            <ion-option>14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
+            <ion-option>15.อาคารกำลังก่อสร้าง</ion-option>
+            <ion-option>16.อื่นๆ</ion-option>
+          </ion-select>
         </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ไม่ใช้</ion-label>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        ตัวอย่าง radio
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            1.4 ครัวเรือนนี้มีการใช้น้้าเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่
+          </ion-label>
         </ion-item>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-
-  <water-sources8-a [headline]="'ตัวอย่างการใช้ component'"></water-sources8-a>
-
-  <ion-card>
-    <ion-card-header>
-      ตัวอย่าง modals (ส่วน input ใช้ button)
-    </ion-card-header>
-    <ion-card-content>
-      <ion-row style="align-items: center">
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ไร่</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>งาน</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ตารางวา</ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      ตัวอย่าง checkBox + input
-    </ion-card-header>
-    <ion-card-content>
-      <ion-row style="align-items: center">
-        <ion-col col-4>
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>1. ก่อนวัยเรียน</ion-label>
+        <ion-row radio-group>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ใช้</ion-label>
           </ion-item>
-        </ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col col-2>คน</ion-col>
-      </ion-row>
-      <ion-row style="align-items: center">
-        <ion-col col-4>
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>2. อนุบาล</ion-label>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่ใช้</ion-label>
           </ion-item>
-        </ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>คน</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>คน</ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      บ่อหรือร่องสวนที่ 1 (ตัวอย่าง radio + input)
-    </ion-card-header>
-    <ion-card-content radio-group>
-      <ion-item>ทราบพื้นที่</ion-item>
-      <ion-item col-4>
-        <ion-radio item-left></ion-radio>
-        <ion-label>พื้นที่</ion-label>
-      </ion-item>
-      <ion-item>
-        <field-area></field-area>
-      </ion-item>
-      <ion-item>ไม่ทราบพื้นที่ บ่อเป็นสี่เหลี่ยมหรือวงกลม</ion-item>
-      <ion-item col-4>
-        <ion-radio item-left></ion-radio>
-        <ion-label>สี่เหลี่ยม</ion-label>
-      </ion-item>
-      <ion-item col-4>
-        <ion-radio item-left></ion-radio>
-        <ion-label>วงกลม</ion-label>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+    <water-sources8-a [headline]="'ตัวอย่างการใช้ component'"></water-sources8-a>
+
+    <ion-card>
+      <ion-card-header>
+        ตัวอย่าง modals (ส่วน input ใช้ button)
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row style="align-items: center">
+          <ion-col>
+            <button ion-button outline block color="dark"></button>
+          </ion-col>
+          <ion-col>ไร่</ion-col>
+          <ion-col>
+            <button ion-button outline block color="dark"></button>
+          </ion-col>
+          <ion-col>งาน</ion-col>
+          <ion-col>
+            <button ion-button outline block color="dark"></button>
+          </ion-col>
+          <ion-col>ตารางวา</ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        ตัวอย่าง checkBox + input
+      </ion-card-header>
+      <ion-list>
+        <table-check-item-count [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('preSchool')"></table-check-item-count>
+        <table-check-item-count [ititle]="'2. อนุบาล'" [FormItem]="f.get('kindergarten')"></table-check-item-count>
+        <table-check-item-count [ititle]="'3. มัธยม'" [FormItem]="f.get('secondarySchool')"></table-check-item-count>
+        <table-check-item-count [ititle]="'4. สายอาชีพ'" [FormItem]="f.get('vocational')"></table-check-item-count>
+      </ion-list>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        บ่อหรือร่องสวนที่ 1 (ตัวอย่าง radio + input) test
+      </ion-card-header>
+      <ion-card-content radio-group>
+
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ทราบพื้นที่</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <pool-area></pool-area>
+        </ion-item>
+
+        <ion-item>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบพื้นที่ บ่อเป็นสี่เหลี่ยมหรือวงกลม</ion-label>
+        </ion-item>
+        <div style="padding-left: 50px" radio-group>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>สี่เหลี่ยม</ion-label>
+          </ion-item>
+          <ion-item>
+            <rectangle-pool></rectangle-pool>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>วงกลม</ion-label>
+          </ion-item>
+          <ion-item>
+            <circle-pool></circle-pool>
+          </ion-item>
+        </div>
+
+      </ion-card-content>
+    </ion-card>
+
+
+  </form>
 
 </ion-content>
