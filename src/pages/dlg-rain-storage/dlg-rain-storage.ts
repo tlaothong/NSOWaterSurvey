@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the RisePage page.
+ * Generated class for the DlgRainStoragePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-rise',
-  templateUrl: 'rise.html',
+  selector: 'page-dlg-rain-storage',
+  templateUrl: 'dlg-rain-storage.html',
 })
-export class RisePage {
+export class DlgRainStoragePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RisePage');
+    console.log('ionViewDidLoad DlgRainStoragePage');
   }
 
 }
