@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RisePage } from './rise';
+import { PublicGroundWaterPage } from './public-ground-water';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    RisePage,
+    PublicGroundWaterPage,
   ],
   imports: [
-    IonicPageModule.forChild(RisePage),
-    ComponentsModule
+    IonicPageModule.forChild(PublicGroundWaterPage),
+    ComponentsModule,
   ],
 })
-export class RisePageModule {}
+export class PublicGroundWaterPageModule {}

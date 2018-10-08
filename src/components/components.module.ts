@@ -12,6 +12,7 @@ import { FieldAreaComponent } from './field-area/field-area';
 import { PoolAreaComponent } from './pool-area/pool-area';
 import { RectanglePoolComponent } from './rectangle-pool/rectangle-pool';
 import { CirclePoolComponent } from './circle-pool/circle-pool';
+import { TableCheckItemCountComponent } from './table-check-item-count/table-check-item-count';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -25,7 +26,8 @@ import { CirclePoolComponent } from './circle-pool/circle-pool';
     FieldAreaComponent,
     PoolAreaComponent,
     RectanglePoolComponent,
-    CirclePoolComponent
+    CirclePoolComponent,
+    TableCheckItemCountComponent,
     ],
 	imports: [
         IonicPageModule.forChild(WaterSources8AComponent)
@@ -41,7 +43,8 @@ import { CirclePoolComponent } from './circle-pool/circle-pool';
     FieldAreaComponent,
     PoolAreaComponent,
     RectanglePoolComponent,
-    CirclePoolComponent
+    CirclePoolComponent,
+    TableCheckItemCountComponent,
     ]
 })
 export class ComponentsModule {}

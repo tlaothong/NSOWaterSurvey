@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RisePage } from './rise';
+import { MushroomPage } from './mushroom';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    RisePage,
+    MushroomPage,
   ],
   imports: [
-    IonicPageModule.forChild(RisePage),
+    IonicPageModule.forChild(MushroomPage),
     ComponentsModule
   ],
 })
-export class RisePageModule {}
+export class MushroomPageModule {}

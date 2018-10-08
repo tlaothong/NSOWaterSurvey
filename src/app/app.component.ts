@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IrrigationPage } from '../pages/irrigation/irrigation';
 import { RainPage } from '../pages/rain/rain';
+import {RisePage} from '../pages/rise/rise'
 
 @Component({
   templateUrl: 'app.html'
@@ -28,6 +29,8 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
+      { title: 'Rise', component: "RisePage" },
+      { title: 'Mushroom', component: "MushroomPage" },
       { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
       { title: 'GroundWater', component: "GroundWaterPage" },
@@ -46,6 +49,11 @@ export class MyApp {
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
+      { title: 'PrivateGroundWater', component: "PrivateGroundWaterPage" },
+      { title: 'PublicGroundWater', component: "PublicGroundWaterPage" },
+      
+
+      
 
 
       { title: 'User', component: "UserPage" },
