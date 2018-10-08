@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 
 /**
  * Generated class for the ZeroPage page.
@@ -21,6 +22,7 @@ export class ZeroPage {
 
   private submitRequested: boolean;
   @ViewChild('ws8') ws8: ISubmitRequestable;
+  @ViewChildren(TableCheckItemCountComponent) private checkedItems: ISubmitRequestable[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.f = this.fb.group({
@@ -31,7 +33,7 @@ export class ZeroPage {
       }),
       'kindergarten': this.fb.group({
         'hasItem': false,
-        'itemCount': null
+        'itemCount': [null, Validators.required]
       }),
       'secondarySchool': this.fb.group({
         'hasItem': false,
@@ -56,6 +58,7 @@ export class ZeroPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.ws8.submitRequest();
+    this.checkedItems.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string) : boolean {
