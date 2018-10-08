@@ -9,8 +9,7 @@ import { MachineWaterComponent } from './machine-water/machine-water';
 
 import { FieldAreaComponent } from './field-area/field-area';
 import { PoolAreaComponent } from './pool-area/pool-area';
-import { RectanglePoolComponent } from './rectangle-pool/rectangle-pool';
-import { CirclePoolComponent } from './circle-pool/circle-pool';
+
 import { TableCheckItemCountComponent } from './table-check-item-count/table-check-item-count';
 import { WaterActivity5Component } from './water-activity5/water-activity5';
 import { WaterActivity6Component } from './water-activity6/water-activity6';
@@ -28,8 +27,6 @@ import { LocationComponent } from './location/location';
     MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
-    RectanglePoolComponent,
-    CirclePoolComponent,
     TableCheckItemCountComponent,
     WaterActivity5Component,
     WaterActivity6Component,
@@ -50,8 +47,6 @@ import { LocationComponent } from './location/location';
     MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
-    RectanglePoolComponent,
-    CirclePoolComponent,
     TableCheckItemCountComponent,
     WaterActivity5Component,
     WaterActivity6Component,
