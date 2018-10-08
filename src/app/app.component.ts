@@ -36,6 +36,7 @@ export class MyApp {
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
       { title: 'Rise', component: "RisePage" },
+      { title: 'Mushroom', component: "MushroomPage" },
       { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
       { title: 'GroundWater', component: "GroundWaterPage" },
