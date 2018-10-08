@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the ZeroPage page.
@@ -18,10 +18,24 @@ export class ZeroPage {
 
   private f: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.f = this.fb.group({
-      'hasPrimary': false,
-      'primaryCount': 0
+      'preSchool': this.fb.group({
+        'hasItem': false,
+        'itemCount': null
+      }),
+      'kindergarten': this.fb.group({
+        'hasItem': false,
+        'itemCount': null
+      }),
+      'secondarySchool': this.fb.group({
+        'hasItem': false,
+        'itemCount': null
+      }),
+      'vocational': this.fb.group({
+        'hasItem': false,
+        'itemCount': null
+      }),
     });
 
   }
@@ -39,6 +53,11 @@ export class ZeroPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  public showModal() {
+    const modal = this.modalCtrl.create("DlgTableCheckItemCountPage");
+    modal.present();
   }
 
 }
