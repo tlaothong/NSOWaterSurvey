@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the WaterSources8AComponent component.
@@ -12,11 +14,16 @@ import { Component, Input } from '@angular/core';
 })
 export class WaterSources8AComponent {
 
-  @Input('headline') text: string;
+  @Input('headline') public text: string;
+  @Input() public FormItem: FormGroup;
 
   constructor() {
     console.log('Hello WaterSources8AComponent Component');
     this.text = 'Hello World';
+  }
+
+  public hasOtherItem() : Observable<boolean> {
+    return this.FormItem.get('hasOther').valueChanges;
   }
 
 }
