@@ -27,10 +27,6 @@ import { LocationComponent } from './location/location';
     MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
-<<<<<<< HEAD
-   
-=======
->>>>>>> ui
     TableCheckItemCountComponent,
     WaterActivity5Component,
     WaterActivity6Component,
@@ -51,10 +47,6 @@ import { LocationComponent } from './location/location';
     MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
-<<<<<<< HEAD
-  
-=======
->>>>>>> ui
     TableCheckItemCountComponent,
     WaterActivity5Component,
     WaterActivity6Component,
