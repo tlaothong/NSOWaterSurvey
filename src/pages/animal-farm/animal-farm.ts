@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 /**
@@ -17,7 +17,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class AnimalFarmPage {
   private f: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
     this.f = this.fb.group({
       'cow': this.fb.group({
         'hasItem': false,
