@@ -9,8 +9,7 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(IrrigationPage),
-    ComponentsModule
-    
+    ComponentsModule,
   ],
 })
 export class IrrigationPageModule {}

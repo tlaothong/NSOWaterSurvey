@@ -17,26 +17,61 @@
 <ion-content padding>
     <h3> 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร </h3>
     <ion-card>
-      <ion-card-header>
-          2.8.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้มีการเลี้ยงสัตว์ เพื่อขายหรือใช้งานเกษตรหรือไม่  
-      </ion-card-header>
-  
+    
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            2.8.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้มีการเลี้ยงสัตว์ เพื่อขายหรือใช้งานเกษตรหรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-row radio-group>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>มี</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่มี</ion-label>
+          </ion-item>
+        </ion-row>
+      </ion-card-content>
     </ion-card>
-    <ion-item>
-      <ion-label>มี</ion-label>
-      <ion-radio checked="true"></ion-radio>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>ไม่มี</ion-label>
-      <ion-radio checked="true"></ion-radio>
-    </ion-item>
 
+    
     <ion-card>
+      <ion-card-header>
+        2.8.2 ถ้า “มี” เลี้ยงสัตว์ชนิดใดบ้าง ในรอบ 12 เดือนที่ผ่านมาเลี้ยงสัตว์แต่ละชนิดเฉลี่ยเดือนละกี่ตัว
+      </ion-card-header>
+     
+      <ion-card-content>
+          
+              
+              <ion-list>
+                  <table-check-item-count [ititle]="'1.วัว '" [FormItem]="f.get('cow')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'2. ควาย'" [FormItem]="f.get('buffalo')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'3. หมู'" [FormItem]="f.get('pig')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'4. แพะ'" [FormItem]="f.get('goat')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'5. แกะ'" [FormItem]="f.get('sheep')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'6.ไก่ '" [FormItem]="f.get('chicken')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'7. เป็ด'" [FormItem]="f.get('duck')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'8. ห่าน'" [FormItem]="f.get('goose')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'9. ไหม'" [FormItem]="f.get('silk')"></table-check-item-count>
+                  <table-check-item-count [ititle]="'10. อื่นๆ'" [FormItem]="f.get('other')"></table-check-item-count>
+              </ion-list>
+           
+
+       
+      </ion-card-content>
+    </ion-card>
+
+    
         <ion-card-header>
-          5) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง   
+          2.8.3 การเลี้ยงสัตว์นี้ใช้น้้าจากแหล่งใดบ้าง    
         </ion-card-header>
         <water-sources9></water-sources9>
-      </ion-card>
+     
+
+      
 
 </ion-content>
+
