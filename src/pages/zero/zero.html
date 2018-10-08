@@ -154,20 +154,9 @@
         ตัวอย่าง modals (ส่วน input ใช้ button)
       </ion-card-header>
       <ion-card-content>
-        <ion-row style="align-items: center">
-          <ion-col>
-            <button ion-button outline block color="dark"></button>
-          </ion-col>
-          <ion-col>ไร่</ion-col>
-          <ion-col>
-            <button ion-button outline block color="dark"></button>
-          </ion-col>
-          <ion-col>งาน</ion-col>
-          <ion-col>
-            <button ion-button outline block color="dark"></button>
-          </ion-col>
-          <ion-col>ตารางวา</ion-col>
-        </ion-row>
+        <ion-list>
+          <field-area></field-area>
+        </ion-list>
       </ion-card-content>
     </ion-card>
 
@@ -216,17 +205,17 @@
         <ion-item>
           <ion-row style="align-items: center">
             <ion-col col-5>
-            <button ion-button outline color="dark" block >กรุณากรอก</button>
-          </ion-col>
-          <ion-col col-1>
-            ไร่
-          </ion-col>
-          <ion-col col-5>
-            <button ion-button outline color="dark" block>กรุณากรอก</button>
-          </ion-col>
-          <ion-col col-1>
-            ตารางวา
-          </ion-col>
+              <button ion-button outline color="dark" block>กรุณากรอก</button>
+            </ion-col>
+            <ion-col col-1>
+              ไร่
+            </ion-col>
+            <ion-col col-5>
+              <button ion-button outline color="dark" block>กรุณากรอก</button>
+            </ion-col>
+            <ion-col col-1>
+              ตารางวา
+            </ion-col>
           </ion-row>
         </ion-item>
 
@@ -235,12 +224,12 @@
           <ion-radio item-left value="Do3"></ion-radio>
         </ion-item>
         <ion-item>
-            <ion-row style="align-items: center">
-              <ion-col col-5>
+          <ion-row style="align-items: center">
+            <ion-col col-5>
               <button ion-button outline color="dark" block>กรุณากรอก</button>
             </ion-col>
             <ion-col col-1>
-              ไร่ 
+              ไร่
             </ion-col>
             <ion-col col-5>
               <button ion-button outline color="dark" block>กรุณากรอก</button>
@@ -248,8 +237,8 @@
             <ion-col col-1>
               ตารางวา
             </ion-col>
-            </ion-row>
-          </ion-item>
+          </ion-row>
+        </ion-item>
       </ion-list>
 
     </ion-card-content>
