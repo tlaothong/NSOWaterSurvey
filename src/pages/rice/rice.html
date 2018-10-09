@@ -18,6 +18,7 @@
 <ion-content padding>
   <h3>ตอนที่ 2.1 ข้าว</h3>
 
+  <form (ngSubmit)="handleSubmit()" [formGroup]="ricePlant">
   <ion-card>
     <ion-card-content>
       <ion-list>
@@ -27,7 +28,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group>
+        <ion-row radio-group formControlName="doing">
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
             <ion-label>1. ปลูก</ion-label>
@@ -38,6 +39,11 @@
           </ion-item>
         </ion-row>
 
+        
+        <ion-item *ngIf="isValid('doing')">
+          <span class="invalid-msg">Please fill in name</span>
+        </ion-item>
+
         <ion-item>
           <ion-label>
             2.1.2 ถ้า "ปลูกข้าว" มีแปลงนาจำนวนกี่แปลง
@@ -45,11 +51,17 @@
         </ion-item>
 
         <ion-item>
-          <ion-input></ion-input>
+          <ion-input formControlName="fieldCount"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="isValid('fieldCount')">
+          <span class="invalid-msg">Please fill in name</span>
         </ion-item>
 
       </ion-list>
+
     </ion-card-content>
+
   </ion-card>
 
   <ion-card>
@@ -76,8 +88,13 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-input></ion-input>
+       
+        <ion-input formControlName="doing"></ion-input>
       </ion-item>
+      <ion-item *ngIf="isValid('doing')">
+        <span class="invalid-msg">Please fill in name</span>
+      </ion-item>
+
     </ion-card-content>
   </ion-card>
 
@@ -482,7 +499,17 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block type="submit">Save & Next</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
   ***component water sources 8***
   <!-- <water-sources8-a></water-sources8-a> -->
+</form>
 </ion-content>
