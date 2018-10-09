@@ -14,8 +14,10 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
   templateUrl: 'rubber-tree.html',
 })
 export class RubberTreePage {
- 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public fb : FormBuilder) {
+
+
+  Rubberform: FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
   }
 
   ionViewDidLoad() {
@@ -23,12 +25,44 @@ export class RubberTreePage {
   }
 
   ionViewDidEnter() {
-    
+    this.Rubberform = this.fb.group({
+      rubbertree: this.fb.group({
+        "doing": true,
+        "fieldCount": 0,
+        "fields": this.fb.group({
+          "location":this.fb.group( {
+            "province": "string",
+            "distric": "string",
+            "subDistric": "string"
+          }),
+          "area": this.fb.group({
+            "rai": 0,
+            "ngan": 0,
+            "sqWa": 0
+          }),
+          "irrigationField": true,
+          "waterSources":  this.fb.group({
+            "plumbing": true,
+            "underGround": true,
+            "pool": true,
+            "river": true,
+            "irrigation": true,
+            "rain": true,
+            "buying": true,
+            "rainingAsIs": true,
+            "other": "string"
+          })
+        })
 
-   
-    
+      })
 
-  
+
+    })
+
+
+
+
+
   }
 
 }
