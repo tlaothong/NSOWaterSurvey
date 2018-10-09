@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { FormGroup } from '@angular/forms';
 
 /**
- * Generated class for the DlgFieldAreaPage page.
+ * Generated class for the DlgTableDisasterousPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,10 +11,10 @@ import { FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
-  selector: 'page-dlg-field-area',
-  templateUrl: 'dlg-field-area.html',
+  selector: 'page-dlg-table-disasterous',
+  templateUrl: 'dlg-table-disasterous.html',
 })
-export class DlgFieldAreaPage {
+export class DlgTableDisasterousPage {
 
   public FormItem: FormGroup;
   public text: string;
@@ -24,6 +24,7 @@ export class DlgFieldAreaPage {
     this.text = navParams.get("headline");
   }
 
+  
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
@@ -31,9 +32,8 @@ export class DlgFieldAreaPage {
   public okDialog() {
     this.viewCtrl.dismiss(this.FormItem);
   }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DlgFieldAreaPage');
+    console.log('ionViewDidLoad DlgTableDisasterousPage');
   }
 
 }
