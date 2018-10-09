@@ -17,130 +17,81 @@
 <ion-content padding>
   <h3>2.5 พืชผัก สมุนไพร</h3>
   <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>
-          2.5.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
-        </ion-label>
+
+    <ion-item>
+      <ion-label>
+        2.5.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
+      </ion-label>
+    </ion-item>
+    <ion-row radio-group>
+      <ion-item col-6>
+        <ion-radio item-left></ion-radio>
+        <ion-label>ปลูก</ion-label>
       </ion-item>
-      <ion-row radio-group>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ปลูก</ion-label>
-        </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ไม่ปลูก</ion-label>
-        </ion-item>
-      </ion-row>
-    </ion-card-content>
+      <ion-item col-6>
+        <ion-radio item-left></ion-radio>
+        <ion-label>ไม่ปลูก</ion-label>
+      </ion-item>
+    </ion-row>
+
   </ion-card>
 
   <ion-card>
-    <ion-card-header>
+
+    <ion-item>
       2.5.2 ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
-    </ion-card-header>
+    </ion-item>
+
     <ion-card-content>
-      <ion-list>
-        <ion-item>
-          
-          <ion-input></ion-input>
-          
-        </ion-item>
-      </ion-list>
+      <ion-item>
+        <ion-input type="number" placeholder="กรอกจำนวนแปลง"></ion-input>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
-    <ion-card-header>
-      1) ตั้งอยู่ที่ใด (ตำบล อำเภอ จังหวัด)
-    </ion-card-header>
-    <ion-list>
-      <ion-item>
-        <ion-label>จังหวัด</ion-label>
-        <ion-select>
-          <ion-option>อุบลราชธานี</ion-option>
-          <ion-option>ขอนแก่น</ion-option>
-          <ion-option>ยโสธร</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
-
-    <ion-list>
-      <ion-item>
-        <ion-label>อำเภอ</ion-label>
-        <ion-select>
-          <ion-option>เมือง</ion-option>
-
-        </ion-select>
-      </ion-item>
-    </ion-list>
-
-    <ion-list>
-      <ion-item>
-        <ion-label>ตำบล</ion-label>
-        <ion-select>
-          <ion-option>ในเมือง</ion-option>
-
-        </ion-select>
-      </ion-item>
-    </ion-list>
+    <location></location>
   </ion-card>
 
   <ion-card>
-    <ion-card-header>
-      2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
-    </ion-card-header>
+
+    <ion-item>
+      <ion-label>
+        2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
+      </ion-label>
+    </ion-item>
     <field-area></field-area>
-    <!-- <ion-card-content>
-
-      <ion-row style="align-items: center">
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ไร่</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>งาน</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ตารางวา</ion-col>
-      </ion-row>
-
-    </ion-card-content> -->
-
   </ion-card>
 
   <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>
-          3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-        </ion-label>
+    <ion-item>
+      <ion-label>
+        3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+      </ion-label>
+    </ion-item>
+    <ion-row radio-group>
+      <ion-item col-6>
+        <ion-radio item-left></ion-radio>
+        <ion-label>อยู่</ion-label>
       </ion-item>
-      <ion-row radio-group>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>อยู่</ion-label>
-        </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ไม่อยู่</ion-label>
-        </ion-item>
-      </ion-row>
-    </ion-card-content>
+      <ion-item col-6>
+        <ion-radio item-left></ion-radio>
+        <ion-label>ไม่อยู่</ion-label>
+      </ion-item>
+    </ion-row>
   </ion-card>
 
+
   <ion-card>
-    <ion-card-header>
-      4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-    </ion-card-header>
+    <ion-item>
+      <ion-label>
+        4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
+      </ion-label>
+    </ion-item>
     <ion-list>
       <ion-item>
         <ion-label>รายชื่อพืช</ion-label>
-        <ion-select>
+        <ion-select interface="action-sheet">
           <ion-option>กระเพรา</ion-option>
           <ion-option>กระเทียม</ion-option>
           <ion-option>ขมิ้น</ion-option>
@@ -152,7 +103,6 @@
     </ion-list>
   </ion-card>
 
-  <!-- TODO: ยังไม่สมบูรณ์ -->
   <ion-card>
     <ion-item>
       <ion-label>
@@ -160,105 +110,32 @@
       </ion-label>
     </ion-item>
     <ion-row radio-group>
-      <ion-item >
+      <ion-item>
         <ion-radio item-left></ion-radio>
         <ion-label>1. แบบปลูกเฉพาะ ไม้ดอกไม้ประดับ เพาะพันธ์ุไม้</ion-label>
       </ion-item>
-      <ion-item >
+      <ion-item>
         <ion-radio item-left></ion-radio>
         <ion-label>2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่</ion-label>
       </ion-item>
     </ion-row>
     <ion-item>
-        <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
-        <ion-select>
-          <ion-option>ข้าว</ion-option>
-          <ion-option>พืชไร่</ion-option>
-          <ion-option>ต้นยางพารา</ion-option>
-          <ion-option>พืชยืนต้น</ion-option>
-          
-        </ion-select>
-      </ion-item>
+      <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
+      <ion-select interface="action-sheet">
+        <ion-option>ข้าว</ion-option>
+        <ion-option>พืชไร่</ion-option>
+        <ion-option>ต้นยางพารา</ion-option>
+        <ion-option>พืชยืนต้น</ion-option>
+      </ion-select>
+    </ion-item>
   </ion-card>
 
-  
-    <ion-card-header>
-      6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง
-    </ion-card-header>
-    <water-sources9></water-sources9>
-  
+
+  <ion-card-header>
+    6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง
+  </ion-card-header>
+  <water-sources9></water-sources9>
+
 
 
 </ion-content>
-<!-- <ion-content padding>
-
-    <h3>ตอนที่ 4 การค้าและบริการ</h3>
-  
-    <ion-card>
-      <ion-card-header>
-        4.1 ชื่อสถานประกอบการ/หน่วยงาน
-      </ion-card-header>
-      <ion-card-content>
-        <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
-      </ion-card-content>
-    </ion-card>
-  
-    <ion-card>
-      <ion-card-header>
-        4.3ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง(ถามเฉพาะกรณีเป็นยูนิตย่อย)
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>เลือกประเภท</ion-label>
-  
-          <ion-select [(ngModel)]="gender">
-            <ion-option value="a1">1.บ้านเดี่ยว</ion-option>
-            <ion-option value="a2">2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
-            <ion-option value="a3">3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
-            <ion-option value="a4">4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
-            <ion-option value="a5">5.อาคารสำนักงานเอกชน</ion-option>
-            <ion-option value="a6">6.โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
-            <ion-option value="a7">7.สถานพยาบาล:ภาครัฐ</ion-option>
-            <ion-option value="a8">8.สถานพยาบาล:ภาคเอกชน</ion-option>
-            <ion-option value="a9">9.สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
-            <ion-option value="a10">10.ศาสนสถาน</ion-option>
-            <ion-option value="a11">11.สถานศึกษา : ภาครัฐ</ion-option>
-            <ion-option value="a12">12.สถานศึกษา : เอกชน</ion-option>
-            <ion-option value="a13">13.โกดังโรงงาน</ion-option>
-            <ion-option value="a14">14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
-            <ion-option value="a15">15.อาคารกำลังก่อสร้าง</ion-option>
-            <ion-option value="a16">16.อื่นๆ</ion-option>
-          </ion-select>
-  
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-  
-    <water-sources8-a></water-sources8-a>
-  
-    <ion-card>
-      <ion-card-header>
-        1) โรงเรียน/สถานบันการศึกษาแห่งนี้เปิดสอน นักเรียน/นักศึกษา ระดับใดบ้าง
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-label col-8>1.ก่อนวัยเรียน</ion-label>
-            <ion-input></ion-input>
-            <span item-end>คน</span>
-          </ion-item>
-          <ion-item>
-            <ion-label col-8>2.อนุบาล</ion-label>
-            <ion-input></ion-input>
-            <span item-end>คน</span>
-          </ion-item>
-          <ion-item>
-            <ion-label col-8>3.ประถมศึกษา</ion-label>
-            <ion-input></ion-input>
-            <span item-end>คน</span>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  
-  </ion-content> -->
