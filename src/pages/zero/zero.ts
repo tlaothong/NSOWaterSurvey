@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { combineLatest } from 'rxjs/operators';
@@ -24,6 +24,7 @@ export class ZeroPage {
   public headtext = "กำหนดมาจาก code ห้ามใช้แบบนี้ในตอนนี้";
 
   private submitRequested: boolean;
+  
   @ViewChild('ws8') ws8: ISubmitRequestable;
   @ViewChildren(TableCheckItemCountComponent) private checkedItems: ISubmitRequestable[];
 
