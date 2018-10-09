@@ -23,7 +23,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
-      { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
@@ -47,14 +46,6 @@ export class MyApp {
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
-      { title: 'PrivateGroundWater', component: "PrivateGroundWaterPage" },
-      { title: 'PublicGroundWater', component: "PublicGroundWaterPage" },
-      { title: 'Pool', component: "PoolPage" },
-      
-
-      
-
-
       { title: 'User', component: "UserPage" },
     ];
 
