@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 /**
  * Generated class for the BuyingPage page.
@@ -14,12 +16,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'buying.html',
 })
 export class BuyingPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  BuyingForm: FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyingPage');
+  }
+  ionViewDidEnter() {
+    this.BuyingForm = this.fb.group({
+      'package': this.fb.group({
+        'name': [''],
+        'size': [''],
+        'drink': [''],
+        'agriculture': [''],
+        'product': [''],
+        'service': ['']
+      })
+    });
   }
 
 }
