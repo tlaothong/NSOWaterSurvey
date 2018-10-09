@@ -14,22 +14,21 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
   templateUrl: 'rubber-tree.html',
 })
 export class RubberTreePage {
-  rubberTreeForm : FormGroup;
-  doingPlant : FormControl;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+ 
+  constructor(public navCtrl: NavController, public navParams: NavParams,public fb : FormBuilder) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RubberTreePage');
   }
 
-  // ionViewDidEnter() {
-  //   this.rubberTreeForm = new FormGroup({
-  //     doing : new FormControl(),
-  //     fieldCount : new FormControl('')
-  //   });
+  ionViewDidEnter() {
+    
 
-  //   this.doingPlant = new FormControl('');
-  // }
+   
+    
+
+  
+  }
 
 }
