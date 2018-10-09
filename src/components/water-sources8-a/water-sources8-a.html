@@ -1,11 +1,7 @@
 <ion-card>
   <ion-card-content>
-    <form>
-      <ion-item>
-        <ion-label>
-          {{text}} : component water-source-8A
-        </ion-label>
-      </ion-item>
+    
+    <form [formGroup]="FormItem">
 
       <ion-item>
         <ion-label>
@@ -60,12 +56,15 @@
         <ion-label>
           8 อื่น ๆ
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="hasOther"></ion-checkbox>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="FormItem.get('hasOther').value || false">
         <ion-label>โปรดระบุ</ion-label>
-        <ion-input></ion-input>
+        <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('other')" class="invalid-msg">
+        <span>Please specify other.</span>
       </ion-item>
 
     </form>
