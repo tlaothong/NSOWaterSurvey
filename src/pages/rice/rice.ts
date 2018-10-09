@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Generated class for the RicePage page.
@@ -15,11 +16,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RicePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  RiceForm : FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public fb : FormBuilder) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RicePage');
+  }
+
+  ionViewDidEnter() {
+    this.RiceForm = this.fb.group({
+
+    });
   }
 
 }

@@ -18,6 +18,8 @@ import { RainStorageComponent } from './rain-storage/rain-storage';
 import { LocationComponent } from './location/location';
 import { TableBuyingComponent } from './table-buying/table-buying';
 import { TableDisasterousComponent } from './table-disasterous/table-disasterous';
+import { FieldAreaRiceComponent } from './field-area-rice/field-area-rice';
+import { TableBuyingOtherComponent } from './table-buying-other/table-buying-other';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -38,6 +40,8 @@ import { TableDisasterousComponent } from './table-disasterous/table-disasterous
     LocationComponent,
     TableBuyingComponent,
     TableDisasterousComponent,
+    FieldAreaRiceComponent,
+    TableBuyingOtherComponent,
     ],
 	imports: [
         IonicPageModule.forChild(WaterSources8AComponent),
@@ -60,6 +64,8 @@ import { TableDisasterousComponent } from './table-disasterous/table-disasterous
     LocationComponent,
     TableBuyingComponent,
     TableDisasterousComponent,
+    FieldAreaRiceComponent,
+    TableBuyingOtherComponent,
     ]
 })
 export class ComponentsModule {}
