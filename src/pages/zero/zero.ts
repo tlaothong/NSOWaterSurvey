@@ -21,6 +21,8 @@ export class ZeroPage {
 
   public f: FormGroup;
 
+  public headtext = "กำหนดมาจาก code ห้ามใช้แบบนี้ในตอนนี้";
+
   private submitRequested: boolean;
   @ViewChild('ws8') ws8: ISubmitRequestable;
   @ViewChildren(TableCheckItemCountComponent) private checkedItems: ISubmitRequestable[];
