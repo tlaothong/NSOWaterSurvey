@@ -3,7 +3,7 @@
     {{text}} : component water-source-8A
   </ion-card-header>
   <ion-card-content>
-    <form [formGroup]="FormItem">
+    <form>
 
       <ion-item>
         <ion-label>
@@ -58,16 +58,13 @@
         <ion-label>
           8 อื่น ๆ
         </ion-label>
-        <ion-checkbox formControlName="hasOther"></ion-checkbox>
+        <ion-checkbox></ion-checkbox>
       </ion-item>
 
-      <ion-item *ngIf="hasOtherItem() | async">
+      <ion-item >
         <ion-label>โปรดระบุ</ion-label>
-        <ion-input formControlName="other" [class.invalid]="isValid('other')"></ion-input>
+        <ion-input></ion-input>
       </ion-item>
-      <ion-item *ngIf="isValid('other')" class="invalid-msg">
-        <span>Please specify other.</span>
-      </ion-item>      
 
     </form>
   </ion-card-content>

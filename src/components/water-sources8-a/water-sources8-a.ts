@@ -24,15 +24,6 @@ export class WaterSources8AComponent implements ISubmitRequestable {
     console.log('Hello WaterSources8AComponent Component');
     this.text = 'Hello World';
   }
-
-  public hasOtherItem() : Observable<boolean> {
-    return this.FormItem.get('hasOther').valueChanges;
-  }
-
-  public isValid(name: string) : boolean {
-    var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  }
   
   submitRequest() {
     this.submitRequested = true;
