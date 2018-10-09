@@ -5,8 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { IrrigationPage } from '../pages/irrigation/irrigation';
-import { RainPage } from '../pages/rain/rain';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -41,8 +40,8 @@ export class MyApp {
       { title: 'Residential', component: "ResidentialPage" },
       { title: 'Buying', component: "BuyingPage" },
       { title: 'Disasterous', component: "DisasterousPage" },
-      { title: 'Irrigation', component: IrrigationPage },
-      { title: 'Rain', component: RainPage },
+      { title: 'Irrigation', component: "IrrigationPage" },
+      { title: 'Rain', component: "RainPage" },
       { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
