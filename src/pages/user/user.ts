@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 /**
  * Generated class for the UserPage page.
@@ -14,12 +15,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'user.html',
 })
 export class UserPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  UserForm: FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPage');
   }
 
+  ionViewDidEnter() {
+    this.UserForm = this.fb.group({
+      userInfo: this.fb.group({
+        "name": "string",
+        "category": this.fb.group({
+          "string": ""
+        }),
+        "serviceType": this.fb.group({
+          "string" : ""
+        })
+      })
+    })
+
+  }
 }
