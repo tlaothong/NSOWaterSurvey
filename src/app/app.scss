@@ -18,3 +18,19 @@
 .item-input .label-md {
     color: black;
 }
+
+.item-input ion-label {
+    max-width: 100%;
+}
+
+ion-input, ion-textarea {
+    background-color: lightgray;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.invalid-msg{
+    color: red;
+}

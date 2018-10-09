@@ -22,4 +22,5 @@ export class RainPage {
     console.log('ionViewDidLoad RainPage');
   }
 
+  
 }

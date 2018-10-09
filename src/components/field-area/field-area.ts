@@ -16,7 +16,7 @@ export class FieldAreaComponent {
 
   constructor() {
     console.log('Hello FieldAreaComponent Component');
-    this.text = 'Hello World';
+    this.text = '';
   }
 
 }

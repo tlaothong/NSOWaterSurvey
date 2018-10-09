@@ -15,7 +15,7 @@ export class PumpComponent {
   @Input('headline') text: string;
 
   constructor() {
-    console.log('Hello PoolComponent Component');
+    console.log('Hello PumpComponent Component');
     this.text = 'ddd';
   }
 

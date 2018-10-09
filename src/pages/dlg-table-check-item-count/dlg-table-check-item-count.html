@@ -1,0 +1,46 @@
+<!--
+  Generated template for the DlgTableCheckItemCountPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ text }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>{{ text }}</h3>
+
+  <form [formGroup]="FormItem">
+    <ion-list>
+      <ion-item>
+        <ion-checkbox formControlName="hasItem"></ion-checkbox>
+        <ion-label>มีหรือไม่</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>หากมี มีจำนวนกี่คน</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" formControlName="itemCount"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block color="light" (click)="closeDialog()">Cancel</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block (click)="okDialog()">OK</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

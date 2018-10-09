@@ -1,14 +1,26 @@
-<ion-row style="align-items: center">
-  <ion-col>
-    <button ion-button outline block color="dark"></button>
+<ion-row>
+  <ion-col col-3>
+    <ion-item>
+      <ion-label>{{ text }}ขนาดพื้นที่ (ไร่ งาน ตารางวา)</ion-label>
+    </ion-item>
   </ion-col>
-  <ion-col>ไร่</ion-col>
-  <ion-col>
-    <button ion-button outline block color="dark"></button>
+  <ion-col col-3>
+    <ion-item>
+      <ion-input type="number" disabled="true" item-left>0</ion-input>
+      <ion-label>ไร่</ion-label>
+    </ion-item>
   </ion-col>
-  <ion-col>งาน</ion-col>
-  <ion-col>
-    <button ion-button outline block color="dark"></button>
+  <ion-col col-2>
+    <ion-item>
+      <ion-input type="number" disabled="true" item-left>0</ion-input>
+      <ion-label>งาน</ion-label>
+    </ion-item>
   </ion-col>
-  <ion-col>ตารางวา</ion-col>
+  <ion-col col-4>
+    <ion-item>
+      <ion-input type="number" disabled="true" item-left>0</ion-input>
+      <ion-label>ตารางวา</ion-label>
+      <ion-icon name="create" item-end></ion-icon>
+    </ion-item>
+  </ion-col>
 </ion-row>

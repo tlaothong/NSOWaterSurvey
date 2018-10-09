@@ -14,7 +14,7 @@ import { RainPage } from '../pages/rain/rain';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = "DisasterousPage";
+  rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -24,10 +24,11 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
-      { title: 'Gun', component: "GunPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Demo', component: "DemoPage" },
+      { title: 'Rice', component: "RicePage" },
+      { title: 'Mushroom', component: "MushroomPage" },
       { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
       { title: 'GroundWater', component: "GroundWaterPage" },
@@ -46,8 +47,6 @@ export class MyApp {
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
-
-
       { title: 'User', component: "UserPage" },
     ];
 
