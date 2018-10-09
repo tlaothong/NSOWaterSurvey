@@ -12,27 +12,32 @@
 
 <ion-content padding>
   <h3>ข้อมูลพื้นฐานส่วนบุคคล</h3>
-
+  <form (ngSubmit)="handleSubmit()" [formGroup]="userInfo">
   <ion-card>
     <ion-card-header>
       <ion-label >ชื่อผู้ให้ข้อมูล</ion-label>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
+        <ion-input formControlName="name" class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
       </ion-item>
+      
+      <ion-item *ngIf="isValid('name')">
+       <span class="invalid-msg">Please fill in name</span>
+     </ion-item>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+ 
+  <ion-card >
       <ion-card-header>
         <ion-label >ประเภทสถานประกอบการผลิต</ion-label>
       </ion-card-header>
-      <ion-card-content>
-          <ion-item>
+      <ion-card-content >
+          <ion-item> 
             <ion-label>เลือกประเภท</ion-label>
-            <ion-select>
-              <ion-option>1.บ้านเดี่ยว</ion-option>
+            <ion-select  >
+              <ion-option >1.บ้านเดี่ยว</ion-option>
               <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
               <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
               <ion-option>4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
@@ -51,7 +56,9 @@
             </ion-select>
           </ion-item>
         </ion-card-content>
+       
     </ion-card>
+  
 
     <ion-card>
         <ion-card-header>
@@ -81,6 +88,16 @@
             </ion-item>
           </ion-card-content>
         </ion-card>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <button ion-button block type="submit">Save & Next</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    
+      </form>
 </ion-content>
 
 

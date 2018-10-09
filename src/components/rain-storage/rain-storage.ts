@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
+import { FormGroup,FormBuilder } from '@angular/forms';
 
 /**
  * Generated class for the RainStorageComponent component.
@@ -12,16 +13,33 @@ import { ModalController } from 'ionic-angular';
   templateUrl: 'rain-storage.html'
 })
 export class RainStorageComponent {
-
+  @Input("headline") private text: string;
   @Input("order") private order: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController,private fb: FormBuilder) {
     console.log('Hello RainStorageComponent Component');
-  }
+    this.text = '';
 
+
+     // TODO: Remove this
+     this.FormItem = this.fb.group({
+      'ware': null,
+      'liter': null,
+      'countware': null,
+    });
+  }
+  
+  DlgRainStoragePage
   presentModal() {
-    const modal = this.modalCtrl.create("DlgRainStoragePage");
+    const modal = this.modalCtrl.create("DlgRainStoragePage", { FormItem: this.FormItem, headline: this.text });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem = data;
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
+      }
+    });
     modal.present();
   }
-
 }
