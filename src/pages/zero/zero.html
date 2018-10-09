@@ -25,12 +25,12 @@
       <ion-card-content>
         <ion-list>
 
-          <!-- <ion-item>
+          <ion-item>
             <ion-label>4.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
           </ion-item>
           <ion-item>
             <ion-input placeholder="กรอกชื่อ"></ion-input>
-          </ion-item> -->
+          </ion-item>
 
           <ion-item>
             <ion-label>2. มีที่นากี่แปลง</ion-label>
@@ -83,88 +83,19 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
-    <!-- <ion-card>
-    <ion-card-content>
-      <ion-list>
-
-        <ion-item>
-          <ion-label>4.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input placeholder="กรอกชื่อ"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label>4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด(ระบุบริการหลักที่ทำ)</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-input placeholder="กรอกชื่อ"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง(ถามเฉพาะกรณีเป็นยูนิตย่อย)</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>เลือกประเภท</ion-label>
-          <ion-select [(ngModel)]="gender">
-            <ion-option value="a1">1.บ้านเดี่ยว</ion-option>
-            <ion-option value="a2">2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
-            <ion-option value="a3">3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
-            <ion-option value="a4">4.อาคารสูง/คอนโด/แมนชั่น</ion-option>
-            <ion-option value="a5">5.อาคารสำนักงานเอกชน</ion-option>
-            <ion-option value="a6">6.โรงแรม/รีสอร์ท/เกสเฮ้าส์</ion-option>
-            <ion-option value="a7">7.สถานพยาบาล:ภาครัฐ</ion-option>
-            <ion-option value="a8">8.สถานพยาบาล:ภาคเอกชน</ion-option>
-            <ion-option value="a9">9.สถานที่ราชการ/รัฐวิสหกิจ</ion-option>
-            <ion-option value="a10">10.ศาสนสถาน</ion-option>
-            <ion-option value="a11">11.สถานศึกษา : ภาครัฐ</ion-option>
-            <ion-option value="a12">12.สถานศึกษา : เอกชน</ion-option>
-            <ion-option value="a13">13.โกดังโรงงาน</ion-option>
-            <ion-option value="a14">14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์</ion-option>
-            <ion-option value="a15">15.อาคารกำลังก่อสร้าง</ion-option>
-            <ion-option value="a16">16.อื่นๆ</ion-option>
-          </ion-select>
-        </ion-item>
-
-      </ion-list>
-    </ion-card-content>
-  </ion-card> -->
 
     <ion-card>
       <ion-card-header>
-        ตัวอย่าง 1 question 1 input
+        ตัวอย่าง selector &lt;- ไม่ใส่คำถามที่นี่
       </ion-card-header>
       <ion-card-content>
-        <ion-item>
-          <ion-input placeholder="กรอกชื่อ" formControlName="name" [class.invalid]="isValid('name')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('name')" class="invalid-msg">
-          Please fill in the name.
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
 
-    <!-- <ion-card>
-    <ion-card-header>
-      4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด(ระบุบริการหลักที่ทำ)
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-input placeholder="กรอกชื่อ"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card> -->
-
-    <ion-card>
-      <ion-card-header>
-        ตัวอย่าง selector
-      </ion-card-header>
-      <ion-card-content>
         <ion-item>
-          <ion-label>เลือกประเภท</ion-label>
-          <ion-select>
+          <ion-label>ประเภทอาคาร / สิ่งปลูกสร้าง</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>เลือก</ion-label>
+          <ion-select interface="action-sheet">
             <ion-option>1.บ้านเดี่ยว</ion-option>
             <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
             <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
@@ -209,7 +140,9 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources8-a #ws8 [headline]="'ตัวอย่างการใช้ component'" [FormItem]="f.get('waterSources')"></water-sources8-a>
+    <water-sources8-a #ws8 headline="ตัวอย่างการใช้ component" [FormItem]="f.get('waterSources')"></water-sources8-a>
+    <water-sources8-a #ws8 [headline]="headtext" [FormItem]="f.get('waterSources')"></water-sources8-a>
+    <water-sources8-a #ws8 [headline]="'ใส่ตรงๆ'" ></water-sources8-a>
 
     <ion-card>
       <ion-card-header>
@@ -217,6 +150,9 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
+          <ion-item>
+            <ion-label>ขนาดพื้นที่ กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
+          </ion-item>
           <field-area></field-area>
         </ion-list>
       </ion-card-content>
@@ -245,65 +181,5 @@
     </ion-grid>
 
   </form>
-
-  <ion-card>
-    <ion-card-header>
-      ตัวอย่าง radio + input
-    </ion-card-header>
-    <ion-card-content>
-
-      <ion-list radio-group>
-
-        <ion-item>
-          <ion-label>1. ทำทั้งแปลงทุกครั้ง</ion-label>
-          <ion-radio item-left value="Do1"></ion-radio>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>2. ไม่ได้ทำทั้งแปลง แต่ทำเท่ากันทุกครั้ง</ion-label>
-          <ion-radio item-left value="Do2"></ion-radio>
-        </ion-item>
-
-        <ion-item>
-          <ion-row style="align-items: center">
-            <ion-col col-5>
-              <button ion-button outline color="dark" block>กรุณากรอก</button>
-            </ion-col>
-            <ion-col col-1>
-              ไร่
-            </ion-col>
-            <ion-col col-5>
-              <button ion-button outline color="dark" block>กรุณากรอก</button>
-            </ion-col>
-            <ion-col col-1>
-              ตารางวา
-            </ion-col>
-          </ion-row>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>3. ไม่ได้ทำทั้งแปลง และทำไม่เท่ากันทุกครั้ง</ion-label>
-          <ion-radio item-left value="Do3"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-row style="align-items: center">
-            <ion-col col-5>
-              <button ion-button outline color="dark" block>กรุณากรอก</button>
-            </ion-col>
-            <ion-col col-1>
-              ไร่
-            </ion-col>
-            <ion-col col-5>
-              <button ion-button outline color="dark" block>กรุณากรอก</button>
-            </ion-col>
-            <ion-col col-1>
-              ตารางวา
-            </ion-col>
-          </ion-row>
-        </ion-item>
-      </ion-list>
-
-    </ion-card-content>
-  </ion-card>
 
 </ion-content>
