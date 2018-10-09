@@ -16,6 +16,8 @@ import { WaterProblem4Component } from './water-problem4/water-problem4';
 import { WaterProblem6Component } from './water-problem6/water-problem6';
 import { RainStorageComponent } from './rain-storage/rain-storage';
 import { LocationComponent } from './location/location';
+import { TableBuyingComponent } from './table-buying/table-buying';
+import { TableDisasterousComponent } from './table-disasterous/table-disasterous';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -34,6 +36,8 @@ import { LocationComponent } from './location/location';
     WaterProblem6Component,
     RainStorageComponent,
     LocationComponent,
+    TableBuyingComponent,
+    TableDisasterousComponent,
     ],
 	imports: [
         IonicPageModule.forChild(WaterSources8AComponent),
@@ -54,6 +58,8 @@ import { LocationComponent } from './location/location';
     WaterProblem6Component,
     RainStorageComponent,
     LocationComponent,
+    TableBuyingComponent,
+    TableDisasterousComponent,
     ]
 })
 export class ComponentsModule {}
