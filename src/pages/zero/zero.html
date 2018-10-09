@@ -21,6 +21,68 @@
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
     <h3>ตอนที่ 4 การค้าและบริการ</h3>
 
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+
+          <!-- <ion-item>
+            <ion-label>4.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="กรอกชื่อ"></ion-input>
+          </ion-item> -->
+
+          <ion-item>
+            <ion-label>2. มีที่นากี่แปลง</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>3. ทำนาบนเนื้อที่เท่ากันมั้ยจ๊ะ ?</ion-label>
+          </ion-item>
+          <ion-row radio-group formControlName="fieldUsage">
+            <ion-item>
+              <ion-radio value="1" item-left></ion-radio>
+              <ion-label>1. ทำทั้งแปลงทุกครั้ง</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="2" item-left></ion-radio>
+              <ion-label>2. ไม่ได้ทำทั้งแปลง แต่ทำเท่ากันทุกครั้ง</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="3" item-left></ion-radio>
+              <ion-label>3. ไม่ได้ทำทั้งแปลง และทำไม่เท่ากันทุกครั้ง</ion-label>
+            </ion-item>
+          </ion-row>
+
+          <div [ngSwitch]="f.get('fieldUsage').value">
+            <div *ngSwitchCase="2">
+              <ion-item>
+                <ion-label>ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
+              </ion-item>
+              <field-area></field-area>
+            </div>
+
+            <div *ngSwitchCase="3">
+                <ion-item>
+                <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
+              </ion-item>
+              <field-area headline="ครั้งที่ {{ i + 1 }} " formArrayName="fieldAreas" *ngFor="let far of f.get('fieldAreas').controls; let i = index"></field-area>
+            </div>
+          </div>
+
+          <ion-item>
+            <ion-label>ข้อคำถามอื่นๆ</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="กรอกชื่อ"></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
     <!-- <ion-card>
     <ion-card-content>
       <ion-list>
@@ -154,20 +216,9 @@
         ตัวอย่าง modals (ส่วน input ใช้ button)
       </ion-card-header>
       <ion-card-content>
-        <ion-row style="align-items: center">
-          <ion-col>
-            <button ion-button outline block color="dark"></button>
-          </ion-col>
-          <ion-col>ไร่</ion-col>
-          <ion-col>
-            <button ion-button outline block color="dark"></button>
-          </ion-col>
-          <ion-col>งาน</ion-col>
-          <ion-col>
-            <button ion-button outline block color="dark"></button>
-          </ion-col>
-          <ion-col>ตารางวา</ion-col>
-        </ion-row>
+        <ion-list>
+          <field-area></field-area>
+        </ion-list>
       </ion-card-content>
     </ion-card>
 
@@ -216,17 +267,17 @@
         <ion-item>
           <ion-row style="align-items: center">
             <ion-col col-5>
-            <button ion-button outline color="dark" block >กรุณากรอก</button>
-          </ion-col>
-          <ion-col col-1>
-            ไร่
-          </ion-col>
-          <ion-col col-5>
-            <button ion-button outline color="dark" block>กรุณากรอก</button>
-          </ion-col>
-          <ion-col col-1>
-            ตารางวา
-          </ion-col>
+              <button ion-button outline color="dark" block>กรุณากรอก</button>
+            </ion-col>
+            <ion-col col-1>
+              ไร่
+            </ion-col>
+            <ion-col col-5>
+              <button ion-button outline color="dark" block>กรุณากรอก</button>
+            </ion-col>
+            <ion-col col-1>
+              ตารางวา
+            </ion-col>
           </ion-row>
         </ion-item>
 
@@ -235,12 +286,12 @@
           <ion-radio item-left value="Do3"></ion-radio>
         </ion-item>
         <ion-item>
-            <ion-row style="align-items: center">
-              <ion-col col-5>
+          <ion-row style="align-items: center">
+            <ion-col col-5>
               <button ion-button outline color="dark" block>กรุณากรอก</button>
             </ion-col>
             <ion-col col-1>
-              ไร่ 
+              ไร่
             </ion-col>
             <ion-col col-5>
               <button ion-button outline color="dark" block>กรุณากรอก</button>
@@ -248,8 +299,8 @@
             <ion-col col-1>
               ตารางวา
             </ion-col>
-            </ion-row>
-          </ion-item>
+          </ion-row>
+        </ion-item>
       </ion-list>
 
     </ion-card-content>
