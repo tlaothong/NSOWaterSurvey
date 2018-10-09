@@ -7,12 +7,13 @@
 </ion-header>
 
 <ion-content padding>
-
+<form [formGroup]="FormItem">
+<!--<ion-input type="number" formControlName="ware"></ion-input>-->
   <ion-row style="align-items: center">
     <ion-col col-8>
       <ion-item>
-        <ion-label>เลือกภาชนะ</ion-label>
-        <ion-select>
+        <ion-input type="text" disabled="true" ></ion-input>
+        <ion-select formControlName="ware">
           <ion-option>แท้งค์น้ำ สแตนเลส</ion-option>
           <ion-option>แท้งค์น้ำ โพลิเมอร์/พลาสติก</ion-option>
           <ion-option>แท้งค์น้ำ ไฟเบอร์กลาส</ion-option>
@@ -29,8 +30,8 @@
   <ion-row style="align-items: center">
     <ion-col col-6>
       <ion-item>
-        <ion-label>เลือกขนาด</ion-label>
-        <ion-select>
+         <ion-input type="number" disabled="true"></ion-input>
+        <ion-select formControlName="liter">
           <ion-option>1,000</ion-option>
           <ion-option>500</ion-option>
           <ion-option>200</ion-option>
@@ -46,7 +47,7 @@
     </ion-col>
     <ion-col col-2>
       <ion-item>
-        <ion-input placeholder="0"></ion-input>
+        <ion-input placeholder="0" formControlName="countware"></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -60,5 +61,5 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
+  </form>
 </ion-content>
