@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'factorial.html',
 })
 export class FactorialPage {
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
