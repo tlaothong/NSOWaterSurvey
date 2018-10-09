@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { ModalController } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 /**
  * Generated class for the TableDisasterousComponent component.
@@ -13,10 +15,42 @@ import { Component, Input } from '@angular/core';
 export class TableDisasterousComponent {
 
   @Input("headline") year: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor() {
+  private submitRequested: boolean;
+
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello TableDisasterousComponent Component');
     this.year = 'Hello World';
+
+       // TODO: Remove this
+       this.FormItem = this.fb.group({
+        'count': null,
+        'avgday': null,
+        'avghour': null,
+        'height': null,
+      });
+  }
+
+  public showModal() {
+    const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.FormItem, headline: this.year });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem = data;
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
+      }
+    });
+    modal.present();
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

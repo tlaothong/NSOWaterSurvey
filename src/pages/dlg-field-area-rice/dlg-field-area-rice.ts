@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { FormGroup } from '@angular/forms';
 
 /**
- * Generated class for the DlgFieldAreaPage page.
+ * Generated class for the DlgFieldAreaRicePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,10 +11,10 @@ import { FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
-  selector: 'page-dlg-field-area',
-  templateUrl: 'dlg-field-area.html',
+  selector: 'page-dlg-field-area-rice',
+  templateUrl: 'dlg-field-area-rice.html',
 })
-export class DlgFieldAreaPage {
+export class DlgFieldAreaRicePage {
 
   public FormItem: FormGroup;
   public text: string;
@@ -33,7 +33,7 @@ export class DlgFieldAreaPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DlgFieldAreaPage');
+    console.log('ionViewDidLoad DlgFieldAreaRicePage');
   }
 
 }
