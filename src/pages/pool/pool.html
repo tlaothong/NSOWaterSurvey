@@ -1,0 +1,150 @@
+<!--
+  Generated template for the PoolPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Pool</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-card>
+      <ion-card-header>
+        <h1>5.4 น้ำจากสระน้ำ/หนองบึง/บึง</h1>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            5.4.1 ในพื้นที่ที่อยู่อาศัย สวน ไร่ นา สถานประกอบการมีสระน้ำ หนองน้ำ บึง หรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-row radio-group>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>มี</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่มี</ion-label>
+          </ion-item>
+        </ion-row>
+      </ion-card-content>
+  
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            5.4.2 หาก "มี" มีจำนวนกี่สระ
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder=""></ion-input>
+        </ion-item>
+      </ion-card-content>
+       
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            5.4.3 ขนาดสระน้ำทั้งหมดเท่ากันหรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-row radio-group>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>เท่ากัน</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่เท่า</ion-label>
+          </ion-item>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <!--Component EngineDetail-->
+    <machine-water></machine-water>
+
+    <ion-card>
+      <ion-card-header>
+        5.4.4 ในรอบ 12 เดือนที่ผ่านมามีกี่สระที่นำน้ำมาใช้
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-input placeholder=""></ion-input>
+        </ion-item>
+      </ion-card-content>
+    <ion-card-header>
+      สระที่ 1 
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          1) ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
+        </ion-label>
+      </ion-item>
+
+      <ion-row radio-group>
+        <ion-item col-12>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ทราบปริมาณน้ำ</ion-label>
+        </ion-item>
+        <ion-item col-12>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ</ion-label>
+        </ion-item>
+        <ion-label>ปริมาณน้ำ (ลบ.ม./เดือน)</ion-label>
+        <ion-item>
+          <ion-input placeholder="กรอกปริมาณน้ำ"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row radio-group>
+        <ion-item>
+          <ion-label>
+            2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="กรอกจำนวนเครื่องสูบน้ำ"></ion-input>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+   
+
+ <!--Component Pump-->
+ <pump></pump>
+
+ <!--Component WaterActivity-->
+ <water-activity6></water-activity6>
+
+<!--Component Problem4-->
+ <water-problem4></water-problem4>
+ </ion-content>
+    
+
+      
+
+     
+
+

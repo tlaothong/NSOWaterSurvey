@@ -22,8 +22,6 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-$text-input-md-background-color: silver;
-
 
 
 // Named Color Variables
@@ -53,6 +51,8 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
+
+$text-input-md-background-color: lightgray;
 
 
 

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RisePage } from './rise';
+import { RicePage } from './rice';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    RisePage,
+    RicePage,
   ],
   imports: [
-    IonicPageModule.forChild(RisePage),
+    IonicPageModule.forChild(RicePage),
     ComponentsModule
   ],
 })
