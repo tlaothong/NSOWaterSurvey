@@ -1,6 +1,6 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
@@ -21,8 +21,14 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
 
   private submitRequested: boolean;
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     this.text = 'Hello World';
+
+    // TODO: Remove this
+    this.FormItem = this.fb.group({
+      'hasItem': false,
+      'itemCount': 0
+    });
   }
 
   public ngAfterViewInit() {
@@ -45,7 +51,7 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
     this.submitRequested = true;
   }
 
-  public isValid(name: string) : boolean {
+  public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }

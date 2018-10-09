@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Rise</ion-title>
+    <ion-title>Rice</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,6 +26,7 @@
             2.1.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกข้าวเอง หรือไม่
           </ion-label>
         </ion-item>
+
         <ion-row radio-group>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
@@ -38,11 +39,15 @@
         </ion-row>
 
         <ion-item>
-          2.1.2 ถ้า "ปลูกข้าว" มีแปลงนาจำนวนกี่แปลง
+          <ion-label>
+            2.1.2 ถ้า "ปลูกข้าว" มีแปลงนาจำนวนกี่แปลง
+          </ion-label>
         </ion-item>
+
         <ion-item>
           <ion-input></ion-input>
         </ion-item>
+
       </ion-list>
     </ion-card-content>
   </ion-card>
@@ -52,89 +57,130 @@
       แปลงที่ 1
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
-        <ion-item>
-          <ion-label>จังหวัด</ion-label>
-          <ion-select>
-            <ion-option>กรุงเทพมหานคร</ion-option>
-            <ion-option>ขอนแก่น</ion-option>
-            <ion-option>ยโสธร</ion-option>
-          </ion-select>
-        </ion-item>
+      <location></location>
+    </ion-card-content>
+  </ion-card>
 
-        <ion-item>
-          <ion-label>อำเภอ</ion-label>
-          <ion-select>
-            <ion-option>เมือง</ion-option>
-
-          </ion-select>
-        </ion-item>
-      </ion-list>
-
-      <ion-list>
-        <ion-item>
-          <ion-label>ตำบล</ion-label>
-          <ion-select>
-            <ion-option>ในเมือง</ion-option>
-
-          </ion-select>
-        </ion-item>
-      </ion-list>
-
+  <ion-card>
+    <ion-card-header>
       2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตาราง
+    </ion-card-header>
+    <ion-card-content>
+      <field-area></field-area>
+    </ion-card-content>
+  </ion-card>
 
-      <ion-row style="align-items: center">
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ไร่</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>งาน</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ตารางวา</ion-col>
-      </ion-row>
-
+  <ion-card>
+    <ion-card-header>
       3) ในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนากี่ครั้ง (ไม่เกิน 4 ครั้ง)
+    </ion-card-header>
+    <ion-card-content>
       <ion-item>
         <ion-input></ion-input>
       </ion-item>
-
-      4) แต่ละครั้งทำกี่ไร่
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ทำทั้งแปลงทุกครั้ง</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ทราบพื้นที่</ion-label>
-      </ion-item>
-      <ion-item *ngIf="binding">
-        <pool-area></pool-area>
-      </ion-item>
-
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ไม่ทราบพื้นที่ บ่อเป็นสี่เหลี่ยมหรือวงกลม</ion-label>
-      </ion-item>
-      <div style="padding-left: 50px" radio-group>
-        <ion-item>
-          <ion-radio item-left></ion-radio>
-          <ion-label>สี่เหลี่ยม</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-radio item-left></ion-radio>
-          <ion-label>วงกลม</ion-label>
-        </ion-item>
-      </div>
-
     </ion-card-content>
   </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-label>4) แต่ละครั้งทำกี่ไร่ </ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+
+        <div style="padding-left: 50px" radio-group>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ทำทั้งแปลงทุกครั้ง</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ถ้าไม่ได้ทำทั้งแปลง ทำเท่ากันหรือไม่</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่ได้ทำเท่ากันทุกครั้ง</ion-label>
+          </ion-item>
+        </div>
+
+        <div>
+          <ion-item>
+            <ion-label>ทำเท่ากันทุกแปลง</ion-label>
+          </ion-item>
+          <ion-row style="align-items: center">
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <div>
+          <ion-item>
+            <ion-label>ไม่ได้ทำเท่ากันทุกครั้ง</ion-label>
+          </ion-item>
+          <ion-row style="align-items: center">
+            ครั้งที่ 1
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row style="align-items: center">
+            ครั้งที่ 2
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row style="align-items: center">
+            ครั้งที่ 3
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
 
   <ion-card>
     <ion-card-header>
@@ -142,9 +188,15 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        5.1) การทำนาครั้งที่ 1 เริ่มทำนาเดือนไหนถึงเดือนไหน
+        <ion-item>
+          <ion-label>5.1) การทำนาครั้งที่ 1 เริ่มทำนาเดือนไหนถึงเดือนไหน</ion-label>
+        </ion-item>
         <ion-row style="align-items: center">
-          ครั้งที่ 1 เรื่มเดือน
+          <ion-col>
+            <ion-item>
+              <ion-label>ครั้งที่ 1 เริ่ม</ion-label>
+            </ion-item>
+          </ion-col>
           <ion-col>
             <ion-item>
               <ion-label>เดือน</ion-label>
@@ -164,7 +216,14 @@
               </ion-select>
             </ion-item>
           </ion-col>
-          ถึงเดือน
+
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>ถึง</ion-label>
+            </ion-item>
+          </ion-col>
           <ion-col>
             <ion-item>
               <ion-label>เดือน</ion-label>
@@ -186,12 +245,98 @@
           </ion-col>
         </ion-row>
 
-        6.1) การทำนาครั้งที่ 1 ปล่อยน้ำเข้ากี่ครั้ง
+        <ion-item>
+          <ion-label> 6.1) การทำนาครั้งที่ 1 ปล่อยน้ำเข้ากี่ครั้ง</ion-label>
+        </ion-item>
         <ion-item>
           <ion-input></ion-input>
         </ion-item>
 
-        7.1) การทำนาครั้งที่ 1 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร
+
+        <ion-item>
+          <ion-label> 7.1) การทำนาครั้งที่ 1 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input></ion-input>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-label>ทำนาครั้งที่ 2</ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>5.2) การทำนาครั้งที่ 2 เริ่มทำนาเดือนไหนถึงเดือนไหน</ion-label>
+        </ion-item>
+        <ion-row style="align-items: center">
+          <ion-col>
+            <ion-item>
+              <ion-label>ครั้งที่ 1 เริ่ม</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>เดือน</ion-label>
+              <ion-select>
+                <ion-option>มกราคม</ion-option>
+                <ion-option>กุมภาพันธ์</ion-option>
+                <ion-option>มีนาคม</ion-option>
+                <ion-option>เมษายน</ion-option>
+                <ion-option>พฤษภาคม</ion-option>
+                <ion-option>มิถุนายน</ion-option>
+                <ion-option>กรกฎาคม</ion-option>
+                <ion-option>สิงหาคม</ion-option>
+                <ion-option>กันยายน</ion-option>
+                <ion-option>ตุลาคม</ion-option>
+                <ion-option>พฤศจิกายน</ion-option>
+                <ion-option>ธันวาคม</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>ถึง</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>เดือน</ion-label>
+              <ion-select>
+                <ion-option>มกราคม</ion-option>
+                <ion-option>กุมภาพันธ์</ion-option>
+                <ion-option>มีนาคม</ion-option>
+                <ion-option>เมษายน</ion-option>
+                <ion-option>พฤษภาคม</ion-option>
+                <ion-option>มิถุนายน</ion-option>
+                <ion-option>กรกฎาคม</ion-option>
+                <ion-option>สิงหาคม</ion-option>
+                <ion-option>กันยายน</ion-option>
+                <ion-option>ตุลาคม</ion-option>
+                <ion-option>พฤศจิกายน</ion-option>
+                <ion-option>ธันวาคม</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-item>
+          <ion-label>6.2) การทำนาครั้งที่ 2 ปล่อยน้ำเข้ากี่ครั้ง</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>7.2) การทำนาครั้งที่ 2 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร</ion-label>
+        </ion-item>
         <ion-item>
           <ion-input></ion-input>
         </ion-item>
@@ -200,154 +345,155 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header>
-      ทำนาครั้งที่ 2
-    </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        5.2) การทำนาครั้งที่ 2 เริ่มทำนาเดือนไหนถึงเดือนไหน
-        <ion-row style="align-items: center">
-          ครั้งที่ 1 เรื่มเดือน
-          <ion-col>
-            <ion-item>
-              <ion-label></ion-label>
-              <ion-select>
-                <ion-option>มกราคม</ion-option>
-                <ion-option>กุมภาพันธ์</ion-option>
-                <ion-option>มีนาคม</ion-option>
-                <ion-option>เมษายน</ion-option>
-                <ion-option>พฤษภาคม</ion-option>
-                <ion-option>มิถุนายน</ion-option>
-                <ion-option>กรกฎาคม</ion-option>
-                <ion-option>สิงหาคม</ion-option>
-                <ion-option>กันยายน</ion-option>
-                <ion-option>ตุลาคม</ion-option>
-                <ion-option>พฤศจิกายน</ion-option>
-                <ion-option>ธันวาคม</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          ถึงเดือน
-          <ion-col>
-            <ion-item>
-              <ion-label></ion-label>
-              <ion-select>
-                <ion-option>มกราคม</ion-option>
-                <ion-option>กุมภาพันธ์</ion-option>
-                <ion-option>มีนาคม</ion-option>
-                <ion-option>เมษายน</ion-option>
-                <ion-option>พฤษภาคม</ion-option>
-                <ion-option>มิถุนายน</ion-option>
-                <ion-option>กรกฎาคม</ion-option>
-                <ion-option>สิงหาคม</ion-option>
-                <ion-option>กันยายน</ion-option>
-                <ion-option>ตุลาคม</ion-option>
-                <ion-option>พฤศจิกายน</ion-option>
-                <ion-option>ธันวาคม</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-
-        6.2) การทำนาครั้งที่ 2 ปล่อยน้ำเข้ากี่ครั้ง
-        <ion-item>
-          <ion-input></ion-input>
+      <ion-item>
+        <ion-label>
+          8) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>1. อยู่</ion-label>
         </ion-item>
-
-        7.2) การทำนาครั้งที่ 2 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร
-        <ion-item>
-          <ion-input></ion-input>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>2. ไม่อยู่</ion-label>
         </ion-item>
-      </ion-list>
+      </ion-row>
     </ion-card-content>
   </ion-card>
+
+  ***component water sources 8***
+  <!-- <water-sources8-a></water-sources8-a> -->
 
   <ion-card>
     <ion-card-header>
       แปลงที่ 2
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
-        <ion-item>
-          <ion-label>จังหวัด</ion-label>
-          <ion-select>
-            <ion-option>กรุงเทพมหานคร</ion-option>
-            <ion-option>ขอนแก่น</ion-option>
-            <ion-option>ยโสธร</ion-option>
-          </ion-select>
-        </ion-item>
+      <location></location>
+    </ion-card-content>
+  </ion-card>
 
-        <ion-item>
-          <ion-label>อำเภอ</ion-label>
-          <ion-select>
-            <ion-option>เมือง</ion-option>
-
-          </ion-select>
-        </ion-item>
-      </ion-list>
-
-      <ion-list>
-        <ion-item>
-          <ion-label>ตำบล</ion-label>
-          <ion-select>
-            <ion-option>ในเมือง</ion-option>
-
-          </ion-select>
-        </ion-item>
-      </ion-list>
-
+  <ion-card>
+    <ion-card-header>
       2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตาราง
+    </ion-card-header>
+    <ion-card-content>
+      <field-area></field-area>
+    </ion-card-content>
+  </ion-card>
 
-      <ion-row style="align-items: center">
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ไร่</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>งาน</ion-col>
-        <ion-col>
-          <button ion-button outline block color="dark"></button>
-        </ion-col>
-        <ion-col>ตารางวา</ion-col>
-      </ion-row>
-
+  <ion-card>
+    <ion-card-header>
       3) ในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนากี่ครั้ง (ไม่เกิน 4 ครั้ง)
+    </ion-card-header>
+    <ion-card-content>
       <ion-item>
         <ion-input></ion-input>
       </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-      4) แต่ละครั้งทำกี่ไร่
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ทำทั้งแปลงทุกครั้ง</ion-label>
-      </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-label>4) แต่ละครั้งทำกี่ไร่ </ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <div style="padding-left: 50px" radio-group>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ทำทั้งแปลงทุกครั้ง</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ถ้าไม่ได้ทำทั้งแปลง ทำเท่ากันหรือไม่</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่ได้ทำเท่ากันทุกครั้ง</ion-label>
+          </ion-item>
+        </div>
 
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ทราบพื้นที่</ion-label>
-      </ion-item>
-      <ion-item *ngIf="binding">
-        <pool-area></pool-area>
-      </ion-item>
+        <div>
+          ทำเท่ากันทุกแปลง
+          <ion-row style="align-items: center">
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
 
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ไม่ทราบพื้นที่ บ่อเป็นสี่เหลี่ยมหรือวงกลม</ion-label>
-      </ion-item>
-      <div style="padding-left: 50px" radio-group>
-        <ion-item>
-          <ion-radio item-left></ion-radio>
-          <ion-label>สี่เหลี่ยม</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-radio item-left></ion-radio>
-          <ion-label>วงกลม</ion-label>
-        </ion-item>
-      </div>
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
 
+        <!-- <ion-item>
+              <ion-input type="number" disabled="true" item-left>0</ion-input>
+              <ion-label>ไร่</ion-label>
+            </ion-item> -->
+
+        <div>
+          ไม่ได้ทำเท่ากันทุกครั้ง
+          <ion-row style="align-items: center">
+            ครั้งที่ 1
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row style="align-items: center">
+            ครั้งที่ 2
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row style="align-items: center">
+            ครั้งที่ 3
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ไร่</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" disabled="true" item-left>0</ion-input>
+                <ion-label>ตารางวา</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+        </div>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
@@ -356,64 +502,112 @@
       ทำนาครั้งที่ 1
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        5.1) การทำนาครั้งที่ 1 เริ่มทำนาเดือนไหนถึงเดือนไหน
-        <ion-row style="align-items: center">
-          ครั้งที่ 1 เรื่มเดือน
-          <ion-col>
-            <ion-item>
-              <ion-label></ion-label>
-              <ion-select>
-                <ion-option>มกราคม</ion-option>
-                <ion-option>กุมภาพันธ์</ion-option>
-                <ion-option>มีนาคม</ion-option>
-                <ion-option>เมษายน</ion-option>
-                <ion-option>พฤษภาคม</ion-option>
-                <ion-option>มิถุนายน</ion-option>
-                <ion-option>กรกฎาคม</ion-option>
-                <ion-option>สิงหาคม</ion-option>
-                <ion-option>กันยายน</ion-option>
-                <ion-option>ตุลาคม</ion-option>
-                <ion-option>พฤศจิกายน</ion-option>
-                <ion-option>ธันวาคม</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          ถึงเดือน
-          <ion-col>
-            <ion-item>
-              <ion-label></ion-label>
-              <ion-select>
-                <ion-option>มกราคม</ion-option>
-                <ion-option>กุมภาพันธ์</ion-option>
-                <ion-option>มีนาคม</ion-option>
-                <ion-option>เมษายน</ion-option>
-                <ion-option>พฤษภาคม</ion-option>
-                <ion-option>มิถุนายน</ion-option>
-                <ion-option>กรกฎาคม</ion-option>
-                <ion-option>สิงหาคม</ion-option>
-                <ion-option>กันยายน</ion-option>
-                <ion-option>ตุลาคม</ion-option>
-                <ion-option>พฤศจิกายน</ion-option>
-                <ion-option>ธันวาคม</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-        </ion-row>
 
-        6.1) การทำนาครั้งที่ 1 ปล่อยน้ำเข้ากี่ครั้ง
-        <ion-item>
-          <ion-input></ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label>
+          5.1) การทำนาครั้งที่ 1 เริ่มทำนาเดือนไหนถึงเดือนไหน
+        </ion-label>
+      </ion-item>
 
-        7.1) การทำนาครั้งที่ 1 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร
-        <ion-item>
-          <ion-input></ion-input>
-        </ion-item>
-      </ion-list>
+      <ion-row style="align-items: center">
+        <ion-col>
+          <ion-item>
+            <ion-label>ครั้งที่ 1 เริ่ม</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>เดือน</ion-label>
+            <ion-select>
+              <ion-option>มกราคม</ion-option>
+              <ion-option>กุมภาพันธ์</ion-option>
+              <ion-option>มีนาคม</ion-option>
+              <ion-option>เมษายน</ion-option>
+              <ion-option>พฤษภาคม</ion-option>
+              <ion-option>มิถุนายน</ion-option>
+              <ion-option>กรกฎาคม</ion-option>
+              <ion-option>สิงหาคม</ion-option>
+              <ion-option>กันยายน</ion-option>
+              <ion-option>ตุลาคม</ion-option>
+              <ion-option>พฤศจิกายน</ion-option>
+              <ion-option>ธันวาคม</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>ถึง</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>เดือน</ion-label>
+            <ion-select>
+              <ion-option>มกราคม</ion-option>
+              <ion-option>กุมภาพันธ์</ion-option>
+              <ion-option>มีนาคม</ion-option>
+              <ion-option>เมษายน</ion-option>
+              <ion-option>พฤษภาคม</ion-option>
+              <ion-option>มิถุนายน</ion-option>
+              <ion-option>กรกฎาคม</ion-option>
+              <ion-option>สิงหาคม</ion-option>
+              <ion-option>กันยายน</ion-option>
+              <ion-option>ตุลาคม</ion-option>
+              <ion-option>พฤศจิกายน</ion-option>
+              <ion-option>ธันวาคม</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-item>
+        <ion-label>
+          6.1) การทำนาครั้งที่ 1 ปล่อยน้ำเข้ากี่ครั้ง
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          7.1) การทำนาครั้งที่ 1 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number"></ion-input>
+      </ion-item>
+
     </ion-card-content>
   </ion-card>
 
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          8) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>1. อยู่</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>2. ไม่อยู่</ion-label>
+        </ion-item>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<<<<<<< HEAD
 
 
   <ion-card>
@@ -437,3 +631,7 @@
   <!-- <water-sources8-a [headline]="'9) ที่แปลงนี้ใช้น้ำจากแหล้งใดบ้าง'"></water-sources8-a> -->
 
 </ion-content>
+=======
+***component water sources 8***
+<!-- <water-sources8-a></water-sources8-a> -->
+>>>>>>> 1a176d607a9c39dae0cc1ad1a449daedd2c6ef34

@@ -34,7 +34,7 @@
           </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
-            <ion-label>ไม่มี</ion-label>
+            <ion-label>ไม่มี (ข้ามไปถามแหล่งน้้ำถัดไป)</ion-label>
           </ion-item>
         </ion-row>
       </ion-card-content>
@@ -59,28 +59,38 @@
         <ion-row radio-group>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
-            <ion-label>เท่ากัน</ion-label>
+            <ion-label>เท่ากัน (ให้ถามขนาดสระครั้งเดียว)</ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
-            <ion-label>ไม่เท่า</ion-label>
+            <ion-label>ไม่เท่า (ให้ถามที่ละสระ)</ion-label>
           </ion-item>
         </ion-row>
       </ion-card-content>
     </ion-card>
 
-    <!--Component EngineDetail-->
-    <machine-water></machine-water>
-
+  <!-- component P'sor -->
+  <ion-card>
+  <ion-item>
+  <ion-label>
+  สระที่ 1 (ถามขนาดของสระ)
+  </ion-label>
+  </ion-item>
+  <pool-area></pool-area>
+  </ion-card>
+  
     <ion-card>
       <ion-card-header>
         5.4.4 ในรอบ 12 เดือนที่ผ่านมามีกี่สระที่นำน้ำมาใช้
       </ion-card-header>
       <ion-card-content>
-        <ion-item>
-          <ion-input placeholder=""></ion-input>
+      <ion-item>
+          <ion-input type="number"placeholder="`กรอกจำนวนสระ`"></ion-input>
         </ion-item>
-      </ion-card-content>
+        </ion-card-content>
+      </ion-card>
+     
+      <ion-card>
     <ion-card-header>
       สระที่ 1 
     </ion-card-header>
