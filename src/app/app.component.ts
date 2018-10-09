@@ -50,6 +50,7 @@ export class MyApp {
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
       { title: 'PrivateGroundWater', component: "PrivateGroundWaterPage" },
       { title: 'PublicGroundWater', component: "PublicGroundWaterPage" },
+      { title: 'Pool', component: "PoolPage" },
       
 
       
