@@ -69,7 +69,7 @@
                 <ion-item>
                 <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area headline="ครั้งที่ 1 "></field-area>
+              <field-area headline="ครั้งที่ {{ i + 1 }} " formArrayName="fieldAreas" *ngFor="let far of f.get('fieldAreas').controls; let i = index"></field-area>
             </div>
           </div>
 

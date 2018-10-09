@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
+import { combineLatest } from 'rxjs/operators';
 
 /**
  * Generated class for the ZeroPage page.
@@ -29,7 +30,7 @@ export class ZeroPage {
       'name': [null, Validators.required],
       'fieldCount': 0,
       'fieldUsage': null,
-      'fieldArea': null,
+      'fieldAreas': null,
       'preSchool': this.fb.group({
         'hasItem': false,
         'itemCount': null
@@ -52,6 +53,10 @@ export class ZeroPage {
       })
     });
 
+    const fieldCount = this.f.get('fieldCount');
+    this.f.get('fieldUsage').valueChanges.pipe(
+      combineLatest(fieldCount.valueChanges)
+    ).subscribe(it => this.onFieldUsageChanges());
   }
 
   ionViewDidLoad() {
@@ -67,6 +72,24 @@ export class ZeroPage {
   public isValid(name: string) : boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
+  public onFieldUsageChanges() {
+    var fields = this.f.get('fieldAreas').value || [];
+    var fieldCount = this.f.get('fieldCount').value || 0;
+    var farr = this.fb.array([]);
+
+    for (let i = 0; i < fieldCount; i++) {
+      var ctrl = null;
+      if (i < fields.length) {
+        const fld = fields[i];
+        ctrl = fld;
+      } else {
+        ctrl = {};
+      }
+      farr.push(this.fb.group(ctrl));
+    }
+    this.f.setControl('fieldAreas', farr);
   }
 
 }
