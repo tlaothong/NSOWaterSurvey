@@ -15,9 +15,44 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 export class RubberTreePage {
 
-
-  Rubberform: FormGroup;
+  private submitRequested: boolean;
+  rubbertree: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+    this.rubbertree = this.fb.group({
+      
+        "doing": ['',Validators.required],
+        "fieldCount":['',Validators.required],
+        "fields": this.fb.group({
+          "location": this.fb.group({
+            "province": ['',Validators.required],
+            "distric": ['',Validators.required],
+            "subDistric": ['',Validators.required]
+          }),
+          "area": this.fb.group({
+            "rai": ['',Validators.required],
+            "ngan": ['',Validators.required],
+            "sqWa": ['',Validators.required]
+          }),
+          "irrigationField": ['',Validators.required],
+          "waterSources": this.fb.group({
+            "plumbing": ['',Validators.required],
+            "underGround": ['',Validators.required],
+            "pool": ['',Validators.required],
+            "river": ['',Validators.required],
+            "irrigation": ['',Validators.required],
+            "rain": ['',Validators.required],
+            "buying": ['',Validators.required],
+            "rainingAsIs": ['',Validators.required],
+            "other": ['',Validators.required]
+          })
+        })
+
+      
+
+
+    });
+
+
   }
 
   ionViewDidLoad() {
@@ -25,44 +60,16 @@ export class RubberTreePage {
   }
 
   ionViewDidEnter() {
-    this.Rubberform = this.fb.group({
-      rubbertree: this.fb.group({
-        "doing": true,
-        "fieldCount": 0,
-        "fields": this.fb.group({
-          "location":this.fb.group( {
-            "province": "string",
-            "distric": "string",
-            "subDistric": "string"
-          }),
-          "area": this.fb.group({
-            "rai": 0,
-            "ngan": 0,
-            "sqWa": 0
-          }),
-          "irrigationField": true,
-          "waterSources":  this.fb.group({
-            "plumbing": true,
-            "underGround": true,
-            "pool": true,
-            "river": true,
-            "irrigation": true,
-            "rain": true,
-            "buying": true,
-            "rainingAsIs": true,
-            "other": "string"
-          })
-        })
-
-      })
-
-
-    })
-
-
-
-
 
   }
 
+  public handleSubmit() {
+    this.submitRequested = true;
+
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.rubbertree.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
 }

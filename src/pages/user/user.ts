@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Generated class for the UserPage page.
@@ -15,8 +15,20 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: 'user.html',
 })
 export class UserPage {
-  UserForm: FormGroup;
+  userInfo: FormGroup;
+  private submitRequested: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+    this.userInfo = this.fb.group({
+      
+        "name": ['',Validators.required],
+        "category": this.fb.group({
+          "string": ['',Validators.required]
+        }),
+        "serviceType": this.fb.group({
+          "string": ['',Validators.required]
+        })
+      
+    });
   }
 
   ionViewDidLoad() {
@@ -24,17 +36,17 @@ export class UserPage {
   }
 
   ionViewDidEnter() {
-    this.UserForm = this.fb.group({
-      userInfo: this.fb.group({
-        "name": "string",
-        "category": this.fb.group({
-          "string": ""
-        }),
-        "serviceType": this.fb.group({
-          "string" : ""
-        })
-      })
-    })
 
+
+  }
+
+  public handleSubmit() {
+    this.submitRequested = true;
+
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.userInfo.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }
