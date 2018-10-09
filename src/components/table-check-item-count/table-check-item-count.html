@@ -4,6 +4,6 @@
     {{ text }}
     <span *ngIf="isValid('itemCount')" [class.invalid-msg]="isValid('itemCount')">Please fill in</span>
   </ion-label>
-  <ion-input *ngIf="hasCount() | async; else nodata" disabled="true" clear item-end type="number" formControlName="itemCount"></ion-input>
+  <ion-input *ngIf="FormItem.get('itemCount').value; else nodata" disabled="true" clear item-end type="number" formControlName="itemCount"></ion-input>
   <ng-template #nodata clear item-end>กดเพื่อใส่ข้อมูล</ng-template>
 </button>

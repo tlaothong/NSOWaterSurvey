@@ -25,10 +25,6 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
     this.text = 'Hello World';
   }
 
-  public hasCount(): Observable<boolean> {
-    return this.FormItem.get('itemCount').valueChanges;
-  }
-
   public ngAfterViewInit() {
     // this.FormItem.get('hasItem').valueChanges.subscribe(it => this.showModal());
   }

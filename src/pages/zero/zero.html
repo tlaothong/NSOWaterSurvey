@@ -36,13 +36,13 @@
             <ion-label>2. มีที่นากี่แปลง</ion-label>
           </ion-item>
           <ion-item>
-            <ion-input type="number" placeholder="กรอกจำนวนแปลง"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label>3. ทำนาบนเนื้อที่เท่ากันมั้ยจ๊ะ ?</ion-label>
           </ion-item>
-          <ion-row radio-group>
+          <ion-row radio-group formControlName="fieldUsage">
             <ion-item>
               <ion-radio value="1" item-left></ion-radio>
               <ion-label>1. ทำทั้งแปลงทุกครั้ง</ion-label>
@@ -57,18 +57,20 @@
             </ion-item>
           </ion-row>
 
-          <div>
-            <ion-item>
-              <ion-label>ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
-            </ion-item>
-            <field-area></field-area>
-          </div>
+          <div [ngSwitch]="f.get('fieldUsage').value">
+            <div *ngSwitchCase="2">
+              <ion-item>
+                <ion-label>ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
+              </ion-item>
+              <field-area></field-area>
+            </div>
 
-          <div>
-            <ion-item>
-              <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
-            </ion-item>
-            <field-area headline="ครั้งที่ 1 "></field-area>
+            <div *ngSwitchCase="3">
+                <ion-item>
+                <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
+              </ion-item>
+              <field-area headline="ครั้งที่ 1 "></field-area>
+            </div>
           </div>
 
           <ion-item>
