@@ -27,6 +27,9 @@ export class ZeroPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
+      'fieldCount': 0,
+      'fieldUsage': null,
+      'fieldArea': null,
       'preSchool': this.fb.group({
         'hasItem': false,
         'itemCount': null
