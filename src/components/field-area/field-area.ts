@@ -51,5 +51,4 @@ export class FieldAreaComponent {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
-
 }
