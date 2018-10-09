@@ -9,7 +9,7 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(GroundWaterPage),
-    ComponentsModule
+    ComponentsModule,
   ],
 })
 export class GroundWaterPageModule {}

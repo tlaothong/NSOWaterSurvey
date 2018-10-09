@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { combineLatest } from 'rxjs/operators';
@@ -24,10 +24,11 @@ export class ZeroPage {
   public headtext = "กำหนดมาจาก code ห้ามใช้แบบนี้ในตอนนี้";
 
   private submitRequested: boolean;
+  
   @ViewChild('ws8') ws8: ISubmitRequestable;
   @ViewChildren(TableCheckItemCountComponent) private checkedItems: ISubmitRequestable[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'fieldCount': 0,
@@ -59,6 +60,9 @@ export class ZeroPage {
     this.f.get('fieldUsage').valueChanges.pipe(
       combineLatest(fieldCount.valueChanges)
     ).subscribe(it => this.onFieldUsageChanges());
+
+    // Call for the first time
+    this.onFieldUsageChanges();
   }
 
   ionViewDidLoad() {
@@ -80,6 +84,8 @@ export class ZeroPage {
     var fields = this.f.get('fieldAreas').value || [];
     var fieldCount = this.f.get('fieldCount').value || 0;
     var farr = this.fb.array([]);
+
+    fieldCount = Math.max(1, fieldCount);
 
     for (let i = 0; i < fieldCount; i++) {
       var ctrl = null;
