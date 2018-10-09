@@ -48,6 +48,7 @@ export class MyApp {
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
       { title: 'User', component: "UserPage" },
+      { title: 'Pool', component: "PoolPage" },
     ];
 
   }
