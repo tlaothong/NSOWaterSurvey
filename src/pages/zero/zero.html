@@ -58,18 +58,18 @@
           </ion-row>
 
           <div [ngSwitch]="f.get('fieldUsage').value">
-            <div *ngSwitchCase="2">
+            <div *ngSwitchCase="2" formArrayName="fieldAreas">
               <ion-item>
                 <ion-label>ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area></field-area>
+              <field-area [formGroupName]="0"></field-area>
             </div>
 
-            <div *ngSwitchCase="3">
+            <div *ngSwitchCase="3" formArrayName="fieldAreas">
                 <ion-item>
                 <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area headline="ครั้งที่ {{ i + 1 }} " formArrayName="fieldAreas" *ngFor="let far of f.get('fieldAreas').controls; let i = index"></field-area>
+              <field-area headline="ครั้งที่ {{ i + 1 }} " *ngFor="let far of f.get('fieldAreas').controls; let i = index" [formGroupName]="i"></field-area>
             </div>
           </div>
 
@@ -151,8 +151,8 @@
     </ion-card>
 
     <water-sources8-a #ws8 headline="ตัวอย่างการใช้ component" [FormItem]="f.get('waterSources')"></water-sources8-a>
-    <water-sources8-a #ws8 [headline]="headtext" [FormItem]="f.get('waterSources')"></water-sources8-a>
-    <water-sources8-a #ws8 [headline]="'ใส่ตรงๆ'" ></water-sources8-a>
+    <water-sources8-a [headline]="headtext" [FormItem]="f.get('waterSources')"></water-sources8-a>
+    <water-sources8-a [headline]="'ใส่ตรงๆ'" ></water-sources8-a>
 
     <ion-card>
       <ion-card-header>
