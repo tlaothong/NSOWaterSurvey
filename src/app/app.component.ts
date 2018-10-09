@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+
 
 
 @Component({
@@ -28,7 +28,6 @@ export class MyApp {
       { title: 'Demo', component: "DemoPage" },
       { title: 'Rice', component: "RicePage" },
       { title: 'Mushroom', component: "MushroomPage" },
-      { title: 'List', component: ListPage },
       { title: 'Plumbing', component: "PlumbingPage" },
       { title: 'GroundWater', component: "GroundWaterPage" },
       { title: 'River', component: "RiverPage" },
