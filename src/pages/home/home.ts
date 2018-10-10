@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 import { PopoverPage } from '../popover/popover';
+import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
 
 @Component({
   selector: 'page-home',
@@ -40,13 +41,14 @@ export class HomePage {
     ];
   }
 
-  openPage(page) {
+  public openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
   }
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(PopoverPage);
+
+  public showQuickMenu(myEvent) {
+    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent);
     popover.present({
       ev: myEvent
     });
