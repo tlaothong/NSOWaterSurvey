@@ -1,18 +1,12 @@
-
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Pool</ion-title>
-  </ion-navbar>
+  <questionnaire-menu title="น้ำจากสระน้ำ/หนองน้ำ/บึง "></questionnaire-menu>
 
 </ion-header>
 
-
 <ion-content padding>
  <h3>5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง</h3>
+ <form (ngSubmit)="handleSubmit()" [formGroup]="pool">
 <ion-card>
       <ion-card-content>
         <ion-item>
