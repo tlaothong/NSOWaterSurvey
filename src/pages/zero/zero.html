@@ -6,12 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Zero Page</ion-title>
-  </ion-navbar>
+    <questionnaire-menu title="ตัวอย่าง"></questionnaire-menu>
 
 </ion-header>
 
@@ -36,7 +31,7 @@
             <ion-label>2. มีที่นากี่แปลง</ion-label>
           </ion-item>
           <ion-item>
-            <ion-input type="number" placeholder="กรอกจำนวนแปลง" c="fieldCount"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -185,7 +180,7 @@
         <ion-col>
         </ion-col>
         <ion-col>
-          <button ion-button block type="submit">บันทึกและถามข้อต่อไป</button>
+          <button ion-button block type="submit">Save & Next</button>
         </ion-col>
       </ion-row>
     </ion-grid>

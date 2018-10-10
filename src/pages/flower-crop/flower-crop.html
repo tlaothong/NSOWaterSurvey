@@ -16,9 +16,16 @@
 
 <ion-content padding>
   <h3> 2.6 ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </h3>
+  
   <ion-card>
+      <ion-item>
+        <ion-label>
+            ไม้ดอก  เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จ้าปา จ้าปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ เยอร์บิรา หน้าวัว  เป็นต้น ไม้ประดับ เช่น โกสน เข็ม เตย ไทร เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาลม์ต่าง ๆ ไผ่ เฟื่องฟ้า  ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปสูนาม เป็นต้น 
+         </ion-label>
+      </ion-item>
+    </ion-card>
 
-
+  <ion-card>
     <ion-item>
       <ion-label>
         2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกไม้ดอกไม้ประดับ เพาะพันธุ์ไม้ หรือไม่
@@ -34,9 +41,7 @@
         <ion-label>ไม่ปลูก</ion-label>
       </ion-item>
     </ion-row>
-  </ion-card>
-
-  <ion-card>
+ 
     <ion-item>
       <ion-label>
       2.6.2 ถ้า “ปลูก” มีพื้นที่ปลูกไม้ดอกไม้ประดับ เพาะพันธุ์ไม้ จ้านวนกี่แปลง/โรงเรือน
@@ -50,7 +55,13 @@
   </ion-card>
 
   <ion-card>
-    <location></location>
+      <ion-card-header>
+          โรงเรือน/แปลงที่ 1
+        </ion-card-header>
+    <ion-item>
+      <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
+    </ion-item>
+        <location></location>
   </ion-card>
 
   <ion-card>
@@ -129,12 +140,12 @@
   </ion-card>
 
 
-  <ion-card-header>
+  <!-- <ion-card-header>
     6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง
   </ion-card-header>
-  <water-sources9></water-sources9>
+  <water-sources9></water-sources9> -->
 
-
+  <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
 
 
 </ion-content>

@@ -4,9 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { RainPage } from '../pages/rain/rain';
-import { IrrigationPage } from '../pages/irrigation/irrigation';
-
 
 
 @Component({
@@ -41,8 +38,8 @@ export class MyApp {
       { title: 'Residential', component: "ResidentialPage" },
       { title: 'Buying', component: "BuyingPage" },
       { title: 'Disasterous', component: "DisasterousPage" },
-      { title: 'Irrigation', component: IrrigationPage },
-      { title: 'Rain', component: RainPage },
+      { title: 'Irrigation', component: "IrrigationPage" },
+      { title: 'Rain', component: "RainPage" },
       { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },

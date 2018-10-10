@@ -18,8 +18,9 @@ import { RainStorageComponent } from './rain-storage/rain-storage';
 import { LocationComponent } from './location/location';
 import { TableBuyingComponent } from './table-buying/table-buying';
 import { TableDisasterousComponent } from './table-disasterous/table-disasterous';
-import { FieldAreaRiceComponent } from './field-area-rice/field-area-rice';
 import { TableBuyingOtherComponent } from './table-buying-other/table-buying-other';
+import { QuestionnaireMenuPopoverComponent } from './questionnaire-menu-popover/questionnaire-menu-popover';
+import { QuestionnaireMenuComponent } from './questionnaire-menu/questionnaire-menu';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -40,12 +41,16 @@ import { TableBuyingOtherComponent } from './table-buying-other/table-buying-oth
     LocationComponent,
     TableBuyingComponent,
     TableDisasterousComponent,
-    FieldAreaRiceComponent,
     TableBuyingOtherComponent,
+    QuestionnaireMenuPopoverComponent,
+    QuestionnaireMenuComponent,
     ],
 	imports: [
-        IonicPageModule.forChild(WaterSources8AComponent),
-	],
+        IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
+    ],
+    entryComponents: [
+        QuestionnaireMenuPopoverComponent,
+    ],
 	exports: [WaterSources8AComponent,
     DemoNaComponent,
     PumpComponent,
@@ -64,8 +69,9 @@ import { TableBuyingOtherComponent } from './table-buying-other/table-buying-oth
     LocationComponent,
     TableBuyingComponent,
     TableDisasterousComponent,
-    FieldAreaRiceComponent,
     TableBuyingOtherComponent,
+    QuestionnaireMenuPopoverComponent,
+    QuestionnaireMenuComponent,
     ]
 })
 export class ComponentsModule {}

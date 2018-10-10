@@ -18,6 +18,15 @@
   <form (ngSubmit)="handleSubmit()" [formGroup]="HerbsPlantFrm">
     <h3>2.5 พืชผัก สมุนไพร</h3>
     <ion-card>
+      <ion-item>
+        <ion-label>
+            พืชผัก สมุนไพร เช่น กะหล่ำปลี ข่า ขิง ขมิ้น คะน้า ชะอม ตะไคร้ แตงกวา บวบ บัวสาย ผักกาดขาว ผักชี เผือก พริก หอม มันเทศ โหระพา กะเพรา แมงลัก มะเขือเทศ มะเขือ พริกไทย กระวาน กานพลู กวาวเครือ สำรอง หญ้าหวาน อบเชย อัญชัน ข้าวโพดฝักอ่อน ข้าวโพดรับประทาน เป็นต้น 
+ 
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card>
 
       <ion-item>
         <ion-label>
@@ -37,8 +46,7 @@
       <ion-item *ngIf="isValid('doing')">
         <span class="invalid-msg">Please select </span>
       </ion-item>
-    </ion-card>
-    <ion-card>
+   
 
       <ion-item>
         <ion-label>
@@ -56,16 +64,24 @@
       </ion-card-content>
     </ion-card>
 
+    
     <ion-card>
-      <!-- <location></location> -->
+        <ion-card-header>
+            แปลงที่ 1
+          </ion-card-header>
+      <ion-item>
+        <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
+      </ion-item>
+          <location></location>
     </ion-card>
+
     <ion-card>
       <ion-item>
         <ion-label>
           2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
         </ion-label>
       </ion-item>
-      <!-- <field-area></field-area> -->
+      <field-area></field-area>
     </ion-card>
 
     <ion-card>
@@ -149,10 +165,7 @@
       </ion-item>
     </ion-card>
 
-    <ion-card-header>
-      6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง
-    </ion-card-header>
-    <water-sources9></water-sources9>
+    <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
     
     <ion-grid>
       <ion-row>
