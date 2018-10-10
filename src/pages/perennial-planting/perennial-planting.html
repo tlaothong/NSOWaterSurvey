@@ -28,15 +28,14 @@
             พืชยืนต้น ไม้ผล เช่นเช่น กระท้อน กล้วย แก้วมังกร จาก เงาะ ชมพู่ หมาก หวาย หม่อน มะม่วง มะนาว มังคุด
           </dd>
           <dt>
-            ทุเรียน ลิ้นจี่ มะละกอ ลองกอง ลางสาด สะตอ สะเดา ส้มโอ ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว
-            ปาล์มน้้ามัน เป็นต้น</dt>
+            ทุเรียน ลิ้นจี่ มะละกอ ลองกอง ลางสาด สะตอ สะเดา ส้มโอ ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว ปาล์มน้้ามัน เป็นต้น</dt>
           <dd>
             สวนป่า เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่ </dd>
           <dt>
             สวนป่า เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่
-            </dt>
+          </dt>
         </dl>
-        
+
       </ion-card-content>
 
     </ion-card>
@@ -106,34 +105,38 @@
         <ion-item>
           <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="irrigationField">
-
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>อยู่</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่อยู่</ion-label>
-          </ion-item>
-          <ion-item *ngIf="isValid('irrigationField')">
-            <span class="invalid-msg">Please fill in </span>
-          </ion-item>
-        </ion-row>
+        <div formGroupName="fields">
+          <ion-row radio-group formControlName="irrigationField">
+            <ion-item col-6>
+              <ion-radio item-left></ion-radio>
+              <ion-label>อยู่</ion-label>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio item-left></ion-radio>
+              <ion-label>ไม่อยู่</ion-label>
+            </ion-item>
+            <ion-item *ngIf="isValid('fields.irrigationField')">
+              <span class="invalid-msg">Please fill in </span>
+            </ion-item>
+          </ion-row>
+        </div>
 
 
         <ion-item>
           <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-label>รายชื่อพืช</ion-label>
-          <ion-select interface="action-sheet" formControlName="names">
-            <ion-option>ยาสูบ</ion-option>
-            <ion-option>ละหุ่ง</ion-option>
-            <ion-option>สาคู</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item *ngIf="isValid('names')">
+        <div formGroupName="fields">
+          <ion-item>
+            <ion-label>รายชื่อพืช</ion-label>
+            <ion-select interface="action-sheet" formControlName="names">
+              <ion-option>ยาสูบ</ion-option>
+              <ion-option>ละหุ่ง</ion-option>
+              <ion-option>สาคู</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <ion-item *ngIf="isValid('fields.names')">
           <span class="invalid-msg">Please fill in </span>
         </ion-item>
       </ion-card-content>

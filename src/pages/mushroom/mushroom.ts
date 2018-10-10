@@ -22,7 +22,6 @@ export class MushroomPage {
     this.MushroomPlantFrm = this.fb.group({
       'doing': ['', Validators.required],
       'fieldCount': ['', Validators.required],
-      'irrigationField': ['', Validators.required],
       'areaMeter':['', Validators.required],// ขนาดพื้นที่เท่าไหร่กี่ตารางเมตร
       'houseNumber':['', Validators.required],
       'fields': this.fb.group({
@@ -36,7 +35,9 @@ export class MushroomPage {
           'rain': ['', Validators.required],
           'buying': ['', Validators.required],
           'other': ['', Validators.required],
-        })
+        }),
+        'irrigationField': ['', Validators.required],
+        
       }),
     });
   }

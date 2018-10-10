@@ -21,16 +21,14 @@ export class PerennialPlantingPage {
     this.PerennialPlantingFrm = this.fb.group({
       'doing':[null, Validators.required],
       'fieldCount':[null, Validators.required],
-      'irrigationField':[null, Validators.required],
-      'names':[null, Validators.required],
       'fields':this.fb.group({
+        'names':[null, Validators.required],
         'area': this.fb.group({
           'rai':[null, Validators.required],
           'ngan':[null, Validators.required],
           'sqWa':[null, Validators.required]
         }),
-       
-        // ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) 
+        'irrigationField':[null, Validators.required],
         'waterSource':this.fb.group({
           'rainingAsIs': [null, Validators.required],
             'plumbing': [null, Validators.required],
