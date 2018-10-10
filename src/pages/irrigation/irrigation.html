@@ -19,14 +19,6 @@
       <h3>5.5 น้ำจากชลประทาน</h3>
   
       <ion-card>
-        <ion-card-header>
-          <ion-item>
-            <ion-label>
-              (แสดงข้อมูล ชนิดพืช/การผลิต/การบริการ ที่เลือกใช้น้ำจากชลประทาน จากตอนที่ 1-4)
-            </ion-label>
-          </ion-item>
-        </ion-card-header>
-  
         <ion-card-content>
   
           <ion-item>
@@ -37,7 +29,7 @@
   
           <ion-row radio-group formControlName="cubicMeterPerMonth" [class.invalid]="isValid('cubicMeterPerMonth')">
             <ion-item *ngIf="isValid('cubicMeterPerMonth')">
-              <span class="invalid-msg">Please fill in </span>
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
             <ion-item>
               <ion-label>ทราบ</ion-label>
@@ -56,7 +48,7 @@
             <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="unknowPoolUsage" [class.invalid]="isValid('unknowPoolUsage')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('unknowPoolUsage')">
-            <span class="invalid-msg">Please fill in </span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
   
           <ion-item>
@@ -67,7 +59,7 @@
   
           <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
             <ion-item *ngIf="isValid('hasPump')">
-              <span class="invalid-msg">Please fill in </span>
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
             <ion-item col-6>
               <ion-label>1.ใช้</ion-label>
@@ -89,7 +81,7 @@
             <ion-input type="number" placeholder="จำนวนเครื่อง" formControlName="pumpCount" [class.invalid]="isValid('pumpCount')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('pumpCount')">
-            <span class="invalid-msg">Please fill in </span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
   
         </ion-card-content>
