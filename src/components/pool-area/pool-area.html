@@ -1,79 +1,88 @@
-<div radio-group>
-  <ion-item>
-    <ion-label>ทราบพื้นที่หรือไม่ กี่ไร่ กี่งาน กี่ตารางวา ความลึกของบ่อกี่เมตร</ion-label>
-    <ion-radio item-left></ion-radio>
-  </ion-item>
-  <ion-item>
-    <ion-label>ไม่ทราบพื้นที่ ถ้าบ่อเป็นสี่เหลี่ยม </ion-label>
-    <ion-radio item-left></ion-radio>
-  </ion-item>
-  <ion-item>
-    <ion-label>ไม่ทราบพื้นที่ ถ้าบ่อเป็นวงกลม </ion-label>
-    <ion-radio item-left></ion-radio>
-  </ion-item>
-</div>
+<ion-card (click)="showModal()">
+  <ion-card-content>
+    <ion-item>
+      <ion-label>
+        สระที่ {{ text }}
+      </ion-label>
+    </ion-item>
+    <div radio-group (ionChange)="showModal()">
+      <ion-item>
+        <ion-label>ทราบพื้นที่หรือไม่ กี่ไร่ กี่งาน กี่ตารางวา ความลึกของบ่อกี่เมตร</ion-label>
+        <ion-radio item-left></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>ไม่ทราบพื้นที่ ถ้าบ่อเป็นสี่เหลี่ยม </ion-label>
+        <ion-radio item-left></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>ไม่ทราบพื้นที่ ถ้าบ่อเป็นวงกลม </ion-label>
+        <ion-radio item-left></ion-radio>
+      </ion-item>
+    </div>
 
-<div [formGroup]="FormItem">
-  <ion-row (click)="showModalArea()">
-    <ion-col col-6>
-      <ion-item>
-        <ion-input type="number" disabled="true" item-left formControlName="rai"></ion-input>
-        <ion-label>ไร่</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-input type="number" disabled="true" item-left formControlName="ngan"></ion-input>
-        <ion-label>งาน</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-input type="number" disabled="true" item-left formControlName="sqWa"></ion-input>
-        <ion-label>ตารางวา</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-input type="number" disabled="true" item-left formControlName="depth"></ion-input>
-        <ion-label>ความลึก</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+    <div [formGroup]="FormItem">
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-input type="number" disabled="true" item-left formControlName="rai"></ion-input>
+            <ion-label>ไร่</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-input type="number" disabled="true" item-left formControlName="ngan"></ion-input>
+            <ion-label>งาน</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-input type="number" disabled="true" item-left formControlName="sqWa"></ion-input>
+            <ion-label>ตารางวา</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-input type="number" disabled="true" item-left formControlName="depth"></ion-input>
+            <ion-label>ความลึก</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-  <ion-row (click)="showModalRectangle()">
-    <ion-col col-4>
-      <ion-item>
-        <ion-input type="number" disabled="true" formControlName="width"></ion-input>
-        <ion-label>ความกว้าง</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col col-4>
-      <ion-item>
-        <ion-input type="number" disabled="true" formControlName="length"></ion-input>
-        <ion-label>ความยาว</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col col-4>
-      <ion-item>
-        <ion-input type="number" disabled="true" formControlName="depth"></ion-input>
-        <ion-label>ความลึก</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+      <ion-row>
+        <ion-col col-4>
+          <ion-item>
+            <ion-input type="number" disabled="true" formControlName="width"></ion-input>
+            <ion-label>ความกว้าง</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-input type="number" disabled="true" formControlName="length"></ion-input>
+            <ion-label>ความยาว</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-input type="number" disabled="true" formControlName="depth"></ion-input>
+            <ion-label>ความลึก</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-  <ion-row (click)="showModalCircle()">
-    <ion-col col-6>
-      <ion-item>
-        <ion-input type="number" disabled="true" formControlName="diameter"></ion-input>
-        <ion-label>เส้นผ่านศูนย์กลาง</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-input type="number" disabled="true" formControlName="depth"></ion-input>
-        <ion-label>ความลึก</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-</div>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-input type="number" disabled="true" formControlName="diameter"></ion-input>
+            <ion-label>เส้นผ่านศูนย์กลาง</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-input type="number" disabled="true" formControlName="depth"></ion-input>
+            <ion-label>ความลึก</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card-content>
+</ion-card>

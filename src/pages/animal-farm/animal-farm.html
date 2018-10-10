@@ -5,12 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>AnimalFarm</ion-title>
-  </ion-navbar>
+
+  <questionnaire-menu title="การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร"></questionnaire-menu>
+
 </ion-header>
 
 
@@ -54,23 +51,18 @@
 
 
 
-
-      <!-- <ion-list>
-      <table-check-item-count [ititle]="'1.วัว '" [FormItem]="f.get('cow')"></table-check-item-count>
-      <table-check-item-count [ititle]="'2. ควาย'" [FormItem]="f.get('buffalo')"></table-check-item-count>
-      <table-check-item-count [ititle]="'3. หมู'" [FormItem]="f.get('pig')"></table-check-item-count>
-      <table-check-item-count [ititle]="'4. แพะ'" [FormItem]="f.get('goat')"></table-check-item-count>
-      <table-check-item-count [ititle]="'5. แกะ'" [FormItem]="f.get('sheep')"></table-check-item-count>
-      <table-check-item-count [ititle]="'6.ไก่ '" [FormItem]="f.get('chicken')"></table-check-item-count>
-      <table-check-item-count [ititle]="'7. เป็ด'" [FormItem]="f.get('duck')"></table-check-item-count>
-      <table-check-item-count [ititle]="'8. ห่าน'" [FormItem]="f.get('goose')"></table-check-item-count>
-      <table-check-item-count [ititle]="'9. ไหม'" [FormItem]="f.get('silk')"></table-check-item-count>
-      <table-check-item-count [ititle]="'10. อื่นๆ'" [FormItem]="f.get('other')"></table-check-item-count>
-    </ion-list>
- -->
-
-
-
+      <ion-list>
+        <table-check-item-count unit="ตัว" [ititle]="'1.วัว '" [FormItem]="AnimalFarmForm.get('cow')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'2. ควาย'" [FormItem]="AnimalFarmForm.get('buffalo')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'3. หมู'" [FormItem]="AnimalFarmForm.get('pig')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'4. แพะ'" [FormItem]="AnimalFarmForm.get('goat')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'5. แกะ'" [FormItem]="AnimalFarmForm.get('sheep')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'6.ไก่ '" [FormItem]="AnimalFarmForm.get('chicken')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'7. เป็ด'" [FormItem]="AnimalFarmForm.get('duck')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'8. ห่าน'" [FormItem]="AnimalFarmForm.get('goose')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'9. ไหม'" [FormItem]="AnimalFarmForm.get('silk')"></table-check-item-count>
+        <table-check-item-count unit="ตัว" [ititle]="'10. อื่นๆ'" [FormItem]="AnimalFarmForm.get('other')"></table-check-item-count>
+      </ion-list>
     </ion-card>
 
 

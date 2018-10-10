@@ -16,7 +16,7 @@ export class PumpComponent {
 
   constructor() {
     console.log('Hello PumpComponent Component');
-    this.text = 'ddd';
+    this.text = '1';
   }
 
 }

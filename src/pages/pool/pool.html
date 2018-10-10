@@ -1,19 +1,19 @@
-
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Pool</ion-title>
-  </ion-navbar>
+  <questionnaire-menu title="น้ำจากสระน้ำ/หนองน้ำ/บึง "></questionnaire-menu>
 
 </ion-header>
 
-
 <ion-content padding>
- <h3>5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง</h3>
-<ion-card>
+
+
+  <h3>5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง</h3>
+
+  <form (ngSubmit)="handleSubmit()" [formGroup]="pool">
+
+    <ion-card>
+
+
       <ion-card-content>
         <ion-item>
           <ion-label>
@@ -30,7 +30,7 @@
             <ion-label>ไม่มี (ข้ามไปถามแหล่งน้้ำถัดไป)</ion-label>
           </ion-item>
           <ion-item *ngIf="isValid('isExist')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
         <ion-item>
@@ -39,10 +39,10 @@
           </ion-label>
         </ion-item>
         <ion-item formControlName="poolCount">
-          <ion-input placeholder=""></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('poolCount')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
         <ion-item>
           <ion-label>
@@ -59,24 +59,13 @@
             <ion-label>ไม่เท่า</ion-label>
           </ion-item>
           <ion-item *ngIf="isValid('poolEqual')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
       </ion-card-content>
     </ion-card>
 
-    <!-- component P'sor -->
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            สระที่ 1 (ถามขนาดของสระ)
-          </ion-label>
-        </ion-item>
-        <pool-area></pool-area>
-      </ion-card-content>
-
-    </ion-card>
+    <pool-area></pool-area>
 
     <ion-card>
       <ion-card-content>
@@ -89,87 +78,13 @@
           <ion-input type="number" placeholder="`กรอกจำนวนสระ`"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('poolCountUsage')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>สระที่ 1</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            1) ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
-          </ion-label>
-        </ion-item>
+    <pool-usage></pool-usage>
 
-        <div formGroupName="poolUsage">
-          <ion-row radio-group formControlName="unknowPoolUsage" [class.invalid]="isValid('poolUsage.unknowPoolUsage')">
-            <ion-item col-12>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ทราบปริมาณน้ำ</ion-label>
-            </ion-item>
-            <ion-item col-12>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ทราบ</ion-label>
-            </ion-item>
-            <ion-item *ngIf="isValid('poolUsage.unknowPoolUsage')">
-              <span class="invalid-msg">Please fill in name</span>
-            </ion-item>
-            <ion-item>
-              <ion-label>ปริมาณน้ำ (ลบ.ม./เดือน)</ion-label>
-            </ion-item>
-            <ion-item formControlName="cubicMeterPerMonth" [class.invalid]="isValid('poolUsage.cubicMeterPerMonth')">
-              <ion-input placeholder="กรอกปริมาณน้ำ"></ion-input>
-            </ion-item>
-            <ion-item *ngIf="isValid('poolUsage.cubicMeterPerMonth')">
-              <span class="invalid-msg">Please fill in name</span>
-            </ion-item>
-          </ion-row>
-          <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('poolUsage.hasPump')">
-            <ion-item>
-              <ion-label>
-                2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
-              </ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ใช้</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ใช้</ion-label>
-            </ion-item>
-            <ion-item *ngIf="isValid('poolUsage.hasPump')">
-              <span class="invalid-msg">Please fill in name</span>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
-              </ion-label>
-            </ion-item>
-            <ion-item formControlName="pumpCount" [class.invalid]="isValid('poolUsage.pumpCount')">
-              <ion-input placeholder="กรอกจำนวนเครื่องสูบน้ำ"></ion-input>
-            </ion-item>
-            <ion-item *ngIf="isValid('poolUsage.pumpCount')">
-              <span class="invalid-msg">Please fill in name</span>
-            </ion-item>
-          </ion-row>
-        </div>
-      </ion-card-content>
-    </ion-card>
-
-
-    <!--Component Pump-->
-    <pump></pump>
-
-    <!--Component WaterActivity-->
-    <water-activity6 headline="5) ใช้น้้าจากสระนี้เพื่อท้ากิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"></water-activity6>
-
-    <!--Component Problem4-->
-    <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่"></water-problem4>
     <ion-grid>
       <ion-row>
         <ion-col>
