@@ -45,11 +45,4 @@ export class HomePage {
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
   }
-
-  public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent);
-    popover.present({
-      ev: myEvent
-    });
-  }
 }
