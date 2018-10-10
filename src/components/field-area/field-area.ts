@@ -24,7 +24,7 @@ export class FieldAreaComponent {
     this.text = '';
 
     // TODO: Remove this
-    const fg = this.fb.group({
+    this.FormItem = this.fb.group({
       'rai': null,
       'ngan': null,
       'sqWa': null,
