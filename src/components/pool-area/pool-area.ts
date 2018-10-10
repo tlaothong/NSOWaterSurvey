@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the PoolAreaComponent component.
@@ -12,11 +14,70 @@ import { Component } from '@angular/core';
 })
 export class PoolAreaComponent {
 
-  text: string;
+  @Input("headline") private text: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor() {
+  private submitRequested: boolean;
+
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello PoolAreaComponent Component');
-    this.text = 'Hello World';
+    this.text = '';
+
+    // TODO: Remove this
+    this.FormItem = this.fb.group({
+      'rai': null,
+      'ngan': null,
+      'sqWa': null,
+      'depth': null,
+      'width': null,
+      'length': null,
+      'diameter': null
+    });
+  }
+
+  public showModalArea() {
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem = data;
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
+      }
+    });
+    modal.present();
+  }
+
+  public showModalRectangle() {
+    const modal = this.modalCtrl.create("DlgRectanglePoolPage", { FormItem: this.FormItem, headline: this.text });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem = data;
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
+      }
+    });
+    modal.present();
+  }
+
+  public showModalCircle() {
+    const modal = this.modalCtrl.create("DlgCirclePoolPage", { FormItem: this.FormItem, headline: this.text });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem = data;
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
+      }
+    });
+    modal.present();
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

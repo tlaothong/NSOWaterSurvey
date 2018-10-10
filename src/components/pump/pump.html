@@ -1,71 +1,71 @@
 <ion-card>
-    <ion-card-header>
-      เครื่องที่ N
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>1) เป็นเครื่องสูบอัตโนมัติ ใช่หรือไม่</ion-label>
+  <ion-card-content>
+    <ion-item>
+      <ion-label>เครื่องที่ N</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>1) เป็นเครื่องสูบอัตโนมัติ ใช่หรือไม่</ion-label>
+    </ion-item>
+
+    <ion-row radio-group>
+      <ion-item col-6>
+        <ion-label>ใช่</ion-label>
+        <ion-radio item-left></ion-radio>
       </ion-item>
-  
-      <ion-row radio-group>
-        <ion-item col-6>
-          <ion-label>ใช่</ion-label>
-          <ion-radio item-left></ion-radio>
-        </ion-item>
-        <ion-item col-6>
-          <ion-label>ไม่ใช่</ion-label>
-          <ion-radio item-left></ion-radio>
-        </ion-item>
-      </ion-row>
-  
-      <ion-item>
-        <ion-label>2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งนานเท่าไร (ให้ประมาณน้ำทุกกิจกรรมรวมกัน)</ion-label>
+      <ion-item col-6>
+        <ion-label>ไม่ใช่</ion-label>
+        <ion-radio item-left></ion-radio>
       </ion-item>
-      <ion-list radio-group>
-        <ion-item>
-          <ion-label>ทราบ</ion-label>
-          <ion-radio item-left></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>ไม่ทราบ</ion-label>
-          <ion-radio item-left></ion-radio>
-        </ion-item>
-        <ion-item>
-            <ion-label>ทราบระยะเวลาในการสูบน้ำ(ชม.)</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="จำนวนการใช้น้ำ"></ion-input>
-        </ion-item>
-      </ion-list>
-  
+    </ion-row>
+
+    <ion-item>
+      <ion-label>2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งนานเท่าไร (ให้ประมาณน้ำทุกกิจกรรมรวมกัน)</ion-label>
+    </ion-item>
+    <ion-list radio-group>
       <ion-item>
-        <ion-label>3) ในระยะเวลา 1 ปีสูบน้ำกี่ครั้ง</ion-label>
+        <ion-label>ทราบ</ion-label>
+        <ion-radio item-left></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="จำนวนครั้ง"></ion-input>
+        <ion-label>ไม่ทราบ</ion-label>
+        <ion-radio item-left></ion-radio>
       </ion-item>
-  
       <ion-item>
-        <ion-label>4) มีอัตราการสูบเท่าไร</ion-label>
+        <ion-label>ทราบระยะเวลาในการสูบน้ำ(ชม.)</ion-label>
       </ion-item>
-  
-      <ion-list radio-group>
-        <ion-item>
-          <ion-label>ทราบ</ion-label>
-          <ion-radio item-left></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>ไม่ทราบ</ion-label>
-          <ion-radio item-left></ion-radio>
-        </ion-item>
-        <ion-item>
-            <ion-label>ทราบอัตราการสูบน้ำ(ลบ.ม./ชม.)</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input tyep="number" placeholder="อัตราการสูบน้ำ"></ion-input>
-        </ion-item>
-      </ion-list>
-      <machine-water></machine-water>
-  
-    </ion-card-content>
-  </ion-card>
+      <ion-item>
+        <ion-input type="number" placeholder="จำนวนการใช้น้ำ"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label>3) ในระยะเวลา 1 ปีสูบน้ำกี่ครั้ง</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" placeholder="จำนวนครั้ง"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>4) มีอัตราการสูบเท่าไร</ion-label>
+    </ion-item>
+
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>ทราบ</ion-label>
+        <ion-radio item-left></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>ไม่ทราบ</ion-label>
+        <ion-radio item-left></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>ทราบอัตราการสูบน้ำ(ลบ.ม./ชม.)</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input tyep="number" placeholder="อัตราการสูบน้ำ"></ion-input>
+      </ion-item>
+    </ion-list>
+    <machine-water></machine-water>
+
+  </ion-card-content>
+</ion-card>
