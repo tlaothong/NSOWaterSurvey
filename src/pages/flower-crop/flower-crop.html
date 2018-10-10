@@ -17,10 +17,10 @@
     <ion-card-content>
       <dl>
         <dd>
-          ไม้ดอก 
+          ไม้ดอก
         </dd>
         <dt>
-เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จ้าปา จ้าปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ
+          เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จ้าปา จ้าปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ
           เยอร์บิรา หน้าวัว เป็นต้น ไม้ประดับ เช่น โกสน เข็ม เตย ไทร
           เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาลม์ต่าง ๆ ไผ่
           เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปสูนาม เป็นต้น
@@ -29,7 +29,7 @@
     </ion-card-content>
   </ion-card>
 
-    
+
   <ion-card>
     <ion-item>
       <ion-label>
@@ -103,6 +103,14 @@
       </ion-label>
     </ion-item>
     <ion-list>
+      <ion-item *ngFor="let p of shownData" text-center>
+        {{ p }}
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label ion-button (click)="model()">เลือก</ion-label>
+    </ion-item>
+    <!-- <ion-list>
       <ion-item>
         <ion-label>รายชื่อพืช</ion-label>
         <ion-select interface="action-sheet">
@@ -114,7 +122,7 @@
           <ion-option>รักเร่</ion-option>
         </ion-select>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
   </ion-card>
 
   <ion-card>
