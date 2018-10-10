@@ -20,7 +20,10 @@
           <br> (น้ำท่วมขัง น้ำรอการระบาย) หรือไม่</ion-label>
       </ion-item>
 
-      <ion-row radio-group formControlName="flooded">
+      <ion-row radio-group formControlName="flooded" [class.invalid]="isValid('flooded')">
+        <ion-item *ngIf="isValid('flooded')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
         <ion-item col-6>
           <ion-radio item-left></ion-radio>
           <ion-label>มีปัญหา</ion-label>
@@ -29,9 +32,6 @@
           <ion-radio item-left></ion-radio>
           <ion-label>ไม่มีปัญหา</ion-label>
         </ion-item>
-        <ion-item *ngIf="isValid('flooded')">
-            <span class="invalid-msg">กรุณาเลือก</span>
-          </ion-item>
       </ion-row>
     </ion-card-content>
   </ion-card>
