@@ -1,24 +1,23 @@
 <!-- Generated template for the RainStorageComponent component -->
 <ion-row style="align-items: center" (click)="presentModal()" [formGroup]="FormItem">
-  <ion-col col-6>
-   <ion-item>
-     <ion-label>1.</ion-label>
-      <ion-input type="text" disabled="true" formControlName="ware">0</ion-input>
-      <span item-end>&nbsp;เลือกภาชนะ</span>
+
+  <ion-col>
+    <ion-item>
+      <ion-label>{{ text }}</ion-label>
+      <ion-input type="text" placeholder="เลือกภาชนะ" disabled="true" formControlName="ware"></ion-input>
     </ion-item>
   </ion-col>
   <ion-col>
-   <ion-item>
-      <ion-input type="number" disabled="true" formControlName="liter" item-left>0</ion-input>
+    <ion-item>
+      <ion-input type="number" disabled="true" formControlName="liter"></ion-input>
       <ion-label>ลิตร</ion-label>
     </ion-item>
   </ion-col>
   <ion-col>
-   <ion-item>
-      <ion-input type="number" disabled="true" formControlName="countware" item-left>0</ion-input>
+    <ion-item>
+      <ion-input type="number" disabled="true" formControlName="countware" ></ion-input>
       <ion-label>จำนวน</ion-label>
     </ion-item>
   </ion-col>
-  
-</ion-row>
 
+</ion-row>
