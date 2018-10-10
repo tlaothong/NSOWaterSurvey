@@ -78,7 +78,12 @@
 
         <div formGroupName="avgUsageWater">
 
-          <ion-row radio-group formControlName="usageType">
+          <ion-row radio-group formControlName="usageType" [class.invalid]="isValid('avgUsageWater.usageType')">
+
+            <ion-item *ngIf="isValid('avgUsageWater.usageType')">
+              <span class="invalid-msg">Please select</span>
+            </ion-item>
+
             <ion-item>
               <ion-radio value="1" item-left></ion-radio>
               <ion-label>ทราบปริมาณน้ำ</ion-label>
