@@ -25,7 +25,7 @@
           <ion-label>3.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ" formControlName="name"></ion-input>
+          <ion-input class="backgroundinput" type="text" placeholder="ชื่อสถานประกอบการหรือหน่วยงาน" formControlName="name"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('name')">
           <span class="invalid-msg">Please fill in name</span>
@@ -35,7 +35,7 @@
           <ion-label>3.2 สถานประกอบการแห่งนี้ผลิตสินค้าประเภทใด (ระบุสินค้าหลักที่ผลิต)</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ" formControlName="category"></ion-input>
+          <ion-input class="backgroundinput" type="text" placeholder="ประเภทสินค้า" formControlName="category"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('category')">
           <span class="invalid-msg">Please fill in name</span>
@@ -46,7 +46,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ" formControlName="workersCount"></ion-input>
+          <ion-input class="backgroundinput" type="number" placeholder="จำนวนทั้งหมดกี่คน" formControlName="workersCount"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('workersCount')">
           <span class="invalid-msg">Please fill in name</span>
@@ -71,6 +71,8 @@
         </ion-row>
       </ion-card-content>
     </ion-card>
+
+  <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง '"></water-sources8-b>
 
     <ion-card>
       <ion-card-content>
