@@ -22,7 +22,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
 
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterSources8AComponent Component');
-    this.text = 'Hello World';
+    this.text = '';
 
     // TODO: Remove this
     this.FormItem = this.fb.group({
