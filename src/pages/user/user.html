@@ -74,7 +74,7 @@
               <ion-option>16.อื่นๆ</ion-option>
             </ion-select>
           </ion-item>
-         
+
           <ion-item *ngIf="isValid('serviceType.string')">
             <span class="invalid-msg">Please fill in name</span>
           </ion-item>
@@ -82,12 +82,23 @@
         </div>
       </ion-card-content>
     </ion-card>
+
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block type="submit">Save & Next</button>
+          <button ion-button icon-only color="secondary" type="button">
+            <ion-icon name="rewind"></ion-icon>
+          </button>
+          <button ion-button icon-start color="secondary" type="button">
+            <ion-icon name="arrow-back"></ion-icon>
+            คำถามก่อนหน้า
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block type="submit">บันทึก และ จบการสัมภาษณ์</button>
         </ion-col>
       </ion-row>
     </ion-grid>
+
   </form>
 </ion-content>
