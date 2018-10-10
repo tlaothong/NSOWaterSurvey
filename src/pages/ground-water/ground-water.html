@@ -58,7 +58,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ground-water-usage></ground-water-usage>
+    <ground-water-usage #avgWater [FormItem]="groundWaterForm.get('avgUsageWater')"></ground-water-usage>
 
     <ion-card>
       <ion-card-content>

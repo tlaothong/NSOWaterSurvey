@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the GroundWaterPage page.
@@ -14,8 +15,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   selector: 'page-ground-water',
   templateUrl: 'ground-water.html',
 })
-export class GroundWaterPage {
 
+export class GroundWaterPage {
+  @ViewChild('avgWater') avgWater: ISubmitRequestable;
   private submitRequested: boolean;
   public groundWaterForm: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
@@ -24,11 +26,7 @@ export class GroundWaterPage {
       'groundWaterCount': [null, Validators.required],
       'useGroundWaterCount': [null, Validators.required],
       'avgUsageWater': this.fb.group({
-        'usageType': this.fb.group({
-          'CubicMeterPerMonth':[''],
-          'WaterBill':[''],
-          'Unknown':[''],
-        }),
+        'usageType': [null, Validators.required],
         'usageCubicMeters': [null, Validators.required],
         'waterBill': [null, Validators.required],
         'hasPump': [null, Validators.required],
@@ -139,7 +137,7 @@ export class GroundWaterPage {
   }
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.avgWater.submitRequest();
   }
 
   public isValid(name: string): boolean {
