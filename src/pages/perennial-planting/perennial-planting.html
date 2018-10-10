@@ -20,7 +20,7 @@
   <form (ngSubmit)="handleSubmit()" [formGroup]="PerennialPlantingFrm">
 
 
-    <h3>ตอนที่ 2.4 พืชยืนต้น ไม่ผล สวนป่า</h3>
+    <h3>ตอนที่ 2.4 พืชยืนต้น ไม้ผล สวนป่า</h3>
     <ion-card>
       <ion-card-content>
         <dl>
@@ -45,7 +45,7 @@
 
         <ion-item>
           <ion-label>
-            2.4.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชยืนต้น ไม่ผล สวนป่า หรือไม่
+            2.4.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชยืนต้น ไม้ผล สวนป่า หรือไม่
           </ion-label>
         </ion-item>
 
@@ -66,7 +66,7 @@
 
         <ion-item>
           <ion-label>
-            2.4.2 ถ้า “ปลูก” มีพื้นที่ปลูกพืชยืนต้น ไม่ผล สวนป่า จ้านวนกี่แปลง
+            2.4.2 ถ้า “ปลูก” มีพื้นที่ปลูกพืชยืนต้น ไม้ผล สวนป่า จำนวนกี่แปลง
           </ion-label>
         </ion-item>
 
@@ -81,8 +81,6 @@
       </ion-card-content>
     </ion-card>
 
-
-    (segment แปลง)
     <ion-card>
       <ion-card-header>
         แปลงที่ 1
@@ -97,7 +95,7 @@
 
 
         <ion-item>
-          <ion-label>2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตาราง </ion-label>
+          <ion-label>2) ขนาดพื้นที่เท่าไหร่ กี่ไร่ กี่งาน กี่ตาราง </ion-label>
         </ion-item>
 
         <field-area></field-area>
@@ -124,7 +122,7 @@
 
 
         <ion-item>
-          <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) </ion-label>
+          <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด </ion-label>
         </ion-item>
         <div formGroupName="fields">
           <ion-item [class.invalid]="isValid('fields.names')">
