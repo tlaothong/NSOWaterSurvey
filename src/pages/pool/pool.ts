@@ -25,12 +25,76 @@ export class PoolPage {
       'isExist': [null, Validators.required],
       'poolCount': [null, Validators.required],
       'poolEqual': [null, Validators.required],
+      'PoolSize':this.fb.group({
+        'Shape':this.fb.group({
+          'Area':[''],
+          'Rectangle':[''],
+          'Circle':[''],
+        }),
+        'Area':this.fb.group({
+          'Rai':[''],
+          'Ngan':[''],
+          'SqWa':[''],
+        }),
+        'Depth':[''],
+        'Rectangle':this.fb.group({
+          'Width':[''],
+          'Length':[''],
+        }),
+        'Diameter':['']
+      }),
       'poolCountUsage': [null, Validators.required],
       'poolUsage': this.fb.group({
-        'unknowPoolUsage': [null, Validators.required],
         'cubicMeterPerMonth': [null, Validators.required],
+        'unknowPoolUsage': [null, Validators.required],
         'hasPump': [null, Validators.required],
-        'pumpCount': [null, Validators.required]
+        'pumpCount': [null, Validators.required],
+        'Pump':this.fb.group({
+          'PumpAuto':[''],
+          'UnknowHoursPerPump':[''],
+          'HoursPerPump':[''],
+          'NumberOfPumpsPerYear':[''],
+          'PumpRate':this.fb.group({
+            'KnowPumpRate':[''],
+            'PumpRateUsage':[''],
+          }),
+          'EnergySource':this.fb.group({
+            'ElecticPump':[''],
+            'SolaPump':[''],
+            'PetrolPump':[''],
+            'TwoWheeledTractors':[''],
+          }),
+          'PumpType':this.fb.group({
+            'ElecticPump':[''],
+            'SolaPump':[''],
+            'PetrolPump':[''],
+            'TwoWheeledTractors':[''],
+          }),
+          'HorsePower':[''],
+          'SuctionPipeSize':[''],
+          'PipelineSize':[''],
+        }),
+        'WaterActivity':this.fb.group({
+          'Drink':[''],
+          'Plant':[''],
+          'Farm':[''],
+          'Agriculture':[''],
+          'Product':[''],
+          'Service':[''],
+        }),
+        'WaterProblem':this.fb.group({
+          'HasProblem':[''],
+          'Problem':this.fb.group({
+            'TurbidWater':[''],
+            'SaltWater':[''],
+            'Smell':[''],
+            'FilmOfOil':[''],
+            'FogWater':[''],
+            'HardWater':[''],
+            
+          })
+        })
+
       })
     })
   }
