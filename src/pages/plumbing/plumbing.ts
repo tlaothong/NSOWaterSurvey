@@ -33,12 +33,7 @@ export class PlumbingPage {
           'HardWater': [false, Validators.required]
         }),
         'PlumbingUsage': this.fb.group({
-          'WaterQuantity': this.fb.group({
-            'isCubicMeterPerMonth': [false, Validators.required],
-            'isWaterBill': [false, Validators.required],
-            'isUnknowNoMeter': [false, Validators.required],
-            'isUnknowExcepted': [false, Validators.required]
-          }),
+          'WaterQuantity': null,
           'CubicMeterPerMonth': ['', Validators.required],
           'WaterBill': ['', Validators.required],
           'UnknowNoMeter': ['', Validators.required],
@@ -110,6 +105,8 @@ export class PlumbingPage {
       'WaterNotRunning': ['', Validators.required],
       'WaterNotRunningCount': ['', Validators.required]
     });
+
+    // this.PlumbingForm.get('MWA.PlumbingUsage.WaterQuantity').valueChanges.subscribe(x => alert(x));
   }
 
   ionViewDidLoad() {
