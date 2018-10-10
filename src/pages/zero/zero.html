@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-    <questionnaire-menu title="ตัวอย่าง"></questionnaire-menu>
+  <questionnaire-menu title="ตัวอย่าง"></questionnaire-menu>
 
 </ion-header>
 
@@ -61,10 +61,12 @@
             </div>
 
             <div *ngSwitchCase="3" formArrayName="fieldAreas">
-                <ion-item>
+              <ion-item>
                 <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area headline="ครั้งที่ {{ i + 1 }} " *ngFor="let far of f.get('fieldAreas').controls; let i = index" [FormItem]="f.get('fieldAreas').at(i)"></field-area>
+              <div *ngFor="let far of f.get('fieldAreas').controls; let i = index">
+                <field-area headline="ครั้งที่ {{ i + 1 }} " [FormItem]="far"></field-area>
+              </div>
             </div>
           </div>
 
@@ -147,7 +149,7 @@
 
     <water-sources8-a #ws8 headline="ตัวอย่างการใช้ component" [FormItem]="f.get('waterSources')"></water-sources8-a>
     <water-sources8-a [headline]="headtext" [FormItem]="f.get('waterSources')"></water-sources8-a>
-    <water-sources8-a [headline]="'ใส่ตรงๆ'" ></water-sources8-a>
+    <water-sources8-a [headline]="'ใส่ตรงๆ'"></water-sources8-a>
 
     <ion-card>
       <ion-card-header>
@@ -170,7 +172,7 @@
       <ion-list>
         <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('preSchool')"></table-check-item-count>
         <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'" [FormItem]="f.get('kindergarten')"></table-check-item-count>
-        <table-check-item-count unit="คน" [ititle]="'3. มัธยม'" ></table-check-item-count>
+        <table-check-item-count unit="คน" [ititle]="'3. มัธยม'"></table-check-item-count>
         <table-check-item-count unit="คน" [ititle]="'4. สายอาชีพ'" [FormItem]="f.get('vocational')"></table-check-item-count>
       </ion-list>
     </ion-card>
