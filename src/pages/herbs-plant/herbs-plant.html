@@ -40,7 +40,7 @@
 
         <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
           <ion-item *ngIf="isValid('doing')">
-            <span class="invalid-msg">Please select </span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
@@ -64,7 +64,7 @@
           <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('fieldCount')">
-          <span class="invalid-msg">Please fill in </span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -98,7 +98,7 @@
       <div formGroupName="fields">
         <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
           <ion-item *ngIf="isValid('fields.irrigationField')">
-            <span class="invalid-msg">Please fill in </span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
@@ -133,7 +133,7 @@
             </ion-select>
           </ion-item>
           <ion-item *ngIf="isValid('fields.names')">
-            <span class="invalid-msg">Please fill in </span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-list>
       </div>
@@ -151,7 +151,7 @@
       <div formGroupName="fields">
         <ion-row radio-group formControlName="thisPlantOnly" [class.invalid]="isValid('fields.thisPlantOnly')">
           <ion-item *ngIf="isValid('fields.thisPlantOnly')">
-            <span class="invalid-msg">Please fill in </span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
           <ion-item>
             <ion-radio item-left></ion-radio>
@@ -168,7 +168,7 @@
 
         <ion-item [class.invalid]="isValid('fields.MixedWithPrimaryPlant')">
           <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
-          <ion-select formControlName="MixedWithPrimaryPlant">
+          <ion-select interface="action-sheet" formControlName="MixedWithPrimaryPlant">
             <ion-option>ข้าว</ion-option>
             <ion-option>พืชไร่</ion-option>
             <ion-option>ต้นยางพารา</ion-option>
@@ -176,7 +176,7 @@
           </ion-select>
         </ion-item>
         <ion-item *ngIf="isValid('fields.MixedWithPrimaryPlant')">
-          <span class="invalid-msg">Please fill in </span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
       </div>
     </ion-card>
