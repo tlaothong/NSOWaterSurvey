@@ -37,6 +37,7 @@ export class HomePage {
       { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: '5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง ', component: "PoolPage" },
+      { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" }
     ];
   }
 
