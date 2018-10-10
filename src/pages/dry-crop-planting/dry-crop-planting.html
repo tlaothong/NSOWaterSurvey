@@ -52,7 +52,7 @@
               <ion-label>ไม่ปลูก</ion-label>
             </ion-item>
             <ion-item *ngIf="isValid('doing')">
-              <span class="invalid-msg">Please select one</span>
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
           </ion-row>
 
@@ -62,12 +62,10 @@
             </ion-label>
           </ion-item>
           <ion-item formControlName="fieldCount">
-            <ion-input>
-
-            </ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('fieldCount')">
-            <span class="invalid-msg">Please insert</span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
         </ion-list>
       </ion-card-content>
@@ -112,7 +110,7 @@
             <ion-label>ไม่อยู่</ion-label>
           </ion-item>
           <ion-item *ngIf="isValid('irrigationField')">
-            <span class="invalid-msg">Please select one</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
 
@@ -132,7 +130,7 @@
           </ion-select>
         </ion-item>
         <ion-item *ngIf="isValid('names')">
-          <span class="invalid-msg">Please select</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
 
 

@@ -17,7 +17,7 @@
           <ion-input class="backgroundinput" type="text" placeholder="ชื่อสถานประกอบการหรือหน่วยงาน" formControlName="name" [class.invalid]="isValid('name')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('name')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอก</span>
         </ion-item>
 
         <ion-item>
@@ -27,7 +27,7 @@
           <ion-input class="backgroundinput" type="text" placeholder="ประเภทสินค้า" formControlName="category" [class.invalid]="isValid('category')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('category')">
-          <span class="invalid-msg">Please fill in category</span>
+          <span class="invalid-msg">กรุณากรอก</span>
         </ion-item>
 
         <ion-item>
@@ -38,7 +38,7 @@
           <ion-input class="backgroundinput" type="number" placeholder="จำนวนทั้งหมดกี่คน" formControlName="workersCount" [class.invalid]="isValid('workersCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('workersCount')">
-          <span class="invalid-msg">Please fill in workersCount</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
         <ion-item>
           <ion-label>3.4 สถานประกอบการแห่งนี้ใช้เครื่องจักรที่มีขนาดแรงม้าตั้งแต่ 5 แรงม้าหรือ 3,725 วัตต์ขึ้นไป
@@ -55,7 +55,7 @@
             <ion-radio item-left></ion-radio>
           </ion-item>
           <ion-item *ngIf="isValid('heavyMachine')">
-            <span class="invalid-msg">Please Select in heavyMachine</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
       </ion-card-content>
@@ -78,7 +78,7 @@
             <ion-radio item-left></ion-radio>
           </ion-item>
           <ion-item *ngIf="isValid('hasWasteWaterFromProduction')">
-            <span class="invalid-msg">Please Select in hasWasteWaterFromProduction</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
 
@@ -96,7 +96,7 @@
             <ion-radio item-left></ion-radio>
           </ion-item>
           <ion-item *ngIf="isValid('hasWasteWaterTreatment')">
-            <span class="invalid-msg">Please Select in hasWasteWaterTreatment</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
 
@@ -114,7 +114,7 @@
             <ion-radio item-left></ion-radio>
           </ion-item>
           <ion-item *ngIf="isValid('wasteWaterReuse')">
-            <span class="invalid-msg">Please Select in wasteWaterReuse</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
         </ion-row>
       </ion-card-content>

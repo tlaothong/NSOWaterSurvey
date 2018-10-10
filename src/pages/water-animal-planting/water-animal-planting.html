@@ -33,7 +33,7 @@
           </ion-item>
         </ion-row>
         <ion-item *ngIf="isValid('doing')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -152,11 +152,11 @@
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-input formControlName="fieldCount" [class.invalid]="isValid('fish.fieldCount')"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวน"formControlName="fieldCount" [class.invalid]="isValid('fish.fieldCount')"></ion-input>
           </ion-item>
 
           <ion-item *ngIf="isValid('fish.fieldCount')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
 
           <ion-item>
@@ -176,7 +176,7 @@
             </ion-item>
           </ion-row>
           <ion-item *ngIf="isValid('fish.fieldsAreSameSize')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
 
         </div>
@@ -208,10 +208,10 @@
             <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบันจำนวนเท่าไร(รวมบ่อ/รวมสวน)</ion-label>
           </ion-item>
           <ion-item>
-            <ion-input formControlName="animalsCount" [class.invalid]="isValid('fish.animalsCount')"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('fish.animalsCount')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('fish.animalsCount')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
           </div>
 
@@ -271,7 +271,7 @@
           <ion-label> 2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input ></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
 
         </ion-item>
         
@@ -315,7 +315,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input  ></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน"  ></ion-input>
         </ion-item>
        
 
@@ -362,10 +362,10 @@
           <ion-label> 3) จำนวนที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="animalsCount" [class.invalid]="isValid('fish.animalsCount')"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('fish.animalsCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('fish.animalsCount')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
         </div>
       </ion-card-content>

@@ -15,7 +15,7 @@ export class HomePage {
     this.pages = [
       // test push
       { title: 'Zero', component: "ZeroPage" },
-      { title: 'ตอนที่4 การค้าและบริการ', component: "CommercialPage" },
+      { title: 'ตอนที่ 4 การค้าและบริการ', component: "CommercialPage" },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
       { title: 'ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด', component: "MushroomPage" },
       { title: '5.1 น้้ำประปา ', component: "PlumbingPage" },

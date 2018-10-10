@@ -28,7 +28,7 @@
         </ion-row>
 
         <ion-item *ngIf="isValid('privateGroundWater')">
-          <span class="invalid-msg">Please select</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
 
         <ion-item>
@@ -41,7 +41,7 @@
           <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('groundWaterCount')">
-          <span class="invalid-msg">Please select</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
         <ion-item>
@@ -52,7 +52,7 @@
           <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="useGroundWaterCount" [class.invalid]="isValid('useGroundWaterCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('useGroundWaterCount')">
-          <span class="invalid-msg">Please select</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
       </ion-card-content>
@@ -71,7 +71,7 @@
         <ion-row radio-group formControlName="publicGroundWater" [class.invalid]="isValid('publicGroundWater')">
 
           <ion-item *ngIf="isValid('publicGroundWater')">
-            <span class="invalid-msg">Please select</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
 
           <ion-item col-6>
@@ -96,7 +96,7 @@
         </ion-item>
 
         <ion-item *ngIf="isValid('publicGroundWater')">
-          <span class="invalid-msg">Please select</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
       </ion-card-content>
 
