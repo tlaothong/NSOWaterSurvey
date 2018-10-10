@@ -11,6 +11,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>WaterAnimalPlantingPage</ion-title>
+    <!-- aquaticAnimalPage -->
   </ion-navbar>
 
 </ion-header>
@@ -20,12 +21,14 @@
   <h3>ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด</h3>
   <form (ngSubmit)="handleSubmit()" [formGroup]="aquaticAnimal">
     <ion-card>
-      <ion-card-header>
-        2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืด หรือไม่
-        <br>(ให้เลิอกเพียงข้อเดียว)
-
-      </ion-card-header>
+            
       <ion-card-content>
+        <ion-item>
+          <ion-label>
+            2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืด หรือไม่
+            <br>(ให้เลิอกเพียงข้อเดียว
+          </ion-label>
+        </ion-item>
         <ion-row radio-group formControlName="doing">
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
@@ -39,11 +42,20 @@
         <ion-item *ngIf="isValid('doing')">
           <span class="invalid-msg">Please fill in name</span>
         </ion-item>
+</ion-card-content>
+    </ion-card>
+        <ion-card>
+            
+            <ion-card-content>
+       <ion-item>
+         <ion-label>
+           ถ้า “มี” เลี้ยงสัตว์ชนิดใดบ้าง 
+         </ion-label>
+       </ion-item>
 
-
-       
-          ถ้า “มี” เลี้ยงสัตว์ชนิดใดบ้าง (สอบถามทีละชนิด)
-
+       <ion-item>
+         <ion-label>ชนิดสัตว์น้ำ</ion-label>
+       </ion-item>
           <ion-item>
             <ion-checkbox></ion-checkbox>
             <ion-label>1.ปลา</ion-label>
@@ -93,32 +105,12 @@
       </ion-card-content>
     </ion-card>
 
-    (page ปลา)
+    
+    <h3>1.ปลา (2.กุ้ง 6.ปู 7.หอย และ 9.ไรแดง) </h3>
     <ion-card>
 
-      <ion-card-header>
-        1.ปลา (2.กุ้ง 6.ปู 7.หอย และ 9.ไรแดง)
-
-      </ion-card-header>
       <ion-card-content>
-        <ion-list>
-          <ion-item>
-
-            <ion-label> 2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืด
-              หรือไม่
-              <br>(ให้เลิอกเพียงข้อเดียว) </ion-label>
-
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ใช้</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ใช้</ion-label>
-            </ion-item>
-          </ion-row>
+       
           <ion-item>
             <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
           </ion-item>
@@ -174,24 +166,23 @@
           <ion-row radio-group>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
-              <ion-label>เท่ากัน(กรอกบ่อครั้งเดียว)</ion-label>
+              <ion-label>เท่ากัน</ion-label>
             </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
-              <ion-label>ไม่เท่ากัน(กรองทีละบ่อ)</ion-label>
+              <ion-label>ไม่เท่ากัน</ion-label>
             </ion-item>
           </ion-row>
 
 
-        </ion-list>
+        
       </ion-card-content>
     </ion-card>
 
 
 
 
-    (segment บ่อสัตว์น้ำ)
-    <ion-card>
+   <ion-card>
       <ion-card-content>
 
         <ion-item>
@@ -211,7 +202,7 @@
 
       <ion-card-content>
         <ion-item>
-          <ion-label> 3) จำนวนทีเลี้ยงในปัจจุบันจำนวนเท่าไร(รวมบ่อ/รวมสวน) *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก.</ion-label>
+          <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบันจำนวนเท่าไร(รวมบ่อ/รวมสวน) *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก.</ion-label>
         </ion-item>
         <ion-item>
           <ion-input></ion-input>
@@ -221,14 +212,12 @@
     </ion-card>
 
 
-    <water-sources9 [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources9>
+    <water-sources9 [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง'"></water-sources9>
 
 
 
 
-
-    (page กบ)
-    <h3>3.กบ</h3>
+<h3>3.กบ</h3>
     <ion-card>
       <ion-card-content>
         <ion-item>
@@ -271,10 +260,10 @@
     </ion-card>
 
 
-    <water-sources9 headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+    <water-sources9 headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
 
 
-    (page จระเข้)
+   
     <h3>4.จระเข้</h3>
     <ion-card>
       <ion-card-content>
@@ -331,7 +320,6 @@
 
 
 
-    (segment บ่อจระเข้)
     <ion-card>
       <ion-card-content>
         <ion-item>
@@ -339,18 +327,9 @@
             2.2) บ่อหรือร่องสวนที่ 1
           </ion-label>
 
-        </ion-item>
-
-
-
-        <ion-item>
+        </ion-item>       
           <pool-area></pool-area>
-        </ion-item>
-
-
-
-
-
+  
       </ion-card-content>
     </ion-card>
 
@@ -358,7 +337,7 @@
 
       <ion-card-content>
         <ion-item>
-          <ion-label> 3) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
+          <ion-label> 3) จำนวนที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
         </ion-item>
         <ion-item>
           <ion-input></ion-input>
@@ -367,7 +346,7 @@
     </ion-card>
 
 
-    <water-sources9 headline="4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+    <water-sources9 headline="4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
 
     <ion-grid>
       <ion-row>
