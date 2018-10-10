@@ -25,23 +25,23 @@ export class PoolPage {
       'isExist': [null, Validators.required],
       'poolCount': [null, Validators.required],
       'poolEqual': [null, Validators.required],
-      'PoolSize':this.fb.group({
-        'Shape':this.fb.group({
-          'Area':[''],
-          'Rectangle':[''],
-          'Circle':[''],
+      'poolSize':this.fb.group({
+        'shape':this.fb.group({
+          'area':[''],
+          'rectangle':[''],
+          'circle':[''],
         }),
-        'Area':this.fb.group({
-          'Rai':[''],
-          'Ngan':[''],
-          'SqWa':[''],
+        'area':this.fb.group({
+          'rai':[''],
+          'ngan':[''],
+          'sqWa':[''],
         }),
-        'Depth':[''],
-        'Rectangle':this.fb.group({
-          'Width':[''],
-          'Length':[''],
+        'depth':[''],
+        'rectangle':this.fb.group({
+          'width':[''],
+          'length':[''],
         }),
-        'Diameter':['']
+        'diameter':['']
       }),
       'poolCountUsage': [null, Validators.required],
       'poolUsage': this.fb.group({
@@ -49,48 +49,48 @@ export class PoolPage {
         'unknowPoolUsage': [null, Validators.required],
         'hasPump': [null, Validators.required],
         'pumpCount': [null, Validators.required],
-        'Pump':this.fb.group({
-          'PumpAuto':[''],
-          'UnknowHoursPerPump':[''],
-          'HoursPerPump':[''],
-          'NumberOfPumpsPerYear':[''],
-          'PumpRate':this.fb.group({
-            'KnowPumpRate':[''],
-            'PumpRateUsage':[''],
+        'pump':this.fb.group({
+          'pumpAuto':[''],
+          'unknowHoursPerPump':[''],
+          'hoursPerPump':[''],
+          'numberOfPumpsPerYear':[''],
+          'pumpRate':this.fb.group({
+            'knowPumpRate':[''],
+            'pumpRateUsage':[''],
           }),
-          'EnergySource':this.fb.group({
-            'ElecticPump':[''],
-            'SolaPump':[''],
-            'PetrolPump':[''],
-            'TwoWheeledTractors':[''],
+          'energySource':this.fb.group({
+            'electicPump':[''],
+            'solaPump':[''],
+            'petrolPump':[''],
+            'twoWheeledTractors':[''],
           }),
-          'PumpType':this.fb.group({
-            'ElecticPump':[''],
-            'SolaPump':[''],
-            'PetrolPump':[''],
-            'TwoWheeledTractors':[''],
+          'pumpType':this.fb.group({
+            'electicPump':[''],
+            'solaPump':[''],
+            'petrolPump':[''],
+            'twoWheeledTractors':[''],
           }),
-          'HorsePower':[''],
-          'SuctionPipeSize':[''],
-          'PipelineSize':[''],
+          'horsePower':[''],
+          'suctionPipeSize':[''],
+          'pipelineSize':[''],
         }),
-        'WaterActivity':this.fb.group({
-          'Drink':[''],
-          'Plant':[''],
-          'Farm':[''],
-          'Agriculture':[''],
-          'Product':[''],
-          'Service':[''],
+        'waterActivity':this.fb.group({
+          'drink':[''],
+          'plant':[''],
+          'farm':[''],
+          'agriculture':[''],
+          'product':[''],
+          'service':[''],
         }),
-        'WaterProblem':this.fb.group({
-          'HasProblem':[''],
-          'Problem':this.fb.group({
-            'TurbidWater':[''],
-            'SaltWater':[''],
-            'Smell':[''],
-            'FilmOfOil':[''],
-            'FogWater':[''],
-            'HardWater':[''],
+        'waterProblem':this.fb.group({
+          'hasProblem':[''],
+          'problem':this.fb.group({
+            'turbidWater':[''],
+            'saltWater':[''],
+            'smell':[''],
+            'filmOfOil':[''],
+            'fogWater':[''],
+            'hardWater':[''],
             
           })
         })

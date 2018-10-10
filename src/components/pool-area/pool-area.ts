@@ -25,51 +25,27 @@ export class PoolAreaComponent {
 
     // TODO: Remove this
     this.FormItem = this.fb.group({
-      'Shape':this.fb.group({
-        'Area':[''],
-        'Rectangle':[''],
-        'Circle':[''],
+      'shape':this.fb.group({
+        'area':[''],
+        'rectangle':[''],
+        'circle':[''],
       }),
-      'Area':this.fb.group({
-        'Rai':[''],
-        'Ngan':[''],
-        'SqWa':[''],
+      'area':this.fb.group({
+        'rai':[''],
+        'ngan':[''],
+        'sqWa':[''],
       }),
-      'Depth':[''],
-      'Rectangle':this.fb.group({
-        'Width':[''],
-        'Length':[''],
+      'depth':[''],
+      'rectangle':this.fb.group({
+        'width':[''],
+        'length':[''],
       }),
-      'Diameter':['']
+      'diameter':['']
     });
   }
 
   public showModalArea() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem = data;
-        var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
-      }
-    });
-    modal.present();
-  }
-
-  public showModalRectangle() {
-    const modal = this.modalCtrl.create("DlgRectanglePoolPage", { FormItem: this.FormItem, headline: this.text });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem = data;
-        var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
-      }
-    });
-    modal.present();
-  }
-
-  public showModalCircle() {
-    const modal = this.modalCtrl.create("DlgCirclePoolPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
         this.FormItem = data;
