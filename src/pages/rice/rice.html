@@ -120,15 +120,15 @@
               <ion-item>
                 <ion-label>ทำเท่ากันทุกแปลง</ion-label>
               </ion-item>
-              <field-area></field-area>
+              <field-area [FormItem]="ricePlant.get('fields.areaUsed').at(0)"></field-area>
             </div>
             <div *ngSwitchCase="3">
               <ion-item>
                 <ion-label>ไม่ได้ทำเท่ากันทุกครั้ง</ion-label>
               </ion-item>
-              <field-area></field-area>
-              <field-area></field-area>
-              <field-area></field-area>
+              <div *ngFor="let far of ricePlant.get('fields.areaUsed').controls; let i = index">
+                <field-area headline="ครั้งที่ {{ i + 1 }} " [FormItem]="far"></field-area>
+              </div>
             </div>
           </div>
 
