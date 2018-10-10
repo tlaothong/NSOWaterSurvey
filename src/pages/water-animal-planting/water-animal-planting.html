@@ -22,7 +22,10 @@
             2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืด หรือไม่
           </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="doing">
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+          <ion-item *ngIf="isValid('doing')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
             <ion-label>ทำ</ion-label>
@@ -32,9 +35,6 @@
             <ion-label>ไม่ทำ</ion-label>
           </ion-item>
         </ion-row>
-        <ion-item *ngIf="isValid('doing')">
-          <span class="invalid-msg">กรุณาเลือก</span>
-        </ion-item>
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -166,6 +166,9 @@
           </ion-item>
 
           <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fish.fieldsAreSameSize')">
+            <ion-item *ngIf="isValid('fish.fieldsAreSameSize')">
+              <span class="invalid-msg">กรุณาเลือก</span>
+            </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
               <ion-label>เท่ากัน</ion-label>
@@ -175,9 +178,6 @@
               <ion-label>ไม่เท่ากัน</ion-label>
             </ion-item>
           </ion-row>
-          <ion-item *ngIf="isValid('fish.fieldsAreSameSize')">
-            <span class="invalid-msg">กรุณาเลือก</span>
-          </ion-item>
 
         </div>
       </ion-card-content>
