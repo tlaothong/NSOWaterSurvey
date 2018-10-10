@@ -18,7 +18,6 @@ import { RainStorageComponent } from './rain-storage/rain-storage';
 import { LocationComponent } from './location/location';
 import { TableBuyingComponent } from './table-buying/table-buying';
 import { TableDisasterousComponent } from './table-disasterous/table-disasterous';
-import { FieldAreaRiceComponent } from './field-area-rice/field-area-rice';
 import { TableBuyingOtherComponent } from './table-buying-other/table-buying-other';
 import { QuestionnaireMenuPopoverComponent } from './questionnaire-menu-popover/questionnaire-menu-popover';
 
@@ -41,7 +40,6 @@ import { QuestionnaireMenuPopoverComponent } from './questionnaire-menu-popover/
     LocationComponent,
     TableBuyingComponent,
     TableDisasterousComponent,
-    FieldAreaRiceComponent,
     TableBuyingOtherComponent,
     QuestionnaireMenuPopoverComponent,
     ],
@@ -69,7 +67,6 @@ import { QuestionnaireMenuPopoverComponent } from './questionnaire-menu-popover/
     LocationComponent,
     TableBuyingComponent,
     TableDisasterousComponent,
-    FieldAreaRiceComponent,
     TableBuyingOtherComponent,
     QuestionnaireMenuPopoverComponent,
     ]
