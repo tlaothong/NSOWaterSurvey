@@ -24,11 +24,11 @@
             <ion-label>ไม่ใช้</ion-label>
           </ion-item>
         </ion-row>
-       
-         <ion-item *ngIf="isValid('hasPump')">
+
+        <ion-item *ngIf="isValid('hasPump')">
           <span class="invalid-msg">Please fill in name</span>
         </ion-item>
-       
+
 
         <ion-item>
           <ion-label>5.3.2 ใช้เครื่องสูบน้ำกี่เครื่อง</ion-label>
@@ -43,10 +43,14 @@
 
       </ion-card-content>
     </ion-card>
- <!-- เครื่องที่ N -->
+    <!-- เครื่องที่ N -->
     <pump></pump>
-    <water-activity6 headline="5.3.3 ใช้น้้าจากแม่น้้า/ลำคลอง/แหล่งน้้าสาธารณะ เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร "></water-activity6>
-    <water-problem4 headline="5.3.5 มีปัญหาคุณภาพน้้า หรือไม่"></water-problem4>
+    <ion-card>
+      <ion-card-content>
+        <water-activity6 headline="5.3.3 ใช้น้้าจากแม่น้้า/ลำคลอง/แหล่งน้้าสาธารณะ เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร "></water-activity6>
+        <water-problem4 headline="5.3.5 มีปัญหาคุณภาพน้้า หรือไม่"></water-problem4>
+      </ion-card-content>
+    </ion-card>
 
     <ion-grid>
       <ion-row>
