@@ -20,44 +20,47 @@
     <ion-card>
       <ion-item>
         <ion-label>
-            พืชผัก สมุนไพร เช่น กะหล่ำปลี ข่า ขิง ขมิ้น คะน้า ชะอม ตะไคร้ แตงกวา บวบ บัวสาย ผักกาดขาว ผักชี เผือก พริก หอม มันเทศ โหระพา กะเพรา แมงลัก มะเขือเทศ มะเขือ พริกไทย กระวาน กานพลู กวาวเครือ สำรอง หญ้าหวาน อบเชย อัญชัน ข้าวโพดฝักอ่อน ข้าวโพดรับประทาน เป็นต้น 
- 
+          พืชผัก สมุนไพร เช่น กะหล่ำปลี ข่า ขิง ขมิ้น คะน้า ชะอม ตะไคร้ แตงกวา บวบ บัวสาย ผักกาดขาว ผักชี เผือก พริก หอม มันเทศ โหระพา
+          กะเพรา แมงลัก มะเขือเทศ มะเขือ พริกไทย กระวาน กานพลู กวาวเครือ สำรอง หญ้าหวาน อบเชย อัญชัน ข้าวโพดฝักอ่อน ข้าวโพดรับประทาน
+          เป็นต้น
+
         </ion-label>
       </ion-item>
     </ion-card>
     
     <ion-card>
-      
-        <ion-card-content>
-
-      <ion-item>
-        <ion-label>
-          2.5.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
-        </ion-label>
-      </ion-item>
-      <ion-row radio-group formControlName="doing">
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ปลูก</ion-label>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            2.5.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
+          </ion-label>
         </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ไม่ปลูก</ion-label>
-        </ion-item>
-      </ion-row>
-      <ion-item *ngIf="isValid('doing')">
-        <span class="invalid-msg">Please select </span>
-      </ion-item>
-   
+        
 
-      <ion-item>
-        <ion-label>
-          2.5.2 ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
-        </ion-label>
-      </ion-item>
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+          <ion-item *ngIf="isValid('doing')">
+            <span class="invalid-msg">Please select </span>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ปลูก</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่ปลูก</ion-label>
+          </ion-item>
+        </ion-row>
+
+
 
         <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
+          <ion-label>
+            2.5.2 ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('fieldCount')">
           <span class="invalid-msg">Please fill in </span>
@@ -65,15 +68,15 @@
       </ion-card-content>
     </ion-card>
 
-    
+
     <ion-card>
-        <ion-card-header>
-            แปลงที่ 1
-          </ion-card-header>
+      <ion-card-header>
+        แปลงที่ 1
+      </ion-card-header>
       <ion-item>
         <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
       </ion-item>
-          <location></location>
+      <location></location>
     </ion-card>
 
     <ion-card>
@@ -91,21 +94,21 @@
           3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
         </ion-label>
       </ion-item>
-
-      <ion-row radio-group formControlName="irrigationField">
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>อยู่</ion-label>
-        </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ไม่อยู่</ion-label>
-        </ion-item>
-        <ion-item *ngIf="isValid('irrigationField')">
-          <span class="invalid-msg">Please fill in </span>
-        </ion-item>
-      </ion-row>
-
+      <div formGroupName="fields">
+        <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
+          <ion-item *ngIf="isValid('fields.irrigationField')">
+            <span class="invalid-msg">Please fill in </span>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>อยู่</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>ไม่อยู่</ion-label>
+          </ion-item>
+        </ion-row>
+      </div>
     </ion-card>
 
     <ion-card>
@@ -115,23 +118,24 @@
         </ion-label>
       </ion-item>
 
-
-      <ion-list>
-        <ion-item>
-          <ion-label>รายชื่อพืช</ion-label>
-          <ion-select interface="action-sheet" formControlName="names">
-            <ion-option>กระเพรา</ion-option>
-            <ion-option>กระเทียม</ion-option>
-            <ion-option>ขมิ้น</ion-option>
-            <ion-option>ตะไคร้</ion-option>
-            <ion-option>มะระ</ion-option>
-            <ion-option>พริกไทย</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item *ngIf="isValid('names')">
-          <span class="invalid-msg">Please fill in </span>
-        </ion-item>
-      </ion-list>
+      <div formGroupName="fields">
+        <ion-list>
+          <ion-item [class.invalid]="isValid('fields.names')">
+            <ion-label>รายชื่อพืช</ion-label>
+            <ion-select interface="action-sheet" formControlName="names">
+              <ion-option>กระเพรา</ion-option>
+              <ion-option>กระเทียม</ion-option>
+              <ion-option>ขมิ้น</ion-option>
+              <ion-option>ตะไคร้</ion-option>
+              <ion-option>มะระ</ion-option>
+              <ion-option>พริกไทย</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="isValid('fields.names')">
+            <span class="invalid-msg">Please fill in </span>
+          </ion-item>
+        </ion-list>
+      </div>
 
 
     </ion-card>
@@ -142,32 +146,41 @@
           5) ลักษณะการปลูกเป็นแบบใด
         </ion-label>
       </ion-item>
-      <ion-row radio-group fromControlName="MixedWithPrimaryPlant">
-        <ion-item>
-          <ion-radio item-left></ion-radio>
-          <ion-label>1. แบบปลูกเฉพาะ ไม้ดอกไม้ประดับ เพาะพันธ์ุไม้</ion-label>
+
+      <div formGroupName="fields">
+        <ion-row radio-group fromControlName="thisPlantOnly" [class.invalid]="isValid('fields.thisPlantOnly')">
+          <ion-item *ngIf="isValid('fields.thisPlantOnly')">
+            <span class="invalid-msg">Please fill in </span>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>1. แบบปลูกเฉพาะ ไม้ดอกไม้ประดับ เพาะพันธ์ุไม้</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-left></ion-radio>
+            <ion-label>2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่</ion-label>
+          </ion-item>
+        </ion-row>
+      </div>
+      <div formGroupName="fields">
+
+        <ion-item [class.invalid]="isValid('fields.MixedWithPrimaryPlant')">
+          <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
+          <ion-select fromControlName="MixedWithPrimaryPlant">
+            <ion-option>ข้าว</ion-option>
+            <ion-option>พืชไร่</ion-option>
+            <ion-option>ต้นยางพารา</ion-option>
+            <ion-option>พืชยืนต้น</ion-option>
+          </ion-select>
         </ion-item>
-        <ion-item>
-          <ion-radio item-left></ion-radio>
-          <ion-label>2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่</ion-label>
+        <ion-item *ngIf="isValid('fields.MixedWithPrimaryPlant')">
+          <span class="invalid-msg">Please fill in </span>
         </ion-item>
-      </ion-row>
-      <ion-item>
-        <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
-        <ion-select>
-          <ion-option>ข้าว</ion-option>
-          <ion-option>พืชไร่</ion-option>
-          <ion-option>ต้นยางพารา</ion-option>
-          <ion-option>พืชยืนต้น</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="isValid('MixedWithPrimaryPlant')">
-        <span class="invalid-msg">Please fill in </span>
-      </ion-item>
+      </div>
     </ion-card>
 
     <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
-    
+
     <ion-grid>
       <ion-row>
         <ion-col>

@@ -22,9 +22,12 @@ export class HerbsPlantPage {
     this.HerbsPlantFrm = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
-      'names': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-      'MixedWithPrimaryPlant': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
-      'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+      'fields': this.fb.group({
+        'names': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
+        'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+        'MixedWithPrimaryPlant': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
+        'thisPlantOnly': [null, Validators.required]
+      })
 
     });
 
