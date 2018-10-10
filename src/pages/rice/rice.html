@@ -34,7 +34,7 @@
 
 
         <ion-item *ngIf="isValid('doing')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
 
         <ion-item>
@@ -44,11 +44,11 @@
         </ion-item>
 
         <ion-item>
-          <ion-input type="number" formControlName="fieldCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="isValid('fieldCount')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
       </ion-card-content>
@@ -84,11 +84,11 @@
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-input formControlName="plantingCount" [class.invalid]="isValid('fields.plantingCount')"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวน" formControlName="plantingCount" [class.invalid]="isValid('fields.plantingCount')"></ion-input>
           </ion-item>
         
           <ion-item *ngIf="isValid('fields.plantingCount')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
 
 
@@ -115,7 +115,7 @@
             </ion-item>
           </ion-row>
           <ion-item *ngIf="isValid('fields.plantingArea')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
 
 
@@ -175,7 +175,7 @@
               </ion-select>
             </ion-item>
             <ion-item *ngIf="isValid('plantingFromMonth')">
-              <span class="invalid-msg">Please fill in name</span>
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
           </ion-col>
 
@@ -205,7 +205,7 @@
               </ion-select>
             </ion-item>
             <ion-item *ngIf="isValid('plantingThruMonth')">
-              <span class="invalid-msg">Please fill in name</span>
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -214,10 +214,10 @@
           <ion-label> 6.1) การทำนาครั้งที่ 1 ปล่อยน้ำเข้ากี่ครั้ง</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="waterFillingCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="waterFillingCount"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('waterFillingCount')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
 
@@ -225,10 +225,10 @@
           <ion-label> 7.1) การทำนาครั้งที่ 1 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="waterHigh"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="waterHigh"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('waterHigh')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
 
@@ -271,7 +271,7 @@
               </ion-select>
             </ion-item>
                 <ion-item *ngIf="isValid('fields.plantingArea')">
-                  <span class="invalid-msg">Please fill in name</span>
+                  <span class="invalid-msg">กรุณาเลือก</span>
                 </ion-item>
           </ion-col>
 
@@ -302,7 +302,7 @@
             </ion-item>
             
             <ion-item *ngIf="isValid('plantingThruMonth')">
-              <span class="invalid-msg">Please fill in name</span>
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -311,20 +311,20 @@
           <ion-label>6.2) การทำนาครั้งที่ 2 ปล่อยน้ำเข้ากี่ครั้ง</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="waterFillingCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="waterFillingCount"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('waterFillingCount')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
         <ion-item>
           <ion-label>7.2) การทำนาครั้งที่ 2 โดยเฉลี่ยปล่อยน้ำสูงกี่เซนติเมตร</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="waterHigh"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="waterHigh"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('waterHigh')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
       </ion-card-content>
@@ -348,7 +348,7 @@
           </ion-item>
         </ion-row>
         <ion-item *ngIf="isValid('irrigationField')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -378,12 +378,12 @@
           </ion-label>
         </ion-item>
         <ion-item>
-            <ion-input formControlName="plantingCount" [class.invalid]="isValid('fields.plantingCount')"></ion-input>
+            <ion-input formControlName="plantingCount" type="number" placeholder="กรอกจำนวน" [class.invalid]="isValid('fields.plantingCount')"></ion-input>
         
         </ion-item>
          
         <ion-item *ngIf="isValid('fields.plantingCount')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
        
@@ -408,7 +408,7 @@
           </ion-item>
         </ion-row>
         <ion-item *ngIf="isValid('fields.plantingArea')">
-            <span class="invalid-msg">Please fill in name</span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
        
         <ion-item>
@@ -469,7 +469,7 @@
           </ion-col>
          
               <ion-item *ngIf="isValid('plantingFromMonth')">
-                <span class="invalid-msg">Please fill in name</span>
+                <span class="invalid-msg">กรุณาเลือก</span>
               </ion-item>
 
         </ion-row>
@@ -502,7 +502,7 @@
           </ion-col>
           
               <ion-item *ngIf="isValid('plantingThruMonth')">
-                <span class="invalid-msg">Please fill in name</span>
+                <span class="invalid-msg">กรุณาเลือก</span>
               </ion-item>
         </ion-row>
 
@@ -513,14 +513,14 @@
         </ion-item>
 
         <ion-item>
-          <ion-input formControlName="waterFillingCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="waterFillingCount"></ion-input>
         </ion-item>
 
 
 
 
         <ion-item *ngIf="isValid('waterFillingCount')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
         <ion-item>
@@ -530,12 +530,12 @@
         </ion-item>
 
         <ion-item>
-          <ion-input formControlName="waterHigh"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="waterHigh"></ion-input>
         </ion-item>
 
 
         <ion-item *ngIf="isValid('waterHigh')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
 
       </ion-card-content>
@@ -561,7 +561,7 @@
         </ion-row>
 
         <ion-item *ngIf="isValid('irrigationField')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
 
       </ion-card-content>
