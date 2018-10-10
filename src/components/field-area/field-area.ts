@@ -14,7 +14,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class FieldAreaComponent {
 
-  @Input("headline") private text: string;
+  @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
