@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { combineLatest } from 'rxjs/operators';
 
 /**
  * Generated class for the RicePage page.
@@ -35,11 +36,7 @@ export class RicePage {
           }),
           'plantingCount': ['',Validators.required],
           'plantingArea': ['',Validators.required],
-          'areaUsed': this.fb.group({
-            'rai': ['',Validators.required],
-            'ngan': ['',Validators.required],
-            'sqWa': ['',Validators.required]
-          })
+          'areaUsed': this.fb.array([])
         }),
         'plantingFromMonth': ['',Validators.required],
         'plantingThruMonth': ['',Validators.required],
@@ -59,6 +56,8 @@ export class RicePage {
         })
     
     });
+
+    this.initPlantingAreaChanges();
   }
 
   ionViewDidLoad() {
@@ -79,12 +78,48 @@ export class RicePage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
+  private readonly outerGroup: string = "fields";
+  private readonly areaUsedName: string = "areaUsed";
+  private readonly areaUsed: string = "fields.areaUsed";
+  private readonly areaCount: string = "fields.plantingCount";
+  private readonly areaOption: string = "fields.plantingArea";
+  
+  private initPlantingAreaChanges() {
+    const areaCount = this.ricePlant.get(this.areaCount);
+    this.ricePlant.get(this.areaOption).valueChanges.pipe(
+      combineLatest(areaCount.valueChanges)
+    ).subscribe(it => this.onPlantingAreaChanges());
 
+    this.onPlantingAreaChanges();
+  }
 
+  public onPlantingAreaChanges() {
+    var fields = this.ricePlant.get(this.areaUsed).value || [];
+    var fieldCount = this.ricePlant.get(this.areaCount).value || 0;
+    var farr = this.fb.array([]);
 
+    fieldCount = Math.max(1, fieldCount);
 
+    for (let i = 0; i < fieldCount; i++) {
+      var ctrl = null;
+      if (i < fields.length) {
+        const fld = fields[i];
+        ctrl = fld;
+      } else {
+        ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
+      }
 
-
-
+      const fg = this.fb.group({
+        'rai': [null, [ Validators.required, Validators.min(0) ]],
+        'ngan': [null, [ Validators.required, Validators.min(0), Validators.max(3) ]],
+        'sqWa': [null, [ Validators.required, Validators.min(0), Validators.max(99) ]],
+      });
+      fg.setValue(ctrl);
+      farr.push(fg);
+    }
+    // this.ricePlant.setControl(this.areaUsed, farr);
+    // For nested form use this instead
+    (this.ricePlant.get(this.outerGroup) as FormGroup).setControl(this.areaUsedName, farr);
+  }
 
 }
