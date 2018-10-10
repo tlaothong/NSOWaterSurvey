@@ -17,7 +17,7 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="(PerennialPlantingFrm)">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="PerennialPlantingFrm">
 
 
     <h3>ตอนที่ 2.4 พืชยืนต้น ไม่ผล สวนป่า</h3>
@@ -31,7 +31,7 @@
             </ion-label>
           </ion-item>
 
-          <ion-row radio-group>
+          <ion-row radio-group formControlName="doing">
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
               <ion-label>ปลูก</ion-label>
@@ -41,6 +41,9 @@
               <ion-label>ไม่ปลูก</ion-label>
             </ion-item>
           </ion-row>
+          <ion-item *ngIf="isValid('doing')">
+            <span class="invalid-msg">Please fill in </span>
+          </ion-item>
 
           <ion-item>
             <ion-label>
@@ -49,7 +52,10 @@
           </ion-item>
 
           <ion-item>
-            <ion-input> </ion-input>
+            <ion-input type="number" class="backgroundinput" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('fieldCount')">
+            <span class="invalid-msg">Please fill in </span>
           </ion-item>
 
         </ion-list>
@@ -82,7 +88,7 @@
         <ion-item>
           <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
         </ion-item>
-        <ion-row radio-group>
+        <ion-row radio-group formControlName="irrigationField">
 
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
@@ -92,7 +98,9 @@
             <ion-radio item-left></ion-radio>
             <ion-label>ไม่อยู่</ion-label>
           </ion-item>
-
+          <ion-item *ngIf="isValid('irrigationField')">
+            <span class="invalid-msg">Please fill in </span>
+          </ion-item>
         </ion-row>
 
 
@@ -101,16 +109,27 @@
         </ion-item>
         <ion-item>
           <ion-label>รายชื่อพืช</ion-label>
-          <ion-select interface="action-sheet">
+          <ion-select interface="action-sheet" formControlName="names">
             <ion-option>ยาสูบ</ion-option>
             <ion-option>ละหุ่ง</ion-option>
             <ion-option>สาคู</ion-option>
           </ion-select>
         </ion-item>
-
+        <ion-item *ngIf="isValid('names')">
+          <span class="invalid-msg">Please fill in </span>
+        </ion-item>
       </ion-card-content>
     </ion-card>
 
     <water-sources9 [headline]="'5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources9>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block type="submit">Save & Next</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </form>
 </ion-content>

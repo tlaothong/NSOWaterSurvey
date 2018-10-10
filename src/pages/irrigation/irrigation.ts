@@ -15,24 +15,22 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'irrigation.html',
 })
 export class IrrigationPage {
-  public IrrigationFrm: FormGroup;
+  IrrigationFrm: FormGroup;
   private submitRequested: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-
+    this.IrrigationFrm = this.fb.group({
+      'cubicMeterPerMonth': ['', Validators.required],
+      'unknowPoolUsage': ['', Validators.required],
+      'hasPump': ['', Validators.required],
+      'pumpCount': ['', Validators.required],
+    });
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IrrigationPage');
   }
-  ionViewDidEnter() {
-    this.IrrigationFrm = this.fb.group({
-      'cubicMeterPerMonth': [null, Validators.required],
-      'unknowPoolUsage': [null, Validators.required],
-      'hasPump': [null, Validators.required],
-      'pumpCount': [null, Validators.required],
-    });
-  }
+
 
   public handleSubmit() {
     this.submitRequested = true;

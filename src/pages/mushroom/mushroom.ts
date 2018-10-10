@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the MushroomPage page.
@@ -20,21 +20,22 @@ export class MushroomPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.MushroomPlantFrm = this.fb.group({
-      'doing': [''],
-      'fieldCount': [''],
+      'doing': ['', Validators.required],
+      'fieldCount': ['', Validators.required],
+      'irrigationField': ['', Validators.required],
+      'areaMeter':['', Validators.required],// ขนาดพื้นที่เท่าไหร่กี่ตารางเมตร
+      'houseNumber':['', Validators.required],
       'fields': this.fb.group({
-        'irrigationField': [''],
-        // ขนาดพื้นที่เท่าไหร่กี่ตารางเมตร,
         'waterSource': this.fb.group({
-          'rainingAsIs': [''],
-          'plumbing': [''],
-          'underGround': [''],
-          'pool': [''],
-          'river': [''],
-          'irrigation': [''],
-          'rain': [''],
-          'buying': [''],
-          'other': [''],
+          'rainingAsIs': ['', Validators.required],
+          'plumbing': ['', Validators.required],
+          'underGround': ['', Validators.required],
+          'pool': ['', Validators.required],
+          'river': ['', Validators.required],
+          'irrigation': ['', Validators.required],
+          'rain': ['', Validators.required],
+          'buying': ['', Validators.required],
+          'other': ['', Validators.required],
         })
       }),
     });

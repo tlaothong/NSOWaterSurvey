@@ -35,9 +35,9 @@
           <ion-label>
             5.5.1 มีการนำน้้าจากชลประทานมาใช้ปริมาณ เท่าไรต่อเดือนโดยเฉลี่ย
           </ion-label>
-        </ion-item>ฃ
+        </ion-item>
 
-        <ion-list radio-group fromControlName="CubicMeterPerMonth">
+        <ion-list radio-group formControlName="cubicMeterPerMonth">
           <ion-item>
             <ion-label>ทราบ</ion-label>
             <ion-radio item-left></ion-radio>
@@ -47,15 +47,15 @@
             <ion-radio item-left></ion-radio>
           </ion-item>
         </ion-list>
-        <ion-item *ngIf="isValid('CubicMeterPerMonth')">
+        <ion-item *ngIf="isValid('cubicMeterPerMonth')">
           <span class="invalid-msg">Please fill in </span>
         </ion-item>
-        
+
         <ion-item>
           <ion-label>ทราบปริมาณน้ำ(ลบ.ม./เดือน)</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" fromControlName="unknowPoolUsage"></ion-input>
+          <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="unknowPoolUsage"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('unknowPoolUsage')">
           <span class="invalid-msg">Please fill in </span>
@@ -64,7 +64,7 @@
           <ion-label>ทราบปริมาณน้ำ(ลบ.ม./เดือน)</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" fromControlName="unknowPoolUsage"></ion-input>
+          <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="unknowPoolUsage"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('unknowPoolUsage')">
           <span class="invalid-msg">Please fill in </span>
@@ -77,7 +77,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group fromControlName="hasPump">
+        <ion-row radio-group formControlName="hasPump">
           <ion-item col-6>
             <ion-label>1.ใช่</ion-label>
             <ion-radio item-left></ion-radio>
@@ -97,7 +97,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="จำนวนเครื่อง" fromControlName="pumpCount"></ion-input>
+          <ion-input type="number" placeholder="จำนวนเครื่อง" formControlName="pumpCount"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('pumpCount')">
           <span class="invalid-msg">Please fill in </span>
@@ -106,13 +106,11 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- <pump></pump>
+    <pump></pump>
     <water-activity6></water-activity6>
-    <water-problem6></water-problem6> -->
+    <water-problem6></water-problem6>
     <ion-grid>
       <ion-row>
-        <ion-col>
-        </ion-col>
         <ion-col>
           <button ion-button block type="submit">Save & Next</button>
         </ion-col>

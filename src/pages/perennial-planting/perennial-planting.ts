@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the PerennialPlantingPage page.
@@ -19,26 +19,28 @@ export class PerennialPlantingPage {
   private submitRequested: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.PerennialPlantingFrm = this.fb.group({
-      'doing':[''],
-      'fieldCount':[''],
+      'doing':[null, Validators.required],
+      'fieldCount':[null, Validators.required],
+      'irrigationField':[null, Validators.required],
+      'names':[null, Validators.required],
       'fields':this.fb.group({
         'area': this.fb.group({
-          'rai':[''],
-          'ngan':[''],
-          'sqWa':['']
+          'rai':[null, Validators.required],
+          'ngan':[null, Validators.required],
+          'sqWa':[null, Validators.required]
         }),
-        'irrigationField':[''],
+       
         // ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) 
         'waterSource':this.fb.group({
-          'rainingAsIs': [''],
-            'plumbing': [''],
-            'underGround': [''],
-            'pool': [''],
-            'river': [''],
-            'irrigation': [''],
-            'rain': [''],
-            'buying': [''],
-            'other': ['']
+          'rainingAsIs': [null, Validators.required],
+            'plumbing': [null, Validators.required],
+            'underGround': [null, Validators.required],
+            'pool': [null, Validators.required],
+            'river': [null, Validators.required],
+            'irrigation': [null, Validators.required],
+            'rain': [null, Validators.required],
+            'buying': [null, Validators.required],
+            'other': [null, Validators.required]
         })
       })
     });
