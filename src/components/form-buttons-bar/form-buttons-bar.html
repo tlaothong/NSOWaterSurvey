@@ -1,6 +1,6 @@
 <ion-grid>
-  <ion-row>
-    <ion-col>
+  <ion-row align-items-center>
+    <ion-col col-3>
       <button ion-button icon-only color="secondary" type="button">
         <ion-icon name="rewind"></ion-icon>
       </button>
@@ -9,7 +9,14 @@
         คำถามก่อนหน้า
       </button>
     </ion-col>
-    <ion-col>
+    <ion-col col-3>
+        <div class="progress-outer">
+          <div class="progress-inner" [style.width]="24 + '%'">
+            7 / 30
+          </div>
+        </div>
+      </ion-col>
+    <ion-col col-6>
       <button ion-button block type="submit">บันทึก และ ถามข้อต่อไป</button>
     </ion-col>
   </ion-row>
