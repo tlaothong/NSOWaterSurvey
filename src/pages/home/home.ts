@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
-import { PopoverPage } from '../popover/popover';
 import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
 
 @Component({
