@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the PlumbingPage page.
@@ -15,12 +15,100 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: 'plumbing.html',
 })
 export class PlumbingPage {
-  public PlumbingFrm: FormGroup;
+
+  public PlumbingForm: FormGroup;
   private submitRequested: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.PlumbingFrm = this.fb.group({
-      
+    this.PlumbingForm = this.fb.group({
+      'MWA': this.fb.group({
+        'Doing': ['', Validators.required],
+        'isWaterQuality': ['', Validators.required],
+        'ProblemAdd': this.fb.group({
+          'SaltWater': [false, Validators.required],
+          'Smell': [false, Validators.required],
+          'FilmOfOil': [false, Validators.required],
+          'FogWater': [false, Validators.required],
+          'TurbidWater': [false, Validators.required],
+          'HardWater': [false, Validators.required]
+        }),
+        'PlumbingUsage': this.fb.group({
+          'WaterQuantity': this.fb.group({
+            'isCubicMeterPerMonth': [false, Validators.required],
+            'isWaterBill': [false, Validators.required],
+            'isUnknowNoMeter': [false, Validators.required],
+            'isUnknowExcepted': [false, Validators.required]
+          }),
+          'CubicMeterPerMonth': ['', Validators.required],
+          'WaterBill': ['', Validators.required],
+          'UnknowNoMeter': ['', Validators.required],
+          'UnknowExcepted': ['', Validators.required]
+        })
+      }),
+      'PWA': this.fb.group({
+        'Doing': ['', Validators.required],
+        'isWaterQuality': ['', Validators.required],
+        'ProblemAdd': this.fb.group({
+          'SaltWater': [false, Validators.required],
+          'Smell': [false, Validators.required],
+          'FilmOfOil': [false, Validators.required],
+          'FogWater': [false, Validators.required],
+          'TurbidWater': [false, Validators.required],
+          'HardWater': [false, Validators.required]
+        }),
+        'PlumbingUsage': this.fb.group({
+          'WaterQuantity': this.fb.group({
+            'isCubicMeterPerMonth': [false, Validators.required],
+            'isWaterBill': [false, Validators.required],
+            'isUnknowNoMeter': [false, Validators.required],
+            'isUnknowExcepted': [false, Validators.required]
+          }),
+          'CubicMeterPerMonth': ['', Validators.required],
+          'WaterBill': ['', Validators.required],
+          'UnknowNoMeter': ['', Validators.required],
+          'UnknowExcepted': ['', Validators.required]
+        })
+      }),
+      'Other': this.fb.group({
+        'Doing': ['', Validators.required],
+        'isWaterQuality': ['', Validators.required],
+        'ProblemAdd': this.fb.group({
+          'SaltWater': [false, Validators.required],
+          'Smell': [false, Validators.required],
+          'FilmOfOil': [false, Validators.required],
+          'FogWater': [false, Validators.required],
+          'TurbidWater': [false, Validators.required],
+          'HardWater': [false, Validators.required]
+        }),
+        'PlumbingUsage': this.fb.group({
+          'WaterQuantity': this.fb.group({
+            'isCubicMeterPerMonth': [false, Validators.required],
+            'isWaterBill': [false, Validators.required],
+            'isUnknowNoMeter': [false, Validators.required],
+            'isUnknowExcepted': [false, Validators.required]
+          }),
+          'CubicMeterPerMonth': ['', Validators.required],
+          'WaterBill': ['', Validators.required],
+          'UnknowNoMeter': ['', Validators.required],
+          'UnknowExcepted': ['', Validators.required]
+        })
+      }),
+      'WaterActivityMWAPWA': this.fb.group({
+        Drink : ['', Validators.required],
+        Plant :['', Validators.required],
+        Agriculture : ['', Validators.required],
+        Product: ['', Validators.required],
+        Service : ['', Validators.required]
+      }),
+      'WaterActivityOther': this.fb.group({
+        Drink : ['', Validators.required],
+        Plant :['', Validators.required],
+        Agriculture : ['', Validators.required],
+        Product: ['', Validators.required],
+        Service : ['', Validators.required]
+      }),
+      'WaterNotRunning': ['', Validators.required],
+      'WaterNotRunningCount': ['', Validators.required]
     });
   }
 
@@ -28,12 +116,12 @@ export class PlumbingPage {
     console.log('ionViewDidLoad PlumbingPage');
   }
 
-  // public handleSubmit() {
-  //   this.submitRequested = true;
-  // }
+  public handleSubmit() {
+    this.submitRequested = true;
+  }
 
-  // public isValid(name: string) : boolean {
-  //   var ctrl = this.PlumbingFrm.get(name);
-  //   return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  // }
+  public isValid(name: string): boolean {
+    var ctrl = this.PlumbingForm.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
 }
