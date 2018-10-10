@@ -31,47 +31,47 @@ export class GroundWaterPage {
         'waterBill': [null, Validators.required],
         'hasPump': [null, Validators.required],
         'pumpCount': [null, Validators.required],
-        'Pumps': this.fb.group({
-          'PumpAuto':[''],
-          'UnknowHoursPerPump':[''],
-          'HoursPerPump':[''],
-          'NumberOfPumpsPerYear':[''],
-          'PumpRate':this.fb.group({
-            'KnowPumpRate':[''],
-            'PumpRateUsage':[''],
+        'pumps': this.fb.group({
+          'pumpAuto':[''],
+          'unknowHoursPerPump':[''],
+          'hoursPerPump':[''],
+          'numberOfPumpsPerYear':[''],
+          'pumpRate':this.fb.group({
+            'knowPumpRate':[''],
+            'pumpRateUsage':[''],
           }),
-          'EnergySource':this.fb.group({
-            'ElecticPump':[''],
-            'SolaPump':[''],
-            'PetrolPump':[''],
-            'TwoWheeledTractors':[''],
+          'energySource':this.fb.group({
+            'electicPump':[''],
+            'solaPump':[''],
+            'petrolPump':[''],
+            'twoWheeledTractors':[''],
           }),
-          'PumpType':this.fb.group({
-            'ElecticPump':[''],
-            'SolaPump':[''],
-            'PetrolPump':[''],
-            'TwoWheeledTractors':[''],
+          'pumpType':this.fb.group({
+            'electicPump':[''],
+            'solaPump':[''],
+            'petrolPump':[''],
+            'twoWheeledTractors':[''],
           }),
-          'HorsePower':[''],
-          'SuctionPipeSize':[''],
-          'PipelineSize':[''],
+          'horsePower':[''],
+          'suctionPipeSize':[''],
+          'pipelineSize':[''],
         }),
-        'UsageActivities' : this.fb.group({
-          'Drink':[''],
-          'Plant':[''],
-          'Farm':[''],
-          'Agriculture':[''],
-          'Product':[''],
-          'Service':[''],
+        'usageActivities' : this.fb.group({
+          'drink':[''],
+          'plant':[''],
+          'farm':[''],
+          'agriculture':[''],
+          'product':[''],
+          'service':[''],
         }),
-        'HasQaulityProblem': [null, Validators.required],
-        'QualityProblems' : this.fb.group({
-          'TurbidWater':[''],
-          'SaltWater':[''],
-          'Smell':[''],
-          'FilmOfOil':[''],
-          'FogWater':[''],
-          'HardWater':[''],
+        'hasQaulityProblem': [null, Validators.required],
+        'qualityProblems' : this.fb.group({
+          'turbidWater':[''],
+          'saltWater':[''],
+          'smell':[''],
+          'filmOfOil':[''],
+          'fogWater':[''],
+          'hardWater':[''],
         }),
       }),
       'publicGroundWater': [null, Validators.required],
@@ -81,48 +81,48 @@ export class GroundWaterPage {
         'unknow': [null, Validators.required],
         'hasPump': [null, Validators.required],
         'pumpCount': [null, Validators.required],
-        'Pumps':this.fb.group({
-          'PumpAuto':[''],
-          'UnknowHoursPerPump':[''],
-          'HoursPerPump':[''],
-          'NumberOfPumpsPerYear':[''],
-          'PumpRate':this.fb.group({
-            'KnowPumpRate':[''],
-            'PumpRateUsage':['']
+        'pumps':this.fb.group({
+          'pumpAuto':[''],
+          'unknowHoursPerPump':[''],
+          'hoursPerPump':[''],
+          'numberOfPumpsPerYear':[''],
+          'pumpRate':this.fb.group({
+            'knowPumpRate':[''],
+            'pumpRateUsage':['']
           }),
-          'EnergySource':this.fb.group({
-            'ElecticPump':[''],
-            'SolaPump':[''],
-            'PetrolPump':[''],
-            'TwoWheeledTractors':['']
+          'energySource':this.fb.group({
+            'electicPump':[''],
+            'solaPump':[''],
+            'petrolPump':[''],
+            'twoWheeledTractors':['']
           }),
-          'PumpType':this.fb.group({
-            'ElecticPump':[''],
-            'SolaPump':[''],
-            'PetrolPump':[''],
-            'TwoWheeledTractors':['']
+          'pumpType':this.fb.group({
+            'electicPump':[''],
+            'solaPump':[''],
+            'petrolPump':[''],
+            'twoWheeledTractors':['']
 
           }),
-          'HorsePower':[''],
-          'SuctionPipeSize':[''],
-          'PipelineSize':['']
+          'horsePower':[''],
+          'suctionPipeSize':[''],
+          'pipelineSize':['']
         }),
-        'UsageActivities':this.fb.group({
-          'Drink':[''],
-          'Plant':[''],
-          'Farm':[''],
-          'Agriculture':[''],
-          'Product':[''],
-          'Service':['']
+        'usageActivities':this.fb.group({
+          'drink':[''],
+          'plant':[''],
+          'farm':[''],
+          'agriculture':[''],
+          'product':[''],
+          'service':['']
         }),
-        'HasQualityProblem':[''],
-        'QualityProblem':this.fb.group({
-          'TurbidWater':[''],
-          'SaltWater':[''],
-          'Smell':[''],
-          'FilmOfOil':[''],
-          'FogWater':[''],
-          'HardWater':[''],
+        'hasQualityProblem':[''],
+        'qualityProblem':this.fb.group({
+          'turbidWater':[''],
+          'saltWater':[''],
+          'smell':[''],
+          'filmOfOil':[''],
+          'fogWater':[''],
+          'hardWater':[''],
         })
       }),
     });
