@@ -21,7 +21,7 @@ export class PoolAreaComponent {
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello PoolAreaComponent Component');
-    this.text = '';
+    this.text = '1';
 
     // TODO: Remove this
     this.FormItem = this.fb.group({
@@ -35,32 +35,8 @@ export class PoolAreaComponent {
     });
   }
 
-  public showModalArea() {
+  public showModal() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem = data;
-        var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
-      }
-    });
-    modal.present();
-  }
-
-  public showModalRectangle() {
-    const modal = this.modalCtrl.create("DlgRectanglePoolPage", { FormItem: this.FormItem, headline: this.text });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem = data;
-        var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
-      }
-    });
-    modal.present();
-  }
-
-  public showModalCircle() {
-    const modal = this.modalCtrl.create("DlgCirclePoolPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
         this.FormItem = data;
