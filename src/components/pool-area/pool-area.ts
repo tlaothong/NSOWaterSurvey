@@ -25,11 +25,7 @@ export class PoolAreaComponent {
 
     // TODO: Remove this
     this.FormItem = this.fb.group({
-      'shape':this.fb.group({
-        'area':[''],
-        'rectangle':[''],
-        'circle':[''],
-      }),
+      'shape':null,
       'area':this.fb.group({
         'rai':[''],
         'ngan':[''],
