@@ -147,7 +147,7 @@
       </ion-item>
 
       <div formGroupName="fields">
-        <ion-row radio-group fromControlName="thisPlantOnly" [class.invalid]="isValid('fields.thisPlantOnly')">
+        <ion-row radio-group formControlName="thisPlantOnly" [class.invalid]="isValid('fields.thisPlantOnly')">
           <ion-item *ngIf="isValid('fields.thisPlantOnly')">
             <span class="invalid-msg">Please fill in </span>
           </ion-item>
@@ -161,11 +161,12 @@
           </ion-item>
         </ion-row>
       </div>
+
       <div formGroupName="fields">
 
         <ion-item [class.invalid]="isValid('fields.MixedWithPrimaryPlant')">
           <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
-          <ion-select fromControlName="MixedWithPrimaryPlant">
+          <ion-select formControlName="MixedWithPrimaryPlant">
             <ion-option>ข้าว</ion-option>
             <ion-option>พืชไร่</ion-option>
             <ion-option>ต้นยางพารา</ion-option>

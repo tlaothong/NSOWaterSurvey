@@ -27,7 +27,7 @@
             2.7.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้เพาะเชื้อและปลูกเห็ด หรือไม่
           </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="doing">
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
             <ion-label>1. ปลูก</ion-label>
@@ -48,7 +48,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="text" placeholder="กรอกจำนวนโรงเรือน" formControlName="houseNumber"></ion-input>
+          <ion-input class="backgroundinput" type="text" placeholder="กรอกจำนวนโรงเรือน" formControlName="houseNumber" [class.invalid]="isValid('houseNumber')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('houseNumber')">
           <span class="invalid-msg">Please fill in </span>
@@ -74,7 +74,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="areaMeter"></ion-input>
+          <ion-input formControlName="areaMeter" type="number" [class.invalid]="isValid('areaMeter')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('areaMeter')">
           <span class="invalid-msg">Please fill in </span>
@@ -87,7 +87,10 @@
           </ion-label>
         </ion-item>
         <div formGroupName="fields">
-          <ion-row radio-group formControlName="irrigationField">
+          <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
+            <ion-item *ngIf="isValid('fields.irrigationField')">
+              <span class="invalid-msg">Please fill in </span>
+            </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
               <ion-label>1. อยู่</ion-label>
@@ -97,9 +100,7 @@
               <ion-label>2. ไม่อยู่</ion-label>
             </ion-item>
           </ion-row>
-          <ion-item *ngIf="isValid('fields.irrigationField')">
-            <span class="invalid-msg">Please fill in </span>
-          </ion-item>
+
         </div>
 
       </ion-card-content>
@@ -126,7 +127,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-input formControlName="areaMeter"></ion-input>
+          <ion-input formControlName="areaMeter" type="number" [class.invalid]="isValid('areaMeter')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('areaMeter')">
           <span class="invalid-msg">Please fill in </span>
@@ -136,7 +137,10 @@
           <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
         </ion-item>
         <div formGroupName="fields">
-          <ion-row radio-group formControlName="irrigationField">
+          <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
+            <ion-item *ngIf="isValid('fields.irrigationField')">
+              <span class="invalid-msg">Please fill in </span>
+            </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
               <ion-label>1. อยู่</ion-label>
@@ -146,9 +150,7 @@
               <ion-label>2. ไม่อยู่</ion-label>
             </ion-item>
           </ion-row>
-          <ion-item *ngIf="isValid('fields.irrigationField')">
-            <span class="invalid-msg">Please fill in </span>
-          </ion-item>
+
         </div>
 
       </ion-card-content>
