@@ -96,7 +96,7 @@ export class PoolPage {
         })
 
       })
-    })
+    });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PoolPage');
