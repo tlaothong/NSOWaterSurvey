@@ -21,6 +21,7 @@ import { TableDisasterousComponent } from './table-disasterous/table-disasterous
 import { TableBuyingOtherComponent } from './table-buying-other/table-buying-other';
 import { QuestionnaireMenuPopoverComponent } from './questionnaire-menu-popover/questionnaire-menu-popover';
 import { QuestionnaireMenuComponent } from './questionnaire-menu/questionnaire-menu';
+import { PoolUsageComponent } from './pool-usage/pool-usage';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -44,6 +45,7 @@ import { QuestionnaireMenuComponent } from './questionnaire-menu/questionnaire-m
     TableBuyingOtherComponent,
     QuestionnaireMenuPopoverComponent,
     QuestionnaireMenuComponent,
+    PoolUsageComponent,
     ],
 	imports: [
         IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -72,6 +74,7 @@ import { QuestionnaireMenuComponent } from './questionnaire-menu/questionnaire-m
     TableBuyingOtherComponent,
     QuestionnaireMenuPopoverComponent,
     QuestionnaireMenuComponent,
+    PoolUsageComponent,
     ]
 })
 export class ComponentsModule {}

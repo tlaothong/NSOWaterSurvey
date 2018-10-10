@@ -1,0 +1,75 @@
+<ion-card>
+  <ion-card-content>
+    <ion-item>
+      <ion-label>สระที่ {{ text }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        1) ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
+      </ion-label>
+    </ion-item>
+
+    <div>
+      <ion-row radio-group>
+        <ion-item col-12>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ทราบปริมาณน้ำ</ion-label>
+        </ion-item>
+        <ion-item col-12>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ทราบ</ion-label>
+        </ion-item>
+        <ion-item>
+          <span>Please fill in name</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>ปริมาณน้ำ (ลบ.ม./เดือน)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="กรอกปริมาณน้ำ"></ion-input>
+        </ion-item>
+        <ion-item>
+          <span>Please fill in name</span>
+        </ion-item>
+      </ion-row>
+      <ion-row radio-group>
+        <ion-item>
+          <ion-label>
+            2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ใช้</ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio item-left></ion-radio>
+          <ion-label>ไม่ใช้</ion-label>
+        </ion-item>
+        <ion-item>
+          <span>Please fill in name</span>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="กรอกจำนวนเครื่องสูบน้ำ"></ion-input>
+        </ion-item>
+        <ion-item>
+          <span>Please fill in name</span>
+        </ion-item>
+      </ion-row>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<pump></pump>
+
+<ion-card>
+  <ion-card-content>
+    <water-activity6 headline="5) ใช้น้้าจากสระนี้เพื่อท้ากิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"></water-activity6>
+    <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่"></water-problem4>
+  </ion-card-content>
+</ion-card>
