@@ -25,7 +25,10 @@
             2.3.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกยางพารา หรือไม่
           </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="doing">
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+          <ion-item *ngIf="isValid('doing')">
+              <span class="invalid-msg">กรุณาเลือก</span>
+            </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
             <ion-label>ปลูก</ion-label>
@@ -36,9 +39,6 @@
           </ion-item>
         </ion-row>
         
-        <ion-item *ngIf="isValid('doing')">
-            <span class="invalid-msg">กรุณาเลือก</span>
-          </ion-item>
 
         <ion-item>
           <ion-label>
@@ -46,7 +46,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
         </ion-item>
         
         <ion-item *ngIf="isValid('fieldCount')">
@@ -85,6 +85,9 @@
           </ion-item>
           
           <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')"  >
+            <ion-item *ngIf="isValid('fields.irrigationField')">
+                <span class="invalid-msg">กรุณาเลือก</span>
+              </ion-item>
             <ion-item col-6>
               <ion-radio item-left></ion-radio>
               <ion-label>อยู่</ion-label>
@@ -94,9 +97,6 @@
               <ion-label>ไม่อยู่</ion-label>
             </ion-item>
           </ion-row>
-          <ion-item *ngIf="isValid('fields.irrigationField')">
-              <span class="invalid-msg">กรุณาเลือก</span>
-            </ion-item>
           
           
         </div>
