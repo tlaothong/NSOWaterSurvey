@@ -37,7 +37,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-list radio-group formControlName="cubicMeterPerMonth" [class.invalid]="isValid('cubicMeterPerMonth')">
+        <ion-row radio-group formControlName="cubicMeterPerMonth" [class.invalid]="isValid('cubicMeterPerMonth')">
           <ion-item *ngIf="isValid('cubicMeterPerMonth')">
             <span class="invalid-msg">Please fill in </span>
           </ion-item>
@@ -49,7 +49,7 @@
             <ion-label>ไม่ทราบ</ion-label>
             <ion-radio item-left></ion-radio>
           </ion-item>
-        </ion-list>
+        </ion-row>
 
         <ion-item>
           <ion-label>ทราบปริมาณน้ำ(ลบ.ม./เดือน)</ion-label>
