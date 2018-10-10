@@ -57,14 +57,14 @@
               <ion-item>
                 <ion-label>ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area [formGroupName]="0"></field-area>
+              <field-area [FormItem]="f.get('fieldAreas').at(0)"></field-area>
             </div>
 
             <div *ngSwitchCase="3" formArrayName="fieldAreas">
                 <ion-item>
                 <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area headline="ครั้งที่ {{ i + 1 }} " *ngFor="let far of f.get('fieldAreas').controls; let i = index" [formGroupName]="i"></field-area>
+              <field-area headline="ครั้งที่ {{ i + 1 }} " *ngFor="let far of f.get('fieldAreas').controls; let i = index" [FormItem]="f.get('fieldAreas').at(i)"></field-area>
             </div>
           </div>
 
@@ -158,7 +158,7 @@
           <ion-item>
             <ion-label>ขนาดพื้นที่ กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
           </ion-item>
-          <field-area></field-area>
+          <field-area [FormItem]="f.get('area')"></field-area>
         </ion-list>
       </ion-card-content>
     </ion-card>
