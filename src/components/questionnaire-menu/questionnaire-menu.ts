@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PopoverController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { QuestionnaireMenuPopoverComponent } from '../questionnaire-menu-popover/questionnaire-menu-popover';
 
 /**
@@ -16,13 +16,13 @@ export class QuestionnaireMenuComponent {
 
   @Input('title') text: string;
 
-  constructor(private popoverCtrl: PopoverController) {
+  constructor(private navCtrl: NavController, private popoverCtrl: PopoverController) {
     console.log('Hello QuestionnaireMenuComponent Component');
     this.text = 'Hello World';
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent);
+    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent, { nav: this.navCtrl });
     popover.present({
       ev: myEvent
     });

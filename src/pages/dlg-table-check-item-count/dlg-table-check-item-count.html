@@ -17,7 +17,7 @@
 
   <h3>{{ text }}</h3>
 
-  <form [formGroup]="FormItem">
+  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
     <ion-list>
       <ion-item>
         <ion-checkbox formControlName="hasItem"></ion-checkbox>
@@ -34,10 +34,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block color="light" (click)="closeDialog()">Cancel</button>
+          <button ion-button block color="light" type="button" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block (click)="okDialog()">OK</button>
+          <button ion-button block>OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>
