@@ -11,6 +11,7 @@
 
 
 <ion-content padding>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="FormItem">
 
   <h3>ตอนที่ 6 ปัญหาอุทกภัย</h3>
 
@@ -23,7 +24,7 @@
           <br> (น้้าท่วมขัง น้้ารอการระบาย) หรือไม่</ion-label>
       </ion-item>
 
-      <ion-row radio-group>
+      <ion-row radio-group formControlName="flooded">
         <ion-item col-6>
           <ion-radio item-left></ion-radio>
           <ion-label>มีปัญหา</ion-label>
@@ -32,6 +33,9 @@
           <ion-radio item-left></ion-radio>
           <ion-label>ไม่มีปัญหา</ion-label>
         </ion-item>
+        <ion-item *ngIf="isValid('flooded')">
+            <span class="invalid-msg">โปรดเลือก</span>
+          </ion-item>
       </ion-row>
     </ion-card-content>
   </ion-card>
@@ -70,4 +74,13 @@
 
     </ion-card-content>
   </ion-card>
+
+  <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block type="submit">Save & Next</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</form>
 </ion-content>

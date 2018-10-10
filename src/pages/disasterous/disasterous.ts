@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Generated class for the DisasterousPage page.
@@ -17,10 +17,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class DisasterousPage {
   @Input("headline") private text: string;
   @Input() public FormItem: FormGroup;
-
-  private submitRequested: boolean;
+    private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+    this.FormItem = this.fb.group({
+      'flooded': [null, Validators.required],
+    })
+
+    
+  
   }
 
   public showModal() {
@@ -33,6 +38,10 @@ export class DisasterousPage {
       }
     });
     modal.present();
+  }
+  public handleSubmit() {
+    this.submitRequested = true;
+
   }
 
   submitRequest() {
