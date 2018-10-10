@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="app.onmana.nso.water.survey" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>NSOWaterSurvey</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>สำมะโนน้ำฯ</name>
+    <description>NSO Water Survey app.</description>
+    <author email="tlaothong@gmail.com" href="https://facebook.com/digitalthailandclub">Water Database Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -84,7 +84,8 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-ionic" spec="^5.2.4">
         <variable name="APP_ID" value="051dd5e2" />
-        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="CHANNEL_NAME" value="UI" />
         <variable name="UPDATE_METHOD" value="auto" />
     </plugin>
+    <engine name="android" spec="7.0.0" />
 </widget>

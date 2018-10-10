@@ -1,0 +1,120 @@
+<!--
+  Generated template for the IrrigationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Nerd</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="IrrigationFrm">
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <ion-label>
+            <b>5.5 น้ำจากชลประทาน</b>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            (แสดงข้อมูล ชนิดพืช/การผลิต/การบริการ ที่เลือกใช้น้ำจากชลประทาน จากตอนที่ 1-4)
+          </ion-label>
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-item>
+          <ion-label>
+            5.5.1 มีการนำน้้าจากชลประทานมาใช้ปริมาณ เท่าไรต่อเดือนโดยเฉลี่ย
+          </ion-label>
+        </ion-item>
+
+        <ion-list radio-group formControlName="cubicMeterPerMonth">
+          <ion-item>
+            <ion-label>ทราบ</ion-label>
+            <ion-radio item-left></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>ไม่ทราบ</ion-label>
+            <ion-radio item-left></ion-radio>
+          </ion-item>
+        </ion-list>
+        <ion-item *ngIf="isValid('cubicMeterPerMonth')">
+          <span class="invalid-msg">Please fill in </span>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>ทราบปริมาณน้ำ(ลบ.ม./เดือน)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="unknowPoolUsage"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('unknowPoolUsage')">
+          <span class="invalid-msg">Please fill in </span>
+        </ion-item>
+        <ion-item>
+          <ion-label>ทราบปริมาณน้ำ(ลบ.ม./เดือน)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="unknowPoolUsage"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('unknowPoolUsage')">
+          <span class="invalid-msg">Please fill in </span>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>
+            5.5.2 ใช้เครื่องสูบน้้าเพื่อสูบน้้ามาใช้หรือไม่
+          </ion-label>
+        </ion-item>
+
+        <ion-row radio-group formControlName="hasPump">
+          <ion-item col-6>
+            <ion-label>1.ใช่</ion-label>
+            <ion-radio item-left></ion-radio>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left></ion-radio>
+            <ion-label>2.ไม่ใช่</ion-label>
+          </ion-item>
+        </ion-row>
+        <ion-item *ngIf="isValid('hasPump')">
+          <span class="invalid-msg">Please fill in </span>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            5.5.3 ใช้เครื่องสูบน้้ากี่่เครื่อง
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="จำนวนเครื่อง" formControlName="pumpCount"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('pumpCount')">
+          <span class="invalid-msg">Please fill in </span>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+
+    <pump></pump>
+    <water-activity6></water-activity6>
+    <water-problem6></water-problem6>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block type="submit">Save & Next</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

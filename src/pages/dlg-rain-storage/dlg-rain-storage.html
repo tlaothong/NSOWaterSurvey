@@ -1,0 +1,65 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ภาชนะที่จัดเก็บน้ำฝน</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+<form [formGroup]="FormItem">
+<!--<ion-input type="number" formControlName="ware"></ion-input>-->
+  <ion-row style="align-items: center">
+    <ion-col col-8>
+      <ion-item>
+        <ion-input type="text" disabled="true" ></ion-input>
+        <ion-select formControlName="ware">
+          <ion-option>แท้งค์น้ำ สแตนเลส</ion-option>
+          <ion-option>แท้งค์น้ำ โพลิเมอร์/พลาสติก</ion-option>
+          <ion-option>แท้งค์น้ำ ไฟเบอร์กลาส</ion-option>
+          <ion-option>แท้งค์น้ำ ปูน/ซีเมนต์</ion-option>
+          <ion-option>โอ่ง ปูน/ดินเผา</ion-option>
+          <ion-option>ถัง โพลิเมอร์/พลาสติก</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col col-2>
+      <button ion-button block>ดูรูปตัวอย่าง</button>
+    </ion-col>
+  </ion-row>
+  <ion-row style="align-items: center">
+    <ion-col col-6>
+      <ion-item>
+         <ion-input type="number" disabled="true"></ion-input>
+        <ion-select formControlName="liter">
+          <ion-option>1,000</ion-option>
+          <ion-option>500</ion-option>
+          <ion-option>200</ion-option>
+          <ion-option>100</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col col-2>
+      ลิตร
+    </ion-col>
+    <ion-col col-2>
+      จำนวน
+    </ion-col>
+    <ion-col col-2>
+      <ion-item>
+        <ion-input placeholder="0" formControlName="countware"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block color="light" (click)="closeDialog()">Cancel</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block (click)="okDialog()">OK</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
