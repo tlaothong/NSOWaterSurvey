@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the WaterActivity5Component component.
@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class WaterActivity5Component {
 
-  text: string;
+  @Input('headline') public text: string;
 
   constructor() {
     console.log('Hello WaterActivity5Component Component');
