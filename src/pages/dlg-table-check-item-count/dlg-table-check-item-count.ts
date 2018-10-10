@@ -18,10 +18,12 @@ export class DlgTableCheckItemCountPage {
 
   public FormItem: FormGroup;
   public text: string;
+  public unit: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
+    this.unit = navParams.get("unit");
   }
 
   public closeDialog() {

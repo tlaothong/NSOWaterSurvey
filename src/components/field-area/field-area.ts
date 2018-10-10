@@ -22,13 +22,6 @@ export class FieldAreaComponent {
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello FieldAreaComponent Component');
     this.text = '';
-
-    // TODO: Remove this
-    this.FormItem = this.fb.group({
-      'rai': null,
-      'ngan': null,
-      'sqWa': null,
-    });
   }
 
   public showModal() {
