@@ -15,7 +15,7 @@ export class HomePage {
     this.pages = [
       // test push
       { title: 'Zero', component: "ZeroPage" },
-      { title: 'Demo', component: "DemoPage" },
+      { title: 'Commercial', component: "CommercialPage" },
       { title: 'Rice', component: "RicePage" },
       { title: 'Mushroom', component: "MushroomPage" },
       { title: 'Plumbing', component: "PlumbingPage" },

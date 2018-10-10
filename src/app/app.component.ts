@@ -24,7 +24,7 @@ export class MyApp {
       // test push
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
-      { title: 'Demo', component: "DemoPage" },
+      { title: 'Commercial', component: "CommercialPage" },
       { title: 'Rice', component: "RicePage" },
       { title: 'Mushroom', component: "MushroomPage" },
       { title: 'Plumbing', component: "PlumbingPage" },
