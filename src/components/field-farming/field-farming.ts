@@ -1,6 +1,8 @@
-import { Input , Component } from '@angular/core';
+import { Input, Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
+import { FieldAreaComponent } from '../field-area/field-area';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the FieldFarmingComponent component.
@@ -12,7 +14,7 @@ import { combineLatest } from 'rxjs/operators';
   selector: 'field-farming',
   templateUrl: 'field-farming.html'
 })
-export class FieldFarmingComponent {
+export class FieldFarmingComponent implements ISubmitRequestable {
 
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
@@ -23,45 +25,80 @@ export class FieldFarmingComponent {
     console.log('Hello FieldFarmingComponent Component');
     this.text = 'Hello World';
 
-    this.FormItem = this.fb.group({
-      
-      'doing': ['',Validators.required],
-      'fieldCount': ['',Validators.required],
-      'fields': this.fb.group({
-        'location': this.fb.group({
-          'province': ['',Validators.required],
-          'district':['',Validators.required],
-          'subDistrict':['',Validators.required]
-        }),
-        'area': this.fb.group({
-          'rai': ['',Validators.required],
-          'ngan': ['',Validators.required],
-          'sqWa': ['',Validators.required]
-        }),
-        'plantingCount': ['',Validators.required],
-        'plantingArea': ['',Validators.required],
-        'areaUsed': this.fb.array([])
-      }),
-      'plantingFromMonth': ['',Validators.required],
-      'plantingThruMonth': ['',Validators.required],
-      'waterFillingCount': ['',Validators.required],
-      'waterHigh': ['',Validators.required],
-      'irrigationField': ['',Validators.required],
-      'waterSources': this.fb.group({
-        'plumbing': ['',Validators.required],
-        'underGround': ['',Validators.required],
-        'pool': ['',Validators.required],
-        'river': ['',Validators.required],
-        'irrigation': ['',Validators.required],
-        'rain': ['',Validators.required],
-        'buying': ['',Validators.required],
-        'rainingAsIs': ['',Validators.required],
-        'other': ['',Validators.required],
-      })
-  
-  });
+    this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
+    // this.FormItem = this.fb.group({
+
+    //   'doing': ['', Validators.required],
+    //   'fieldCount': ['', Validators.required],
+    //   'fields': this.fb.group({
+    //     'location': this.fb.group({
+    //       'province': ['', Validators.required],
+    //       'district': ['', Validators.required],
+    //       'subDistrict': ['', Validators.required]
+    //     }),
+    //     'area': this.fb.group({
+    //       'rai': ['', Validators.required],
+    //       'ngan': ['', Validators.required],
+    //       'sqWa': ['', Validators.required]
+    //     }),
+    //     'plantingCount': ['', Validators.required],
+    //     'plantingArea': ['', Validators.required],
+    //     'areaUsed': this.fb.array([])
+    //   }),
+    //   'plantingFromMonth': ['', Validators.required],
+    //   'plantingThruMonth': ['', Validators.required],
+    //   'waterFillingCount': ['', Validators.required],
+    //   'waterHigh': ['', Validators.required],
+    //   'irrigationField': ['', Validators.required],
+    //   'waterSources': this.fb.group({
+    //     'plumbing': ['', Validators.required],
+    //     'underGround': ['', Validators.required],
+    //     'pool': ['', Validators.required],
+    //     'river': ['', Validators.required],
+    //     'irrigation': ['', Validators.required],
+    //     'rain': ['', Validators.required],
+    //     'buying': ['', Validators.required],
+    //     'rainingAsIs': ['', Validators.required],
+    //     'other': ['', Validators.required],
+    //   })
+
+    // });
 
     this.initPlantingAreaChanges();
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'location': fb.group({
+        'province': ['', Validators.required],
+        'district': ['', Validators.required],
+        'subDistrict': ['', Validators.required]
+      }),
+      'area': FieldAreaComponent.CreateFormGroup(fb),
+      'plantingCount': ['', Validators.required],
+      'plantingArea': ['', Validators.required],
+      'areaUsed': fb.array([]),
+      'plantingFromMonth': ['', Validators.required],
+      'plantingThruMonth': ['', Validators.required],
+      'waterFillingCount': ['', Validators.required],
+      'waterHigh': ['', Validators.required],
+      'irrigationField': ['', Validators.required],
+      'waterSources': fb.group({
+        'plumbing': ['', Validators.required],
+        'underGround': ['', Validators.required],
+        'pool': ['', Validators.required],
+        'river': ['', Validators.required],
+        'irrigation': ['', Validators.required],
+        'rain': ['', Validators.required],
+        'buying': ['', Validators.required],
+        'rainingAsIs': ['', Validators.required],
+        'other': ['', Validators.required],
+      })
+    });
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
   }
 
   public isValid(name: string): boolean {
@@ -70,11 +107,9 @@ export class FieldFarmingComponent {
   }
 
 
-  private readonly outerGroup: string = "fields";
-  private readonly areaUsedName: string = "areaUsed";
-  private readonly areaUsed: string = "fields.areaUsed";
-  private readonly areaCount: string = "fields.plantingCount";
-  private readonly areaOption: string = "fields.plantingArea";
+  private readonly areaUsed: string = "areaUsed";
+  private readonly areaCount: string = "plantingCount";
+  private readonly areaOption: string = "plantingArea";
 
   private initPlantingAreaChanges() {
     const areaCount = this.FormItem.get(this.areaCount);
@@ -109,9 +144,7 @@ export class FieldFarmingComponent {
       fg.setValue(ctrl);
       farr.push(fg);
     }
-    // this.FormItem.setControl(this.areaUsed, farr);
-    // For nested form use this instead
-    (this.FormItem.get(this.outerGroup) as FormGroup).setControl(this.areaUsedName, farr);
+    this.FormItem.setControl(this.areaUsed, farr);
   }
 
 }
