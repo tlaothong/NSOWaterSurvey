@@ -1,76 +1,93 @@
 <!-- Generated template for the MachineWaterComponent component -->
-<ion-item>
-  <ion-label>5) เครื่องสูบน้่ำใช้แหล่งพลังงานจากที่ใด</ion-label>
-</ion-item>
-
-<ion-list radio-group>
+<form [formGroup]="FormItem">
   <ion-item>
-    <ion-label>ใช้ไฟฟ้า</ion-label>
-    <ion-radio item-left></ion-radio>
+    <ion-label>5) เครื่องสูบน้่ำใช้แหล่งพลังงานจากที่ใด</ion-label>
   </ion-item>
+
+  <ion-list radio-group formControlName="EnergySource" [class.invalid]="isValid('EnergySource')">
+    <ion-item>
+      <ion-label>ใช้ไฟฟ้า</ion-label>
+      <ion-radio item-left></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>ใช้น้ำมันดีเซล(โซล่า)</ion-label>
+      <ion-radio item-left></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>ใช้น้ำมันเบนซิน</ion-label>
+      <ion-radio item-left></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>รถไถเดินตาม</ion-label>
+      <ion-radio item-left></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-item *ngIf="isValid('EnergySource')">
+    <span class="invalid-msg">please select</span>
+  </ion-item>
+
   <ion-item>
-    <ion-label>ใช้น้ำมันดีเซล(โซล่า)</ion-label>
-    <ion-radio item-left></ion-radio>
+    <ion-label>6) เครื่องสูบชนิดใด</ion-label>
   </ion-item>
+
+  <ion-item formControlName="PumpType" [class.invalid]="isValid('PumpType')">
+    <ion-label>ชนิดเครื่องสูบ</ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม </ion-option>
+      <ion-option>ปั๊มเจ็ท/ ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก</ion-option>
+      <ion-option>ปั๊มหอยโข่ง</ion-option>
+      <ion-option>ปั๊มชัก</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="isValid('PumpType')">
+    <span class="invalid-msg">Please Select</span>
+  </ion-item>
+
   <ion-item>
-    <ion-label>ใช้น้ำมันเบนซิน</ion-label>
-    <ion-radio item-left></ion-radio>
+    <ion-label>7) ขนาดแรงม้า/วัตต์เท่าไร</ion-label>
   </ion-item>
+  <ion-item formControlName="HorsePower" [class.invalid]="isValid('HorsePower')">
+    <ion-label>ขนาดแรงม้า/วัตต์</ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>200-500 / 0.2 - 0.7</ion-option>
+      <ion-option>501-1000 / 0.7 - 1.5</ion-option>
+      <ion-option>1401-2000 / 2.5 - 4</ion-option>
+      <ion-option>15001-20000 / 20 - 25</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="isValid('HorsePower')">
+    <span class="invalid-msg">Please Select</span>
+  </ion-item>
+
   <ion-item>
-    <ion-label>รถไถเดินตาม</ion-label>
-    <ion-radio item-left></ion-radio>
+    <ion-label>8) ขนาดท่อดูด</ion-label>
   </ion-item>
-</ion-list>
+  <ion-item formControlName="SuctionPipeSize" [class.invalid]="isValid('SuctionPipeSize')">
+    <ion-label>ขนาดท่อดูด</ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>1/2-1</ion-option>
+      <ion-option>1/2-1 (1/2)</ion-option>
+      <ion-option>1-3</ion-option>
+      <ion-option>1-4</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="isValid('SuctionPipeSize')">
+    <span class="invalid-msg">Please Select</span>
+  </ion-item>
 
-<ion-item>
-  <ion-label>6) เครื่องสูบชนิดใด</ion-label>
-</ion-item>
-
-<ion-item>
-  <ion-label>ชนิดเครื่องสูบ</ion-label>
-  <ion-select interface="action-sheet">
-    <ion-option>ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม </ion-option>
-    <ion-option>ปั๊มเจ็ท/ ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก</ion-option>
-    <ion-option>ปั๊มหอยโข่ง</ion-option>
-    <ion-option>ปั๊มชัก</ion-option>
-  </ion-select>
-</ion-item>
-
-<ion-item>
-  <ion-label>7) ขนาดแรงม้า/วัตต์เท่าไร</ion-label>
-</ion-item>
-<ion-item>
-  <ion-label>ขนาดแรงม้า/วัตต์</ion-label>
-  <ion-select interface="action-sheet">
-    <ion-option>200-500 / 0.2 - 0.7</ion-option>
-    <ion-option>501-1000 / 0.7 - 1.5</ion-option>
-    <ion-option>1401-2000 / 2.5 - 4</ion-option>
-    <ion-option>15001-20000 / 20 - 25</ion-option>
-  </ion-select>
-</ion-item>
-
-<ion-item>
-  <ion-label>8) ขนาดท่อดูด</ion-label>
-</ion-item>
-<ion-item>
-  <ion-label>ขนาดท่อดูด</ion-label>
-  <ion-select interface="action-sheet">
-    <ion-option>1/2-1</ion-option>
-    <ion-option>1/2-1 (1/2)</ion-option>
-    <ion-option>1-3</ion-option>
-    <ion-option>1-4</ion-option>
-  </ion-select>
-</ion-item>
-
-<ion-item>
-  <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
-</ion-item>
-<ion-item>
-  <ion-label>ขนาดท่อส่ง</ion-label>
-  <ion-select interface="action-sheet">
-    <ion-option>1/2-2</ion-option>
-    <ion-option>1/2-3</ion-option>
-    <ion-option>2-3</ion-option>
-    <ion-option>4</ion-option>
-  </ion-select>
-</ion-item>
+  <ion-item>
+    <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
+  </ion-item>
+  <ion-item formControlName="PipelineSize" [class.invalid]="isValid('PipelineSize')">
+    <ion-label>ขนาดท่อส่ง</ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>1/2-2</ion-option>
+      <ion-option>1/2-3</ion-option>
+      <ion-option>2-3</ion-option>
+      <ion-option>4</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="isValid('PipelineSize')">
+    <span class="invalid-msg">Please Select</span>
+  </ion-item>
+</form>
