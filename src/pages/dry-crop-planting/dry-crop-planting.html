@@ -44,7 +44,7 @@
             </ion-label>
           </ion-item>
           <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
-            <ion-item *ngIf="isValid('doing')" >
+            <ion-item *ngIf="isValid('doing')">
               <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
             <ion-item col-6>
@@ -79,72 +79,79 @@
 
 
     <ion-card>
-      <ion-card-header>
-        แปลงที่ 1
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
-          </ion-item>
+      <div [ngSwitch]="agronomyPlant.get('doing').value">
+        <div *ngSwitchCase="1">
+          <ion-card-header>
+            แปลงที่ 1
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
+              </ion-item>
 
 
-          <location></location>
+              <location></location>
 
 
-        </ion-list>
+            </ion-list>
 
 
-        <ion-item>
-          <ion-label>2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตาราง </ion-label>
-        </ion-item>
+            <ion-item>
+              <ion-label>2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตาราง </ion-label>
+            </ion-item>
 
-        <field-area></field-area>
-
-
-        <ion-item>
-          <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')"> 
-          <ion-item *ngIf="isValid('irrigationField')">
-            <span class="invalid-msg">กรุณาเลือก</span>
-          </ion-item>
-
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>อยู่</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่อยู่</ion-label>
-          </ion-item>
-        </ion-row>
+            <field-area></field-area>
 
 
-        <ion-item>
-          <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) </ion-label>
-        </ion-item>
-        <ion-list>
-          <ion-item *ngFor="let p of shownData" text-center>
-            {{ p }}
-          </ion-item>
-        </ion-list>
-        <ion-item>
-          <ion-label ion-button (click)="model()">เลือก</ion-label>
-        </ion-item>
+            <ion-item>
+              <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
+            </ion-item>
+            <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
+              <ion-item *ngIf="isValid('irrigationField')">
+                <span class="invalid-msg">กรุณาเลือก</span>
+              </ion-item>
 
-        <!-- <ion-item *ngIf="isValid('names')" [class.invalid]="isValid('names')">
+              <ion-item col-6>
+                <ion-radio item-left></ion-radio>
+                <ion-label>อยู่</ion-label>
+              </ion-item>
+              <ion-item col-6>
+                <ion-radio item-left></ion-radio>
+                <ion-label>ไม่อยู่</ion-label>
+              </ion-item>
+            </ion-row>
+
+
+            <ion-item>
+              <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) </ion-label>
+            </ion-item>
+            <ion-list>
+              <ion-item *ngFor="let p of shownData" text-center>
+                {{ p }}
+              </ion-item>
+            </ion-list>
+            <ion-item>
+              <ion-label ion-button (click)="model()">เลือก</ion-label>
+            </ion-item>
+
+            <!-- <ion-item *ngIf="isValid('names')" [class.invalid]="isValid('names')">
           <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item> -->
 
 
-      </ion-card-content>
+          </ion-card-content>
+        </div>
+      </div>
     </ion-card>
 
 
 
-
-    <water-sources9 headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+    <div [ngSwitch]="agronomyPlant.get('doing').value">
+      <div *ngSwitchCase="1">
+        <water-sources9 headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+      </div>
+    </div>
 
     <form-buttons-bar></form-buttons-bar>
 
