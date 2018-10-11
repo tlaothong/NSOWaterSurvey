@@ -26,12 +26,12 @@ export class BuyingPage {
   ionViewDidEnter() {
     this.BuyingForm = this.fb.group({
       'package': this.fb.group({
-        'name': [''],
-        'size': [''],
-        'drink': [''],
-        'agriculture': [''],
-        'product': [''],
-        'service': ['']
+        'name': [null, Validators.required],
+        'size': [null, Validators.required],
+        'drink': [null, Validators.required],
+        'agriculture': [null, Validators.required],
+        'product': [null, Validators.required],
+        'service': [null, Validators.required]
       })
     });
   }
