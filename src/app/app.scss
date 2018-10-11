@@ -27,6 +27,10 @@ ion-input, ion-textarea {
     background-color: lightgray;
 }
 
+ion-select {
+    max-width: 89%;
+}
+
 .invalid {
     border: 1px solid red;
 }
