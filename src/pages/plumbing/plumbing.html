@@ -455,25 +455,28 @@
       </ion-card>
     </div>
 
+    <div *ngIf="PlumbingForm.get('MWA.Doing').value == 1 || PlumbingForm.get('PWA.Doing').value == 1 || PlumbingForm.get('Other.Doing').value == 1">
+      <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4>
+    </div>
 
     <div [ngSwitch]="PlumbingForm.get('MWA.Doing').value">
 
       <div *ngSwitchCase="1">
-        <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4>
+        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
         <water-activity5 headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)"></water-activity5>
       </div>
     </div>
 
     <div [ngSwitch]="PlumbingForm.get('PWA.Doing').value">
       <div *ngSwitchCase="1">
-        <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4>
+        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
         <water-activity5 headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)"></water-activity5>
       </div>
     </div>
 
     <div [ngSwitch]="PlumbingForm.get('Other.Doing').value">
       <div *ngSwitchCase="1">
-        <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4>
+        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
         <water-activity5 headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)"></water-activity5>
       </div>
     </div>
