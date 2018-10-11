@@ -21,7 +21,7 @@
           <ion-label>1.1 จำนวนสมาชิกในครัวเรือนที่อยู่ประจำติดต่อกันตั้งแต่ 3 เดือนขึ้นไปมีกี่คน </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="จำนวนคน" formControlName="memberCount"></ion-input>
+          <ion-input class="backgroundinput" type="number" placeholder="จำนวนคน" formControlName="memberCount" [class.invalid]="isValid('memberCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('memberCount')">
           <span class="invalid-msg">กรุณากรอกจำนวน</span>
@@ -31,7 +31,7 @@
           <ion-label>1.2 คนที่อายุ 15 – 59 ปี มีกี่คน </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="จำนวนคน" formControlName="workingAge"></ion-input>
+          <ion-input class="backgroundinput" type="number" placeholder="จำนวนคน" formControlName="workingAge" [class.invalid]="isValid('workingAge')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('workingAge')">
           <span class="invalid-msg">กรุณากรอกจำนวน</span>
@@ -48,7 +48,10 @@
         <ion-item>
           <ion-label>1.4 ครัวเรือนนี้มีการใช้น้ำเพื่อรดน้้าต้นไม้/ สวนหย่อม/สวนครัว ในบริเวณที่อยู่อาศัยหรือไม่</ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="gardeningUse">
+        <ion-row radio-group formControlName="gardeningUse"  [class.invalid]="isValid('gardeningUse')">
+          <ion-item *ngIf="isValid('gardeningUse')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
           <ion-item col-6>
             <ion-label>ใช้</ion-label>
             <ion-radio item-left></ion-radio>
@@ -58,9 +61,6 @@
             <ion-radio item-left></ion-radio>
           </ion-item>
         </ion-row>
-        <ion-item *ngIf="isValid('gardeningUse')">
-          <span class="invalid-msg">กรุณาเลือก</span>
-        </ion-item>
       </ion-card-content>
     </ion-card>
 
