@@ -47,7 +47,7 @@
             </ion-item>
           </ion-row>
 
-          <ion-list formGroupName="ProblemAdd" [class.invalid]="isValid('MWA.ProblemAdd')">
+          <div formGroupName="ProblemAdd" [class.invalid]="isValid('MWA.ProblemAdd')">
             <ion-item>
               <ion-label>
                 ขุ่น/ตะกอน
@@ -87,7 +87,7 @@
             <ion-item *ngIf="isValid('MWA.ProblemAdd')">
               <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
-          </ion-list>
+          </div>
 
           <ion-item>
             <ion-label>
@@ -188,7 +188,7 @@
             </ion-item>
           </ion-row>
 
-          <ion-list formGroupName="ProblemAdd" [class.invalid]="isValid('PWA.ProblemAdd')">
+          <div formGroupName="ProblemAdd" [class.invalid]="isValid('PWA.ProblemAdd')">
             <ion-item>
               <ion-label>
                 ขุ่น/ตะกอน
@@ -228,7 +228,7 @@
             <ion-item *ngIf="isValid('PWA.ProblemAdd')">
               <span class="invalid-msg">Please select</span>
             </ion-item>
-          </ion-list>
+          </div>
 
           <ion-item>
             <ion-label>
@@ -321,7 +321,7 @@
             </ion-item>
           </ion-row>
 
-          <ion-list formGroupName="ProblemAdd" [class.invalid]="isValid('Other.ProblemAdd')">
+          <div formGroupName="ProblemAdd" [class.invalid]="isValid('Other.ProblemAdd')">
             <ion-item>
               <ion-label>
                 ขุ่น/ตะกอน
@@ -361,7 +361,7 @@
             <ion-item *ngIf="isValid('Other.ProblemAdd')">
               <span class="invalid-msg">Please select</span>
             </ion-item>
-          </ion-list>
+          </div>
 
           <ion-item>
             <ion-label>

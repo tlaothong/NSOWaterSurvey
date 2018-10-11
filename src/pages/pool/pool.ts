@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the PoolPage page.
@@ -17,7 +18,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class PoolPage {
 
   public pool: FormGroup;
-
+  @ViewChild('poolUsage') poolUsage: ISubmitRequestable;
   private submitRequested: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
@@ -45,8 +46,9 @@ export class PoolPage {
       }),
       'poolCountUsage': [null, Validators.required],
       'poolUsage': this.fb.group({
+        'isPoolUsage' : ['',Validators.required],
         'cubicMeterPerMonth': [null, Validators.required],
-        'unknowPoolUsage': [null, Validators.required],
+        // 'unknowPoolUsage': [null, Validators.required],
         'hasPump': [null, Validators.required],
         'pumpCount': [null, Validators.required],
         'pump':this.fb.group({
@@ -58,6 +60,7 @@ export class PoolPage {
             'knowPumpRate':[''],
             'pumpRateUsage':[''],
           }),
+          // พลังงานจากแหล่งใด
           'energySource':this.fb.group({
             'electicPump':[''],
             'solaPump':[''],
@@ -104,6 +107,7 @@ export class PoolPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.poolUsage.submitRequest();
   }
 
   public isValid(name: string): boolean {
