@@ -18,11 +18,11 @@
 
         <ion-row radio-group formControlName="privateGroundWater" [class.invalid]="isValid('privateGroundWater')">
           <ion-item col-6>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="1" item-left></ion-radio>
             <ion-label>มี</ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="2" item-left></ion-radio>
             <ion-label>ไม่มี</ion-label>
           </ion-item>
         </ion-row>
@@ -31,34 +31,41 @@
           <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
 
-        <ion-item>
-          <ion-label>
-            5.2.2 ถ้ามีบ่อน้ำบาดาลส่วนตัว มีจำนวนกี่บ่อ
-          </ion-label>
-        </ion-item>
+        <div [ngSwitch]="groundWaterForm.get('privateGroundWater').value">
+          <div *ngSwitchCase="1">
+            <ion-item>
+              <ion-label>
+                5.2.2 มีจำนวนกี่บ่อ
+              </ion-label>
+            </ion-item>
 
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('groundWaterCount')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('groundWaterCount')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
 
-        <ion-item>
-          <ion-label> ในรอบ 12 เดือนที่ผ่านมา มีบ่อน้ำบาดาลที่ใช้อยู่กี่บ่อ</ion-label>
-        </ion-item>
+            <ion-item>
+              <ion-label> ในรอบ 12 เดือนที่ผ่านมา มีบ่อน้ำบาดาลที่ใช้อยู่กี่บ่อ</ion-label>
+            </ion-item>
 
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="useGroundWaterCount" [class.invalid]="isValid('useGroundWaterCount')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('useGroundWaterCount')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
-
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="useGroundWaterCount" [class.invalid]="isValid('useGroundWaterCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('useGroundWaterCount')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
+          </div>
+        </div>
       </ion-card-content>
     </ion-card>
 
-    <ground-water-usage #avgWater [FormItem]="groundWaterForm.get('avgUsageWater')"></ground-water-usage>
+    <div [ngSwitch]="groundWaterForm.get('privateGroundWater').value">
+      <div *ngSwitchCase="1">
+        <ground-water-usage #avgWater [FormItem]="groundWaterForm.get('avgUsageWater')"></ground-water-usage>
+      </div>
+    </div>
 
     <ion-card>
       <ion-card-content>
@@ -85,24 +92,30 @@
           </ion-item>
         </ion-row>
 
-        <ion-item>
-          <ion-label>
-            5.2.5 ถ้าใช้น้ำบ่อน้ำบาดาลสาธารณะ ใช้จำนวนกี่บ่อ
-          </ion-label>
-        </ion-item>
+        <div [ngSwitch]="groundWaterForm.get('publicGroundWater').value">
+          <div *ngSwitchCase="1">
+            <ion-item>
+              <ion-label>
+                5.2.5 ใช้จำนวนกี่บ่อ
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="publicGroundWater" [class.invalid]="isValid('publicGroundWater')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('publicGroundWater')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
+          </div>
+        </div>
 
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="publicGroundWater" [class.invalid]="isValid('publicGroundWater')"></ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="isValid('publicGroundWater')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
       </ion-card-content>
-
     </ion-card>
 
-    <ground-water-usage-public></ground-water-usage-public>
+    <div [ngSwitch]="groundWaterForm.get('publicGroundWater').value">
+      <div *ngSwitchCase="1">
+        <ground-water-usage-public></ground-water-usage-public>
+      </div>
+    </div>
 
     <form-buttons-bar></form-buttons-bar>
 
