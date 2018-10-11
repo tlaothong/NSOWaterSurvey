@@ -58,8 +58,6 @@ export class RicePage {
       })
 
     });
-
-    this.initPlantingAreaChanges();
   }
 
   ionViewDidLoad() {
@@ -80,44 +78,46 @@ export class RicePage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  private readonly outerGroup: string = "fields";
-  private readonly areaUsedName: string = "areaUsed";
-  private readonly areaUsed: string = "fields.areaUsed";
-  private readonly areaCount: string = "fields.plantingCount";
-  private readonly areaOption: string = "fields.plantingArea";
+  // private setupPlantingAreaChanges() {
 
-  private initPlantingAreaChanges() {
-    const areaCount = this.ricePlant.get(this.areaCount);
-    this.ricePlant.get(this.areaOption).valueChanges.pipe(
-      combineLatest(areaCount.valueChanges)
-    ).subscribe(it => this.onPlantingAreaChanges());
+  //   const outerGroup: string = "fields";
+  //   const areaUsedName: string = "areaUsed";
+  //   const areaUsed: string = "fields.areaUsed";
+  //   const areaCount: string = "fields.plantingCount";
+  //   const areaOption: string = "fields.plantingArea";
+  
+  //   const onPlantingAreaChanges = () => {
+  //     var fields = this.ricePlant.get(areaUsed).value || [];
+  //     var fieldCount = this.ricePlant.get(areaCount).value || 0;
+  //     var farr = this.fb.array([]);
+  
+  //     fieldCount = Math.max(1, fieldCount);
+  
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
+  //       }
+  
+  //       const fg = FieldAreaComponent.CreateFormGroup(this.fb);
+  //       fg.setValue(ctrl);
+  //       farr.push(fg);
+  //     }
+  //     // this.ricePlant.setControl(this.areaUsed, farr);
+  //     // For nested form use this instead
+  //     (this.ricePlant.get(outerGroup) as FormGroup).setControl(areaUsedName, farr);
+  //   }
+  
+  //   const areaCountCtrl = this.ricePlant.get(areaCount);
+  //   this.ricePlant.get(areaOption).valueChanges.pipe(
+  //     combineLatest(areaCountCtrl.valueChanges)
+  //   ).subscribe(it => onPlantingAreaChanges());
 
-    this.onPlantingAreaChanges();
-  }
+  //   onPlantingAreaChanges();
+  // }
 
-  public onPlantingAreaChanges() {
-    var fields = this.ricePlant.get(this.areaUsed).value || [];
-    var fieldCount = this.ricePlant.get(this.areaCount).value || 0;
-    var farr = this.fb.array([]);
-
-    fieldCount = Math.max(1, fieldCount);
-
-    for (let i = 0; i < fieldCount; i++) {
-      var ctrl = null;
-      if (i < fields.length) {
-        const fld = fields[i];
-        ctrl = fld;
-      } else {
-        ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
-      }
-
-      const fg = FieldAreaComponent.CreateFormGroup(this.fb);
-      fg.setValue(ctrl);
-      farr.push(fg);
-    }
-    // this.ricePlant.setControl(this.areaUsed, farr);
-    // For nested form use this instead
-    (this.ricePlant.get(this.outerGroup) as FormGroup).setControl(this.areaUsedName, farr);
-  }
 
 }

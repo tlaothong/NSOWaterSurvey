@@ -1,4 +1,4 @@
-import { Input, Component } from '@angular/core';
+import { Input, Component, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../field-area/field-area';
@@ -15,7 +15,7 @@ import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harv
   selector: 'field-farming',
   templateUrl: 'field-farming.html'
 })
-export class FieldFarmingComponent implements ISubmitRequestable {
+export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable {
 
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
@@ -64,8 +64,6 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     //   })
 
     // });
-
-    this.setupPlantingAreas();
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -95,6 +93,10 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.setupPlantingAreaChanges();
+  }
+
   submitRequest() {
     this.submitRequested = true;
   }
@@ -105,7 +107,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   }
 
 
-  private setupPlantingAreas() {    
+  private setupPlantingAreaChanges() {    
     const areaUsed: string = "areaUsed";
     const areaCount: string = "plantingCount";
     const areaOption: string = "plantingArea";
@@ -141,6 +143,8 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.FormItem.get(areaOption).valueChanges.pipe(
       combineLatest(areaCountCtrl.valueChanges)
     ).subscribe(it => onPlantingAreaChanges());
+
+    onPlantingAreaChanges();
   }
 
 }
