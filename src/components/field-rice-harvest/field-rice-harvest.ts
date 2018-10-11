@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
@@ -14,7 +14,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 })
 export class FieldRiceHarvestComponent implements ISubmitRequestable {
 
-  text: string;
+  @Input('i') text: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -26,10 +26,10 @@ export class FieldRiceHarvestComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      "plantingFromMonth": null,
-      "plantingThruMonth": null,
-      "waterFillingCount": null,
-      "waterHighCm": null
+      "plantingFromMonth": [ null, Validators.required ],
+      "plantingThruMonth": [ null, Validators.required ],
+      "waterFillingCount": [ null, Validators.required ],
+      "waterHighCm": [ null, Validators.required ],
     });
   }
 
@@ -39,7 +39,7 @@ export class FieldRiceHarvestComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }

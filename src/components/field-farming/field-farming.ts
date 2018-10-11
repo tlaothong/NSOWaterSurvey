@@ -74,10 +74,10 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
         'subDistrict': ['', Validators.required]
       }),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'plantingCount': ['', Validators.required],
+      'plantingCount': ['', [ Validators.required, Validators.min(1), Validators.max(4) ]],
       'plantingArea': ['', Validators.required],
       'areaUsed': fb.array([]),
-      'harvests': fb.array([FieldRiceHarvestComponent.CreateFormGroup(fb)]),
+      'harvests': fb.array([ FieldRiceHarvestComponent.CreateFormGroup(fb) ]),
       'irrigationField': ['', Validators.required],
       'waterSources': fb.group({
         'plumbing': ['', Validators.required],
@@ -94,6 +94,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
   }
 
   ngAfterViewInit(): void {
+    this.setupPlantingCountChanges();
     this.setupPlantingAreaChanges();
   }
 
@@ -103,11 +104,11 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 
-  private setupPlantingAreaChanges() {    
+  private setupPlantingAreaChanges() {
     const areaUsed: string = "areaUsed";
     const areaCount: string = "plantingCount";
     const areaOption: string = "plantingArea";
@@ -128,11 +129,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
           ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
         }
 
-        const fg = this.fb.group({
-          'rai': [null, [Validators.required, Validators.min(0)]],
-          'ngan': [null, [Validators.required, Validators.min(0), Validators.max(3)]],
-          'sqWa': [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-        });
+        const fg = FieldAreaComponent.CreateFormGroup(this.fb);
         fg.setValue(ctrl);
         farr.push(fg);
       }
@@ -145,6 +142,43 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
     ).subscribe(it => onPlantingAreaChanges());
 
     onPlantingAreaChanges();
+  }
+
+  private setupPlantingCountChanges() {
+    const componentFormArray: string = "harvests";
+    const componentCount: string = "plantingCount";
+
+    var onComponentCountChanges = () => {
+      var fields = this.FormItem.get(componentFormArray).value || [];
+      var fieldCount = this.FormItem.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      fieldCount = Math.max(1, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = {
+            "plantingFromMonth": null,
+            "plantingThruMonth": null,
+            "waterFillingCount": null,
+            "waterHighCm": null
+          };
+        }
+
+        const fg = FieldRiceHarvestComponent.CreateFormGroup(this.fb);
+        fg.setValue(ctrl);
+        farr.push(fg);
+      }
+      this.FormItem.setControl(componentFormArray, farr);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 
 }

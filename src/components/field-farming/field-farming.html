@@ -76,8 +76,10 @@
         </div>
       </div>
 
-      <div *ngFor="let har of FormItem.get('harvests').controls; let i = index">
-        <field-rice-harvest [FormItem]="har"></field-rice-harvest>
+      <div *ngIf="FormItem.get('plantingCount').value > 0">
+        <div *ngFor="let har of FormItem.get('harvests').controls; let i = index">
+          <field-rice-harvest [FormItem]="har" [i]="i + 1"></field-rice-harvest>
+        </div>
       </div>
 
       <ion-card>

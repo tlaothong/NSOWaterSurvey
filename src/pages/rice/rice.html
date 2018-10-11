@@ -6,7 +6,7 @@
 <ion-content padding>
 
   <h3>ตอนที่ 2.1 ข้าว</h3>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="ricePlant">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
 
     <ion-card>
       <ion-card-content>
@@ -32,7 +32,7 @@
         </ion-row>
 
 
-        <div *ngIf="ricePlant.get('doing').value">
+        <div *ngIf="f.get('doing').value">
           <ion-item>
             <ion-label>
               2.1.2 ถ้า "ปลูกข้าว" มีแปลงนาจำนวนกี่แปลง
@@ -51,8 +51,10 @@
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="ricePlant.get('doing').value == true">
-      <field-farming></field-farming>
+    <div *ngIf="f.get('doing').value && f.get('fieldCount').value > 0">
+      <div *ngFor="let far of f.get('fields').controls; let i = index">
+        <field-farming [FormItem]="far"></field-farming>
+      </div>
     </div>
 
     <form-buttons-bar></form-buttons-bar>
