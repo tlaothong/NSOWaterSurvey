@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
+import { FieldAreaComponent } from '../../components/field-area/field-area';
 
 /**
  * Generated class for the RicePage page.
@@ -20,41 +21,37 @@ export class RicePage {
   ricePlant: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.ricePlant = this.fb.group({
-      
-        'doing': ['',Validators.required],
-        'fieldCount': ['',Validators.required],
-        'fields': this.fb.group({
-          'location': this.fb.group({
-            'province': ['',Validators.required],
-            'district':['',Validators.required],
-            'subDistrict':['',Validators.required]
-          }),
-          'area': this.fb.group({
-            'rai': ['',Validators.required],
-            'ngan': ['',Validators.required],
-            'sqWa': ['',Validators.required]
-          }),
-          'plantingCount': ['',Validators.required],
-          'plantingArea': ['',Validators.required],
-          'areaUsed': this.fb.array([])
+
+      'doing': [null, Validators.required],
+      'fieldCount': ['', Validators.required],
+      'fields': this.fb.group({
+        'location': this.fb.group({
+          'province': ['', Validators.required],
+          'district': ['', Validators.required],
+          'subDistrict': ['', Validators.required]
         }),
-        'plantingFromMonth': ['',Validators.required],
-        'plantingThruMonth': ['',Validators.required],
-        'waterFillingCount': ['',Validators.required],
-        'waterHigh': ['',Validators.required],
-        'irrigationField': ['',Validators.required],
-        'waterSources': this.fb.group({
-          'plumbing': ['',Validators.required],
-          'underGround': ['',Validators.required],
-          'pool': ['',Validators.required],
-          'river': ['',Validators.required],
-          'irrigation': ['',Validators.required],
-          'rain': ['',Validators.required],
-          'buying': ['',Validators.required],
-          'rainingAsIs': ['',Validators.required],
-          'other': ['',Validators.required],
-        })
-    
+        'area': FieldAreaComponent.CreateFormGroup(this.fb),
+        'plantingCount': ['', Validators.required],
+        'plantingArea': ['', Validators.required],
+        'areaUsed': this.fb.array([])
+      }),
+      'plantingFromMonth': ['', Validators.required],
+      'plantingThruMonth': ['', Validators.required],
+      'waterFillingCount': ['', Validators.required],
+      'waterHigh': ['', Validators.required],
+      'irrigationField': ['', Validators.required],
+      'waterSources': this.fb.group({
+        'plumbing': ['', Validators.required],
+        'underGround': ['', Validators.required],
+        'pool': ['', Validators.required],
+        'river': ['', Validators.required],
+        'irrigation': ['', Validators.required],
+        'rain': ['', Validators.required],
+        'buying': ['', Validators.required],
+        'rainingAsIs': ['', Validators.required],
+        'other': ['', Validators.required],
+      })
+
     });
 
     this.initPlantingAreaChanges();
@@ -70,7 +67,6 @@ export class RicePage {
 
   public handleSubmit() {
     this.submitRequested = true;
-
   }
 
   public isValid(name: string): boolean {
@@ -83,7 +79,7 @@ export class RicePage {
   private readonly areaUsed: string = "fields.areaUsed";
   private readonly areaCount: string = "fields.plantingCount";
   private readonly areaOption: string = "fields.plantingArea";
-  
+
   private initPlantingAreaChanges() {
     const areaCount = this.ricePlant.get(this.areaCount);
     this.ricePlant.get(this.areaOption).valueChanges.pipe(
@@ -109,11 +105,7 @@ export class RicePage {
         ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
       }
 
-      const fg = this.fb.group({
-        'rai': [null, [ Validators.required, Validators.min(0) ]],
-        'ngan': [null, [ Validators.required, Validators.min(0), Validators.max(3) ]],
-        'sqWa': [null, [ Validators.required, Validators.min(0), Validators.max(99) ]],
-      });
+      const fg = FieldAreaComponent.CreateFormGroup(this.fb);
       fg.setValue(ctrl);
       farr.push(fg);
     }
