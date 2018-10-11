@@ -14,35 +14,45 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'flower-crop.html',
 })
 export class FlowerCropPage {
-
-  flowerCrop: FormGroup;
+  private submitRequested:boolean;
+  flowerCropFrm: FormGroup;
   shownData: string[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder,public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController) {
+    this.flowerCropFrm = this.fb.group({
+      'doing': [null, Validators.required],
+      'fieldCount': [null, Validators.required],
+      'fields': this.fb.group({
+        'thisPlantOnly': [null, Validators.required],
+        'mixedWithPrimaryPlant': [null, Validators.required],
+        'names': [null, Validators.required],
+        'location': this.fb.group({
+          'province': [null, Validators.required],
+          'distric': [null, Validators.required],
+          'subDistric': [null, Validators.required]
+        }),
+        'area': this.fb.group({
+          'rai': [null, Validators.required],
+          'ngan': [null, Validators.required],
+          'sqWa': [null, Validators.required],
+        }),
+        'irrigationField': [null, Validators.required],
+        'waterSources': this.fb.group({
+          'rainingAsIs': [null, Validators.required],
+          'plumbing': [null, Validators.required],
+          'underGround': [null, Validators.required],
+          'pool': [null, Validators.required],
+          'river': [null, Validators.required],
+          'irrigation': [null, Validators.required],
+          'rain': [null, Validators.required],
+          'buying': [null, Validators.required],
+          'other': [null, Validators.required]
+        })
+      })
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
-  }
-  ionViewDidEnter() {
-    this.flowerCrop = this.fb.group({
-      doing: [''],
-      fieldCount: [''],
-      fields: this.fb.group({
-        thisPlantOnly: [''],
-        mixedWithPrimaryPlant: [''],
-        waterSources: this.fb.group({
-          rainingAsIs: [''],
-          plumbing: [''],
-          underGround: [''],
-          pool: [''],
-          river: [''],
-          irrigation: [''],
-          rain: [''],
-          buying: [''],
-          other: ['']
-        })
-      })
-    })
   }
 
   model() {
@@ -60,5 +70,15 @@ export class FlowerCropPage {
     });
 
     modal.present();
+  }
+
+  public handleSubmit() {
+    this.submitRequested = true;
+    
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.flowerCropFrm.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }
