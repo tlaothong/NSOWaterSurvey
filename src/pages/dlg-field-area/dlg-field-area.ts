@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FieldAreaComponent } from '../../components/field-area/field-area';
 
 /**
  * Generated class for the DlgFieldAreaPage page.
@@ -22,11 +23,7 @@ export class DlgFieldAreaPage {
   private submitRequested: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
-    this.FormItem = this.fb.group({
-      'rai': [null, [Validators.required, Validators.min(0)]],
-      'ngan': [null, [Validators.required, Validators.min(0), Validators.max(3)]],
-      'sqWa': [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-    });
+    this.FormItem = FieldAreaComponent.CreateFormGroup(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
     this.text = navParams.get("headline");

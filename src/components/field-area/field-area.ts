@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the FieldAreaComponent component.
@@ -24,10 +24,14 @@ export class FieldAreaComponent {
     this.text = '';
 
     // TODO: Remove this
-    this.FormItem = this.fb.group({
-      'rai': null,
-      'ngan': null,
-      'sqWa': null,
+    this.FormItem = FieldAreaComponent.CreateFormGroup(this.fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'rai': [null, [Validators.required, Validators.min(0)]],
+      'ngan': [null, [Validators.required, Validators.min(0), Validators.max(3)]],
+      'sqWa': [null, [Validators.required, Validators.min(0), Validators.max(99)]],
     });
   }
 
