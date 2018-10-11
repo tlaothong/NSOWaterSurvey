@@ -24,7 +24,7 @@
         <div formGroupName="category">
           <ion-item>
             <ion-label>เลือกประเภท</ion-label>
-            <ion-select formControlName="string" [class.invalid]="isValid('category.string')">
+            <ion-select interface="action-sheet" formControlName="string" [class.invalid]="isValid('category.string')">
               <ion-option>1.บ้านเดี่ยว</ion-option>
               <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
               <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
@@ -55,7 +55,7 @@
         <div formGroupName="serviceType">
           <ion-item>
             <ion-label>เลือกประเภท</ion-label>
-            <ion-select formControlName="string" [class.invalid]="isValid('serviceType.string')">
+            <ion-select interface="action-sheet" formControlName="string" [class.invalid]="isValid('serviceType.string')">
               <ion-option>1.บ้านเดี่ยว</ion-option>
               <ion-option>2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม</ion-option>
               <ion-option>3.ห้องแถว/เรือนแถว/ตึกแถว</ion-option>
