@@ -91,7 +91,6 @@ export class PoolPage {
             'filmOfOil':[''],
             'fogWater':[''],
             'hardWater':[''],
-            
           })
         })
 
