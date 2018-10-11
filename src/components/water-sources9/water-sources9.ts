@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 /**
  * Generated class for the WaterSources9Component component.
@@ -12,11 +13,28 @@ import { Component, Input } from '@angular/core';
 })
 export class WaterSources9Component {
 
-  @Input('headline') text: string;
+  @Input('headline') public text: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor() {
+  private submitRequested: boolean;
+
+  constructor(private fb: FormBuilder) {
     console.log('Hello WaterSources9Component Component');
-    this.text = 'Hello World';
+    this.text = '';
+
+    // TODO: Remove this
+    this.FormItem = this.fb.group({
+      'hasOther': false,
+      'other': null
+    });
   }
 
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
 }
