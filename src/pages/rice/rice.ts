@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../../components/field-area/field-area';
+import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 
 /**
  * Generated class for the RicePage page.
@@ -17,8 +18,12 @@ import { FieldAreaComponent } from '../../components/field-area/field-area';
   templateUrl: 'rice.html',
 })
 export class RicePage {
+
   private submitRequested: boolean;
   ricePlant: FormGroup;
+
+  @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.ricePlant = this.fb.group({
 
@@ -67,6 +72,7 @@ export class RicePage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldFarmings.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
