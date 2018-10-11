@@ -26,131 +26,90 @@
             <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
           <ion-item col-6>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="1" item-left></ion-radio>
             <ion-label>1. ปลูก</ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="2" item-left></ion-radio>
             <ion-label>2. ไม่ปลูก</ion-label>
           </ion-item>
         </ion-row>
 
-
-        <ion-item>
-          <ion-label>
-            2.7.2 ถ้า "ปลูก" มีพิ้นที่เพาะเชื้อและปลูกเห็ด จำนวนกี่โรงเรือน
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวนโรงเรือน" formControlName="houseNumber" [class.invalid]="isValid('houseNumber')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('houseNumber')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
-
+        <div [ngSwitch]="MushroomPlantFrm.get('doing').value">
+          <div *ngSwitchCase="1">
+            <ion-item>
+              <ion-label>
+                2.7.2 ถ้า "ปลูก" มีพิ้นที่เพาะเชื้อและปลูกเห็ด จำนวนกี่โรงเรือน
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวนโรงเรือน" formControlName="houseNumber"
+                [class.invalid]="isValid('houseNumber')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('houseNumber')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
+          </div>
+        </div>
       </ion-card-content>
     </ion-card>
 
     <ion-card>
-      <ion-card-header>
-        โรงเรือนที่ 1
-      </ion-card-header>
+      <div [ngSwitch]="MushroomPlantFrm.get('doing').value">
+        <div *ngSwitchCase="1">
+          <ion-card-header>
+            โรงเรือนที่ 1
+          </ion-card-header>
 
-      <ion-card-content>
-        <ion-item>
-          <ion-label> 1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
-        </ion-item>
-        <location></location>
-        <ion-item>
-          <ion-label>
-            2) ขนาดพื้นที่เท่าไร กี่ตารางเมตร
-
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input formControlName="areaMeter" type="number" placeholder="กรอกจำนวน" [class.invalid]="isValid('areaMeter')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('areaMeter')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-
-          </ion-label>
-        </ion-item>
-        <div formGroupName="fields">
-          <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
-            <ion-item *ngIf="isValid('fields.irrigationField')">
-              <span class="invalid-msg">กรุณาเลือก</span>
+          <ion-card-content>
+            <ion-item>
+              <ion-label> 1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
             </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1. อยู่</ion-label>
+            <location></location>
+            <ion-item>
+              <ion-label>
+                2) ขนาดพื้นที่เท่าไร กี่ตารางเมตร
+              </ion-label>
             </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2. ไม่อยู่</ion-label>
+            <ion-item>
+              <ion-input formControlName="areaMeter" type="number" placeholder="กรอกจำนวน" [class.invalid]="isValid('areaMeter')"></ion-input>
             </ion-item>
-          </ion-row>
+            <ion-item *ngIf="isValid('areaMeter')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
 
+            <ion-item>
+              <ion-label>
+                3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+              </ion-label>
+            </ion-item>
+            <div formGroupName="fields">
+              <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
+                <ion-item *ngIf="isValid('fields.irrigationField')">
+                  <span class="invalid-msg">กรุณาเลือก</span>
+                </ion-item>
+                <ion-item col-6>
+                  <ion-radio item-left></ion-radio>
+                  <ion-label>1. อยู่</ion-label>
+                </ion-item>
+                <ion-item col-6>
+                  <ion-radio item-left></ion-radio>
+                  <ion-label>2. ไม่อยู่</ion-label>
+                </ion-item>
+              </ion-row>
+            </div>
+
+          </ion-card-content>
         </div>
-
-      </ion-card-content>
+      </div>
     </ion-card>
 
-    <water-sources9 [headline]="'4) ที่แปลงนี้ใช้น้ำจากแหล้งใดบ้าง'">
-    </water-sources9>
-
-    <ion-card>
-      <ion-card-header>
-        โรงเรือนที่ 2
-      </ion-card-header>
-      <ion-card-content>
-
-        <ion-item>
-          <ion-label> 1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
-        </ion-item>
-
-        <location></location>
-
-        <ion-item>
-          <ion-label>2) ขนาดพื้นที่เท่าไร กี่ตารางเมตร
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-input formControlName="areaMeter" type="number" placeholder="กรอกจำนวน" [class.invalid]="isValid('areaMeter')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('areaMeter')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
-        </ion-item>
-        <div formGroupName="fields">
-          <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('fields.irrigationField')">
-            <ion-item *ngIf="isValid('fields.irrigationField')">
-              <span class="invalid-msg">กรุณาเลือก</span>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1. อยู่</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2. ไม่อยู่</ion-label>
-            </ion-item>
-          </ion-row>
-
-        </div>
-
-      </ion-card-content>
-    </ion-card>
-    <water-sources9 [headline]="'4) ที่แปลงนี้ใช้น้ำจากแหล้งใดบ้าง'">
-    </water-sources9>
+    <div [ngSwitch]="MushroomPlantFrm.get('doing').value">
+      <div *ngSwitchCase="1">
+        <water-sources9 [headline]="'4) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง'">
+        </water-sources9>
+      </div>
+    </div>
 
     <form-buttons-bar></form-buttons-bar>
 
