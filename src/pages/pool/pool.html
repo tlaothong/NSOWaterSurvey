@@ -53,11 +53,11 @@
             </ion-item>
             <ion-row radio-group formControlName="poolEqual">
               <ion-item col-6>
-                <ion-radio item-left></ion-radio>
+                <ion-radio value="1" item-left></ion-radio>
                 <ion-label>เท่ากัน</ion-label>
               </ion-item>
               <ion-item col-6>
-                <ion-radio item-left></ion-radio>
+                <ion-radio value="2" item-left></ion-radio>
                 <ion-label>ไม่เท่า</ion-label>
               </ion-item>
               <ion-item *ngIf="isValid('poolEqual')">
@@ -73,7 +73,16 @@
     <div [ngSwitch]="pool.get('isExist').value">
       <div *ngSwitchCase="1">
 
-        <pool-area headline="สระที่ 1"></pool-area>
+        <div [ngSwitch]="pool.get('poolEqual').value">
+          <!-- เท่ากัน -->
+          <div *ngSwitchCase="1">
+            <pool-area headline="สระที่ 1"></pool-area>
+          </div>
+          <!-- ไม่เท่ากัน -->
+          <div *ngSwitchCase="2">
+            <pool-area headline="สระที่ 1"></pool-area>
+          </div>
+        </div>
 
         <ion-card>
           <ion-card-content>
