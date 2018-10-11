@@ -1,26 +1,5 @@
-<ion-row (click)="showModal()" [formGroup]="FormItem">
-  <ion-col col-3>
-    <ion-item>
-      <ion-label>{{ text }}ขนาดพื้นที่</ion-label>
-    </ion-item>
-  </ion-col>
-  <ion-col col-3>
-    <ion-item>
-      <ion-input type="number" disabled="true" item-left formControlName="rai"></ion-input>
-      <ion-label>ไร่</ion-label>
-    </ion-item>
-  </ion-col>
-  <ion-col col-2>
-    <ion-item>
-      <ion-input type="number" disabled="true" item-left formControlName="ngan"></ion-input>
-      <ion-label>งาน</ion-label>
-    </ion-item>
-  </ion-col>
-  <ion-col col-4>
-    <ion-item>
-      <ion-input type="number" disabled="true" item-left formControlName="sqWa"></ion-input>
-      <ion-label>ตารางวา</ion-label>
-      <ion-icon name="create" item-end></ion-icon>
-    </ion-item>
-  </ion-col>
-</ion-row>
+<ion-item (click)="showModal()" [formGroup]="FormItem">
+  <ion-label col-5>{{ text }}ขนาดพื้นที่</ion-label>
+  <ion-input type="text" disabled="true" value="{{FormItem.get('rai').value || ' - '}} ไร่ {{FormItem.get('ngan').value || ' - '}} งาน {{FormItem.get('sqWa').value || ' - '}} ตารางวา"></ion-input>
+  <ion-icon name="create" item-end></ion-icon>
+</ion-item>

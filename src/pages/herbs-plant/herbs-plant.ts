@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
@@ -17,8 +17,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class HerbsPlantPage {
   private submitRequested: boolean;
   public HerbsPlantFrm: FormGroup;
+  shownData: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,public modalCtrl: ModalController) {
     this.HerbsPlantFrm = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
@@ -45,6 +46,21 @@ export class HerbsPlantPage {
     var ctrl = this.HerbsPlantFrm.get(name);
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
+  model() {
+    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREEVET", model: [], list: [] });
 
+    modal.onDidDismiss(data => {
+      if (data) {
+        // this.FormItem = data;
+        // var fg = <FormGroup>data;
+        // this.FormItem.setValue(fg.value);
+
+        var adata = data as Array<string>;
+        this.shownData = adata.map(it => it.split(".")[1]);
+      }
+    });
+
+    modal.present();
+  }
 
 }

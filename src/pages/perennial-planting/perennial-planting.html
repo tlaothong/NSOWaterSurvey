@@ -21,14 +21,16 @@
       <ion-card-content>
         <dl>
           <dd>
-            พืชยืนต้น ไม้ผล 
+            พืชยืนต้น ไม้ผล
           </dd>
           <dt>
-              เช่นเช่น กระท้อน กล้วย แก้วมังกร จาก เงาะ ชมพู่ หมาก หวาย หม่อน มะม่วง มะนาว มังคุด ทุเรียน ลิ้นจี่ มะละกอ ลองกอง ลางสาด สะตอ สะเดา ส้มโอ ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว ปาล์มน้้ามัน เป็นต้น</dt>
+            เช่นเช่น กระท้อน กล้วย แก้วมังกร จาก เงาะ ชมพู่ หมาก หวาย หม่อน มะม่วง มะนาว มังคุด ทุเรียน ลิ้นจี่ มะละกอ
+            ลองกอง ลางสาด สะตอ สะเดา ส้มโอ ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว ปาล์มน้้ามัน เป็นต้น</dt>
           <dd>
-            สวนป่า  </dd>
+            สวนป่า </dd>
           <dt>
-              เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่ มะค่าโมง ยางนา ยูคาลิปตัส สน สัก เป็นต้น</dt>
+            เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่ มะค่าโมง ยางนา ยูคาลิปตัส สน
+            สัก เป็นต้น</dt>
         </dl>
 
       </ion-card-content>
@@ -66,7 +68,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-input type="number" class="backgroundinput" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
+          <ion-input type="number" class="backgroundinput" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"
+            [class.invalid]="isValid('fieldCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('fieldCount')">
           <span class="invalid-msg">กรุณากรอกจำนวน</span>
@@ -119,32 +122,34 @@
         <ion-item>
           <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด </ion-label>
         </ion-item>
-        <div formGroupName="fields">
-          <ion-item [class.invalid]="isValid('fields.names')">
-            <ion-label>รายชื่อพืช</ion-label>
-            <ion-select interface="action-sheet" formControlName="names">
-              <ion-option>ยาสูบ</ion-option>
-              <ion-option>ละหุ่ง</ion-option>
-              <ion-option>สาคู</ion-option>
-            </ion-select>
+        <ion-list >
+            <ion-item *ngFor="let p of shownData" text-center>
+              {{ p }}
+            </ion-item>
+          </ion-list>
+          <ion-item >
+            <ion-label ion-button (click)="model()">เลือก</ion-label>
           </ion-item>
-        </div>
+        <!-- <ion-item [class.invalid]="isValid('fields.names')">
+          <ion-list>
+            <ion-item *ngFor="let p of shownData" text-center>
+              {{ p }}
+            </ion-item>
+          </ion-list>
+          <ion-item>
+            <ion-label ion-button col-6 text-center (click)="model()">เลือก</ion-label>
+          </ion-item>
+        </ion-item>
 
         <ion-item *ngIf="isValid('fields.names')">
           <span class="invalid-msg">กรุณาเลือก</span>
-        </ion-item>
+        </ion-item> -->
       </ion-card-content>
     </ion-card>
 
     <water-sources9 headline="5) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button block type="submit">Save & Next</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>
