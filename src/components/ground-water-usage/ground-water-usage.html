@@ -15,7 +15,7 @@
 
       <ion-row radio-group formControlName="usageType" [class.invalid]="isValid('usageType')">
         <ion-item *ngIf="isValid('usageType')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
         <ion-item>
           <ion-radio value="1" item-left></ion-radio>
@@ -41,7 +41,7 @@
         <ion-input type="number" placeholder="กรอกปริมาณน้ำ" formControlName="usageCubicMeters" [class.invalid]="isValid('usageCubicMeters')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('usageCubicMeters')">
-        <span class="invalid-msg">Please fill in name</span>
+        <span class="invalid-msg">กรุณากรอกจำนวน</span>
       </ion-item>
 
       <ion-item>
@@ -51,7 +51,7 @@
         <ion-input type="number" placeholder="กรอกค่าน้ำ" formControlName="waterBill" [class.invalid]="isValid('waterBill')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('waterBill')">
-        <span class="invalid-msg">Please fill in name</span>
+        <span class="invalid-msg">กรุณากรอกจำนวน</span>
       </ion-item>
 
       <ion-item>
@@ -62,7 +62,7 @@
 
       <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
         <ion-item *ngIf="isValid('hasPump')">
-          <span class="invalid-msg">Please fill in name</span>
+          <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
         <ion-item col-6>
           <ion-radio value="1" item-left></ion-radio>
@@ -86,7 +86,7 @@
         <ion-input type="number" placeholder="กรอกจำนวนเครื่องสูบน้ำ" formControlName="pumpCount" [class.invalid]="isValid('pumpCount')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('pumpCount')">
-        <span class="invalid-msg">Please fill in name</span>
+        <span class="invalid-msg">กรุณากรอกจำนวน</span>
       </ion-item>
 
 

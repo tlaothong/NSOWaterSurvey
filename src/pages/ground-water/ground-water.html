@@ -17,6 +17,9 @@
         </ion-item>
 
         <ion-row radio-group formControlName="privateGroundWater" [class.invalid]="isValid('privateGroundWater')">
+          <ion-item *ngIf="isValid('privateGroundWater')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
           <ion-item col-6>
             <ion-radio item-left></ion-radio>
             <ion-label>มี</ion-label>
@@ -27,9 +30,6 @@
           </ion-item>
         </ion-row>
 
-        <ion-item *ngIf="isValid('privateGroundWater')">
-          <span class="invalid-msg">กรุณาเลือก</span>
-        </ion-item>
 
         <ion-item>
           <ion-label>
