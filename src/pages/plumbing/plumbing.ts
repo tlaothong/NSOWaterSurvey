@@ -79,18 +79,18 @@ export class PlumbingPage {
         })
       }),
       'WaterActivityMWAPWA': this.fb.group({
-        Drink : ['', Validators.required],
-        Plant :['', Validators.required],
-        Agriculture : ['', Validators.required],
-        Product: ['', Validators.required],
-        Service : ['', Validators.required]
+        'Drink': ['', Validators.required],
+        'Plant': ['', Validators.required],
+        'Agriculture': ['', Validators.required],
+        'Product': ['', Validators.required],
+        'Service': ['', Validators.required]
       }),
       'WaterActivityOther': this.fb.group({
-        Drink : ['', Validators.required],
-        Plant :['', Validators.required],
-        Agriculture : ['', Validators.required],
-        Product: ['', Validators.required],
-        Service : ['', Validators.required]
+        'Drink': ['', Validators.required],
+        'Plant': ['', Validators.required],
+        'Agriculture': ['', Validators.required],
+        'Product': ['', Validators.required],
+        'Service': ['', Validators.required]
       }),
       'WaterNotRunning': ['', Validators.required],
       'WaterNotRunningCount': ['', Validators.required]
