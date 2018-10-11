@@ -21,7 +21,7 @@ export class RicePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.ricePlant = this.fb.group({
       
-        'doing': ['',Validators.required],
+        'doing': [null ,Validators.required],
         'fieldCount': ['',Validators.required],
         'fields': this.fb.group({
           'location': this.fb.group({
@@ -70,7 +70,6 @@ export class RicePage {
 
   public handleSubmit() {
     this.submitRequested = true;
-
   }
 
   public isValid(name: string): boolean {

@@ -35,7 +35,6 @@ export class FieldAreaComponent {
     const modal = this.modalCtrl.create("DlgFieldAreaPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }
