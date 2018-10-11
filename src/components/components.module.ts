@@ -26,10 +26,10 @@ import { GroundWaterUsageComponent } from './ground-water-usage/ground-water-usa
 import { GroundWaterUsagePublicComponent } from './ground-water-usage-public/ground-water-usage-public';
 import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
 import { FieldFarmingComponent } from './field-farming/field-farming';
-import { FieldFarmingCountComponent } from './field-farming-count/field-farming-count';
+import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harvest';
 
 @NgModule({
-	declarations: [WaterSources8AComponent,
+  declarations: [WaterSources8AComponent,
     DemoNaComponent,
     PumpComponent,
     WaterSources8BComponent,
@@ -55,15 +55,15 @@ import { FieldFarmingCountComponent } from './field-farming-count/field-farming-
     GroundWaterUsagePublicComponent,
     FormButtonsBarComponent,
     FieldFarmingComponent,
-    FieldFarmingCountComponent,
-    ],
-	imports: [
-        IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
-    ],
-    entryComponents: [
-        QuestionnaireMenuPopoverComponent,
-    ],
-	exports: [WaterSources8AComponent,
+    FieldRiceHarvestComponent,
+  ],
+  imports: [
+    IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
+  ],
+  entryComponents: [
+    QuestionnaireMenuPopoverComponent,
+  ],
+  exports: [WaterSources8AComponent,
     DemoNaComponent,
     PumpComponent,
     WaterSources8BComponent,
@@ -89,7 +89,7 @@ import { FieldFarmingCountComponent } from './field-farming-count/field-farming-
     GroundWaterUsagePublicComponent,
     FormButtonsBarComponent,
     FieldFarmingComponent,
-    FieldFarmingCountComponent,
-    ]
+    FieldRiceHarvestComponent,
+  ]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

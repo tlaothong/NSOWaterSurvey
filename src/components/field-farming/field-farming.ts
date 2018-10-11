@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harvest';
 
 /**
  * Generated class for the FieldFarmingComponent component.
@@ -64,7 +65,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
 
     // });
 
-    this.initPlantingAreaChanges();
+    this.setupPlantingAreas();
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -78,10 +79,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
       'plantingCount': ['', Validators.required],
       'plantingArea': ['', Validators.required],
       'areaUsed': fb.array([]),
-      'plantingFromMonth': ['', Validators.required],
-      'plantingThruMonth': ['', Validators.required],
-      'waterFillingCount': ['', Validators.required],
-      'waterHigh': ['', Validators.required],
+      'harvests': fb.array([FieldRiceHarvestComponent.CreateFormGroup(fb)]),
       'irrigationField': ['', Validators.required],
       'waterSources': fb.group({
         'plumbing': ['', Validators.required],
@@ -107,44 +105,42 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   }
 
 
-  private readonly areaUsed: string = "areaUsed";
-  private readonly areaCount: string = "plantingCount";
-  private readonly areaOption: string = "plantingArea";
+  private setupPlantingAreas() {    
+    const areaUsed: string = "areaUsed";
+    const areaCount: string = "plantingCount";
+    const areaOption: string = "plantingArea";
 
-  private initPlantingAreaChanges() {
-    const areaCount = this.FormItem.get(this.areaCount);
-    this.FormItem.get(this.areaOption).valueChanges.pipe(
-      combineLatest(areaCount.valueChanges)
-    ).subscribe(it => this.onPlantingAreaChanges());
+    var onPlantingAreaChanges = () => {
+      var fields = this.FormItem.get(areaUsed).value || [];
+      var fieldCount = this.FormItem.get(areaCount).value || 0;
+      var farr = this.fb.array([]);
 
-    this.onPlantingAreaChanges();
-  }
+      fieldCount = Math.max(1, fieldCount);
 
-  public onPlantingAreaChanges() {
-    var fields = this.FormItem.get(this.areaUsed).value || [];
-    var fieldCount = this.FormItem.get(this.areaCount).value || 0;
-    var farr = this.fb.array([]);
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
+        }
 
-    fieldCount = Math.max(1, fieldCount);
-
-    for (let i = 0; i < fieldCount; i++) {
-      var ctrl = null;
-      if (i < fields.length) {
-        const fld = fields[i];
-        ctrl = fld;
-      } else {
-        ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
+        const fg = this.fb.group({
+          'rai': [null, [Validators.required, Validators.min(0)]],
+          'ngan': [null, [Validators.required, Validators.min(0), Validators.max(3)]],
+          'sqWa': [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+        });
+        fg.setValue(ctrl);
+        farr.push(fg);
       }
+      this.FormItem.setControl(areaUsed, farr);
+    };
 
-      const fg = this.fb.group({
-        'rai': [null, [Validators.required, Validators.min(0)]],
-        'ngan': [null, [Validators.required, Validators.min(0), Validators.max(3)]],
-        'sqWa': [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      });
-      fg.setValue(ctrl);
-      farr.push(fg);
-    }
-    this.FormItem.setControl(this.areaUsed, farr);
+    const areaCountCtrl = this.FormItem.get(areaCount);
+    this.FormItem.get(areaOption).valueChanges.pipe(
+      combineLatest(areaCountCtrl.valueChanges)
+    ).subscribe(it => onPlantingAreaChanges());
   }
 
 }
