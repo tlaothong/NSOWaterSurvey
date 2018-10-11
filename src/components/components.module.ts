@@ -25,6 +25,8 @@ import { PoolUsageComponent } from './pool-usage/pool-usage';
 import { GroundWaterUsageComponent } from './ground-water-usage/ground-water-usage';
 import { GroundWaterUsagePublicComponent } from './ground-water-usage-public/ground-water-usage-public';
 import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
+import { FieldFarmingComponent } from './field-farming/field-farming';
+import { FieldFarmingCountComponent } from './field-farming-count/field-farming-count';
 
 @NgModule({
 	declarations: [WaterSources8AComponent,
@@ -52,6 +54,8 @@ import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
     GroundWaterUsageComponent,
     GroundWaterUsagePublicComponent,
     FormButtonsBarComponent,
+    FieldFarmingComponent,
+    FieldFarmingCountComponent,
     ],
 	imports: [
         IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -84,6 +88,8 @@ import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
     GroundWaterUsageComponent,
     GroundWaterUsagePublicComponent,
     FormButtonsBarComponent,
+    FieldFarmingComponent,
+    FieldFarmingCountComponent,
     ]
 })
 export class ComponentsModule {}
