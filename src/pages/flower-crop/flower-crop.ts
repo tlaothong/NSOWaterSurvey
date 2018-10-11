@@ -25,24 +25,24 @@ export class FlowerCropPage {
   }
   ionViewDidEnter() {
     this.flowerCrop = this.fb.group({
-      doing: [''],
-      fieldCount: [''],
+      doing: [null, Validators.required],
+      fieldCount: [null, Validators.required],
       fields: this.fb.group({
-        thisPlantOnly: [''],
-        mixedWithPrimaryPlant: [''],
+        thisPlantOnly: [null, Validators.required],
+        mixedWithPrimaryPlant: [null, Validators.required],
         waterSources: this.fb.group({
-          rainingAsIs: [''],
-          plumbing: [''],
-          underGround: [''],
-          pool: [''],
-          river: [''],
-          irrigation: [''],
-          rain: [''],
-          buying: [''],
-          other: ['']
+          rainingAsIs: [null, Validators.required],
+          plumbing: [null, Validators.required],
+          underGround: [null, Validators.required],
+          pool: [null, Validators.required],
+          river: [null, Validators.required],
+          irrigation: [null, Validators.required],
+          rain: [null, Validators.required],
+          buying: [null, Validators.required],
+          other: [null, Validators.required]
         })
       })
-    })
+    });
   }
 
   model() {
