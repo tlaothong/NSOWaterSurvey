@@ -16,7 +16,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
   templateUrl: 'ground-water.html',
 })
 
-export class GroundWaterPage {
+export class GroundWaterPage  {
   @ViewChild('avgWater') avgWater: ISubmitRequestable;
   private submitRequested: boolean;
   public groundWaterForm: FormGroup;
@@ -40,21 +40,13 @@ export class GroundWaterPage {
             'knowPumpRate':[''],
             'pumpRateUsage':[''],
           }),
-          'energySource':this.fb.group({
-            'electicPump':[''],
-            'solaPump':[''],
-            'petrolPump':[''],
-            'twoWheeledTractors':[''],
-          }),
-          'pumpType':this.fb.group({
-            'electicPump':[''],
-            'solaPump':[''],
-            'petrolPump':[''],
-            'twoWheeledTractors':[''],
-          }),
-          'horsePower':[''],
-          'suctionPipeSize':[''],
-          'pipelineSize':[''],
+          'waterMachine': this.fb.group({
+            'energySource': ['',Validators.required],
+            'pumpType': ['',Validators.required],
+            'horsePower': ['',Validators.required],
+            'suctionPipeSize': ['',Validators.required],
+            'pipelineSize': ['',Validators.required],
+          })
         }),
         'usageActivities' : this.fb.group({
           'drink':[''],
@@ -107,23 +99,23 @@ export class GroundWaterPage {
           'suctionPipeSize':[''],
           'pipelineSize':['']
         }),
-        'usageActivities':this.fb.group({
-          'drink':[''],
-          'plant':[''],
-          'farm':[''],
-          'agriculture':[''],
-          'product':[''],
-          'service':['']
-        }),
-        'hasQualityProblem':[''],
-        'qualityProblem':this.fb.group({
-          'turbidWater':[''],
-          'saltWater':[''],
-          'smell':[''],
-          'filmOfOil':[''],
-          'fogWater':[''],
-          'hardWater':[''],
-        })
+        // 'usageActivities':this.fb.group({
+        //   'drink':[''],
+        //   'plant':[''],
+        //   'farm':[''],
+        //   'agriculture':[''],
+        //   'product':[''],
+        //   'service':['']
+        // }),
+        // 'hasQualityProblem':[''],
+        // 'qualityProblem':this.fb.group({
+        //   'turbidWater':[''],
+        //   'saltWater':[''],
+        //   'smell':[''],
+        //   'filmOfOil':[''],
+        //   'fogWater':[''],
+        //   'hardWater':[''],
+        // })
       }),
     });
   }

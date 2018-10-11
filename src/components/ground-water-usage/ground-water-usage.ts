@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 /**
@@ -12,12 +12,13 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
   templateUrl: 'ground-water-usage.html'
 })
 export class GroundWaterUsageComponent implements ISubmitRequestable {
-  
+
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
+  @ViewChild('pumpComponent') public pumpComponent: ISubmitRequestable;
 
   private submitRequested: boolean;
- 
+
   constructor(private fb: FormBuilder) {
     console.log('Hello GroundWaterUsageComponent Component');
     this.text = '1';
@@ -28,29 +29,21 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
       'pumps': this.fb.group({
-        'pumpAuto': [null, Validators.required],
-        'unknowHoursPerPump': [null, Validators.required],
-        'hoursPerPump': [null, Validators.required],
-        'numberOfPumpsPerYear': [null, Validators.required],
+        'pumpAuto': ['', Validators.required],
+        'unknowHoursPerPump': ['', Validators.required],
+        'hoursPerPump': ['', Validators.required],
+        'numberOfPumpsPerYear': ['', Validators.required],
         'pumpRate': this.fb.group({
-          'knowPumpRate': [null, Validators.required],
-          'pumpRateUsage': [null, Validators.required],
+          'knowPumpRate': ['', Validators.required],
+          'pumpRateUsage': ['', Validators.required],
         }),
-        'energySource': this.fb.group({
-          'electicPump': [null, Validators.required],
-          'solaPump': [null, Validators.required],
-          'petrolPump': [null, Validators.required],
-          'twoWheeledTractors': [null, Validators.required],
-        }),
-        'pumpType': this.fb.group({
-          'electicPump': [null, Validators.required],
-          'solaPump': [null, Validators.required],
-          'petrolPump': [null, Validators.required],
-          'twoWheeledTractors': [null, Validators.required],
-        }),
-        'horsePower': [null, Validators.required],
-        'suctionPipeSize': [null, Validators.required],
-        'pipelineSize': [null, Validators.required],
+        'waterMachine': this.fb.group({
+          'energySource': ['', Validators.required],
+          'pumpType': ['', Validators.required],
+          'horsePower': ['', Validators.required],
+          'suctionPipeSize': ['', Validators.required],
+          'pipelineSize': ['', Validators.required],
+        })
       }),
       'usageActivities': this.fb.group({
         'drink': [null, Validators.required],
@@ -74,6 +67,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
+    this.pumpComponent.submitRequest();
   }
 
   public isValid(name: string): boolean {

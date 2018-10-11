@@ -24,11 +24,11 @@ export class MachineWaterComponent implements ISubmitRequestable {
     this.text = 'Hello World';
 
     this.FormItem = this.fb.group({
-      'EnergySource': [''],
-      'PumpType': [''],
-      'HorsePower': [''],
-      'SuctionPipeSize': [''],
-      'PipelineSize': ['']
+      'EnergySource': ['',Validators.required],
+      'PumpType': ['',Validators.required],
+      'HorsePower': ['',Validators.required],
+      'SuctionPipeSize': ['',Validators.required],
+      'PipelineSize': ['',Validators.required]
     });
   }
   // core 

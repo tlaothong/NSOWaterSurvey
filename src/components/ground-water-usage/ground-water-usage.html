@@ -103,7 +103,7 @@
 
   <div [ngSwitch]="FormItem.get('hasPump').value">
     <div *ngSwitchCase="1">
-      <pump></pump>
+      <pump #pumpComponent [FormItem] = "FormItem.get('pumps')"></pump>
     </div>
   </div>
   
