@@ -5,18 +5,21 @@
         <ion-icon name="rewind"></ion-icon>
       </button>
       <button ion-button icon-only color="secondary" type="button">
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-col>
     <ion-col col-3>
-        <div class="progress-outer">
-          <div class="progress-inner" [style.width]="60 + '%'">
-            18 / 30
-          </div>
+      <div class="progress-outer">
+        <div class="progress-inner" [style.width]="60 + '%'">
+          18 / 30
         </div>
-      </ion-col>
+      </div>
+    </ion-col>
     <ion-col col-6>
-      <button ion-button block type="submit">บันทึก และ ถามข้อต่อไป</button>
+      <button ion-button block icon-end type="submit">
+        บันทึก และ ถามข้อต่อไป
+        <ion-icon name="ios-arrow-forward"></ion-icon>
+      </button>
     </ion-col>
   </ion-row>
 </ion-grid>
