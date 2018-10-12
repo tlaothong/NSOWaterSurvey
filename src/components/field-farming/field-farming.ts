@@ -17,14 +17,13 @@ import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harv
 })
 export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable {
 
-  @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
+  @Input('no') public fieldNo: string;
 
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
     console.log('Hello FieldFarmingComponent Component');
-    this.text = 'Hello World';
 
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
     // this.FormItem = this.fb.group({
