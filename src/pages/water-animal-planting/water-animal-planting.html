@@ -256,10 +256,14 @@
         <ion-item>
           <ion-label> 2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
-
-        </ion-item>
+        <div formGroupName="frog">
+          <ion-item>
+            <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('frog.animalsCount')"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('frog.animalsCount')">
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
+          </ion-item>
+        </div>
 
       </ion-card-content>
     </ion-card>
@@ -298,11 +302,15 @@
             2) ถ้าเลี้ยงในบ่อ มีจำนวนบ่อเท่าไร
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
-        </ion-item>
 
-
+        <div formGroupName="crocodile">
+          <ion-item>
+            <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('crocodile.animalsCount')"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('crocodile.animalsCount')">
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
+          </ion-item>
+        </div>
         <ion-item>
           <ion-label>
             2.1) ขนาดบ่อหรือร่องสวนทั้งหมดเท่ากันหรือไม่
