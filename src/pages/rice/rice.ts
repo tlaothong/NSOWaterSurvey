@@ -29,23 +29,7 @@ export class RicePage {
 
       'doing': [null, Validators.required],
       'fieldCount': ['', Validators.required],
-      'fields': this.fb.array([ FieldFarmingComponent.CreateFormGroup(this.fb) ]),
-      'plantingFromMonth': ['', Validators.required],
-      'plantingThruMonth': ['', Validators.required],
-      'waterFillingCount': ['', Validators.required],
-      'waterHigh': ['', Validators.required],
-      'irrigationField': ['', Validators.required],
-      'waterSources': this.fb.group({
-        'plumbing': ['', Validators.required],
-        'underGround': ['', Validators.required],
-        'pool': ['', Validators.required],
-        'river': ['', Validators.required],
-        'irrigation': ['', Validators.required],
-        'rain': ['', Validators.required],
-        'buying': ['', Validators.required],
-        'rainingAsIs': ['', Validators.required],
-        'other': ['', Validators.required],
-      })
+      'fields': this.fb.array([]),
 
     });
 
@@ -79,7 +63,7 @@ export class RicePage {
       var fieldCount = this.f.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
-      fieldCount = Math.max(1, fieldCount);
+      fieldCount = Math.max(0, fieldCount);
 
       for (let i = 0; i < fieldCount; i++) {
         var ctrl = null;

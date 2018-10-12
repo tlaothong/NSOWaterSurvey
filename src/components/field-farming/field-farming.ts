@@ -1,4 +1,4 @@
-import { Input, Component, AfterViewInit } from '@angular/core';
+import { Input, Component, AfterViewInit, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../field-area/field-area';
@@ -17,14 +17,16 @@ import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harv
 })
 export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable {
 
-  @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
+  @Input('no') public fieldNo: string;
+
+  @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
+  @ViewChildren(FieldRiceHarvestComponent) private riceHarvests: FieldRiceHarvestComponent[];
 
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
     console.log('Hello FieldFarmingComponent Component');
-    this.text = 'Hello World';
 
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
     // this.FormItem = this.fb.group({
@@ -100,6 +102,8 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
 
   submitRequest() {
     this.submitRequested = true;
+    this.fieldAreas.forEach(it => it.submitRequest());
+    this.riceHarvests.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
