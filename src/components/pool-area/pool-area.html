@@ -8,10 +8,9 @@
           {{ text }}
         </ion-label>
       </ion-item>
-      <div radio-group (ionChange)="showModalArea()" 
-      formControlName="shape">
+      <div radio-group (ionChange)="showModalArea()" formControlName="shape">
         <ion-item>
-          <ion-label>ทราบพื้นที่หรือไม่ กี่ไร่ กี่งาน กี่ตารางวา ความลึกของบ่อกี่เมตร</ion-label>
+          <ion-label>ทราบพื้นที่หรือไม่ กี่ไร่ กี่งาน กี่ตารางวา ความลึกของบ่อ</ion-label>
           <ion-radio value="1" item-left></ion-radio>
         </ion-item>
         <ion-item>
@@ -73,17 +72,22 @@
 
         <ion-row>
           <div *ngSwitchCase="3">
-            <ion-col col-6>
+            <ion-col col-4>
               <ion-item>
                 <ion-input type="number" disabled="true" formControlName="diameter"></ion-input>
                 <ion-label>เส้นผ่านศูนย์กลาง</ion-label>
               </ion-item>
             </ion-col>
           </div>
-          <ion-col col-6>
+          <ion-col col-4>
             <ion-item>
-              <ion-input type="number" disabled="true" formControlName="depth"></ion-input>
               <ion-label>ความลึก</ion-label>
+              <ion-input type="number" disabled="true" formControlName="depth"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-4>
+            <ion-item>
+              <ion-label>เมตร</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>

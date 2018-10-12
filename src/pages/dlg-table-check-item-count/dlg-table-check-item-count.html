@@ -23,7 +23,10 @@
         <ion-checkbox formControlName="hasItem"></ion-checkbox>
         <ion-label>มีหรือไม่</ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="unit == 'เท่าไหร่'">
+        <ion-label>หากมี มีจำนวน{{ unit }}</ion-label>
+      </ion-item>
+      <ion-item *ngIf="unit != 'เท่าไหร่'">
         <ion-label>หากมี มีจำนวนกี่{{ unit }}</ion-label>
       </ion-item>
       <ion-item>

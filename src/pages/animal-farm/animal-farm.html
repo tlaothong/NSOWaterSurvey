@@ -12,14 +12,14 @@
 
 
 <ion-content padding>
-  <h3> 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร </h3>
+  <h3><b>ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร</b></h3>
   <form (ngSubmit)="handleSubmit()" [formGroup]="AnimalFarmForm">
     <ion-card>
 
 
       <ion-item>
         <ion-label>
-          2.8.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้มีการเลี้ยงสัตว์ เพื่อขายหรือใช้งานเกษตรหรือไม่
+          2.8.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้มี<b>การเลี้ยงสัตว์ เพื่อขายหรือใช้งานเกษตรหรือไม่ (ไม่นับสัตว์เลี้ยงที่เลี้ยงไว้ดูเล่น)</b>
         </ion-label>
       </ion-item>
       <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
@@ -43,12 +43,9 @@
     <ion-card>
       <ion-item>
         <ion-label>
-          2.8.2 ถ้า “มี” เลี้ยงสัตว์ชนิดใดบ้าง ในรอบ 12 เดือนที่ผ่านมาเลี้ยงสัตว์แต่ละชนิดเฉลี่ยเดือนละกี่ตัว
+          2.8.2 ถ้า “มี” เลี้ยงสัตว์ชนิดใดบ้าง ในรอบ 12 เดือนที่ผ่านมาเลี้ยงสัตว์แต่ละชนิด<b>เฉลี่ยเดือนละกี่ตัว</b>
         </ion-label>
       </ion-item>
-
-
-
       <ion-list>
         <table-check-item-count unit="ตัว" [ititle]="'1.วัว '" [FormItem]="AnimalFarmForm.get('cow')"></table-check-item-count>
         <table-check-item-count unit="ตัว" [ititle]="'2. ควาย'" [FormItem]="AnimalFarmForm.get('buffalo')"></table-check-item-count>
@@ -58,8 +55,8 @@
         <table-check-item-count unit="ตัว" [ititle]="'6.ไก่ '" [FormItem]="AnimalFarmForm.get('chicken')"></table-check-item-count>
         <table-check-item-count unit="ตัว" [ititle]="'7. เป็ด'" [FormItem]="AnimalFarmForm.get('duck')"></table-check-item-count>
         <table-check-item-count unit="ตัว" [ititle]="'8. ห่าน'" [FormItem]="AnimalFarmForm.get('goose')"></table-check-item-count>
-        <table-check-item-count unit="ตัว" [ititle]="'9. ไหม'" [FormItem]="AnimalFarmForm.get('silk')"></table-check-item-count>
-        <table-check-item-count unit="ตัว" [ititle]="'10. อื่นๆ'" [FormItem]="AnimalFarmForm.get('other')"></table-check-item-count>
+        <table-check-item-count unit=" กก." [ititle]="'9. ไหม'" [FormItem]="AnimalFarmForm.get('silk')"></table-check-item-count>
+        <table-check-item-count unit="เท่าไหร่" [ititle]="'10. อื่นๆ'" [FormItem]="AnimalFarmForm.get('other')"></table-check-item-count>
       </ion-list>
     </ion-card>
 
