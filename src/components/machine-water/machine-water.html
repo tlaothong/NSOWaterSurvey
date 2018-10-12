@@ -44,11 +44,11 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>7) ขนาดแรงม้า/วัตต์เท่าไร</ion-label>
+    <ion-label>7) ขนาดวัตต์/แรงม้าเท่าไร</ion-label>
   </ion-item>
-  <ion-item>
-    <ion-label>ขนาดแรงม้า/วัตต์</ion-label>
-    <ion-select interface="action-sheet" formControlName="horsePower" [class.invalid]="isValid('horsePower')">
+  <ion-item formControlName="horsePower" [class.invalid]="isValid('horsePower')">
+    <ion-label>วัตต์/ขนาดแรงม้า</ion-label>
+    <ion-select interface="action-sheet">
       <ion-option>200-500 / 0.2 - 0.7</ion-option>
       <ion-option>501-1000 / 0.7 - 1.5</ion-option>
       <ion-option>1401-2000 / 2.5 - 4</ion-option>
@@ -60,7 +60,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>8) ขนาดท่อดูด</ion-label>
+    <ion-label>8) ขนาดท่อดูดเท่าไร (นิ้ว)</ion-label>
   </ion-item>
   <ion-item>
     <ion-label>ขนาดท่อดูด</ion-label>
@@ -76,7 +76,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
+    <ion-label>9) ขนาดท่อส่งเท่าไร (นิ้ว)</ion-label>
   </ion-item>
   <ion-item>
     <ion-label>ขนาดท่อส่ง</ion-label>

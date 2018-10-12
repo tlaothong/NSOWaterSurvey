@@ -68,7 +68,7 @@
     <ion-card>
       <ion-card-content>
         <ion-item>
-          <ion-label>3.6 ในรอบ 12 เดือนที่ผ่านมาสถานประกอบการนี้มีน้ำเสียจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
+          <ion-label>3.6 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้<b><u>มีน้ำเสีย</u></b>จากกระบวนการผลิตสินค้าหรือไม่</ion-label>
         </ion-item>
         <ion-row radio-group formControlName="hasWasteWaterFromProduction" [class.invalid]="isValid('hasWasteWaterFromProduction')">
 
@@ -88,7 +88,7 @@
         <div [ngSwitch]="FactoryForm.get('hasWasteWaterFromProduction').value">
           <div *ngSwitchCase="1">
             <ion-item>
-              <ion-label>3.7 สถานประกอบการนี้มีการจัดการน้ำเสียที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
+              <ion-label>3.7 สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
             </ion-item>
 
             <ion-row radio-group formControlName="hasWasteWaterTreatment" [class.invalid]="isValid('hasWasteWaterTreatment')">
@@ -109,7 +109,7 @@
         </div>
 
         <ion-item>
-          <ion-label>3.8 ในรอบ 12 เดือนที่ผ่านมาสถานประกอบการนี้มีการนำน้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่หรือไม่
+          <ion-label>3.8 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้มีการนำ<b>น้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่</b>หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="wasteWaterReuse" [class.invalid]="isValid('wasteWaterReuse')">
