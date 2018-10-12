@@ -44,7 +44,7 @@ export class HerbsPlantPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.HerbsPlantFrm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREEVET", model: [], list: [] });

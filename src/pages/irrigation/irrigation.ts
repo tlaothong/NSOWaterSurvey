@@ -39,6 +39,6 @@ export class IrrigationPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.IrrigationFrm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }
