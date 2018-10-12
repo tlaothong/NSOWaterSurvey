@@ -63,7 +63,52 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
         'hardWater': [null, Validators.required],
       }),
     });
+    // this.FormItem = GroundWaterUsageComponent.CreateFormGroup(this.fb);
   }
+
+  // public static CreateFormGroup(fb: FormBuilder) : FormGroup {
+  //   return fb.group({
+  //     'usageType': [null, Validators.required],
+  //     'usageCubicMeters': [null, Validators.required],
+  //     'waterBill': [null, Validators.required],
+  //     'hasPump': [null, Validators.required],
+  //     'pumpCount': [null, Validators.required],
+  //     'pumps': this.fb.group({
+  //       'pumpAuto': ['', Validators.required],
+  //       'unknowHoursPerPump': ['', Validators.required],
+  //       'hoursPerPump': ['', Validators.required],
+  //       'numberOfPumpsPerYear': ['', Validators.required],
+  //       'pumpRate': this.fb.group({
+  //         'knowPumpRate': ['', Validators.required],
+  //         'pumpRateUsage': ['', Validators.required],
+  //       }),
+  //       'waterMachine': this.fb.group({
+  //         'energySource': ['', Validators.required],
+  //         'pumpType': ['', Validators.required],
+  //         'horsePower': ['', Validators.required],
+  //         'suctionPipeSize': ['', Validators.required],
+  //         'pipelineSize': ['', Validators.required],
+  //       })
+  //     }),
+  //     'usageActivities': this.fb.group({
+  //       'drink': [null, Validators.required],
+  //       'plant': [null, Validators.required],
+  //       'farm': [null, Validators.required],
+  //       'agriculture': [null, Validators.required],
+  //       'product': [null, Validators.required],
+  //       'service': [null, Validators.required],
+  //     }),
+  //     'hasQaulityProblem': [null, Validators.required],
+  //     'qualityProblems': this.fb.group({
+  //       'turbidWater': [null, Validators.required],
+  //       'saltWater': [null, Validators.required],
+  //       'smell': [null, Validators.required],
+  //       'filmOfOil': [null, Validators.required],
+  //       'fogWater': [null, Validators.required],
+  //       'hardWater': [null, Validators.required],
+  //     }),
+  //   });
+  // }
 
   submitRequest() {
     this.submitRequested = true;

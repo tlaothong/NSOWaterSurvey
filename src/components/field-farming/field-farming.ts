@@ -5,6 +5,7 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harvest';
 import { LocationComponent } from '../location/location';
+import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
 
 /**
  * Generated class for the FieldFarmingComponent component.
@@ -24,6 +25,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
   @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
   @ViewChildren(FieldRiceHarvestComponent) private riceHarvests: FieldRiceHarvestComponent[];
   @ViewChildren(LocationComponent) private locationT : LocationComponent[];
+  @ViewChildren(WaterSources8AComponent) private waterSources8A : WaterSources8AComponent[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
@@ -78,17 +80,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
       'areaUsed': fb.array([]),
       'harvests': fb.array([FieldRiceHarvestComponent.CreateFormGroup(fb)]),
       'irrigationField': ['', Validators.required],
-      'waterSources': fb.group({
-        'plumbing': ['', Validators.required],
-        'underGround': ['', Validators.required],
-        'pool': ['', Validators.required],
-        'river': ['', Validators.required],
-        'irrigation': ['', Validators.required],
-        'rain': ['', Validators.required],
-        'buying': ['', Validators.required],
-        'rainingAsIs': ['', Validators.required],
-        'other': ['', Validators.required],
-      })
+      'waterSources': WaterSources8AComponent.CreateFormGroup(fb)
     });
   }
 
@@ -102,6 +94,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
     this.fieldAreas.forEach(it => it.submitRequest());
     this.riceHarvests.forEach(it => it.submitRequest());
     this.locationT.forEach(it=>it.submitRequest());
+    this.waterSources8A.forEach(it=>it.submitRequest());
   }
 
   public isValid(name: string): boolean {

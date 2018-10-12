@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
@@ -25,17 +25,32 @@ export class WaterSources8AComponent implements ISubmitRequestable {
     this.text = '';
 
     // TODO: Remove this
-    this.FormItem = this.fb.group({
-      'hasOther': false,
-      'other': null
-    });
+    // this.FormItem = this.fb.group({
+    //   'hasOther': false,
+    //   'other': null
+    // });
+    this.FormItem = WaterSources8AComponent.CreateFormGroup(fb);
   }
 
-  public isValid(name: string) : boolean {
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'underGround': [false, Validators.required],
+      'pool': [false, Validators.required],
+      'river': [false, Validators.required],
+      'irrigation': [false, Validators.required],
+      'rain': [false, Validators.required],
+      'buying': [false, Validators.required],
+      'rainingAsIs': [false, Validators.required],
+      'other': [false, Validators.required],
+      'hasOther' : [false,Validators.required]
+    })
+  }
+
+  public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-  
+
   submitRequest() {
     this.submitRequested = true;
   }

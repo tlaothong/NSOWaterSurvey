@@ -19,9 +19,11 @@ export class FieldRiceHarvestComponent implements ISubmitRequestable {
 
   private submitRequested: boolean;
 
-  constructor() {
+  constructor(public fb:FormBuilder) {
     console.log('Hello FieldRiceHarvestComponent Component');
     this.text = 'Hello World';
+
+    this.FormItem = FieldRiceHarvestComponent.CreateFormGroup(this.fb);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
