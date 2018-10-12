@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../../components/field-area/field-area';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
@@ -20,26 +20,16 @@ import { FieldFarmingComponent } from '../../components/field-farming/field-farm
 export class RicePage {
 
   private submitRequested: boolean;
-  ricePlant: FormGroup;
+  f: FormGroup;
 
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
-    this.ricePlant = this.fb.group({
+    this.f = this.fb.group({
 
       'doing': [null, Validators.required],
       'fieldCount': ['', Validators.required],
-      'fields': this.fb.group({
-        'location': this.fb.group({
-          'province': ['', Validators.required],
-          'district': ['', Validators.required],
-          'subDistrict': ['', Validators.required]
-        }),
-        'area': FieldAreaComponent.CreateFormGroup(this.fb),
-        'plantingCount': ['', Validators.required],
-        'plantingArea': ['', Validators.required],
-        'areaUsed': this.fb.array([])
-      }),
+      'fields': this.fb.array([ FieldFarmingComponent.CreateFormGroup(this.fb) ]),
       'plantingFromMonth': ['', Validators.required],
       'plantingThruMonth': ['', Validators.required],
       'waterFillingCount': ['', Validators.required],
@@ -59,7 +49,7 @@ export class RicePage {
 
     });
 
-    this.initPlantingAreaChanges();
+    this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
@@ -76,48 +66,39 @@ export class RicePage {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.ricePlant.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  private readonly outerGroup: string = "fields";
-  private readonly areaUsedName: string = "areaUsed";
-  private readonly areaUsed: string = "fields.areaUsed";
-  private readonly areaCount: string = "fields.plantingCount";
-  private readonly areaOption: string = "fields.plantingArea";
+  private setupFieldCountChanges() {
+    const componentFormArray: string = "fields";
+    const componentCount: string = "fieldCount";
 
-  private initPlantingAreaChanges() {
-    const areaCount = this.ricePlant.get(this.areaCount);
-    this.ricePlant.get(this.areaOption).valueChanges.pipe(
-      combineLatest(areaCount.valueChanges)
-    ).subscribe(it => this.onPlantingAreaChanges());
+    var onComponentCountChanges = () => {
+      var fields = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
 
-    this.onPlantingAreaChanges();
-  }
+      fieldCount = Math.max(1, fieldCount);
 
-  public onPlantingAreaChanges() {
-    var fields = this.ricePlant.get(this.areaUsed).value || [];
-    var fieldCount = this.ricePlant.get(this.areaCount).value || 0;
-    var farr = this.fb.array([]);
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldFarmingComponent.CreateFormGroup(this.fb);
+        }
 
-    fieldCount = Math.max(1, fieldCount);
-
-    for (let i = 0; i < fieldCount; i++) {
-      var ctrl = null;
-      if (i < fields.length) {
-        const fld = fields[i];
-        ctrl = fld;
-      } else {
-        ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
+        farr.push(ctrl);
       }
+      this.f.setControl(componentFormArray, farr);
+    };
 
-      const fg = FieldAreaComponent.CreateFormGroup(this.fb);
-      fg.setValue(ctrl);
-      farr.push(fg);
-    }
-    // this.ricePlant.setControl(this.areaUsed, farr);
-    // For nested form use this instead
-    (this.ricePlant.get(this.outerGroup) as FormGroup).setControl(this.areaUsedName, farr);
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
+
 
 }
