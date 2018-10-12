@@ -74,6 +74,6 @@ export class WaterAnimalPlantingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.aquaticAnimal.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }

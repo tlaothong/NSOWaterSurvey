@@ -59,7 +59,7 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }
