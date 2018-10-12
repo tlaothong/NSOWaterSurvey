@@ -16,7 +16,7 @@ import { MachineWaterComponent } from '../machine-water/machine-water';
 export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-  @Input('headline') text: string;
+  @Input('no') text: string;
 
   @ViewChildren(MachineWaterComponent) private machineWater: MachineWaterComponent[];
 

@@ -7,7 +7,7 @@
 <ion-content padding>
   <h3>5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="river">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
 
     <ion-card>
       <ion-card-content>
@@ -29,7 +29,7 @@
           <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
 
-        <div [ngSwitch]="river.get('hasPump').value">
+        <div [ngSwitch]="f.get('hasPump').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>5.3.2 ใช้เครื่องสูบน้ำกี่เครื่อง</ion-label>
@@ -47,9 +47,15 @@
       </ion-card-content>
     </ion-card>
     <!-- เครื่องที่ N -->
-    <div [ngSwitch]="river.get('hasPump').value">
+    <!-- <div [ngSwitch]="f.get('hasPump').value">
       <div *ngSwitchCase="1">
-        <pump [FormItem]="river.get('pumps')"></pump>
+        <pump [FormItem]="f.get('pumps')"></pump>
+      </div>
+    </div> -->
+
+    <div *ngIf="f.get('hasPump').value && f.get('pumpCount').value > 0">
+      <div *ngFor="let pump of f.get('pumps').controls; let i = index">
+        <pump [no]="i + 1" [FormItem]="pump"></pump>
       </div>
     </div>
 

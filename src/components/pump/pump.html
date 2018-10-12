@@ -26,32 +26,9 @@
     <ion-item>
       <ion-label>2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งนานเท่าไร (ให้ประมาณน้ำทุกกิจกรรมรวมกัน)</ion-label>
     </ion-item>
-
-    <ion-row radio-group formControlName="unknowHoursPerPump" [class.invalid]="isValid('unknowHoursPerPump')">
-      <ion-col col-6>
-        <ion-item>
-          <ion-label>ทราบ</ion-label>
-          <ion-radio value="1" item-left></ion-radio>
-        </ion-item>
-      </ion-col>
-      <ion-col col-6>
-        <ion-item>
-          <ion-label>ไม่ทราบ</ion-label>
-          <ion-radio value="2" item-left></ion-radio>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <div [ngSwitch]="FormItem.get('unknowHoursPerPump').value">
-      <div *ngSwitchCase="1">
-        <ion-item>
-          <ion-label>ทราบระยะเวลาในการสูบน้ำ(ชม.)</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="จำนวนการใช้น้ำ"></ion-input>
-        </ion-item>
-      </div>
-    </div>
+    <ion-item>
+      <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)"></ion-input>
+    </ion-item>
 
     <!-- 3) ในระยะเวลา 1 ปีสูบน้ำกี่ครั้ง -->
     <ion-item>
