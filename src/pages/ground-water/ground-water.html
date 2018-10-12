@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="groundWaterForm">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
     <h3>5.2 น้ำบาดาล</h3>
     <ion-card>
       <ion-card-content>
@@ -31,7 +31,7 @@
         </ion-row>
 
 
-        <div [ngSwitch]="groundWaterForm.get('privateGroundWater').value">
+        <div [ngSwitch]="f.get('privateGroundWater').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -61,9 +61,9 @@
       </ion-card-content>
     </ion-card>
 
-    <div [ngSwitch]="groundWaterForm.get('privateGroundWater').value">
-      <div *ngSwitchCase="1">
-        <ground-water-usage #avgWater [FormItem]="groundWaterForm.get('avgUsageWater')"></ground-water-usage>
+    <div *ngIf="f.get('privateGroundWater').value && f.get('useGroundWaterCount').value > 0">
+      <div *ngFor="let avg of f.get('avgUsageWater').controls; let i = index">
+        <ground-water-usage [no]="i + 1" [FormItem]="avg"></ground-water-usage>
       </div>
     </div>
 
@@ -92,7 +92,7 @@
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="groundWaterForm.get('publicGroundWater').value">
+        <div [ngSwitch]="f.get('publicGroundWater').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -111,7 +111,7 @@
       </ion-card-content>
     </ion-card>
 
-    <div [ngSwitch]="groundWaterForm.get('publicGroundWater').value">
+    <div [ngSwitch]="f.get('publicGroundWater').value">
       <div *ngSwitchCase="1">
         <ground-water-usage-public></ground-water-usage-public>
       </div>
