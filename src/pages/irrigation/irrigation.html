@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="IrrigationFrm">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
 
     <h3>5.5 น้ำจากชลประทาน</h3>
 
@@ -38,7 +38,7 @@
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="IrrigationFrm.get('cubicMeterPerMonth').value">
+        <div [ngSwitch]="f.get('cubicMeterPerMonth').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>ทราบปริมาณน้ำ(ลบ.ม./เดือน)</ion-label>
@@ -69,7 +69,7 @@
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="IrrigationFrm.get('hasPump').value">
+        <div [ngSwitch]="f.get('hasPump').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -88,9 +88,9 @@
       </ion-card-content>
     </ion-card>
 
-    <div [ngSwitch]="IrrigationFrm.get('hasPump').value">
-      <div *ngSwitchCase="1">
-        <pump></pump>
+    <div *ngIf="f.get('hasPump').value && f.get('pumpCount').value > 0">
+      <div *ngFor="let pump of f.get('pumps').controls; let i = index">
+        <pump [no]="i + 1" [FormItem]="pump"></pump>
       </div>
     </div>
 
