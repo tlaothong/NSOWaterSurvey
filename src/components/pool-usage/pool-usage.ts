@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { NavParams } from 'ionic-angular/navigation/nav-params';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, ViewChildren, AfterViewInit } from '@angular/core';
+
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { PumpComponent } from '../pump/pump';
 
 /**
  * Generated class for the PoolUsageComponent component.
@@ -14,30 +14,54 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
   selector: 'pool-usage',
   templateUrl: 'pool-usage.html'
 })
-export class PoolUsageComponent implements ISubmitRequestable {
+export class PoolUsageComponent implements AfterViewInit ,ISubmitRequestable {
 
+  @Input("no") public text: string;
   @Input() public FormItem: FormGroup;
 
 
   private submitRequested: boolean;
+  @ViewChildren(PumpComponent) private pump: PumpComponent[];
 
-  @Input("headline") public text: string;
+  constructor(public fb: FormBuilder) {
+    console.log('Hello PoolUsageComponent Component');
+    this.text = '1';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.FormItem = this.fb.group({
-      'isPoolUsage' : ['',Validators.required],
+
+    this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
+
+
+  }
+
+  ngAfterViewInit(): void {
+    this.setupPumpCountChanges()
+  }
+  
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'isPoolUsage': ['', Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
       // 'unknowPoolUsage': [null, Validators.required],
       'hasPump': [null, Validators.required],
-      'pumpCount': [null, Validators.required]
+      'pumpCount': [null, Validators.required],
+      'pumps': fb.array([]),
+      
+
     });
 
-    console.log('Hello PoolUsageComponent Component');
-    this.text = '1';
+   
   }
+
+
+
+
+
+
 
   submitRequest() {
     this.submitRequested = true;
+    this.pump.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
@@ -45,5 +69,34 @@ export class PoolUsageComponent implements ISubmitRequestable {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
+  private setupPumpCountChanges() {
+    const componentFormArray: string = "pumps";
+    const componentCount: string = "pumpCount";
+
+    var onComponentCountChanges = () => {
+      var pumps = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var pumpCount = this.FormItem.get(componentCount).value || 0;
+      var pump = this.fb.array([]);
+
+      pumpCount = Math.max(0, pumpCount);
+
+      for (let i = 0; i < pumpCount; i++) {
+        var ctrl = null;
+        if (i < pumps.length) {
+          const fld = pumps[i];
+          ctrl = fld;
+        } else {
+          ctrl = PumpComponent.CreateFormGroup(this.fb);
+        }
+
+        pump.push(ctrl);
+      }
+      this.FormItem.setControl(componentFormArray, pump);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
 
 }

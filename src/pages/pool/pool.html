@@ -9,7 +9,7 @@
 
   <h3>5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="pool">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
 
     <ion-card>
 
@@ -33,7 +33,7 @@
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="pool.get('isExist').value">
+        <div [ngSwitch]="f.get('isExist').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -70,10 +70,10 @@
       </ion-card-content>
     </ion-card>
 
-    <div [ngSwitch]="pool.get('isExist').value">
+    <div [ngSwitch]="f.get('isExist').value">
       <div *ngSwitchCase="1">
 
-        <div [ngSwitch]="pool.get('poolEqual').value">
+        <div [ngSwitch]="f.get('poolEqual').value">
           <!-- เท่ากัน -->
           <div *ngSwitchCase="1">
             <pool-area headline="สระที่ 1"></pool-area>
@@ -100,7 +100,14 @@
           </ion-card-content>
         </ion-card>
 
-        <pool-usage #poolUsage [FormItem]="pool.get('poolUsage')"></pool-usage>
+        <!-- <pool-usage  [FormItem]="f.get('poolUsage')"></pool-usage> -->
+   
+
+        <div *ngIf="f.get('isExist').value && f.get('poolCount').value > 0">
+          <div *ngFor="let p of f.get('poolUsage').controls; let i = index">
+            <pool-usage [no]="i + 1" [FormItem]="p"></pool-usage>
+          </div>
+        </div>
 
       </div>
     </div>
