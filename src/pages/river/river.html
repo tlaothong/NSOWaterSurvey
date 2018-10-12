@@ -49,7 +49,7 @@
     <!-- เครื่องที่ N -->
     <div [ngSwitch]="river.get('hasPump').value">
       <div *ngSwitchCase="1">
-        <pump></pump>
+        <pump [FormItem]="river.get('pumps')"></pump>
       </div>
     </div>
 

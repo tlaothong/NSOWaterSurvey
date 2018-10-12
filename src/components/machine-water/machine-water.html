@@ -4,7 +4,7 @@
     <ion-label>5) เครื่องสูบน้่ำใช้แหล่งพลังงานจากที่ใด</ion-label>
   </ion-item>
 
-  <ion-list radio-group formControlName="EnergySource" [class.invalid]="isValid('EnergySource')">
+  <ion-list radio-group formControlName="energySource" [class.invalid]="isValid('energySource')">
     <ion-item>
       <ion-label>ใช้ไฟฟ้า</ion-label>
       <ion-radio item-left></ion-radio>
@@ -22,7 +22,7 @@
       <ion-radio item-left></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-item *ngIf="isValid('EnergySource')">
+  <ion-item *ngIf="isValid('energySource')">
     <span class="invalid-msg">please select</span>
   </ion-item>
 
@@ -30,7 +30,7 @@
     <ion-label>6) เครื่องสูบชนิดใด</ion-label>
   </ion-item>
 
-  <ion-item formControlName="PumpType" [class.invalid]="isValid('PumpType')">
+  <ion-item formControlName="pumpType" [class.invalid]="isValid('pumpType')">
     <ion-label>ชนิดเครื่องสูบ</ion-label>
     <ion-select interface="action-sheet">
       <ion-option>ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม </ion-option>
@@ -39,14 +39,14 @@
       <ion-option>ปั๊มชัก</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="isValid('PumpType')">
+  <ion-item *ngIf="isValid('pumpType')">
     <span class="invalid-msg">Please Select</span>
   </ion-item>
 
   <ion-item>
     <ion-label>7) ขนาดแรงม้า/วัตต์เท่าไร</ion-label>
   </ion-item>
-  <ion-item formControlName="HorsePower" [class.invalid]="isValid('HorsePower')">
+  <ion-item formControlName="horsePower" [class.invalid]="isValid('horsePower')">
     <ion-label>ขนาดแรงม้า/วัตต์</ion-label>
     <ion-select interface="action-sheet">
       <ion-option>200-500 / 0.2 - 0.7</ion-option>
@@ -55,14 +55,14 @@
       <ion-option>15001-20000 / 20 - 25</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="isValid('HorsePower')">
+  <ion-item *ngIf="isValid('horsePower')">
     <span class="invalid-msg">Please Select</span>
   </ion-item>
 
   <ion-item>
     <ion-label>8) ขนาดท่อดูด</ion-label>
   </ion-item>
-  <ion-item formControlName="SuctionPipeSize" [class.invalid]="isValid('SuctionPipeSize')">
+  <ion-item formControlName="suctionPipeSize" [class.invalid]="isValid('suctionPipeSize')">
     <ion-label>ขนาดท่อดูด</ion-label>
     <ion-select interface="action-sheet">
       <ion-option>1/2-1</ion-option>
@@ -71,14 +71,14 @@
       <ion-option>1-4</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="isValid('SuctionPipeSize')">
+  <ion-item *ngIf="isValid('suctionPipeSize')">
     <span class="invalid-msg">Please Select</span>
   </ion-item>
 
   <ion-item>
     <ion-label>9) ขนาดท่อส่งเท่าไร</ion-label>
   </ion-item>
-  <ion-item formControlName="PipelineSize" [class.invalid]="isValid('PipelineSize')">
+  <ion-item formControlName="pipelineSize" [class.invalid]="isValid('pipelineSize')">
     <ion-label>ขนาดท่อส่ง</ion-label>
     <ion-select interface="action-sheet">
       <ion-option>1/2-2</ion-option>
@@ -87,7 +87,7 @@
       <ion-option>4</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="isValid('PipelineSize')">
+  <ion-item *ngIf="isValid('pipelineSize')">
     <span class="invalid-msg">Please Select</span>
   </ion-item>
 </form>

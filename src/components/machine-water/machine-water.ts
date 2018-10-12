@@ -15,26 +15,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class MachineWaterComponent implements ISubmitRequestable {
 
-
-  text: string;
+  @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
+
   private submitRequested: boolean;
+
   constructor(public fb: FormBuilder) {
     console.log('Hello MachineWaterComponent Component');
-    this.text = 'Hello World';
+    this.text = '';
 
-    this.FormItem = this.fb.group({
-      'EnergySource': ['',Validators.required],
-      'PumpType': ['',Validators.required],
-      'HorsePower': ['',Validators.required],
-      'SuctionPipeSize': ['',Validators.required],
-      'PipelineSize': ['',Validators.required]
+    // TODO: Remove this
+    this.FormItem = MachineWaterComponent.CreateFormGroup(this.fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'energySource': ['', Validators.required],
+      'pumpType': ['', Validators.required],
+      'horsePower': ['', Validators.required],
+      'suctionPipeSize': ['', Validators.required],
+      'pipelineSize': ['', Validators.required]
     });
   }
   // core 
   submitRequest() {
     this.submitRequested = true;
   }
+  
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
