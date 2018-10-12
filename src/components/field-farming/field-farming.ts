@@ -4,6 +4,7 @@ import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harvest';
+import { LocationComponent } from '../location/location';
 
 /**
  * Generated class for the FieldFarmingComponent component.
@@ -22,7 +23,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
 
   @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
   @ViewChildren(FieldRiceHarvestComponent) private riceHarvests: FieldRiceHarvestComponent[];
-
+  @ViewChildren(LocationComponent) private locationT : LocationComponent[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
@@ -70,11 +71,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'location': fb.group({
-        'province': ['', Validators.required],
-        'district': ['', Validators.required],
-        'subDistrict': ['', Validators.required]
-      }),
+      'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'plantingCount': ['', [ Validators.required, Validators.min(1), Validators.max(4) ]],
       'plantingArea': ['', Validators.required],
@@ -104,6 +101,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
     this.submitRequested = true;
     this.fieldAreas.forEach(it => it.submitRequest());
     this.riceHarvests.forEach(it => it.submitRequest());
+    this.locationT.forEach(it=>it.submitRequest());
   }
 
   public isValid(name: string): boolean {

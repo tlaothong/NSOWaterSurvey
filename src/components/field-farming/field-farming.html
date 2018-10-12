@@ -10,13 +10,14 @@
       <ion-label> 1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
     </ion-item>
 
-    <location></location>
+    <location [FormItem]="FormItem.get('location')"></location>
 
     <ion-item>
       <ion-label>
         2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตารางวา
       </ion-label>
     </ion-item>
+    <!-- do -->
     <field-area [FormItem]="FormItem.get('area')"></field-area>
 
 
@@ -76,6 +77,7 @@
 
     <div *ngIf="FormItem.get('plantingCount').value > 0">
       <div *ngFor="let har of FormItem.get('harvests').controls; let i = index">
+        <!-- do -->
         <field-rice-harvest [FormItem]="har" [i]="i + 1"></field-rice-harvest>
       </div>
     </div>
@@ -102,7 +104,7 @@
         </ion-row>
       </ion-card-content>
     </ion-card>
-
+    <!-- do -->
     <water-sources8-a headline="9) นาแปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources8-a>
 
   </ion-card-content>
