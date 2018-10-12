@@ -1,7 +1,8 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { MachineWaterComponent } from '../machine-water/machine-water';
 /**
  * Generated class for the PoolComponent component.
  *
@@ -15,30 +16,31 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-  @ViewChild('WaterMachine') public WaterMachine: ISubmitRequestable;
   @Input('headline') text: string;
+
+  @ViewChildren(MachineWaterComponent) private machineWater: MachineWaterComponent[];
+
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController,
-    public navParams: NavParams, private fb: FormBuilder) {
-    this.FormItem = this.fb.group({
-      'pumpAuto': ['',Validators.required],
-      'unknowHoursPerPump': ['',Validators.required],
-      'hoursPerPump': ['',Validators.required],
-      'numberOfPumpsPerYear': ['',Validators.required],
-      'pumpRate': this.fb.group({
-        'knowPumpRate': ['',Validators.required],
-        'pumpRateUsage': ['',Validators.required],
-      }),
-      'waterMachine': this.fb.group({
-        'energySource': ['',Validators.required],
-        'pumpType': ['',Validators.required],
-        'horsePower': ['',Validators.required],
-        'suctionPipeSize': ['',Validators.required],
-        'pipelineSize': ['',Validators.required],
-      })
-    })
+    public navParams: NavParams, public fb: FormBuilder) {
+
+    this.FormItem = PumpComponent.CreateFormGroup(this.fb);
+
   }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'pumpAuto': ['', Validators.required],
+      'unknowHoursPerPump': ['', Validators.required],
+      'hoursPerPump': ['', Validators.required],
+      'numberOfPumpsPerYear': ['', Validators.required],
+      'pumpRate': ['', Validators.required],
+      'knowPumpRate': ['', Validators.required],
+      'machineWater': MachineWaterComponent.CreateFormGroup(fb),
+    });
+  }
+
   public showModalArea() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
@@ -53,7 +55,7 @@ export class PumpComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
-    this.WaterMachine.submitRequest();
+    this.machineWater.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
