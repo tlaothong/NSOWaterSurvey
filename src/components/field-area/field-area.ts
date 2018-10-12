@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the FieldAreaComponent component.
@@ -12,7 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   selector: 'field-area',
   templateUrl: 'field-area.html'
 })
-export class FieldAreaComponent {
+export class FieldAreaComponent implements ISubmitRequestable {
 
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
