@@ -31,58 +31,11 @@ export class GroundWaterPage  {
       'avgUsageWater': this.fb.array([]),
       'publicGroundWater': [null, Validators.required],
       'count': [null, Validators.required],
-      'usePerMonth': this.fb.group({
-        'cubicMeterPerMonth': [null, Validators.required],
-        'unknow': [null, Validators.required],
-        'hasPump': [null, Validators.required],
-        'pumpCount': [null, Validators.required],
-        'pumps':this.fb.group({
-          'pumpAuto':[''],
-          'unknowHoursPerPump':[''],
-          'hoursPerPump':[''],
-          'numberOfPumpsPerYear':[''],
-          'pumpRate':this.fb.group({
-            'knowPumpRate':[''],
-            'pumpRateUsage':['']
-          }),
-          'energySource':this.fb.group({
-            'electicPump':[''],
-            'solaPump':[''],
-            'petrolPump':[''],
-            'twoWheeledTractors':['']
-          }),
-          'pumpType':this.fb.group({
-            'electicPump':[''],
-            'solaPump':[''],
-            'petrolPump':[''],
-            'twoWheeledTractors':['']
-
-          }),
-          'horsePower':[''],
-          'suctionPipeSize':[''],
-          'pipelineSize':['']
-        }),
-        // 'usageActivities':this.fb.group({
-        //   'drink':[''],
-        //   'plant':[''],
-        //   'farm':[''],
-        //   'agriculture':[''],
-        //   'product':[''],
-        //   'service':['']
-        // }),
-        // 'hasQualityProblem':[''],
-        // 'qualityProblem':this.fb.group({
-        //   'turbidWater':[''],
-        //   'saltWater':[''],
-        //   'smell':[''],
-        //   'filmOfOil':[''],
-        //   'fogWater':[''],
-        //   'hardWater':[''],
-        // })
-      }),
+      'usePerMonth': this.fb.array([]),
     });
 
-    this.setupuseGroundWaterCountChanges()
+    this.setupuseGroundWaterCountChanges();
+    this.setupusePublicGroundWaterCountChanges();
   }
 
   ionViewDidLoad() {
@@ -117,6 +70,36 @@ export class GroundWaterPage  {
         var ctrl = null;
         if (i < avgUsageWater.length) {
           const fld = avgUsageWater[i];
+          ctrl = fld;
+        } else {
+          ctrl = GroundWaterUsageComponent.CreateFormGroup(this.fb);
+        }
+
+        avg.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, avg);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupusePublicGroundWaterCountChanges() {
+    const componentFormArray: string = "usePerMonth";
+    const componentCount: string = "count";
+
+    var onComponentCountChanges = () => {
+      var usePerMonth = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var count = this.f.get(componentCount).value || 0;
+      var avg = this.fb.array([]);
+
+      count = Math.max(0, count);
+
+      for (let i = 0; i < count; i++) {
+        var ctrl = null;
+        if (i < usePerMonth.length) {
+          const fld = usePerMonth[i];
           ctrl = fld;
         } else {
           ctrl = GroundWaterUsageComponent.CreateFormGroup(this.fb);
