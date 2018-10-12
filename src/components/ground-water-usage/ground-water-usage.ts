@@ -12,7 +12,7 @@ import { PumpComponent } from '../pump/pump';
   selector: 'ground-water-usage',
   templateUrl: 'ground-water-usage.html'
 })
-export class GroundWaterUsageComponent implements ISubmitRequestable {
+export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequestable {
 
   @Input('no') text: string;
   @Input() public FormItem: FormGroup;
@@ -28,6 +28,10 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     // this.setupPumpCountChanges()
   }
 
+  ngAfterViewInit(): void {
+    this.setupPumpCountChanges()
+  }
+  
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'usageType': ['', Validators.required],
@@ -54,6 +58,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
         'hardWater': ['', Validators.required],
       }),
     });
+
     // this.FormItem = GroundWaterUsageComponent.CreateFormGroup(this.fb);
   }
 
