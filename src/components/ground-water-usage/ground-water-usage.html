@@ -102,8 +102,8 @@
   </ion-card>
 
   <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value > 0">
-    <div *ngFor="let pump of FormItem.get('pumps').controls; let i = index">
-      <pump [no]="i + 1" [FormItem]="pump"></pump>
+    <div *ngFor="let p of FormItem.get('pumps').controls; let i = index">
+      <pump [no]="i + 1" [FormItem]="p"></pump>
     </div>
   </div>
 
