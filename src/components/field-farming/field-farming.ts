@@ -1,5 +1,5 @@
 import { Input, Component, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { combineLatest } from 'rxjs/operators';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
@@ -114,7 +114,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
     const areaOption: string = "plantingArea";
 
     var onPlantingAreaChanges = () => {
-      var fields = this.FormItem.get(areaUsed).value || [];
+      var fields = (this.FormItem.get(areaUsed) as FormArray).controls || [];
       var fieldCount = this.FormItem.get(areaCount).value || 0;
       var farr = this.fb.array([]);
 
@@ -126,12 +126,10 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
           const fld = fields[i];
           ctrl = fld;
         } else {
-          ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
+          ctrl = FieldAreaComponent.CreateFormGroup(this.fb);
         }
 
-        const fg = FieldAreaComponent.CreateFormGroup(this.fb);
-        fg.setValue(ctrl);
-        farr.push(fg);
+        farr.push(ctrl);
       }
       this.FormItem.setControl(areaUsed, farr);
     };
@@ -149,7 +147,7 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
     const componentCount: string = "plantingCount";
 
     var onComponentCountChanges = () => {
-      var fields = this.FormItem.get(componentFormArray).value || [];
+      var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
       var fieldCount = this.FormItem.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
@@ -161,17 +159,10 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
           const fld = fields[i];
           ctrl = fld;
         } else {
-          ctrl = {
-            "plantingFromMonth": null,
-            "plantingThruMonth": null,
-            "waterFillingCount": null,
-            "waterHighCm": null
-          };
+          ctrl = FieldRiceHarvestComponent.CreateFormGroup(this.fb);
         }
 
-        const fg = FieldRiceHarvestComponent.CreateFormGroup(this.fb);
-        fg.setValue(ctrl);
-        farr.push(fg);
+        farr.push(ctrl);
       }
       this.FormItem.setControl(componentFormArray, farr);
     };
