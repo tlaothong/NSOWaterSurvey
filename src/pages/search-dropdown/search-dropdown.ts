@@ -31,7 +31,7 @@ export class SearchDropdownPage {
   constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.limit = navParams.get('limit');
     this.treeDisplay = navParams.get('title');
-    this.type = "TREERAI";
+    // this.type = "TREERAI";
     this.listData = navParams.get('selected');
     this.searchListData = navParams.get('list');
     // if (this.type == 'TREERAI') {

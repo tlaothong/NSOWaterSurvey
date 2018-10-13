@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
+import { EX_TREERAI_LIST } from '../../models/tree';
 
 
 /**
@@ -59,14 +60,13 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
   }
 
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
-
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
     modal.onDidDismiss(data => {
       if (data) {
         // this.FormItem = data;
         // var fg = <FormGroup>data;
         // this.FormItem.setValue(fg.value);
-
         var adata = data as Array<string>;
         this.shownData = adata.map(it => it.split(".")[1]);
       }
