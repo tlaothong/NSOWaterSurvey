@@ -67,7 +67,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
   
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage", 
-    { type: "พืชยืนต้น ไม่ผล สวนป่า", selected: [], list: EX_TREERAI_LIST, limit: 5 });
+    { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREERAI_LIST, limit: 5 });
 
     modal.onDidDismiss(data => {
       if (data) {
