@@ -27,6 +27,7 @@ import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
 import { FieldFarmingComponent } from './field-farming/field-farming';
 import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harvest';
 import { FieldDryCropPlantingComponent } from './field-dry-crop-planting/field-dry-crop-planting';
+import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -56,6 +57,7 @@ import { FieldDryCropPlantingComponent } from './field-dry-crop-planting/field-d
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
+    FieldFlowerCropComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -90,6 +92,7 @@ import { FieldDryCropPlantingComponent } from './field-dry-crop-planting/field-d
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
+    FieldFlowerCropComponent,
   ]
 })
 export class ComponentsModule { }

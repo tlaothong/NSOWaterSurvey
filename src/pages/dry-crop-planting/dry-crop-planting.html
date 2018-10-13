@@ -71,11 +71,10 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
+
     <div *ngIf="agronomyPlant.get('fieldCount').value > 0 && agronomyPlant.get('doing').value == 1">
       <div *ngFor="let fdc of agronomyPlant.get('fieldDryCrop').controls;let i = index">
-        <field-dry-crop-planting [no]="i+1" [FormItem]="fdc">
-
-        </field-dry-crop-planting>
+        <field-dry-crop-planting [no]="i+1" [FormItem]="fdc"></field-dry-crop-planting>
       </div>
     </div>
 
