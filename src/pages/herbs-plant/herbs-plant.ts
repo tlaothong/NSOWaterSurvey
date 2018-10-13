@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EX_TREEVET_LIST } from '../../models/tree';
 
 /**
  * Generated class for the HerbsPlantPage page.
@@ -19,7 +20,7 @@ export class HerbsPlantPage {
   public HerbsPlantFrm: FormGroup;
   shownData: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
     this.HerbsPlantFrm = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
@@ -47,7 +48,9 @@ export class HerbsPlantPage {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREEVET", model: [], list: [] });
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "พืชผัก สมุนไพร", selected: [], list: EX_TREEVET_LIST , limit: 5});
+
 
     modal.onDidDismiss(data => {
       if (data) {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EX_TREETON_LIST } from '../../models/tree';
 
 /**
  * Generated class for the PerennialPlantingPage page.
@@ -58,19 +59,21 @@ export class PerennialPlantingPage {
   }
 
   model() {
-  const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREETON", model: [], list: [] });
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "พืชต้น", selected: [], list: EX_TREETON_LIST , limit: 5 });
 
-  modal.onDidDismiss(data => {
-    if (data) {
-      // this.FormItem = data;
-      // var fg = <FormGroup>data;
-      // this.FormItem.setValue(fg.value);
 
-      var adata = data as Array<string>;
-      this.shownData = adata.map(it => it.split(".")[1]);
-    }
+    modal.onDidDismiss(data => {
+      if (data) {
+        // this.FormItem = data;
+        // var fg = <FormGroup>data;
+        // this.FormItem.setValue(fg.value);
+
+        var adata = data as Array<string>;
+        this.shownData = adata.map(it => it.split(".")[1]);
+      }
     });
 
-modal.present();
+    modal.present();
   }
 }

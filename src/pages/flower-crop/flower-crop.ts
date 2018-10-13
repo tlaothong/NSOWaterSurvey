@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EX_TREEDOK_LIST } from '../../models/tree';
 /**
  * Generated class for the FlowerCropPage page.
  *
@@ -14,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'flower-crop.html',
 })
 export class FlowerCropPage {
-  private submitRequested:boolean;
+  private submitRequested: boolean;
   flowerCropFrm: FormGroup;
   shownData: string[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController) {
@@ -56,7 +57,9 @@ export class FlowerCropPage {
   }
 
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREEDOK", model: [], list: [] });
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้", selected: [], list: EX_TREEDOK_LIST , limit: 5});
+
 
     modal.onDidDismiss(data => {
       if (data) {
@@ -74,7 +77,7 @@ export class FlowerCropPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    
+
   }
 
   public isValid(name: string): boolean {
