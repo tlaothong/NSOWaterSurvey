@@ -60,13 +60,10 @@ import { FieldPerenialPlantingComponent } from './field-perenial-planting/field-
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
-<<<<<<< HEAD
     FieldHerbsPlantComponent,
     FieldMushroomComponent,
     FieldRebbertreeComponent,
-=======
     FieldPerenialPlantingComponent,
->>>>>>> diamond
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -101,13 +98,10 @@ import { FieldPerenialPlantingComponent } from './field-perenial-planting/field-
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
-<<<<<<< HEAD
     FieldHerbsPlantComponent,
     FieldMushroomComponent,
     FieldRebbertreeComponent,
-=======
     FieldPerenialPlantingComponent,
->>>>>>> diamond
   ]
 })
 export class ComponentsModule { }
