@@ -2,7 +2,6 @@ import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-import { MachineWaterComponent } from '../machine-water/machine-water';
 /**
  * Generated class for the PoolComponent component.
  *
@@ -17,8 +16,6 @@ export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input('no') text: string;
-
-  @ViewChildren(MachineWaterComponent) private machineWater: MachineWaterComponent[];
 
   private submitRequested: boolean;
 
@@ -37,7 +34,11 @@ export class PumpComponent implements ISubmitRequestable {
       'numberOfPumpsPerYear': ['', Validators.required],
       'pumpRate': ['', Validators.required],
       'knowPumpRate': ['', Validators.required],
-      'machineWater': MachineWaterComponent.CreateFormGroup(fb),
+      'energySource': ['', Validators.required],
+      'pumpType': ['', Validators.required],
+      'horsePower': ['', Validators.required],
+      'suctionPipeSize': ['', Validators.required],
+      'pipelineSize': ['', Validators.required]
     });
   }
 
@@ -54,7 +55,6 @@ export class PumpComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
-    this.machineWater.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

@@ -5,7 +5,6 @@ import { DemoNaComponent } from './demo-na/demo-na';
 import { PumpComponent } from './pump/pump';
 import { WaterSources8BComponent } from './water-sources8-b/water-sources8-b';
 import { WaterSources9Component } from './water-sources9/water-sources9';
-import { MachineWaterComponent } from './machine-water/machine-water';
 
 import { FieldAreaComponent } from './field-area/field-area';
 import { PoolAreaComponent } from './pool-area/pool-area';
@@ -34,7 +33,6 @@ import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harve
     PumpComponent,
     WaterSources8BComponent,
     WaterSources9Component,
-    MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
     TableCheckItemCountComponent,
@@ -68,7 +66,6 @@ import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harve
     PumpComponent,
     WaterSources8BComponent,
     WaterSources9Component,
-    MachineWaterComponent,
     FieldAreaComponent,
     PoolAreaComponent,
     TableCheckItemCountComponent,

@@ -18,6 +18,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
 
   @Input("headline") private text: string;
   @Input("pool") private poolText: string;
+  @Input('no') no: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
