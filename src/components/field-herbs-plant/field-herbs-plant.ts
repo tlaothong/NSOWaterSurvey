@@ -48,6 +48,9 @@ export class FieldHerbsPlantComponent {
 
   submitRequest() {
     this.submitRequested = true;
+    this.fieldAreas.forEach(it => it.submitRequest());
+    this.locationT.forEach(it => it.submitRequest());
+    this.waterSources9.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
