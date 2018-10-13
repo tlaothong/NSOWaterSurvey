@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
+import { FieldAreaComponent } from '../field-area/field-area';
 
 /**
  * Generated class for the PoolAreaComponent component.
@@ -24,29 +25,28 @@ export class PoolAreaComponent {
     this.text = '';
 
     // TODO: Remove this
-    this.FormItem = this.fb.group({
-      'shape':null,
-      'area':this.fb.group({
-        'rai':[''],
-        'ngan':[''],
-        'sqWa':[''],
+    this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'shape': [ null, Validators.required ],
+      'area': FieldAreaComponent.CreateFormGroup(fb),
+      'depth': [ null, Validators.required ],
+      'rectangle': fb.group({
+        'width': [ null, Validators.required ],
+        'length': [ null, Validators.required ],
       }),
-      'depth':[''],
-      'rectangle':this.fb.group({
-        'width':[''],
-        'length':[''],
-      }),
-      'diameter':['']
+      'diameter': [ null, Validators.required ]
     });
   }
 
-  public showModalArea() {
+  public showModal() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
+        this.FormItem.get('rectangle').setValue(fg.value);
       }
     });
     modal.present();
