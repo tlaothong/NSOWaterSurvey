@@ -26,6 +26,7 @@ import { GroundWaterUsagePublicComponent } from './ground-water-usage-public/gro
 import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
 import { FieldFarmingComponent } from './field-farming/field-farming';
 import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harvest';
+import { FieldDryCropPlantingComponent } from './field-dry-crop-planting/field-dry-crop-planting';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -54,6 +55,7 @@ import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harve
     FormButtonsBarComponent,
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
+    FieldDryCropPlantingComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -87,6 +89,7 @@ import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harve
     FormButtonsBarComponent,
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
+    FieldDryCropPlantingComponent,
   ]
 })
 export class ComponentsModule { }
