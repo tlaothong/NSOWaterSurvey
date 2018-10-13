@@ -21,8 +21,7 @@ export class DryCropPlantingPage {
   public agronomyPlant: FormGroup;
 
   private submitRequested: boolean;
-  shownData: string[];
-
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
     this.agronomyPlant = this.fb.group({
       'doing': [null, Validators.required],
@@ -49,22 +48,22 @@ export class DryCropPlantingPage {
     var ctrl = this.agronomyPlant.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-  model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
 
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
 
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
-      }
-    });
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
 
-    modal.present();
-  }
+  //   modal.present();
+  // }
 
   private setupFieldCountChanges() {
     const componentFormArray: string = "fieldDryCrop";
