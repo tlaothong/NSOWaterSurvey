@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EX_TREERAI_LIST } from '../../models/tree';
 
 /**
  * Generated class for the DryCropPlantingPage page.
@@ -17,7 +18,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class DryCropPlantingPage {
 
   public agronomyPlant: FormGroup;
-
   private submitRequested: boolean;
   shownData: string[];
 
@@ -43,15 +43,33 @@ export class DryCropPlantingPage {
     var ctrl = this.agronomyPlant.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
+
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
+
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
+
+  //   modal.present();
+  // }
+
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
+
 
     modal.onDidDismiss(data => {
       if (data) {
         // this.FormItem = data;
         // var fg = <FormGroup>data;
         // this.FormItem.setValue(fg.value);
-
         var adata = data as Array<string>;
         this.shownData = adata.map(it => it.split(".")[1]);
       }
@@ -59,4 +77,6 @@ export class DryCropPlantingPage {
 
     modal.present();
   }
+
+
 }
