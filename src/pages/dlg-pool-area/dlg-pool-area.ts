@@ -13,23 +13,8 @@ export class DlgPoolAreaPage {
   public text: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
-    this.FormItem = navParams.get('FormItem');
+    this.FormItem = navParams.get('FormItem').get('rectangle');
     this.text = navParams.get("headline");
-
-    this.FormItem = this.fb.group({
-      'shape':null,
-      'area':this.fb.group({
-        'rai':[''],
-        'ngan':[''],
-        'sqWa':[''],
-      }),
-      'depth':[''],
-      'rectangle':this.fb.group({
-        'width':[''],
-        'length':[''],
-      }),
-      'diameter':['']
-    });
   }
 
   public closeDialog() {
@@ -42,6 +27,11 @@ export class DlgPoolAreaPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgFieldAreaPage');
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && ctrl.touched;
   }
 
 }

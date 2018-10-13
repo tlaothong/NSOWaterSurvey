@@ -39,7 +39,6 @@ export class TableBuyingComponent {
     const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }

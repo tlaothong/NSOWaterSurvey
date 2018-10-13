@@ -45,7 +45,6 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
       });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }

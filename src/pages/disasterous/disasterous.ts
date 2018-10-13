@@ -32,7 +32,6 @@ export class DisasterousPage {
     const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }
