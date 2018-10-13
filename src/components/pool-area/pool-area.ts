@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
 import { FieldAreaComponent } from '../field-area/field-area';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the PoolAreaComponent component.
@@ -13,9 +14,10 @@ import { FieldAreaComponent } from '../field-area/field-area';
   selector: 'pool-area',
   templateUrl: 'pool-area.html'
 })
-export class PoolAreaComponent {
+export class PoolAreaComponent implements ISubmitRequestable {
 
   @Input("headline") private text: string;
+  @Input("pool") private poolText: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -23,6 +25,7 @@ export class PoolAreaComponent {
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello PoolAreaComponent Component');
     this.text = '';
+    this.poolText = "บ่อหรือร่องสวน";
 
     // TODO: Remove this
     this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);

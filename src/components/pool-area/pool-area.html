@@ -9,18 +9,21 @@
         </ion-label>
       </ion-item>
 
-      <div radio-group formControlName="shape">
+      <div radio-group formControlName="shape" [class.invalid]="isValid('shape')">
         <ion-item>
-          <ion-label>ทราบพื้นที่หรือไม่ กี่ไร่ กี่งาน กี่ตารางวา ความลึกของบ่อ</ion-label>
+          <ion-label>ทราบพื้นที่หรือไม่ กี่ไร่ กี่งาน กี่ตารางวา ความลึกของ{{ poolText }}</ion-label>
           <ion-radio value="1" item-left></ion-radio>
         </ion-item>
         <ion-item>
-          <ion-label>ไม่ทราบพื้นที่ ถ้าบ่อเป็นสี่เหลี่ยม </ion-label>
+          <ion-label>ไม่ทราบพื้นที่ ถ้า{{ poolText }}เป็นสี่เหลี่ยม </ion-label>
           <ion-radio value="2" item-left></ion-radio>
         </ion-item>
         <ion-item>
-          <ion-label>ไม่ทราบพื้นที่ ถ้าบ่อเป็นวงกลม </ion-label>
+          <ion-label>ไม่ทราบพื้นที่ ถ้า{{ poolText }}เป็นวงกลม </ion-label>
           <ion-radio value="3" item-left></ion-radio>
+        </ion-item>
+        <ion-item *ngIf="isValid('shape')">
+          <span class="invalid-msg">กรุณาเลือกลักษณะของ{{ poolText }}</span>
         </ion-item>
       </div>
 
@@ -55,7 +58,10 @@
             <ion-label>เส้นผ่านศูนย์กลาง กี่เมตร</ion-label>
           </ion-item>
           <ion-item>
-            <ion-input type="number" formControlName="diameter"></ion-input>
+            <ion-input type="number" formControlName="diameter" [class.invalid]="isValid('diameter')"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('diameter')">
+            <span class="invalid-msg">กรุณากรอกขนาดเส้นผ่านศูนย์กลาง</span>
           </ion-item>
         </div>
 
@@ -66,7 +72,10 @@
           <ion-label>ความลึก กี่เมตร</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="depth"></ion-input>
+          <ion-input type="number" formControlName="depth" [class.invalid]="isValid('depth')"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('depth')">
+          <span class="invalid-msg">กรุณากรอกความลึก</span>
         </ion-item>
       </div>
 
