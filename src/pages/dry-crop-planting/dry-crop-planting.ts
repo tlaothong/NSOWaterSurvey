@@ -1,6 +1,8 @@
+import { WaterSources9Component } from './../../components/water-sources9/water-sources9';
+import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop-planting/field-dry-crop-planting';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 /**
  * Generated class for the DryCropPlantingPage page.
@@ -25,9 +27,13 @@ export class DryCropPlantingPage {
     this.agronomyPlant = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
-      'irrigationField': [null, Validators.required],
-      'names': [null, Validators.required],
+      'fieldDryCrop': fb.array([
+        FieldDryCropPlantingComponent.CreateFormGroup(fb)
+      ])
+      // 'irrigationField': [null, Validators.required],
+      // 'names': [null, Validators.required],
     });
+    this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
@@ -58,5 +64,35 @@ export class DryCropPlantingPage {
     });
 
     modal.present();
+  }
+
+  private setupFieldCountChanges() {
+    const componentFormArray: string = "fieldDryCrop";
+    const componentCount: string = "fieldCount";
+
+    var onComponentCountChanges = () => {
+      var fieldDryCrop = (this.agronomyPlant.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.agronomyPlant.get(componentCount).value || 0;
+      var field = this.fb.array([]);
+
+      fieldCount = Math.max(0, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fieldDryCrop.length) {
+          const fld = fieldDryCrop[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
+        }
+
+        field.push(ctrl);
+      }
+      this.agronomyPlant.setControl(componentFormArray, field);
+    };
+
+    this.agronomyPlant.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 }
