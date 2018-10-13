@@ -21,7 +21,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>3.2 สถานประกอบการแห่งนี้ผลิตสินค้าประเภทใด (ระบุสินค้าหลักที่ผลิต)</ion-label>
+          <ion-label>3.2 สถานประกอบการแห่งนี้ผลิตสินค้าประเภทใด<br> (ระบุสินค้าหลักที่ผลิต)</ion-label>
         </ion-item>
         <ion-item>
           <ion-input class="backgroundinput" type="text" placeholder="ประเภทสินค้า" formControlName="category" [class.invalid]="isValid('category')"></ion-input>
@@ -41,7 +41,7 @@
           <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
         <ion-item>
-          <ion-label>3.4 สถานประกอบการแห่งนี้ใช้เครื่องจักรที่มีขนาดแรงม้าตั้งแต่ 5 แรงม้าหรือ 3,725 วัตต์ขึ้นไป หรือไม่
+          <ion-label>3.4 สถานประกอบการแห่งนี้ใช้เครื่องจักรที่มีขนาดแรงม้า<br>ตั้งแต่ 5 แรงม้าหรือ 3,725 วัตต์ขึ้นไป หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="heavyMachine" [class.invalid]="isValid('heavyMachine')">
@@ -63,12 +63,12 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง (เลือกได้หลายข้อ) '"></water-sources8-b>
+    <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง'"></water-sources8-b>
 
     <ion-card>
       <ion-card-content>
         <ion-item>
-          <ion-label>3.6 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้<b><u>มีน้ำเสีย</u></b>จากกระบวนการผลิตสินค้าหรือไม่</ion-label>
+          <ion-label>3.6 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้<b><u>มีน้ำเสีย</u></b><br>จากกระบวนการผลิตสินค้าหรือไม่</ion-label>
         </ion-item>
         <ion-row radio-group formControlName="hasWasteWaterFromProduction" [class.invalid]="isValid('hasWasteWaterFromProduction')">
 
@@ -88,7 +88,7 @@
         <div [ngSwitch]="FactoryForm.get('hasWasteWaterFromProduction').value">
           <div *ngSwitchCase="1">
             <ion-item>
-              <ion-label>3.7 ถ้า"มี"น้ำเสีย สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
+              <ion-label>3.7 น้ำเสีย สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b><br>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
             </ion-item>
 
             <ion-row radio-group formControlName="hasWasteWaterTreatment" [class.invalid]="isValid('hasWasteWaterTreatment')">
@@ -109,7 +109,7 @@
         </div>
 
         <ion-item>
-          <ion-label>3.8 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้มีการนำ<b>น้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่</b>หรือไม่
+          <ion-label>3.8 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้มีการนำ<b><br>น้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่</b>หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="wasteWaterReuse" [class.invalid]="isValid('wasteWaterReuse')">
