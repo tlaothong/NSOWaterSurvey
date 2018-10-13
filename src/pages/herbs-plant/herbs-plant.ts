@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EX_TREEVET_LIST } from '../../models/tree';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
+
 
 /**
  * Generated class for the HerbsPlantPage page.
@@ -16,23 +17,21 @@ import { EX_TREEVET_LIST } from '../../models/tree';
   templateUrl: 'herbs-plant.html',
 })
 export class HerbsPlantPage {
+
   private submitRequested: boolean;
-  public HerbsPlantFrm: FormGroup;
+  public f: FormGroup;
   shownData: string[];
 
+  @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
-    this.HerbsPlantFrm = this.fb.group({
+    this.f = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
-      'fields': this.fb.group({
-        'names': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-        'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-        'MixedWithPrimaryPlant': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
-        'thisPlantOnly': [null, Validators.required]
-      })
-
+      'fields': this.fb.array([]),
     });
 
+    this.setupPlantingCountChanges();
   }
 
   ionViewDidLoad() {
@@ -41,29 +40,42 @@ export class HerbsPlantPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldHerbsPlant.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.HerbsPlantFrm.get(name);
+    var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-  model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "พืชผัก สมุนไพร", selected: [], list: EX_TREEVET_LIST , limit: 5});
 
+  private setupPlantingCountChanges() {
+    const componentFormArray: string = "fields";
+    const componentCount: string = "fieldCount";
 
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
+    var onComponentCountChanges = () => {
+      var fields = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
 
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
+      fieldCount = Math.max(1, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
+        }
+
+        farr.push(ctrl);
       }
-    });
+      this.f.setControl(componentFormArray, farr);
+    };
 
-    modal.present();
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 
 }
