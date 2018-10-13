@@ -15,11 +15,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'water-animal-planting.html',
 })
 export class WaterAnimalPlantingPage {
-  aquaticAnimal: FormGroup;
+  f: FormGroup;
   private submitRequested: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
-    this.aquaticAnimal = this.fb.group({
-
+    this.f = this.fb.group({
       "doing": ['', Validators.required],
       "fish": this.fb.group({
         "doing": ['', Validators.required],
@@ -128,7 +127,7 @@ export class WaterAnimalPlantingPage {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.aquaticAnimal.get(name);
+    var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }
