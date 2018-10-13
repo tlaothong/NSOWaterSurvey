@@ -30,6 +30,7 @@ import { FieldDryCropPlantingComponent } from './field-dry-crop-planting/field-d
 import { FieldHerbsPlantComponent } from './field-herbs-plant/field-herbs-plant';
 import { FieldMushroomComponent } from './field-mushroom/field-mushroom';
 import { FieldRebbertreeComponent } from './field-rebbertree/field-rebbertree';
+import { FieldPerenialPlantingComponent } from './field-perenial-planting/field-perenial-planting';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -59,9 +60,13 @@ import { FieldRebbertreeComponent } from './field-rebbertree/field-rebbertree';
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
+<<<<<<< HEAD
     FieldHerbsPlantComponent,
     FieldMushroomComponent,
     FieldRebbertreeComponent,
+=======
+    FieldPerenialPlantingComponent,
+>>>>>>> diamond
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -96,9 +101,13 @@ import { FieldRebbertreeComponent } from './field-rebbertree/field-rebbertree';
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
+<<<<<<< HEAD
     FieldHerbsPlantComponent,
     FieldMushroomComponent,
     FieldRebbertreeComponent,
+=======
+    FieldPerenialPlantingComponent,
+>>>>>>> diamond
   ]
 })
 export class ComponentsModule { }
