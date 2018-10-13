@@ -1,6 +1,6 @@
 import { WaterSources9Component } from './../../components/water-sources9/water-sources9';
 import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop-planting/field-dry-crop-planting';
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { EX_TREERAI_LIST } from '../../models/tree';
@@ -18,7 +18,7 @@ import { EX_TREERAI_LIST } from '../../models/tree';
   templateUrl: 'dry-crop-planting.html',
 })
 export class DryCropPlantingPage {
-
+  @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop : FieldDryCropPlantingComponent[];
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
@@ -43,6 +43,7 @@ export class DryCropPlantingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldDryCrop.forEach(it=>it.submitRequest());
   }
 
   public isValid(name: string): boolean {

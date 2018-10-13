@@ -27,6 +27,7 @@ import { FormButtonsBarComponent } from './form-buttons-bar/form-buttons-bar';
 import { FieldFarmingComponent } from './field-farming/field-farming';
 import { FieldRiceHarvestComponent } from './field-rice-harvest/field-rice-harvest';
 import { FieldDryCropPlantingComponent } from './field-dry-crop-planting/field-dry-crop-planting';
+<<<<<<< HEAD
 import { FieldHerbsPlantComponent } from './field-herbs-plant/field-herbs-plant';
 import { FieldMushroomComponent } from './field-mushroom/field-mushroom';
 import { FieldRebbertreeComponent } from './field-rebbertree/field-rebbertree';
@@ -34,6 +35,9 @@ import { FieldPerenialPlantingComponent } from './field-perenial-planting/field-
 import { FishFarmingComponent } from './fish-farming/fish-farming';
 import { FrogFarmingComponent } from './frog-farming/frog-farming';
 import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming';
+=======
+import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop';
+>>>>>>> gun
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -63,6 +67,7 @@ import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
+<<<<<<< HEAD
     FieldHerbsPlantComponent,
     FieldMushroomComponent,
     FieldRebbertreeComponent,
@@ -70,6 +75,9 @@ import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming
     FishFarmingComponent,
     FrogFarmingComponent,
     CrocodileFarmingComponent,
+=======
+    FieldFlowerCropComponent,
+>>>>>>> gun
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -104,6 +112,7 @@ import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming
     FieldFarmingComponent,
     FieldRiceHarvestComponent,
     FieldDryCropPlantingComponent,
+<<<<<<< HEAD
     FieldHerbsPlantComponent,
     FieldMushroomComponent,
     FieldRebbertreeComponent,
@@ -111,6 +120,9 @@ import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming
     FishFarmingComponent,
     FrogFarmingComponent,
     CrocodileFarmingComponent,
+=======
+    FieldFlowerCropComponent,
+>>>>>>> gun
   ]
 })
 export class ComponentsModule { }
