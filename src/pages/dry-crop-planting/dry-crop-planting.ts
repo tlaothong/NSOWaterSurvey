@@ -3,6 +3,7 @@ import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { EX_TREERAI_LIST } from '../../models/tree';
 
 /**
  * Generated class for the DryCropPlantingPage page.
@@ -20,6 +21,7 @@ export class DryCropPlantingPage {
 
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
+  shownData: string[];
  
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
     this.agronomyPlant = this.fb.group({
@@ -56,6 +58,21 @@ export class DryCropPlantingPage {
   //       // var fg = <FormGroup>data;
   //       // this.FormItem.setValue(fg.value);
 
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
+
+  //   modal.present();
+  // }
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage",
+  //     { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
   //       var adata = data as Array<string>;
   //       this.shownData = adata.map(it => it.split(".")[1]);
   //     }
