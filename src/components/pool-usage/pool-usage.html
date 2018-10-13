@@ -57,6 +57,7 @@
         <span class="invalid-msg">กรุณาเลือก</span>
       </ion-item>
 
+    </ion-row>
 
       <div [ngSwitch]="FormItem.get('hasPump').value">
         <div *ngSwitchCase="1">
@@ -74,7 +75,6 @@
           </ion-item>
         </div>
       </div>
-    </ion-row>
   </ion-card-content>
 </ion-card>
 
