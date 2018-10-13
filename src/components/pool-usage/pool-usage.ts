@@ -15,7 +15,6 @@ import { PumpComponent } from '../pump/pump';
 })
 export class PoolUsageComponent implements AfterViewInit ,ISubmitRequestable {
 
-  @Input("no") public text: string;
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
   @Input('no') no: string;
