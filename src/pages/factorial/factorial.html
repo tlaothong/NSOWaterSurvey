@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>ตอนที่ 3 การผลิตสินค้า </h3>
+  <h3><b>ตอนที่ 3 การผลิตสินค้า</b> </h3>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="FactoryForm">
     <ion-card>
@@ -63,7 +63,7 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง '"></water-sources8-b>
+    <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้้าจากแหล่งใดบ้าง (เลือกได้หลายข้อ) '"></water-sources8-b>
 
     <ion-card>
       <ion-card-content>
@@ -88,7 +88,7 @@
         <div [ngSwitch]="FactoryForm.get('hasWasteWaterFromProduction').value">
           <div *ngSwitchCase="1">
             <ion-item>
-              <ion-label>3.7 สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
+              <ion-label>3.7 ถ้า"มี"น้ำเสีย สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่</ion-label>
             </ion-item>
 
             <ion-row radio-group formControlName="hasWasteWaterTreatment" [class.invalid]="isValid('hasWasteWaterTreatment')">

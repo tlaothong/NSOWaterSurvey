@@ -1,7 +1,7 @@
 <div [formGroup]="FormItem">
 
   <ion-item *ngIf="isValid('province')">
-    <span class="invalid-msg">กรุณาเลืิอกจังหวัด</span>
+    <span class="invalid-msg">กรุณาเลือกจังหวัด</span>
   </ion-item>
   <ion-item [class.invalid]="isValid('province')">
     <ion-label>จังหวัด</ion-label>
@@ -13,7 +13,7 @@
   </ion-item>
 
   <ion-item *ngIf="isValid('district')">
-    <span class="invalid-msg">กรุณาเลืิอกอำเภอ</span>
+    <span class="invalid-msg">กรุณาเลือกอำเภอ</span>
   </ion-item>
   <ion-item [class.invalid]="isValid('district')">
     <ion-label>อำเภอ</ion-label>
@@ -23,7 +23,7 @@
   </ion-item>
 
   <ion-item *ngIf="isValid('subDistrict')">
-      <span class="invalid-msg">กรุณาเลืิอกตำบล</span>
+      <span class="invalid-msg">กรุณาเลือกตำบล</span>
     </ion-item>
   <ion-item [class.invalid]="isValid('subDistrict')">
     <ion-label>ตำบล</ion-label>

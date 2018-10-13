@@ -88,7 +88,7 @@
         <div *ngSwitchCase="1">
           <ion-item>
             <ion-label>
-              2) ขนาดพื้นที่เท่าไหร่ กี่ไร่ กี่งาน กี่ตารางวา
+              2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
             </ion-label>
           </ion-item>
           <field-area></field-area>
@@ -197,8 +197,8 @@
               <ion-select interface="action-sheet" formControlName="MixedWithPrimaryPlant">
                 <ion-option>ข้าว</ion-option>
                 <ion-option>พืชไร่</ion-option>
-                <ion-option>ต้นยางพารา</ion-option>
-                <ion-option>พืชยืนต้น</ion-option>
+                <ion-option>ยางพารา</ion-option>
+                <ion-option>พืชยืนต้น ไม้ผล สวนป่า</ion-option>
               </ion-select>
             </ion-item>
             <ion-item *ngIf="isValid('fields.MixedWithPrimaryPlant')">
@@ -211,7 +211,7 @@
 
     <div [ngSwitch]="HerbsPlantFrm.get('doing').value">
       <div *ngSwitchCase="1">
-        <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
+        <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
       </div>
     </div>
 
