@@ -17,23 +17,26 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class PoolUsageComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-
+  @Input("headline") public text: string;
+  @Input('no') no: string;
 
   private submitRequested: boolean;
 
-  @Input("headline") public text: string;
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.FormItem = this.fb.group({
-      'isPoolUsage' : ['',Validators.required],
+
+    // TODO: Remove this
+    this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
+
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'isPoolUsage': ['', Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
       // 'unknowPoolUsage': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required]
     });
-
-    console.log('Hello PoolUsageComponent Component');
-    this.text = '1';
   }
 
   submitRequest() {

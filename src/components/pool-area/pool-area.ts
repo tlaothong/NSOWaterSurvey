@@ -15,6 +15,7 @@ import { ModalController } from 'ionic-angular';
 export class PoolAreaComponent {
 
   @Input("headline") private text: string;
+  @Input('no') no: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -24,19 +25,24 @@ export class PoolAreaComponent {
     this.text = '';
 
     // TODO: Remove this
-    this.FormItem = this.fb.group({
-      'shape':null,
-      'area':this.fb.group({
-        'rai':[''],
-        'ngan':[''],
-        'sqWa':[''],
+    this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
+
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'shape': null,
+      'area': fb.group({
+        'rai': [''],
+        'ngan': [''],
+        'sqWa': [''],
       }),
-      'depth':[''],
-      'rectangle':this.fb.group({
-        'width':[''],
-        'length':[''],
+      'depth': [''],
+      'rectangle': fb.group({
+        'width': [''],
+        'length': [''],
       }),
-      'diameter':['']
+      'diameter': ['']
     });
   }
 
