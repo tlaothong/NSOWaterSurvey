@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 
 /**
  * Generated class for the MushroomPage page.
@@ -15,30 +16,21 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'mushroom.html',
 })
 export class MushroomPage {
-  public MushroomPlantFrm: FormGroup;
+  public f: FormGroup;
   private submitRequested: boolean;
 
+  @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.MushroomPlantFrm = this.fb.group({
+    this.f = this.fb.group({
       'doing': ['', Validators.required],
       'fieldCount': ['', Validators.required],
-      'irrigationField': ['', Validators.required],
-      'areaMeter':['', Validators.required],// ขนาดพื้นที่เท่าไหร่กี่ตารางเมตร
-      'houseNumber':['', Validators.required],
-      'fields': this.fb.group({
-        'waterSource': this.fb.group({
-          'rainingAsIs': ['', Validators.required],
-          'plumbing': ['', Validators.required],
-          'underGround': ['', Validators.required],
-          'pool': ['', Validators.required],
-          'river': ['', Validators.required],
-          'irrigation': ['', Validators.required],
-          'rain': ['', Validators.required],
-          'buying': ['', Validators.required],
-          'other': ['', Validators.required],
-        })
-      }),
+      'areaMeter': ['', Validators.required],// ขนาดพื้นที่เท่าไหร่กี่ตารางเมตร
+      'houseNumber': ['', Validators.required],
+      'fields': this.fb.array([]),
     });
+
+    this.setupPlantingCountChanges()
   }
 
   ionViewDidLoad() {
@@ -47,10 +39,41 @@ export class MushroomPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldMushroom.forEach(it => it.submitRequest());
   }
 
-  public isValid(name: string) : boolean {
-    var ctrl = this.MushroomPlantFrm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  private setupPlantingCountChanges() {
+    const componentFormArray: string = "fields";
+    const componentCount: string = "houseNumber";
+
+    var onComponentCountChanges = () => {
+      var fields = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var houseNumber = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      houseNumber = Math.max(1, houseNumber);
+
+      for (let i = 0; i < houseNumber; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldMushroomComponent.CreateFormGroup(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, farr);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 }

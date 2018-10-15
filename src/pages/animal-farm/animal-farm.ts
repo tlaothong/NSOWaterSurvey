@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the AnimalFarmPage page.
@@ -15,10 +15,13 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: 'animal-farm.html',
 })
 export class AnimalFarmPage {
-  private f: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
-    this.f = this.fb.group({
+  private submitRequested: boolean;
+  public AnimalFarmForm: FormGroup;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
+    this.AnimalFarmForm = this.fb.group({
+      "doing": [null, Validators.required],
       'cow': this.fb.group({
         'hasItem': false,
         'itemCount': null
@@ -68,6 +71,20 @@ export class AnimalFarmPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
   }
+
+  ionViewDidEnter() {
+
+  }
+  public handleSubmit() {
+    this.submitRequested = true;
+
+  }
+
+  public isValid(name: string) : boolean {
+    var ctrl = this.AnimalFarmForm.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
     
   
 }    

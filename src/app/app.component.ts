@@ -4,9 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { RainPage } from '../pages/rain/rain';
-import { IrrigationPage } from '../pages/irrigation/irrigation';
-
 
 
 @Component({
@@ -27,7 +24,7 @@ export class MyApp {
       // test push
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
-      { title: 'Demo', component: "DemoPage" },
+      { title: 'Commercial', component: "CommercialPage" },
       { title: 'Rice', component: "RicePage" },
       { title: 'Mushroom', component: "MushroomPage" },
       { title: 'Plumbing', component: "PlumbingPage" },
@@ -41,14 +38,15 @@ export class MyApp {
       { title: 'Residential', component: "ResidentialPage" },
       { title: 'Buying', component: "BuyingPage" },
       { title: 'Disasterous', component: "DisasterousPage" },
-      { title: 'Irrigation', component: IrrigationPage },
-      { title: 'Rain', component: RainPage },
+      { title: 'Irrigation', component: "IrrigationPage" },
+      { title: 'Rain', component: "RainPage" },
       { title: 'Dry-CropPlanting', component: "DryCropPlantingPage" },
       { title: 'RubberTree', component: "RubberTreePage" },
       { title: 'PerennialPlanting', component: "PerennialPlantingPage" },
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
       { title: 'User', component: "UserPage" },
       { title: 'Pool', component: "PoolPage" },
+      { title: 'Agriculture', component: "AgriculturePage" }
     ];
 
   }

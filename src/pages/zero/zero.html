@@ -6,12 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Zero Page</ion-title>
-  </ion-navbar>
+  <questionnaire-menu title="ตัวอย่าง"></questionnaire-menu>
 
 </ion-header>
 
@@ -36,7 +31,7 @@
             <ion-label>2. มีที่นากี่แปลง</ion-label>
           </ion-item>
           <ion-item>
-            <ion-input type="number" placeholder="กรอกจำนวนแปลง" c="fieldCount"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -62,14 +57,16 @@
               <ion-item>
                 <ion-label>ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area [formGroupName]="0"></field-area>
+              <field-area [FormItem]="f.get('fieldAreas').at(0)"></field-area>
             </div>
 
             <div *ngSwitchCase="3" formArrayName="fieldAreas">
-                <ion-item>
+              <ion-item>
                 <ion-label>ในการทำนาแต่ละครั้ง ใช้พื้นที่ในการทำนา กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
               </ion-item>
-              <field-area headline="ครั้งที่ {{ i + 1 }} " *ngFor="let far of f.get('fieldAreas').controls; let i = index" [formGroupName]="i"></field-area>
+              <div *ngFor="let far of f.get('fieldAreas').controls; let i = index">
+                <field-area headline="ครั้งที่ {{ i + 1 }} " [FormItem]="far"></field-area>
+              </div>
             </div>
           </div>
 
@@ -152,7 +149,7 @@
 
     <water-sources8-a #ws8 headline="ตัวอย่างการใช้ component" [FormItem]="f.get('waterSources')"></water-sources8-a>
     <water-sources8-a [headline]="headtext" [FormItem]="f.get('waterSources')"></water-sources8-a>
-    <water-sources8-a [headline]="'ใส่ตรงๆ'" ></water-sources8-a>
+    <water-sources8-a [headline]="'ใส่ตรงๆ'"></water-sources8-a>
 
     <ion-card>
       <ion-card-header>
@@ -163,7 +160,7 @@
           <ion-item>
             <ion-label>ขนาดพื้นที่ กี่ไร่ กี่งาน กี่ตารางวา</ion-label>
           </ion-item>
-          <field-area></field-area>
+          <field-area [FormItem]="f.get('area')"></field-area>
         </ion-list>
       </ion-card-content>
     </ion-card>
@@ -173,22 +170,14 @@
         ตัวอย่าง checkBox + input
       </ion-card-header>
       <ion-list>
-        <table-check-item-count [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('preSchool')"></table-check-item-count>
-        <table-check-item-count [ititle]="'2. อนุบาล'" [FormItem]="f.get('kindergarten')"></table-check-item-count>
-        <table-check-item-count [ititle]="'3. มัธยม'" ></table-check-item-count>
-        <table-check-item-count [ititle]="'4. สายอาชีพ'" [FormItem]="f.get('vocational')"></table-check-item-count>
+        <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('preSchool')"></table-check-item-count>
+        <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'" [FormItem]="f.get('kindergarten')"></table-check-item-count>
+        <table-check-item-count unit="คน" [ititle]="'3. มัธยม'"></table-check-item-count>
+        <table-check-item-count unit="คน" [ititle]="'4. สายอาชีพ'" [FormItem]="f.get('vocational')"></table-check-item-count>
       </ion-list>
     </ion-card>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-        </ion-col>
-        <ion-col>
-          <button ion-button block type="submit">บันทึกและถามข้อต่อไป</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 

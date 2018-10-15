@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
 /**
  * Generated class for the RubberTreePage page.
  *
@@ -16,43 +17,18 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class RubberTreePage {
 
   private submitRequested: boolean;
-  rubbertree: FormGroup;
+  public rubbertree: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.rubbertree = this.fb.group({
-      
-        "doing": ['',Validators.required],
-        "fieldCount":['',Validators.required],
-        "fields": this.fb.group({
-          "location": this.fb.group({
-            "province": ['',Validators.required],
-            "distric": ['',Validators.required],
-            "subDistric": ['',Validators.required]
-          }),
-          "area": this.fb.group({
-            "rai": ['',Validators.required],
-            "ngan": ['',Validators.required],
-            "sqWa": ['',Validators.required]
-          }),
-          "irrigationField": ['',Validators.required],
-          "waterSources": this.fb.group({
-            "plumbing": ['',Validators.required],
-            "underGround": ['',Validators.required],
-            "pool": ['',Validators.required],
-            "river": ['',Validators.required],
-            "irrigation": ['',Validators.required],
-            "rain": ['',Validators.required],
-            "buying": ['',Validators.required],
-            "rainingAsIs": ['',Validators.required],
-            "other": ['',Validators.required]
-          })
-        })
 
-      
-
-
+      "doing": ['', Validators.required],
+      "fieldCount": ['', Validators.required],
+      'fieldRubbertree': fb.array([
+        FieldRebbertreeComponent.CreateFormGroup(fb)
+      ])
     });
 
-
+    this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
@@ -70,6 +46,36 @@ export class RubberTreePage {
 
   public isValid(name: string): boolean {
     var ctrl = this.rubbertree.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  private setupFieldCountChanges() {
+    const componentFormArray: string = "fieldRubbertree";
+    const componentCount: string = "fieldCount";
+
+    var onComponentCountChanges = () => {
+      var fieldRubbertree = (this.rubbertree.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.rubbertree.get(componentCount).value || 0;
+      var field = this.fb.array([]);
+
+      fieldCount = Math.max(0, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fieldRubbertree.length) {
+          const fld = fieldRubbertree[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldRebbertreeComponent.CreateFormGroup(this.fb);
+        }
+
+        field.push(ctrl);
+      }
+      this.rubbertree.setControl(componentFormArray, field);
+    };
+
+    this.rubbertree.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 }

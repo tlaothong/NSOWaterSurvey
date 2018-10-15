@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ModalController } from 'ionic-angular';
+import { FieldAreaComponent } from '../field-area/field-area';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the PoolAreaComponent component.
@@ -10,13 +14,55 @@ import { Component } from '@angular/core';
   selector: 'pool-area',
   templateUrl: 'pool-area.html'
 })
-export class PoolAreaComponent {
+export class PoolAreaComponent implements ISubmitRequestable {
 
-  text: string;
+  @Input("headline") private text: string;
+  @Input("pool") private poolText: string;
+  @Input('no') no: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor() {
+  private submitRequested: boolean;
+
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello PoolAreaComponent Component');
-    this.text = 'Hello World';
+    this.text = '';
+    this.poolText = "บ่อหรือร่องสวน";
+
+    // TODO: Remove this
+    this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'shape': [ null, Validators.required ],
+      'area': FieldAreaComponent.CreateFormGroup(fb),
+      'depth': [ null, Validators.required ],
+      'rectangle': fb.group({
+        'width': [ null, Validators.required ],
+        'length': [ null, Validators.required ],
+      }),
+      'diameter': [ null, Validators.required ]
+    });
+  }
+
+  public showModal() {
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
+    modal.onDidDismiss(data => {
+      if (data) {
+        var fg = <FormGroup>data;
+        this.FormItem.get('rectangle').setValue(fg.value);
+      }
+    });
+    modal.present();
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }

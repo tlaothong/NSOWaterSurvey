@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ComponentsModule } from '../../components/components.module';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { PoolAreaComponent } from '../../components/pool-area/pool-area';
+import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 
 /**
  * Generated class for the PoolPage page.
@@ -16,11 +19,98 @@ import { ComponentsModule } from '../../components/components.module';
 })
 export class PoolPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public f: FormGroup;
+  @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
+  @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
+
+  private submitRequested: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+    this.f = this.fb.group({
+      'isExist': [null, Validators.required],
+      'poolCount': [null, Validators.required],
+      'poolEqual': [null, Validators.required],
+      'poolSizes': this.fb.array([]),
+      'poolCountUsage': [null, Validators.required],
+      'poolUsage': this.fb.array([]),
+    });
+
+    this.setupPoolCountChanges();
+    this.setupPoolCountUsageChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PoolPage');
   }
 
+  public handleSubmit() {
+    this.submitRequested = true;
+    this.poolUsage.forEach(it => it.submitRequest());
+    this.poolArea.forEach(it => it.submitRequest());
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  private setupPoolCountChanges() {
+    const componentFormArray: string = "poolSizes";
+    const componentCount: string = "poolCount";
+
+    var onComponentCountChanges = () => {
+      var poolSizes = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var poolCount = this.f.get(componentCount).value || 0;
+      var pool = this.fb.array([]);
+
+      poolCount = Math.max(0, poolCount);
+
+      for (let i = 0; i < poolCount; i++) {
+        var ctrl = null;
+        if (i < poolSizes.length) {
+          const fld = poolSizes[i];
+          ctrl = fld;
+        } else {
+          ctrl = PoolAreaComponent.CreateFormGroup(this.fb);
+        }
+
+        pool.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, pool);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupPoolCountUsageChanges() {
+    const componentFormArray: string = "poolUsage";
+    const componentCount: string = "poolCountUsage";
+
+    var onComponentCountChanges = () => {
+      var poolUsage = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var poolCountUsage = this.f.get(componentCount).value || 0;
+      var pool = this.fb.array([]);
+
+      poolCountUsage = Math.max(0, poolCountUsage);
+
+      for (let i = 0; i < poolCountUsage; i++) {
+        var ctrl = null;
+        if (i < poolUsage.length) {
+          const fld = poolUsage[i];
+          ctrl = fld;
+        } else {
+          ctrl = PoolUsageComponent.CreateFormGroup(this.fb);
+        }
+
+        pool.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, pool);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
 }

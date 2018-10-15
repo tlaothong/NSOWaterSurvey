@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { combineLatest } from 'rxjs/operators';
+import { FieldAreaComponent } from '../../components/field-area/field-area';
+import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 
 /**
  * Generated class for the RicePage page.
@@ -15,50 +18,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'rice.html',
 })
 export class RicePage {
+
   private submitRequested: boolean;
-  ricePlant: FormGroup;
+  f: FormGroup;
+
+  @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
-    this.ricePlant = this.fb.group({
-      
-        'doing': ['',Validators.required],
-        'fieldCount': ['',Validators.required],
-        'fields': this.fb.group({
-          'location': this.fb.group({
-            'province': ['',Validators.required],
-            'district':['',Validators.required],
-            'subDistrict':['',Validators.required]
-          }),
-          'area': this.fb.group({
-            'rai': ['',Validators.required],
-            'ngan': ['',Validators.required],
-            'sqWa': ['',Validators.required]
-          }),
-          'plantingCount': ['',Validators.required],
-          'plantingArea': ['',Validators.required],
-          'areaUsed': this.fb.group({
-            'rai': ['',Validators.required],
-            'ngan': ['',Validators.required],
-            'sqWa': ['',Validators.required]
-          })
-        }),
-        'plantingFromMonth': ['',Validators.required],
-        'plantingThruMonth': ['',Validators.required],
-        'waterFillingCount': ['',Validators.required],
-        'waterHigh': ['',Validators.required],
-        'irrigationField': ['',Validators.required],
-        'waterSources': this.fb.group({
-          'plumbing': ['',Validators.required],
-          'underGround': ['',Validators.required],
-          'pool': ['',Validators.required],
-          'river': ['',Validators.required],
-          'irrigation': ['',Validators.required],
-          'rain': ['',Validators.required],
-          'buying': ['',Validators.required],
-          'rainingAsIs': ['',Validators.required],
-          'other': ['',Validators.required],
-        })
-    
+    this.f = this.fb.group({
+      'doing': [null, Validators.required],
+      'fieldCount': ['', Validators.required],
+      'fields': this.fb.array([]),
     });
+
+    this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
@@ -71,20 +44,43 @@ export class RicePage {
 
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.fieldFarmings.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.ricePlant.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
+  private setupFieldCountChanges() {
+    const componentFormArray: string = "fields";
+    const componentCount: string = "fieldCount";
 
+    var onComponentCountChanges = () => {
+      var fields = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
 
+      fieldCount = Math.max(0, fieldCount);
 
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldFarmingComponent.CreateFormGroup(this.fb);
+        }
 
+        farr.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, farr);
+    };
 
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
+    onComponentCountChanges();
+  }
 
 
 }

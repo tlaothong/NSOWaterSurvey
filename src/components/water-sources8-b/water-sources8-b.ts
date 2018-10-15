@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the WaterSources8BComponent component.
@@ -10,13 +12,31 @@ import { Component, Input } from '@angular/core';
   selector: 'water-sources8-b',
   templateUrl: 'water-sources8-b.html'
 })
-export class WaterSources8BComponent {
+export class WaterSources8BComponent{
 
-  @Input('headline') text: string;
+  @Input('headline') public text: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor() {
+  private submitRequested: boolean;
+
+  constructor(private fb: FormBuilder) {
     console.log('Hello WaterSources8BComponent Component');
-    this.text = 'Hello World';
+    this.text = '';
+
+    // TODO: Remove this
+    this.FormItem = this.fb.group({
+      'hasOther': false,
+      'other': null
+    });
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
   }
 
 }

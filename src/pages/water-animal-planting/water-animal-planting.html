@@ -1,381 +1,101 @@
-<!--
-  Generated template for the WaterAnimalPlantingPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>WaterAnimalPlantingPage</ion-title>
-  </ion-navbar>
-
+  <questionnaire-menu title="การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด "></questionnaire-menu>
 </ion-header>
 
-
 <ion-content padding>
-  <h3>ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด</h3>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="aquaticAnimal">
-    <ion-card>
-      <ion-card-header>
-        2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืด หรือไม่
-        <br>(ให้เลิอกเพียงข้อเดียว)
 
-      </ion-card-header>
+  <h3><b>ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด</b></h3>
+
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+
+    <ion-card>
       <ion-card-content>
-        <ion-row radio-group formControlName="doing">
+
+        <ion-item>
+          <ion-label>
+            2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง<br> เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืดหรือไม่
+          </ion-label>
+        </ion-item>
+
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+          <ion-item *ngIf="isValid('doing')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
           <ion-item col-6>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="1" item-left></ion-radio>
             <ion-label>ทำ</ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="2" item-left></ion-radio>
             <ion-label>ไม่ทำ</ion-label>
           </ion-item>
         </ion-row>
-        <ion-item *ngIf="isValid('doing')">
-          <span class="invalid-msg">Please fill in name</span>
-        </ion-item>
-
-
-       
-          ถ้า “มี” เลี้ยงสัตว์ชนิดใดบ้าง (สอบถามทีละชนิด)
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>1.ปลา</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>2.กุ้ง</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>3.กบ</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>4.จระเข้</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>5.ตะพาบน้ำ</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>6.ปู</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>7.หอย</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>8.เต่า</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>9. ไรแดง </ion-label>
-          </ion-item>
-        
 
       </ion-card-content>
     </ion-card>
 
-    (page ปลา)
-    <ion-card>
-
-      <ion-card-header>
-        1.ปลา (2.กุ้ง 6.ปู 7.หอย และ 9.ไรแดง)
-
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <ion-item>
-
-            <ion-label> 2.9.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ทำการเพาะเลี้ยง เพาะฟัก อนุบาลสัตว์น้ำในพื้นที่น้ำจืด
-              หรือไม่
-              <br>(ให้เลิอกเพียงข้อเดียว) </ion-label>
-
-          </ion-item>
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ใช้</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่ใช้</ion-label>
-            </ion-item>
-          </ion-row>
-          <ion-item>
-            <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>1.บ่อ</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>2.ร่องสวน</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>3.กระชัง</ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-checkbox></ion-checkbox>
-            <ion-label>4.นา</ion-label>
-          </ion-item>
-
-
-          <ion-item>
-            <ion-label>
-              5. อื่น ๆ
-            </ion-label>
-            <ion-checkbox></ion-checkbox>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>โปรดระบุ</ion-label>
-            <ion-input></ion-input>
-          </ion-item>
-
-
-          <ion-item>
-            <ion-label>
-              2) ถ้าเลี้ยงในบ่อ หรือร่องสวน มีจำนวนบ่อหรือ ร่องสวนรวมเท่าไร
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>
-              2.1) ขนาดบ่อหรือร่องสวนทั้งหมดเท่ากันหรือไม่
-            </ion-label>
-          </ion-item>
-
-          <ion-row radio-group>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>เท่ากัน(กรอกบ่อครั้งเดียว)</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่เท่ากัน(กรองทีละบ่อ)</ion-label>
-            </ion-item>
-          </ion-row>
-
-
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-
-
-
-
-    (segment บ่อสัตว์น้ำ)
     <ion-card>
       <ion-card-content>
 
         <ion-item>
           <ion-label>
-            2.2) บ่อหรือร่องสวนที่ 1
+            เลี้ยงสัตว์ชนิดใดบ้าง
           </ion-label>
         </ion-item>
 
-
-        <pool-area></pool-area>
-
-      </ion-card-content>
-    </ion-card>
-
-
-    <ion-card>
-
-      <ion-card-content>
         <ion-item>
-          <ion-label> 3) จำนวนทีเลี้ยงในปัจจุบันจำนวนเท่าไร(รวมบ่อ/รวมสวน) *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก.</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input></ion-input>
-        </ion-item>
-
-      </ion-card-content>
-    </ion-card>
-
-
-    <water-sources9 [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources9>
-
-
-
-
-
-    (page กบ)
-    <h3>3.กบ</h3>
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
+          <ion-label><b>ชนิดสัตว์น้ำ</b></ion-label>
         </ion-item>
         <ion-item>
           <ion-checkbox></ion-checkbox>
-          <ion-label>1.บ่อ</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>2.กระชังบก</ion-label>
-        </ion-item>
-
-
-        <ion-item>
-          <ion-label>
-            3. อื่น ๆ
-          </ion-label>
-          <ion-checkbox></ion-checkbox>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>โปรดระบุ</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-
-
-
-
-        <ion-item>
-          <ion-label> 2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input></ion-input>
-
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-
-
-    <water-sources9 headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
-
-
-    (page จระเข้)
-    <h3>4.จระเข้</h3>
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
+          <ion-label>1.ปลา</ion-label>
         </ion-item>
         <ion-item>
           <ion-checkbox></ion-checkbox>
-          <ion-label>1.บ่อ</ion-label>
+          <ion-label>2.กุ้ง</ion-label>
         </ion-item>
-
-
         <ion-item>
-          <ion-label>
-            2. อื่น ๆ
-          </ion-label>
           <ion-checkbox></ion-checkbox>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>โปรดระบุ</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-
-
-        <ion-item>
-          <ion-label>
-            2) ถ้าเลี้ยงในบ่อ หรือร่องสวน มีจำนวนบ่อหรือ ร่องสวนรวมเท่าไร
-          </ion-label>
+          <ion-label>3.กบ</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input></ion-input>
+          <ion-checkbox></ion-checkbox>
+          <ion-label>4.จระเข้</ion-label>
         </ion-item>
-
         <ion-item>
-          <ion-label>
-            2.1) ขนาดบ่อหรือร่องสวนทั้งหมดเท่ากันหรือไม่
-          </ion-label>
+          <ion-checkbox></ion-checkbox>
+          <ion-label>5.ตะพาบน้ำ</ion-label>
         </ion-item>
-
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>เท่ากัน(กรอกบ่อครั้งเดียว)</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่เท่ากัน(กรองทีละบ่อ)</ion-label>
-          </ion-item>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-
-
-
-
-    (segment บ่อจระเข้)
-    <ion-card>
-      <ion-card-content>
         <ion-item>
-          <ion-label>
-            2.2) บ่อหรือร่องสวนที่ 1
-          </ion-label>
-
+          <ion-checkbox></ion-checkbox>
+          <ion-label>6.ปู</ion-label>
         </ion-item>
-
-
-
         <ion-item>
-          <pool-area></pool-area>
+          <ion-checkbox></ion-checkbox>
+          <ion-label>7.หอย</ion-label>
         </ion-item>
-
-
-
-
+        <ion-item>
+          <ion-checkbox></ion-checkbox>
+          <ion-label>8.เต่า</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox></ion-checkbox>
+          <ion-label>9. ไรแดง </ion-label>
+        </ion-item>
 
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <!-- (2.กุ้ง 6.ปู 7.หอย และ 9.ไรแดง) -->
+    <fish-farming></fish-farming>
 
-      <ion-card-content>
-        <ion-item>
-          <ion-label> 3) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input></ion-input>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+    <!-- (3.กบ) -->
+    <frog-farming></frog-farming>
 
+    <!-- (5.ตะพาบน้ำ และเต่า ถามเหมือนจระเข้) -->
+    <crocodile-farming></crocodile-farming>
 
-    <water-sources9 headline="4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button block type="submit">Save & Next</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 

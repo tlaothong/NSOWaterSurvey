@@ -10,18 +10,12 @@ import { HomePage } from '../pages/home/home';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
-import { IrrigationPage } from '../pages/irrigation/irrigation';
-import { RainPage } from '../pages/rain/rain';
-
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    IrrigationPage,
-    RainPage , 
-    
   ],
   imports: [
     BrowserModule,
@@ -32,9 +26,6 @@ import { RainPage } from '../pages/rain/rain';
   entryComponents: [
     MyApp,
     HomePage,
-    IrrigationPage,
-    RainPage,
-
   ],
   providers: [
     StatusBar,

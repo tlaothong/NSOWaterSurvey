@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, ViewChildren } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
+
 
 /**
  * Generated class for the HerbsPlantPage page.
@@ -15,19 +17,21 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'herbs-plant.html',
 })
 export class HerbsPlantPage {
-  private submitRequested: boolean;
-  public HerbsPlantFrm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.HerbsPlantFrm = this.fb.group({
+  private submitRequested: boolean;
+  public f: FormGroup;
+  shownData: string[];
+
+  @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
+    this.f = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
-      'names': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-      'MixedWithPrimaryPlant': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
-      'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-
+      'fields': this.fb.array([]),
     });
 
+    this.setupPlantingCountChanges();
   }
 
   ionViewDidLoad() {
@@ -36,12 +40,42 @@ export class HerbsPlantPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldHerbsPlant.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.HerbsPlantFrm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
+  private setupPlantingCountChanges() {
+    const componentFormArray: string = "fields";
+    const componentCount: string = "fieldCount";
+
+    var onComponentCountChanges = () => {
+      var fields = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      fieldCount = Math.max(1, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fields.length) {
+          const fld = fields[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, farr);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
 
 }

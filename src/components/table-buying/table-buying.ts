@@ -39,7 +39,6 @@ export class TableBuyingComponent {
     const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }
@@ -53,7 +52,7 @@ export class TableBuyingComponent {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }

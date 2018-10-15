@@ -1,62 +1,67 @@
 <ion-card>
+  <ion-card-content [formGroup]="FormItem">
 
-  <ion-card-content>
     <ion-item>
       <ion-label>
-        {{text}} : 8B
+        {{text}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        1 น้ำประปา
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        2 น้ำบาดาล
+        1.น้ำประปา
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        3 น้ำจากสระ
+        2.น้ำบาดาล
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        4 น้ำจากแม้น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ
+        3.น้ำจากสระน้ำ
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        5 น้ำจากชลประทาน
+        4.น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        6 น้ำฝนที่กักเก็บไว้
+        5.น้ำจากชลประทาน
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        7 น้ำที่ซื้อมาใช้
+        6.น้ำฝนที่กักเก็บไว้
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        8 อื่น ๆ
+        7.น้ำที่ซื้อมาใช้
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item>
+      <ion-label>
+        8.อื่น ๆ
+      </ion-label>
+      <ion-checkbox formControlName="hasOther"></ion-checkbox>
+    </ion-item>
+
+    <ion-item *ngIf="FormItem.get('hasOther').value || false">
       <ion-label>โปรดระบุ</ion-label>
-      <ion-input></ion-input>
+      <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
     </ion-item>
+    <ion-item *ngIf="isValid('other')" class="invalid-msg">
+      <span>Please specify other.</span>
+    </ion-item>
+
   </ion-card-content>
 </ion-card>

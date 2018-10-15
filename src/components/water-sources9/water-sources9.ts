@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 
 /**
  * Generated class for the WaterSources9Component component.
@@ -12,11 +13,40 @@ import { Component, Input } from '@angular/core';
 })
 export class WaterSources9Component {
 
-  @Input('headline') text: string;
+  @Input('headline') public text: string;
+  @Input() public FormItem: FormGroup;
 
-  constructor() {
+  private submitRequested: boolean;
+
+  constructor(private fb: FormBuilder) {
     console.log('Hello WaterSources9Component Component');
-    this.text = 'Hello World';
+    this.text = '';
+
+    // TODO: Remove this
+    this.FormItem = WaterSources9Component.CreateFormGroup(this.fb);
   }
 
+  public static CreateFormGroup(fb:FormBuilder) : FormGroup {
+    return fb.group({
+      'plumbing' : [false,Validators.required],
+      'underGround': [false, Validators.required],
+      'pool': [false, Validators.required],
+      'river': [false, Validators.required],
+      'irrigation': [false, Validators.required],
+      'rain': [false, Validators.required],
+      'buying': [false, Validators.required],
+      'rainingAsIs': [false, Validators.required],
+      'other': [false, Validators.required],
+      'hasOther' : [null,Validators.required]
+    })
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
 }

@@ -52,7 +52,7 @@ export class FactorialPage {
 
   public isValid(name: string) : boolean {
     var ctrl = this.FactoryForm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }

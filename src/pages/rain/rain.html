@@ -1,31 +1,16 @@
-<!--
-  Generated template for the RainPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+  <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Rain</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+    <questionnaire-menu title="การกักเก็บน้ำฝน "></questionnaire-menu>
+  
+  </ion-header>
 <ion-content padding>
-<h3>การกักเก็บน้ำฝน</h3>
+<h3><b>5.6 การกักเก็บน้ำฝน</b></h3>
   <ion-card>
-
-    <ion-card-header>
-    </ion-card-header>
-
     <ion-card-content>
+
       <ion-item>
-        5.6.1 ภาชนะที่จัดเก็บน้ำฝนเป็นประเภทใดบาง ขนาดบรรจุเท่าใด และมีจำนวนเท่าใด
+        <ion-label>5.6.1 ภาชนะที่จัดเก็บน้ำฝนเป็นประเภทใดบ้าง <br>ขนาดบรรจุเท่าใด และมีจำนวนเท่าใร</ion-label>
       </ion-item>
 
       <ion-row>
@@ -37,10 +22,14 @@
         </ion-col>
       </ion-row>
 
-      <rain-storage></rain-storage>
+      <rain-storage headline="1."></rain-storage>
 
     </ion-card-content>
-<!-- Component Water activity5 -->
   </ion-card>
-    <water-activity5></water-activity5>
+      <h4>5.6.2 น้ำฝนที่กักเก็บไว้นั้นใช้ในกิจกรรมใดบ้าง คิดเป็นสัดส่วนเท่าไร </h4>
+
+    <water-activity5 headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)"></water-activity5>
+    
+    <form-buttons-bar></form-buttons-bar>
+
 </ion-content>

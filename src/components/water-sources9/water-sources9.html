@@ -1,5 +1,6 @@
 <ion-card>
-  <ion-card-content>
+  <ion-card-content [formGroup]="FormItem">
+
     <ion-item>
       <ion-label>
         {{text}}
@@ -7,61 +8,66 @@
     </ion-item>
     <ion-item>
       <ion-label>
-        1 น้ำประปา
+        1.น้ำประปา
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="plumbing"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        2 น้ำบาดาล
+        2.น้ำบาดาล
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="underGround"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        3 น้ำจากสระ
+        3.น้ำจากสระน้ำ
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="pool"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        4 น้ำจากแม้น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ
+        4.น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="river"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        5 น้ำจากชลประทาน
+        5.น้ำจากชลประทาน
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="irrigation"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        6 น้ำฝนที่กักเก็บไว้
+        6.น้ำฝนที่กักเก็บไว้
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="rain"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        7 น้ำที่ซื้อมาใช้
+        7.น้ำที่ซื้อมาใช้
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="buying"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        8 น้้าฝนตามธรรมชาติ
+        8.น้้าฝนตามธรรมชาติ
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="rainingAsIs"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        9 อื่น ๆ
+        9.อื่น ๆ
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox formControlName="other"></ion-checkbox>
     </ion-item>
-    <ion-item>
+
+    <ion-item *ngIf="FormItem.get('other').value || false">
       <ion-label>โปรดระบุ</ion-label>
-      <ion-input></ion-input>
+      <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
     </ion-item>
+    <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
+      <span>Please specify other.</span>
+    </ion-item>
+
   </ion-card-content>
 </ion-card>

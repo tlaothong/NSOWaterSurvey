@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FieldAreaComponent } from '../../components/field-area/field-area';
 
 /**
  * Generated class for the DlgFieldAreaPage page.
@@ -19,8 +20,12 @@ export class DlgFieldAreaPage {
   public FormItem: FormGroup;
   public text: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
-    this.FormItem = navParams.get('FormItem');
+  private submitRequested: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
+    this.FormItem = FieldAreaComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
     this.text = navParams.get("headline");
   }
 
@@ -29,11 +34,19 @@ export class DlgFieldAreaPage {
   }
 
   public okDialog() {
-    this.viewCtrl.dismiss(this.FormItem);
+    this.submitRequested = true;
+    if (this.FormItem.valid) {
+      this.viewCtrl.dismiss(this.FormItem);
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgFieldAreaPage');
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }

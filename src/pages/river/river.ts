@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { PumpComponent } from '../../components/pump/pump';
 
 /**
  * Generated class for the RiverPage page.
@@ -15,39 +16,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'river.html',
 })
 export class RiverPage {
+
   private submitRequested: boolean;
-  river: FormGroup;
+  f: FormGroup;
+
+  @ViewChildren(PumpComponent) private pump: PumpComponent[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
-    this.river = this.fb.group({
-     
+    this.f = this.fb.group({
         "hasPump": ['',Validators.required],
         "pumpCount": ['',Validators.required],
-        "pumps": this.fb.group(
-          {
-            "pumpAuto": ['',Validators.required],
-            "unknowHoursPerPump": ['',Validators.required],
-            "hoursPerPump": ['',Validators.required],
-            "numberOfPumpsPerYear":['',Validators.required],
-            "pumpRate": this.fb.group({
-              "knowPumpRate": ['',Validators.required],
-              "pumpRateUsage": ['',Validators.required]
-            }),
-            "energySource": this.fb.group({
-              "electicPump": ['',Validators.required],
-              "solaPump": ['',Validators.required],
-              "petrolPump": ['',Validators.required],
-              "twoWheeledTractors": ['',Validators.required]
-            }),
-            "pumpType": this.fb.group({
-              "electicPump": ['',Validators.required],
-              "solaPump": ['',Validators.required],
-              "petrolPump": ['',Validators.required],
-              "twoWheeledTractors": ['',Validators.required]
-            }),
-            "horsePower": ['',Validators.required],
-            "suctionPipeSize": ['',Validators.required],
-            "pipelineSize": ['',Validators.required]
-          }),
+        "pumps":  this.fb.array([]),
         "usageActivities": this.fb.group({
           "drink": ['',Validators.required],
           "plant": ['',Validators.required],
@@ -67,10 +46,9 @@ export class RiverPage {
             "hardWater": ['',Validators.required]
           })
         })
-     
-
-
     });
+
+    this.setupPumpCountChanges()
   }
 
   ionViewDidLoad() {
@@ -83,11 +61,42 @@ export class RiverPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.pump.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.river.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
+  private setupPumpCountChanges() {
+    const componentFormArray: string = "pumps";
+    const componentCount: string = "pumpCount";
+
+    var onComponentCountChanges = () => {
+      var pumps = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var pumpCount = this.f.get(componentCount).value || 0;
+      var pump = this.fb.array([]);
+
+      pumpCount = Math.max(0, pumpCount);
+
+      for (let i = 0; i < pumpCount; i++) {
+        var ctrl = null;
+        if (i < pumps.length) {
+          const fld = pumps[i];
+          ctrl = fld;
+        } else {
+          ctrl = PumpComponent.CreateFormGroup(this.fb);
+        }
+
+        pump.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, pump);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
 }

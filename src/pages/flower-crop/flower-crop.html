@@ -1,140 +1,80 @@
-<!--
-  Generated template for the FlowerCropPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>FlowerCrop</ion-title>
-  </ion-navbar>
+
+  <questionnaire-menu title="ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้"></questionnaire-menu>
+
 </ion-header>
 
-
 <ion-content padding>
-  <h3> 2.6 ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </h3>
-  <ion-card>
+  <form [formGroup]="flowerCropFrm" (ngSubmit)="handleSubmit()">
 
+    <h3> <b>2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้</b> </h3>
 
-    <ion-item>
-      <ion-label>
-        2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกไม้ดอกไม้ประดับ เพาะพันธุ์ไม้ หรือไม่
-      </ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-6>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ปลูก</ion-label>
-      </ion-item>
-      <ion-item col-6>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ไม่ปลูก</ion-label>
-      </ion-item>
-    </ion-row>
-  </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <dl>
+          <dd>
+            <b>ไม้ดอก</b>
+          </dd>
+          <dt>
+            เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จำปา จำปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ เยอร์บิรา
+            หน้าวัว เป็นต้น
+          </dt>
+          <dd><b>ไม้ประดับ</b></dd>
+          <dt>เช่น โกสน เข็ม เตย ไทร
+            เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาลม์ต่าง ๆ ไผ่
+            เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปสูนาม เป็นต้น
+          </dt>
+        </dl>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-label>
-      2.6.2 ถ้า “ปลูก” มีพื้นที่ปลูกไม้ดอกไม้ประดับ เพาะพันธุ์ไม้ จ้านวนกี่แปลง/โรงเรือน
-    </ion-label>
-    </ion-item>
-    <ion-card-content>
-      <ion-item>
-        <ion-input type="number" placeholder="กรอกจำนวนแปลง/โรงเรือน"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูก<b>ไม้ดอก ไม้ประดับ 
+              <br>เพาะพันธุ์ไม้</b> หรือไม่
+          </ion-label>
+        </ion-item>
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+          <ion-item *ngIf="isValid('doing')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left value="1"></ion-radio>
+            <ion-label>ปลูก</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio item-left value="2"></ion-radio>
+            <ion-label>ไม่ปลูก</ion-label>
+          </ion-item>
+        </ion-row>
+        <div [ngSwitch]="flowerCropFrm.get('doing').value">
+          <div *ngSwitchCase="1">
+            <ion-item>
+              <ion-label>
+                2.6.2 มีพื้นที่ปลูก<b>ไม้ดอก ไม้ประดับ เพาะพันธุ์ไม้</b> จำนวนกี่แปลง/โรงเรือน
+              </ion-label>
+            </ion-item>
 
-  <ion-card>
-    <location></location>
-  </ion-card>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกจำนวนแปลง/โรงเรือน" formControlName="fieldCount"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('fieldCount')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-label>
-        2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
-      </ion-label>
-    </ion-item>
-    <field-area></field-area>
-  </ion-card>
+    <div *ngIf="flowerCropFrm.get('fieldCount').value > 0 && flowerCropFrm.get('doing').value == 1">
+      <div *ngFor="let ffc of flowerCropFrm.get('fieldFlowerCrop').controls;let i=index">
+        <field-flower-crop [no]="i+1" [FormItem]="ffc"></field-flower-crop>
+      </div>
+    </div>
 
-  <ion-card>
-    <ion-item>
-      <ion-label>
-        3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      </ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item col-6>
-        <ion-radio item-left></ion-radio>
-        <ion-label>อยู่</ion-label>
-      </ion-item>
-      <ion-item col-6>
-        <ion-radio item-left></ion-radio>
-        <ion-label>ไม่อยู่</ion-label>
-      </ion-item>
-    </ion-row>
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-label>
-        4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกไม้ ดอกไม้ประดับ เพาะพันธุ์ไม้ ชนิดใด (ระบุได้ไมเ่กิน 5 ชนิด)
-      </ion-label>
-    </ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-label>รายชื่อพืช</ion-label>
-        <ion-select interface="action-sheet">
-          <ion-option>ทิวลิป</ion-option>
-          <ion-option>ฟาแลนนอปซิสพันธุ์</ion-option>
-          <ion-option>บีโกเนีย</ion-option>
-          <ion-option>กุหลาบหนู</ion-option>
-          <ion-option>อาซาเลีย</ion-option>
-          <ion-option>รักเร่</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-label>
-        5) ลักษณะการปลูกเป็นแบบใด
-      </ion-label>
-    </ion-item>
-    <ion-row radio-group>
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>1. แบบปลูกเฉพาะ ไม้ดอกไม้ประดับ เพาะพันธ์ุไม้</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-radio item-left></ion-radio>
-        <ion-label>2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่</ion-label>
-      </ion-item>
-    </ion-row>
-    <ion-item>
-      <ion-label>รายชื่อพืชที่ปลูกหลัก</ion-label>
-      <ion-select interface="action-sheet">
-        <ion-option>ข้าว</ion-option>
-        <ion-option>พืชไร่</ion-option>
-        <ion-option>ต้นยางพารา</ion-option>
-        <ion-option>พืชยืนต้น</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-card>
-
-
-  <ion-card-header>
-    6) ที่แปลงนี้ใช้น้้าจากแหล่งใดบ้าง
-  </ion-card-header>
-  <water-sources9></water-sources9>
-
-
-
+    <form-buttons-bar></form-buttons-bar>
+  </form>
 
 </ion-content>

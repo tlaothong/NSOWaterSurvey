@@ -24,7 +24,7 @@ export class ZeroPage {
   public headtext = "กำหนดมาจาก code ห้ามใช้แบบนี้ในตอนนี้";
 
   private submitRequested: boolean;
-  
+
   @ViewChild('ws8') ws8: ISubmitRequestable;
   @ViewChildren(TableCheckItemCountComponent) private checkedItems: ISubmitRequestable[];
 
@@ -34,6 +34,11 @@ export class ZeroPage {
       'fieldCount': 0,
       'fieldUsage': null,
       'fieldAreas': null,
+      'area': this.fb.group({
+        'rai': null,
+        'ngan': null,
+        'sqWa': null,
+      }),
       'preSchool': this.fb.group({
         'hasItem': false,
         'itemCount': null
@@ -75,9 +80,9 @@ export class ZeroPage {
     this.checkedItems.forEach(it => it.submitRequest());
   }
 
-  public isValid(name: string) : boolean {
+  public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   public onFieldUsageChanges() {
@@ -93,9 +98,16 @@ export class ZeroPage {
         const fld = fields[i];
         ctrl = fld;
       } else {
-        ctrl = {};
+        ctrl = { 'rai': null, 'ngan': null, 'sqWa': null };
       }
-      farr.push(this.fb.group(ctrl));
+
+      const fg = this.fb.group({
+        'rai': null,
+        'ngan': null,
+        'sqWa': null,
+      });
+      fg.setValue(ctrl);
+      farr.push(fg);
     }
     this.f.setControl('fieldAreas', farr);
   }

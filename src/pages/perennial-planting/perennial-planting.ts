@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, ViewChildren } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+
+import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 
 /**
  * Generated class for the PerennialPlantingPage page.
@@ -15,46 +17,88 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'perennial-planting.html',
 })
 export class PerennialPlantingPage {
+
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+
+  @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
     this.PerennialPlantingFrm = this.fb.group({
-      'doing':[null, Validators.required],
-      'fieldCount':[null, Validators.required],
-      'irrigationField':[null, Validators.required],
-      'names':[null, Validators.required],
-      'fields':this.fb.group({
-        'area': this.fb.group({
-          'rai':[null, Validators.required],
-          'ngan':[null, Validators.required],
-          'sqWa':[null, Validators.required]
-        }),
-       
-        // ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) 
-        'waterSource':this.fb.group({
-          'rainingAsIs': [null, Validators.required],
-            'plumbing': [null, Validators.required],
-            'underGround': [null, Validators.required],
-            'pool': [null, Validators.required],
-            'river': [null, Validators.required],
-            'irrigation': [null, Validators.required],
-            'rain': [null, Validators.required],
-            'buying': [null, Validators.required],
-            'other': [null, Validators.required]
-        })
-      })
+      'doing': [null, Validators.required],
+      'fieldCount': [null, Validators.required],
+      'fieldPerenial': fb.array([]),
+     
+      
     });
+    this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerennialPlantingPage');
   }
+
+  
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldPerenialPlanting.forEach(it => it.submitRequest());
+    
   }
 
-  public isValid(name: string) : boolean {
+  public isValid(name: string): boolean {
     var ctrl = this.PerennialPlantingFrm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
+  
+  private setupFieldCountChanges() {
+
+    const componentFormArray: string = "fieldPerenial";
+    const componentCount: string = "fieldCount";
+
+    var onComponentCountChanges = () => {
+      var fieldPerenial = (this.PerennialPlantingFrm.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.PerennialPlantingFrm.get(componentCount).value || 0;
+      var field = this.fb.array([]);
+
+      fieldCount = Math.max(0, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fieldPerenial.length) {
+          const fld = fieldPerenial[i];
+          ctrl = fld;
+        } else {
+          ctrl = FieldPerenialPlantingComponent.CreateFormGroup(this.fb);
+        }
+
+        field.push(ctrl);
+      }
+      this.PerennialPlantingFrm.setControl(componentFormArray, field);
+    };
+
+    this.PerennialPlantingFrm.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage",
+  //     { title: "พืชต้น", selected: [], list: EX_TREETON_LIST , limit: 5 });
+
+
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
+
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
+
+  //   modal.present();
+  // }
 }

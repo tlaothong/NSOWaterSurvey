@@ -1,125 +1,156 @@
-<!--
-  Generated template for the DryCropPlantingPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>DryCropPlantingPage</ion-title>
-  </ion-navbar>
+  <questionnaire-menu title="พืชไร่"></questionnaire-menu>
 
 </ion-header>
 
 
+
 <ion-content padding>
-  <h3>ตอนที่ 2.2 พืชไร่</h3>
-  <ion-card>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label>
-            2.2.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชไร่ หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ปลูก</ion-label>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant">
+
+
+    <h3><b>ตอนที่ 2.2 พืชไร่</b></h3>
+
+
+    <ion-card>
+      <ion-card-content>
+        <dl>
+          <dd>
+            <b>พืชไร่</b>
+          </dd>
+          <dt>
+            เช่น กก ข้าวโพดเลี้ยงสัตว์(ถ้าเป็นข้าวโพดรับประทานให้ไปกรอกในตอนที่ 2.5) ข้าวฟ่าง งา ถั่วทุกชนิด ทานตะวัน
+            นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง สาคู แห้ว อ้อย สัปปะรด แตงโม กาแฟ เป็นต้น
+          </dt>
+        </dl>
+      </ion-card-content>
+
+    </ion-card>
+
+
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              2.2.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูก <b>พืชไร่</b> หรือไม่
+            </ion-label>
           </ion-item>
-          <ion-item col-6>
-            <ion-radio item-left></ion-radio>
-            <ion-label>ไม่ปลูก</ion-label>
-          </ion-item>
-        </ion-row>
-
-        <ion-item>
-          <ion-label>
-            2.2.2 ถ้า “ปลูก” มีพื้นที่ปลูกพืชไร่จ้านวนกี่แปลง
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input>
-
-          </ion-input>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-
-
-  (segment แปลง)
-  <ion-card>
-    <ion-card-header>
-      แปลงที่ 1
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
-        </ion-item>
-
-       
-        <location></location>
-
-     
-      </ion-list>
-
-
-      <ion-item>
-        <ion-label>2) ขนาดพื้นที่เท่าไหร กี่ไร่ กี่งาน กี่ตาราง </ion-label>
-      </ion-item>
-     
-        <field-area></field-area>
-     
-
-      <ion-item>
-        <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
-      </ion-item>
-        <ion-row radio-group>
-          
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>อยู่</ion-label>
+          <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+            <ion-item *ngIf="isValid('doing')">
+              <span class="invalid-msg">กรุณาเลือก</span>
             </ion-item>
             <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>ไม่อยู่</ion-label>
+              <ion-radio value="1" item-left></ion-radio>
+              <ion-label>ปลูก</ion-label>
             </ion-item>
-         
-        </ion-row>
-     
+            <ion-item col-6>
+              <ion-radio value="2" item-left></ion-radio>
+              <ion-label>ไม่ปลูก</ion-label>
+            </ion-item>
 
-      <ion-item>
-        <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงน้ปลูกพืชไร่ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด) </ion-label>
-      </ion-item>
+          </ion-row>
+
+          <div [ngSwitch]="agronomyPlant.get('doing').value">
+            <div *ngSwitchCase="1">
+              <ion-item>
+                <ion-label>
+                  2.2.2 ถ้า “ปลูก” มีพื้นที่ปลูก<b>พืชไร่</b>จำนวนกี่แปลง
+                </ion-label>
+              </ion-item>
+              <ion-item formControlName="fieldCount">
+                <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="isValid('fieldCount')">
+                <span class="invalid-msg">กรุณากรอกจำนวน</span>
+              </ion-item>
+            </div>
+          </div>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="agronomyPlant.get('fieldCount').value > 0 && agronomyPlant.get('doing').value == 1">
+      <div *ngFor="let fdc of agronomyPlant.get('fieldDryCrop').controls;let i = index">
+        <field-dry-crop-planting [no]="i+1" [FormItem]="fdc"></field-dry-crop-planting>
+      </div>
+    </div>
+
+
+    <!-- <ion-card>
+      <div [ngSwitch]="agronomyPlant.get('doing').value">
+        <div *ngSwitchCase="1">
+          <ion-card-header>
+            <b>แปลงที่ 1</b>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
+              </ion-item>
+
+
+              <location></location>
+
+
+            </ion-list>
+
+
+            <ion-item>
+              <ion-label>2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตาราง </ion-label>
+            </ion-item>
+
+            <field-area></field-area>
+
+
+            <ion-item>
+              <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
+            </ion-item>
+            <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
+              <ion-item *ngIf="isValid('irrigationField')">
+                <span class="invalid-msg">กรุณาเลือก</span>
+              </ion-item>
+
+              <ion-item col-6>
+                <ion-radio item-left></ion-radio>
+                <ion-label>อยู่</ion-label>
+              </ion-item>
+              <ion-item col-6>
+                <ion-radio item-left></ion-radio>
+                <ion-label>ไม่อยู่</ion-label>
+              </ion-item>
+            </ion-row>
+
+
+            <ion-item>
+              <ion-label>4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด </ion-label>
+            </ion-item>
+            <ion-list>
+              <ion-item *ngFor="let p of shownData" text-center>
+                {{ p }}
+              </ion-item>
+            </ion-list>
+            <ion-item>
+              <ion-label ion-button (click)="model()">เลือก</ion-label>
+            </ion-item>
+
+          </ion-card-content>
+        </div>
+      </div>
+    </ion-card>
 
 
 
-      <ion-item>
-        <ion-label>เลือก</ion-label>
-        <ion-select interface="action-sheet">
-          <ion-option>ยาสูบ</ion-option>
-          <ion-option>ละหุ่ง</ion-option>
-          <ion-option>สาคู</ion-option>
-        </ion-select>
-      </ion-item>
+    <div [ngSwitch]="agronomyPlant.get('doing').value">
+      <div *ngSwitchCase="1">
+        <water-sources9 headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+      </div>
+    </div>  -->
 
+    <form-buttons-bar></form-buttons-bar>
 
-
-    </ion-card-content>
-  </ion-card>
-
-
-
-
-  <water-sources9 [headline]="'5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)'"></water-sources9>
-
-
-
+  </form>
 
 </ion-content>

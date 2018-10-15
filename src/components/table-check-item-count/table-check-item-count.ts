@@ -16,7 +16,8 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 })
 export class TableCheckItemCountComponent implements AfterViewInit, ISubmitRequestable {
 
-  @Input("ititle") private text: string;
+  @Input("ititle") public text: string;
+  @Input('unit') public unittext: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -36,10 +37,14 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgTableCheckItemCountPage", { FormItem: this.FormItem, iTitle: this.text });
+    const modal = this.modalCtrl.create("DlgTableCheckItemCountPage",
+      {
+        FormItem: this.FormItem,
+        iTitle: this.text,
+        unit: this.unittext,
+      });
     modal.onDidDismiss(data => {
       if (data) {
-        this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }
@@ -53,7 +58,7 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }

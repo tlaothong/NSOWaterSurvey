@@ -1,142 +1,63 @@
-<!--
-  Generated template for the MushroomPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Mushroom</ion-title>
-  </ion-navbar>
-
+  <questionnaire-menu title="เพาะเชื้อและปลูกเห็ด "></questionnaire-menu>
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="MushroomPlantFrm">
 
-    <h3>ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด</h3>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+
+    <h3><b>ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด</b></h3>
+
     <ion-card>
       <ion-card-content>
 
-        <ion-list>
-          <ion-item>
-            <ion-label>
-              2.7.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้เพาะเชื้อและปลูกเห็ด หรือไม่
-            </ion-label>
-          </ion-item>
-          <ion-row radio-group formControlName="doing">
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1. ปลูก</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2. ไม่ปลูก</ion-label>
-            </ion-item>
-            <ion-item *ngIf="isValid('doing')">
-              <span class="invalid-msg">Please fill in </span>
-            </ion-item>
-          </ion-row>
+        <ion-item>
+          <ion-label>
+            2.7.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้<b>เพาะเชื้อ<br>และปลูกเห็ด</b> หรือไม่
+          </ion-label>
+        </ion-item>
 
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+          <ion-item *ngIf="isValid('doing')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio value="1" item-left></ion-radio>
+            <ion-label>1. ปลูก</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio value="2" item-left></ion-radio>
+            <ion-label>2. ไม่ปลูก</ion-label>
+          </ion-item>
+        </ion-row>
 
-          <ion-item>
-            <ion-label>
-              2.7.2 ถ้า "ปลูก" มีพิ้นที่เพาะเชื้อและปลูกเห็ด จำนวนกี่โรงเรือน
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input class="backgroundinput" type="text" placeholder="กรอกจำนวนโรงเรือน" formControlName="houseNumber"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="isValid('houseNumber')">
-            <span class="invalid-msg">Please fill in </span>
-          </ion-item>
+        <div [ngSwitch]="f.get('doing').value">
+          <div *ngSwitchCase="1">
+            <ion-item>
+              <ion-label>
+                2.7.2 มีพิ้นที่<b>เพาะเชื้อและปลูกเห็ด</b> จำนวนกี่โรงเรือน
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวนโรงเรือน" formControlName="houseNumber"
+                [class.invalid]="isValid('houseNumber')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('houseNumber')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
+          </div>
+        </div>
 
-        </ion-list>
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        โรงเรือนที่ 1
-      </ion-card-header>
+    <div *ngIf="f.get('doing').value && f.get('houseNumber').value > 0">
+      <div *ngFor="let far of f.get('fields').controls; let i = index">
+        <field-mushroom [no]="i + 1" [FormItem]="far"></field-mushroom>
+      </div>
+    </div>
 
-      <ion-card-content>
-        <ion-list>
-          <location></location>
-          2) ขนาดพื้นที่เท่าไร กี่ตารางเมตร
-          <ion-item>
-            <ion-input formControlName="areaMeter"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="isValid('areaMeter')">
-            <span class="invalid-msg">Please fill in </span>
-          </ion-item>
+    <form-buttons-bar></form-buttons-bar>
 
-          3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-          <ion-row radio-group formControlName="irrigationField">
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1. อยู่</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2. ไม่อยู่</ion-label>
-            </ion-item>
-            <ion-item *ngIf="isValid('irrigationField')">
-              <span class="invalid-msg">Please fill in </span>
-            </ion-item>
-          </ion-row>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-
-    <water-sources9 [headline]="'4) ที่แปลงนี้ใช้น้ำจากแหล้งใดบ้าง'">
-    </water-sources9>
-
-    <ion-card>
-      <ion-card-header>
-        โรงเรือนที่ 2
-      </ion-card-header>
-      <ion-card-content>
-
-        <ion-list>
-          <location></location>
-          2) ขนาดพื้นที่เท่าไร กี่ตารางเมตร
-          <ion-item>
-            <ion-input formControlName="areaMeter"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="isValid('areaMeter')">
-            <span class="invalid-msg">Please fill in </span>
-          </ion-item>
-
-          3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-          <ion-row radio-group formControlName="irrigationField">
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>1. อยู่</ion-label>
-            </ion-item>
-            <ion-item col-6>
-              <ion-radio item-left></ion-radio>
-              <ion-label>2. ไม่อยู่</ion-label>
-            </ion-item>
-            <ion-item *ngIf="isValid('irrigationField')">
-              <span class="invalid-msg">Please fill in </span>
-            </ion-item>
-          </ion-row>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-    <water-sources9 [headline]="'4) ที่แปลงนี้ใช้น้ำจากแหล้งใดบ้าง'">
-    </water-sources9>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button block type="submit">Save & Next</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
   </form>
 </ion-content>
