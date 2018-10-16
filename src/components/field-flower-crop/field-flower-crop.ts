@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
+import { EX_TREEDOK_LIST } from '../../models/tree';
 
 /**
  * Generated class for the FieldFlowerCropComponent component.
@@ -57,7 +58,8 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   }
 
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
+    const modal = this.modalCtrl.create("SearchDropdownPage", 
+    { title: "ไม้ดอก ไม่ประดับ", selected: [], list: EX_TREEDOK_LIST, limit: 5 });
 
     modal.onDidDismiss(data => {
       if (data) {
