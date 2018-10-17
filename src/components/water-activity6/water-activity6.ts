@@ -13,6 +13,7 @@ import { Component, Input } from '@angular/core';
 export class WaterActivity6Component {
 
   @Input('headline') public text: string;
+  @Input('headline2') public text2: string;
 
   constructor() {
     console.log('Hello WaterActivity6Component Component');
