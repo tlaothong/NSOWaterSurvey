@@ -1,7 +1,4 @@
-<!-- Generated template for the FieldRebbertreeComponent component -->
-<!-- <div>
-  {{text}}
-</div> -->
+
 
 <ion-card [formGroup]="FormItem">
 
@@ -9,41 +6,50 @@
     <b>แปลงที่ {{text}}</b>
   </ion-card-header>
   <ion-card-content>
-    <div >
-
-
+    <div>
 
       <ion-item>
-        <ion-label>1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)</ion-label>
+        <ion-label>
+          1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
+        </ion-label>
       </ion-item>
-      <location  [FormItem]="FormItem.get('location')"></location>
+      <location [FormItem]="FormItem.get('location')"></location>
 
 
       <ion-item>
-        <ion-label>2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตาราง </ion-label>
+        <ion-label>
+          2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
+        </ion-label>
       </ion-item>
 
       <field-area [FormItem]="FormItem.get('area')"></field-area>
 
 
       <ion-item>
-        <ion-label>3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่ </ion-label>
+        <ion-label>
+          3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+        </ion-label>
       </ion-item>
 
       <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
         <ion-item *ngIf="isValid('irrigationField')">
-          <span class="invalid-msg">กรุณาเลือก</span>
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
         </ion-item>
         <ion-item col-6>
           <ion-radio item-left></ion-radio>
-          <ion-label>อยู่</ion-label>
+          <ion-label>
+            อยู่
+          </ion-label>
         </ion-item>
         <ion-item col-6>
           <ion-radio item-left></ion-radio>
-          <ion-label>ไม่อยู่</ion-label>
+          <ion-label>
+            ไม่อยู่
+          </ion-label>
         </ion-item>
       </ion-row>
-
 
     </div>
 
