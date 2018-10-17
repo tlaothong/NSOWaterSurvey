@@ -50,7 +50,7 @@
     </ion-item>
     <ion-item>
       <ion-label>
-        8.น้้าฝนตามธรรมชาติ
+        8.น้ำฝนตามธรรมชาติ
       </ion-label>
       <ion-checkbox formControlName="rainingAsIs"></ion-checkbox>
     </ion-item>
@@ -62,11 +62,15 @@
     </ion-item>
 
     <ion-item *ngIf="FormItem.get('other').value || false">
-      <ion-label>โปรดระบุ</ion-label>
+      <ion-label>
+        โปรดระบุ
+      </ion-label>
       <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
-      <span>Please specify other.</span>
+      <span>
+        กรุณากรอก
+      </span>
     </ion-item>
 
   </ion-card-content>

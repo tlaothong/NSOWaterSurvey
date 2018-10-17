@@ -1,4 +1,3 @@
-
 <ion-header>
 
     <questionnaire-menu title="การค้าและการบริการ"></questionnaire-menu>
@@ -14,30 +13,42 @@
             <ion-card-content>
 
                 <ion-item>
-                    <ion-label>4.1 ชื่อสถานประกอบการ/หน่วยงาน</ion-label>
+                    <ion-label>
+                        4.1 ชื่อสถานประกอบการ/หน่วยงาน
+                    </ion-label>
                 </ion-item>
                 <ion-item>
                     <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ" formControlName="name"
                         [class.invalid]="isValid('name')"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="isValid('name')">
-                    <span class="invalid-msg">กรุณากรอก</span>
+                    <span class="invalid-msg">
+                        กรุณากรอก
+                    </span>
                 </ion-item>
                 <ion-item>
-                    <ion-label> 4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด<br> (ระบุบริการหลักที่ทำ) </ion-label>
+                    <ion-label>
+                        4.2 สถานประกอบการแห่งนี้ให้บริการในลักษณะใด<br> (ระบุบริการหลักที่ทำ)
+                    </ion-label>
                 </ion-item>
                 <ion-item>
                     <ion-input class="backgroundinput" type="text" placeholder="กรอกลักษณะการให้บริการ" formControlName="serviceType"
                         [class.invalid]="isValid('serviceType')"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="isValid('serviceType')">
-                    <span class="invalid-msg">กรุณากรอก</span>
+                    <span class="invalid-msg">
+                        กรุณากรอก
+                    </span>
                 </ion-item>
                 <ion-item>
-                    <ion-label> 4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง</ion-label>
+                    <ion-label>
+                        4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง
+                    </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label>เลือกประเภท</ion-label>
+                    <ion-label>
+                        เลือกประเภท
+                    </ion-label>
 
                     <ion-select disabled="true" interface="action-sheet">
                         <ion-option value="a1">1.บ้านเดี่ยว</ion-option>
@@ -83,14 +94,18 @@
                         <table-check-item-count unit="คน" [ititle]="'6. อุดมศึกษา'"></table-check-item-count>
                     </ion-list>
                     <ion-item>
-                        <ion-label>3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน<br> (รวมครู นักวิชาการ, พนักงาน, ภารโรง, ฯลฯ)</ion-label>
+                        <ion-label>
+                            3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน<br> (รวมครู, นักวิชาการ, พนักงาน, ภารโรง, ฯลฯ)
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="personnelCount"
                             [class.invalid]="isValid('otherBuilding.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('otherBuilding.personnelCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                 </div>
             </ion-card-content>
@@ -103,7 +118,9 @@
             <ion-card-content>
                 <div formGroupName="hotelsAndResorts">
                     <ion-item>
-                        <ion-label>1) มีจำนวนห้องพักรวมทั้งหมดกี่ห้อง</ion-label>
+                        <ion-label>
+                            1) มีจำนวนห้องพักรวมทั้งหมดกี่ห้อง
+                        </ion-label>
                     </ion-item>
 
 
@@ -112,17 +129,23 @@
                             [class.invalid]="isValid('hotelsAndResorts.roomCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hotelsAndResorts.roomCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                     <ion-item>
-                        <ion-label>2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน </ion-label>
+                        <ion-label>
+                            2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="personnelCount"
                             [class.invalid]="isValid('hotelsAndResorts.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hotelsAndResorts.personnelCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                 </div>
             </ion-card-content>
@@ -135,17 +158,22 @@
             <ion-card-content>
                 <div formGroupName="hospital">
                     <ion-item>
-                        <ion-label>1) มีจำนวนเตียงพักค้างคืน (ผู้ป่วยใน) รวมทั้งหมดกี่เตียง </ion-label>
+                        <ion-label>
+                            1) มีจำนวนเตียงพักค้างคืน (ผู้ป่วยใน) รวมทั้งหมดกี่เตียง
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="bedCount"
                             [class.invalid]="isValid('hospital.bedCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hospital.bedCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                     <ion-item>
-                        <ion-label>2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน<br> (หมอ,พยาบาล,ผู้ช่วยพยาบาล,เจ้าหน้าที่ ฯลฯ)
+                        <ion-label>
+                            2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน<br> (หมอ,พยาบาล,ผู้ช่วยพยาบาล,เจ้าหน้าที่, ฯลฯ)
                         </ion-label>
                     </ion-item>
                     <ion-item>
@@ -153,7 +181,9 @@
                             [class.invalid]="isValid('hospital.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hospital.personnelCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                 </div>
             </ion-card-content>
@@ -166,7 +196,9 @@
             <ion-card-content>
                 <div formGroupName="building">
                     <ion-item>
-                        <ion-label>1) จำนวนห้องรวมทั้งหมดมีกี่ห้อง </ion-label>
+                        <ion-label>
+                            1) จำนวนห้องรวมทั้งหมดมีกี่ห้อง
+                        </ion-label>
                     </ion-item>
 
                     <ion-item>
@@ -174,27 +206,37 @@
                             [class.invalid]="isValid('building.roomCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('building.roomCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                     <ion-item>
-                        <ion-label>2) จำนวนห้องที่มีผู้อยู่อาศัยมีกี่ห้อง (ณ วันที่สำรวจ)</ion-label>
+                        <ion-label>
+                            2) จำนวนห้องที่มีผู้อยู่อาศัยมีกี่ห้อง (ณ วันที่สำรวจ)
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="occupiedRoomCount"
                             [class.invalid]="isValid('building.occupiedRoomCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('building.occupiedRoomCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                     <ion-item>
-                        <ion-label>3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน <br>(ผู้จัดการ,แม่บ้าน,คนสวน,รปภ.,ฯลฯ)</ion-label>
+                        <ion-label>
+                            3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน <br>(ผู้จัดการ,แม่บ้าน,คนสวน,รปภ., ฯลฯ)
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="personnelCount"
                             [class.invalid]="isValid('building.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('building.personnelCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                 </div>
             </ion-card-content>
@@ -207,15 +249,19 @@
             <ion-card-content>
                 <div formGroupName="religious">
                     <ion-item>
-                        <ion-label>1) มีจำนวนพระสงฆ์ สามเณร ชี เด็กวัด ผู้มาประกอบศาสนกิจ<br> ผู้ปฏิบัติธรรม
-                            โดยเฉลี่ยต่อเดือนกี่คน</ion-label>
+                        <ion-label>
+                            1) มีจำนวนพระสงฆ์ สามเณร ชี เด็กวัด ผู้มาประกอบศาสนกิจ<br> ผู้ปฏิบัติธรรม
+                            โดยเฉลี่ยต่อเดือนกี่คน
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="peopleCount"
                             [class.invalid]="isValid('religious.peopleCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('religious.peopleCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                 </div>
             </ion-card-content>
@@ -223,19 +269,24 @@
 
         <ion-card>
             <ion-card-header>
-                4.4 (6) สถานประกอบการบริการประเภทอื่นๆ <br>หรือรหัสประเภทบ้าน /อาคาร /สิ่งปลูกสร้างอื่นๆในข้อ 4.6<br> (เช่น ร้านค้า ร้านขายของช้า ร้านเสริมสวย เป็นต้น)
+                4.4 (6) สถานประกอบการบริการประเภทอื่นๆ <br>หรือรหัสประเภทบ้าน /อาคาร /สิ่งปลูกสร้างอื่นๆในข้อ 4.6<br>
+                (เช่น ร้านค้า ร้านขายของชำ ร้านเสริมสวย เป็นต้น)
             </ion-card-header>
             <ion-card-content>
                 <div formGroupName="otherBuilding">
                     <ion-item>
-                        <ion-label>1) มีจำนวนบุคลากร/คนทำงานรวมทั้งหมดกี่คน </ion-label>
+                        <ion-label>
+                            1) มีจำนวนบุคลากร/คนทำงานรวมทั้งหมดกี่คน
+                        </ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="personnelCount"
                             [class.invalid]="isValid('otherBuilding.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('otherBuilding.personnelCount')">
-                        <span class="invalid-msg">กรุณากรอก</span>
+                        <span class="invalid-msg">
+                            กรุณากรอก
+                        </span>
                     </ion-item>
                 </div>
             </ion-card-content>
