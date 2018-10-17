@@ -61,7 +61,7 @@
       <ion-checkbox formControlName="other"></ion-checkbox>
     </ion-item>
 
-    <ion-item *ngIf="FormItem.get('other').value || false">
+    <ion-item *ngIf="FormItem.get('other').value && FormItem.get('other').value || false ">
       <ion-label>
         โปรดระบุ
       </ion-label>
@@ -69,7 +69,7 @@
     </ion-item>
     <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
       <span>
-        กรุณากรอก
+        Please specify other.
       </span>
     </ion-item>
 

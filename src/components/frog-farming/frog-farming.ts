@@ -40,6 +40,7 @@ export class FrogFarmingComponent {
 
   submitRequest() {
     this.submitRequested = true;
+    this.waterSources9.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
