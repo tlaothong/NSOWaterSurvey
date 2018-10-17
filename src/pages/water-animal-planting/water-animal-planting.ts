@@ -22,8 +22,10 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FishFarmingComponent) private fishFarming : FishFarmingComponent[];
   @ViewChildren(FrogFarmingComponent) private frogFarming : FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming : CrocodileFarmingComponent[];
-  f: FormGroup;
+  public f: FormGroup;
+
   private submitRequested: boolean;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": ['', Validators.required],
@@ -43,9 +45,12 @@ export class WaterAnimalPlantingPage {
     console.log('ionViewDidLoad WaterAnimalPlantingPage');
 
   }
+
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.fishFarming.forEach(it => it.submitRequest());
+    this.frogFarming.forEach(it => it.submitRequest());
+    this.crocodileFarming.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
