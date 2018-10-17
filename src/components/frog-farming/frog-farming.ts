@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { WaterSources9Component } from '../water-sources9/water-sources9';
 
 /**
  * Generated class for the FrogFarmingComponent component.
@@ -16,7 +17,8 @@ export class FrogFarmingComponent {
   @Input() public FormItem: FormGroup;
   text: string;
   private submitRequested: boolean;
-
+  @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
+  
   constructor(public fb: FormBuilder) {
     console.log('Hello FrogFarmingComponent Component');
     this.text = 'Hello World';
@@ -26,23 +28,13 @@ export class FrogFarmingComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      "doing": [null, Validators.required],
-      "depression": [null, Validators.required],
-      "stew": [null, Validators.required],
-      "other": [null, Validators.required],
+      "doing": [false, Validators.required],
+      "depression": [false, Validators.required],
+      "stew": [false, Validators.required],
+      "other": [false, Validators.required],
+      'hasOther': ['', Validators.required],
       "animalsCount": [null, Validators.required],
-      "waterSources": fb.group({
-        "plumbing": [null, Validators.required],
-        "underGround": [null, Validators.required],
-        "pool": [null, Validators.required],
-        "river": [null, Validators.required],
-        "irrigation": [null, Validators.required],
-        "rain": [null, Validators.required],
-        "buying": [null, Validators.required],
-        "rainingAsIs": [null, Validators.required],
-        "hasOther": [null, Validators.required],
-        "other": [null, Validators.required]
-      })
+      'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
 
