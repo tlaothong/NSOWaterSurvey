@@ -37,9 +37,10 @@ export class CrocodileFarmingComponent implements AfterViewInit ,ISubmitRequesta
   
   ngAfterViewInit(): void {
     this.setupFieldCountChanges()
+    
   }
   
-
+  
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       "doing": [null, Validators.required],
@@ -47,21 +48,22 @@ export class CrocodileFarmingComponent implements AfterViewInit ,ISubmitRequesta
       "other": [false, Validators.required],
       "fieldCount": [null, Validators.required],
       "fieldsAreSameSize": [null, Validators.required],
-
+      
       "fields": fb.array([]),
-
+      
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-     
-    
+      
+      
     });
     
   }
-
+  
   submitRequest() {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it=>it.submitRequest());
+    
   }
 
   

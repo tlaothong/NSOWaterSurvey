@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren } from '@angular/core';
+import { Component, Input, ViewChildren, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
@@ -14,6 +14,7 @@ import { PoolAreaComponent } from '../pool-area/pool-area';
   templateUrl: 'fish-farming.html'
 })
 export class FishFarmingComponent implements AfterViewInit {
+  [x: string]: any;
 
   @Input() public FormItem: FormGroup;
   @Input('headline') text: string;
@@ -52,15 +53,17 @@ export class FishFarmingComponent implements AfterViewInit {
     this.setupPoolCountChanges()
   }
   
-
+  
   submitRequest() {
     this.submitRequested = true;
+    this.poolArea.forEach(it => it.submitRequest());
+    this.waterSources9.forEach(it => it.submitRequest());
   }
   
-  public handleSubmit() {
-    this.submitRequested = true;
-    this.poolArea.forEach(it => it.submitRequest());
-  }
+  // public handleSubmit() {
+  //   this.submitRequested = true;
+    
+  // }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);

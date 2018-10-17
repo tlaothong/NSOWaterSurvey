@@ -109,18 +109,18 @@
         <ion-item>
           <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
         </ion-item>
-        <ion-item *ngIf="isValid('animalsCount')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
-
+        
         <!-- *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก. -->
         <ion-item>
           <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบัน กี่ กก. (รวมทุกบ่อ/ร่องสวน)</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" [class.invalid]="isValid('animalsCount')" formControlName="animalsCount"></ion-input>
         </ion-item>
-
+        
+        <ion-item *ngIf="isValid('animalsCount')">
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
+        </ion-item>
       </ion-card-content>
     </ion-card>
 
