@@ -21,14 +21,20 @@
         <ion-row radio-group formControlName="isExist">
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
-            <ion-label>มี</ion-label>
+            <ion-label>
+              มี
+            </ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio value="2" item-left></ion-radio>
-            <ion-label>ไม่มี</ion-label>
+            <ion-label>
+              ไม่มี
+            </ion-label>
           </ion-item>
           <ion-item *ngIf="isValid('isExist')">
-            <span class="invalid-msg">กรุณาเลือก</span>
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
           </ion-item>
         </ion-row>
 
@@ -43,7 +49,9 @@
               <ion-input type="number" placeholder="กรอกจำนวน" formControlName="poolCount"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('poolCount')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
             <ion-item>
               <ion-label>
@@ -53,14 +61,20 @@
             <ion-row radio-group formControlName="poolEqual">
               <ion-item col-6>
                 <ion-radio value="1" item-left></ion-radio>
-                <ion-label>เท่ากัน</ion-label>
+                <ion-label>
+                  เท่ากัน
+                </ion-label>
               </ion-item>
               <ion-item col-6>
                 <ion-radio value="2" item-left></ion-radio>
-                <ion-label>ไม่เท่า</ion-label>
+                <ion-label>
+                  ไม่เท่า
+                </ion-label>
               </ion-item>
               <ion-item *ngIf="isValid('poolEqual')">
-                <span class="invalid-msg">กรุณาเลือก</span>
+                <span class="invalid-msg">
+                  กรุณาเลือก
+                </span>
               </ion-item>
             </ion-row>
           </div>
@@ -96,7 +110,9 @@
               <ion-input type="number" placeholder="กรอกจำนวนสระ" formControlName="poolCountUsage"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('poolCountUsage')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
           </ion-card-content>
         </ion-card>
