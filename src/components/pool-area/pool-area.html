@@ -35,25 +35,28 @@
 
         <div *ngSwitchCase="2">
           <!-- <div (ionChange)="showModalArea()"> -->
-          <ion-row formGroupName="rectangle" (click)="showModal()">
+              <!-- formGroupName="rectangle" -->
+          <ion-row  (click)="showModal()">
             <ion-col col-6>
               <ion-item>
-                <ion-input type="number" disabled="true" formControlName="width"></ion-input>
                 <ion-label>ความกว้าง (เมตร)</ion-label>
+                <ion-input type="number" disabled="true" formControlName="width"></ion-input>
               </ion-item>
               <ion-item *ngIf="isValid('width')">
-                  <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+                  <span class="invalid-msg">กรุณากรอกขนาดเส้นผ่านศูนย์กลาง</span>
                 </ion-item>
+            
             </ion-col>
             <ion-col col-6>
               <ion-item>
-                <ion-input type="number" disabled="true" formControlName="length"></ion-input>
                 <ion-label>ความยาว (เมตร)</ion-label>
+                <ion-input type="number" disabled="true" formControlName="length"></ion-input>
                 <ion-icon name="create" item-end></ion-icon>
               </ion-item>
               <ion-item *ngIf="isValid('length')">
-                  <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+                  <span class="invalid-msg">กรุณากรอกขนาดเส้นผ่านศูนย์กลาง</span>
                 </ion-item>
+             
             </ion-col>
           </ion-row>
           <!-- </div> -->
