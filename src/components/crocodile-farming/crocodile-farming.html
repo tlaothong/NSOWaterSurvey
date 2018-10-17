@@ -26,6 +26,10 @@
       <ion-input></ion-input>
     </ion-item>
 
+    <ion-item *ngIf="isValid('depression') == false || isValid('other') == false ">
+      <span class="invalid-msg">กรุณาเลือก</span>
+    </ion-item>
+  
 
     <div *ngIf="FormItem.get('depression').value">
 
