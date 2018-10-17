@@ -13,94 +13,113 @@
         <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="depression"></ion-checkbox>
         <ion-label>1.บ่อ</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="gardenGroove"></ion-checkbox>
         <ion-label>2.ร่องสวน</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="stew"></ion-checkbox>
         <ion-label>3.กระชัง</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="riceField"></ion-checkbox>
         <ion-label>4.นา</ion-label>
       </ion-item>
       <ion-item>
         <ion-label>
           5. อื่น ๆ
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="other"></ion-checkbox>
       </ion-item>
-      <ion-item>
+
+      <ion-item *ngIf="FormItem.get('other').value || false">
         <ion-label>โปรดระบุ</ion-label>
-        <ion-input></ion-input>
+        <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
+        <span>Please specify other.</span>
       </ion-item>
 
-      <ion-item>
-        <ion-label>
-          2) ถ้าเลี้ยงในบ่อ หรือร่องสวน มีจำนวนบ่อหรือร่องสวนรวมเท่าไร
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
-      </ion-item>
-
-      <ion-item *ngIf="isValid('fieldCount')">
-        <span class="invalid-msg">กรุณากรอกจำนวน</span>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>
-          2.1) ขนาดบ่อหรือร่องสวนทั้งหมดเท่ากันหรือไม่
-        </ion-label>
-      </ion-item>
-
-      <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
-        <ion-item *ngIf="isValid('fieldsAreSameSize')">
-          <span class="invalid-msg">กรุณาเลือก</span>
+      <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
+        <ion-item>
+          <ion-label>
+            2) มีจำนวนบ่อหรือร่องสวนรวมเท่าไร
+          </ion-label>
         </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>เท่ากัน</ion-label>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
         </ion-item>
-        <ion-item col-6>
-          <ion-radio item-left></ion-radio>
-          <ion-label>ไม่เท่ากัน</ion-label>
+        <ion-item *ngIf="isValid('fieldCount')">
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
         </ion-item>
-      </ion-row>
 
+        <ion-item>
+          <ion-label>
+            2.1) ขนาดบ่อหรือร่องสวนทั้งหมดเท่ากันหรือไม่
+          </ion-label>
+        </ion-item>
+
+        <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
+          <ion-item *ngIf="isValid('fieldsAreSameSize')">
+            <span class="invalid-msg">กรุณาเลือก</span>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio value="1" item-left></ion-radio>
+            <ion-label>เท่ากัน</ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio value="2" item-left></ion-radio>
+            <ion-label>ไม่เท่ากัน</ion-label>
+          </ion-item>
+        </ion-row>
+      </div>
     </ion-card-content>
   </ion-card>
 
-  <pool-area headline="2.2) บ่อหรือร่องสวนที่ 1"></pool-area>
+  <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
 
-  <ion-card>
-    <ion-card-content>
-      <!-- ใช้สำหรับปลาเป็นตัว -->
-      <ion-item>
-        <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบัน กี่ตัว(รวมทุกบ่อ/ร่องสวน)</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isValid('animalsCount')">
-        <span class="invalid-msg">กรุณากรอกจำนวน</span>
-      </ion-item>
+    <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
+      <!-- เท่ากัน -->
+      <div *ngSwitchCase="1">
+        <pool-area headline="ขนาดบ่อหรือร่องสวน"></pool-area>
+      </div>
+      <!-- ไม่เท่ากัน -->
+      <div *ngIf="FormItem.get('fieldsAreSameSize').value == 2 && FormItem.get('fieldCount').value > 0">
+        <div *ngFor="let pool of FormItem.get('fields').controls; let i = index">
+          <pool-area headline="ขนาดบ่อหรือร่องสวนที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
+        </div>
+      </div>
+    </div>
 
-      <!-- *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก. -->
-      <ion-item>
-        <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบัน กี่ กก. (รวมทุกบ่อ/ร่องสวน)</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" placeholder="กรอกจำนวน"></ion-input>
-      </ion-item>
+    <ion-card>
+      <ion-card-content>
 
-    </ion-card-content>
-  </ion-card>
+        <!-- ใช้สำหรับปลาเป็นตัว -->
+        <ion-item>
+          <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบัน กี่ตัว(รวมทุกบ่อ/ร่องสวน)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('animalsCount')">
+          <span class="invalid-msg">กรุณากรอกจำนวน</span>
+        </ion-item>
 
-  <water-sources9 [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
+        <!-- *สำหรับ กุ้ง ปู หอย ไรแดง เป็นหน่วย กก. -->
+        <ion-item>
+          <ion-label> 3) จำนวนที่เลี้ยงในปัจจุบัน กี่ กก. (รวมทุกบ่อ/ร่องสวน)</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount"></ion-input>
+        </ion-item>
 
+      </ion-card-content>
+    </ion-card>
+
+    <water-sources9 [FormItem]="FormItem.get('waterSources')" [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
+
+  </div>
 </div>
