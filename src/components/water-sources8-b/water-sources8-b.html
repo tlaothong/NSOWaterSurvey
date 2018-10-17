@@ -56,11 +56,15 @@
     </ion-item>
 
     <ion-item *ngIf="FormItem.get('hasOther').value || false">
-      <ion-label>โปรดระบุ</ion-label>
+      <ion-label>
+        โปรดระบุ
+      </ion-label>
       <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('other')" class="invalid-msg">
-      <span>Please specify other.</span>
+      <span>
+        กรุณากรอกข้อมูล
+      </span>
     </ion-item>
 
   </ion-card-content>
