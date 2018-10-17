@@ -135,10 +135,18 @@
         ชนิดเครื่องสูบ
       </ion-label>
       <ion-select interface="action-sheet" formControlName="pumpType" [class.invalid]="isValid('pumpType')">
-        <ion-option>ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม </ion-option>
-        <ion-option>ปั๊มเจ็ท/ ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก</ion-option>
-        <ion-option>ปั๊มหอยโข่ง</ion-option>
-        <ion-option>ปั๊มชัก</ion-option>
+        <ion-option>
+          ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม
+        </ion-option>
+        <ion-option>
+          ปั๊มเจ็ท/ ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก
+        </ion-option>
+        <ion-option>
+          ปั๊มหอยโข่ง
+        </ion-option>
+        <ion-option>
+          ปั๊มชัก
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="isValid('pumpType')">
@@ -157,10 +165,18 @@
         วัตต์/ขนาดแรงม้า
       </ion-label>
       <ion-select interface="action-sheet" formControlName="horsePower" [class.invalid]="isValid('horsePower')">
-        <ion-option>200-500 / 0.2 - 0.7</ion-option>
-        <ion-option>501-1000 / 0.7 - 1.5</ion-option>
-        <ion-option>1401-2000 / 2.5 - 4</ion-option>
-        <ion-option>15001-20000 / 20 - 25</ion-option>
+        <ion-option>
+          200-500 / 0.2 - 0.7
+        </ion-option>
+        <ion-option>
+          501-1000 / 0.7 - 1.5
+        </ion-option>
+        <ion-option>
+          1401-2000 / 2.5 - 4
+        </ion-option>
+        <ion-option>
+          15001-20000 / 20 - 25
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="isValid('horsePower')">
@@ -179,10 +195,18 @@
         ขนาดท่อดูด
       </ion-label>
       <ion-select interface="action-sheet" formControlName="suctionPipeSize" [class.invalid]="isValid('suctionPipeSize')">
-        <ion-option>1/2-1</ion-option>
-        <ion-option>1/2-1 (1/2)</ion-option>
-        <ion-option>1-3</ion-option>
-        <ion-option>1-4</ion-option>
+        <ion-option>
+          1/2-1
+        </ion-option>
+        <ion-option>
+          1/2-1 (1/2)
+        </ion-option>
+        <ion-option>
+          1-3
+        </ion-option>
+        <ion-option>
+          1-4
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="isValid('suctionPipeSize')">
@@ -201,10 +225,18 @@
         ขนาดท่อส่ง
       </ion-label>
       <ion-select interface="action-sheet" formControlName="pipelineSize" [class.invalid]="isValid('pipelineSize')">
-        <ion-option>1/2-2</ion-option>
-        <ion-option>1/2-3</ion-option>
-        <ion-option>2-3</ion-option>
-        <ion-option>4</ion-option>
+        <ion-option>
+          1/2-2
+        </ion-option>
+        <ion-option>
+          1/2-3
+        </ion-option>
+        <ion-option>
+          2-3
+        </ion-option>
+        <ion-option>
+          4
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="isValid('pipelineSize')">
