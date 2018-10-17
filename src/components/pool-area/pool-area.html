@@ -41,6 +41,9 @@
                 <ion-input type="number" disabled="true" formControlName="width"></ion-input>
                 <ion-label>ความกว้าง (เมตร)</ion-label>
               </ion-item>
+              <ion-item *ngIf="isValid('width')">
+                  <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+                </ion-item>
             </ion-col>
             <ion-col col-6>
               <ion-item>
@@ -48,6 +51,9 @@
                 <ion-label>ความยาว (เมตร)</ion-label>
                 <ion-icon name="create" item-end></ion-icon>
               </ion-item>
+              <ion-item *ngIf="isValid('length')">
+                  <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+                </ion-item>
             </ion-col>
           </ion-row>
           <!-- </div> -->

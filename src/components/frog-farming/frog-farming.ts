@@ -15,7 +15,7 @@ import { WaterSources9Component } from '../water-sources9/water-sources9';
 export class FrogFarmingComponent {
 
   @Input() public FormItem: FormGroup;
-  text: string;
+  @Input('headline') text: string;
   private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   

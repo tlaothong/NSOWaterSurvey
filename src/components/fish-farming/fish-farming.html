@@ -5,7 +5,7 @@
 
       <ion-item>
         <ion-label>
-          <h3><b>1.ปลา</b></h3>
+          <h3><b>{{ text }}</b></h3>
         </ion-label>
       </ion-item>
 
@@ -13,7 +13,7 @@
         <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox formControlName="depression"></ion-checkbox>
+        <ion-checkbox formControlName="depression" ></ion-checkbox>
         <ion-label>1.บ่อ</ion-label>
       </ion-item>
       <ion-item>
@@ -34,7 +34,7 @@
         </ion-label>
         <ion-checkbox formControlName="other"></ion-checkbox>
       </ion-item>
-
+      
       <ion-item *ngIf="FormItem.get('other').value || false">
         <ion-label>โปรดระบุ</ion-label>
         <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
@@ -42,7 +42,11 @@
       <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
         <span>Please specify other.</span>
       </ion-item>
-
+      
+      <ion-item *ngIf="isValid('depression') == false && isValid('gardenGroove') == false  && isValid('stew') == false  && isValid('riceField') == false  && isValid('other') == false ">
+          <span class="invalid-msg">กรุณาเลือก</span>
+        </ion-item>
+      
       <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
         <ion-item>
           <ion-label>
@@ -63,9 +67,7 @@
         </ion-item>
 
         <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
-          <ion-item *ngIf="isValid('fieldsAreSameSize')">
-            <span class="invalid-msg">กรุณาเลือก</span>
-          </ion-item>
+          
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
             <ion-label>เท่ากัน</ion-label>
@@ -74,6 +76,9 @@
             <ion-radio value="2" item-left></ion-radio>
             <ion-label>ไม่เท่ากัน</ion-label>
           </ion-item>
+          <ion-item *ngIf="isValid('fieldsAreSameSize')">
+              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            </ion-item>
         </ion-row>
       </div>
     </ion-card-content>

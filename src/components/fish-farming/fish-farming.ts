@@ -13,10 +13,10 @@ import { PoolAreaComponent } from '../pool-area/pool-area';
   selector: 'fish-farming',
   templateUrl: 'fish-farming.html'
 })
-export class FishFarmingComponent {
+export class FishFarmingComponent implements AfterViewInit {
 
   @Input() public FormItem: FormGroup;
-  text: string;
+  @Input('headline') text: string;
   private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
@@ -28,7 +28,7 @@ export class FishFarmingComponent {
 
     this.FormItem = FishFarmingComponent.CreateFormGroup(fb);
 
-    this.setupPoolCountChanges()
+    // this.setupPoolCountChanges()
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -47,6 +47,11 @@ export class FishFarmingComponent {
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
+
+  ngAfterViewInit(): void {
+    this.setupPoolCountChanges()
+  }
+  
 
   submitRequest() {
     this.submitRequested = true;
