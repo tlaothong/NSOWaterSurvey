@@ -16,21 +16,29 @@
       <ion-card-content>
 
         <ion-item>
-          <ion-label>6.1 ในรอบ 5 ปีที่ผ่านมา (พ.ศ.2556-2560)<b>ที่อยู่อาศัย</b>นี้
-            <br>ประสบปัญหาอุทกภัย(น้ำท่วมขัง น้ำรอการระบาย) หรือไม่</ion-label>
+          <ion-label>
+            6.1 ในรอบ 5 ปีที่ผ่านมา (พ.ศ.2556-2560)<b>ที่อยู่อาศัย</b>นี้
+            <br>ประสบปัญหาอุทกภัย(น้ำท่วมขัง น้ำรอการระบาย) หรือไม่
+          </ion-label>
         </ion-item>
 
         <ion-row radio-group formControlName="flooded" [class.invalid]="isValid('flooded')">
           <ion-item *ngIf="isValid('flooded')">
-            <span class="invalid-msg">กรุณาเลือก</span>
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
           </ion-item>
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
-            <ion-label>มีปัญหา</ion-label>
+            <ion-label>
+              มีปัญหา
+            </ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio value="2" item-left></ion-radio>
-            <ion-label>ไม่มีปัญหา</ion-label>
+            <ion-label>
+              ไม่มีปัญหา
+            </ion-label>
           </ion-item>
         </ion-row>
       </ion-card-content>
@@ -44,24 +52,34 @@
           <ion-card-content>
 
             <ion-item>
-              <ion-label>6.2 แต่ละปีเกิดอุทกภัยกี่ครั้ง ระยะเวลาที่น้ำท่วมขังโดยเฉลี่ย
-                <br>นานกี่วัน กี่ชั่วโมง และระดับความสูงของน้ำท่วมสูงกี่เซนติเมตร</ion-label>
+              <ion-label>
+                6.2 แต่ละปีเกิดอุทกภัยกี่ครั้ง ระยะเวลาที่น้ำท่วมขังโดยเฉลี่ย
+                <br>นานกี่วัน กี่ชั่วโมง และระดับความสูงของน้ำท่วมสูงกี่เซนติเมตร
+              </ion-label>
             </ion-item>
 
             <ion-row text-center>
               <ion-col col-3></ion-col>
-              <ion-col>ระยะเวลาที่น้ำท่วมขังโดยเฉลี่ย</ion-col>
+              <ion-col>
+                <b>ระยะเวลาที่น้ำท่วมขังโดยเฉลี่ย</b>
+              </ion-col>
             </ion-row>
 
             <ion-row text-center>
-              <ion-col col-3>ปี</ion-col>
-              <ion-col>
-                จำนวนครั้งที่<br>เกิดอุทกภัย
+              <ion-col col-3>
+                <b>ปี</b>
               </ion-col>
-              <ion-col>จำนวนวัน</ion-col>
-              <ion-col>จำนวนชั่วโมง</ion-col>
               <ion-col>
-                ระดับความสูงเฉลี่ย<br>(เซนติเมตร)
+                <b>จำนวนครั้งที่<br>เกิดอุทกภัย</b>
+              </ion-col>
+              <ion-col>
+                <b>จำนวนวัน</b>
+              </ion-col>
+              <ion-col>
+                <b>จำนวนชั่วโมง</b>
+              </ion-col>
+              <ion-col>
+                <b>ระดับความสูงเฉลี่ย<br>(เซนติเมตร)</b>
               </ion-col>
             </ion-row>
 
