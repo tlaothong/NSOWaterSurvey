@@ -28,11 +28,11 @@ export class FrogFarmingComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      "doing": [false, Validators.required],
+      "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "stew": [false, Validators.required],
-      "other": [false, Validators.required],
-      'hasOther': ['', Validators.required],
+      "other": ['', Validators.required],
+      'hasOther': [false, Validators.required],
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });

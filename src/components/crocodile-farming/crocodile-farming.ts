@@ -44,7 +44,8 @@ export class CrocodileFarmingComponent implements AfterViewInit ,ISubmitRequesta
     return fb.group({
       "doing": [null, Validators.required],
       "depression": [false, Validators.required],
-      "other": [false, Validators.required],
+      "hasOther": [false, Validators.required],
+      "other": ['', Validators.required],
       "fieldCount": [null, Validators.required],
       "fieldsAreSameSize": [null, Validators.required],
 

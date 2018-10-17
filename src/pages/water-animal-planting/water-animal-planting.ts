@@ -28,15 +28,24 @@ export class WaterAnimalPlantingPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      "doing": ['', Validators.required],
+      "doing": [null, Validators.required],
+      "isFish": [null, Validators.required],
       "fish": FishFarmingComponent.CreateFormGroup(fb),
+      "isShrimp": [null, Validators.required],
       "shrimp": FishFarmingComponent.CreateFormGroup(fb),
+      "isFrog": [null, Validators.required],
       "frog": FrogFarmingComponent.CreateFormGroup(fb),
+      "isCrocodile": [null, Validators.required],
       "crocodile": CrocodileFarmingComponent.CreateFormGroup(fb),
+      "isSnappingTurtle": [null, Validators.required],
       "snappingTurtle": CrocodileFarmingComponent.CreateFormGroup(fb),
+      "isCrab": [null, Validators.required],
       "crab": FishFarmingComponent.CreateFormGroup(fb),
+      "isShellFish": [null, Validators.required],
       "shellFish": FishFarmingComponent.CreateFormGroup(fb),
+      "isTurtle": [null, Validators.required],
       "turtle": CrocodileFarmingComponent.CreateFormGroup(fb),
+      "isReddish": [null, Validators.required],
       "reddish": FishFarmingComponent.CreateFormGroup(fb),
     });
   }

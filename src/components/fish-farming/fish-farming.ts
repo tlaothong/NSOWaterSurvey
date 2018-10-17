@@ -33,13 +33,13 @@ export class FishFarmingComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      "doing": ['', Validators.required],
+      "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "gardenGroove": [false, Validators.required],
       "stew": [false, Validators.required],
       "riceField": [false, Validators.required],
-      'hasOther': [null, Validators.required],
-      "other": [false, Validators.required],
+      'hasOther': [false, Validators.required],
+      "other": ['', Validators.required],
       "fieldCount": ['', Validators.required],
       "fieldsAreSameSize": ['', Validators.required],
       "fields": fb.array([]),
