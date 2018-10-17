@@ -58,16 +58,16 @@
       <ion-label>
         9.อื่น ๆ
       </ion-label>
-      <ion-checkbox formControlName="other"></ion-checkbox>
+      <ion-checkbox formControlName="hasOther"></ion-checkbox>
     </ion-item>
 
-    <ion-item *ngIf="FormItem.get('other').value || false">
+    <ion-item *ngIf="FormItem.get('hasOther').value || false">
       <ion-label>
         โปรดระบุ
       </ion-label>
-      <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
+      <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
     </ion-item>
-    <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
+    <ion-item *ngIf="isValid('other')" class="invalid-msg">
       <span>
         กรุณากรอก
       </span>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
@@ -25,8 +25,8 @@ export class WaterSources8BComponent{
 
     // TODO: Remove this
     this.FormItem = this.fb.group({
-      'hasOther': false,
-      'other': null
+      'hasOther': [false,Validators.required],
+      'other': ['',Validators.required]
     });
   }
 

@@ -41,7 +41,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': [false, Validators.required],
+      'other': ['', Validators.required],
       'hasOther' : [false,Validators.required]
     })
   }

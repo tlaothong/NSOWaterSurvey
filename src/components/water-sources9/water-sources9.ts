@@ -36,8 +36,8 @@ export class WaterSources9Component {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': [false, Validators.required],
-      'hasOther' : [null,Validators.required]
+      'other': ['', Validators.required],
+      'hasOther' : [false,Validators.required]
     })
   }
 
