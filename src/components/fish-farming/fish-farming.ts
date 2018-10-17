@@ -16,7 +16,7 @@ import { PoolAreaComponent } from '../pool-area/pool-area';
 export class FishFarmingComponent {
 
   @Input() public FormItem: FormGroup;
-  text: string;
+  @Input('headline') text: string;
   private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];

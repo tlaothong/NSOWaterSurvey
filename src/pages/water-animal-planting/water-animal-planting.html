@@ -34,68 +34,76 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
-      <ion-card-content>
+    <div [ngSwitch]="f.get('doing').value">
+      <div *ngSwitchCase="1">
 
-        <ion-item>
-          <ion-label>
-            เลี้ยงสัตว์ชนิดใดบ้าง
-          </ion-label>
-        </ion-item>
 
-        <ion-item>
-          <ion-label><b>ชนิดสัตว์น้ำ</b></ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="fish"></ion-checkbox>
-          <ion-label>1.ปลา</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="shrimp"></ion-checkbox>
-          <ion-label>2.กุ้ง</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="frog"></ion-checkbox>
-          <ion-label>3.กบ</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="crocodile"></ion-checkbox>
-          <ion-label>4.จระเข้</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="snappingTurtle"></ion-checkbox>
-          <ion-label>5.ตะพาบน้ำ</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="crap"></ion-checkbox>
-          <ion-label>6.ปู</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="shellFish"></ion-checkbox>
-          <ion-label>7.หอย</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="turtle"></ion-checkbox>
-          <ion-label>8.เต่า</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox formControlName="reddish"></ion-checkbox>
-          <ion-label>9. ไรแดง </ion-label>
-        </ion-item>
+        <ion-card>
+          <ion-card-content>
 
-      </ion-card-content>
-    </ion-card>
+            <ion-item>
+              <ion-label>
+                เลี้ยงสัตว์ชนิดใดบ้าง
+              </ion-label>
+            </ion-item>
 
-    <fish-farming headline="1. ปลา" [FormItem]="f.get('fish')"></fish-farming>
-    <!-- <fish-farming headline="2. กุ้ง" [FormItem]="f.get('shrimp')"></fish-farming> -->
-    <frog-farming headline="3. กบ" [FormItem]="f.get('frog')"></frog-farming>
-    <crocodile-farming headline="4. จระเข้" [FormItem]="f.get('crocodile')"></crocodile-farming>
-    <!-- <crocodile-farming headline="5. ตะพาบน้ำ" [FormItem]="f.get('snappingTurtle')"></crocodile-farming>
+            <ion-item>
+              <ion-label><b>ชนิดสัตว์น้ำ</b></ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>1.ปลา</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>2.กุ้ง</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>3.กบ</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>4.จระเข้</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>5.ตะพาบน้ำ</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>6.ปู</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>7.หอย</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>8.เต่า</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox></ion-checkbox>
+              <ion-label>9. ไรแดง </ion-label>
+            </ion-item>
+
+          </ion-card-content>
+        </ion-card>
+
+        <fish-farming headline="1. ปลา" [FormItem]="f.get('fish')"></fish-farming>
+        <!-- <fish-farming headline="2. กุ้ง" [FormItem]="f.get('shrimp')"></fish-farming> -->
+        <frog-farming headline="3. กบ" [FormItem]="f.get('frog')"></frog-farming>
+        <crocodile-farming headline="4. จระเข้" [FormItem]="f.get('crocodile')"></crocodile-farming>
+        <!-- <crocodile-farming headline="5. ตะพาบน้ำ" [FormItem]="f.get('snappingTurtle')"></crocodile-farming>
     <fish-farming headline="6. ปู" [FormItem]="f.get('crab')"></fish-farming>
     <fish-farming headline="7. หอย" [FormItem]="f.get('shellFish')"></fish-farming>
     <crocodile-farming headline="8. เต่า" [FormItem]="f.get('turtle')"></crocodile-farming>
     <fish-farming headline="9. ไรแดง" [FormItem]="f.get('reddish')"></fish-farming> -->
 
+
+      </div>
+    </div>
+    
     <form-buttons-bar></form-buttons-bar>
 
   </form>
