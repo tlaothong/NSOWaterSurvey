@@ -13,37 +13,41 @@
         <ion-label> 1) ลักษณะการเลี้ยงเป็นอย่างไร</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="depression"></ion-checkbox>
         <ion-label>1.บ่อ</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="stew"></ion-checkbox>
         <ion-label>2.กระชังบก</ion-label>
       </ion-item>
       <ion-item>
         <ion-label>
           3. อื่น ๆ
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="other"></ion-checkbox>
       </ion-item>
-      <ion-item>
+
+      <ion-item *ngIf="FormItem.get('other').value || false">
         <ion-label>โปรดระบุ</ion-label>
-        <ion-input></ion-input>
+        <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
+        <span>Please specify other.</span>
       </ion-item>
 
       <ion-item>
         <ion-label> 2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว</ion-label>
       </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('animalsCount')">
-          <span class="invalid-msg">กรุณากรอกจำนวน</span>
-        </ion-item>
+      <ion-item>
+        <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('animalsCount')">
+        <span class="invalid-msg">กรุณากรอกจำนวน</span>
+      </ion-item>
 
     </ion-card-content>
   </ion-card>
 
-  <water-sources9 headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
+  <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
 
 </div>
