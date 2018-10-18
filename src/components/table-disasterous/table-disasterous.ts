@@ -23,13 +23,17 @@ export class TableDisasterousComponent {
     console.log('Hello TableDisasterousComponent Component');
     this.year = 'Hello World';
 
-       // TODO: Remove this
-       this.FormItem = this.fb.group({
-        'count': null,
-        'avgday': null,
-        'avghour': null,
-        'height': null,
-      });
+    // TODO: Remove this
+    this.FormItem = TableDisasterousComponent.CreateFormGroup(this.fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'count': null,
+      'avgday': null,
+      'avghour': null,
+      'height': null,
+    });
   }
 
   public showModal() {
