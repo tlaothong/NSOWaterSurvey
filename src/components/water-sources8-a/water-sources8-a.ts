@@ -69,10 +69,15 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       const underGround = c.get('underGround');
       const pool = c.get('pool');
       const river = c.get('river');
-      const hasOther = c.get('hasOther');
       const other = c.get('other');
+      const hasOther = c.get('hasOther');
+      const irrigation = c.get('irrigation');
+      const rain = c.get('rain');
+      const buying = c.get('buying');
+      const rainingAsIs = c.get('rainingAsIs');
 
-      if (!underGround.value && !pool.value && !river.value && !hasOther.value) {
+      if (!underGround.value && !pool.value && !river.value && !hasOther.value && !irrigation.value
+        && !rain.value && !buying.value && !rainingAsIs.value) {
         return { 'anycheck': true };
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
