@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { WaterProblem6Component } from '../../components/water-problem6/water-problem6';
+import { WaterActivity5Component } from '../../components/water-activity5/water-activity5';
 
 /**
  * Generated class for the PlumbingPage page.
@@ -16,84 +18,52 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class PlumbingPage {
 
-  public PlumbingForm: FormGroup;
+  @ViewChildren(WaterProblem6Component) private waterProblem6 : WaterProblem6Component[];
+  @ViewChildren(WaterActivity5Component) private waterActivity5 : WaterActivity5Component[];
+  public f: FormGroup;
   private submitRequested: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.PlumbingForm = this.fb.group({
-      'MWA': this.fb.group({
-        'Doing': ['', Validators.required],
-        'isWaterQuality': ['', Validators.required],
-        'ProblemAdd': this.fb.group({
-          'SaltWater': [false, Validators.required],
-          'Smell': [false, Validators.required],
-          'FilmOfOil': [false, Validators.required],
-          'FogWater': [false, Validators.required],
-          'TurbidWater': [false, Validators.required],
-          'HardWater': [false, Validators.required]
-        }),
-        'PlumbingUsage': this.fb.group({
-          'WaterQuantity': null,
-          'CubicMeterPerMonth': ['', Validators.required],
-          'WaterBill': ['', Validators.required],
-          'UnknowNoMeter': ['', Validators.required],
-          'UnknowExcepted': ['', Validators.required]
+    this.f = this.fb.group({
+      'mwa': this.fb.group({
+        'doing': ['', Validators.required],
+        'waterProblem6' : WaterProblem6Component.CreateFormGroup(this.fb),
+        'plumbingUsage': this.fb.group({
+          'waterQuantity': null,
+          'cubicMeterPerMonth': ['', Validators.required],
+          'waterBill': ['', Validators.required],
+          'unknowNoMeter': ['', Validators.required],
+          'unknowExcepted': ['', Validators.required]
         })
       }),
-      'PWA': this.fb.group({
-        'Doing': ['', Validators.required],
+      'pwa': this.fb.group({
+        'doing': ['', Validators.required],
         'isWaterQuality': ['', Validators.required],
-        'ProblemAdd': this.fb.group({
-          'SaltWater': [false, Validators.required],
-          'Smell': [false, Validators.required],
-          'FilmOfOil': [false, Validators.required],
-          'FogWater': [false, Validators.required],
-          'TurbidWater': [false, Validators.required],
-          'HardWater': [false, Validators.required]
-        }),
-        'PlumbingUsage': this.fb.group({
-          'WaterQuantity': null,
-          'CubicMeterPerMonth': ['', Validators.required],
-          'WaterBill': ['', Validators.required],
-          'UnknowNoMeter': ['', Validators.required],
-          'UnknowExcepted': ['', Validators.required]
+        'waterProblem6' : WaterProblem6Component.CreateFormGroup(this.fb),
+        'plumbingUsage': this.fb.group({
+          'waterQuantity': null,
+          'cubicMeterPerMonth': ['', Validators.required],
+          'waterBill': ['', Validators.required],
+          'unknowNoMeter': ['', Validators.required],
+          'unknowExcepted': ['', Validators.required]
         })
       }),
-      'Other': this.fb.group({
-        'Doing': ['', Validators.required],
+      'other': this.fb.group({
+        'doing': ['', Validators.required],
         'isWaterQuality': ['', Validators.required],
-        'ProblemAdd': this.fb.group({
-          'SaltWater': [false, Validators.required],
-          'Smell': [false, Validators.required],
-          'FilmOfOil': [false, Validators.required],
-          'FogWater': [false, Validators.required],
-          'TurbidWater': [false, Validators.required],
-          'HardWater': [false, Validators.required]
-        }),
-        'PlumbingUsage': this.fb.group({
-          'WaterQuantity': null,
-          'CubicMeterPerMonth': ['', Validators.required],
-          'WaterBill': ['', Validators.required],
-          'UnknowNoMeter': ['', Validators.required],
-          'UnknowExcepted': ['', Validators.required]
+        'waterProblem6' : WaterProblem6Component.CreateFormGroup(this.fb),
+        'plumbingUsage': this.fb.group({
+          'waterQuantity': null,
+          'cubicMeterPerMonth': ['', Validators.required],
+          'waterBill': ['', Validators.required],
+          'unknowNoMeter': ['', Validators.required],
+          'unknowExcepted': ['', Validators.required]
         })
       }),
-      'WaterActivityMWAPWA': this.fb.group({
-        'Drink': ['', Validators.required],
-        'Plant': ['', Validators.required],
-        'Agriculture': ['', Validators.required],
-        'Product': ['', Validators.required],
-        'Service': ['', Validators.required]
-      }),
-      'WaterActivityOther': this.fb.group({
-        'Drink': ['', Validators.required],
-        'Plant': ['', Validators.required],
-        'Agriculture': ['', Validators.required],
-        'Product': ['', Validators.required],
-        'Service': ['', Validators.required]
-      }),
-      'WaterNotRunning': ['', Validators.required],
-      'WaterNotRunningCount': ['', Validators.required]
+      'waterActivityMWAPWA': WaterActivity5Component.CreateFormGroup(this.fb),
+      'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
+      'waterNotRunning': ['', Validators.required],
+      'waterNotRunningCount': ['', Validators.required]
     });
 
     // this.PlumbingForm.get('MWA.PlumbingUsage.WaterQuantity').valueChanges.subscribe(x => alert(x));
@@ -108,7 +78,7 @@ export class PlumbingPage {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.PlumbingForm.get(name);
+    var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }
