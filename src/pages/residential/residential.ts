@@ -36,6 +36,7 @@ export class ResidentialPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.waterSources8B.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
