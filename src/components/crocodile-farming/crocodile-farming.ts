@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FrogFarmingComponent } from '../frog-farming/frog-farming';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
@@ -56,7 +56,10 @@ export class CrocodileFarmingComponent implements AfterViewInit ,ISubmitRequesta
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
       
       
-    });
+    },{
+      validator: CrocodileFarmingComponent.checkAnyOrOther()
+    }
+    );
     
   }
   
@@ -66,10 +69,35 @@ export class CrocodileFarmingComponent implements AfterViewInit ,ISubmitRequesta
     this.waterSources9.forEach(it=>it.submitRequest());
     
   }
+  
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const depression = c.get('depression');
+      const hasOther = c.get('hasOther');
+    
+      const other = c.get('other');
+      
+
+      if (!depression.value && !hasOther.value ) {
+        return { 'anycheck': true };
+      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+        return { 'other': true };
+      }
+      return null;
+    }
+  }
 
   
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    
+    if (name == 'anycheck') {
+      ctrl = this.FormItem;
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+    } else if (name == 'other') {
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+    }
+
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
   
