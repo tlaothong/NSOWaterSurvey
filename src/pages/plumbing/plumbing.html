@@ -38,7 +38,7 @@
           <div [ngSwitch]="f.get('mwa.doing').value">
             <div *ngSwitchCase="1">
 
-              <water-problem6 headline="1.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('mwa.waterProblem6')"></water-problem6>
+              <water-problem6 headline="1.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('mwa.problem')"></water-problem6>
 
               <ion-item>
                 <ion-label>
@@ -148,7 +148,7 @@
           <div [ngSwitch]="f.get('pwa.doing').value">
             <div *ngSwitchCase="1">
 
-              <water-problem6 headline="2.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('pwa.waterProblem6')"></water-problem6>
+              <water-problem6 headline="2.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('pwa.problem')"></water-problem6>
 
               <ion-item>
                 <ion-label>
@@ -258,7 +258,7 @@
           <div [ngSwitch]="f.get('other.doing').value">
             <div *ngSwitchCase="1">
 
-              <water-problem6 headline="3.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('other.waterProblem6')"></water-problem6>
+              <water-problem6 headline="3.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('other.problem')"></water-problem6>
 
               <ion-item>
                 <ion-label>

@@ -18,52 +18,62 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 })
 export class PlumbingPage {
 
-  @ViewChildren(WaterProblem6Component) private waterProblem6 : WaterProblem6Component[];
-  @ViewChildren(WaterActivity5Component) private waterActivity5 : WaterActivity5Component[];
+  @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
+  @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   public f: FormGroup;
   private submitRequested: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
-        'doing': ['', Validators.required],
-        'waterProblem6' : WaterProblem6Component.CreateFormGroup(this.fb),
+        'doing': [false, Validators.required],
+        'waterQuality': [false, Validators.required],
+        'problem': this.fb.group({
+          'hasProblem': [''],
+          'problem': WaterProblem6Component.CreateFormGroup(fb),
+        }),
         'plumbingUsage': this.fb.group({
-          'waterQuantity': null,
-          'cubicMeterPerMonth': ['', Validators.required],
-          'waterBill': ['', Validators.required],
-          'unknowNoMeter': ['', Validators.required],
-          'unknowExcepted': ['', Validators.required]
+          'waterQuantity': [null, Validators.required],
+          'cubicMeterPerMonth': [null, Validators.required],
+          'waterBill': [null, Validators.required],
+          'unknowNoMeter': [false, Validators.required],
+          'unknowExcepted': [false, Validators.required]
         })
       }),
       'pwa': this.fb.group({
-        'doing': ['', Validators.required],
-        'isWaterQuality': ['', Validators.required],
-        'waterProblem6' : WaterProblem6Component.CreateFormGroup(this.fb),
+        'doing': [false, Validators.required],
+        'waterQuality': [false, Validators.required],
+        'problem': this.fb.group({
+          'hasProblem': [''],
+          'problem': WaterProblem6Component.CreateFormGroup(fb),
+        }),
         'plumbingUsage': this.fb.group({
-          'waterQuantity': null,
-          'cubicMeterPerMonth': ['', Validators.required],
-          'waterBill': ['', Validators.required],
-          'unknowNoMeter': ['', Validators.required],
-          'unknowExcepted': ['', Validators.required]
+          'waterQuantity': [null, Validators.required],
+          'cubicMeterPerMonth': [null, Validators.required],
+          'waterBill': [null, Validators.required],
+          'unknowNoMeter': [false, Validators.required],
+          'unknowExcepted': [false, Validators.required]
         })
       }),
       'other': this.fb.group({
-        'doing': ['', Validators.required],
-        'isWaterQuality': ['', Validators.required],
-        'waterProblem6' : WaterProblem6Component.CreateFormGroup(this.fb),
+        'doing': [false, Validators.required],
+        'waterQuality': [false, Validators.required],
+        'problem': this.fb.group({
+          'hasProblem': [''],
+          'problem': WaterProblem6Component.CreateFormGroup(fb),
+        }),
         'plumbingUsage': this.fb.group({
-          'waterQuantity': null,
-          'cubicMeterPerMonth': ['', Validators.required],
-          'waterBill': ['', Validators.required],
-          'unknowNoMeter': ['', Validators.required],
-          'unknowExcepted': ['', Validators.required]
+          'waterQuantity': [null, Validators.required],
+          'cubicMeterPerMonth': [null, Validators.required],
+          'waterBill': [null, Validators.required],
+          'unknowNoMeter': [false, Validators.required],
+          'unknowExcepted': [false, Validators.required]
         })
       }),
       'waterActivityMWAPWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
-      'waterNotRunning': ['', Validators.required],
-      'waterNotRunningCount': ['', Validators.required]
+      'waterNotRunning': [false, Validators.required],
+      'waterNotRunningCount': [null, Validators.required]
     });
 
     // this.PlumbingForm.get('MWA.PlumbingUsage.WaterQuantity').valueChanges.subscribe(x => alert(x));
