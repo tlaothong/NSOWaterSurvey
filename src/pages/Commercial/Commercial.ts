@@ -36,7 +36,7 @@ export class CommercialPage {
           'hasItem':[null, Validators.required],
           'itemCount':[null, Validators.required],
         }),
-        'highschool':this.fb.group({
+        'highSchool':this.fb.group({
           'hasItem':[null, Validators.required],
           'itemCount':[null, Validators.required],
         }),

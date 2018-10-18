@@ -54,7 +54,7 @@ export class AnimalFarmPage {
         'hasItem': false,
         'itemCount': null
       }),
-      'silk': this.fb.group({
+      'silkWool': this.fb.group({
         'hasItem': false,
         'itemCount': null
       }),

@@ -40,7 +40,7 @@ export class PoolUsageComponent implements AfterViewInit ,ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'isPoolUsage': ['', Validators.required],
+      'hasCubicMeterPerMonth': ['', Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
       // 'unknowPoolUsage': [null, Validators.required],
       'hasPump': [null, Validators.required],

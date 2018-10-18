@@ -35,7 +35,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'usageType': ['', Validators.required],
-      'usageCubicMeters': ['', Validators.required],
+      'cubicMeterPerMonth': ['', Validators.required],
       'waterBill': ['', Validators.required],
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],

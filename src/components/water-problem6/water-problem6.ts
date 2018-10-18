@@ -21,8 +21,8 @@ export class WaterProblem6Component {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'hasQaulityProblem': [null, Validators.required],
-      'qualityProblems': fb.group({
+      'hasProblem': [null, Validators.required],
+      'problem': fb.group({
         'turbidWater': [null, Validators.required],
         'saltWater': [null, Validators.required],
         'smell': [null, Validators.required],

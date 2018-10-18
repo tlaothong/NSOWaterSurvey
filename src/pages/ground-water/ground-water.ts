@@ -35,6 +35,36 @@ export class GroundWaterPage  {
       'count': [null, Validators.required],
       'usePerMonth': this.fb.array([]),
     });
+    // PrivateGroundWater{
+    //   Doing
+    //   AllCount
+    //   WaterResourceCount
+    //   WaterResources{
+    //     HasPump
+    //     PumpCount
+    //     Pumps{
+    //     }
+    //     WaterActivities{
+    //     }
+    //     QualityProblem{
+    //     }
+    //   }
+
+    // }
+    // PublicGroundWater{
+    //   Doing
+    //   WaterResourceCount
+    //   WaterResources{
+    //      HasPump
+    //     PumpCount
+    //     Pumps{
+    //     }
+    //     WaterActivities{
+    //     }
+    //     QualityProblem{
+    //     }
+    //   }
+    // }
 
     this.setupuseGroundWaterCountChanges();
     this.setupusePublicGroundWaterCountChanges();

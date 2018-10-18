@@ -11,7 +11,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-row radio-group formControlName="isPoolUsage">
+    <ion-row radio-group formControlName="hasCubicMeterPerMonth">
       <ion-item col-12>
         <ion-radio value="1" item-left></ion-radio>
         <ion-label>
@@ -26,13 +26,13 @@
       </ion-item>
     </ion-row>
 
-    <ion-item *ngIf="isValid('isPoolUsage')">
+    <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
       <span class="invalid-msg">
         กรุณาเลือก
       </span>
     </ion-item>
 
-    <div [ngSwitch]="FormItem.get('isPoolUsage').value">
+    <div [ngSwitch]="FormItem.get('hasCubicMeterPerMonth').value">
       <div *ngSwitchCase="1">
         <ion-item>
           <ion-label>

@@ -24,9 +24,9 @@ export class RainStorageComponent {
 
      // TODO: Remove this
      this.FormItem = this.fb.group({
-      'ware': null,
-      'liter': null,
-      'countware': null,
+      'category': null,
+      'size': null,
+      'count': null,
     });
   }
   
