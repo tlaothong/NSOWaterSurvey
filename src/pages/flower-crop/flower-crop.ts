@@ -24,7 +24,7 @@ export class FlowerCropPage {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
-      'fieldFlowerCrop' : fb.array([
+      'fields' : fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
     });
     this.setupFieldCountChanges();
@@ -65,7 +65,7 @@ export class FlowerCropPage {
   }
 
   private setupFieldCountChanges() {
-    const componentFormArray: string = "fieldFlowerCrop";
+    const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {

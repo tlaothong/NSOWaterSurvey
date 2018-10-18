@@ -60,7 +60,7 @@
 
 
     <div *ngIf="rubbertree.get('fieldCount').value > 0 && rubbertree.get('doing').value == 1">
-      <div *ngFor="let rubber of rubbertree.get('fieldRubbertree').controls;let i = index">
+      <div *ngFor="let rubber of rubbertree.get('fields').controls;let i = index">
         <field-rebbertree [no]="i+1" [FormItem]="rubber"></field-rebbertree>
       </div>
     </div>
