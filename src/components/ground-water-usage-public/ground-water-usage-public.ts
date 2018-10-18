@@ -2,6 +2,8 @@ import { Component, Input, AfterViewInit, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
+import { WaterActivity6Component } from '../water-activity6/water-activity6';
+import { WaterProblem6Component } from '../water-problem6/water-problem6';
 
 /**
  * Generated class for the GroundWaterUsagePublicComponent component.
@@ -19,6 +21,9 @@ export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRe
   @Input() public FormItem: FormGroup;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
+  @ViewChildren(WaterActivity6Component) private waterActivity6t: WaterActivity6Component[];
+  @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
+
 
   private submitRequested: boolean;
 
@@ -38,37 +43,17 @@ export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRe
       'unknow': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
-      'pumps': fb.group({
-        'pumpAuto': [''],
-        'unknowHoursPerPump': [''],
-        'hoursPerPump': [''],
-        'numberOfPumpsPerYear': [''],
-        'pumpRate': fb.group({
-          'knowPumpRate': [''],
-          'pumpRateUsage': ['']
-        }),
-        'energySource': fb.group({
-          'electicPump': [''],
-          'solaPump': [''],
-          'petrolPump': [''],
-          'twoWheeledTractors': ['']
-        }),
-        'pumpType': fb.group({
-          'electicPump': [''],
-          'solaPump': [''],
-          'petrolPump': [''],
-          'twoWheeledTractors': ['']
-        }),
-        'horsePower': [''],
-        'suctionPipeSize': [''],
-        'pipelineSize': ['']
-      }),
+      'pumps': fb.array([]),
+      'usageActivities': WaterActivity6Component.CreateFormGroup(fb),
+      'hasQaulityProblem': ['', Validators.required],
+      'qualityProblems': WaterProblem6Component.CreateFormGroup(fb),
     });
   }
 
   submitRequest() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
+    this.waterProblem6.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

@@ -2,6 +2,7 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
+import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 
 /**
  * Generated class for the DemoPage page.
@@ -18,6 +19,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 export class CommercialPage {
 
   @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
+  @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   private f: FormGroup;
   private submitRequested: boolean;
 
@@ -54,18 +56,7 @@ export class CommercialPage {
       'otherBuilding': this.fb.group({
         'personnelCount': [null, Validators.required],
       }),
-      'waterSources': this.fb.group({
-        'plumbing': [null, Validators.required],
-        'underGround': [null, Validators.required],
-        'pool': [null, Validators.required],
-        'river': [null, Validators.required],
-        'irrigation': [null, Validators.required],
-        'rain': [null, Validators.required],
-        'buying': [null, Validators.required],
-        'rainingAsIs': [null, Validators.required],
-        'hasOther': [null, Validators.required],
-        'other': [null, Validators.required],
-      }),
+      'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
     });
   }
 
