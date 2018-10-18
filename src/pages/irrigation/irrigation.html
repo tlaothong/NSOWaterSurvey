@@ -23,8 +23,8 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')">
-          <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
+        <ion-row radio-group formControlName="unknowPoolUsage" [class.invalid]="isValid('unknowPoolUsage')">
+          <ion-item *ngIf="isValid('unknowPoolUsage')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
@@ -43,7 +43,7 @@
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="f.get('hasCubicMeterPerMonth').value">
+        <div [ngSwitch]="f.get('unknowPoolUsage').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -116,8 +116,8 @@
 
     <ion-card>
       <ion-card-content>
-        <water-activity6 [headline]="'5) ใช้น้ำจากชลประทาน เพื่อทำกิจกรรม ใดบ้างคิดเป็นสัดส่วนเท่าไร'"></water-activity6>
-        <water-problem4 [headline]="'6) มีปัญหาคุณภาพน้ำ หรือไม่'"></water-problem4>
+        <water-activity6 [headline]="'5) ใช้น้ำจากชลประทาน เพื่อทำกิจกรรม ใดบ้างคิดเป็นสัดส่วนเท่าไร'" [FormItem]="f.get('waterActivity')"></water-activity6>
+        <water-problem4 [headline]="'6) มีปัญหาคุณภาพน้ำ หรือไม่'" [FormItem]="f.get('waterProblem')"></water-problem4>
       </ion-card-content>
     </ion-card>
 

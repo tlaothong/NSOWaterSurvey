@@ -46,7 +46,10 @@ export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRe
       'pumps': fb.array([]),
       'usageActivities': WaterActivity6Component.CreateFormGroup(fb),
       'hasQaulityProblem': ['', Validators.required],
-      'qualityProblems': WaterProblem6Component.CreateFormGroup(fb),
+      'qualityProblems': fb.group({
+        "hasProblem": ['', Validators.required],
+        "problem": WaterProblem6Component.CreateFormGroup(fb)
+      })
     });
   }
 
