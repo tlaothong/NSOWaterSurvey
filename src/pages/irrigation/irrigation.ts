@@ -24,8 +24,8 @@ export class IrrigationPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
+      'hasCubicMeterPerMonth': ['', Validators.required],
       'cubicMeterPerMonth': ['', Validators.required],
-      'unknowPoolUsage': ['', Validators.required],
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],
       "pumps":  this.fb.array([]),

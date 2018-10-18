@@ -34,7 +34,7 @@ export class AnimalFarmPage {
       'chicken': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'duck': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'goose':TableCheckItemCountComponent.CreateFormGroup(this.fb),
-      'silk': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'waterSources' : WaterSources9Component.CreateFormGroup(this.fb)
     });

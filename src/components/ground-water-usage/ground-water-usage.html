@@ -52,9 +52,9 @@
           </ion-item>
 
           <ion-item>
-            <ion-input type="number" placeholder="กรอกปริมาณน้ำ" formControlName="usageCubicMeters" [class.invalid]="isValid('usageCubicMeters')"></ion-input>
+            <ion-input type="number" placeholder="กรอกปริมาณน้ำ" formControlName="cubicMeterPerMonth" [class.invalid]="isValid('cubicMeterPerMonth')"></ion-input>
           </ion-item>
-          <ion-item *ngIf="isValid('usageCubicMeters')">
+          <ion-item *ngIf="isValid('cubicMeterPerMonth')">
             <span class="invalid-msg">
               กรุณากรอกจำนวน
             </span>

@@ -25,8 +25,6 @@ export class MushroomPage {
     this.f = this.fb.group({
       'doing': ['', Validators.required],
       'fieldCount': ['', Validators.required],
-      'areaMeter': ['', Validators.required],// ขนาดพื้นที่เท่าไหร่กี่ตารางเมตร
-      'houseNumber': ['', Validators.required],
       'fields': this.fb.array([]),
     });
 

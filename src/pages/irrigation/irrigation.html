@@ -23,8 +23,8 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="cubicMeterPerMonth" [class.invalid]="isValid('cubicMeterPerMonth')">
-          <ion-item *ngIf="isValid('cubicMeterPerMonth')">
+        <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')">
+          <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
@@ -41,14 +41,14 @@
             </ion-label>
             <ion-radio value="2" item-left></ion-radio>
           </ion-item>
-          <ion-item *ngIf="isValid('unknowPoolUsage')">
+          <ion-item *ngIf="isValid('cubicMeterPerMonth')">
             <span class="invalid-msg">
               กรุณากรอกจำนวน
             </span>
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="f.get('cubicMeterPerMonth').value">
+        <div [ngSwitch]="f.get('hasCubicMeterPerMonth').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -56,7 +56,7 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="unknowPoolUsage" [class.invalid]="isValid('unknowPoolUsage')"></ion-input>
+              <ion-input type="number" placeholder="การใช้น้ำเฉลี่ย" formControlName="cubicMeterPerMonth" [class.invalid]="isValid('cubicMeterPerMonth')"></ion-input>
             </ion-item>
           </div>
         </div>

@@ -35,9 +35,7 @@ export class FieldRebbertreeComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [''],
-      'nameDryCrop': [''],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-      // check
     })
   }
 

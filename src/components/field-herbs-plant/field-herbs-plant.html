@@ -109,7 +109,7 @@
         </ion-item>
       </ion-row>
 
-      <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
+      <div [ngSwitch]="FormItem.get('plantings').value">
         <div *ngSwitchCase="2">
           <ion-list>
             <ion-item *ngFor="let p of shownData2" text-center>
@@ -125,7 +125,7 @@
         <ion-label>
           รายชื่อพืชที่ปลูกหลัก
         </ion-label>
-        <ion-select interface="action-sheet" formControlName="mixedWithPrimaryPlant">
+        <ion-select interface="action-sheet" formControlName="plantings">
           <ion-option>
             ข้าว
           </ion-option>
@@ -140,10 +140,7 @@
           </ion-option>
         </ion-select>
       </ion-item> -->
-
-
-
-      <ion-item *ngIf="isValid('mixedWithPrimaryPlant')">
+      <ion-item *ngIf="isValid('plantings')">
         <span class="invalid-msg">
           กรุณาเลือก
         </span>
