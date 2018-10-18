@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
 
 /**
@@ -25,15 +25,22 @@ export class TableBuyingComponent {
     this.text = '';
     this.size = 'ลิตร';
 
-    // TODO: Remove this
-    this.FormItem = this.fb.group({
-      'size': null,
-      'countDrink': null,
-      'countPlant': null,
-      'countProduct': null,
-      'countFarm': null,
-    });
+    this.FormItem = TableBuyingComponent.CreateFormGruop(fb);
+
   }
+
+  public static CreateFormGruop(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'size': [false, Validators.required],
+      'countDrink': [false, Validators.required],
+      'countPlant': [false, Validators.required],
+      'countProduct': [false, Validators.required],
+      'countFarm': [false, Validators.required],
+    });
+
+  }
+
+
 
   public showModal() {
     const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size });
