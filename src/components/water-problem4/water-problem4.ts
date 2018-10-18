@@ -34,7 +34,7 @@ export class WaterProblem4Component {
       'smell': [false,Validators.required],
       'filmOfOil': [false,Validators.required],
       'fogWater': [false,Validators.required],
-    } {
+    } ,{
       validator: WaterProblem4Component.checkAnyOrOther()
     });
   }
