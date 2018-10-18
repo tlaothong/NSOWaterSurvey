@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 /**
  * Generated class for the WaterProblem4Component component.
@@ -23,17 +23,19 @@ export class WaterProblem4Component {
     this.text = 'Hello World';
     this.text = '1';
     this.FormItem = this.fb.group({
-      'hasProblem': [''],
+      'hasProblem': ['',Validators.required],
       'problem': WaterProblem4Component.CreateFormGroup(this.fb)
     });
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'saltWater': [''],
-      'smell': [''],
-      'filmOfOil': [''],
-      'fogWater': [''],
+      'saltWater': [false,Validators.required],
+      'smell': [false,Validators.required],
+      'filmOfOil': [false,Validators.required],
+      'fogWater': [false,Validators.required],
+    } {
+      validator: WaterProblem4Component.checkAnyOrOther()
     });
   }
 
@@ -43,6 +45,25 @@ export class WaterProblem4Component {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'anycheck') {
+      ctrl = this.FormItem;
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+    } 
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const saltWater = c.get('saltWater');
+      const smell = c.get('smell');
+      const filmOfOil = c.get('filmOfOil');
+      const fogWater = c.get('fogWater');
+      
+
+      if (!saltWater.value && !smell.value && !filmOfOil.value && !fogWater.value) {
+        return { 'anycheck': true };
+      } 
+      return null;
+    }
   }
 }
