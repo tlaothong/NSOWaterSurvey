@@ -54,11 +54,11 @@
         </ion-col>
       </ion-row>
 
-      <table-buying headline="1. ขวด" size="มิลลิลิตร"></table-buying>
-      <table-buying headline="2. ถัง"></table-buying>
-      <table-buying headline="3. แทงค์"></table-buying>
-      <table-buying headline="4. รถ"></table-buying>
-      <table-buying-other></table-buying-other>
+      <table-buying headline="1. ขวด" size="มิลลิลิตร" [FormItem]="BuyingForm.get('package')"></table-buying>
+      <table-buying headline="2. ถัง" [FormItem]="BuyingForm.get('package')"></table-buying>
+      <table-buying headline="3. แทงค์"[FormItem]="BuyingForm.get('package')"></table-buying>
+      <table-buying headline="4. รถ" [FormItem]="BuyingForm.get('package')"></table-buying>
+      <table-buying-other [FormItem]="BuyingForm.get('package')"></table-buying-other>
 
     </ion-card-content>
   </ion-card>

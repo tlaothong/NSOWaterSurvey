@@ -32,10 +32,10 @@ export class TableBuyingComponent {
   public static CreateFormGruop(fb: FormBuilder): FormGroup {
     return fb.group({
       'size': [false, Validators.required],
-      'countDrink': [false, Validators.required],
-      'countPlant': [false, Validators.required],
-      'countProduct': [false, Validators.required],
-      'countFarm': [false, Validators.required],
+      'drink': [false, Validators.required],
+      'agriculture': [false, Validators.required],
+      'product': [false, Validators.required],
+      'service': [false, Validators.required],
     });
 
   }
