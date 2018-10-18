@@ -41,8 +41,8 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': [''],
-      'nameDryCrop': [''],
+      'irrigationField': ['',Validators.required],
+      'nameDryCrop': ['',Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
