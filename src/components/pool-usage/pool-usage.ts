@@ -34,6 +34,7 @@ export class PoolUsageComponent implements AfterViewInit ,ISubmitRequestable {
 
   ngAfterViewInit(): void {
     this.setupPumpCountChanges()
+    this.pump.forEach(it => it.submitRequest());
   }
   
 
