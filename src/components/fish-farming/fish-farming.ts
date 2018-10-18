@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 
@@ -46,6 +46,8 @@ export class FishFarmingComponent implements AfterViewInit {
       "fields": fb.array([]),
       "animalsCount": ['', Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
+    },{
+      validator: FishFarmingComponent.checkAnyOrOther()
     });
   }
 
@@ -59,6 +61,25 @@ export class FishFarmingComponent implements AfterViewInit {
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
   }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const depression = c.get('depression');
+      const gardenGroove = c.get('gardenGroove');
+      const stew = c.get('stew');
+      const riceField = c.get('riceField');
+      const hasOther = c.get('hasOther');
+      const other = c.get('other');
+    
+
+      if (!depression.value && !gardenGroove.value && !stew.value && !hasOther.value && !riceField.value) {
+        return { 'anycheck': true };
+      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+        return { 'other': true };
+      }
+      return null;
+    }
+  }
   
   // public handleSubmit() {
   //   this.submitRequested = true;
@@ -67,6 +88,13 @@ export class FishFarmingComponent implements AfterViewInit {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    
+    if (name == 'anycheck') {
+      ctrl = this.FormItem;
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+    } else if (name == 'other') {
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
