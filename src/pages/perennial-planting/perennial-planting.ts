@@ -27,7 +27,7 @@ export class PerennialPlantingPage {
     this.PerennialPlantingFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
-      'fieldPerenial': fb.array([]),
+      'fields': fb.array([]),
      
       
     });
@@ -53,7 +53,7 @@ export class PerennialPlantingPage {
   
   private setupFieldCountChanges() {
 
-    const componentFormArray: string = "fieldPerenial";
+    const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {

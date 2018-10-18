@@ -27,7 +27,7 @@ export class DryCropPlantingPage {
     this.agronomyPlant = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
-      'fieldDryCrop': fb.array([
+      'fields': fb.array([
         FieldDryCropPlantingComponent.CreateFormGroup(fb)
       ])
       // 'irrigationField': [null, Validators.required],
@@ -83,7 +83,7 @@ export class DryCropPlantingPage {
   // }
 
   private setupFieldCountChanges() {
-    const componentFormArray: string = "fieldDryCrop";
+    const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {

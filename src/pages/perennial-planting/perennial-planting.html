@@ -85,7 +85,7 @@
 
 
     <div *ngIf="PerennialPlantingFrm.get('fieldCount').value > 0 && PerennialPlantingFrm.get('doing').value == 1">
-        <div *ngFor="let p of PerennialPlantingFrm.get('fieldPerenial').controls;let i = index">
+        <div *ngFor="let p of PerennialPlantingFrm.get('fields').controls;let i = index">
           <field-perenial-planting [no]="i+1" [FormItem]="p"></field-perenial-planting>
         </div>
       </div>

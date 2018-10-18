@@ -24,7 +24,7 @@ export class RubberTreePage {
 
       "doing": ['', Validators.required],
       "fieldCount": ['', Validators.required],
-      'fieldRubbertree': fb.array([
+      'fields': fb.array([
         FieldRebbertreeComponent.CreateFormGroup(fb)
       ])
     });
@@ -52,7 +52,7 @@ export class RubberTreePage {
   }
 
   private setupFieldCountChanges() {
-    const componentFormArray: string = "fieldRubbertree";
+    const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {

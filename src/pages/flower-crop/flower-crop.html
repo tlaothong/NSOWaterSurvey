@@ -76,7 +76,7 @@
     </ion-card>
 
     <div *ngIf="flowerCropFrm.get('fieldCount').value > 0 && flowerCropFrm.get('doing').value == 1">
-      <div *ngFor="let ffc of flowerCropFrm.get('fieldFlowerCrop').controls;let i=index">
+      <div *ngFor="let ffc of flowerCropFrm.get('fields').controls;let i=index">
         <field-flower-crop [no]="i+1" [FormItem]="ffc"></field-flower-crop>
       </div>
     </div>
