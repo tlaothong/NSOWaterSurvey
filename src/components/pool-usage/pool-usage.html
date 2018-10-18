@@ -11,7 +11,13 @@
       </ion-label>
     </ion-item>
 
-    <ion-row radio-group formControlName="isPoolUsage">
+    <ion-row radio-group formControlName="isPoolUsage" [class.invalid]="isValid('isPoolUsage')">
+      <ion-item *ngIf="isValid('isPoolUsage')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
+
       <ion-item col-12>
         <ion-radio value="1" item-left></ion-radio>
         <ion-label>
@@ -26,11 +32,6 @@
       </ion-item>
     </ion-row>
 
-    <ion-item *ngIf="isValid('isPoolUsage')">
-      <span class="invalid-msg">
-        กรุณาเลือก
-      </span>
-    </ion-item>
 
     <div [ngSwitch]="FormItem.get('isPoolUsage').value">
       <div *ngSwitchCase="1">
@@ -40,18 +41,24 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="cubicMeterPerMonth" placeholder="กรอกปริมาณน้ำ"></ion-input>
+          <ion-input formControlName="cubicMeterPerMonth" placeholder="กรอกปริมาณน้ำ" [class.invalid]="isValid('cubicMeterPerMonth')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('cubicMeterPerMonth')">
           <span class="invalid-msg">
-            กรุณาเลือก
+            กรุณากรอก
           </span>
         </ion-item>
       </div>
     </div>
 
 
-    <ion-row radio-group formControlName="hasPump">
+    <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
+      <ion-item *ngIf="isValid('hasPump')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
+
       <ion-item>
         <ion-label>
           2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
@@ -69,11 +76,6 @@
           ไม่ใช้
         </ion-label>
       </ion-item>
-      <ion-item *ngIf="isValid('hasPump')">
-        <span class="invalid-msg">
-          กรุณาเลือก
-        </span>
-      </ion-item>
 
     </ion-row>
 
@@ -85,12 +87,12 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="pumpCount" placeholder="กรอกจำนวนเครื่องสูบน้ำ"></ion-input>
+          <ion-input type="number" formControlName="pumpCount" placeholder="กรอกจำนวนเครื่องสูบน้ำ" [class.invalid]="isValid('pumpCount')"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="isValid('pumpCount')">
           <span class="invalid-msg">
-            กรุณาเลือก
+            กรุณากรอก
           </span>
         </ion-item>
       </div>

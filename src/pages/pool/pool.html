@@ -18,7 +18,12 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="isExist">
+        <ion-row radio-group formControlName="isExist" [class.invalid]="isValid('isExist')">
+          <ion-item *ngIf="isValid('isExist')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
             <ion-label>
@@ -31,11 +36,7 @@
               ไม่มี
             </ion-label>
           </ion-item>
-          <ion-item *ngIf="isValid('isExist')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
+
         </ion-row>
 
         <div [ngSwitch]="f.get('isExist').value">
@@ -46,7 +47,7 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวน" formControlName="poolCount"></ion-input>
+              <ion-input type="number" placeholder="กรอกจำนวน" formControlName="poolCount" [class.invalid]="isValid('poolCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('poolCount')">
               <span class="invalid-msg">
@@ -58,7 +59,7 @@
                 5.4.3 ขนาดสระน้ำทั้งหมดเท่ากันหรือไม่
               </ion-label>
             </ion-item>
-            <ion-row radio-group formControlName="poolEqual">
+            <ion-row radio-group formControlName="poolEqual" [class.invalid]="isValid('poolEqual')">
               <ion-item col-6>
                 <ion-radio value="1" item-left></ion-radio>
                 <ion-label>
@@ -85,7 +86,7 @@
 
     <div [ngSwitch]="f.get('isExist').value">
       <div *ngSwitchCase="1">
-
+         
         <div [ngSwitch]="f.get('poolEqual').value">
           <!-- เท่ากัน -->
           <div *ngSwitchCase="1">
@@ -107,7 +108,7 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนสระ" formControlName="poolCountUsage"></ion-input>
+              <ion-input type="number" placeholder="กรอกจำนวนสระ" formControlName="poolCountUsage" [class.invalid]="isValid('poolCountUsage')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('poolCountUsage')">
               <span class="invalid-msg">
