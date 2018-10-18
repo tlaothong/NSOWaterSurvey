@@ -109,7 +109,19 @@
         </ion-item>
       </ion-row>
 
-      <ion-item [class.invalid]="isValid('mixedWithPrimaryPlant')">
+      <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
+        <div *ngSwitchCase="2">
+          <ion-list>
+            <ion-item *ngFor="let p of shownData2" text-center>
+              {{ p }}
+            </ion-item>
+          </ion-list>
+          <ion-item>
+            <ion-label ion-button (click)="model2()">เลือก</ion-label>
+          </ion-item>
+        </div>
+      </div>
+      <!-- <ion-item [class.invalid]="isValid('mixedWithPrimaryPlant')">
         <ion-label>
           รายชื่อพืชที่ปลูกหลัก
         </ion-label>
@@ -127,7 +139,10 @@
             พืชยืนต้น ไม้ผล สวนป่า
           </ion-option>
         </ion-select>
-      </ion-item>
+      </ion-item> -->
+
+
+
       <ion-item *ngIf="isValid('mixedWithPrimaryPlant')">
         <span class="invalid-msg">
           กรุณาเลือก

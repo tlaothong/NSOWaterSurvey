@@ -21,6 +21,7 @@ export class FieldHerbsPlantComponent {
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
   shownData: string[];
+  shownData2: string[];
 
   private submitRequested: boolean;
 
@@ -70,6 +71,24 @@ export class FieldHerbsPlantComponent {
 
         var adata = data as Array<string>;
         this.shownData = adata.map(it => it.split(".")[1]);
+      }
+    });
+
+    modal.present();
+  }
+
+  model2() {
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "พืชที่ปลูกหลัก", selected: [], list: [], limit: 5 });
+
+    modal.onDidDismiss(data => {
+      if (data) {
+        // this.FormItem = data;
+        // var fg = <FormGroup>data;
+        // this.FormItem.setValue(fg.value);
+
+        // var adata = data as Array<string>;
+        // this.shownData = adata.map(it => it.split(".")[1]);
       }
     });
 
