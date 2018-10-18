@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 
 /**
  * Generated class for the DemoPage page.
@@ -15,81 +16,57 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'Commercial.html',
 })
 export class CommercialPage {
-  private CommercialFrm: FormGroup;
-  private submitRequested:boolean;
-  
+
+  @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
+  private f: FormGroup;
+  private submitRequested: boolean;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
-    this.CommercialFrm = this.fb.group({
-      'name':[null, Validators.required],
-      'serviceType':[null, Validators.required],
-      'questionForAcademy':this.fb.group({
-        'preSchool':this.fb.group({
-          'hasItem':[null, Validators.required],
-          'itemCount':[null, Validators.required],
-        }),
-        'kindergarten':this.fb.group({
-          'hasItem':[null, Validators.required],
-          'itemCount':[null, Validators.required],
-        }),
-        'primarySchool':this.fb.group({
-          'hasItem':[null, Validators.required],
-          'itemCount':[null, Validators.required],
-        }),
-        'highschool':this.fb.group({
-          'hasItem':[null, Validators.required],
-          'itemCount':[null, Validators.required],
-        }),
-        'vocational':this.fb.group({
-          'hasItem':[null, Validators.required],
-          'itemCount':[null, Validators.required],
-        }),
-        'higherEducation':this.fb.group({
-          'hasItem':[null, Validators.required],
-          'itemCount':[null, Validators.required],
-        }),
-
-        'personnelCount':[null, Validators.required],
-
+    this.f = this.fb.group({
+      'name': [null, Validators.required],
+      'serviceType': [null, Validators.required],
+      'questionForAcademy': this.fb.group({
+        'preSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'kindergarten': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'primarySchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'highschool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'personnelCount': [null, Validators.required],
       }),
-      'hotelsAndResorts':this.fb.group({
-        'roomCount':[null, Validators.required],
-        'personnelCount':[null, Validators.required],
+      'hotelsAndResorts': this.fb.group({
+        'roomCount': [null, Validators.required],
+        'personnelCount': [null, Validators.required],
       }),
-      'hospital':this.fb.group({
-        'bedCount':[null, Validators.required],
-        'personnelCount':[null, Validators.required],
+      'hospital': this.fb.group({
+        'bedCount': [null, Validators.required],
+        'personnelCount': [null, Validators.required],
       }),
-      'building':this.fb.group({
-        'roomCount':[null, Validators.required],
-        'occupiedRoomCount':[null, Validators.required],
-        'personnelCount':[null, Validators.required],
+      'building': this.fb.group({
+        'roomCount': [null, Validators.required],
+        'occupiedRoomCount': [null, Validators.required],
+        'personnelCount': [null, Validators.required],
       }),
-      'religious':this.fb.group({
-        'peopleCount':[null, Validators.required],
+      'religious': this.fb.group({
+        'peopleCount': [null, Validators.required],
       }),
-      'otherBuilding':this.fb.group({
-        'personnelCount':[null, Validators.required],
+      'otherBuilding': this.fb.group({
+        'personnelCount': [null, Validators.required],
       }),
-      'waterSources':this.fb.group({
-        'plumbing':[null, Validators.required],
-        'underGround':[null, Validators.required],
-        'pool':[null, Validators.required],
-        'river':[null, Validators.required],
-        'irrigation':[null, Validators.required],
-        'rain':[null, Validators.required],
-        'buying':[null, Validators.required],
-        'rainingAsIs':[null, Validators.required],
-        'hasOther':[null, Validators.required],
-        'other':[null, Validators.required],
-        
-        
+      'waterSources': this.fb.group({
+        'plumbing': [null, Validators.required],
+        'underGround': [null, Validators.required],
+        'pool': [null, Validators.required],
+        'river': [null, Validators.required],
+        'irrigation': [null, Validators.required],
+        'rain': [null, Validators.required],
+        'buying': [null, Validators.required],
+        'rainingAsIs': [null, Validators.required],
+        'hasOther': [null, Validators.required],
+        'other': [null, Validators.required],
       }),
-
-
-        
     });
-
   }
 
   ionViewDidLoad() {
@@ -98,11 +75,11 @@ export class CommercialPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    
+    this.tableCheckItemCount.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.CommercialFrm.get(name);
+    var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }
