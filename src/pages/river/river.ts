@@ -2,6 +2,8 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
+import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
+import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 
 /**
  * Generated class for the RiverPage page.
@@ -21,31 +23,19 @@ export class RiverPage {
   f: FormGroup;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
+  @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
+  @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-        "hasPump": ['',Validators.required],
-        "pumpCount": ['',Validators.required],
-        "pumps":  this.fb.array([]),
-        "usageActivities": this.fb.group({
-          "drink": ['',Validators.required],
-          "plant": ['',Validators.required],
-          "farm": ['',Validators.required],
-          "agriculture": 0,
-          "product": 0,
-          "service": 0
-        }),
-        "qualityProblem": this.fb.group({
-          "hasProblem": ['',Validators.required],
-          "problem": this.fb.group({
-            "turbidWater": ['',Validators.required],
-            "saltWater": ['',Validators.required],
-            "smell": ['',Validators.required],
-            "filmOfOil": ['',Validators.required],
-            "fogWater": ['',Validators.required],
-            "hardWater": ['',Validators.required]
-          })
-        })
+      "hasPump": ['', Validators.required],
+      "pumpCount": ['', Validators.required],
+      "pumps": this.fb.array([]),
+      "usageActivities": WaterActivity6Component.CreateFormGroup(fb),
+      "qualityProblem": this.fb.group({
+        "hasProblem": ['', Validators.required],
+        "problem": WaterProblem4Component.CreateFormGroup(this.fb)
+      })
     });
 
     this.setupPumpCountChanges()
