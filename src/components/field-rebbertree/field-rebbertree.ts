@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
@@ -34,7 +34,7 @@ export class FieldRebbertreeComponent implements ISubmitRequestable {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': [''],
+      'irrigationField': ['', Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }

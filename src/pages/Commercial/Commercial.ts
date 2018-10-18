@@ -67,6 +67,7 @@ export class CommercialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
+    this.waterSources8B.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
