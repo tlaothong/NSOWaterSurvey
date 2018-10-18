@@ -38,14 +38,14 @@
       <div *ngSwitchCase="1">
         <ion-card>
           <ion-card-content>
-
+            
+            <div [class.invalid]="isValid('anycheck')">
             <ion-item>
               <ion-label>
                 เลี้ยงสัตว์ชนิดใดบ้าง
               </ion-label>
             </ion-item>
 
-            <div [class.invalid]="isValid('anycheck')">
               <ion-item>
                 <ion-label><b>ชนิดสัตว์น้ำ</b></ion-label>
               </ion-item>
