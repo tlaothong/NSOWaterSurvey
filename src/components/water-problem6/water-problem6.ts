@@ -1,3 +1,4 @@
+import { WaterActivity6Component } from './../water-activity6/water-activity6';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,9 +16,13 @@ export class WaterProblem6Component {
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterProblem6Component Component');
     this.text = '1';
-    this.FormItem = this.fb.group({
+    this.FormItem = WaterProblem6Component.CreateFormGroup(fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
       'hasQaulityProblem': [null, Validators.required],
-      'qualityProblems': this.fb.group({
+      'qualityProblems': fb.group({
         'turbidWater': [null, Validators.required],
         'saltWater': [null, Validators.required],
         'smell': [null, Validators.required],
