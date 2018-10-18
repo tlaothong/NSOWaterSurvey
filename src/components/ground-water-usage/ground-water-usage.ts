@@ -2,6 +2,8 @@ import { Component, Input, AfterViewInit, ViewChild, ViewChildren } from '@angul
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
+import { WaterActivity6Component } from '../water-activity6/water-activity6';
+import { WaterProblem6Component } from '../water-problem6/water-problem6';
 /**
  * Generated class for the GroundWaterUsageComponent component.
  *
@@ -18,6 +20,8 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   @Input() public FormItem: FormGroup;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
+  @ViewChildren(WaterActivity6Component) private waterActivity6t: WaterActivity6Component[];
+  @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
 
   private submitRequested: boolean;
 
@@ -40,23 +44,9 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],
       'pumps': fb.array([]),
-      'usageActivities': fb.group({
-        'drink': ['', Validators.required],
-        'plant': ['', Validators.required],
-        'farm': ['', Validators.required],
-        'agriculture': ['', Validators.required],
-        'product': ['', Validators.required],
-        'service': ['', Validators.required],
-      }),
+      'usageActivities': WaterActivity6Component.CreateFormGroup(fb),
       'hasQaulityProblem': ['', Validators.required],
-      'qualityProblems': fb.group({
-        'turbidWater': ['', Validators.required],
-        'saltWater': ['', Validators.required],
-        'smell': ['', Validators.required],
-        'filmOfOil': ['', Validators.required],
-        'fogWater': ['', Validators.required],
-        'hardWater': ['', Validators.required],
-      }),
+      'qualityProblems': WaterProblem6Component.CreateFormGroup(fb),
     });
 
     // this.FormItem = GroundWaterUsageComponent.CreateFormGroup(this.fb);
@@ -109,6 +99,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   submitRequest() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
+    this.waterProblem6.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
