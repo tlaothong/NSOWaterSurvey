@@ -1,6 +1,6 @@
 <ion-card>
   <ion-card-content>
-    <div [formGroup]="FormItem">
+    <div [formGroup]="FormItem" [class.invalid]="isValid('anycheck')">
       <ion-item>
         <ion-label>
           {{text}}
