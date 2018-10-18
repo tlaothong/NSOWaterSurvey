@@ -13,9 +13,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   
 })
 export class WaterActivity6Component {
-  static CreateFormGroup(fb: any): any {
-    throw new Error("Method not implemented.");
-  }
 
   @Input('headline') public text: string;
   @Input('headline2') public text2: string;
