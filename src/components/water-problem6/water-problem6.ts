@@ -16,22 +16,24 @@ export class WaterProblem6Component {
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterProblem6Component Component');
     this.text = '1';
-    this.FormItem = WaterProblem6Component.CreateFormGroup(fb);
+    this.FormItem = this.fb.group({
+      'hasProblem': [''],
+      'problem': WaterProblem6Component.CreateFormGroup(fb),
+    });
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'hasQaulityProblem': [null, Validators.required],
-      'qualityProblems': fb.group({
-        'turbidWater': [null, Validators.required],
-        'saltWater': [null, Validators.required],
-        'smell': [null, Validators.required],
-        'filmOfOil': [null, Validators.required],
-        'fogWater': [null, Validators.required],
-        'hardWater': [null, Validators.required],
-      }),
+      'turbidWater': [null, Validators.required],
+      'saltWater': [null, Validators.required],
+      'smell': [null, Validators.required],
+      'filmOfOil': [null, Validators.required],
+      'fogWater': [null, Validators.required],
+      'hardWater': [null, Validators.required],
     });
   }
+
+
 
   submitRequest() {
     this.submitRequested = true;

@@ -24,14 +24,16 @@ export class WaterProblem4Component {
     this.text = '1';
     this.FormItem = this.fb.group({
       'hasProblem': [''],
-      'problem': this.fb.group({
-        'turbidWater': [''],
-        'saltWater': [''],
-        'smell': [''],
-        'filmOfOil': [''],
-        'fogWater': [''],
-        'hardWater': [''],
-      }),
+      'problem': WaterProblem4Component.CreateFormGroup(this.fb)
+    });
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'saltWater': [''],
+      'smell': [''],
+      'filmOfOil': [''],
+      'fogWater': [''],
     });
   }
 
