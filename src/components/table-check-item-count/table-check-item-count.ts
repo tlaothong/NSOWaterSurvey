@@ -26,7 +26,11 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
     this.text = 'Hello World';
 
     // TODO: Remove this
-    this.FormItem = this.fb.group({
+    this.FormItem = TableCheckItemCountComponent.CreateFormGroup(this.fb)
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
       'hasItem': false,
       'itemCount': 0
     });
