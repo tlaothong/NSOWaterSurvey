@@ -1,6 +1,6 @@
 import { Component,ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
@@ -29,24 +29,26 @@ export class WaterAnimalPlantingPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
-      "isFish": [null, Validators.required],
+      "isFish": [false, Validators.required],
       "fish": FishFarmingComponent.CreateFormGroup(fb),
-      "isShrimp": [null, Validators.required],
+      "isShrimp": [false, Validators.required],
       "shrimp": FishFarmingComponent.CreateFormGroup(fb),
-      "isFrog": [null, Validators.required],
+      "isFrog": [false, Validators.required],
       "frog": FrogFarmingComponent.CreateFormGroup(fb),
-      "isCrocodile": [null, Validators.required],
+      "isCrocodile": [false, Validators.required],
       "crocodile": CrocodileFarmingComponent.CreateFormGroup(fb),
-      "isSnappingTurtle": [null, Validators.required],
+      "isSnappingTurtle": [false, Validators.required],
       "snappingTurtle": CrocodileFarmingComponent.CreateFormGroup(fb),
-      "isCrab": [null, Validators.required],
+      "isCrab": [false, Validators.required],
       "crab": FishFarmingComponent.CreateFormGroup(fb),
-      "isShellFish": [null, Validators.required],
+      "isShellFish": [false, Validators.required],
       "shellFish": FishFarmingComponent.CreateFormGroup(fb),
-      "isTurtle": [null, Validators.required],
+      "isTurtle": [false, Validators.required],
       "turtle": CrocodileFarmingComponent.CreateFormGroup(fb),
-      "isReddish": [null, Validators.required],
+      "isReddish": [false, Validators.required],
       "reddish": FishFarmingComponent.CreateFormGroup(fb),
+    }, {
+      validator: WaterAnimalPlantingPage.checkAnyOrOther()
     });
   }
 
@@ -64,6 +66,30 @@ export class WaterAnimalPlantingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'anycheck') {
+      ctrl = this.f;
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+    } 
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const isFish = c.get('isFish');
+      const isShrimp = c.get('isShrimp');
+      const isFrog = c.get('isFrog');
+      const isSnappingTurtle = c.get('isSnappingTurtle');
+      const isCrocodile = c.get('isCrocodile');
+      const isCrab = c.get('isCrab');
+      const isShellFish = c.get('isShellFish');
+      const isTurtle = c.get('isTurtle');
+      const isReddish = c.get('isReddish');
+
+      if (!isFish.value && !isShrimp.value && !isFrog.value && !isCrocodile.value && !isCrab.value
+        && !isShellFish.value && !isTurtle.value && !isReddish.value && !isSnappingTurtle.value) {
+        return { 'anycheck': true };
+      } 
+      return null;
+    }
   }
 }

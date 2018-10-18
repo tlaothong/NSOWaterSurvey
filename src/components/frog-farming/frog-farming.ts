@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 
 /**
@@ -18,7 +18,7 @@ export class FrogFarmingComponent {
   @Input('headline') text: string;
   private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
-  
+
   constructor(public fb: FormBuilder) {
     console.log('Hello FrogFarmingComponent Component');
     this.text = 'Hello World';
@@ -35,7 +35,9 @@ export class FrogFarmingComponent {
       'hasOther': [false, Validators.required],
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    });
+    }, {
+        validator: FrogFarmingComponent.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
@@ -45,7 +47,29 @@ export class FrogFarmingComponent {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'anycheck') {
+      ctrl = this.FormItem;
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+    } else if (name == 'other') {
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-    
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const depression = c.get('depression');
+      const stew = c.get('stew');
+      const other = c.get('other');
+      const hasOther = c.get('hasOther');
+
+
+      if (!depression.value && !stew.value) {
+        return { 'anycheck': true };
+      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+        return { 'other': true };
+      }
+      return null;
+    }
+  }
 }
