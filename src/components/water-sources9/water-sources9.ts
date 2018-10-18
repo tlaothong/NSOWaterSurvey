@@ -62,6 +62,8 @@ export class WaterSources9Component {
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
+  
+      const plumbing = c.get('plumbing');
       const underGround = c.get('underGround');
       const pool = c.get('pool');
       const river = c.get('river');
@@ -72,7 +74,7 @@ export class WaterSources9Component {
       const buying = c.get('buying');
       const rainingAsIs = c.get('rainingAsIs');
 
-      if (!underGround.value && !pool.value && !river.value && !hasOther.value && !irrigation.value
+      if (!plumbing.value && !underGround.value && !pool.value && !river.value && !hasOther.value && !irrigation.value
         && !rain.value && !buying.value && !rainingAsIs.value) {
         return { 'anycheck': true };
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {

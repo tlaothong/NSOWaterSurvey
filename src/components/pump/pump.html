@@ -92,7 +92,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-list radio-group formControlName="energySource" [class.invalid]="isValid('energySource')">
+    <ion-row radio-group formControlName="energySource" [class.invalid]="isValid('energySource')">
       <ion-item>
         <ion-label>
           ใช้ไฟฟ้า
@@ -117,13 +117,13 @@
         </ion-label>
         <ion-radio item-left></ion-radio>
       </ion-item>
-    </ion-list>
-    <ion-item *ngIf="isValid('energySource')">
-      <span class="invalid-msg">
-        กรุณาเลือก
-      </span>
-    </ion-item>
-
+      <ion-item *ngIf="isValid('energySource')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
+    </ion-row>
+      
     <ion-item>
       <ion-label>
         6) เครื่องสูบชนิดใด

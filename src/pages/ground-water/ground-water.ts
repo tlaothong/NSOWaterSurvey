@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
+import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 
 /**
  * Generated class for the GroundWaterPage page.
@@ -19,6 +20,7 @@ import { GroundWaterUsageComponent } from '../../components/ground-water-usage/g
 
 export class GroundWaterPage  {
 
+  @ViewChildren(GroundWaterUsagePublicComponent) private groundWaterUsagePublic :GroundWaterUsagePublicComponent[];
   @ViewChildren(GroundWaterUsageComponent) private groundWaterUsage: GroundWaterUsageComponent[];
   private submitRequested: boolean;
   public f: FormGroup;
@@ -48,6 +50,7 @@ export class GroundWaterPage  {
   public handleSubmit() {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
+    this.groundWaterUsagePublic.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
@@ -92,7 +95,7 @@ export class GroundWaterPage  {
     var onComponentCountChanges = () => {
       var usePerMonth = (this.f.get(componentFormArray) as FormArray).controls || [];
       var count = this.f.get(componentCount).value || 0;
-      var avg = this.fb.array([]);
+      var avgp = this.fb.array([]);
 
       count = Math.max(0, count);
 
@@ -102,12 +105,12 @@ export class GroundWaterPage  {
           const fld = usePerMonth[i];
           ctrl = fld;
         } else {
-          ctrl = GroundWaterUsageComponent.CreateFormGroup(this.fb);
+          ctrl = GroundWaterUsagePublicComponent.CreateFormGroup(this.fb);
         }
 
-        avg.push(ctrl);
+        avgp.push(ctrl);
       }
-      this.f.setControl(componentFormArray, avg);
+      this.f.setControl(componentFormArray, avgp);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());

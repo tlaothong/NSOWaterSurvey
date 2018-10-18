@@ -15,7 +15,7 @@
 
     <div>
 
-      <ion-row radio-group formControlName="usageType" [class.invalid]="isValid('usageType')">
+      <ion-row radio-group formControlName="unknow" [class.invalid]="isValid('unknow')">
         <ion-item col-6>
           <ion-radio value="1" item-left></ion-radio>
           <ion-label>
@@ -31,7 +31,7 @@
       </ion-row>
 
 
-      <div [ngSwitch]="FormItem.get('usageType').value">
+      <div [ngSwitch]="FormItem.get('unknow').value">
         <div *ngSwitchCase="1">
           <ion-item>
             <ion-label>
