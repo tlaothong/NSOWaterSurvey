@@ -31,11 +31,13 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'hasItem': [false,Validators.required],
-      'itemCount': [null,Validators.required]
-    }, {
-      validator: TableCheckItemCountComponent.checkAnyOrOther()
-    });
+      'hasItem': [false, Validators.required],
+      'itemCount': [null, Validators.required]
+    },
+      {
+        validator: TableCheckItemCountComponent.checkAnyOrOther()
+      }
+    );
   }
 
   public ngAfterViewInit() {
@@ -67,18 +69,18 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
     if (name == 'anycheck') {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
+    }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const hasItem = c.get('hasItem');
-     
+
 
       if (!hasItem.value) {
         return { 'anycheck': true };
-      } 
+      }
       return null;
     }
   }
