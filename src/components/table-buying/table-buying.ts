@@ -31,11 +31,11 @@ export class TableBuyingComponent {
 
   public static CreateFormGruop(fb: FormBuilder): FormGroup {
     return fb.group({
-      'size': [false, Validators.required],
-      'drink': [false, Validators.required],
-      'agriculture': [false, Validators.required],
-      'product': [false, Validators.required],
-      'service': [false, Validators.required],
+      'size': [ null, Validators.required],
+      'drink': [ null, Validators.required],
+      'agriculture': [ null, Validators.required],
+      'factory': [ null, Validators.required],
+      'service': [ null, Validators.required],
     });
 
   }
