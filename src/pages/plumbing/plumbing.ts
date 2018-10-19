@@ -27,23 +27,19 @@ export class PlumbingPage {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
-        'waterQuality': [null, Validators.required],
-        'problem': this.fb.group({
+        'qualityProblem': this.fb.group({
           'hasProblem': [null, Validators.required],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
         }),
         'plumbingUsage': this.fb.group({
           'waterQuantity': [null, Validators.required],
           'cubicMeterPerMonth': [null, Validators.required],
-          'waterBill': [null, Validators.required],
-          'unknowNoMeter': [false, Validators.required],
-          'unknowExcepted': [false, Validators.required]
+          'waterBill': [null, Validators.required]
         })
       }),
       'pwa': this.fb.group({
         'doing': [null, Validators.required],
-        'waterQuality': [null, Validators.required],
-        'problem': this.fb.group({
+        'qualityProblem': this.fb.group({
           'hasProblem': [null, Validators.required],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
         }),
@@ -51,14 +47,11 @@ export class PlumbingPage {
           'waterQuantity': [null, Validators.required],
           'cubicMeterPerMonth': [null, Validators.required],
           'waterBill': [null, Validators.required],
-          'unknowNoMeter': [false, Validators.required],
-          'unknowExcepted': [false, Validators.required]
         })
       }),
       'other': this.fb.group({
         'doing': [null, Validators.required],
-        'waterQuality': [null, Validators.required],
-        'problem': this.fb.group({
+        'qualityProblem': this.fb.group({
           'hasProblem': [null, Validators.required],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
         }),
@@ -66,13 +59,12 @@ export class PlumbingPage {
           'waterQuantity': [null, Validators.required],
           'cubicMeterPerMonth': [null, Validators.required],
           'waterBill': [null, Validators.required],
-          'unknowNoMeter': [false, Validators.required],
-          'unknowExcepted': [false, Validators.required]
         })
       }),
-      'waterActivityMWAPWA': WaterActivity5Component.CreateFormGroup(this.fb),
+      'waterActivityMWA': WaterActivity5Component.CreateFormGroup(this.fb),
+      'waterActivityPWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
-      'waterNotRunning': [null, Validators.required],
+      'hasWaterNotRunning': [null, Validators.required],
       'waterNotRunningCount': [null, Validators.required]
     });
 
