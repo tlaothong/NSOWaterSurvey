@@ -26,8 +26,8 @@ export class PlumbingPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
-        'doing': [false, Validators.required],
-        'waterQuality': [false, Validators.required],
+        'doing': [null, Validators.required],
+        'waterQuality': [null, Validators.required],
         'problem': this.fb.group({
           'hasProblem': [''],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
@@ -41,8 +41,8 @@ export class PlumbingPage {
         })
       }),
       'pwa': this.fb.group({
-        'doing': [false, Validators.required],
-        'waterQuality': [false, Validators.required],
+        'doing': [null, Validators.required],
+        'waterQuality': [null, Validators.required],
         'problem': this.fb.group({
           'hasProblem': [''],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
@@ -56,8 +56,8 @@ export class PlumbingPage {
         })
       }),
       'other': this.fb.group({
-        'doing': [false, Validators.required],
-        'waterQuality': [false, Validators.required],
+        'doing': [null, Validators.required],
+        'waterQuality': [null, Validators.required],
         'problem': this.fb.group({
           'hasProblem': [''],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
@@ -72,7 +72,7 @@ export class PlumbingPage {
       }),
       'waterActivityMWAPWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
-      'waterNotRunning': [false, Validators.required],
+      'waterNotRunning': [null, Validators.required],
       'waterNotRunningCount': [null, Validators.required]
     });
 
@@ -85,6 +85,8 @@ export class PlumbingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.waterProblem6.forEach(it => it.submitRequest());
+    this.waterActivity5.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
