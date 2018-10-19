@@ -48,13 +48,13 @@
       </ion-item>
     </ion-row>
 
-    <div [class.invalid]="isValid('nameDryCrop')" >
+    <div  [class.invalid]="isValid('plantings')" >
       <ion-item>
         <ion-label>
           4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด<br>(ระบุได้ไม่เกิน 5 ชนิด)
         </ion-label>
       </ion-item>
-      <ion-item *ngIf="isValid('nameDryCrop')">
+      <ion-item *ngIf="isValid('plantings')">
           <span class="invalid-msg">
             กรุณาเลือก
           </span>
