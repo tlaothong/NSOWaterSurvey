@@ -27,12 +27,12 @@ export class PoolPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
-      'isExist': [null, Validators.required],
+      'doing': [null, Validators.required],
       'poolCount': [null, Validators.required],
-      'poolEqual': [null, Validators.required],
+      'hasSameSize': [null, Validators.required],
       'poolSizes': this.fb.array([]),
-      'poolCountUsage': [null, Validators.required],
-      'poolUsage': this.fb.array([]),
+      'waterResourceCount': [null, Validators.required],
+      'waterResources': this.fb.array([]),
     });
 
     this.setupPoolCountChanges();
@@ -85,8 +85,8 @@ export class PoolPage {
   }
 
   private setupPoolCountUsageChanges() {
-    const componentFormArray: string = "poolUsage";
-    const componentCount: string = "poolCountUsage";
+    const componentFormArray: string = "waterResources";
+    const componentCount: string = "waterResourceCount";
 
     var onComponentCountChanges = () => {
       var poolUsage = (this.f.get(componentFormArray) as FormArray).controls || [];

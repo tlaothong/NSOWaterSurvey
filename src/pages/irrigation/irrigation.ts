@@ -29,13 +29,13 @@ export class IrrigationPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
+      'hasCubicMeterPerMonth': ['', Validators.required],
       'cubicMeterPerMonth': ['', Validators.required],
-      'unknowPoolUsage': ['', Validators.required],
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],
-      "pump":  this.fb.array([]),
-      'waterActivity': WaterActivity6Component.CreateFormGroup(fb),
-      'waterProblem': fb.group({
+      "pumps":  this.fb.array([]),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
+      'qualityProblem': fb.group({
         "hasProblem": ['', Validators.required],
         "problem": WaterProblem4Component.CreateFormGroup(fb)
       })
@@ -61,7 +61,7 @@ export class IrrigationPage {
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pump";
+    const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {

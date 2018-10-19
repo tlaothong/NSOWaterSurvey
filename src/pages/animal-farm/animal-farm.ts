@@ -36,6 +36,7 @@ export class AnimalFarmPage {
       'goose':TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'otherName': [null, Validators.required],
       'waterSources' : WaterSources9Component.CreateFormGroup(this.fb)
     });
 
