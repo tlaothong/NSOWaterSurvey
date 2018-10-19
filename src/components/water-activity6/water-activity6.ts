@@ -10,10 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'water-activity6',
   templateUrl: 'water-activity6.html'
-  
+
 })
 export class WaterActivity6Component {
-
+  private submitRequested: boolean;
   @Input('headline') public text: string;
   @Input('headline2') public text2: string;
   @Input() public FormItem: FormGroup;
@@ -23,6 +23,16 @@ export class WaterActivity6Component {
     this.text = 'Hello World';
     this.FormItem = WaterActivity6Component.CreateFormGroup(fb);
   }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
+  
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'drink': ['', Validators.required],
