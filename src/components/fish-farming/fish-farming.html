@@ -65,7 +65,10 @@
         </ion-item>
 
         <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
-
+          
+          <ion-item *ngIf="isValid('fieldsAreSameSize')">
+            <span class="invalid-msg">กรุณากรอกจำนวน</span>
+          </ion-item>
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
             <ion-label>เท่ากัน</ion-label>
@@ -73,9 +76,6 @@
           <ion-item col-6>
             <ion-radio value="2" item-left></ion-radio>
             <ion-label>ไม่เท่ากัน</ion-label>
-          </ion-item>
-          <ion-item *ngIf="isValid('fieldsAreSameSize')">
-            <span class="invalid-msg">กรุณากรอกจำนวน</span>
           </ion-item>
         </ion-row>
       </div>
