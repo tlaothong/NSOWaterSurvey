@@ -69,8 +69,8 @@
       </ion-label>
     </ion-item>
 
-    <ion-row radio-group formControlName="knowPumpRate" [class.invalid]="isValid('knowPumpRate')">
-      <ion-item *ngIf="isValid('knowPumpRate')">
+    <ion-row radio-group formControlName="hasPumpRate" [class.invalid]="isValid('hasPumpRate')">
+      <ion-item *ngIf="isValid('hasPumpRate')">
         <span class="invalid-msg">
           กรุณาเลือก
         </span>
@@ -93,7 +93,7 @@
       </ion-col>
     </ion-row>
 
-    <div [ngSwitch]="FormItem.get('knowPumpRate').value">
+    <div [ngSwitch]="FormItem.get('hasPumpRate').value">
       <div *ngSwitchCase="1">
         <ion-item>
           <ion-input tyep="number" placeholder="อัตราการสูบน้ำ (ลบ.ม./ชม.)" formControlName="pumpRate" [class.invalid]="isValid('pumpRate')"></ion-input>
