@@ -35,7 +35,7 @@ export class TableBuyingOtherComponent {
       'size': [null, Validators.required],
       'drink': [null, Validators.required],
       'agriculture': [null, Validators.required],
-      'product': [null, Validators.required],
+      'factory': [null, Validators.required],
       'service': [null, Validators.required],
     });
   }

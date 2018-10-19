@@ -38,4 +38,9 @@ export class DlgTableBuyingPage {
     console.log('ionViewDidLoad DlgTableBuyingPage');
   }
 
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched);
+  }
+
 }

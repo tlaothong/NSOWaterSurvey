@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="FormItem">
+  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
 
     <ion-item>
       <ion-label col-6>ขนาดบรรจุภัณฑ์ ( {{ size }} )</ion-label>
@@ -28,19 +28,24 @@
       </ion-item>
       <ion-item>
         <ion-label col-6>เพื่ออุปโภค บริโภค</ion-label>
-        <ion-input type="number" formControlName="countDrink"></ion-input>
+        <ion-input type="number" formControlName="drink" [class.invalid]="isValid('drink')"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('drink')">
+        <span class="invalid-msg">
+          ใส่ Drink โหน่ย
+        </span>
       </ion-item>
       <ion-item>
         <ion-label col-6>เพื่อทำการเกษตร</ion-label>
-        <ion-input type="number" formControlName="countPlant"></ion-input>
+        <ion-input type="number" formControlName="agriculture"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label col-6>เพื่อผลิตสินค้า</ion-label>
-        <ion-input type="number" formControlName="countProduct"></ion-input>
+        <ion-input type="number" formControlName="factory"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label col-6>เพื่อการบริการ</ion-label>
-        <ion-input type="number" formControlName="countFarm"></ion-input>
+        <ion-input type="number" formControlName="service"></ion-input>
       </ion-item>
     </ion-list>
 
@@ -48,10 +53,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block color="light" (click)="closeDialog()">Cancel</button>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block (click)="okDialog()">OK</button>
+          <button ion-button block [disabled]="FormItem.invalid">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>
