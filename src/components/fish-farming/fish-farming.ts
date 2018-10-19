@@ -18,6 +18,7 @@ export class FishFarmingComponent implements AfterViewInit {
 
   @Input() public FormItem: FormGroup;
   @Input('headline') text: string;
+  @Input('type') type: string;
   private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
@@ -26,6 +27,7 @@ export class FishFarmingComponent implements AfterViewInit {
   constructor(public fb: FormBuilder) {
     console.log('Hello FishFarmingComponent Component');
     this.text = 'Hello World';
+    this.type = 'กก.';
 
     this.FormItem = FishFarmingComponent.CreateFormGroup(fb);
 
