@@ -13,12 +13,14 @@
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
     <ion-list>
-      <ion-item>
-        <ion-checkbox formControlName="hasItem"></ion-checkbox>
-        <ion-label>
-          มีหรือไม่
-        </ion-label>
-      </ion-item>
+      <div [class.invalid]="isValid('anycheck')">
+        <ion-item>
+          <ion-checkbox formControlName="hasItem" ></ion-checkbox>
+          <ion-label>
+            มีหรือไม่
+          </ion-label>
+        </ion-item>
+      </div>
       <ion-item *ngIf="unit == 'เท่าไร'">
         <ion-label>
           หากมี มีจำนวน{{ unit }}
@@ -34,7 +36,7 @@
       </ion-item>
       <ion-item *ngIf="isValid('itemCount')">
         <span class="invalid-msg">
-          กรุณากรอก
+          กรุณาเลือก
         </span>
       </ion-item>
     </ion-list>
@@ -42,13 +44,15 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block color="light" type="button" (click)="closeDialog()">Cancel</button>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
           <button ion-button block [disabled]="FormItem.invalid">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>
+
   </form>
+
 
 </ion-content>
