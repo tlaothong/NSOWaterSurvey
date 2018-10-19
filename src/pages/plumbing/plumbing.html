@@ -40,13 +40,18 @@
 
               <water-problem6 headline="1.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('mwa.problem')"></water-problem6>
 
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
               <ion-item>
                 <ion-label>
                   1.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-                <ion-list radio-group formControlName="waterQuantity">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
+                <ion-row radio-group formControlName="waterQuantity">
+                  <ion-item *ngIf="isValid('mwa.plumbingUsage')">
+                    <span class="invalid-msg">
+                      กรุณาเลือก
+                    </span>
+                  </ion-item>
                   <ion-item>
                     <ion-label>
                       ทราบปริมาณน้ำ
@@ -74,7 +79,7 @@
                     <ion-radio value="4" item-start></ion-radio>
                   </ion-item>
 
-                </ion-list>
+                </ion-row>
 
                 <div [ngSwitch]="f.get('mwa.plumbingUsage.waterQuantity').value">
 
@@ -111,11 +116,7 @@
                     </ion-item>
                   </div>
                 </div>
-                <ion-item *ngIf="isValid('mwa.plumbingUsage')">
-                  <span class="invalid-msg">
-                    กรุณาเลือก
-                  </span>
-                </ion-item>
+
               </div>
             </div>
           </div>
@@ -154,14 +155,19 @@
             <div *ngSwitchCase="1">
 
               <water-problem6 headline="2.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('pwa.problem')"></water-problem6>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('pwa.plumbingUsage')">
 
-                <ion-item>
-                  <ion-label>
-                    2.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
-                  </ion-label>
-                </ion-item>
-                <ion-list radio-group formControlName="waterQuantity">
+              <ion-item>
+                <ion-label>
+                  2.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
+                </ion-label>
+              </ion-item>
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('pwa.plumbingUsage')">
+                <ion-row radio-group formControlName="waterQuantity">
+                  <ion-item *ngIf="isValid('pwa.plumbingUsage')">
+                    <span class="invalid-msg">
+                      กรุณาเลือก
+                    </span>
+                  </ion-item>
                   <ion-item>
                     <ion-label>
                       ทราบปริมาณน้ำ
@@ -189,7 +195,7 @@
                     <ion-radio value="4" item-start></ion-radio>
                   </ion-item>
 
-                </ion-list>
+                </ion-row>
 
                 <div [ngSwitch]="f.get('pwa.plumbingUsage.waterQuantity').value">
 
@@ -226,11 +232,7 @@
                     </ion-item>
                   </div>
                 </div>
-                <ion-item *ngIf="isValid('pwa.plumbingUsage')">
-                  <span class="invalid-msg">
-                    กรุณาเลือก
-                  </span>
-                </ion-item>
+
               </div>
             </div>
           </div>
@@ -270,13 +272,18 @@
 
               <water-problem6 headline="3.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('other.problem')"></water-problem6>
 
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
               <ion-item>
                 <ion-label>
                   3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-                <ion-list radio-group formControlName="waterQuantity">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
+                <ion-row radio-group formControlName="waterQuantity">
+                  <ion-item *ngIf="isValid('other.plumbingUsage')">
+                    <span class="invalid-msg">
+                      กรุณาเลือก
+                    </span>
+                  </ion-item>
                   <ion-item>
                     <ion-label>
                       ทราบปริมาณน้ำ
@@ -304,7 +311,7 @@
                     <ion-radio value="4" item-start></ion-radio>
                   </ion-item>
 
-                </ion-list>
+                </ion-row>
 
                 <div [ngSwitch]="f.get('other.plumbingUsage.waterQuantity').value">
 
@@ -341,11 +348,7 @@
                     </ion-item>
                   </div>
                 </div>
-                <ion-item *ngIf="isValid('other.plumbingUsage')">
-                    <span class="invalid-msg">
-                      กรุณาเลือก
-                    </span>
-                  </ion-item>
+
               </div>
             </div>
           </div>

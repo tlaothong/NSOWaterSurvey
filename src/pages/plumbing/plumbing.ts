@@ -29,7 +29,7 @@ export class PlumbingPage {
         'doing': [null, Validators.required],
         'waterQuality': [null, Validators.required],
         'problem': this.fb.group({
-          'hasProblem': [''],
+          'hasProblem': [null, Validators.required],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
         }),
         'plumbingUsage': this.fb.group({
@@ -44,7 +44,7 @@ export class PlumbingPage {
         'doing': [null, Validators.required],
         'waterQuality': [null, Validators.required],
         'problem': this.fb.group({
-          'hasProblem': [''],
+          'hasProblem': [null, Validators.required],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
         }),
         'plumbingUsage': this.fb.group({
@@ -59,7 +59,7 @@ export class PlumbingPage {
         'doing': [null, Validators.required],
         'waterQuality': [null, Validators.required],
         'problem': this.fb.group({
-          'hasProblem': [''],
+          'hasProblem': [null, Validators.required],
           'problem': WaterProblem6Component.CreateFormGroup(fb),
         }),
         'plumbingUsage': this.fb.group({
