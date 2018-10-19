@@ -24,7 +24,13 @@ export class BuyingPage {
   BuyingForm: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.BuyingForm = this.fb.group({
-      'package':TableBuyingOtherComponent.CreateFormGroup(this.fb)
+      'package': this.fb.array([
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingOtherComponent.CreateFormGroup(this.fb),
+      ]),
     });
   }
 
