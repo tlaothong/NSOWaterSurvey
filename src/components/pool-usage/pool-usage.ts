@@ -44,13 +44,13 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      'hasCubicMeterPerMonth': [null, Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
-      'unknowPoolUsage': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
-      'pump': fb.array([]),
+      'pumps': fb.array([]),
       'waterActivity': WaterActivity6Component.CreateFormGroup(fb),
-      'waterProblem': fb.group({
+      'qualityProblem': fb.group({
         "hasProblem": ['', Validators.required],
         "problem": WaterProblem4Component.CreateFormGroup(fb)
       })
@@ -70,7 +70,7 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pump";
+    const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {

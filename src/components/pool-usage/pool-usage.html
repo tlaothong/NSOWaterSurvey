@@ -13,8 +13,8 @@
         </ion-label>
       </ion-item>
 
-      <ion-row radio-group formControlName="unknowPoolUsage" [class.invalid]="isValid('unknowPoolUsage')">
-        <ion-item *ngIf="isValid('unknowPoolUsage')">
+      <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')">
+        <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
           <span class="invalid-msg">
             กรุณาเลือก
           </span>
@@ -35,7 +35,7 @@
       </ion-row>
 
 
-      <div [ngSwitch]="FormItem.get('unknowPoolUsage').value">
+      <div [ngSwitch]="FormItem.get('hasCubicMeterPerMonth').value">
         <div *ngSwitchCase="1">
           <ion-item>
             <ion-label>
@@ -105,7 +105,7 @@
 
 
   <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value > 0">
-    <div *ngFor="let p of FormItem.get('pump').controls; let i = index">
+    <div *ngFor="let p of FormItem.get('pumps').controls; let i = index">
       <pump [no]="i + 1" [FormItem]="p"></pump>
     </div>
   </div>
@@ -113,7 +113,7 @@
   <ion-card>
     <ion-card-content>
       <water-activity6 headline="5) ใช้น้ำจากสระนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร" [FormItem]="FormItem.get('waterActivity')"></water-activity6>
-      <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่" [FormItem]="FormItem.get('waterProblem')"></water-problem4>
+      <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่" [FormItem]="FormItem.get('qualityProblem')"></water-problem4>
     </ion-card-content>
   </ion-card>
 

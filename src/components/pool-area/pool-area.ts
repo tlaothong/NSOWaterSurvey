@@ -37,10 +37,10 @@ export class PoolAreaComponent implements ISubmitRequestable {
       'shape': [null, Validators.required],
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'depth': [null, Validators.required],
-      // 'rectangle': fb.group({
-      'width': [null, Validators.required],
-      'length': [null, Validators.required],
-      // }),
+      'rectangle': fb.group({
+        'width': [null, Validators.required],
+        'length': [null, Validators.required],
+      }),
       'diameter': [null, Validators.required]
     });
   }
