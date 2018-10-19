@@ -117,7 +117,7 @@
         </ion-card>
 
         <div *ngIf="f.get('isFish').value">
-          <fish-farming headline="1. ปลา" [FormItem]="f.get('fish')"></fish-farming>
+          <fish-farming headline="1. ปลา" type="ตัว" [FormItem]="f.get('fish')"></fish-farming>
         </div>
         <div *ngIf="f.get('isShrimp').value">
           <fish-farming headline="2. กุ้ง" [FormItem]="f.get('shrimp')"></fish-farming>
