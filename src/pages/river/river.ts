@@ -66,7 +66,7 @@ export class RiverPage {
     var onComponentCountChanges = () => {
       var pump = (this.f.get(componentFormArray) as FormArray).controls || [];
       var pumpCount = this.f.get(componentCount).value || 0;
-      var pump = this.fb.array([]);
+      var p = this.fb.array([]);
 
       pumpCount = Math.max(0, pumpCount);
 
@@ -79,9 +79,9 @@ export class RiverPage {
           ctrl = PumpComponent.CreateFormGroup(this.fb);
         }
 
-        pump.push(ctrl);
+        p.push(ctrl);
       }
-      this.f.setControl(componentFormArray, pump);
+      this.f.setControl(componentFormArray, p);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
