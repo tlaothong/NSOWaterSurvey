@@ -27,11 +27,11 @@ export class PoolPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
-      'doing': [null, Validators.required],
+      'isExist': [null, Validators.required],
       'poolCount': [null, Validators.required],
-      'hasSameSize': [null, Validators.required],
+      'poolEqual': [null, Validators.required],
       'poolSizes': this.fb.array([]),
-      'waterResourceCount': [null, Validators.required],
+      'poolCountUsage': [null, Validators.required],
       'poolUsage': this.fb.array([]),
     });
 

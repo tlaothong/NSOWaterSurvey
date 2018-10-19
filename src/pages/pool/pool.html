@@ -38,7 +38,7 @@
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="f.get('doing').value">
+        <div [ngSwitch]="f.get('isExist').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -71,7 +71,7 @@
                   ไม่เท่า
                 </ion-label>
               </ion-item>
-              <ion-item *ngIf="isValid('hasSameSize')">
+              <ion-item *ngIf="isValid('poolEqual')">
                 <span class="invalid-msg">
                   กรุณาเลือก
                 </span>
@@ -83,7 +83,7 @@
       </ion-card-content>
     </ion-card>
 
-    <div [ngSwitch]="f.get('doing').value">
+    <div [ngSwitch]="f.get('isExist').value">
       <div *ngSwitchCase="1">
          
         <div [ngSwitch]="f.get('poolEqual').value">
@@ -92,7 +92,7 @@
             <pool-area headline="ขนาดสระน้ำ"></pool-area>
           </div>
           <!-- ไม่เท่ากัน -->
-          <div *ngIf="f.get('hasSameSize').value == 2 && f.get('poolCount').value > 0">
+          <div *ngIf="f.get('poolEqual').value == 2 && f.get('poolCount').value > 0">
             <div *ngFor="let pool of f.get('poolSizes').controls; let i = index">
               <pool-area headline="สระที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
             </div>
@@ -109,7 +109,7 @@
             <ion-item>
               <ion-input type="number" placeholder="กรอกจำนวนสระ" formControlName="poolCountUsage" [class.invalid]="isValid('poolCountUsage')"></ion-input>
             </ion-item>
-            <ion-item *ngIf="isValid('waterResourceCount')">
+            <ion-item *ngIf="isValid('poolCountUsage')">
               <span class="invalid-msg">
                 กรุณากรอกจำนวน
               </span>
@@ -117,7 +117,7 @@
           </ion-card-content>
         </ion-card>
 
-        <div *ngIf="f.get('doing').value == 1 && f.get('waterResourceCount').value > 0">
+        <div *ngIf="f.get('isExist').value == 1 && f.get('poolCountUsage').value > 0">
           <div *ngFor="let pool of f.get('poolUsage').controls; let i = index">
             <pool-usage [no]="i + 1" [FormItem]="pool"></pool-usage>
           </div>
