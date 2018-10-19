@@ -21,6 +21,7 @@ export class WaterActivity5Component {
     this.text = 'Hello World';
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
   }
+  
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
