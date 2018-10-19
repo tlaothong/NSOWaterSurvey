@@ -117,7 +117,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
     var onComponentCountChanges = () => {
       var pump = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
       var pumpCount = this.FormItem.get(componentCount).value || 0;
-      var pump = this.fb.array([]);
+      var p = this.fb.array([]);
 
       pumpCount = Math.max(0, pumpCount);
 
@@ -130,9 +130,9 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
           ctrl = PumpComponent.CreateFormGroup(this.fb);
         }
 
-        pump.push(ctrl);
+        p.push(ctrl);
       }
-      this.FormItem.setControl(componentFormArray, pump);
+      this.FormItem.setControl(componentFormArray, p);
     };
 
     this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
