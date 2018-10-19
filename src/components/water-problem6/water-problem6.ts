@@ -17,7 +17,7 @@ export class WaterProblem6Component {
     console.log('Hello WaterProblem6Component Component');
     this.text = '1';
     this.FormItem = this.fb.group({
-      'hasProblem': [''],
+      'hasProblem': ['',Validators.required],
       'problem': WaterProblem6Component.CreateFormGroup(fb),
     });
   }
@@ -74,5 +74,7 @@ export class WaterProblem6Component {
       return null;
     }
   }
+
+  
 
 }

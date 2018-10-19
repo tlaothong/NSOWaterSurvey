@@ -20,7 +20,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   @Input() public FormItem: FormGroup;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
-  @ViewChildren(WaterActivity6Component) private waterActivity6t: WaterActivity6Component[];
+  @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
 
   private submitRequested: boolean;
@@ -103,6 +103,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
     this.waterProblem6.forEach(it => it.submitRequest());
+    this.waterActivity6.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
