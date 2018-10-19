@@ -4,40 +4,44 @@
 
 </ion-header>
 <ion-content padding>
-    <form [formGroup]="RainFrm" (ngSubmit)="handleSubmit()">
+  <form [formGroup]="RainFrm" (ngSubmit)="handleSubmit()">
 
-  <h3>5.6 การกักเก็บน้ำฝน</h3>
-  <ion-card>
-    <ion-card-content>
+    <h3>5.6 การกักเก็บน้ำฝน</h3>
+    <ion-card>
+      <ion-card-content>
 
-      <ion-item>
-        <ion-label>
-          5.6.1 ภาชนะที่จัดเก็บน้ำฝนเป็นประเภทใดบ้าง ขนาดบรรจุเท่าใด<br> และมีจำนวนเท่าใร
-        </ion-label>
-      </ion-item>
+        <ion-item>
+          <ion-label>
+            5.6.1 ภาชนะที่จัดเก็บน้ำฝนเป็นประเภทใดบ้าง ขนาดบรรจุเท่าใด<br> และมีจำนวนเท่าใร
+          </ion-label>
+        </ion-item>
 
-      <ion-row>
-        <ion-col col-6>
-          <button ion-button block>
-            เพิ่มภาชนะ
-          </button>
-        </ion-col>
-        <ion-col col-6>
-          <button ion-button block>
-            ลบภาชนะ
-          </button>
-        </ion-col>
-      </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block>
+              เพิ่มภาชนะ
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block>
+              ลบภาชนะ
+            </button>
+          </ion-col>
+        </ion-row>
 
-      <rain-storage headline="1." [FormItem]="RainFrm.get('packageWater')"></rain-storage>
+        <rain-storage headline="1." [FormItem]="RainFrm.get('packageWater')"></rain-storage>
 
-    </ion-card-content>
-  </ion-card>
-  <h4>5.6.2 น้ำฝนที่กักเก็บไว้นั้นใช้ในกิจกรรมใดบ้าง คิดเป็นสัดส่วนเท่าไร </h4>
+      </ion-card-content>
+    </ion-card>
+    <h4>5.6.2 น้ำฝนที่กักเก็บไว้นั้นใช้ในกิจกรรมใดบ้าง คิดเป็นสัดส่วนเท่าไร </h4>
 
-  <water-activity5 headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)" [FormItem]="RainFrm.get('waterSources')"></water-activity5>
+    <ion-card>
+      <ion-card-content>
+        <water-activity5 headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)" [FormItem]="RainFrm.get('waterSources')"></water-activity5>
+      </ion-card-content>
+    </ion-card>
 
-  <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar></form-buttons-bar>
 
-</form>
+  </form>
 </ion-content>
