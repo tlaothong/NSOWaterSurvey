@@ -37,5 +37,9 @@ export class DlgTableCheckItemCountPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgTableCheckItemCountPage');
   }
-
+  
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched);
+  }
 }
