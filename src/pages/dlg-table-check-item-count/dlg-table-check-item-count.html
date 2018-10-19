@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -31,7 +30,12 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" formControlName="itemCount"></ion-input>
+        <ion-input type="number" formControlName="itemCount" [class.invalid]="isValid('itemCount')"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('itemCount')">
+        <span class="invalid-msg">
+          กรุณากรอก
+        </span>
       </ion-item>
     </ion-list>
 
@@ -41,7 +45,7 @@
           <button ion-button block color="light" type="button" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block>OK</button>
+          <button ion-button block [disabled]="FormItem.invalid">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>

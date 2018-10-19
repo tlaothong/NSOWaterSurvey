@@ -31,7 +31,7 @@ export class RiverPage {
       "hasPump": ['', Validators.required],
       "pumpCount": ['', Validators.required],
       "pump": this.fb.array([]),
-      "usageActivities": WaterActivity6Component.CreateFormGroup(fb),
+      "waterActivities": WaterActivity6Component.CreateFormGroup(fb),
       "qualityProblem": this.fb.group({
         "hasProblem": ['', Validators.required],
         "problem": WaterProblem4Component.CreateFormGroup(this.fb)

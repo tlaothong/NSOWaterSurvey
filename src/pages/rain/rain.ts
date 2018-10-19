@@ -27,8 +27,8 @@ export class RainPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.RainFrm = this.fb.group({
-      'packageWater': RainStorageComponent.CreateFormGroup(fb),
-      'waterSources': WaterActivity6Component.CreateFormGroup(fb),
+      'rainContainers': RainStorageComponent.CreateFormGroup(fb),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
     });
   }
 
