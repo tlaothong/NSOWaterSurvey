@@ -32,7 +32,7 @@ export class CommercialPage {
         'preSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'kindergarten': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'primarySchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        'highschool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'highSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'personnelCount': [null, Validators.required],

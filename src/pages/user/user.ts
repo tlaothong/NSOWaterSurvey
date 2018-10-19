@@ -19,15 +19,9 @@ export class UserPage {
   private submitRequested: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.userInfo = this.fb.group({
-      
-        "name": ['',Validators.required],
-        "category": this.fb.group({
-          "string": ['',Validators.required]
-        }),
-        "serviceType": this.fb.group({
-          "string": ['',Validators.required]
-        })
-      
+        "informer": ['',Validators.required],
+        "factorialCategoryCode": ['',Validators.required],
+        "serviceTypeCode": ['',Validators.required] 
     });
   }
 

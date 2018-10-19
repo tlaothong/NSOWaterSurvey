@@ -38,10 +38,11 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [null, Validators.required],
-      'nameFlowerCrop':  [null, Validators.required],
-      'plantings':  [null, Validators.required],
+      'plantings': fb.array([]),
+      'otherPlantings': fb.array([]),
       'thisPlantOnly':  [null, Validators.required],
-      'waterSource': WaterSources9Component.CreateFormGroup(fb)
+      'mixedWithPrimaryPlantCode':  [null, Validators.required],
+      'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
 

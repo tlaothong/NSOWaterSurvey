@@ -47,16 +47,16 @@ export class MushroomPage {
 
   private setupPlantingCountChanges() {
     const componentFormArray: string = "fields";
-    const componentCount: string = "houseNumber";
+    const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {
       var fields = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var houseNumber = this.f.get(componentCount).value || 0;
+      var fieldCount = this.f.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
-      houseNumber = Math.max(1, houseNumber);
+      fieldCount = Math.max(1, fieldCount);
 
-      for (let i = 0; i < houseNumber; i++) {
+      for (let i = 0; i < fieldCount; i++) {
         var ctrl = null;
         if (i < fields.length) {
           const fld = fields[i];
