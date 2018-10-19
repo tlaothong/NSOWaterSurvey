@@ -31,11 +31,6 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-<<<<<<< HEAD
-      'hasItem': [false,Validators.required],
-      'itemCount': [null,Validators.required]
-    });
-=======
       'hasItem': [false, Validators.required],
       'itemCount': [null, Validators.required]
     },
@@ -43,7 +38,6 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
         validator: TableCheckItemCountComponent.checkAnyOrOther()
       }
     );
->>>>>>> diamond
   }
 
   public ngAfterViewInit() {
