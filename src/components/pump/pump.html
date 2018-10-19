@@ -39,7 +39,12 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)"></ion-input>
+      <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)" formControlName="hoursPerPump" [class.invalid]="isValid('hoursPerPump')"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="isValid('hoursPerPump')">
+      <span class="invalid-msg">
+        กรุณากรอก
+      </span>
     </ion-item>
 
     <!-- 3) ในระยะเวลา 1 ปีสูบน้ำกี่ครั้ง -->
@@ -49,7 +54,12 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="number" placeholder="จำนวนครั้ง"></ion-input>
+      <ion-input type="number" placeholder="จำนวนครั้ง" formControlName="numberOfPumpsPerYear" [class.invalid]="isValid('numberOfPumpsPerYear')"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="isValid('numberOfPumpsPerYear')">
+      <span class="invalid-msg">
+        กรุณากรอก
+      </span>
     </ion-item>
 
     <!-- 4) มีอัตราการสูบเท่าไร -->
@@ -60,6 +70,11 @@
     </ion-item>
 
     <ion-row radio-group formControlName="pumpRate" [class.invalid]="isValid('pumpRate')">
+      <ion-item *ngIf="isValid('pumpRate')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
       <ion-col col-6>
         <ion-item>
           <ion-label>
@@ -93,6 +108,11 @@
     </ion-item>
 
     <ion-row radio-group formControlName="energySource" [class.invalid]="isValid('energySource')">
+      <ion-item *ngIf="isValid('energySource')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
       <ion-item>
         <ion-label>
           ใช้ไฟฟ้า
@@ -117,13 +137,9 @@
         </ion-label>
         <ion-radio value="4" item-left></ion-radio>
       </ion-item>
-      <ion-item *ngIf="isValid('energySource')">
-        <span class="invalid-msg">
-          กรุณาเลือก
-        </span>
-      </ion-item>
+
     </ion-row>
-      
+
     <ion-item>
       <ion-label>
         6) เครื่องสูบชนิดใด
