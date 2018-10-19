@@ -38,7 +38,7 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
 
   ngAfterViewInit(): void {
     this.setupPumpCountChanges()
-    this.pump.forEach(it => it.submitRequest());
+    
   }
 
 
@@ -61,6 +61,7 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.waterActivity6.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
