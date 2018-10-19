@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { RainStorageComponent } from '../../components/rain-storage/rain-storage';
+import { WaterActivity5Component } from '../../components/water-activity5/water-activity5';
 
 /**
  * Generated class for the RainPage page.
@@ -19,7 +20,7 @@ import { RainStorageComponent } from '../../components/rain-storage/rain-storage
 export class RainPage {
 
   @ViewChildren(RainStorageComponent) private rainStorage : RainStorageComponent[];
-  @ViewChildren(WaterActivity6Component) private waterActivity6 : WaterActivity6Component[];
+  @ViewChildren(WaterActivity5Component) private waterActivity5 : WaterActivity5Component[];
 
   RainFrm: FormGroup;
   private submitRequested: boolean;
@@ -38,7 +39,17 @@ export class RainPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
-
+    this.waterActivity5.forEach(it => it.submitRequest());
   }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.RainFrm.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  submitRequest() {
+    this.submitRequested = true;
+  }
+
 
 }
