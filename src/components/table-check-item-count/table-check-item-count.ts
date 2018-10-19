@@ -33,8 +33,6 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
     return fb.group({
       'hasItem': [false,Validators.required],
       'itemCount': [null,Validators.required]
-    }, {
-      validator: TableCheckItemCountComponent.checkAnyOrOther()
     });
   }
 
@@ -60,26 +58,5 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
 
   submitRequest() {
     this.submitRequested = true;
-  }
-
-  public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    if (name == 'anycheck') {
-      ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  }
-
-  public static checkAnyOrOther(): ValidatorFn {
-    return (c: AbstractControl): ValidationErrors | null => {
-      const hasItem = c.get('hasItem');
-     
-
-      if (!hasItem.value) {
-        return { 'anycheck': true };
-      } 
-      return null;
-    }
   }
 }
