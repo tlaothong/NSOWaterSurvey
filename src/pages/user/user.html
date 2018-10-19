@@ -14,10 +14,10 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="name" [class.invalid]="isValid('name')" class="backgroundinput" type="text"
+          <ion-input formControlName="informer" [class.invalid]="isValid('informer')" class="backgroundinput" type="text"
             placeholder="กรอกชื่อผู้ให้ข้อมูล"></ion-input>
         </ion-item>
-        <ion-item *ngIf="isValid('name')">
+        <ion-item *ngIf="isValid('informer')">
           <span class="invalid-msg">
             กรุณากรอก
           </span>
@@ -28,12 +28,11 @@
             ประเภทสถานประกอบการผลิต
           </ion-label>
         </ion-item>
-        <div formGroupName="category">
           <ion-item>
             <ion-label>
               เลือกประเภท
             </ion-label>
-            <ion-select interface="action-sheet" formControlName="string" [class.invalid]="isValid('category.string')">
+            <ion-select interface="action-sheet" formControlName="factorialCategoryCode" [class.invalid]="isValid('factorialCategoryCode')">
               <ion-option>
                 1.บ้านเดี่ยว
               </ion-option>
@@ -84,25 +83,22 @@
               </ion-option>
             </ion-select>
           </ion-item>
-          <ion-item *ngIf="isValid('category.string')">
+          <ion-item *ngIf="isValid('factorialCategoryCode')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
           </ion-item>
-
-        </div>
 
         <ion-item>
           <ion-label>
             ประเภทสถานประกอบการบริการ
           </ion-label>
         </ion-item>
-        <div formGroupName="serviceType">
           <ion-item>
             <ion-label>
               เลือกประเภท
             </ion-label>
-            <ion-select interface="action-sheet" formControlName="string" [class.invalid]="isValid('serviceType.string')">
+            <ion-select interface="action-sheet" formControlName="serviceTypeCode" [class.invalid]="isValid('serviceTypeCode')">
               <ion-option>
                 1.บ้านเดี่ยว
               </ion-option>
@@ -153,13 +149,12 @@
             </ion-select>
           </ion-item>
 
-          <ion-item *ngIf="isValid('serviceType.string')">
+          <ion-item *ngIf="isValid('serviceTypeCode')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
           </ion-item>
 
-        </div>
       </ion-card-content>
     </ion-card>
 

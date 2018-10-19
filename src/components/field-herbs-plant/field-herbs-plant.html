@@ -116,7 +116,7 @@
         </ion-item>
       </ion-row>
 
-      <div [ngSwitch]="FormItem.get('plantings').value">
+      <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
         <div *ngSwitchCase="2">
           <ion-list>
             <ion-item *ngFor="let p of shownData2" text-center>

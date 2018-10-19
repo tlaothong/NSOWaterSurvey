@@ -37,12 +37,13 @@ export class FieldHerbsPlantComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'plantings': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-      'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      //'mixedWithPrimaryPlant': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
-      'thisPlantOnly': [null, Validators.required],
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
+      'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+      'plantings': fb.array([]), //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
+      'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
+      'thisPlantOnly': [null, Validators.required],
+      'otherPlantings': fb.array([]),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
