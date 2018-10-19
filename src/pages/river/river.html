@@ -62,12 +62,12 @@
     <!-- เครื่องที่ N -->
     <!-- <div [ngSwitch]="f.get('hasPump').value">
       <div *ngSwitchCase="1">
-        <pump [FormItem]="f.get('pumps')"></pump>
+        <pump [FormItem]="f.get('pump')"></pump>
       </div>
     </div> -->
 
     <div *ngIf="f.get('hasPump').value && f.get('pumpCount').value > 0">
-      <div *ngFor="let pump of f.get('pumps').controls; let i = index">
+      <div *ngFor="let pump of f.get('pump').controls; let i = index">
         <pump [no]="i + 1" [FormItem]="pump"></pump>
       </div>
     </div>

@@ -33,7 +33,7 @@ export class IrrigationPage {
       'unknowPoolUsage': ['', Validators.required],
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],
-      "pumps":  this.fb.array([]),
+      "pump":  this.fb.array([]),
       'waterActivity': WaterActivity6Component.CreateFormGroup(fb),
       'waterProblem': fb.group({
         "hasProblem": ['', Validators.required],
@@ -61,11 +61,11 @@ export class IrrigationPage {
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pumps";
+    const componentFormArray: string = "pump";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
-      var pumps = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var pump = (this.f.get(componentFormArray) as FormArray).controls || [];
       var pumpCount = this.f.get(componentCount).value || 0;
       var pump = this.fb.array([]);
 
@@ -73,8 +73,8 @@ export class IrrigationPage {
 
       for (let i = 0; i < pumpCount; i++) {
         var ctrl = null;
-        if (i < pumps.length) {
-          const fld = pumps[i];
+        if (i < pump.length) {
+          const fld = pump[i];
           ctrl = fld;
         } else {
           ctrl = PumpComponent.CreateFormGroup(this.fb);

@@ -43,7 +43,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
       'waterBill': ['', Validators.required],
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],
-      'pumps': fb.array([]),
+      'pump': fb.array([]),
       'usageActivities': WaterActivity6Component.CreateFormGroup(fb),
       'hasQaulityProblem': ['', Validators.required],
       "qualityProblems": fb.group({
@@ -62,11 +62,11 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   //     'waterBill': [null, Validators.required],
   //     'hasPump': [null, Validators.required],
   //     'pumpCount': [null, Validators.required],
-  //     'pumps': this.fb.group({
+  //     'pump': this.fb.group({
   //       'pumpAuto': ['', Validators.required],
   //       'unknowHoursPerPump': ['', Validators.required],
   //       'hoursPerPump': ['', Validators.required],
-  //       'numberOfPumpsPerYear': ['', Validators.required],
+  //       'numberOfpumpPerYear': ['', Validators.required],
   //       'pumpRate': this.fb.group({
   //         'knowPumpRate': ['', Validators.required],
   //         'pumpRateUsage': ['', Validators.required],
@@ -111,11 +111,11 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pumps";
+    const componentFormArray: string = "pump";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
-      var pumps = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var pump = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
       var pumpCount = this.FormItem.get(componentCount).value || 0;
       var pump = this.fb.array([]);
 
@@ -123,8 +123,8 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
 
       for (let i = 0; i < pumpCount; i++) {
         var ctrl = null;
-        if (i < pumps.length) {
-          const fld = pumps[i];
+        if (i < pump.length) {
+          const fld = pump[i];
           ctrl = fld;
         } else {
           ctrl = PumpComponent.CreateFormGroup(this.fb);
