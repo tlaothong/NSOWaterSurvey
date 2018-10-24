@@ -12,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

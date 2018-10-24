@@ -19,4 +19,17 @@
     Scan QR
   </button>
 
+  <button ion-button block (click)="getLocation()">
+    Get Location
+  </button>
+
+  <ion-list>
+    <ion-item>
+      Lat: {{ lat }}
+    </ion-item>
+    <ion-item>
+      Long: {{ long }}
+    </ion-item>
+  </ion-list>
+
 </ion-content>
