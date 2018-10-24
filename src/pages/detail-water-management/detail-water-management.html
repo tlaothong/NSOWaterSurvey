@@ -1,0 +1,122 @@
+<!--
+  Generated template for the DetailWaterManagementPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+
+
+  <questionnaire-menu title="การจัดการน้ำในหมู่บ้าน/ชุมชน"></questionnaire-menu>
+
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3>ตอนที่ 1 การจัดการน้ำในหมู่บ้าน/ชุมชน</h3>
+  <ion-card>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          1.ในหมู่บ้าน/ชุมชนแห่งนี้มี แหล่งน้ำสาธารณะ (สระน้ำ/หนอง/บึง/อ่างเก็บน้ำ) หรือไม่
+        </ion-label>
+      </ion-item>
+      <ion-row radio-group>
+        <ion-item col-6>
+          <ion-radio [value]="true" item-left></ion-radio>
+          <ion-label>
+            1. มี
+          </ion-label>
+        </ion-item>
+        <ion-item col-6>
+          <ion-radio [value]="false" item-left></ion-radio>
+          <ion-label>
+            2. ไม่มี
+          </ion-label>
+        </ion-item>
+      </ion-row>
+
+
+      <ion-item>
+        <ion-label>
+          2. ถ้า "ปลูกข้าว" มีแปลงนาจำนวนกี่แปลง
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number" placeholder="กรอกจำนวนแปลง"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+
+  <h3>3. ข้อมูลแหล่งน้ำที่ 1 </h3>
+
+  <ion-card>
+    <ion-card-content>
+
+
+      <ion-item>
+        <ion-label>
+          3.1 ชื่ออะไร
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="ชื่อแหล่งน้ำ"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          3.2 แหล่งน้ำนี้ใช้ทำประโยชน์อะไรบ้าง
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox></ion-checkbox>
+        <ion-label>
+          1.ใช้ทำนาประปา
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox></ion-checkbox>
+        <ion-label>
+          2. ใช้ในการผลิต/อุตสาหกรรม
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox></ion-checkbox>
+        <ion-label>
+          3. ใช้เพื่อการเกษตร
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox></ion-checkbox>
+        <ion-label>
+          4.ใช้เพื่อการบริการ
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox></ion-checkbox>
+        <ion-label>
+          5. อื่นๆ
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          โปรดระบุ
+        </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </ion-card-content>
+
+  </ion-card>
+
+
+
+
+  <form-buttons-bar></form-buttons-bar>
+</ion-content>
