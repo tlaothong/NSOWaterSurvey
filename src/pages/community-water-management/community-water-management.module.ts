@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { DetailWaterManagementPage } from './detail-water-management';
 import { ComponentsModule } from '../../components/components.module';
+import { CommunityWaterManagementPage } from './community-water-management';
 
 @NgModule({
   declarations: [
-    DetailWaterManagementPage,
+    CommunityWaterManagementPage,
   ],
   imports: [
-    IonicPageModule.forChild(DetailWaterManagementPage),
+    IonicPageModule.forChild(CommunityWaterManagementPage),
     ComponentsModule,
   ],
 })
-export class DetailWaterManagementPageModule {}
+export class CommunityWaterManagementPageModule {}
