@@ -66,73 +66,12 @@
     </ion-card>
 
 
+<div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0">
+    <div *ngFor="let p of CommunityWaterManagement.get('detail').controls; let i = index">
+      <detail-water-management  [no]="i + 1" [FormItem]="p"></detail-water-management>
+    </div>
+  </div>
 
-
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            <b> 3. ข้อมูลแหล่งน้ำที่ 1 </b>
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            3.1 ชื่ออะไร
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-input type="text" placeholder="ชื่อแหล่งน้ำ"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            3.2 แหล่งน้ำนี้ใช้ทำประโยชน์อะไรบ้าง
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>
-            1.ใช้ทำนาประปา
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>
-            2. ใช้ในการผลิต/อุตสาหกรรม
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>
-            3. ใช้เพื่อการเกษตร
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>
-            4.ใช้เพื่อการบริการ
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>
-            5. อื่นๆ
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            โปรดระบุ
-          </ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-
-      </ion-card-content>
-
-    </ion-card>
-    <pool-area headline="3.3 ขนาดของแหล่งน้ำ "></pool-area>
 
 
     <ion-card>

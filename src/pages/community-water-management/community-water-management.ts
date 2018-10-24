@@ -1,6 +1,7 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DetailWaterManagementComponent } from '../../components/detail-water-management/detail-water-management';
 
 /**
  * Generated class for the CommunityWaterManagementPage page.
@@ -16,34 +17,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CommunityWaterManagementPage {
 
-   CommunityWaterManagement:FormGroup
+  @ViewChildren(DetailWaterManagementComponent) private detailWaterManagement: DetailWaterManagementComponent[];
+
+   CommunityWaterManagement: FormGroup
   private submitRequested: boolean;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb:FormBuilder) {
-this.CommunityWaterManagement = this.fb.group({
-  'hasPublicWater' : [null, Validators.required],
-  'publicWaterCount' : [null, Validators.required],
-  'detail': this.fb.array([]),
-  'pwa': [null, Validators.required],
-  'mwa': [null, Validators.required],
-  'otherPlumbing': [null, Validators.required],
-  'hasWaterService' : [null, Validators.required],
-  'waterServiceCount' : [null, Validators.required],
-  'waterServices': this.fb.array([]),
-  'hasWaterTreatment': [null, Validators.required],
-  'hasDisaster' : [null, Validators.required],
-  'disasters': [null, Validators.required],
-  'hasDisasterWarning': [null, Validators.required],
-  'disasterWarningMethods' : [null, Validators.required],
-  
 
-});
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+    this.CommunityWaterManagement = this.fb.group({
+      'hasPublicWater': [null, Validators.required],
+      'publicWaterCount': [null, Validators.required],
+      'detail': fb.array([]),
+      'pwa': [null, Validators.required],
+      'mwa': [null, Validators.required],
+      'otherPlumbing': [null, Validators.required],
+      'hasWaterService': [null, Validators.required],
+      'waterServiceCount': [null, Validators.required],
+      'waterServices': this.fb.array([]),
+      'hasWaterTreatment': [null, Validators.required],
+      'hasDisaster': [null, Validators.required],
+      'disasters': [null, Validators.required],
+      'hasDisasterWarning': [null, Validators.required],
+      'disasterWarningMethods': [null, Validators.required],
+    });
+    this.setupPublicWaterCountChanges();
   }
 
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.detailWaterManagement.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
@@ -53,6 +55,36 @@ this.CommunityWaterManagement = this.fb.group({
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommunityWaterManagementPage');
+  }
+
+  private setupPublicWaterCountChanges() {
+    const componentFormArray: string = "detail";
+    const componentCount: string = "publicWaterCount";
+
+    var onComponentCountChanges = () => {
+      var fieldFlowerCrop = (this.CommunityWaterManagement.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = this.CommunityWaterManagement.get(componentCount).value || 0;
+      var field = this.fb.array([]);
+
+      fieldCount = Math.max(0, fieldCount);
+
+      for (let i = 0; i < fieldCount; i++) {
+        var ctrl = null;
+        if (i < fieldFlowerCrop.length) {
+          const fld = fieldFlowerCrop[i];
+          ctrl = fld;
+        } else {
+          ctrl = DetailWaterManagementComponent.CreateFormGroup(this.fb);
+        }
+
+        field.push(ctrl);
+      }
+      this.CommunityWaterManagement.setControl(componentFormArray, field);
+    };
+
+    this.CommunityWaterManagement.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 
 }
