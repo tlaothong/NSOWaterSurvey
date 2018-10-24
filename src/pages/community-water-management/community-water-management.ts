@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the DetailWaterManagementPage page.
+ * Generated class for the CommunityWaterManagementPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,16 +11,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-detail-water-management',
-  templateUrl: 'detail-water-management.html',
+  selector: 'page-community-water-management',
+  templateUrl: 'community-water-management.html',
 })
-export class DetailWaterManagementPage {
+export class CommunityWaterManagementPage {
 
-   WaterManagement:FormGroup
+   CommunityWaterManagement:FormGroup
   private submitRequested: boolean;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb:FormBuilder) {
-this.WaterManagement = this.fb.group({
+this.CommunityWaterManagement = this.fb.group({
   'hasPublicWater' : [null, Validators.required],
   'publicWaterCount' : [null, Validators.required],
   'detail': this.fb.array([]),
@@ -47,12 +47,12 @@ this.WaterManagement = this.fb.group({
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.WaterManagement.get(name);
+    var ctrl = this.CommunityWaterManagement.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailWaterManagementPage');
+    console.log('ionViewDidLoad CommunityWaterManagementPage');
   }
 
 }
