@@ -11,9 +11,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { Geolocation } from '@ionic-native/geolocation';
-
 
 @NgModule({
   declarations: [
@@ -23,7 +20,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,8 +30,6 @@ import { Geolocation } from '@ionic-native/geolocation';
   providers: [
     StatusBar,
     SplashScreen,
-    BarcodeScanner,
-    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
