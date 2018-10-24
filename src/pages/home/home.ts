@@ -38,6 +38,7 @@ export class HomePage {
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'Disaster', component: "DisasterPage" },
+      { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "DetailWaterManagementPage" },
     ];
   }
 
