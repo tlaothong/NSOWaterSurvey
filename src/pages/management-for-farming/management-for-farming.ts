@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FieldAreaComponent } from '../../components/field-area/field-area';
 
 /**
  * Generated class for the ManagementForFarmingPage page.
@@ -24,16 +25,9 @@ export class ManagementForFarmingPage {
       'managementforfarming': this.fb.group({
         'doing': [null, Validators.required],
         'projectcount': [null, Validators.required],
-      }),
-      'detailmanagementforfarming': this.fb.group({
-        'name': [null, Validators.required],
-        'area': this.fb.array([]),
-        'membercount': [null, Validators.required],
-        'avgsurfacewateruse': [null, Validators.required],
-        'groundwatercount': [null, Validators.required],
-        'avggroundwateruse': [null, Validators.required],
+        'details': this.fb.array([]),
 
-      })
+      }),
     });
   }
 
