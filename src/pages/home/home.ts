@@ -15,6 +15,8 @@ export class HomePage {
     this.pages = [
       // test push
       { title: 'Zero', component: "ZeroPage" },
+      { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
+      { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
