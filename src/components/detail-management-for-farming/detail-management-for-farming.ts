@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { FieldAreaComponent } from '../field-area/field-area';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the DetailManagementForFarmingComponent component.
@@ -12,11 +13,10 @@ import { FieldAreaComponent } from '../field-area/field-area';
   selector: 'detail-management-for-farming',
   templateUrl: 'detail-management-for-farming.html'
 })
-export class DetailManagementForFarmingComponent {
+export class DetailManagementForFarmingComponent implements ISubmitRequestable{
 
   @Input() public FormItem: FormGroup;
-
-  text: string;
+  @Input('no') public fieldNo: string;
 
   private submitRequested: boolean;
   constructor(public fb: FormBuilder) {
@@ -32,8 +32,15 @@ export class DetailManagementForFarmingComponent {
       'groundwatercount': [null, Validators.required],
       'avggroundwateruse': [null, Validators.required],
     });
+  }
 
-    // this.FormItem = GroundWaterUsageComponent.CreateFormGroup(this.fb);
+  submitRequest() {
+    this.submitRequested = true;
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
 }
