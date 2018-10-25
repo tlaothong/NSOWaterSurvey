@@ -66,11 +66,11 @@
     </ion-card>
 
 
-<div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0">
-    <div *ngFor="let p of CommunityWaterManagement.get('detail').controls; let i = index">
-      <detail-water-management  [no]="i + 1" [FormItem]="p"></detail-water-management>
+    <div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0">
+      <div *ngFor="let p of CommunityWaterManagement.get('detail').controls; let i = index">
+        <detail-water-management [no]="i + 1" [FormItem]="p"></detail-water-management>
+      </div>
     </div>
-  </div>
 
 
 
@@ -134,7 +134,7 @@
 
         <ion-item>
           <ion-label>
-            4. น้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
+            4.3 น้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="otherPlumbing" [class.invalid]="isValid('otherPlumbing')">
@@ -157,185 +157,64 @@
           </ion-item>
         </ion-row>
 
-        <ion-item>
-          <ion-label>
-            5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งน้ำผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
-            ใช่หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="hasWaterService" [class.invalid]="isValid('hasWaterService')">
-          <ion-item *ngIf="isValid('hasWaterService')">
+        <div *ngIf=" CommunityWaterManagement.get('otherPlumbing').value ">
+
+          <ion-item>
+            <ion-label>
+              5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งน้ำผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
+              ใช่หรือไม่
+            </ion-label>
+          </ion-item>
+          <ion-row radio-group formControlName="hasWaterService" [class.invalid]="isValid('hasWaterService')">
+            <ion-item *ngIf="isValid('hasWaterService')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio [value]="true" item-left></ion-radio>
+              <ion-label>
+                1. มี
+              </ion-label>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-label>
+                2. ไม่มี
+              </ion-label>
+            </ion-item>
+          </ion-row>
+
+          <ion-item>
+            <ion-label>
+              5.1 หาก "ใช่" ในหมู่บ้าน/ชุมชน มีแหล่งผลิตน้ำประปาอื่นๆ กี่หน่วยงาน
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')" type="text"
+              placeholder="หน่วยงาน"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('waterServiceCount')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
           </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              1. มี
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              2. ไม่มี
-            </ion-label>
-          </ion-item>
-        </ion-row>
 
-        <ion-item>
-          <ion-label>
-            5.1 หาก "ใช่" ในหมู่บ้าน/ชุมชน มีแหล่งผลิตน้ำประปาอื่นๆ กี่หน่วยงาน
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')" type="text"
-            placeholder="หน่วยงาน"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('waterServiceCount')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
-
+        </div>
       </ion-card-content>
     </ion-card>
 
 
-    <ion-card>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            <b> หน่วยงานที่ 1 </b>
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            5.2 ชื่อหน่วยงาน
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-input type="text" placeholder="ชื่อแหล่งน้ำ"></ion-input>
-        </ion-item>
+    <div *ngIf=" CommunityWaterManagement.get('waterServiceCount').value > 0">
+      <div *ngFor="let p of CommunityWaterManagement.get('waterServices').controls; let i = index">
+        <detail-org-water-supply [no]="i + 1" [FormItem]="p"></detail-org-water-supply>
+      </div>
+    </div>
 
 
-        <ion-item>
-          <ion-label>
-            5.3 ใช้น้ำผิวดิน (สระน้ำ แม่น้ำ/ลำคลอง) หรือไม่
-          </ion-label>
-        </ion-item>
 
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              1. ใช้
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              2. ไม่ใช้
-            </ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-item>
-          <ion-label>
-            ใช้น้ำผิวดินปริมาณเฉลี่ย ลูกบาศก์เมตร ต่อ เดือน เท่าไร
-          </ion-label>
-          <ion-input type="text" placeholder="กรอกจำนวนปริมาตร"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            5.4 ใช้จาก บ่อบาดาล หรือไม่
-          </ion-label>
-        </ion-item>
-
-        <ion-row radio-group>
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              1. ใช้
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              2. ไม่ใช้
-            </ion-label>
-          </ion-item>
-        </ion-row>
-
-        <ion-item>
-          <ion-label>
-            ใช้น้ำจากบ่อบาดาลกี่บ่อ
-          </ion-label>
-          <ion-input type="text" placeholder="กรอกจำนวนบ่อ"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            ใช้น้ำบ่อบาดาลเฉลี่ย ลูกบาศก์เมตร ต่อ เดือน เท่าไร
-          </ion-label>
-          <ion-input type="text" placeholder="กรอกจำนวนปริมาตร"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            5.5 ใช้น้ำประปาราคาขายหน่วยต่อเดือนเท่าไร
-          </ion-label>
-          <ion-input type="text" placeholder="กรอกจำนวน"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>
-            5.6 ค่าเช่ามิเตอร์คิดต่อเดือนเท่าไร
-          </ion-label>
-          <ion-input type="text" placeholder="กรอกจำนวน"></ion-input>
-        </ion-item>
-
-
-        <ion-item>
-          <ion-label>
-            5.7 การผลิตน้ำประปา มีระบบการฆ่าเชื้อหรือไม่
-          </ion-label>
-        </ion-item>
-
-        <ion-row radio-group>
-          <ion-item>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              1. มีระบบการฆ่าเชื้อโรค
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              2. มีด้วยวิธีอื่น
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              ระบุ
-            </ion-label>
-            <ion-input type="text" placeholder="กรอกข้อ"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              3. ไม่มีการฆ่าเชื้อโรค
-            </ion-label>
-          </ion-item>
-        </ion-row>
-
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card>
+    <ion-card *ngIf=" CommunityWaterManagement.get('otherPlumbing').value == false || CommunityWaterManagement.get('waterServiceCount').value ">
       <ion-card-content>
         <ion-item>
           <ion-label>
@@ -392,77 +271,79 @@
         </ion-row>
 
 
-        <ion-row>
+
+        <ion-row formGroupName="disasters" [class.invalid]="isValid('disasters')">
           <ion-col col-6></ion-col>
           <ion-col col-6>
             <ion-item>
               <ion-label>
                 2.1 ภัยจากคลื่นสึนามิ
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="tsunami"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.2 อุทกภัย ดินโคลนถล่ม
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="landSlide"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.3 ภัยจากแผ่นดินไหวและอาคารถล่ม
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="earthquake"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.4 พายุหมุนเขตร้อน
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="cyclone"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.5 ภัยจากไฟป่าและหมอกควัน
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="forestFire"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>
                 2.6 ภัยแล้ง
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="drought"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>
                 2.7 ภัยจากอากาศหนาว
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="cold"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>
                 2.8 ภัยจากโรคระบาดในมนุษย์
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="epidemic"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>
                 2.9 ภัยจากโรค แมลง สัตว์ ศัตรูพืชระบาด
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="pest"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>
                 2.10 ภัยจากโรคระบาดสัตว์และสัตว์น้ำ
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="epizootics"></ion-checkbox>
             </ion-item>
 
           </ion-col>
         </ion-row>
+
 
 
 
@@ -472,12 +353,13 @@
           </ion-label>
         </ion-item>
 
+
         <ion-row radio-group formControlName="hasDisasterWarning" [class.invalid]="isValid('hasDisasterWarning')">
-            <ion-item *ngIf="isValid('hasDisasterWarning')">
-                <span class="invalid-msg">
-                  กรุณาเลือก
-                </span>
-              </ion-item>
+          <ion-item *ngIf="isValid('hasDisasterWarning')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
             <ion-label>
@@ -493,46 +375,50 @@
         </ion-row>
 
 
-        <ion-row>
+        <ion-row formGroupName="disasterWarningMethods" [class.invalid]="isValid('disasterWarningMethods')">
           <ion-col col-6></ion-col>
           <ion-col col-6>
             <ion-item>
               <ion-label>
                 2.1 ระะบบเป็นไปตามระบบของทางราชการ
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="governmentProcess"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.2 มี โดยหมู่บ้าน/ชุมชนร่วมกันวางแผนจัดการเอง
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="communityPlan"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.3 มี โดยมีหน่วยงานอื่นให้คำแนะนำและบริกหารจัดการ
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="consultingService"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>
                 2.4 มี ลักษณะการดำเนินงานอื่น
               </ion-label>
-              <ion-checkbox></ion-checkbox>
+              <ion-checkbox formControlName="hasOther"></ion-checkbox>
+            </ion-item>
+
+            <ion-item *ngIf="CommunityWaterManagement.get('disasterWarningMethods.hasOther').value || false">
+              <ion-label>
+                ระบุ
+              </ion-label>
+              <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('other')" class="invalid-msg">
+              <span>
+                กรุณากรอกข้อมูล
+              </span>
             </ion-item>
           </ion-col>
-
-          <ion-item>
-            <ion-label>
-              ระบุ
-            </ion-label>
-            <ion-input type="text" placeholder="กรอกข้อ"></ion-input>
-          </ion-item>
         </ion-row>
 
       </ion-card-content>
     </ion-card>
-
 
     <form-buttons-bar></form-buttons-bar>
   </form>

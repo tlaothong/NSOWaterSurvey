@@ -37,6 +37,7 @@ import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming
 import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop';
 import { DetailWaterManagementComponent } from './detail-water-management/detail-water-management';
 import { DetailManagementForFarmingComponent } from './detail-management-for-farming/detail-management-for-farming';
+import { DetailOrgWaterSupplyComponent } from './detail-org-water-supply/detail-org-water-supply';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -76,6 +77,7 @@ import { DetailManagementForFarmingComponent } from './detail-management-for-far
     FieldFlowerCropComponent,
     DetailWaterManagementComponent,
     DetailManagementForFarmingComponent,
+    DetailOrgWaterSupplyComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -120,6 +122,7 @@ import { DetailManagementForFarmingComponent } from './detail-management-for-far
     FieldFlowerCropComponent,
     DetailWaterManagementComponent,
     DetailManagementForFarmingComponent,
+    DetailOrgWaterSupplyComponent,
   ]
 })
 export class ComponentsModule { }
