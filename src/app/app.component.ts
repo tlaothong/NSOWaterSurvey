@@ -48,7 +48,8 @@ export class MyApp {
       { title: 'Pool', component: "PoolPage" },
       { title: 'Agriculture', component: "AgriculturePage" },
       { title: 'CommunityWaterManagement', component: "CommunityWaterManagementPage" },
-     
+      { title: 'ManagementForFarming', component: "ManagementForFarmingPage" },
+
     ];
 
   }
