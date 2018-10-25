@@ -134,7 +134,7 @@
 
         <ion-item>
           <ion-label>
-            4. น้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
+            4.3 น้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="otherPlumbing" [class.invalid]="isValid('otherPlumbing')">
@@ -157,57 +157,60 @@
           </ion-item>
         </ion-row>
 
-        <ion-item>
-          <ion-label>
-            5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งน้ำผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
-            ใช่หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="hasWaterService" [class.invalid]="isValid('hasWaterService')">
-          <ion-item *ngIf="isValid('hasWaterService')">
+        <div *ngIf=" CommunityWaterManagement.get('otherPlumbing').value ">
+
+          <ion-item>
+            <ion-label>
+              5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งน้ำผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
+              ใช่หรือไม่
+            </ion-label>
+          </ion-item>
+          <ion-row radio-group formControlName="hasWaterService" [class.invalid]="isValid('hasWaterService')">
+            <ion-item *ngIf="isValid('hasWaterService')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio [value]="true" item-left></ion-radio>
+              <ion-label>
+                1. มี
+              </ion-label>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-label>
+                2. ไม่มี
+              </ion-label>
+            </ion-item>
+          </ion-row>
+  
+          <ion-item>
+            <ion-label>
+              5.1 หาก "ใช่" ในหมู่บ้าน/ชุมชน มีแหล่งผลิตน้ำประปาอื่นๆ กี่หน่วยงาน
+            </ion-label>
+          </ion-item>
+  
+          <ion-item>
+            <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')" type="text"
+              placeholder="หน่วยงาน"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('waterServiceCount')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
           </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              1. มี
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              2. ไม่มี
-            </ion-label>
-          </ion-item>
-        </ion-row>
-
-        <ion-item>
-          <ion-label>
-            5.1 หาก "ใช่" ในหมู่บ้าน/ชุมชน มีแหล่งผลิตน้ำประปาอื่นๆ กี่หน่วยงาน
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')" type="text"
-            placeholder="หน่วยงาน"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="isValid('waterServiceCount')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
-
-      </ion-card-content>
-    </ion-card>
-
-    
-<div *ngIf=" CommunityWaterManagement.get('waterServiceCount').value > 0">
-    <div *ngFor="let p of CommunityWaterManagement.get('waterService').controls; let i = index">
-      <detail-org-water-supply  [no]="i + 1" [FormItem]="p"></detail-org-water-supply>
+  
+        </div>
+        </ion-card-content>
+      </ion-card>
+  
+      
+  <div *ngIf=" CommunityWaterManagement.get('waterServiceCount').value > 0">
+      <div *ngFor="let p of CommunityWaterManagement.get('waterServices').controls; let i = index">
+        <detail-org-water-supply  [no]="i + 1" [FormItem]="p"></detail-org-water-supply>
+      </div>
     </div>
-  </div>
 
 
     <!-- <detail-org-water-supply></detail-org-water-supply> -->
@@ -344,7 +347,7 @@
       </ion-card-content>
     </ion-card> -->
 
-    <ion-card>
+    <ion-card *ngIf=" CommunityWaterManagement.get('otherPlumbing').value == false || CommunityWaterManagement.get('waterServiceCount').value ">
       <ion-card-content>
         <ion-item>
           <ion-label>

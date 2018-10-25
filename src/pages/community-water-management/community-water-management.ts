@@ -77,34 +77,35 @@ export class CommunityWaterManagementPage {
   
   
     private setupWaterServiceCountChanges() {
-      const componentFormArray: string = "waterService";
-      const componentCount: string = "waterServiceCount";
+      const waterservicecomponentFormArray: string = "waterServices";
+      const waterservicecomponentCount: string = "waterServiceCount";
   
-      var onComponentCountChanges = () => {
-        var fieldFlowerCrop = (this.CommunityWaterManagement.get(componentFormArray) as FormArray).controls || [];
-        var fieldCount = this.CommunityWaterManagement.get(componentCount).value || 0;
-        var field = this.fb.array([]);
+      var onWaterServiceComponentCountChanges = () => {
+        var waterServices = (this.CommunityWaterManagement.get(waterservicecomponentFormArray) as FormArray).controls || [];
+        var waterServiceCount = this.CommunityWaterManagement.get(waterservicecomponentCount).value || 0;
+        var waterService = this.fb.array([]);
   
-        fieldCount = Math.max(0, fieldCount);
+        waterServiceCount = Math.max(0, waterServiceCount);
   
-        for (let i = 0; i < fieldCount; i++) {
+        for (let i = 0; i < waterServiceCount; i++) {
           var ctrl = null;
-          if (i < fieldFlowerCrop.length) {
-            const fld = fieldFlowerCrop[i];
+          if (i < waterServices.length) {
+            const fld = waterServices[i];
             ctrl = fld;
           } else {
             ctrl = DetailOrgWaterSupplyComponent.CreateFormGroup(this.fb);
           }
   
-          field.push(ctrl);
+          waterService.push(ctrl);
         }
-        this.CommunityWaterManagement.setControl(componentFormArray, field);
+        this.CommunityWaterManagement.setControl(waterservicecomponentFormArray, waterService);
       };
   
-      this.CommunityWaterManagement.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+      this.CommunityWaterManagement.get(waterservicecomponentCount).valueChanges.subscribe(it => onWaterServiceComponentCountChanges());
   
-      onComponentCountChanges();
+      onWaterServiceComponentCountChanges();
     }
+
 
   public handleSubmit() {
     this.submitRequested = true;
