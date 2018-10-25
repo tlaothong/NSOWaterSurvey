@@ -9,8 +9,7 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(BuidlingInformation2Page),
-    
-    ComponentsModule
+    ComponentsModule,
   ],
 })
 export class BuidlingInformation2PageModule {}
