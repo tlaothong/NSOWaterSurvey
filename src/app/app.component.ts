@@ -46,6 +46,7 @@ export class MyApp {
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
       { title: 'User', component: "UserPage" },
       { title: 'Pool', component: "PoolPage" },
+      { title: 'ManagementForFarming', component: "ManagementForFarmingPage" },
       { title: 'Agriculture', component: "AgriculturePage" }
     ];
 
