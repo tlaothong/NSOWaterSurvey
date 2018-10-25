@@ -1,0 +1,193 @@
+<!--
+  Generated template for the HomesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Homes
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-4>
+          <ion-row>
+            <button ion-button outline>สถานะข้อมูลอาคาร</button>
+          </ion-row>
+          <ion-row>
+            <button ion-button outline>FS ให้แก้ไข</button>
+          </ion-row>
+          <ion-row>
+            <button ion-button outline>สน.2-2 พื้นที่ย่อย</button>
+          </ion-row>
+        </ion-col>
+
+        <ion-col col-8>
+          <ion-row>
+            สถานะของ EA:<br>
+            ตะวันออกเฉียงเหนือ ขอนแก่น เมืองของแก่น ในเมือง 1 018
+          </ion-row>
+
+          <ion-row>
+            <ion-item col-6>
+              <ion-label>
+                กำลังสำรวจ
+              </ion-label>
+              <ion-radio value="1" item-left></ion-radio>
+            </ion-item>
+            <ion-item col-6>
+              <ion-label>
+                สำรวจครบแล้ว
+              </ion-label>
+              <ion-radio value="2" item-left></ion-radio>
+            </ion-item>
+          </ion-row>
+
+          <ion-row>
+            <ion-item col-6>
+              <ion-label>
+                ตรวจสอบแล้ว
+              </ion-label>
+              <ion-radio value="1" item-left></ion-radio>
+            </ion-item>
+            <ion-item col-6>
+              <ion-label>
+                อนุมัติแล้ว
+              </ion-label>
+              <ion-radio value="2" item-left></ion-radio>
+            </ion-item>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <button ion-button block type="button">
+                <ion-icon name="md-refresh"></ion-icon>
+                อัพเดทข้อมูล
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button block type="button">
+                <ion-icon name="ios-compass-outline"></ion-icon>
+                ดูแผนที่
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+
+      <ion-segment [(ngModel)]="icons">
+        <ion-segment-button value="all">
+          <ion-icon name="folder"></ion-icon>
+          ข้อมูลทั้งหมด
+        </ion-segment-button>
+
+        <ion-segment-button value="done">
+          <ion-icon name="ios-checkmark-circle"></ion-icon>
+          ส่งแล้ว
+        </ion-segment-button>
+
+        <ion-segment-button value="3">
+          <ion-icon name="ios-flag-outline"></ion-icon>
+          รอส่ง
+        </ion-segment-button>
+
+        <ion-segment-button value="4">
+          <ion-icon name="ios-pause-outline"></ion-icon>
+          หยุดชั่วคราว
+        </ion-segment-button>
+
+        <ion-segment-button value="5">
+          <ion-icon name="md-eye"></ion-icon>
+          สำรวจครั้งที่ 2 และ 3
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-grid>
+        <ion-row align-items-center>
+          <ion-col col-4>
+            <button ion-button type="button">
+              สำรวจหน่วยต่อไป
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button type="button">
+              สำรวจครบทุกหน่วยใน EA
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <ion-searchbar block icon-end type [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
+              (ionCancel)="onCancel($event)">
+            </ion-searchbar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+
+      <hr>
+      <ion-row text-center align-items-center>
+        <ion-col col-2>
+          ลำดับที่
+        </ion-col>
+        <ion-col col-2>
+          บ้านเลขที่
+        </ion-col>
+        <ion-col col-2>
+          ชื่อสถานที่
+        </ion-col>
+        <ion-col col-2>
+          ครัวเรือน/<br>
+          สถานประกอบการ<br>
+          ทั้งสิ้น
+        </ion-col>
+        <ion-col col-2>
+          ไม่สมบูรณ์
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+      </ion-row>
+      <hr>
+
+      <ion-row text-center align-items-center>
+        <ion-col col-2>
+          1
+        </ion-col>
+        <ion-col col-2>
+          136
+        </ion-col>
+        <ion-col col-2>
+          ที่ไหนหนิ
+        </ion-col>
+        <ion-col col-2>
+          5
+        </ion-col>
+        <ion-col col-2>
+          3
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button type="button" color="danger">
+            ลบ
+          </button>
+        </ion-col>
+
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

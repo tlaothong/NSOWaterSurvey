@@ -51,6 +51,9 @@ export class MyApp {
       { title: 'ManagementForFarming', component: "ManagementForFarmingPage" },
       { title: 'BuildingInformation1Page', component: "BuildingInformation1Page" },
       { title: 'BuidlingInformation2Page', component: "BuidlingInformation2Page" },
+      { title: 'Homes', component: "HomesPage" },
+
+     
     ];
 
   }
