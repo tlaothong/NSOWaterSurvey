@@ -1,93 +1,103 @@
 <ion-header>
 
-    <questionnaire-menu title="หน้าที่ 2 "></questionnaire-menu>
-  
-  </ion-header>
+  <questionnaire-menu title="สน. 1-1 หน้าที่ 2 "></questionnaire-menu>
+
+</ion-header>
 
 
 <ion-content padding>
-  <ion-item>
-    <ion-label>
-      จำนวนครัวเรือน/สถานประกอบการทั้งหมด ในบ้าน/อาคาร/สิ่งปลูกสร้าง
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-input class="backgroundinput" type="text" placeholder="กรอกชื่อ"></ion-input>
-  </ion-item>
 
-  <ion-item>
-    <ion-label>
-      การอนุญาตให้เข้าอาคาร
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-radio></ion-radio>
-    <ion-label>
-      อนุญาต
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-radio></ion-radio>
-    <ion-label>
-      ไม่อนุญาต แต่ให้ข้อมูล
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-radio></ion-radio>
-    <ion-label>
-      ไม่อนุญาต และไม่ให้ข้อมูล
-    </ion-label>
-  </ion-item>
+  <ion-card>
+    <ion-card-content>
 
-  <ion-item>
-    <ion-label>
-      จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวนห้อง /จำนวนสถานประกอบการ"></ion-input>
-  </ion-item>
+      <ion-item>
+        <ion-label>
+          จำนวนครัวเรือน/สถานประกอบการทั้งหมด ในบ้าน/อาคาร/สิ่งปลูกสร้าง
+        </ion-label>
+      </ion-item>
 
-  <ion-item>
-    <ion-label>
-      จำนวนห้องว่าง
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-input class="backgroundinput" type="number" placeholder="จำนวนห้องว่าง"></ion-input>
-  </ion-item>
+      <ion-item>
+        <ion-input type="number" placeholder="จำนวนครัวเรือน"></ion-input>
+      </ion-item>
 
-  <ion-item>
-    <ion-label>
-      ปริมาณการใช้น้ำ / ค่าน้ำ
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-input class="backgroundinput" type="number" placeholder="กรอกปริมาณการใช้น้ำ / ค่าน้ำ"></ion-input>
-  </ion-item>
+      <ion-item>
+        <ion-label>
+          การอนุญาตให้เข้าอาคาร
+        </ion-label>
+      </ion-item>
+      <ion-list radio-group>
+        <ion-item>
+          <ion-radio item-start></ion-radio>
+          <ion-label>
+            อนุญาต
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-start></ion-radio>
+          <ion-label>
+            ไม่อนุญาต แต่ให้ข้อมูล
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-radio item-start></ion-radio>
+          <ion-label>
+            ไม่อนุญาต และไม่ให้ข้อมูล
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-item>
-    <ion-label>
-      จำนวนชั้นของอาคาร
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวนชั้น"></ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวนห้อง /จำนวนสถานประกอบการ"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            จำนวนห้องว่าง
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="จำนวนห้องว่าง"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            ปริมาณการใช้น้ำ / ค่าน้ำ
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกปริมาณการใช้น้ำ / ค่าน้ำ"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label>
-      ปัญหา
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-input class="backgroundinput" type="text" placeholder="ระบุปัญหา"></ion-input>
-  </ion-item>
+        <ion-item>
+          <ion-label>
+            จำนวนชั้นของอาคาร
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวนชั้น"></ion-input>
+        </ion-item>
 
+        <ion-item>
+          <ion-label>
+            ปัญหา
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="ระบุปัญหา"></ion-input>
+        </ion-item>
 
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-
-
-
+  <form-buttons-bar></form-buttons-bar>
 
 </ion-content>
