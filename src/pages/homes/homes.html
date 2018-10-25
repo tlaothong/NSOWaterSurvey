@@ -100,33 +100,31 @@
         </ion-segment-button>
       </ion-segment>
 
-      <ion-grid>
-        <ion-row align-items-center>
-          <ion-col col-6>
-            <button ion-button type="button">
-              สำรวจหน่วยต่อไป
-            </button>
-          </ion-col>
-          <ion-col col-6>
-            <button ion-button type="button">
-              สำรวจครบทุกหน่วยใน EA
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+
+      <ion-row align-items-center>
+        <ion-col col-6>
+          <button ion-button block type="button">
+            สำรวจหน่วยต่อไป
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button block type="button">
+            สำรวจครบทุกหน่วยใน EA
+          </button>
+        </ion-col>
+      </ion-row>
+
       <ion-row>
         <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
           (ionCancel)="onCancel($event)">
         </ion-searchbar>
       </ion-row>
 
-
-
-
       <hr>
+
       <ion-row text-center align-items-center>
         <ion-col col-1>
-          ลำดับที่
+          ที่
         </ion-col>
         <ion-col col-2>
           บ้านเลขที่
@@ -142,12 +140,11 @@
         <ion-col col-2>
           ไม่สมบูรณ์
         </ion-col>
-        <ion-col col-1>
+        <ion-col col-2>
           สถานะ
         </ion-col>
-        <ion-col col-1>
-        </ion-col>
       </ion-row>
+
       <hr>
 
       <ion-row text-center align-items-center>
@@ -158,234 +155,7 @@
           136
         </ion-col>
         <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-
-
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
+          ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
         </ion-col>
         <ion-col col-2>
           5
@@ -404,75 +174,282 @@
       </ion-row>
 
       <ion-row text-center align-items-center>
-        <ion-col col-1>
-          1
+          <ion-col col-1>
+            2
+          </ion-col>
+          <ion-col col-2>
+            136
+          </ion-col>
+          <ion-col col-3>
+            ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
+          </ion-col>
+          <ion-col col-2>
+            5
+          </ion-col>
+          <ion-col col-2>
+            3
+          </ion-col>
+          <ion-col col-1>
+            <ion-icon disabled="false" name="pause"></ion-icon>
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row text-center align-items-center>
+            <ion-col col-1>
+              3
+            </ion-col>
+            <ion-col col-2>
+              136
+            </ion-col>
+            <ion-col col-3>
+              ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
+            </ion-col>
+            <ion-col col-2>
+              5
+            </ion-col>
+            <ion-col col-2>
+              3
+            </ion-col>
+            <ion-col col-1>
+              <ion-icon disabled="false" name="md-refresh"></ion-icon>
+            </ion-col>
+            <ion-col col-1>
+              <button ion-button type="button" color="danger">
+                ลบ
+              </button>
+            </ion-col>
+          </ion-row>
+          <ion-row text-center align-items-center>
+              <ion-col col-1>
+                1
+              </ion-col>
+              <ion-col col-2>
+                136
+              </ion-col>
+              <ion-col col-3>
+                ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
+              </ion-col>
+              <ion-col col-2>
+                5
+              </ion-col>
+              <ion-col col-2>
+                3
+              </ion-col>
+              <ion-col col-1>
+                <ion-icon disabled="false" name="pause"></ion-icon>
+              </ion-col>
+              <ion-col col-1>
+                <button ion-button type="button" color="danger">
+                  ลบ
+                </button>
+              </ion-col>
+            </ion-row>
+            <ion-row text-center align-items-center>
+                <ion-col col-1>
+                  1
+                </ion-col>
+                <ion-col col-2>
+                  136
+                </ion-col>
+                <ion-col col-3>
+                  ที่ไหนหนิพิมพ์ข้อความหรือที่อยู่ของเว็บไซต์ หรือแปลเอกสารอยู่ของเว็บไซต์ 
+                </ion-col>
+                <ion-col col-2>
+                  5
+                </ion-col>
+                <ion-col col-2>
+                  3
+                </ion-col>
+                <ion-col col-1>
+                  <ion-icon disabled="false" name="md-refresh"></ion-icon>
+                </ion-col>
+                <ion-col col-1>
+                  <button ion-button type="button" color="danger">
+                    ลบ
+                  </button>
+                </ion-col>
+              </ion-row>
+              <ion-row text-center align-items-center>
+                  <ion-col col-1>
+                    1
+                  </ion-col>
+                  <ion-col col-2>
+                    136
+                  </ion-col>
+                  <ion-col col-3>
+                    ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
+                  </ion-col>
+                  <ion-col col-2>
+                    5
+                  </ion-col>
+                  <ion-col col-2>
+                    3
+                  </ion-col>
+                  <ion-col col-1>
+                    <ion-icon disabled="false" name="pause"></ion-icon>
+                  </ion-col>
+                  <ion-col col-1>
+                    <button ion-button type="button" color="danger">
+                      ลบ
+                    </button>
+                  </ion-col>
+                </ion-row>
+                <ion-row text-center align-items-center>
+                    <ion-col col-1>
+                      1
+                    </ion-col>
+                    <ion-col col-2>
+                      136
+                    </ion-col>
+                    <ion-col col-3>
+                      ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
+                    </ion-col>
+                    <ion-col col-2>
+                      5
+                    </ion-col>
+                    <ion-col col-2>
+                      3
+                    </ion-col>
+                    <ion-col col-1>
+                      <ion-icon disabled="false" name="md-refresh"></ion-icon>
+                    </ion-col>
+                    <ion-col col-1>
+                      <button ion-button type="button" color="danger">
+                        ลบ
+                      </button>
+                    </ion-col>
+                  </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+        <ion-segment [(ngModel)]="icons">
+            <ion-segment-button value="data1-2-1">
+              ข้อมูลสน.1 และข้อมูลสน.2-1
+            </ion-segment-button>
+            <ion-segment-button value="data2-2">
+                ข้อมูลสน.2-2
+            </ion-segment-button>
+          </ion-segment>
+
+          <hr>
+    
+          <ion-row text-center align-items-center>
+            <ion-col col-1>
+              ที่
+            </ion-col>
+            <ion-col col-2>
+              บ้านเลขที่
+            </ion-col>
+            <ion-col col-3>
+              ชื่อสถานที่
+            </ion-col>
+            <ion-col col-2>
+              ครัวเรือน/<br>
+              สถานประกอบการ<br>
+              ทั้งสิ้น
+            </ion-col>
+            <ion-col col-2>
+              ไม่สมบูรณ์
+            </ion-col>
+            <ion-col col-2>
+              สถานะ
+            </ion-col>
+          </ion-row>
+    
+          <hr>
+
+          <hr>
+    
+          <ion-row text-center align-items-center>
+              <ion-col col-1>
+                ที่
+              </ion-col>
+              <ion-col col-2>
+                หมู่ที่
+              </ion-col>
+              <ion-col col-7>
+                ชื่อหมู่บ้าน
+              </ion-col>
+              <ion-col col-2>
+      
+              </ion-col>
+            </ion-row>
+    
+          <hr>
+    
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-segment [(ngModel)]="icons">
+        <ion-segment-button value="all">
+          <ion-icon name="folder"></ion-icon>
+          ข้อมูลทั้งหมด
+        </ion-segment-button>
+
+        <ion-segment-button value="pause">
+          <ion-icon name="md-pause"></ion-icon>
+          หยุดชั่วคราว
+        </ion-segment-button>
+
+        <ion-segment-button value="return">
+          <ion-icon name="md-eye"></ion-icon>
+          สำรวจครั้งที่ 2 และ 3
+        </ion-segment-button>
+      </ion-segment>
+
+
+      <ion-row align-items-center>
+        <ion-col col-6>
+          <button ion-button block type="button">
+            สำรวจหน่วยต่อไป
+          </button>
         </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
+        <ion-col col-6>
+          <button ion-button block type="button">
+            สำรวจครบทุกหน่วยใน EA
           </button>
         </ion-col>
       </ion-row>
+
+      <hr>
+
       <ion-row text-center align-items-center>
         <ion-col col-1>
-          1
+          ที่
         </ion-col>
         <ion-col col-2>
-          136
+          หมู่ที่
         </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
+        <ion-col col-7>
+          ชื่อหมู่บ้าน
         </ion-col>
         <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
+
         </ion-col>
       </ion-row>
+
+      <hr>
+
       <ion-row text-center align-items-center>
         <ion-col col-1>
-          1
+          -
         </ion-col>
         <ion-col col-2>
-          136
+          -
         </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิ
-        </ion-col>
-        <ion-col col-2>
-          5
+        <ion-col col-7>
+          -
         </ion-col>
         <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="md-refresh"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
           <button ion-button type="button" color="danger">
             ลบ
           </button>
@@ -481,6 +458,5 @@
 
     </ion-card-content>
   </ion-card>
-
 
 </ion-content>
