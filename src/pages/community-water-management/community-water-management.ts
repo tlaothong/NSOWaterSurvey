@@ -111,7 +111,7 @@ export class CommunityWaterManagementPage {
       const hasOther = c.get('hasOther');
       const other = c.get('other');
 
-      if (!governmentProcess.value && !communityPlan.value && !consultingService.value && !hasOther.value ) {
+      if (!governmentProcess.value && !communityPlan.value && !consultingService.value && !hasOther.value) {
         return { 'anycheck': true };
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
@@ -193,8 +193,16 @@ export class CommunityWaterManagementPage {
     if (name == 'anycheck') {
       ctrl = this.CommunityWaterManagement;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } else if (name == 'other') {
-      return this.CommunityWaterManagement.errors && this.CommunityWaterManagement.errors.other && (ctrl.touched || this.submitRequested);
+    }
+    //  validate checkbox กรณีที่ใช้ในหน้า page หลักจะใช้ไม่เหมือนแบบ component
+    else if (name == 'disasterWarningMethods') {
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+    }
+    //  validate checkbox โดยมี other ด้านในกรณีที่ใช้ในหน้า page หลักใช้ไม่เหมือนแบบ component
+    else if (name == 'other') {
+      let ctrl2 = this.CommunityWaterManagement.get('disasterWarningMethods');
+      ctrl = this.CommunityWaterManagement.get('disasterWarningMethods.other');
+      return ctrl2.errors && ctrl2.errors.other && (ctrl.touched || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
