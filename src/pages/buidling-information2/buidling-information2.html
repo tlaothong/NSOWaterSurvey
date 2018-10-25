@@ -6,98 +6,156 @@
 
 
 <ion-content padding>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+    <ion-card>
+      <ion-card-content>
 
-  <ion-card>
-    <ion-card-content>
+        <ion-item>
+          <ion-label>
+            จำนวนครัวเรือน/สถานประกอบการทั้งหมด ในบ้าน/อาคาร/สิ่งปลูกสร้าง
+          </ion-label>
+        </ion-item>
 
-      <ion-item>
-        <ion-label>
-          จำนวนครัวเรือน/สถานประกอบการทั้งหมด ในบ้าน/อาคาร/สิ่งปลูกสร้าง
-        </ion-label>
-      </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="จำนวนครัวเรือน" formControlName="unitCount" [class.invalid]="isValid('unitCount')"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-input type="number" placeholder="จำนวนครัวเรือน"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>
-          การอนุญาตให้เข้าอาคาร
-        </ion-label>
-      </ion-item>
-      <ion-list radio-group>
-        <ion-item>
-          <ion-radio item-start></ion-radio>
-          <ion-label>
-            อนุญาต
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-radio item-start></ion-radio>
-          <ion-label>
-            ไม่อนุญาต แต่ให้ข้อมูล
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-radio item-start></ion-radio>
-          <ion-label>
-            ไม่อนุญาต และไม่ให้ข้อมูล
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label>
-            จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวนห้อง /จำนวนสถานประกอบการ"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            จำนวนห้องว่าง
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="จำนวนห้องว่าง"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            ปริมาณการใช้น้ำ / ค่าน้ำ
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกปริมาณการใช้น้ำ / ค่าน้ำ"></ion-input>
+        <ion-item *ngIf="isValid('unitCount')">
+          <span class="invalid-msg">
+            กรุณากรอกจำนวนครัวเรือน
+          </span>
         </ion-item>
 
         <ion-item>
           <ion-label>
-            จำนวนชั้นของอาคาร
+            การอนุญาตให้เข้าอาคาร
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวนชั้น"></ion-input>
-        </ion-item>
 
-        <ion-item>
-          <ion-label>
-            ปัญหา
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="ระบุปัญหา"></ion-input>
-        </ion-item>
+        <ion-list radio-group formControlName="unitAccess" [class.invalid]="isValid('unitAccess')">
+          <ion-item *ngIf="isValid('unitAccess')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="1" item-start></ion-radio>
+            <ion-label>
+              อนุญาต
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="2" item-start></ion-radio>
+            <ion-label>
+              ไม่อนุญาต แต่ให้ข้อมูล
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="3" item-start></ion-radio>
+            <ion-label>
+              ไม่อนุญาต และไม่ให้ข้อมูล
+            </ion-label>
+          </ion-item>
+        </ion-list>
 
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+      </ion-card-content>
+    </ion-card>
 
-  <form-buttons-bar></form-buttons-bar>
+    <div [ngSwitch]="f.get('unitAccess').value">
+      <div *ngSwitchCase="2">
 
+        <ion-card>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>
+                  จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="กรอกจำนวนห้อง /จำนวนสถานประกอบการ" formControlName="occupiedRoomCount"
+                  [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="isValid('occupiedRoomCount')">
+                <span class="invalid-msg">
+                  กรุณากรอกจำนวนห้องที่มีผู้อาศัย
+                </span>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  จำนวนห้องว่าง
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="จำนวนห้องว่าง" formControlName="vacantRoomCount" [class.invalid]="isValid('vacantRoomCount')"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="isValid('vacantRoomCount')">
+                <span class="invalid-msg">
+                  กรุณากรอกจำนวนห้องว่าง
+                </span>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  ปริมาณการใช้น้ำ
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="กรอกปริมาณการใช้น้ำ" formControlName="waterQuantity"
+                  [class.invalid]="isValid('waterQuantity')"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="isValid('waterQuantity')">
+                <span class="invalid-msg">
+                  กรุณากรอกปริมาณการใช้น้ำ
+                </span>
+              </ion-item>
+
+              <ion-item>
+                  <ion-label>
+                    ค่าน้ำ
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="number" placeholder="ค่าน้ำ" formControlName="waterBill"
+                    [class.invalid]="isValid('waterBill')"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="isValid('waterBill')">
+                  <span class="invalid-msg">
+                    กรุณากรอกค่าน้ำ
+                  </span>
+                </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  จำนวนชั้นของอาคาร
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="กรอกจำนวนชั้น" formControlName="floor" [class.invalid]="isValid('floor')"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="isValid('floor')">
+                <span class="invalid-msg">
+                  กรุณากรอกจำนวนชั้นของอาคาร
+                </span>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  ปัญหา
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-input type="text" placeholder="ระบุปัญหา"></ion-input>
+              </ion-item>
+
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+    </div>
+
+    <form-buttons-bar></form-buttons-bar>
+  </form>
 </ion-content>
