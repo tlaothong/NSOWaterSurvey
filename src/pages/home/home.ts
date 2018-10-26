@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, ModalController } from 'ionic-angular';
 import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
+import { DlgUnitPage } from '../dlg-unit/dlg-unit';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,7 @@ export class HomePage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,public modalCtrl: ModalController) {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
@@ -46,5 +47,10 @@ export class HomePage {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
+  }
+  Unit(){
+
+    const modal = this.modalCtrl.create("DlgUnitPage");
+    modal.present();
   }
 }
