@@ -16,10 +16,11 @@
 <ion-content padding>
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
-
+    
+    
     <ion-item>
       <ion-label col-6>ขนาดบรรจุภัณฑ์ ( {{ size }} )</ion-label>
-      <ion-input type="number" formControlName="size" formControlName="size" [class.invalid]="isValid('size')"></ion-input>
+      <ion-input type="number"  formControlName="size" [class.invalid]="isValid('size')"></ion-input>
     </ion-item>
     
     <ion-item *ngIf="isValid('size')">
@@ -28,7 +29,6 @@
       </span>
     </ion-item>
 
-    <ion-list>
       <ion-item>
         <ion-label>จำนวนที่ซื้อต่อเดือน</ion-label>
       </ion-item>
@@ -43,7 +43,7 @@
       </ion-item>
       <ion-item>
         <ion-label col-6>เพื่อทำการเกษตร</ion-label>
-        <ion-input type="number" formControlName="agriculture" formControlName="agriculture" [class.invalid]="isValid('agriculture')"></ion-input>
+        <ion-input type="number" formControlName="agriculture" [class.invalid]="isValid('agriculture')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('agriculture')">
         <span class="invalid-msg">
@@ -53,7 +53,7 @@
 
       <ion-item>
         <ion-label col-6>เพื่อผลิตสินค้า</ion-label>
-        <ion-input type="number" formControlName="factory" formControlName="factory" [class.invalid]="isValid('factory')"></ion-input>
+        <ion-input type="number"  formControlName="factory" [class.invalid]="isValid('factory')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('factory')">
         <span class="invalid-msg">
@@ -63,14 +63,14 @@
 
       <ion-item>
         <ion-label col-6>เพื่อการบริการ</ion-label>
-        <ion-input type="number" formControlName="service" formControlName="service" [class.invalid]="isValid('service')"></ion-input>
+        <ion-input type="number"  formControlName="service" [class.invalid]="isValid('service')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('service')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
         </span>
       </ion-item>
-    </ion-list>
+   
 
 
     <ion-grid>

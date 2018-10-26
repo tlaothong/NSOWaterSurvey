@@ -7,7 +7,7 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="FormItem">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="Disasterous">
 
     <h3>ตอนที่ 6 ปัญหาอุทกภัย</h3>
 
@@ -44,7 +44,7 @@
       </ion-card-content>
     </ion-card>
 
-    <div [ngSwitch]="FormItem.get('flooded').value">
+    <div [ngSwitch]="Disasterous.get('flooded').value">
       <div *ngSwitchCase="1">
 
         <ion-card>
@@ -83,11 +83,11 @@
               </ion-col>
             </ion-row>
 
-            <table-disasterous headline="พ.ศ. 2560" [FormItem]="FormItem.get('yearsDisasterous')"></table-disasterous>
-            <table-disasterous headline="พ.ศ. 2559" [FormItem]="FormItem.get('yearsDisasterous')"></table-disasterous>
-            <table-disasterous headline="พ.ศ. 2558" [FormItem]="FormItem.get('yearsDisasterous')"></table-disasterous>
-            <table-disasterous headline="พ.ศ. 2557" [FormItem]="FormItem.get('yearsDisasterous')"></table-disasterous>
-            <table-disasterous headline="พ.ศ. 2556" [FormItem]="FormItem.get('yearsDisasterous')"></table-disasterous>
+            <table-disasterous headline="พ.ศ. 2560" [FormItem]="Disasterous.get('yearsDisasterous').at(0)"></table-disasterous>
+            <table-disasterous headline="พ.ศ. 2559" [FormItem]="Disasterous.get('yearsDisasterous').at(1)"></table-disasterous>
+            <table-disasterous headline="พ.ศ. 2558" [FormItem]="Disasterous.get('yearsDisasterous').at(2)"></table-disasterous>
+            <table-disasterous headline="พ.ศ. 2557" [FormItem]="Disasterous.get('yearsDisasterous').at(3)"></table-disasterous>
+            <table-disasterous headline="พ.ศ. 2556" [FormItem]="Disasterous.get('yearsDisasterous').at(4)"></table-disasterous>
 
           </ion-card-content>
         </ion-card>

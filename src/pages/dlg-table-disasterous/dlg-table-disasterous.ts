@@ -24,7 +24,7 @@ export class DlgTableDisasterousPage {
     this.text = navParams.get("headline");
   }
 
-  
+
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
@@ -36,4 +36,8 @@ export class DlgTableDisasterousPage {
     console.log('ionViewDidLoad DlgTableDisasterousPage');
   }
 
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched);
+  }
 }

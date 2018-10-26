@@ -16,7 +16,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-input formControlName="name" [class.invalid]="isValid('name')" type="text" placeholder="ชื่อแหล่งน้ำ"></ion-input>
+        <ion-input formControlName="name" [class.invalid]="isValid('name')" type="text" placeholder="ชื่อหน่วยงาน"></ion-input>
       </ion-item>
 
       <ion-item *ngIf="isValid('name')">
@@ -28,7 +28,7 @@
 
       <ion-item>
         <ion-label>
-          5.3 ใช้น้ำผิวดิน (สระน้ำ แม่น้ำ/ลำคลอง) หรือไม่
+          5.3 ใช้น้ำผิวดิน <b>(สระน้ำ แม่น้ำ/ลำคลอง) </b> หรือไม่
         </ion-label>
       </ion-item>
 
@@ -55,7 +55,7 @@
       <div *ngIf="FormItem.get('hasSurfaceWater').value ">
         <ion-item>
           <ion-label>
-            ใช้น้ำผิวดินปริมาณเฉลี่ย ลูกบาศก์เมตร ต่อ เดือน เท่าไร
+            ถ้า "ใช้" ใช้น้ำผิวดินปริมาณเฉลี่ย ลูกบาศก์เมตร ต่อ เดือน เท่าไร
           </ion-label>
         </ion-item>
 
@@ -73,7 +73,7 @@
 
       <ion-item>
         <ion-label>
-          5.4 ใช้จาก บ่อบาดาล หรือไม่
+          5.4 ใช้น้ำจาก <b>บ่อบาดาล</b> หรือไม่
         </ion-label>
       </ion-item>
 
@@ -134,7 +134,7 @@
 
       <ion-item>
         <ion-label>
-          5.5 ใช้น้ำประปาราคาขายหน่วยต่อเดือนเท่าไร
+          5.5 น้ำประปาราคาขายหน่วยต่อเดือนเท่าไร
         </ion-label>
       </ion-item>
       <ion-item>
@@ -148,7 +148,7 @@
 
       <ion-item>
         <ion-label>
-          5.6 ค่าเช่ามิเตอร์คิดต่อเดือนเท่าไร
+          5.6 ค่าเช่ามิเตอร์คิดเดือนละเท่าไร
         </ion-label>
       </ion-item>
       <ion-item>
@@ -164,7 +164,7 @@
 
       <ion-item>
         <ion-label>
-          5.7 การผลิตน้ำประปา มีระบบการฆ่าเชื้อหรือไม่
+          5.7 การผลิตน้ำประปา มีระบบการฆ่าโรคเชื้อหรือไม่
         </ion-label>
       </ion-item>
 
@@ -178,7 +178,7 @@
         <ion-item>
           <ion-radio [value]="1" item-left></ion-radio>
           <ion-label>
-            1. มีระบบการฆ่าเชื้อโรคด้วบคลอรีน
+            1. มีการฆ่าเชื้อโรคดโดยการใส่คลอรีน
           </ion-label>
         </ion-item>
         <ion-item>
