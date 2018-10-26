@@ -71,17 +71,19 @@
   </ion-segment>
 
   <ion-row align-items-center>
-    <ion-col col-4>
+    <ion-col>
       <button ion-button block type="button">
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
-    <ion-col col-4>
+    <ion-col>
       <button ion-button block type="button">
         สำรวจครบทุกหน่วยใน EA
       </button>
     </ion-col>
-    <ion-col col-3>
+  </ion-row>
+  <ion-row align-items-center>
+    <ion-col col-11>
       <ion-searchbar>
       </ion-searchbar>
     </ion-col>
@@ -92,7 +94,9 @@
     </ion-col>
   </ion-row>
 
-   <ion-segment icon-start [(ngModel)]="icons">
+
+
+  <ion-segment icon-start [(ngModel)]="icons">
     <ion-segment-button value="lastest">
       <ion-icon name="md-create"></ion-icon>
       ข้อมูลล่าสุด
@@ -109,7 +113,7 @@
 
     <ion-segment-button value="return">
       <ion-icon name="md-eye"></ion-icon>
-      สำรวจครั้งที่ 2 และ 3
+      สำรวจครั้งที่ 2,3
     </ion-segment-button>
   </ion-segment>
 
