@@ -41,9 +41,9 @@ export class HomePage {
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage" },
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
-      { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
+      { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
     ];
   }
 
