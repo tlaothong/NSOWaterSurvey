@@ -75,7 +75,7 @@
     </div>
 
 
-    <div *ngIf="CommunityWaterManagement.get('hasPublicWater').value == false">
+    <div *ngIf="CommunityWaterManagement.get('hasPublicWater').value == false || CommunityWaterManagement.get('publicWaterCount').value ">
     <ion-card>
       <ion-card-content>
           <ion-item>
