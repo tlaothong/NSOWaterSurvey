@@ -77,8 +77,41 @@
 
   </ion-row>
 
+  <ion-segment [(ngModel)]="icons">
+      <ion-segment-button value="building">
+        สน.1 ข้อมูลอาคาร
+      </ion-segment-button>
+      <ion-segment-button value="areayoi">
+        สน.2 พื้นที่ย่อย
+      </ion-segment-button>
+      <ion-segment-button value="fsedit">
+        FS ให้แก้ไข
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-row align-items-center>
+      <ion-col col-6>
+        <button ion-button block type="button">
+          สำรวจหน่วยต่อไป
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block type="button">
+          สำรวจครบทุกหน่วยใน EA
+        </button>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+    </ion-row>
 
   <ion-segment icon-start [(ngModel)]="icons">
+    <ion-segment-button value="lastest">
+      <ion-icon name="md-create"></ion-icon>
+      ข้อมูลล่าสุด
+    </ion-segment-button>
     <ion-segment-button value="all">
       <ion-icon name="folder"></ion-icon>
       ข้อมูลทั้งหมด
@@ -96,23 +129,6 @@
   </ion-segment>
 
 
-  <ion-row align-items-center>
-    <ion-col col-6>
-      <button ion-button block type="button">
-        สำรวจหน่วยต่อไป
-      </button>
-    </ion-col>
-    <ion-col col-6>
-      <button ion-button block type="button">
-        สำรวจครบทุกหน่วยใน EA
-      </button>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
-    </ion-searchbar>
-  </ion-row>
 
   <hr>
 
@@ -147,33 +163,31 @@
 
   <hr>
 
-  <ion-item>
-    <ion-row text-center align-items-center>
-      <ion-col col-1>
-        <ion-icon disabled="false" name="pause"></ion-icon>
-      </ion-col>
-      <ion-col col-1>
-        1
-      </ion-col>
-      <ion-col col-2>
-        136
-      </ion-col>
-      <ion-col col-3>
-        ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
-      </ion-col>
-      <ion-col col-2>
-        3
-      </ion-col>
-      <ion-col col-2>
-        5
-      </ion-col>
-      <ion-col col-1>
-        <button ion-button type="button" color="danger">
-          ลบ
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-item>
+  <ion-row text-center align-items-center>
+    <ion-col col-1>
+      <ion-icon disabled="false" name="pause"></ion-icon>
+    </ion-col>
+    <ion-col col-1>
+      1
+    </ion-col>
+    <ion-col col-2>
+      136
+    </ion-col>
+    <ion-col col-3>
+      ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
+    </ion-col>
+    <ion-col col-2>
+      3
+    </ion-col>
+    <ion-col col-2>
+      5
+    </ion-col>
+    <ion-col col-1>
+      <button ion-button type="button" color="danger">
+        ลบ
+      </button>
+    </ion-col>
+  </ion-row>
 
 
   <ion-row text-center align-items-center>
@@ -320,15 +334,6 @@
       </button>
     </ion-col>
   </ion-row>
-
-  <ion-segment [(ngModel)]="icons">
-    <ion-segment-button value="data1-2-1">
-      ข้อมูลสน.1 และข้อมูลสน.2-1
-    </ion-segment-button>
-    <ion-segment-button value="data2-2">
-      ข้อมูลสน.2-2
-    </ion-segment-button>
-  </ion-segment>
 
   <hr>
 
