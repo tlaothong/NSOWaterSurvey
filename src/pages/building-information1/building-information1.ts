@@ -21,7 +21,7 @@ export class BuildingInformation1Page {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'ordering': [null, Validators.required],
+      
       'road': [null, Validators.required],
       'alley': [null, Validators.required],
       'name': [null, Validators.required],
@@ -33,7 +33,7 @@ export class BuildingInformation1Page {
       'access': [null, Validators.required],
       'vacancyCount': [null, Validators.required],
       'abandonedCount': [null, Validators.required],
-      
+
 
     });
   }
@@ -41,12 +41,14 @@ export class BuildingInformation1Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
   }
+  public handleSubmit() {
+    this.submitRequested = true;
+  }
 
-  
-  // public isValid(name: string): boolean {
-  //   var ctrl = this.f.get(name);
-  //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  // }
-  
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
 
 }
