@@ -19,13 +19,20 @@ export class DisasterousPage {
 
   @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
-  @Input() public FormItem: FormGroup;
+ 
     private submitRequested: boolean;
+    Disasterous: FormGroup;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.FormItem = this.fb.group({
+    this.Disasterous = this.fb.group({
       'flooded': [null, Validators.required],
-      'yearsDisasterous' : TableDisasterousComponent.CreateFormGroup(this.fb),
+      'yearsDisasterous' : this.fb.array([
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+      ]),
     })
 
     
@@ -33,11 +40,11 @@ export class DisasterousPage {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.FormItem, headline: this.text });
+    const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.Disasterous, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
+        this.Disasterous.setValue(fg.value);
       }
     });
     modal.present();
@@ -52,7 +59,7 @@ export class DisasterousPage {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
+    var ctrl = this.Disasterous.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
