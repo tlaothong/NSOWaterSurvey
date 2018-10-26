@@ -17,6 +17,7 @@ export class HomePage {
       // test push
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
+      { title: 'Unit', component: "UnitPage" },
       { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
       { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" },
@@ -44,6 +45,7 @@ export class HomePage {
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
       { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
+      
     ];
   }
 
