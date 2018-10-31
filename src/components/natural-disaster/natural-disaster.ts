@@ -20,12 +20,9 @@ export class NaturalDisasterComponent {
   constructor(private fb: FormBuilder) {
     console.log('Hello NaturalDisasterComponent Component');
 
-    this.FormItem = this.fb.group({
-      'hasDisaster': ['', Validators.required],
-      'disasters': NaturalDisasterComponent.CreateFormGroup(fb),
-    });
+    this.FormItem = NaturalDisasterComponent.CreateFormGroup(fb);
+    
   }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({

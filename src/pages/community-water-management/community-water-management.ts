@@ -39,10 +39,10 @@ export class CommunityWaterManagementPage {
       'waterServiceCount': [null, Validators.required],
       'waterServices': fb.array([]),
       'hasWaterTreatment': [null, Validators.required],
-      // 'hasDisaster': [null, Validators.required],
-      'disasters': NaturalDisasterComponent.CreateFormGroup(this.fb),
-      // 'hasDisasterWarning': [null, Validators.required],
-      'disasterWarningMethods': DisasterWarningMethodsComponent.CreateFormGroup(this.fb),
+      'hasDisaster': [null, Validators.required],
+      'disasters': NaturalDisasterComponent.CreateFormGroup(fb),
+      'hasDisasterWarning': [null, Validators.required],
+      'disasterWarningMethods': DisasterWarningMethodsComponent.CreateFormGroup(fb),
     });
     this.setupPublicWaterCountChanges();
     this.setupWaterServiceCountChanges();
