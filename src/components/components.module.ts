@@ -38,6 +38,8 @@ import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop'
 import { DetailWaterManagementComponent } from './detail-water-management/detail-water-management';
 import { DetailManagementForFarmingComponent } from './detail-management-for-farming/detail-management-for-farming';
 import { DetailOrgWaterSupplyComponent } from './detail-org-water-supply/detail-org-water-supply';
+import { NaturalDisasterComponent } from './natural-disaster/natural-disaster';
+import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disaster-warning-methods';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -78,6 +80,8 @@ import { DetailOrgWaterSupplyComponent } from './detail-org-water-supply/detail-
     DetailWaterManagementComponent,
     DetailManagementForFarmingComponent,
     DetailOrgWaterSupplyComponent,
+    NaturalDisasterComponent,
+    DisasterWarningMethodsComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -123,6 +127,8 @@ import { DetailOrgWaterSupplyComponent } from './detail-org-water-supply/detail-
     DetailWaterManagementComponent,
     DetailManagementForFarmingComponent,
     DetailOrgWaterSupplyComponent,
+    NaturalDisasterComponent,
+    DisasterWarningMethodsComponent,
   ]
 })
 export class ComponentsModule { }

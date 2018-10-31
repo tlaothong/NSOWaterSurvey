@@ -1,0 +1,76 @@
+<!-- Generated template for the DisasterWarningMethodsComponent component -->
+<div [formGroup]="FormItem">
+
+  
+  <ion-item>
+    <ion-label>
+      8. ในหมู่บ้าน/ชุมชนแห่งนี้มีการเตือนภัยและมาตรการช่วยเหลือน้ำท่วมหรือไม่
+    </ion-label>
+  </ion-item>
+
+
+  <ion-row radio-group formControlName="hasDisasterWarning" [class.invalid]="isValid('hasDisasterWarning')">
+    <ion-item *ngIf="isValid('hasDisasterWarning')">
+      <span class="invalid-msg">
+        กรุณาเลือก
+      </span>
+    </ion-item>
+    <ion-item col-6>
+      <ion-radio value="1" item-left></ion-radio>
+      <ion-label>
+        1.ไม่มี
+      </ion-label>
+    </ion-item>
+    <ion-item col-6>
+      <ion-radio value="2" item-left></ion-radio>
+      <ion-label>
+        2.มี ลักษณะการดำเนินการเป็นอย่างไร
+      </ion-label>
+    </ion-item>
+  </ion-row>
+
+  <div *ngIf="FormItem.get('hasDisasterWarning').value == 2">
+    <ion-row formGroupName="disasterWarningMethods" [class.invalid]="isValid('disasterWarningMethods')">
+
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            2.1 ระบบเป็นไปตามระบบของทางราชการ
+          </ion-label>
+          <ion-checkbox formControlName="governmentProcess"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            2.2 มี โดยหมู่บ้าน/ชุมชนร่วมกันวางแผนจัดการเอง
+          </ion-label>
+          <ion-checkbox formControlName="communityPlan"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            2.3 มี โดยมีหน่วยงานอื่นให้คำแนะนำและบริหารจัดการ
+          </ion-label>
+          <ion-checkbox formControlName="consultingService"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            2.4 มี ลักษณะการดำเนินงานอื่น
+          </ion-label>
+          <ion-checkbox formControlName="hasOther"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="FormItem.get('hasOther').value || false">
+          <ion-label>
+            ระบุลักษณะการดำเนินงาน
+          </ion-label>
+          <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('other')" class="invalid-msg">
+          <span>
+            กรุณากรอกข้อมูล
+          </span>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</div>
