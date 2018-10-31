@@ -20,13 +20,8 @@ export class DisasterWarningMethodsComponent {
     console.log('Hello DisasterWarningMethodsComponent Component');
     this.text = 'Hello World';
 
-
-    this.FormItem = this.fb.group({
-      'hasDisasterWarning': ['', Validators.required],
-      'disasterWarningMethods': DisasterWarningMethodsComponent.CreateFormGroup(fb),
-    });
+    this.FormItem = DisasterWarningMethodsComponent.CreateFormGroup(fb);
   }
-
   
   submitRequest() {
     this.submitRequested = true;
