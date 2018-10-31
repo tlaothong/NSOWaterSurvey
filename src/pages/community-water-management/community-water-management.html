@@ -68,7 +68,7 @@
     </ion-card>
 
 
-    <div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0 && CommunityWaterManagement.get('hasPublicWater').value " >
+    <div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0 && CommunityWaterManagement.get('hasPublicWater').value ">
       <div *ngFor="let p of CommunityWaterManagement.get('detail').controls; let i = index">
         <detail-water-management [no]="i + 1" [FormItem]="p"></detail-water-management>
       </div>
@@ -76,8 +76,8 @@
 
 
     <div *ngIf="CommunityWaterManagement.get('hasPublicWater').value == false || CommunityWaterManagement.get('publicWaterCount').value ">
-    <ion-card>
-      <ion-card-content>
+      <ion-card>
+        <ion-card-content>
           <ion-item>
             <ion-label>
               4. ในหมู่บ้าน/ชุมชนนี้มีระบบน้ำประปาประเภทใดบ้าง
@@ -188,14 +188,14 @@
               </ion-item>
             </ion-row>
 
-            <div *ngIf="CommunityWaterManagement.get('hasWaterService').value " >
+            <div *ngIf="CommunityWaterManagement.get('hasWaterService').value ">
 
               <ion-item>
                 <ion-label>
                   5.1 หาก "ใช่" ในหมู่บ้าน/ชุมชน มีแหล่งผลิตน้ำประปาอื่นๆ กี่หน่วยงาน
                 </ion-label>
               </ion-item>
-  
+
               <ion-item>
                 <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')" type="text"
                   placeholder="หน่วยงาน"></ion-input>
@@ -251,181 +251,9 @@
 
 
 
-        <ion-item>
-          <ion-label>
-            7. ในช่วงเวลา 5 ปีที่ผ่านมา หมู่บ้าน/ชุมชนแห่งนี้เคยเกิดภัยธรรมชาติหรือไม่
-          </ion-label>
-        </ion-item>
+        <natural-disaster [FormItem]="CommunityWaterManagement.get('disasters')"></natural-disaster>
+        <disaster-warning-methods [FormItem]="CommunityWaterManagement.get('disasterWarningMethods')"></disaster-warning-methods>
 
-        <ion-row radio-group formControlName="hasDisaster" [class.invalid]="isValid('hasDisaster')">
-          <ion-item *ngIf="isValid('hasDisaster')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio value="1" item-left></ion-radio>
-            <ion-label>
-              1.ไม่เคย
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio value="2" item-left></ion-radio>
-            <ion-label>
-              2.เคย คือ
-            </ion-label>
-          </ion-item>
-        </ion-row>
-
-
-
-        <div *ngIf="CommunityWaterManagement.get('hasDisaster').value == 2">
-
-          <ion-row formGroupName="disasters" [class.invalid]="isValid('disasters')">
-
-            <ion-col>
-              <ion-item>
-                <ion-label>
-                  2.1 ภัยจากคลื่นสึนามิ
-                </ion-label>
-                <ion-checkbox formControlName="tsunami"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.2 อุทกภัย ดินโคลนถล่ม
-                </ion-label>
-                <ion-checkbox formControlName="landSlide"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.3 ภัยจากแผ่นดินไหวและอาคารถล่ม
-                </ion-label>
-                <ion-checkbox formControlName="earthquake"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.4 พายุหมุนเขตร้อน
-                </ion-label>
-                <ion-checkbox formControlName="cyclone"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.5 ภัยจากไฟป่าและหมอกควัน
-                </ion-label>
-                <ion-checkbox formControlName="forestFire"></ion-checkbox>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>
-                  2.6 ภัยแล้ง
-                </ion-label>
-                <ion-checkbox formControlName="drought"></ion-checkbox>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>
-                  2.7 ภัยจากอากาศหนาว
-                </ion-label>
-                <ion-checkbox formControlName="cold"></ion-checkbox>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>
-                  2.8 ภัยจากโรคระบาดในมนุษย์
-                </ion-label>
-                <ion-checkbox formControlName="epidemic"></ion-checkbox>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>
-                  2.9 ภัยจากโรค แมลง สัตว์ ศัตรูพืชระบาด
-                </ion-label>
-                <ion-checkbox formControlName="pest"></ion-checkbox>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>
-                  2.10 ภัยจากโรคระบาดสัตว์และสัตว์น้ำ
-                </ion-label>
-                <ion-checkbox formControlName="epizootics"></ion-checkbox>
-              </ion-item>
-
-            </ion-col>
-          </ion-row>
-        </div>
-
-
-
-        <ion-item>
-          <ion-label>
-            8. ในหมู่บ้าน/ชุมชนแห่งนี้มีการเตือนภัยและมาตรการช่วยเหลือน้ำท่วมหรือไม่
-          </ion-label>
-        </ion-item>
-
-
-        <ion-row radio-group formControlName="hasDisasterWarning" [class.invalid]="isValid('hasDisasterWarning')">
-          <ion-item *ngIf="isValid('hasDisasterWarning')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio value="1" item-left></ion-radio>
-            <ion-label>
-              1.ไม่มี
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio value="2" item-left></ion-radio>
-            <ion-label>
-              2.มี ลักษณะการดำเนินการเป็นอย่างไร
-            </ion-label>
-          </ion-item>
-        </ion-row>
-
-        <div *ngIf="CommunityWaterManagement.get('hasDisasterWarning').value == 2">
-          <ion-row formGroupName="disasterWarningMethods" [class.invalid]="isValid('disasterWarningMethods')">
-
-            <ion-col>
-              <ion-item>
-                <ion-label>
-                  2.1 ระบบเป็นไปตามระบบของทางราชการ
-                </ion-label>
-                <ion-checkbox formControlName="governmentProcess"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.2 มี โดยหมู่บ้าน/ชุมชนร่วมกันวางแผนจัดการเอง
-                </ion-label>
-                <ion-checkbox formControlName="communityPlan"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.3 มี โดยมีหน่วยงานอื่นให้คำแนะนำและบริหารจัดการ
-                </ion-label>
-                <ion-checkbox formControlName="consultingService"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>
-                  2.4 มี ลักษณะการดำเนินงานอื่น
-                </ion-label>
-                <ion-checkbox formControlName="hasOther"></ion-checkbox>
-              </ion-item>
-
-              <ion-item *ngIf="CommunityWaterManagement.get('disasterWarningMethods.hasOther').value || false">
-                <ion-label>
-                  ระบุลักษณะการดำเนินงาน
-                </ion-label>
-                <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
-              </ion-item>
-              <ion-item *ngIf="isValid('other')" class="invalid-msg">
-                <span>
-                  กรุณากรอกข้อมูล
-                </span>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </div>
 
       </ion-card-content>
     </ion-card>
