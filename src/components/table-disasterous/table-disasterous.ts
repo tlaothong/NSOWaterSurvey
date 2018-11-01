@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Generated class for the TableDisasterousComponent component.
@@ -23,13 +23,17 @@ export class TableDisasterousComponent {
     console.log('Hello TableDisasterousComponent Component');
     this.year = 'Hello World';
 
-       // TODO: Remove this
-       this.FormItem = this.fb.group({
-        'count': null,
-        'avgday': null,
-        'avghour': null,
-        'height': null,
-      });
+    // TODO: Remove this
+    this.FormItem = TableDisasterousComponent.CreateFormGroup(this.fb);
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'count': [ null, Validators.required],
+      'avgday':[ null, Validators.required],
+      'avghour': [ null, Validators.required],
+      'height': [ null, Validators.required],
+    });
   }
 
   public showModal() {

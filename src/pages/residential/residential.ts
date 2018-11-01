@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 
 /**
  * Generated class for the ResidentialPage page.
@@ -15,6 +16,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'residential.html',
 })
 export class ResidentialPage {
+  @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   residentialFrm: FormGroup;
   private submitRequested: boolean;
 
@@ -22,7 +24,9 @@ export class ResidentialPage {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
       'workingAge': [null, Validators.required],
+      'waterSources' : WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
+
     });
   }
 
@@ -32,6 +36,7 @@ export class ResidentialPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.waterSources8B.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

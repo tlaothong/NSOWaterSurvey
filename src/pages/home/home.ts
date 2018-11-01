@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, ModalController } from 'ionic-angular';
 import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
+import { DlgUnitPage } from '../dlg-unit/dlg-unit';
 
 @Component({
   selector: 'page-home',
@@ -10,11 +11,15 @@ export class HomePage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,public modalCtrl: ModalController) {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
       { title: 'Zero', component: "ZeroPage" },
+      { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
+      { title: 'Unit', component: "UnitPage" },
+      { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
+      { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
@@ -38,6 +43,9 @@ export class HomePage {
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'Disaster', component: "DisasterPage" },
+      { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
+      { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
+      
     ];
   }
 
@@ -45,5 +53,10 @@ export class HomePage {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
+  }
+  Unit(){
+
+    const modal = this.modalCtrl.create("DlgUnitPage");
+    modal.present();
   }
 }

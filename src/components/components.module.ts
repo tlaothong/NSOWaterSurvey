@@ -35,6 +35,11 @@ import { FishFarmingComponent } from './fish-farming/fish-farming';
 import { FrogFarmingComponent } from './frog-farming/frog-farming';
 import { CrocodileFarmingComponent } from './crocodile-farming/crocodile-farming';
 import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop';
+import { DetailWaterManagementComponent } from './detail-water-management/detail-water-management';
+import { DetailManagementForFarmingComponent } from './detail-management-for-farming/detail-management-for-farming';
+import { DetailOrgWaterSupplyComponent } from './detail-org-water-supply/detail-org-water-supply';
+import { NaturalDisasterComponent } from './natural-disaster/natural-disaster';
+import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disaster-warning-methods';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -72,6 +77,11 @@ import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop'
     FrogFarmingComponent,
     CrocodileFarmingComponent,
     FieldFlowerCropComponent,
+    DetailWaterManagementComponent,
+    DetailManagementForFarmingComponent,
+    DetailOrgWaterSupplyComponent,
+    NaturalDisasterComponent,
+    DisasterWarningMethodsComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -114,6 +124,11 @@ import { FieldFlowerCropComponent } from './field-flower-crop/field-flower-crop'
     FrogFarmingComponent,
     CrocodileFarmingComponent,
     FieldFlowerCropComponent,
+    DetailWaterManagementComponent,
+    DetailManagementForFarmingComponent,
+    DetailOrgWaterSupplyComponent,
+    NaturalDisasterComponent,
+    DisasterWarningMethodsComponent,
   ]
 })
 export class ComponentsModule { }

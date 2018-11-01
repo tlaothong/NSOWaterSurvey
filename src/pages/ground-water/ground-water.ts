@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
+import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 
 /**
  * Generated class for the GroundWaterPage page.
@@ -17,21 +18,27 @@ import { GroundWaterUsageComponent } from '../../components/ground-water-usage/g
   templateUrl: 'ground-water.html',
 })
 
-export class GroundWaterPage  {
+export class GroundWaterPage {
 
+  @ViewChildren(GroundWaterUsagePublicComponent) private groundWaterUsagePublic: GroundWaterUsagePublicComponent[];
   @ViewChildren(GroundWaterUsageComponent) private groundWaterUsage: GroundWaterUsageComponent[];
   private submitRequested: boolean;
   public f: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'privateGroundWater': [null, Validators.required],
-      'groundWaterCount': [null, Validators.required],
-      'useGroundWaterCount': [null, Validators.required],
-      'avgUsageWater': this.fb.array([]),
-      'publicGroundWater': [null, Validators.required],
-      'count': [null, Validators.required],
-      'usePerMonth': this.fb.array([]),
+      'privateGroundWater': this.fb.group({
+        'doing': [null, Validators.required],
+        'allCount': [null, Validators.required],
+        'waterResourceCount': [null, Validators.required],
+        'waterResources': this.fb.array([])
+      }),
+
+      'publicGroundWater': this.fb.group({
+        'doing': [null, Validators.required],
+        'waterResourceCount': [null, Validators.required],
+        'waterResources': this.fb.array([])
+      })
     });
 
     this.setupuseGroundWaterCountChanges();
@@ -48,6 +55,7 @@ export class GroundWaterPage  {
   public handleSubmit() {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
+    this.groundWaterUsagePublic.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
@@ -56,8 +64,8 @@ export class GroundWaterPage  {
   }
 
   private setupuseGroundWaterCountChanges() {
-    const componentFormArray: string = "avgUsageWater";
-    const componentCount: string = "useGroundWaterCount";
+    const componentFormArray: string = "privateGroundWater.waterResources";
+    const componentCount: string = "privateGroundWater.waterResourceCount";
 
     var onComponentCountChanges = () => {
       var avgUsageWater = (this.f.get(componentFormArray) as FormArray).controls || [];
@@ -77,7 +85,7 @@ export class GroundWaterPage  {
 
         avg.push(ctrl);
       }
-      this.f.setControl(componentFormArray, avg);
+      (this.f.get('privateGroundWater') as FormGroup).setControl('waterResources', avg);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
@@ -86,13 +94,13 @@ export class GroundWaterPage  {
   }
 
   private setupusePublicGroundWaterCountChanges() {
-    const componentFormArray: string = "usePerMonth";
-    const componentCount: string = "count";
+    const componentFormArray: string = "publicGroundWater.waterResources";
+    const componentCount: string = "publicGroundWater.waterResourceCount";
 
     var onComponentCountChanges = () => {
       var usePerMonth = (this.f.get(componentFormArray) as FormArray).controls || [];
       var count = this.f.get(componentCount).value || 0;
-      var avg = this.fb.array([]);
+      var avgp = this.fb.array([]);
 
       count = Math.max(0, count);
 
@@ -102,12 +110,12 @@ export class GroundWaterPage  {
           const fld = usePerMonth[i];
           ctrl = fld;
         } else {
-          ctrl = GroundWaterUsageComponent.CreateFormGroup(this.fb);
+          ctrl = GroundWaterUsagePublicComponent.CreateFormGroup(this.fb);
         }
 
-        avg.push(ctrl);
+        avgp.push(ctrl);
       }
-      this.f.setControl(componentFormArray, avg);
+      (this.f.get('publicGroundWater') as FormGroup).setControl('waterResources', avgp);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());

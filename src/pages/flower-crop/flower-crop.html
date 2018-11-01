@@ -7,7 +7,7 @@
 <ion-content padding>
   <form [formGroup]="flowerCropFrm" (ngSubmit)="handleSubmit()">
 
-    <h3> <b>2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้</b> </h3>
+    <h3>2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้</h3>้
 
     <ion-card>
       <ion-card-content>
@@ -21,8 +21,8 @@
           </dt>
           <dd><b>ไม้ประดับ</b></dd>
           <dt>เช่น โกสน เข็ม เตย ไทร
-            เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาลม์ต่าง ๆ ไผ่
-            เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปสูนาม เป็นต้น
+            เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาล์มต่าง ๆ ไผ่
+            เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปูสนาม เป็นต้น
           </dt>
         </dl>
       </ion-card-content>
@@ -32,28 +32,33 @@
       <ion-card-content>
         <ion-item>
           <ion-label>
-            2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูก<b>ไม้ดอก ไม้ประดับ 
-              <br>เพาะพันธุ์ไม้</b> หรือไม่
+            2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูก<b>ไม้ดอก ไม้ประดับ  <br>เพาะพันธุ์ไม้</b> หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
           <ion-item *ngIf="isValid('doing')">
-            <span class="invalid-msg">กรุณาเลือก</span>
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
           </ion-item>
           <ion-item col-6>
             <ion-radio item-left value="1"></ion-radio>
-            <ion-label>ปลูก</ion-label>
+            <ion-label>
+              ปลูก
+            </ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio item-left value="2"></ion-radio>
-            <ion-label>ไม่ปลูก</ion-label>
+            <ion-label>
+              ไม่ปลูก
+            </ion-label>
           </ion-item>
         </ion-row>
         <div [ngSwitch]="flowerCropFrm.get('doing').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
-                2.6.2 มีพื้นที่ปลูก<b>ไม้ดอก ไม้ประดับ เพาะพันธุ์ไม้</b> จำนวนกี่แปลง/โรงเรือน
+                2.6.2 ถ้า "ปลูก" มีพื้นที่ปลูก<b>ไม้ดอก ไม้ประดับ เพาะพันธุ์ไม้</b><br>จำนวนกี่แปลง/โรงเรือน
               </ion-label>
             </ion-item>
 
@@ -61,7 +66,9 @@
               <ion-input type="number" placeholder="กรอกจำนวนแปลง/โรงเรือน" formControlName="fieldCount"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('fieldCount')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
           </div>
         </div>
@@ -69,7 +76,7 @@
     </ion-card>
 
     <div *ngIf="flowerCropFrm.get('fieldCount').value > 0 && flowerCropFrm.get('doing').value == 1">
-      <div *ngFor="let ffc of flowerCropFrm.get('fieldFlowerCrop').controls;let i=index">
+      <div *ngFor="let ffc of flowerCropFrm.get('fields').controls;let i=index">
         <field-flower-crop [no]="i+1" [FormItem]="ffc"></field-flower-crop>
       </div>
     </div>

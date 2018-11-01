@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 
 /**
  * Generated class for the DisasterousPage page.
@@ -15,13 +16,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'disasterous.html',
 })
 export class DisasterousPage {
+
+  @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
-  @Input() public FormItem: FormGroup;
+ 
     private submitRequested: boolean;
+    Disasterous: FormGroup;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.FormItem = this.fb.group({
+    this.Disasterous = this.fb.group({
       'flooded': [null, Validators.required],
+      'yearsDisasterous' : this.fb.array([
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+      ]),
     })
 
     
@@ -29,18 +40,18 @@ export class DisasterousPage {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.FormItem, headline: this.text });
+    const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.Disasterous, headline: this.text });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
+        this.Disasterous.setValue(fg.value);
       }
     });
     modal.present();
   }
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.tableDisasterous.forEach(it => it.submitRequest());
   }
 
   submitRequest() {
@@ -48,7 +59,7 @@ export class DisasterousPage {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
+    var ctrl = this.Disasterous.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 

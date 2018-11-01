@@ -34,4 +34,8 @@ export class DlgRainStoragePage {
     console.log('ionViewDidLoad DlgRainStoragePage');
   }
 
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched);
+  }
 }

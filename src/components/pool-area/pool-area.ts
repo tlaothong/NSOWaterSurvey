@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
 import { FieldAreaComponent } from '../field-area/field-area';
@@ -20,7 +20,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   @Input("pool") private poolText: string;
   @Input('no') no: string;
   @Input() public FormItem: FormGroup;
-
+  @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
@@ -34,14 +34,14 @@ export class PoolAreaComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'shape': [ null, Validators.required ],
+      'shape': [null, Validators.required],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'depth': [ null, Validators.required ],
+      'depth': [null, Validators.required],
       'rectangle': fb.group({
-        'width': [ null, Validators.required ],
-        'length': [ null, Validators.required ],
+        'width': [null, Validators.required],
+        'length': [null, Validators.required],
       }),
-      'diameter': [ null, Validators.required ]
+      'diameter': [null, Validators.required]
     });
   }
 
@@ -58,6 +58,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
+    this.fieldArea.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

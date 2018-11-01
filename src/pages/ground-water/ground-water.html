@@ -7,8 +7,8 @@
 <ion-content padding>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
-    <h3><b>5.2 น้ำบาดาล</b></h3>
-    <ion-card>
+    <h3>5.2 น้ำบาดาล</h3>
+    <ion-card formGroupName="privateGroundWater">
       <ion-card-content>
         <ion-item>
           <ion-label>
@@ -16,22 +16,28 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="privateGroundWater" [class.invalid]="isValid('privateGroundWater')">
-          <ion-item *ngIf="isValid('privateGroundWater')">
-            <span class="invalid-msg">กรุณาเลือก</span>
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('privateGroundWater.doing')">
+          <ion-item *ngIf="isValid('privateGroundWater.doing')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
           </ion-item>
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
-            <ion-label>มี</ion-label>
+            <ion-label>
+              มี
+            </ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio value="2" item-left></ion-radio>
-            <ion-label>ไม่มี</ion-label>
+            <ion-label>
+              ไม่มี
+            </ion-label>
           </ion-item>
         </ion-row>
 
 
-        <div [ngSwitch]="f.get('privateGroundWater').value">
+        <div [ngSwitch]="f.get('privateGroundWater.doing').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -40,34 +46,40 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="allCount" [class.invalid]="isValid('privateGroundWater.allCount')"></ion-input>
             </ion-item>
-            <ion-item *ngIf="isValid('groundWaterCount')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
-            </ion-item>
-
-            <ion-item>
-              <ion-label> ในรอบ 12 เดือนที่ผ่านมา มีบ่อน้ำบาดาลที่ใช้อยู่กี่บ่อ</ion-label>
+            <ion-item *ngIf="isValid('privateGroundWater.allCount')">
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="useGroundWaterCount" [class.invalid]="isValid('useGroundWaterCount')"></ion-input>
+              <ion-label>
+                ในรอบ 12 เดือนที่ผ่านมา มีบ่อน้ำบาดาลที่ใช้อยู่กี่บ่อ
+              </ion-label>
             </ion-item>
-            <ion-item *ngIf="isValid('useGroundWaterCount')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="waterResourceCount" [class.invalid]="isValid('privateGroundWater.waterResourceCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('privateGroundWater.waterResourceCount')">
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
           </div>
         </div>
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="f.get('privateGroundWater').value && f.get('useGroundWaterCount').value > 0">
-      <div *ngFor="let avg of f.get('avgUsageWater').controls; let i = index">
+    <div *ngIf="f.get('privateGroundWater').value && f.get('privateGroundWater.waterResourceCount').value > 0">
+      <div *ngFor="let avg of f.get('privateGroundWater.waterResources').controls; let i = index">
         <ground-water-usage [no]="i + 1" [FormItem]="avg"></ground-water-usage>
       </div>
     </div>
 
-    <ion-card>
+    <ion-card formGroupName="publicGroundWater">
       <ion-card-content>
         <ion-item>
           <ion-label>
@@ -75,24 +87,30 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="publicGroundWater" [class.invalid]="isValid('publicGroundWater')">
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('publicGroundWater.doing')">
 
-          <ion-item *ngIf="isValid('publicGroundWater')">
-            <span class="invalid-msg">กรุณาเลือก</span>
+          <ion-item *ngIf="isValid('publicGroundWater.doing')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
           </ion-item>
 
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
-            <ion-label>ใช้</ion-label>
+            <ion-label>
+              ใช้
+            </ion-label>
           </ion-item>
 
           <ion-item col-6>
             <ion-radio value="2" item-left></ion-radio>
-            <ion-label>ไม่ใช้</ion-label>
+            <ion-label>
+              ไม่ใช้
+            </ion-label>
           </ion-item>
         </ion-row>
 
-        <div [ngSwitch]="f.get('publicGroundWater').value">
+        <div [ngSwitch]="f.get('publicGroundWater.doing').value">
           <div *ngSwitchCase="1">
             <ion-item>
               <ion-label>
@@ -100,10 +118,12 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="count" [class.invalid]="isValid('count')"></ion-input>
+              <ion-input type="number" placeholder="กรอกจำนวนบ่อ" formControlName="waterResourceCount" [class.invalid]="isValid('publicGroundWater.waterResourceCount')"></ion-input>
             </ion-item>
-            <ion-item *ngIf="isValid('count')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+            <ion-item *ngIf="isValid('publicGroundWater.waterResourceCount')">
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
           </div>
         </div>
@@ -111,8 +131,8 @@
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="f.get('publicGroundWater').value && f.get('count').value > 0">
-      <div *ngFor="let use of f.get('usePerMonth').controls; let i = index">
+    <div *ngIf="f.get('publicGroundWater').value && f.get('publicGroundWater.waterResourceCount').value > 0">
+      <div *ngFor="let use of f.get('publicGroundWater.waterResources').controls; let i = index">
         <ground-water-usage-public [no]="i + 1" [FormItem]="use"></ground-water-usage-public>
       </div>
     </div>

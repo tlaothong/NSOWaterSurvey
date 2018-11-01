@@ -1,4 +1,4 @@
-<form [formGroup]="FormItem">
+<div [formGroup]="FormItem">
 
   <ion-item>
     <ion-label>
@@ -6,58 +6,68 @@
     </ion-label>
   </ion-item>
 
-  <ion-row radio-group formControlName="hasQaulityProblem">
+  <ion-row radio-group formControlName="hasProblem" [class.invalid]="isValid('hasProblem')">
+    <ion-item *ngIf="isValid('hasProblem')">
+      <span class="invalid-msg">
+        กรุณาเลือก
+      </span>
+    </ion-item>
     <ion-item col-6>
       <ion-radio value="1" item-left></ion-radio>
-      <ion-label>1.ไม่มีปัญหา </ion-label>
+      <ion-label>
+        1.ไม่มีปัญหา
+      </ion-label>
     </ion-item>
     <ion-item col-6>
       <ion-radio value="2" item-left></ion-radio>
-      <ion-label>2.มีปัญหา คือ</ion-label>
+      <ion-label>
+        2.มีปัญหา คือ
+      </ion-label>
     </ion-item>
   </ion-row>
 
 
-  <ion-row>
+  <ion-row formGroupName="problem" [class.invalid]="isValid('problem')">
     <ion-col col-6></ion-col>
     <ion-col col-6>
       <ion-item>
         <ion-label>
           2.1 ขุ่น/ตะกอน
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="turbidWater"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.2 เค็ม/กร่อย
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="saltWater"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.3 กระด้าง
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="smell"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.4 มีกลิ่น
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="filmOfOil"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.5 คราบมัน
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="fogWater"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.6 ฝ้าขาว
         </ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox formControlName="hardWater"></ion-checkbox>
       </ion-item>
     </ion-col>
   </ion-row>
 
-</form>
+
+</div>

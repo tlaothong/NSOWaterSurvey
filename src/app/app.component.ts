@@ -46,7 +46,15 @@ export class MyApp {
       { title: 'WaterAnimalPlanting', component: "WaterAnimalPlantingPage" },
       { title: 'User', component: "UserPage" },
       { title: 'Pool', component: "PoolPage" },
-      { title: 'Agriculture', component: "AgriculturePage" }
+      { title: 'Agriculture', component: "AgriculturePage" },
+      { title: 'CommunityWaterManagement', component: "CommunityWaterManagementPage" },
+      { title: 'ManagementForFarming', component: "ManagementForFarmingPage" },
+      { title: 'BuildingInformation1Page', component: "BuildingInformation1Page" },
+      { title: 'BuidlingInformation2Page', component: "BuidlingInformation2Page" },
+      { title: 'Homes', component: "HomesPage" },
+      { title: 'Unit', component: "UnitPage" },
+
+     
     ];
 
   }

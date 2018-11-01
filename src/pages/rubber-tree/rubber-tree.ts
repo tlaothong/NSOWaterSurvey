@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
@@ -18,12 +18,13 @@ export class RubberTreePage {
 
   private submitRequested: boolean;
   public rubbertree: FormGroup;
+  @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.rubbertree = this.fb.group({
 
       "doing": ['', Validators.required],
       "fieldCount": ['', Validators.required],
-      'fieldRubbertree': fb.array([
+      'fields': fb.array([
         FieldRebbertreeComponent.CreateFormGroup(fb)
       ])
     });
@@ -41,6 +42,7 @@ export class RubberTreePage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.fieldrebbertree.forEach(it => it.submitRequest());
 
   }
 
@@ -50,7 +52,7 @@ export class RubberTreePage {
   }
 
   private setupFieldCountChanges() {
-    const componentFormArray: string = "fieldRubbertree";
+    const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TableBuyingComponent } from '../../components/table-buying/table-buying';
+import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
 
 
 /**
@@ -16,24 +18,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'buying.html',
 })
 export class BuyingPage {
+  @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
+  @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
+
   BuyingForm: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+    this.BuyingForm = this.fb.group({
+      'package': this.fb.array([
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingOtherComponent.CreateFormGroup(this.fb),
+      ]),
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyingPage');
-  }
-  ionViewDidEnter() {
-    this.BuyingForm = this.fb.group({
-      'package': this.fb.group({
-        'name': [null, Validators.required],
-        'size': [null, Validators.required],
-        'drink': [null, Validators.required],
-        'agriculture': [null, Validators.required],
-        'product': [null, Validators.required],
-        'service': [null, Validators.required]
-      })
-    });
   }
 
 }

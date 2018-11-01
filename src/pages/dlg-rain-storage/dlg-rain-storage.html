@@ -11,7 +11,7 @@
       <ion-col col-9>
         <ion-item>
           <ion-label>เลือกภาชนะ</ion-label>
-          <ion-select formControlName="ware" interface="action-sheet">
+          <ion-select formControlName="category" interface="action-sheet" [class.invalid]="isValid('category')">
             <ion-option>แท้งค์น้ำ สแตนเลส</ion-option>
             <ion-option>แท้งค์น้ำ โพลิเมอร์/พลาสติก</ion-option>
             <ion-option>แท้งค์น้ำ ไฟเบอร์กลาส</ion-option>
@@ -24,13 +24,18 @@
       <ion-col>
         <button ion-button block>ดูรูปตัวอย่าง</button>
       </ion-col>
+      <ion-item *ngIf="isValid('category')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
+        </ion-item>
     </ion-row>
 
     <ion-row style="align-items: center">
       <ion-col col-9>
         <ion-item>
           <ion-label>ขนาด</ion-label>
-          <ion-select formControlName="liter" interface="action-sheet">
+          <ion-select formControlName="size" interface="action-sheet" [class.invalid]="isValid('size')">
             <ion-option>1000</ion-option>
             <ion-option>500</ion-option>
             <ion-option>200</ion-option>
@@ -41,17 +46,28 @@
       <ion-col>
         <ion-label>ลิตร</ion-label>
       </ion-col>
+      <ion-item *ngIf="isValid('size')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
+        </ion-item>
     </ion-row>
 
     <ion-row>
       <ion-col col-9>
         <ion-item>
-          <ion-input formControlName="countware"></ion-input>
+          <ion-input formControlName="count" [class.invalid]="isValid('count')"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-label>จำนวน</ion-label>
       </ion-col>
+      <ion-item *ngIf="isValid('count')">
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+
     </ion-row>
 
     <ion-grid>
@@ -60,7 +76,7 @@
           <button ion-button block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block (click)="okDialog()">OK</button>
+          <button ion-button block (click)="okDialog()" [disabled]="FormItem.invalid">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -1,6 +1,6 @@
 <ion-card>
   <ion-card-content>
-    <div [formGroup]="FormItem">
+    <div [formGroup]="FormItem" [class.invalid]="isValid('anycheck')">
       <ion-item>
         <ion-label>
           {{text}}
@@ -59,16 +59,20 @@
         <ion-label>
           8.อื่น ๆ
         </ion-label>
-        <ion-checkbox formControlName="other"></ion-checkbox>
+        <ion-checkbox formControlName="hasOther"></ion-checkbox>
       </ion-item>
 
-      <ion-item *ngIf="FormItem.get('other').value || false">
-        <ion-label>โปรดระบุ</ion-label>
-        <ion-input [class.invalid]="isValid('hasOther')" formControlName="hasOther"></ion-input>
+      <ion-item *ngIf="FormItem.get('hasOther').value || false">
+        <ion-label>
+          โปรดระบุ
+        </ion-label>
+        <ion-input [class.invalid]="isValid('other')" formControlName="other"></ion-input>
       </ion-item>
-      <!-- <ion-item *ngIf="isValid('hasOther')" class="invalid-msg">
-        <span>Please specify other.</span>
-      </ion-item> -->
+      <ion-item *ngIf="isValid('other')" class="invalid-msg">
+        <span>
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
     </div>
   </ion-card-content>
 </ion-card>

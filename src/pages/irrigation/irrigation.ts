@@ -2,6 +2,8 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
+import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
+import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 
 /**
  * Generated class for the IrrigationPage page.
@@ -21,14 +23,22 @@ export class IrrigationPage {
   f: FormGroup;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
+  @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
+  @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
+      'hasCubicMeterPerMonth': ['', Validators.required],
       'cubicMeterPerMonth': ['', Validators.required],
-      'unknowPoolUsage': ['', Validators.required],
       'hasPump': ['', Validators.required],
       'pumpCount': ['', Validators.required],
       "pumps":  this.fb.array([]),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
+      'qualityProblem': fb.group({
+        "hasProblem": ['', Validators.required],
+        "problem": WaterProblem4Component.CreateFormGroup(fb)
+      })
     });
 
     this.setupPumpCountChanges()
@@ -41,6 +51,8 @@ export class IrrigationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
+    this.waterActivity6.forEach(it => it.submitRequest());
+    this.waterProblem4.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
@@ -53,24 +65,24 @@ export class IrrigationPage {
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
-      var pumps = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var pump = (this.f.get(componentFormArray) as FormArray).controls || [];
       var pumpCount = this.f.get(componentCount).value || 0;
-      var pump = this.fb.array([]);
+      var p = this.fb.array([]);
 
       pumpCount = Math.max(0, pumpCount);
 
       for (let i = 0; i < pumpCount; i++) {
         var ctrl = null;
-        if (i < pumps.length) {
-          const fld = pumps[i];
+        if (i < pump.length) {
+          const fld = pump[i];
           ctrl = fld;
         } else {
           ctrl = PumpComponent.CreateFormGroup(this.fb);
         }
 
-        pump.push(ctrl);
+        p.push(ctrl);
       }
-      this.f.setControl(componentFormArray, pump);
+      this.f.setControl(componentFormArray, p);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());

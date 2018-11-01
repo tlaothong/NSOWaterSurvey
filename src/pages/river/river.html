@@ -5,41 +5,54 @@
 </ion-header>
 
 <ion-content padding>
-  <h3><b>5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ</b></h3>
+  <h3>5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ</h3>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
 
     <ion-card>
       <ion-card-content>
         <ion-item>
-          <ion-label>5.3.1 ใช้เครื่องสูบน้ำเพื่อสูบน้ำใช่หรือไม่</ion-label>
+          <ion-label>
+            5.3.1 ใช้เครื่องสูบน้ำเพื่อสูบน้ำมาใช้หรือไม่
+          </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="hasPump">
+        <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
+          <ion-item *ngIf="isValid('hasPump')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
           <ion-item col-6>
             <ion-radio value="1" item-left></ion-radio>
-            <ion-label>ใช้</ion-label>
+            <ion-label>
+              ใช้
+            </ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio value="2" item-left></ion-radio>
-            <ion-label>ไม่ใช้</ion-label>
+            <ion-label>
+              ไม่ใช้
+            </ion-label>
           </ion-item>
         </ion-row>
 
-        <ion-item *ngIf="isValid('hasPump')">
-          <span class="invalid-msg">กรุณาเลือก</span>
-        </ion-item>
+
 
         <div [ngSwitch]="f.get('hasPump').value">
           <div *ngSwitchCase="1">
             <ion-item>
-              <ion-label>5.3.2 ใช้เครื่องสูบน้ำกี่เครื่อง</ion-label>
+              <ion-label>
+                5.3.2 ใช้เครื่องสูบน้ำกี่เครื่อง
+              </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนเครื่อง" formControlName="pumpCount"></ion-input>
+              <ion-input type="number" placeholder="กรอกจำนวนเครื่อง" formControlName="pumpCount" [class.invalid]="isValid('pumpCount')"></ion-input>
             </ion-item>
 
             <ion-item *ngIf="isValid('pumpCount')">
-              <span class="invalid-msg">กรุณากรอกจำนวน</span>
+              <span class="invalid-msg">
+                กรุณากรอกจำนวน
+              </span>
             </ion-item>
           </div>
         </div>
@@ -49,20 +62,20 @@
     <!-- เครื่องที่ N -->
     <!-- <div [ngSwitch]="f.get('hasPump').value">
       <div *ngSwitchCase="1">
-        <pump [FormItem]="f.get('pumps')"></pump>
+        <pump [FormItem]="f.get('pump')"></pump>
       </div>
     </div> -->
 
     <div *ngIf="f.get('hasPump').value && f.get('pumpCount').value > 0">
-      <div *ngFor="let pump of f.get('pumps').controls; let i = index">
+      <div *ngFor="let pump of f.get('pump').controls; let i = index">
         <pump [no]="i + 1" [FormItem]="pump"></pump>
       </div>
     </div>
 
     <ion-card>
       <ion-card-content>
-        <water-activity6 headline="5.3.3 ใช้น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร "></water-activity6>
-        <water-problem4 headline="5.3.5 มีปัญหาคุณภาพน้ำ หรือไม่"></water-problem4>
+        <water-activity6 headline="5.3.3 ใช้น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ " headline2="เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร " [FormItem]="f.get('waterActivities')"></water-activity6>
+        <water-problem4 headline="5.3.5 มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="f.get('qualityProblem')"></water-problem4>
       </ion-card-content>
     </ion-card>
 

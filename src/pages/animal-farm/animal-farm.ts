@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
+import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 
 /**
  * Generated class for the AnimalFarmPage page.
@@ -16,52 +18,26 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AnimalFarmPage {
 
+  @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
+  @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   private submitRequested: boolean;
-  public AnimalFarmForm: FormGroup;
+  public f: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
-    this.AnimalFarmForm = this.fb.group({
+    this.f = this.fb.group({
       "doing": [null, Validators.required],
-      'cow': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'buffalo': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'pig': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'goat': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'sheep': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'chicken': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'duck': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'goose': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'silk': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
-      'other': this.fb.group({
-        'hasItem': false,
-        'itemCount': null
-      }),
+      'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'buffalo': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'pig': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'goat': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'sheep': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'chicken': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'duck': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'goose':TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'otherName': [null, Validators.required],
+      'waterSources' : WaterSources9Component.CreateFormGroup(this.fb)
     });
 
   }
@@ -77,11 +53,13 @@ export class AnimalFarmPage {
   }
   public handleSubmit() {
     this.submitRequested = true;
+    this.tableCheckItemCount.forEach(it => it.submitRequest());
+    this.waterSources9.forEach(it => it.submitRequest());
 
   }
 
   public isValid(name: string) : boolean {
-    var ctrl = this.AnimalFarmForm.get(name);
+    var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 

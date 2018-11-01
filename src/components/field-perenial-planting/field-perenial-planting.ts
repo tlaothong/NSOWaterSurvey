@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
-import { EX_TREERAI_LIST } from '../../models/tree';
+import { EX_TREETON_LIST } from '../../models/tree';
 
 /**
  * Generated class for the FieldPerenialPlantingComponent component.
@@ -45,8 +45,9 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': [''],
-      'namePerenial': [''],
+      'irrigationField': ['',Validators.required],
+      'plantings': fb.array([]),
+      'otherPlantings': fb.array([]),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
@@ -67,7 +68,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
   
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage", 
-    { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREERAI_LIST, limit: 5 });
+    { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREETON_LIST, limit: 5 });
 
     modal.onDidDismiss(data => {
       if (data) {
