@@ -13,9 +13,14 @@ const initialState: HouseHoldState = {
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
     switch (action.type) {
+        case HouseHoldTypes.LoadListSuccess:
+            return {
+                ...state,
+            };
         case HouseHoldTypes.LoadSuccess:
             return {
                 ...state,
+                houseHoldSample: action.payload,
             };
         default:
             return state;

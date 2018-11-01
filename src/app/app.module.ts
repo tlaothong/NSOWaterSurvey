@@ -9,11 +9,14 @@ import { HomePage } from '../pages/home/home';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ComponentsModule } from '../components/components.module';
+import { HttpClientModule } from '@angular/common/http';
 
+
+import { ComponentsModule } from '../components/components.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
 
 
 @NgModule({
@@ -24,6 +27,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
     ComponentsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
@@ -40,7 +44,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    CloudSyncProvider
   ]
 })
 export class AppModule { }
