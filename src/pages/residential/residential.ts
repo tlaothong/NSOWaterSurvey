@@ -1,4 +1,4 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component, ViewChildren, Input, SimpleChanges } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
@@ -17,6 +17,7 @@ import { WaterSources8BComponent } from '../../components/water-sources8-b/water
 })
 export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
+  @Input() public formData: any;
   residentialFrm: FormGroup;
   private submitRequested: boolean;
 
@@ -26,12 +27,11 @@ export class ResidentialPage {
       'workingAge': [null, Validators.required],
       'waterSources' : WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
-
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ResidentialPage');
+  public ngOnChanges(changes: {[ propKey: string]: SimpleChanges }) {
+    this.residentialFrm.setValue(this.formData);
   }
 
   public handleSubmit() {

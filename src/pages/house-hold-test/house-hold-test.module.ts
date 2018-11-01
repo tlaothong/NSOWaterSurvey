@@ -7,7 +7,6 @@ import { reducer } from '../../states/household/household.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { HouseHoldEffects } from '../../states/household/household.effects';
 import { ComponentsModule } from '../../components/components.module';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     IonicPageModule.forChild(HouseHoldTestPage),
-    HttpClientModule,
     ComponentsModule,
     StoreModule.forFeature(HouseHoldTypes.StateName, reducer),
     EffectsModule.forFeature([

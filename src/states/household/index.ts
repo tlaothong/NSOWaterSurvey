@@ -8,3 +8,8 @@ export const getHouseHoldUnitList = createSelector(
     getHouseHoldFeatureState,
     state => state.units,
 );
+
+export const getHouseHoldSample = createSelector(
+    getHouseHoldFeatureState,
+    state => state.houseHoldSample,
+);

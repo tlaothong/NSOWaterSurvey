@@ -17,9 +17,7 @@ export class HouseHoldTestPage {
     private store: Store<HouseHoldState>) {
 
     this.pages = [
-      { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
-      { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
-      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" },
+      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialShellPage" },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
       { title: 'ตอนที่ 2.2 พืชไร่ ', component: "DryCropPlantingPage" },
