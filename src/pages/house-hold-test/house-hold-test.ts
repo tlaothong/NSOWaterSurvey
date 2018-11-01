@@ -1,28 +1,23 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController, ModalController } from 'ionic-angular';
-import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
-import { DlgUnitPage } from '../dlg-unit/dlg-unit';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { LoadHouseHoldSample } from '../../states/household/household.actions';
 
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-house-hold-test',
+  templateUrl: 'house-hold-test.html',
 })
-export class HomePage {
+export class HouseHoldTestPage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,
-    public modalCtrl: ModalController) {
-    // used for an example of ngFor and navigation
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private store: Store<HouseHoldState>) {
+
     this.pages = [
-      // test push
-      { title: 'Zero', component: "ZeroPage" },
-      { title: 'HouseHold Test', component: "HouseHoldTestPage" },
-      { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
-      { title: 'Unit', component: "UnitPage" },
-      { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
-      { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
-      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" },
+      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialShellPage" },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
       { title: 'ตอนที่ 2.2 พืชไร่ ', component: "DryCropPlantingPage" },
@@ -44,22 +39,18 @@ export class HomePage {
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage" },
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
-      { title: 'Disaster', component: "DisasterPage" },
-      { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
-      { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
-      
     ];
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HouseHoldTestPage');
+    this.store.dispatch(new LoadHouseHoldSample());
   }
 
   public openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
-  }
-  Unit(){
-
-    const modal = this.modalCtrl.create("DlgUnitPage");
-    modal.present();
   }
 
 }
