@@ -34,8 +34,8 @@ export class FieldMushroomComponent {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
-      'areaSqM': ['', Validators.required],
-      'irrigationField': ['', Validators.required],
+      'areaSqM': [null, Validators.required],
+      'irrigationField': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
