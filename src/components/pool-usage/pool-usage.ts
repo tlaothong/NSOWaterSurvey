@@ -48,7 +48,10 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
       'cubicMeterPerMonth': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
-      'pumps': fb.array([]),
+      'pumps': fb.array([
+        PumpComponent.CreateFormGroup(fb),
+        PumpComponent.CreateFormGroup(fb),
+      ]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': fb.group({
         "hasProblem": [null, Validators.required],

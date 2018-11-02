@@ -34,10 +34,10 @@ export class DisasterousPage {
       'flooded': [null, Validators.required],
       'yearsDisasterous': this.fb.array([
         TableDisasterousComponent.CreateFormGroup(this.fb),
-        // TableDisasterousComponent.CreateFormGroup(this.fb),
-        // TableDisasterousComponent.CreateFormGroup(this.fb),
-        // TableDisasterousComponent.CreateFormGroup(this.fb),
-        // TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
+        TableDisasterousComponent.CreateFormGroup(this.fb),
       ]),
     })
   }
