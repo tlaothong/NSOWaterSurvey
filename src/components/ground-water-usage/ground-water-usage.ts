@@ -38,16 +38,16 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'usageType': ['', Validators.required],
-      'cubicMeterPerMonth': ['', Validators.required],
-      'waterBill': ['', Validators.required],
-      'hasPump': ['', Validators.required],
-      'pumpCount': ['', Validators.required],
-      'pump': fb.array([]),
-      'usageActivities': WaterActivity6Component.CreateFormGroup(fb),
-      'hasQaulityProblem': ['', Validators.required],
-      "qualityProblems": fb.group({
-        "hasProblem": ['', Validators.required],
+      'usageType': [null, Validators.required],
+      'cubicMeterPerMonth': [null, Validators.required],
+      'waterBill': [null, Validators.required],
+      'hasPump': [null, Validators.required],
+      'pumpCount': [null, Validators.required],
+      'pumps': fb.array([]),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
+      // 'hasQaulityProblem': [null, Validators.required],
+      "qualityProblem": fb.group({
+        "hasProblem": [null, Validators.required],
         "problem": WaterProblem6Component.CreateFormGroup(fb)
       })
     });
@@ -112,7 +112,7 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pump";
+    const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
