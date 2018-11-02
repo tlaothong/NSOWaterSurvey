@@ -75,11 +75,11 @@ export class FieldFarmingComponent implements AfterViewInit, ISubmitRequestable 
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'plantingCount': ['', [Validators.required, Validators.min(1), Validators.max(4)]],
-      'plantingArea': ['', Validators.required],
+      'plantingCount': [null, [Validators.required, Validators.min(1), Validators.max(4)]],
+      'plantingArea': [null, Validators.required],
       'areaUsed': fb.array([]),
       'harvests': fb.array([FieldRiceHarvestComponent.CreateFormGroup(fb)]),
-      'irrigationField': ['', Validators.required],
+      'irrigationField': [null, Validators.required],
       'waterSources': WaterSources8AComponent.CreateFormGroup(fb)
     });
   }
