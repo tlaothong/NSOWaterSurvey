@@ -31,7 +31,7 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
     this.text = '1';
 
 
-    this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
+    // this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
 
 
   }
@@ -51,7 +51,7 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': fb.group({
-        "hasProblem": ['', Validators.required],
+        "hasProblem": [null, Validators.required],
         "problem": WaterProblem4Component.CreateFormGroup(fb)
       })
     });

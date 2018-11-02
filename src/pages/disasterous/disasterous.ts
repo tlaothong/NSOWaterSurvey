@@ -34,19 +34,18 @@ export class DisasterousPage {
       'flooded': [null, Validators.required],
       'yearsDisasterous': this.fb.array([
         TableDisasterousComponent.CreateFormGroup(this.fb),
-        TableDisasterousComponent.CreateFormGroup(this.fb),
-        TableDisasterousComponent.CreateFormGroup(this.fb),
-        TableDisasterousComponent.CreateFormGroup(this.fb),
-        TableDisasterousComponent.CreateFormGroup(this.fb),
+        // TableDisasterousComponent.CreateFormGroup(this.fb),
+        // TableDisasterousComponent.CreateFormGroup(this.fb),
+        // TableDisasterousComponent.CreateFormGroup(this.fb),
+        // TableDisasterousComponent.CreateFormGroup(this.fb),
       ]),
     })
   }
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.Disasterous.setValue(data));
-
-    console.log('ionViewDidLoad BuyingPage');
   }
+
   public showModal() {
     const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.Disasterous, headline: this.text });
     modal.onDidDismiss(data => {
