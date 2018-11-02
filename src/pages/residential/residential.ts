@@ -1,7 +1,11 @@
-import { Component, ViewChildren, Input, SimpleChanges } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the ResidentialPage page.
@@ -17,11 +21,12 @@ import { WaterSources8BComponent } from '../../components/water-sources8-b/water
 })
 export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
-  @Input() public formData: any;
   residentialFrm: FormGroup;
   private submitRequested: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
       'workingAge': [null, Validators.required],
@@ -30,8 +35,8 @@ export class ResidentialPage {
     });
   }
 
-  public ngOnChanges(changes: {[ propKey: string]: SimpleChanges }) {
-    this.residentialFrm.setValue(this.formData);
+  ionViewDidLoad() {
+    this.formData$.subscribe(data => this.residentialFrm.setValue(data));
   }
 
   public handleSubmit() {

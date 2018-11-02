@@ -34,6 +34,7 @@ export class WaterActivity5Component {
     return fb.group({
       'drink': ['', Validators.required],
       'plant': ['', Validators.required],
+      'farm': ['', Validators.required],
       'agriculture': ['', Validators.required],
       'product': ['', Validators.required],
       'service': ['', Validators.required]

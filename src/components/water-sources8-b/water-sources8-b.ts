@@ -38,10 +38,10 @@ export class WaterSources8BComponent{
       'river': [false, Validators.required],
       'irrigation': [false, Validators.required],
       'rain': [false, Validators.required],
-      'rainingAsIs': [false, Validators.required],
       'buying': [false, Validators.required],
-      'other': [null],
-      'hasOther': [false,Validators.required],
+      'rainingAsIs': [false, Validators.required],
+      'other': ['', Validators.required],
+      'hasOther' : [false,Validators.required]
     }, {
       validator: WaterSources8BComponent.checkAnyOrOther()
     });
