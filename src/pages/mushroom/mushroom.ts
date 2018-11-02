@@ -2,6 +2,10 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { Store } from '@ngrx/store';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the MushroomPage page.
@@ -21,10 +25,12 @@ export class MushroomPage {
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
+
+  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
-      'doing': ['', Validators.required],
-      'fieldCount': ['', Validators.required],
+      'doing': [null, Validators.required],
+      'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),
     });
 
@@ -32,6 +38,8 @@ export class MushroomPage {
   }
 
   ionViewDidLoad() {
+    this.formData$.subscribe(data => this.f.setValue(data));
+
     console.log('ionViewDidLoad MushroomPage');
   }
 

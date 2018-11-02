@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { Store } from '@ngrx/store';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the AnimalFarmPage page.
@@ -22,8 +26,10 @@ export class AnimalFarmPage {
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   private submitRequested: boolean;
   public f: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.animalFarm));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -46,6 +52,8 @@ export class AnimalFarmPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
+
   }
 
   ionViewDidEnter() {

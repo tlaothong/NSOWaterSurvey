@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WaterProblem6Component } from '../../components/water-problem6/water-problem6';
 import { WaterActivity5Component } from '../../components/water-activity5/water-activity5';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the PlumbingPage page.
@@ -22,8 +26,10 @@ export class PlumbingPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   public f: FormGroup;
   private submitRequested: boolean;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.plumbing));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
@@ -72,6 +78,7 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
+    this.formData$.subscribe(data => this.f.setValue(data));
     console.log('ionViewDidLoad PlumbingPage');
   }
 
