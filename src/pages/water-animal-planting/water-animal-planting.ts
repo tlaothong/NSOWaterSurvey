@@ -4,6 +4,10 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
+import { Store } from '@ngrx/store';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 /**
  * Generated class for the WaterAnimalPlantingPage page.
@@ -23,10 +27,11 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FrogFarmingComponent) private frogFarming : FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming : CrocodileFarmingComponent[];
   public f: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.aquaticAnimals));
 
   private submitRequested: boolean;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       "isFish": [false, Validators.required],
@@ -54,6 +59,8 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaterAnimalPlantingPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
+
 
   }
 

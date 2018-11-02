@@ -4,6 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the GroundWaterPage page.
@@ -24,8 +28,10 @@ export class GroundWaterPage {
   @ViewChildren(GroundWaterUsageComponent) private groundWaterUsage: GroundWaterUsageComponent[];
   private submitRequested: boolean;
   public f: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.groundWater));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
@@ -46,6 +52,7 @@ export class GroundWaterPage {
   }
 
   ionViewDidLoad() {
+    this.formData$.subscribe(data => this.f.setValue(data));
     console.log('ionViewDidLoad GroundWaterPage');
   }
 
