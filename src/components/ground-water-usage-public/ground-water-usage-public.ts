@@ -43,10 +43,10 @@ export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRe
       'unknow': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
-      'pump': fb.array([]),
-      'usageActivities': WaterActivity6Component.CreateFormGroup(fb),
-      'hasQaulityProblem': [null, Validators.required],
-      'qualityProblems': fb.group({
+      'pumps': fb.array([]),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
+      // 'hasQaulityProblem': [null, Validators.required],
+      'qualityProblem': fb.group({
         "hasProblem": [null, Validators.required],
         "problem": WaterProblem6Component.CreateFormGroup(fb)
       })
@@ -66,7 +66,7 @@ export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRe
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pump";
+    const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
