@@ -22,13 +22,13 @@
               </span>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="1" item-left></ion-radio>
+              <ion-radio value="true" item-left></ion-radio>
               <ion-label>
                 ใช้
               </ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="2" item-left></ion-radio>
+              <ion-radio value="false" item-left></ion-radio>
               <ion-label>
                 ไม่ใช้
               </ion-label>
@@ -36,7 +36,7 @@
           </ion-row>
 
           <div [ngSwitch]="f.get('mwa.doing').value">
-            <div *ngSwitchCase="1">
+            <div *ngSwitchCase="true">
 
               <water-problem6 headline="1.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('mwa.qualityProblem')"></water-problem6>
 
@@ -138,13 +138,13 @@
               </span>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="1" item-left></ion-radio>
+              <ion-radio value="true" item-left></ion-radio>
               <ion-label>
                 ใช้
               </ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="2" item-left></ion-radio>
+              <ion-radio value="false" item-left></ion-radio>
               <ion-label>
                 ไม่ใช้
               </ion-label>
@@ -152,7 +152,7 @@
           </ion-row>
 
           <div [ngSwitch]="f.get('pwa.doing').value">
-            <div *ngSwitchCase="1">
+            <div *ngSwitchCase="true">
 
               <water-problem6 headline="2.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('pwa.qualityProblem')"></water-problem6>
 
@@ -254,13 +254,13 @@
               </span>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="1" item-left></ion-radio>
+              <ion-radio value="true" item-left></ion-radio>
               <ion-label>
                 ใช้
               </ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="2" item-left></ion-radio>
+              <ion-radio value="false" item-left></ion-radio>
               <ion-label>
                 ไม่ใช้
               </ion-label>
@@ -268,7 +268,7 @@
           </ion-row>
 
           <div [ngSwitch]="f.get('other.doing').value">
-            <div *ngSwitchCase="1">
+            <div *ngSwitchCase="true">
 
               <water-problem6 headline="3.2 มีปัญหาคุณภาพน้ำหรือไม่" [FormItem]="f.get('other.qualityProblem')"></water-problem6>
 
@@ -363,7 +363,7 @@
 
     <div [ngSwitch]="f.get('mwa.doing').value">
 
-      <div *ngSwitchCase="1">
+      <div *ngSwitchCase="true">
         <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
         <ion-card>
           <ion-card-content>
@@ -374,7 +374,7 @@
     </div>
 
     <div [ngSwitch]="f.get('pwa.doing').value">
-      <div *ngSwitchCase="1">
+      <div *ngSwitchCase="true">
         <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
         <ion-card>
           <ion-card-content>
@@ -385,7 +385,7 @@
     </div>
 
     <div [ngSwitch]="f.get('other.doing').value">
-      <div *ngSwitchCase="1">
+      <div *ngSwitchCase="true">
         <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
         <ion-card>
           <ion-card-content>
@@ -401,13 +401,13 @@
         <ion-card-content>
           <ion-row radio-group formControlName="hasWaterNotRunning" [class.invalid]="isValid('hasWaterNotRunning')">
             <ion-item col-6>
-              <ion-radio value="1" item-left></ion-radio>
+              <ion-radio value="true" item-left></ion-radio>
               <ion-label>
                 มี
               </ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio value="2" item-left></ion-radio>
+              <ion-radio value="false" item-left></ion-radio>
               <ion-label>
                 ไม่มี
               </ion-label>
@@ -419,7 +419,7 @@
             </ion-item>
           </ion-row>
           <div [ngSwitch]="f.get('hasWaterNotRunning').value">
-            <div *ngSwitchCase="1">
+            <div *ngSwitchCase="true">
               <ion-item>
                 <ion-label>
                   <b><u>ถ้ามี</u></b> เกิดเหตุการณ์ลักษณะนี้เป็นเวลากี่เดือน

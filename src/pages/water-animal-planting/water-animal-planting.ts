@@ -27,7 +27,7 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FrogFarmingComponent) private frogFarming : FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming : CrocodileFarmingComponent[];
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.aquaticAnimals));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
 
   private submitRequested: boolean;
   

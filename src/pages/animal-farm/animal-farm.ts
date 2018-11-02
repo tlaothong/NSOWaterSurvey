@@ -26,7 +26,7 @@ export class AnimalFarmPage {
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.animalFarm));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
 
 
   constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
