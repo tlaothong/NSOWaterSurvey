@@ -4,6 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the PoolPage page.
@@ -24,8 +28,9 @@ export class PoolPage {
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
 
   private submitRequested: boolean;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.pool));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'poolCount': [null, Validators.required],
@@ -40,7 +45,8 @@ export class PoolPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PoolPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
+    // console.log('ionViewDidLoad PoolPage'+this.formData$);
   }
 
   public handleSubmit() {

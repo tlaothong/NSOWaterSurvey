@@ -33,18 +33,18 @@
             <ion-label>
               ทราบ
             </ion-label>
-            <ion-radio value="1" item-left></ion-radio>
+            <ion-radio value="true" item-left></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
               ไม่ทราบ
             </ion-label>
-            <ion-radio value="2" item-left></ion-radio>
+            <ion-radio value="false" item-left></ion-radio>
           </ion-item>
         </ion-row>
 
         <div [ngSwitch]="f.get('hasCubicMeterPerMonth').value">
-          <div *ngSwitchCase="1">
+          <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
                 ทราบปริมาณน้ำ(ลบ.ม./เดือน)
@@ -77,10 +77,10 @@
             <ion-label>
               1.ใช้
             </ion-label>
-            <ion-radio value="1" item-left></ion-radio>
+            <ion-radio value="true" item-left></ion-radio>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="2" item-left></ion-radio>
+            <ion-radio value="false" item-left></ion-radio>
             <ion-label>
               2.ไม่ใช้
             </ion-label>
@@ -88,7 +88,7 @@
         </ion-row>
 
         <div [ngSwitch]="f.get('hasPump').value">
-          <div *ngSwitchCase="1">
+          <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
                 5.5.3 ใช้เครื่องสูบน้ำกี่ครื่อง

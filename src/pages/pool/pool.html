@@ -25,13 +25,13 @@
             </span>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="1" item-left></ion-radio>
+            <ion-radio value="true" item-left></ion-radio>
             <ion-label>
               มี
             </ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="2" item-left></ion-radio>
+            <ion-radio value="false" item-left></ion-radio>
             <ion-label>
               ไม่มี
             </ion-label>
@@ -39,7 +39,7 @@
         </ion-row>
 
         <div [ngSwitch]="f.get('doing').value">
-          <div *ngSwitchCase="1">
+          <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
                 5.4.2 มีจำนวนกี่สระ
@@ -65,13 +65,13 @@
                 </span>
               </ion-item>
               <ion-item col-6>
-                <ion-radio value="1" item-left></ion-radio>
+                <ion-radio value="true" item-left></ion-radio>
                 <ion-label>
                   เท่ากัน
                 </ion-label>
               </ion-item>
               <ion-item col-6>
-                <ion-radio value="2" item-left></ion-radio>
+                <ion-radio value="false" item-left></ion-radio>
                 <ion-label>
                   ไม่เท่า
                 </ion-label>
@@ -84,11 +84,11 @@
     </ion-card>
 
     <div [ngSwitch]="f.get('doing').value">
-      <div *ngSwitchCase="1">
+      <div *ngSwitchCase="true">
          
         <div [ngSwitch]="f.get('hasSameSize').value">
           <!-- เท่ากัน -->
-          <div *ngSwitchCase="1">
+          <div *ngSwitchCase="true">
             <pool-area headline="ขนาดสระน้ำ"></pool-area>
           </div>
           <!-- ไม่เท่ากัน -->
