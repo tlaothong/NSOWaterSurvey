@@ -31,7 +31,7 @@ export class IrrigationPage {
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.irrigation));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 

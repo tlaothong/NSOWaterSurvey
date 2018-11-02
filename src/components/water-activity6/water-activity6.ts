@@ -35,12 +35,12 @@ export class WaterActivity6Component {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': ['', Validators.required],
-      'plant': ['', Validators.required],
-      'farm': ['', Validators.required],
-      'agriculture': ['', Validators.required],
-      'product': ['', Validators.required],
-      'service': ['', Validators.required]
+      'drink': [null, Validators.required],
+      'plant': [null, Validators.required],
+      'farm': [null, Validators.required],
+      'agriculture': [null, Validators.required],
+      'product': [null, Validators.required],
+      'service': [null, Validators.required]
     });
   }
 

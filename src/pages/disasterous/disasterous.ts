@@ -30,6 +30,7 @@ export class DisasterousPage {
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
+      '_id': [null],
       'flooded': [null, Validators.required],
       'yearsDisasterous': this.fb.array([
         TableDisasterousComponent.CreateFormGroup(this.fb),

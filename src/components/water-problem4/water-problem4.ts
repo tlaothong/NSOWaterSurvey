@@ -23,7 +23,7 @@ export class WaterProblem4Component {
     this.text = 'Hello World';
     this.text = '1';
     this.FormItem = this.fb.group({
-      'hasProblem': ['',Validators.required],
+      'hasProblem': [null,Validators.required],
       'problem': WaterProblem4Component.CreateFormGroup(this.fb)
     });
   }

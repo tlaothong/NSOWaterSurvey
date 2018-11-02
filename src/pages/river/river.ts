@@ -29,13 +29,13 @@ export class RiverPage {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.river));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       "hasPump": [null, Validators.required],
       "pumpCount":[ null ,Validators.required],
-      "pump": this.fb.array([]),
+      "pumps": this.fb.array([]),
       "waterActivities": WaterActivity6Component.CreateFormGroup(fb),
       "qualityProblem": this.fb.group({
         "hasProblem": [null, Validators.required],
@@ -67,7 +67,7 @@ export class RiverPage {
   }
 
   private setupPumpCountChanges() {
-    const componentFormArray: string = "pump";
+    const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {

@@ -28,7 +28,7 @@ export class PoolPage {
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
 
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.pool));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({

@@ -92,7 +92,7 @@
             <pool-area headline="ขนาดสระน้ำ"></pool-area>
           </div>
           <!-- ไม่เท่ากัน -->
-          <div *ngIf="f.get('hasSameSize').value == 2 && f.get('poolCount').value > 0">
+          <div *ngIf="f.get('hasSameSize').value == false && f.get('poolCount').value > 0">
             <div *ngFor="let pool of f.get('poolSizes').controls; let i = index">
               <pool-area headline="สระที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
             </div>

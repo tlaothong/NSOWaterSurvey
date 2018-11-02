@@ -54,7 +54,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     WaterActivity6Component,
     WaterActivity5Component,
     WaterProblem4Component,
-    WaterProblem6Component,
+    WaterProblem4Component,
     RainStorageComponent,
     LocationComponent,
     TableBuyingComponent,
@@ -82,6 +82,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     DetailOrgWaterSupplyComponent,
     NaturalDisasterComponent,
     DisasterWarningMethodsComponent,
+    WaterProblem6Component
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -101,7 +102,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     WaterActivity6Component,
     WaterActivity5Component,
     WaterProblem4Component,
-    WaterProblem6Component,
+    WaterProblem4Component,
     RainStorageComponent,
     LocationComponent,
     TableBuyingComponent,
@@ -129,6 +130,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     DetailOrgWaterSupplyComponent,
     NaturalDisasterComponent,
     DisasterWarningMethodsComponent,
+    WaterProblem6Component
   ]
 })
 export class ComponentsModule { }
