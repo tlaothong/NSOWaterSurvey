@@ -31,7 +31,7 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
     this.text = '1';
 
 
-    this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
+    // this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
 
 
   }

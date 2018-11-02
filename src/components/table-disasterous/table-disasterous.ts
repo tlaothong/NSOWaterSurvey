@@ -30,9 +30,10 @@ export class TableDisasterousComponent {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'count': [ null, Validators.required],
-      'avgday':[ null, Validators.required],
-      'avghour': [ null, Validators.required],
-      'height': [ null, Validators.required],
+      'avgDay':[ null, Validators.required],
+      'avgHour': [ null, Validators.required],
+      'waterHeightCm': [ null, Validators.required],
+      'year': [ null, Validators.required],
     });
   }
 

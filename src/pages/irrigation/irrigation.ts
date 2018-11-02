@@ -53,8 +53,6 @@ export class IrrigationPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
-
-    console.log('ionViewDidLoad IrrigationPage');
   }
 
   public handleSubmit() {
