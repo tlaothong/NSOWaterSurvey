@@ -3,6 +3,11 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
+
 /**
  * Generated class for the FlowerCropPage page.
  *
@@ -20,18 +25,23 @@ export class FlowerCropPage {
   private submitRequested: boolean;
   flowerCropFrm: FormGroup;
   shownData: string[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController) {
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState> ) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
       'fields' : fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
+       "_id": [null],
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
+    this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
+
   }
 
   model() {

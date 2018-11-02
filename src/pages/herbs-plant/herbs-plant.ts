@@ -2,6 +2,10 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 
 /**
@@ -21,14 +25,17 @@ export class HerbsPlantPage {
   private submitRequested: boolean;
   public f: FormGroup;
   shownData: string[];
+    private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
+
 
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState> ) {
     this.f = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
       'fields': this.fb.array([]),
+      "_id": [null],
     });
 
     this.setupPlantingCountChanges();
@@ -36,6 +43,7 @@ export class HerbsPlantPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
