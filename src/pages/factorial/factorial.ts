@@ -2,6 +2,10 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 /**
  * Generated class for the FactorialPage page.
  *
@@ -20,7 +24,8 @@ export class FactorialPage {
 
   private submitRequested: boolean;
   FactoryForm: FormGroup;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory));
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder,private store: Store<HouseHoldState>) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],
@@ -34,6 +39,7 @@ export class FactorialPage {
   }
 
   ionViewDidLoad() {
+    this.formData$.subscribe(data => this.FactoryForm.setValue(data));
     console.log('ionViewDidLoad FactorialPage');
   }
   ionViewDidEnter() {

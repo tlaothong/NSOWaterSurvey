@@ -30,10 +30,12 @@ export class WaterProblem4Component {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'saltWater': [false,Validators.required],
-      'smell': [false,Validators.required],
-      'filmOfOil': [false,Validators.required],
-      'fogWater': [false,Validators.required],
+      'turbidWater': [false, Validators.required],
+      'saltWater': [false, Validators.required],
+      'smell': [false, Validators.required],
+      'filmOfOil': [false, Validators.required],
+      'fogWater': [false, Validators.required],
+      'hardWater': [false, Validators.required],
     } ,{
       validator: WaterProblem4Component.checkAnyOrOther()
     });

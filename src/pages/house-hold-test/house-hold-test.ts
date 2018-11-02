@@ -17,7 +17,7 @@ export class HouseHoldTestPage {
     private store: Store<HouseHoldState>) {
 
     this.pages = [
-      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialShellPage" },
+      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" }, 
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
       { title: 'ตอนที่ 2.2 พืชไร่ ', component: "DryCropPlantingPage" },
@@ -28,7 +28,7 @@ export class HouseHoldTestPage {
       { title: 'ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด', component: "MushroomPage" },
       { title: 'ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร', component: "AnimalFarmPage" },
       { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage" },
-      { title: 'ตอนที่ 3 การผลิตสินค้า ', component: "FactorialPage" },
+      { title: 'ตอนที่ 3 การผลิตสินค้า ', component: "FactorialPage" },  
       { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage" },
       { title: '5.1 น้้ำประปา ', component: "PlumbingPage" },
       { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage" },
