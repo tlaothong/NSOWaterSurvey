@@ -2,6 +2,11 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
+
 /**
  * Generated class for the RubberTreePage page.
  *
@@ -18,15 +23,18 @@ export class RubberTreePage {
 
   private submitRequested: boolean;
   public rubbertree: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+ 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
 
-      "doing": ['', Validators.required],
-      "fieldCount": ['', Validators.required],
+      "doing": [null, Validators.required],
+      "fieldCount": [null, Validators.required],
       'fields': fb.array([
         FieldRebbertreeComponent.CreateFormGroup(fb)
-      ])
+      ]),
+      "_id": [null],
     });
 
     this.setupFieldCountChanges();
@@ -34,6 +42,7 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RubberTreePage');
+    this.formData$.subscribe(data => this.rubbertree.setValue(data));
   }
 
   ionViewDidEnter() {
