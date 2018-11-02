@@ -28,7 +28,7 @@ export class GroundWaterPage {
   @ViewChildren(GroundWaterUsageComponent) private groundWaterUsage: GroundWaterUsageComponent[];
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.groundWater));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
 
 
   constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {

@@ -26,23 +26,24 @@ export class CommercialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   private f: FormGroup;
   private submitRequested: boolean;
- 
+
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
 
 
-  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
+      'buildingCode': [null, Validators.required],
       'questionForAcademy': this.fb.array([
         TableCheckItemCountComponent.CreateFormGroup(this.fb),
         TableCheckItemCountComponent.CreateFormGroup(this.fb),
         TableCheckItemCountComponent.CreateFormGroup(this.fb),
         TableCheckItemCountComponent.CreateFormGroup(this.fb),
         TableCheckItemCountComponent.CreateFormGroup(this.fb),
-         TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        ]),
-        'personnelCount': [null, Validators.required],
+        TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      ]),
+      'personnelCount': [null, Validators.required],
       'hotelsAndResorts': this.fb.group({
         'roomCount': [null, Validators.required],
         'personnelCount': [null, Validators.required],
