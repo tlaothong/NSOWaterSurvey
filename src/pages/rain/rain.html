@@ -29,7 +29,9 @@
           </ion-col>
         </ion-row>
 
-        <rain-storage headline="1." [FormItem]="RainFrm.get('rainContainers')"></rain-storage>
+        <div *ngFor="let p of RainFrm.get('rainContainers').controls">
+          <rain-storage headline="1." [FormItem]="p"></rain-storage>
+        </div>
 
       </ion-card-content>
     </ion-card>

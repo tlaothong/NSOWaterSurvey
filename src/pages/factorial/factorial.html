@@ -72,13 +72,13 @@
             <ion-label>
               ใช้
             </ion-label>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="true" item-left></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
               ไม่ใช้
             </ion-label>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="false" item-left></ion-radio>
           </ion-item>
 
         </ion-row>
@@ -105,18 +105,18 @@
             <ion-label>
               มี
             </ion-label>
-            <ion-radio value="1" item-left></ion-radio>
+            <ion-radio value="true" item-left></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
               ไม่มี
             </ion-label>
-            <ion-radio value="2" item-left></ion-radio>
+            <ion-radio value="false" item-left></ion-radio>
           </ion-item>
         </ion-row>
 
         <div [ngSwitch]="FactoryForm.get('hasWasteWaterFromProduction').value">
-          <div *ngSwitchCase="1">
+          <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
                 3.7 ถ้า "มี" น้ำเสีย สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b><br>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่
@@ -134,13 +134,13 @@
                 <ion-label>
                   มี
                 </ion-label>
-                <ion-radio item-left></ion-radio>
+                <ion-radio value="true" item-left></ion-radio>
               </ion-item>
               <ion-item col-6>
                 <ion-label>
                   ไม่มี
                 </ion-label>
-                <ion-radio item-left></ion-radio>
+                <ion-radio value="false" item-left></ion-radio>
               </ion-item>
             </ion-row>
           </div>
@@ -162,13 +162,13 @@
             <ion-label>
               มี
             </ion-label>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="true" item-left></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
               ไม่มี
             </ion-label>
-            <ion-radio item-left></ion-radio>
+            <ion-radio value="false" item-left></ion-radio>
           </ion-item>
         </ion-row>
       </ion-card-content>

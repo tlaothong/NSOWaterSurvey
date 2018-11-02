@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
@@ -29,7 +29,6 @@ export class PumpComponent implements ISubmitRequestable {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'pumpAuto': ['', Validators.required],
-      'unknowHoursPerPump': ['', Validators.required],
       'hoursPerPump': ['', Validators.required],
       'numberOfPumpsPerYear': ['', Validators.required],
       'hasPumpRate': ['', Validators.required],
