@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
 import { getHouseHoldSample } from '../../states/household';
@@ -26,7 +26,7 @@ export class BuyingPage {
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
 
   BuyingForm: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.rain));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 

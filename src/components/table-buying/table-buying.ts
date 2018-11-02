@@ -31,6 +31,7 @@ export class TableBuyingComponent {
 
   public static CreateFormGruop(fb: FormBuilder): FormGroup {
     return fb.group({
+      'name': [ null],
       'size': [ null, Validators.required],
       'drink': [ null, Validators.required],
       'agriculture': [ null, Validators.required],
