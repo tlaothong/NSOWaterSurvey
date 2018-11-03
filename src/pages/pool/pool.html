@@ -25,13 +25,13 @@
             </span>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="true" item-left></ion-radio>
+            <ion-radio [value]="true" item-left></ion-radio>
             <ion-label>
               มี
             </ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="false" item-left></ion-radio>
+            <ion-radio [value]="false" item-left></ion-radio>
             <ion-label>
               ไม่มี
             </ion-label>
@@ -65,13 +65,13 @@
                 </span>
               </ion-item>
               <ion-item col-6>
-                <ion-radio value="true" item-left></ion-radio>
+                <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>
                   เท่ากัน
                 </ion-label>
               </ion-item>
               <ion-item col-6>
-                <ion-radio value="false" item-left></ion-radio>
+                <ion-radio [value]="false" item-left></ion-radio>
                 <ion-label>
                   ไม่เท่า
                 </ion-label>
@@ -89,10 +89,10 @@
         <div [ngSwitch]="f.get('hasSameSize').value">
           <!-- เท่ากัน -->
           <div *ngSwitchCase="true">
-            <pool-area headline="ขนาดสระน้ำ"></pool-area>
+            <pool-area *ngIf="f.get('poolSizes').length > 0" headline="ขนาดสระน้ำ" [FormItem]="f.get('poolSizes').at(0)"></pool-area>
           </div>
           <!-- ไม่เท่ากัน -->
-          <div *ngIf="f.get('hasSameSize').value == false && f.get('poolCount').value > 0">
+          <div *ngSwitchCase="false">
             <div *ngFor="let pool of f.get('poolSizes').controls; let i = index">
               <pool-area headline="สระที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
             </div>
