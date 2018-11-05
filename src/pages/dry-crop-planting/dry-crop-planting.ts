@@ -24,7 +24,8 @@ export class DryCropPlantingPage {
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
+  // TODO
+  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
  
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
@@ -42,7 +43,8 @@ export class DryCropPlantingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DryCropPlantingPage');
-    this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
+    // TODO
+    //this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
 
   }
 
