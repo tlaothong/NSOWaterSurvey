@@ -35,9 +35,7 @@
           </ion-item>
         </ion-row>
 
-
-        <div [ngSwitch]="rubbertree.get('doing').value">
-          <div *ngSwitchCase="true">
+          <div *ngIf="rubbertree.get('doing').value">
             <ion-item>
               <ion-label>
                 2.3.2 ถ้า “ปลูก” มีพื้นที่ปลูก<b>ยางพารา</b> จำนวนกี่แปลง
@@ -53,13 +51,12 @@
               </span>
             </ion-item>
           </div>
-        </div>
 
       </ion-card-content>
     </ion-card>
 
 
-    <div *ngIf="rubbertree.get('fieldCount').value > 0 && rubbertree.get('doing').value == 1">
+    <div *ngIf="rubbertree.get('fieldCount').value > 0 && rubbertree.get('doing').value">
       <div *ngFor="let rubber of rubbertree.get('fields').controls;let i = index">
         <field-rebbertree [no]="i+1" [FormItem]="rubber"></field-rebbertree>
       </div>
