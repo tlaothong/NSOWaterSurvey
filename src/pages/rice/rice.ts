@@ -27,9 +27,10 @@ export class RicePage {
   f: FormGroup;
 
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
+  // TODO
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -41,7 +42,8 @@ export class RicePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RicePage');
-    this.formData$.subscribe(data => this.f.setValue(data));
+    //TODO
+    // this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   ionViewDidEnter() {

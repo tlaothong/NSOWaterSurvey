@@ -25,7 +25,8 @@ export class FlowerCropPage {
   private submitRequested: boolean;
   flowerCropFrm: FormGroup;
   shownData: string[];
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+  // TODO
+  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState> ) {
     this.flowerCropFrm = this.fb.group({
@@ -40,7 +41,8 @@ export class FlowerCropPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
-    this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
+    // TOLDO
+    //this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
 
   }
 

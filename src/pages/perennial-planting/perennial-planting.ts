@@ -23,7 +23,8 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
+  // TODO
+  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
 
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
   
@@ -39,7 +40,8 @@ export class PerennialPlantingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerennialPlantingPage');
-    this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
+    // TODO
+    //this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
   }
 
   

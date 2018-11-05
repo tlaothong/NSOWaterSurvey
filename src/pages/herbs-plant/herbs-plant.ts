@@ -25,12 +25,13 @@ export class HerbsPlantPage {
   private submitRequested: boolean;
   public f: FormGroup;
   shownData: string[];
-    private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
+  // TODO
+  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
 
 
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState> ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
       'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
@@ -43,7 +44,8 @@ export class HerbsPlantPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
-    this.formData$.subscribe(data => this.f.setValue(data));
+    // TODO
+    //this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
