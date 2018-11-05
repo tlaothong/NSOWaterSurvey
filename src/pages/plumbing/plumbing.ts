@@ -26,7 +26,7 @@ export class PlumbingPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   public f: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -78,7 +78,7 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    // this.formData$.subscribe(data => this.f.setValue(data));
     console.log('ionViewDidLoad PlumbingPage');
   }
 

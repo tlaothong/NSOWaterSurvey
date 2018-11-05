@@ -27,7 +27,7 @@ export class CommercialPage {
   private f: FormGroup;
   private submitRequested: boolean;
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
 
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
@@ -69,7 +69,7 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
-    this.formData$.subscribe(data => this.f.setValue(data));
+    // this.formData$.subscribe(data => this.f.setValue(data));
 
   }
 
