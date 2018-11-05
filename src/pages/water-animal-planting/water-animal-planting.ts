@@ -27,11 +27,11 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FrogFarmingComponent) private frogFarming : FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming : CrocodileFarmingComponent[];
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
 
   private submitRequested: boolean;
-  
-  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  // ,private store: Store<HouseHoldState>
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       "isFish": [false, Validators.required],
@@ -59,7 +59,7 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaterAnimalPlantingPage');
-    this.formData$.subscribe(data => this.f.setValue(data));
+    // this.formData$.subscribe(data => this.f.setValue(data));
 
 
   }
