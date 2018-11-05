@@ -24,10 +24,10 @@ export class RubberTreePage {
   private submitRequested: boolean;
   public rubbertree: FormGroup;
   // TODO
-  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
 
       "doing": [null, Validators.required],
@@ -42,7 +42,7 @@ export class RubberTreePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad RubberTreePage');
     //TODO
-    //this.formData$.subscribe(data => this.rubbertree.setValue(data));
+    this.formData$.subscribe(data => this.rubbertree.setValue(data));
   }
 
   ionViewDidEnter() {
