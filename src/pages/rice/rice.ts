@@ -34,7 +34,7 @@ export class RicePage {
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),
-      "_id": null,
+      '_id': [null],
     });
 
     this.setupFieldCountChanges();
