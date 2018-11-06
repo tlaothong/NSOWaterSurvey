@@ -14,7 +14,7 @@ import { WaterProblem6Component } from '../water-problem6/water-problem6';
   selector: 'ground-water-usage',
   templateUrl: 'ground-water-usage.html'
 })
-export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequestable {
+export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   @Input('no') text: string;
   @Input() public FormItem: FormGroup;
@@ -31,13 +31,9 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
 
     // this.setupPumpCountChanges()
   }
-
-  ngAfterViewInit(): void {
-    this.setupPumpCountChanges()
-  }
   
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group({
+    var fg = fb.group({
       'usageType': [null, Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
       'waterBill': [null, Validators.required],
@@ -51,6 +47,8 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
         "problem": WaterProblem6Component.CreateFormGroup(fb)
       })
     });
+    GroundWaterUsageComponent.setupPumpCountChanges(fb, fg);
+    return fg;
 
     // this.FormItem = GroundWaterUsageComponent.CreateFormGroup(this.fb);
   }
@@ -111,14 +109,14 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  private setupPumpCountChanges() {
+  private static setupPumpCountChanges(fb: FormBuilder, fg: FormGroup) {
     const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
-      var pump = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
-      var pumpCount = this.FormItem.get(componentCount).value || 0;
-      var p = this.fb.array([]);
+      var pump = (fg.get(componentFormArray) as FormArray).controls || [];
+      var pumpCount = fg.get(componentCount).value || 0;
+      var p = fb.array([]);
 
       pumpCount = Math.max(0, pumpCount);
 
@@ -128,15 +126,15 @@ export class GroundWaterUsageComponent implements AfterViewInit, ISubmitRequesta
           const fld = pump[i];
           ctrl = fld;
         } else {
-          ctrl = PumpComponent.CreateFormGroup(this.fb);
+          ctrl = PumpComponent.CreateFormGroup(fb);
         }
 
         p.push(ctrl);
       }
-      this.FormItem.setControl(componentFormArray, p);
+      fg.setControl(componentFormArray, p);
     };
 
-    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+    fg.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
   }

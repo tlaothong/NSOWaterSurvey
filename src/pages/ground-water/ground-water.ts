@@ -38,7 +38,6 @@ export class GroundWaterPage {
         'waterResourceCount': [null, Validators.required],
         'waterResources': this.fb.array([])
       }),
-
       'publicGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'waterResourceCount': [null, Validators.required],
@@ -58,6 +57,7 @@ export class GroundWaterPage {
   ionViewDidEnter() {
 
   }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
