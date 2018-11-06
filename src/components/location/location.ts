@@ -27,9 +27,9 @@ export class LocationComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb:FormBuilder) : FormGroup {
     return fb.group({
-      'province': [null, [Validators.required]],
-      'district': [null, [Validators.required]],
-      'subDistrict': [null, [Validators.required]]
+      'province': [null, Validators.required],
+      'district': [null, Validators.required],
+      'subDistrict': [null, Validators.required]
     });
   }
 

@@ -24,12 +24,12 @@ export class AnimalFarmPage {
 
   @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
+ 
   private submitRequested: boolean;
   public f: FormGroup;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
 
-  // ,private store: Store<HouseHoldState>
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -52,7 +52,7 @@ export class AnimalFarmPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
-    // this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => this.f.setValue(data));
 
   }
 

@@ -1,4 +1,4 @@
-import { Component,ViewChildren } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
@@ -23,15 +23,15 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 })
 export class WaterAnimalPlantingPage {
 
-  @ViewChildren(FishFarmingComponent) private fishFarming : FishFarmingComponent[];
-  @ViewChildren(FrogFarmingComponent) private frogFarming : FrogFarmingComponent[];
-  @ViewChildren(CrocodileFarmingComponent) private crocodileFarming : CrocodileFarmingComponent[];
-  public f: FormGroup;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+  @ViewChildren(FishFarmingComponent) private fishFarming: FishFarmingComponent[];
+  @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
+  @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
 
+  public f: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
   private submitRequested: boolean;
-  // ,private store: Store<HouseHoldState>
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  // 
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       "isFish": [false, Validators.required],
@@ -53,15 +53,13 @@ export class WaterAnimalPlantingPage {
       "isReddish": [false, Validators.required],
       "reddish": FishFarmingComponent.CreateFormGroup(fb),
     }, {
-      validator: WaterAnimalPlantingPage.checkAnyOrOther()
-    });
+        validator: WaterAnimalPlantingPage.checkAnyOrOther()
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaterAnimalPlantingPage');
-    // this.formData$.subscribe(data => this.f.setValue(data));
-
-
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
@@ -76,7 +74,7 @@ export class WaterAnimalPlantingPage {
     if (name == 'anycheck') {
       ctrl = this.f;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
+    }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
@@ -94,8 +92,9 @@ export class WaterAnimalPlantingPage {
 
       if (!isFish.value && !isShrimp.value && !isFrog.value && !isCrocodile.value && !isCrab.value
         && !isShellFish.value && !isTurtle.value && !isReddish.value && !isSnappingTurtle.value) {
+
         return { 'anycheck': true };
-      } 
+      }
       return null;
     }
   }
