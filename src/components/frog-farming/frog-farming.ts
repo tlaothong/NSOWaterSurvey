@@ -31,7 +31,7 @@ export class FrogFarmingComponent {
       "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "stew": [false, Validators.required],
-      "other": ['', Validators.required],
+      "other": [null , Validators.required],
       'hasOther': [false, Validators.required],
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
