@@ -34,10 +34,10 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   }
 
 
-  ngAfterViewInit(): void {
-    this.setupFieldCountChanges()
+  // ngAfterViewInit(): void {
+  //   this.setupFieldCountChanges()
 
-  }
+  // }
 
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -120,7 +120,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
           const fld = fields[i];
           ctrl = fld;
         } else {
-          ctrl = PoolAreaComponent.CreateFormGroup(this.fb);
+          ctrl = PoolAreaComponent.CreateFormGroup(fb);
         }
 
         field.push(ctrl);
