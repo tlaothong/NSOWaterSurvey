@@ -35,8 +35,6 @@ export class WaterProblem6Component {
     });
   }
 
-
-
   submitRequest() {
     this.submitRequested = true;
   }
