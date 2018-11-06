@@ -8,13 +8,13 @@
 
   <ion-row radio-group formControlName="hasProblem" [class.invalid]="isValid('hasProblem')">
     <ion-item col-6>
-      <ion-radio value="false" item-left></ion-radio>
+      <ion-radio [value]="false" item-left></ion-radio>
       <ion-label>
         1.ไม่มีปัญหา
       </ion-label>
     </ion-item>
     <ion-item col-6>
-      <ion-radio value="true" item-left></ion-radio>
+      <ion-radio [value]="true" item-left></ion-radio>
       <ion-label>
         2.มีปัญหา คือ
       </ion-label>
