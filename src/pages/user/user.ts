@@ -36,13 +36,10 @@ export class UserPage {
   }
 
   ionViewDidEnter() {
-
-
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-
   }
 
   public isValid(name: string): boolean {
