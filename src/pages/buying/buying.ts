@@ -24,12 +24,10 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
-
   BuyingForm: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
-
     this.BuyingForm = this.fb.group({
       'package': this.fb.array([
         TableBuyingComponent.CreateFormGruop(this.fb),
@@ -43,8 +41,6 @@ export class BuyingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.BuyingForm.setValue(data));
-
     console.log('ionViewDidLoad BuyingPage');
   }
-
 }

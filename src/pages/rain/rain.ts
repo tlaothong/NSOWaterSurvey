@@ -25,14 +25,11 @@ export class RainPage {
 
   @ViewChildren(RainStorageComponent) private rainStorage : RainStorageComponent[];
   @ViewChildren(WaterActivity5Component) private waterActivity5 : WaterActivity5Component[];
-
   RainFrm: FormGroup;
   private submitRequested: boolean;
-
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
-
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([RainStorageComponent.CreateFormGroup(fb)]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
@@ -58,6 +55,4 @@ export class RainPage {
   submitRequest() {
     this.submitRequested = true;
   }
-
-
 }

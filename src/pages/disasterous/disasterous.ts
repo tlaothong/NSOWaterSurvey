@@ -23,7 +23,6 @@ export class DisasterousPage {
 
   @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
-
   private submitRequested: boolean;
   Disasterous: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
@@ -69,5 +68,4 @@ export class DisasterousPage {
     var ctrl = this.Disasterous.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 }

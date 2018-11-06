@@ -25,12 +25,9 @@ export class IrrigationPage {
 
   private submitRequested: boolean;
   f: FormGroup;
-
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
-
-
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -47,7 +44,6 @@ export class IrrigationPage {
         "problem": WaterProblem4Component.CreateFormGroup(fb)
       })
     });
-
     this.setupPumpCountChanges()
   }
 
@@ -96,5 +92,4 @@ export class IrrigationPage {
 
     onComponentCountChanges();
   }
-
 }
