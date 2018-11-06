@@ -27,6 +27,7 @@ export class RicePage {
   f: FormGroup;
 
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
+  
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
