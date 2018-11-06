@@ -32,11 +32,9 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
 
   }
-  
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'cubicMeterPerMonth': [null, Validators.required],
-      'unknow': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
       'pumps': fb.array([]),
