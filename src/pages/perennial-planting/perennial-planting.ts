@@ -24,15 +24,15 @@ export class PerennialPlantingPage {
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
   // TODO
-  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
 
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.PerennialPlantingFrm = this.fb.group({
-      'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
-      'fields': fb.array([]),
+      "doing": [null, Validators.required],
+      "fieldCount": [null, Validators.required],
+      "fields": fb.array([]),
       "_id": [null],
     });
     this.setupFieldCountChanges();
@@ -41,7 +41,7 @@ export class PerennialPlantingPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerennialPlantingPage');
     // TODO
-    //this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
+    this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
   }
 
   

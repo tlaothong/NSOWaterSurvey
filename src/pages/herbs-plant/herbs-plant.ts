@@ -26,7 +26,7 @@ export class HerbsPlantPage {
   public f: FormGroup;
   shownData: string[];
   // TODO
-  //private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
 
 
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
@@ -45,7 +45,7 @@ export class HerbsPlantPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
     // TODO
-    //this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {

@@ -19,7 +19,7 @@ import { EX_TREETON_LIST } from '../../models/tree';
 })
 export class FieldPerenialPlantingComponent implements ISubmitRequestable {
 
-  
+
   @Input() public FormItem: FormGroup;
   @Input('no') text: string;
   private submitRequested: boolean;
@@ -32,7 +32,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
 
 
 
-  constructor(public fb:FormBuilder,public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     console.log('Hello FieldPerenialPlantingComponent Component');
     this.text = 'Hello World';
 
@@ -45,10 +45,19 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': ['',Validators.required],
-      'plantings': fb.array([]),
-      'otherPlantings': fb.array([]),
-      'waterSources': WaterSources9Component.CreateFormGroup(fb)
+      'irrigationField': ['', Validators.required],
+      'plantings': fb.array([
+        {
+          "code": [null],
+          "name": [null]
+        },
+        {
+          "code": [null],
+          "name": [null]
+        }
+      ]),
+      'otherPlantings': [null],        
+    'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
 
@@ -65,10 +74,10 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
   }
 
 
-  
+
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage", 
-    { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREETON_LIST, limit: 5 });
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREETON_LIST, limit: 5 });
 
     modal.onDidDismiss(data => {
       if (data) {

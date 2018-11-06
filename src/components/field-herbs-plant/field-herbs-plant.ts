@@ -40,10 +40,15 @@ export class FieldHerbsPlantComponent {
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      'plantings': fb.array([]), //ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก พืชผัก สมุนไพร ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
+      'plantings': fb.array([
+        { "code": [null],
+         "name": [null]},
+         { "code": [null],
+         "name": [null]}
+       ]),
       'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
-      'otherPlantings': fb.array([]),
+      'otherPlantings': [null],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
