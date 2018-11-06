@@ -8,6 +8,6 @@ namespace VarsWebApi.Models {
         District: string;
 
         /**ตำบล */
-        Tambon: string;
+        SubDistrict: string;
     }
 }
