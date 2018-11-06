@@ -31,7 +31,7 @@ export class FieldRiceHarvestComponent implements ISubmitRequestable {
       "plantingFromMonth": [ null, Validators.required ],
       "plantingThruMonth": [ null, Validators.required ],
       "waterFillingCount": [ null, Validators.required ],
-      "waterHighCm": [ null, Validators.required ],
+      "waterHeightCm": [ null, Validators.required ],
     });
   }
 
