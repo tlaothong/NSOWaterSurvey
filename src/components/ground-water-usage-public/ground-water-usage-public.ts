@@ -15,7 +15,7 @@ import { WaterProblem6Component } from '../water-problem6/water-problem6';
   selector: 'ground-water-usage-public',
   templateUrl: 'ground-water-usage-public.html'
 })
-export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRequestable {
+export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
 
   @Input('no') text: string;
   @Input() public FormItem: FormGroup;
@@ -32,11 +32,7 @@ export class GroundWaterUsagePublicComponent implements AfterViewInit, ISubmitRe
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
 
   }
-
-  ngAfterViewInit(): void {
-    this.setupPumpCountChanges()
-  }
-
+  
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
       'cubicMeterPerMonth': [null, Validators.required],
