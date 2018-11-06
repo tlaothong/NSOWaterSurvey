@@ -35,16 +35,15 @@ export class CommercialPage {
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
       'buildingCode': [null, Validators.required],
-      'questionForAcademy': this.fb.array([
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-      ]),
-      'personnelCount': [null, Validators.required],
-
+      'questionForAcademy': this.fb.group({
+        'preSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'kindergarten': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'primarySchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'highSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'personnelCount': [null, Validators.required],
+      }),
       'hotelsAndResorts': this.fb.group({
         'roomCount': [null, Validators.required],
         'personnelCount': [null, Validators.required],
@@ -78,6 +77,7 @@ export class CommercialPage {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources8B.forEach(it => it.submitRequest());
+    
   }
 
   public isValid(name: string): boolean {
