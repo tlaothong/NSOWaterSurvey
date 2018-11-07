@@ -71,25 +71,7 @@
           <ion-label ion-button (click)="model()">เลือก</ion-label>
         </ion-item>
       </div>
-      <!-- 
-          <ion-list>
-            <ion-item [class.invalid]="isValid('names')">
-              <ion-label>รายชื่อพืช</ion-label>
-              <ion-select interface="action-sheet" formControlName="names">
-                <ion-option>กระเพรา</ion-option>
-                <ion-option>กระเทียม</ion-option>
-                <ion-option>ขมิ้น</ion-option>
-                <ion-option>ตะไคร้</ion-option>
-                <ion-option>มะระ</ion-option>
-                <ion-option>พริกไทย</ion-option>
-              </ion-select>
-            </ion-item>
-            <ion-item *ngIf="isValid('names')">
-              <span class="invalid-msg">กรุณาเลือก</span>
-            </ion-item>
-          </ion-list>
-        </div> -->
-
+     
       <ion-item>
         <ion-label>
           5) ลักษณะการปลูกเป็นแบบใด
@@ -103,13 +85,13 @@
           </span>
         </ion-item>
         <ion-item>
-          <ion-radio value="1" item-left></ion-radio>
+          <ion-radio value="true" item-left></ion-radio>
           <ion-label>
             1. แบบปลูกเฉพาะ พืชผัก สมุนไพร
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-radio value="2" item-left></ion-radio>
+          <ion-radio value="false" item-left></ion-radio>
           <ion-label>
             2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่
           </ion-label>
