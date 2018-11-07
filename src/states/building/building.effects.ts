@@ -8,7 +8,7 @@ import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 
 
 @Injectable()
-export class HouseHoldEffects {
+export class BuildingEffects {
     constructor(private action$: Actions, private cloudSync: CloudSyncProvider) {
     }
 
