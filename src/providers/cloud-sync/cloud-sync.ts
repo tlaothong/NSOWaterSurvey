@@ -19,4 +19,8 @@ export class CloudSyncProvider {
     return this.http.get('https://nsovars.azurewebsites.net/api/survey');
   }
 
+  public loadCommunitySampleTestData() : Observable<any> {
+    return this.http.get('https://nsovars.azurewebsites.net/api/survey/community');
+  }
+
 }
