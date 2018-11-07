@@ -6,6 +6,7 @@ import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
 import { EX_TREERAI_LIST } from '../../models/tree';
+import { ModalPlantComponent } from '../modal-plant/modal-plant';
 
 
 /**
@@ -20,17 +21,15 @@ import { EX_TREERAI_LIST } from '../../models/tree';
 })
 export class FieldDryCropPlantingComponent implements ISubmitRequestable {
 
-
-
   @Input() public FormItem: FormGroup;
-  @Input('no') text :string;
+  @Input('no') text: string;
   private submitRequested: boolean;
-  @ViewChildren(LocationComponent) private locationT : LocationComponent[];
-  @ViewChildren(FieldAreaComponent) private fieldArea : FieldAreaComponent[];
-  @ViewChildren(WaterSources9Component) private waterSources9 : WaterSources9Component[];
-  shownData: string[];
+  @ViewChildren(LocationComponent) private locationT: LocationComponent[];
+  @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
+  @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
+  DataList = EX_TREERAI_LIST;
 
-  constructor(public fb:FormBuilder,public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     console.log('Hello FieldDryCropPlantingComponent Component');
     this.text = 'Hello World';
 
@@ -41,15 +40,12 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': [null,Validators.required],
-      'plantings': fb.array([
-       { "code": [null],
-        "name": [null]},
-        { "code": [null],
-        "name": [null]}
-      ]),
-      'otherPlantings': fb.array([{ "code": [null],
-      "name": [null]}]),
+      'irrigationField': [null, Validators.required],
+      'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
+      'otherPlantings': fb.array([{
+        "code": [null],
+        "name": [null]
+      }]),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
@@ -61,24 +57,24 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
-    this.locationT.forEach(it=>it.submitRequest());
-    this.fieldArea.forEach(it=>it.submitRequest());
-    this.waterSources9.forEach(it=>it.submitRequest());
+    this.locationT.forEach(it => it.submitRequest());
+    this.fieldArea.forEach(it => it.submitRequest());
+    this.waterSources9.forEach(it => it.submitRequest());
   }
 
-  model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
-      }
-    });
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage",
+  //     { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
 
-    modal.present();
-  }
+  //   modal.present();
+  // }
 }

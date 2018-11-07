@@ -60,7 +60,7 @@
             กรุณาเลือก
           </span>
         </ion-item> -->
-      <ion-list >
+      <!-- <ion-list >
         <ion-item *ngFor="let p of shownData" text-center>
           {{ p }}
         </ion-item>
@@ -68,12 +68,10 @@
       <ion-item>
         <ion-label ion-button (click)="model()">เลือก</ion-label>
       </ion-item>
+    -->
+      <modal-plant Title="พืชไร่" [InputList]="DataList" InputLimit="5"></modal-plant>
     </div>
 
-
     <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
-
-
-
   </ion-card-content>
 </ion-card>

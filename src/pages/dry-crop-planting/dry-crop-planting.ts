@@ -21,20 +21,20 @@ import { map } from 'rxjs/operators';
 })
 export class DryCropPlantingPage {
 
-  @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop : FieldDryCropPlantingComponent[];
-  
+  @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
+
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
- 
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
-      "doing" : [null, Validators.required],
-      "fieldCount" : [null, Validators.required],
-      "fields" : this.fb.array([]),
-      "_id" : [null],
+      "doing": [null, Validators.required],
+      "fieldCount": [null, Validators.required],
+      "fields": this.fb.array([]),
+      "_id": [null],
     });
     this.setupFieldCountChanges();
   }
@@ -43,12 +43,11 @@ export class DryCropPlantingPage {
     console.log('ionViewDidLoad DryCropPlantingPage');
     // TODO
     this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
-
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.fieldDryCrop.forEach(it=>it.submitRequest());
+    this.fieldDryCrop.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

@@ -6,6 +6,7 @@ import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
 import { EX_TREETON_LIST } from '../../models/tree';
+import { ModalPlantComponent } from '../modal-plant/modal-plant';
 
 /**
  * Generated class for the FieldPerenialPlantingComponent component.
@@ -27,10 +28,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
-  shownData: string[];
-
-
-
+  shownData = EX_TREETON_LIST;
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     console.log('Hello FieldPerenialPlantingComponent Component');
@@ -46,16 +44,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required],
-      'plantings': fb.array([
-        {
-          "code": [null],
-          "name": [null]
-        },
-        {
-          "code": [null],
-          "name": [null]
-        }
-      ]),
+      'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
       'otherPlantings': [null],        
     'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
@@ -75,22 +64,22 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
 
 
 
-  model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREETON_LIST, limit: 5 });
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage",
+  //     { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREETON_LIST, limit: 5 });
 
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
 
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
-      }
-    });
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
 
-    modal.present();
-  }
+  //   modal.present();
+  // }
 
 }
