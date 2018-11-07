@@ -27,10 +27,10 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable{
     return fb.group({
       'name': [null, Validators.required],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'membercount': [null, Validators.required],
-      'avgsurfacewateruse': [null, Validators.required],
-      'groundwatercount': [null, Validators.required],
-      'avggroundwateruse': [null, Validators.required],
+      'memberCount': [null, Validators.required],
+      'avgSurfaceWaterUse': [null, Validators.required],
+      'groundWaterCount': [null, Validators.required],
+      'avgGroundWaterUse': [null, Validators.required],
     });
   }
 

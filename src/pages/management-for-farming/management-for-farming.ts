@@ -1,7 +1,11 @@
+import { CommunityState } from './../../states/community/community.reducer';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { getCommunitySample } from '../../states/community';
 
 /**
  * Generated class for the ManagementForFarmingPage page.
@@ -17,18 +21,18 @@ import { DetailManagementForFarmingComponent } from '../../components/detail-man
 })
 export class ManagementForFarmingPage {
 
-  @ViewChildren(DetailManagementForFarmingComponent) private  detailManagementForFarming: DetailManagementForFarmingComponent[];
+  @ViewChildren(DetailManagementForFarmingComponent) private detailManagementForFarming: DetailManagementForFarmingComponent[];
 
   public managementforfarming: FormGroup;
   private submitRequested: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
     this.managementforfarming = this.fb.group({
-  
-        'doing': [null, Validators.required],
-        'projectcount': [null, Validators.required],
-        'details': fb.array([]),
-     
+      'doing': [null, Validators.required],
+      'projectCount': [null, Validators.required],
+      'details': fb.array([]),
     });
     this.setupprojectcountChanges();
   }
@@ -45,11 +49,12 @@ export class ManagementForFarmingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManagementForFarmingPage');
+    this.formData$.subscribe(data => this.managementforfarming.setValue(data));
   }
 
   private setupprojectcountChanges() {
     const componentFormArray: string = "details";
-    const componentCount: string = "projectcount";
+    const componentCount: string = "projectCount";
 
     var onComponentCountChanges = () => {
       var fieldFlowerCrop = (this.managementforfarming.get(componentFormArray) as FormArray).controls || [];
