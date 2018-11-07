@@ -49,14 +49,15 @@
         4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>ไม้ดอก ไม้ประดับ <br>เพาะพันธุ์ไม้</b> ชนิดใด
       </ion-label>
     </ion-item>
-    <ion-list>
+    <!-- <ion-list>
       <ion-item *ngFor="let p of shownData" text-center>
         {{ p }}
       </ion-item>
     </ion-list>
     <ion-item>
       <ion-label ion-button (click)="model()">เลือก</ion-label>
-    </ion-item>
+    </ion-item> -->
+    <modal-plant Title="ไม้ดอก ไม่ประดับ" [InputList]="shownData" InputLimit="5"></modal-plant>
 
     <ion-item>
       <ion-label>

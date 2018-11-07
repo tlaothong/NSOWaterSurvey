@@ -5,6 +5,7 @@ import { EX_TREEVET_LIST } from '../../models/tree';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { LocationComponent } from '../location/location';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
+import { ModalPlantComponent } from '../modal-plant/modal-plant';
 
 /**
  * Generated class for the FieldHerbsPlantComponent component.
@@ -20,7 +21,7 @@ export class FieldHerbsPlantComponent {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
-  shownData: string[];
+  shownData = EX_TREEVET_LIST;
   shownData2: string[];
 
   private submitRequested: boolean;
@@ -40,12 +41,7 @@ export class FieldHerbsPlantComponent {
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      'plantings': fb.array([
-        { "code": [null],
-         "name": [null]},
-         { "code": [null],
-         "name": [null]}
-       ]),
+      'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
       'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
       'otherPlantings': [null],
@@ -65,23 +61,23 @@ export class FieldHerbsPlantComponent {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "พืชผัก สมุนไพร", selected: [], list: EX_TREEVET_LIST, limit: 5 });
+  // model() {
+  //   const modal = this.modalCtrl.create("SearchDropdownPage",
+  //     { title: "พืชผัก สมุนไพร", selected: [], list: EX_TREEVET_LIST, limit: 5 });
 
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       // this.FormItem = data;
+  //       // var fg = <FormGroup>data;
+  //       // this.FormItem.setValue(fg.value);
 
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
-      }
-    });
+  //       var adata = data as Array<string>;
+  //       this.shownData = adata.map(it => it.split(".")[1]);
+  //     }
+  //   });
 
-    modal.present();
-  }
+  //   modal.present();
+  // }
 
   model2() {
     const modal = this.modalCtrl.create("SearchDropdownPage",
