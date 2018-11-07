@@ -39,7 +39,7 @@ export class FieldHerbsPlantComponent {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': [null, Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+      'irrigationField': ['', Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
       'plantings': fb.array([
         { "code": [null],
          "name": [null]},
