@@ -4,38 +4,34 @@ import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the FishFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'fish-farming',
   templateUrl: 'fish-farming.html'
 })
 export class FishFarmingComponent implements ISubmitRequestable {
+
   [x: string]: any;
 
   @Input() public FormItem: FormGroup;
   @Input('headline') text: string;
   @Input('type') type: string;
 
-  private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
 
+  private submitRequested: boolean;
+
   constructor(public fb: FormBuilder) {
+
     console.log('Hello FishFarmingComponent Component');
     this.text = 'Hello World';
     this.type = 'กก.';
 
-    // this.FormItem = FishFarmingComponent.CreateFormGroup(fb);
-    // this.setupPoolCountChanges()
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
+
       "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "gardenGroove": [false, Validators.required],
@@ -48,21 +44,22 @@ export class FishFarmingComponent implements ISubmitRequestable {
       "fields": fb.array([]),
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
+
     }, {
         validator: FishFarmingComponent.checkAnyOrOther()
       });
-      FishFarmingComponent.setupPoolCountChanges(fb, fg);
+
+    FishFarmingComponent.setupPoolCountChanges(fb, fg);
     return fg;
+
   }
 
-  // ngAfterViewInit(): void {
-  //   this.setupPoolCountChanges()
-  // }
-
   submitRequest() {
+
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    
   }
 
   public static checkAnyOrOther(): ValidatorFn {
