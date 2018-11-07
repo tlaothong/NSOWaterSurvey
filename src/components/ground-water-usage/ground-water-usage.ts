@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
@@ -28,74 +28,29 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   constructor(public fb: FormBuilder) {
 
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
-
-    // this.setupPumpCountChanges()
   }
-  
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'usageType': [null, Validators.required],
+      'usageType': fb.group({
+        'groundWaterQuantity': [null, Validators.required],
+        'usageCubicMeters': [null, Validators.required],
+        'waterBill': [null, Validators.required],
+      }),
       'cubicMeterPerMonth': [null, Validators.required],
       'waterBill': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
-      // 'hasQaulityProblem': [null, Validators.required],
       "qualityProblem": fb.group({
-        "hasProblem": [null, Validators.required],
-        "problem": WaterProblem6Component.CreateFormGroup(fb)
+        'hasProblem': [null, Validators.required],
+        'problem': WaterProblem6Component.CreateFormGroup(fb),
       })
     });
     GroundWaterUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
-
-    // this.FormItem = GroundWaterUsageComponent.CreateFormGroup(this.fb);
   }
-
-  // public static CreateFormGroup(fb: FormBuilder) : FormGroup {
-  //   return fb.group({
-  //     'usageType': [null, Validators.required],
-  //     'usageCubicMeters': [null, Validators.required],
-  //     'waterBill': [null, Validators.required],
-  //     'hasPump': [null, Validators.required],
-  //     'pumpCount': [null, Validators.required],
-  //     'pump': this.fb.group({
-  //       'pumpAuto': ['', Validators.required],
-  //       'unknowHoursPerPump': ['', Validators.required],
-  //       'hoursPerPump': ['', Validators.required],
-  //       'numberOfpumpPerYear': ['', Validators.required],
-  //       'pumpRate': this.fb.group({
-  //         'knowPumpRate': ['', Validators.required],
-  //         'pumpRateUsage': ['', Validators.required],
-  //       }),
-  //       'waterMachine': this.fb.group({
-  //         'energySource': ['', Validators.required],
-  //         'pumpType': ['', Validators.required],
-  //         'horsePower': ['', Validators.required],
-  //         'suctionPipeSize': ['', Validators.required],
-  //         'pipelineSize': ['', Validators.required],
-  //       })
-  //     }),
-  //     'usageActivities': this.fb.group({
-  //       'drink': [null, Validators.required],
-  //       'plant': [null, Validators.required],
-  //       'farm': [null, Validators.required],
-  //       'agriculture': [null, Validators.required],
-  //       'product': [null, Validators.required],
-  //       'service': [null, Validators.required],
-  //     }),
-  //     'hasQaulityProblem': [null, Validators.required],
-  //     'qualityProblems': this.fb.group({
-  //       'turbidWater': [null, Validators.required],
-  //       'saltWater': [null, Validators.required],
-  //       'smell': [null, Validators.required],
-  //       'filmOfOil': [null, Validators.required],
-  //       'fogWater': [null, Validators.required],
-  //       'hardWater': [null, Validators.required],
-  //     }),
-  //   });
-  // }
 
   submitRequest() {
     this.submitRequested = true;
