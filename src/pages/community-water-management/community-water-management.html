@@ -69,7 +69,7 @@
 
 
     <div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0 && CommunityWaterManagement.get('hasPublicWater').value ">
-      <div *ngFor="let p of CommunityWaterManagement.get('detail').controls; let i = index">
+      <div *ngFor="let p of CommunityWaterManagement.get('details').controls; let i = index">
         <detail-water-management [no]="i + 1" [FormItem]="p"></detail-water-management>
       </div>
     </div>

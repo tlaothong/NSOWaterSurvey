@@ -43,10 +43,10 @@
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-input type="number" placeholder="กรอกจำนวนโครงการ" formControlName="projectcount" [class.invalid]="isValid('projectcount')"></ion-input>
+            <ion-input type="number" placeholder="กรอกจำนวนโครงการ" formControlName="projectCount" [class.invalid]="isValid('projectCount')"></ion-input>
           </ion-item>
 
-          <ion-item *ngIf="isValid('projectcount')">
+          <ion-item *ngIf="isValid('projectCount')">
             <span class="invalid-msg">
               กรุณากรอกจำนวนโครงการ
             </span>
@@ -57,7 +57,7 @@
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="  managementforfarming.get('doing').value && managementforfarming.get('projectcount').value > 0">
+    <div *ngIf="  managementforfarming.get('doing').value && managementforfarming.get('projectCount').value > 0">
       <div *ngFor="let p of managementforfarming.get('details').controls; let i = index">
         <detail-management-for-farming [no]="i + 1" [FormItem]="p"></detail-management-for-farming>
       </div>
