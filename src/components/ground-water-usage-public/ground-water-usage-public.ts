@@ -35,14 +35,15 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
+      'hasCubicMeterPerMonth': [null, Validators.required],
+      'cubicMeterPerMonth': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
-      // 'hasQaulityProblem': [null, Validators.required],
       'qualityProblem': fb.group({
-        "hasProblem": [null, Validators.required],
-        "problem": WaterProblem6Component.CreateFormGroup(fb)
+        'hasProblem': [null, Validators.required],
+        'problem': WaterProblem6Component.CreateFormGroup(fb),
       })
     });
     GroundWaterUsagePublicComponent.setupPumpCountChanges(fb, fg);

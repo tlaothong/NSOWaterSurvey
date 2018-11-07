@@ -20,9 +20,11 @@ import { map } from 'rxjs/operators';
   templateUrl: 'residential.html',
 })
 export class ResidentialPage {
+
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   residentialFrm: FormGroup;
   private submitRequested: boolean;
+  
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
