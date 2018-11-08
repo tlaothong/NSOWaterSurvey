@@ -19,6 +19,7 @@ export class DlgUnitPage {
   f: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+    const unitM = navParams.get('_unitM');
     this.f = this.fb.group({
       'roomNumber': [null, Validators.required],
       'access': [null, Validators.required],
@@ -33,7 +34,6 @@ export class DlgUnitPage {
       'isCommercial': [null, Validators.required],
       'comments': this.fb.group({
         'text': [null, Validators.required],
-
       }),
     });
   }
