@@ -8,27 +8,26 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+
+  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
 
     <!-- 3.1 -->
-    <div>
-      <ion-item>
-        <ion-label>3.1 ลำดับครัวเรือนสถานประกอบการในบ้าน/อาคาร/สิ่งปลูกสร้าง (ยูนิตย่อย)</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>หมายเลขห้อง</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" formControlName="roomNumber" [class.invalid]="isValid('roomNumber')"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isValid('roomNumber')">
-        <span class="invalid-msg">
-          กรุณากรอกหมายเลขห้อง
-        </span>
-      </ion-item>
-    </div>
+    <!-- <div formGroupName="subUnit"> -->
+    <ion-item>
+      <ion-label>3.1 ลำดับครัวเรือนสถานประกอบการในบ้าน/อาคาร/สิ่งปลูกสร้าง (ยูนิตย่อย)</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>หมายเลขห้อง</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="roomNumber" [class.invalid]="isValid('roomNumber')"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="isValid('roomNumber')">
+      <span class="invalid-msg">
+        กรุณากรอกหมายเลขห้อง
+      </span>
+    </ion-item>
 
-    <!-- ActionSheet -->
     <ion-item>
       <ion-label stacked>
         ผลการเข้าพบ 1/3
@@ -58,7 +57,7 @@
     </ion-item>
 
     <!-- <div [ngSwitch]="f.get('access').value"> -->
-    <div *ngIf="f.get('access').value == 'a1'">
+    <div *ngIf="FormItem.get('access').value == 'a1'">
       <ion-item>
         <ion-label>3.2 การแยกมิเตอร์น้ำประปา/น้ำบาดาล</ion-label>
       </ion-item>
@@ -83,7 +82,7 @@
         </ion-item>
       </ion-row>
 
-      <div *ngIf="f.get('hasPlumbing').value">
+      <div *ngIf="FormItem.get('hasPlumbing').value">
         <ion-item>
           <ion-label>
             2. มีมิเตอร์น้ำประปาแยกออกจากส่วนกลางหรือไม่
@@ -106,7 +105,7 @@
         </ion-row>
       </div>
 
-      <div *ngIf="f.get('hasPlumbingMeter').value">
+      <div *ngIf="FormItem.get('hasPlumbingMeter').value">
         <ion-item>
           <ion-label>
             2.1 เป็นมิเตอร์ของการประปาส่วนภูมิภาค/นครหลวงใช่หรือไม่
@@ -150,7 +149,7 @@
         </ion-item>
       </ion-row>
 
-      <div *ngIf="f.get('hasGroundWater').value">
+      <div *ngIf="FormItem.get('hasGroundWater').value">
         <ion-item>
           <ion-label>
             4. มีมิเตอร์น้ำบาดาลแยกออกจากส่วนกลางหรือไม่
@@ -172,6 +171,7 @@
           </ion-item>
         </ion-row>
       </div>
+      <!-- </div> -->
 
       <!-- 3.3 -->
       <ion-item>
@@ -260,7 +260,7 @@
       <!-- </div>
     </div> -->
     </div>
-    <div *ngIf="f.get('access').value == 'a1' || f.get('access').value == 'a2' || f.get('access').value == 'a3'">
+    <div *ngIf="FormItem.get('access').value == 'a1' || FormItem.get('access').value == 'a2' || FormItem.get('access').value == 'a3'">
       <ion-item>
         <ion-label>ปัญหา/อุปสรรค</ion-label>
       </ion-item>
@@ -277,7 +277,7 @@
           <button ion-button block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block (click)="ConfirmDialog()">OK</button>
+          <button ion-button block>OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>

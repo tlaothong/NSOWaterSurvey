@@ -6,26 +6,34 @@
 
 
 <ion-content padding>
-  <button padding (click)="Unit()">
-    <ion-label>
-      ห้องที่ {{unitM.roomNumber}}
-    </ion-label>
-    <div [ngSwitch]="unitM.access">
-      <div *ngSwitchCase="1" text-center class="start">
+
+  <div [formGroup]="FormItem">
+
+    <button padding (click)="Unit()">
+      <ion-label>
+        ห้องที่ {{FormItem.get('roomNumber').value}}
+      </ion-label>
+      <div [ngSwitch]="FormItem.get('access').value">
+        
+        <div *ngSwitchCase="'a1'" text-center class="start">
+        </div>
+        <div *ngSwitchCase="'a2'" text-center class="return">
+        </div>
+        <div *ngSwitchCase="'a3'" text-center class="return">
+        </div>
+        <div *ngSwitchCase="'a4'" text-center class="return">
+        </div>
+        <div *ngSwitchCase="'a5'" text-center class="done">
+        </div>
+        <div *ngSwitchCase="'a6'" text-center class="pause">
+        </div>
+        <div *ngSwitchCase="'a7'" text-center class="done">
+          </div>
       </div>
 
-      <div *ngSwitchCase="2" text-center class="pause">
-      </div>
+    </button>
 
-      <div *ngSwitchCase="3" text-center class="return">
-      </div>
-
-      <div *ngSwitchCase="4" text-center class="done">
-      </div>
-    </div>
-
-  </button>
-
+  </div>
   <!-- <button padding (click)="Unit()">
       <ion-label>
           <b>ห้องที่ 2</b>
