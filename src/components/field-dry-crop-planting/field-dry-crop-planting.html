@@ -69,7 +69,7 @@
         <ion-label ion-button (click)="model()">เลือก</ion-label>
       </ion-item>
     -->
-      <modal-plant Title="พืชไร่" [InputList]="DataList" InputLimit="5"></modal-plant>
+      <modal-plant Title="พืชไร่" [InputList]="DataList" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
     </div>
 
     <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
