@@ -36,7 +36,6 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.text = 'Hello World';
 
     this.FormItem = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
-    console.log("dddd",JSON.stringify(this.FormItem.value))
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {

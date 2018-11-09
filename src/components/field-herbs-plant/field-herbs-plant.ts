@@ -29,6 +29,7 @@ export class FieldHerbsPlantComponent {
   @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
   @ViewChildren(LocationComponent) private locationT : LocationComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9 : WaterSources9Component[];
+  @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
 
@@ -41,7 +42,7 @@ export class FieldHerbsPlantComponent {
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      'plantings':  fb.array([]),
+      'plantings':  ModalPlantComponent.CreateFormGroup(fb),
       'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
       'otherPlantings': [null],
@@ -54,6 +55,7 @@ export class FieldHerbsPlantComponent {
     this.fieldAreas.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    this.modalPlant.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {
