@@ -10,134 +10,25 @@
   <div [formGroup]="FormItem">
 
     <button padding (click)="Unit()">
+      
       <ion-label>
-        ห้องที่ {{FormItem.get('roomNumber').value}}
+        ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}
       </ion-label>
-      <div [ngSwitch]="FormItem.get('access').value">
-        
-        <div *ngSwitchCase="'a1'" text-center class="start">
-        </div>
-        <div *ngSwitchCase="'a2'" text-center class="return">
-        </div>
-        <div *ngSwitchCase="'a3'" text-center class="return">
-        </div>
-        <div *ngSwitchCase="'a4'" text-center class="return">
-        </div>
-        <div *ngSwitchCase="'a5'" text-center class="done">
-        </div>
-        <div *ngSwitchCase="'a6'" text-center class="pause">
-        </div>
-        <div *ngSwitchCase="'a7'" text-center class="done">
-          </div>
+
+    
+      <div *ngIf="FormItem.get('subUnit.access').value == 0" text-center class="start"></div>
+
+      <div *ngIf="FormItem.get('subUnit.access').value == 1">
+        <div *ngIf="FormItem.valid" text-center class="done"></div>
+        <div *ngIf="FormItem.invalid" text-center class="pause"></div>
       </div>
+      <div *ngIf="FormItem.get('subUnit.access').value == 2" text-center class="return"></div>
+      <div *ngIf="FormItem.get('subUnit.access').value == 3" text-center class="return"></div>
+      <div *ngIf="FormItem.get('subUnit.access').value == 4" text-center class="done"></div>
+      <div *ngIf="FormItem.get('subUnit.access').value == 5" text-center class="done"></div>
 
     </button>
 
   </div>
-  <!-- <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ 2</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/completecm.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">119 </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ 3</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/pause.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">120 </h2>
-    </div>
-  </button>
-
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ 4</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/pausecm.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">121 </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ 5</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/return.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">122 </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ 6</b>
-        </ion-label>
-    <div text-center style="
-        background-image: url('../../assets/imgs/returncm.png');
-            height: 190px;
-            width: 150px;
-            background-repeat: no-repeat;
-            background-size: cover;">
-      <br><br>
-      <h2 style="color: black">123 </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-    <ion-label>
-        <b>ห้องที่ 7</b>
-      </ion-label>
-  <div text-center style="
-    background-image: url('../../assets/imgs/play.png');
-        height: 190px;
-        width: 150px;
-        background-repeat: no-repeat;
-        background-size: cover;">
-    <br><br>
-    <h2 style="color: black">{{test}} </h2>
-  </div>
-</button>
-
-<button padding (click)="Unit()">
-    <ion-label>
-        <b>ห้องที่ 8</b>
-      </ion-label>
-  <div text-center style="
-    background-image: url('../../assets/imgs/playcm.png');
-        height: 190px;
-        width: 150px;
-        background-repeat: no-repeat;
-        background-size: cover;">
-    <br><br>
-    <h2 style="color: black">{{test}} </h2>
-  </div>
-</button> -->
 
 </ion-content>

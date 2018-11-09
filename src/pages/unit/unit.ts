@@ -22,55 +22,41 @@ export class UnitPage {
   unitM: unitModel = new unitModel;
   private submitRequested: boolean;
 
-  // roomNo : string;
-  // access : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public fb: FormBuilder) {
-    // this.unitM.roomNumber = "1";
-    // this.unitM.access = 2;
+    this.FormItem = UnitPage.CreateFormGroup(this.fb);
+  }
 
-    this.FormItem = this.fb.group({
-      // 'subUnit': this.fb.group({
-      //   'roomNumber': ["1", Validators.required],
-      //   'access': ["a1", Validators.required],
-      //   'hasPlumbing': [null, Validators.required],
-      //   'hasPlumbingMeter': [null, Validators.required],
-      //   'isPlumbingMeterXWA': [null, Validators.required],
-      //   'hasGroundWater': [null, Validators.required],
-      //   'hasGroundWaterMeter': [null, Validators.required]
-      // })
-      'roomNumber': ["1", Validators.required],
-      'access': ["a1", Validators.required],
-      'hasPlumbing': [null, Validators.required],
-      'hasPlumbingMeter': [null, Validators.required],
-      'isPlumbingMeterXWA': [null, Validators.required],
-      'hasGroundWater': [null, Validators.required],
-      'hasGroundWaterMeter': [null, Validators.required]
-      ,
+  ionViewDidEnter() {
+
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'subUnit': fb.group({
+        'roomNumber': [null, Validators.required],
+        'access': [0, Validators.required],
+        'hasPlumbing': [null, Validators.required],
+        'hasPlumbingMeter': [false, Validators.required],
+        'isPlumbingMeterXWA': [false, Validators.required],
+        'hasGroundWater': [null, Validators.required],
+        'hasGroundWaterMeter': [false, Validators.required],
+      }),
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
-      'comments': this.fb.group({
-        'text': [null, Validators.required],
+      'comments': fb.group({
+        'at': [null],
+        'text': [null],
       })
     });
-
-    // this.roomNo = "1";
-    // this.access = 1;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
+    console.log(this.FormItem.get('subUnit.access').value);
   }
 
-  ionViewDidEnter() {
-    // if (this.FormItem.invalid) {
-    //   this.FormItem.get('access').setValue('a6');
-    // }
-    // else {
-    //   this.FormItem.get('access').setValue('a7');
-    // }
-  }
 
   Unit() {
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
@@ -85,6 +71,6 @@ export class UnitPage {
 
   // public isValid(name: string): boolean {
   //   var ctrl = this.FormItem.get(name);
-  //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  //   return ctrl.value == null && (ctrl.touched || this.submitRequested);
   // }
 }
