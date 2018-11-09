@@ -23,6 +23,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   @Input('no') text: string;
   @Input() public FormItem: FormGroup;
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
+  @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(WaterSources9Component) private waterSource9: WaterSources9Component[];
   private submitRequested: boolean;
@@ -39,8 +40,8 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [null, Validators.required],
-      'plantings':  fb.array([]),
-      'otherPlantings': [null],
+      'plantings': ModalPlantComponent.CreateFormGroup(fb),
+      'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'thisPlantOnly': [null, Validators.required],
       'mixedWithPrimaryPlantCode': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
@@ -51,6 +52,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.locationT.forEach(it => it.submitRequest());
     this.fieldArea.forEach(it => it.submitRequest());
+    this.modalPlant.forEach(it => it.submitRequest());
     this.waterSource9.forEach(it => it.submitRequest());
   }
 
@@ -59,39 +61,4 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage", 
-  //   { title: "ไม้ดอก ไม่ประดับ", selected: [], list: EX_TREEDOK_LIST, limit: 5 });
-
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
-
-  model2() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "พืชที่ปลูกหลัก", selected: [], list: [], limit: 5 });
-
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
-
-        // var adata = data as Array<string>;
-        // this.shownData = adata.map(it => it.split(".")[1]);
-      }
-    });
-
-    modal.present();
-  }
 }

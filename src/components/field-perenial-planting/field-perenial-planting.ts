@@ -8,18 +8,12 @@ import { ModalController } from 'ionic-angular';
 import { EX_TREETON_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
 
-/**
- * Generated class for the FieldPerenialPlantingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'field-perenial-planting',
   templateUrl: 'field-perenial-planting.html'
 })
-export class FieldPerenialPlantingComponent implements ISubmitRequestable {
 
+export class FieldPerenialPlantingComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input('no') text: string;
@@ -28,6 +22,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
+  @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   shownData = EX_TREETON_LIST;
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
@@ -37,17 +32,16 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     this.FormItem = FieldPerenialPlantingComponent.CreateFormGroup(this.fb);
   }
 
-
-
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group({
+    var fg = fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required],
-      'plantings':  fb.array([]),
-      'otherPlantings': [null],        
-    'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    })
+      'plantings': ModalPlantComponent.CreateFormGroup(fb),
+      'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
+      'waterSources': WaterSources9Component.CreateFormGroup(fb)
+    });
+    return fg;  
   }
 
   public isValid(name: string): boolean {
@@ -59,27 +53,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.locationT.forEach(it => it.submitRequest());
     this.fieldArea.forEach(it => it.submitRequest());
+    this.modalPlant.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
   }
-
-
-
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage",
-  //     { title: "พืชยืนต้น ไม้ผล สวนป่า", selected: [], list: EX_TREETON_LIST, limit: 5 });
-
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
-
 }
