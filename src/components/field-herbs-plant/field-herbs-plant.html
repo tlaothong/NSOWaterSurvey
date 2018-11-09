@@ -72,7 +72,7 @@
         </ion-item> -->
         <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
       </div>
-     
+
       <ion-item>
         <ion-label>
           5) ลักษณะการปลูกเป็นแบบใด
@@ -86,13 +86,13 @@
           </span>
         </ion-item>
         <ion-item>
-          <ion-radio value="true" item-left></ion-radio>
+          <ion-radio [value]="true" item-left></ion-radio>
           <ion-label>
             1. แบบปลูกเฉพาะ พืชผัก สมุนไพร
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-radio value="false" item-left></ion-radio>
+          <ion-radio [value]="false" item-left></ion-radio>
           <ion-label>
             2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่
           </ion-label>
@@ -100,37 +100,18 @@
       </ion-row>
 
       <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
-        <div *ngSwitchCase="2">
-          <ion-list>
-            <ion-item *ngFor="let p of shownData2" text-center>
-              {{ p }}
+        <div *ngSwitchCase="false">
+          <!-- <ion-list>
+            <ion-item *ngFor="let p of otherPlantings" text-center>
+              {{ p.code }} {{ p.name }}
             </ion-item>
           </ion-list>
           <ion-item>
             <ion-label ion-button (click)="model2()">เลือก</ion-label>
-          </ion-item>
+          </ion-item> -->
+          <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('otherPlantings')"></modal-plant>
         </div>
       </div>
-      <!-- <ion-item [class.invalid]="isValid('mixedWithPrimaryPlant')">
-        <ion-label>
-          รายชื่อพืชที่ปลูกหลัก
-        </ion-label>
-        <ion-select interface="action-sheet" formControlName="plantings">
-          <ion-option>
-            ข้าว
-          </ion-option>
-          <ion-option>
-            พืชไร่
-          </ion-option>
-          <ion-option>
-            ยางพารา
-          </ion-option>
-          <ion-option>
-            พืชยืนต้น ไม้ผล สวนป่า
-          </ion-option>
-        </ion-select>
-      </ion-item> -->
-
 
       <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'" [FormItem]="FormItem.get('waterSources')"></water-sources9>
 

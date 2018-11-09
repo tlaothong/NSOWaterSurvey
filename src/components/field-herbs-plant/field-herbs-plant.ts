@@ -45,7 +45,7 @@ export class FieldHerbsPlantComponent {
       'plantings':  ModalPlantComponent.CreateFormGroup(fb),
       'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
-      'otherPlantings': [null],
+      'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
