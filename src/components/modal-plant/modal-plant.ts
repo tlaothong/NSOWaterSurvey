@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown';
 
 /**
  * Generated class for the ModalPlantComponent component.
@@ -13,9 +14,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
   templateUrl: 'modal-plant.html'
 })
 export class ModalPlantComponent {
-  static setupFieldCountChanges(fb: FormBuilder): any {
-    throw new Error("Method not implemented.");
-  }
+ 
   @Input() InputList;
   @Input() InputLimit;
   @Input() Title;
@@ -40,29 +39,58 @@ export class ModalPlantComponent {
   //   }
   //   return fb.array(arr);
   // }
-  
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group(
+    var fg =  fb.group(
       {
-        'code': [null],
-        'name': [null]
+        'plantingCount': [null],
+        'plants': fb.array([])
       },
     );
+    ModalPlantComponent.setupPlantCountChanges(fb,fg);
+    return fg;
   }
 
   model() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
+    // const modal = this.modalCtrl.create("SearchDropdownPage",
+    //   { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
+    // modal.onDidDismiss(data => {
+    //   if (data) {
+    //     var adata = data as Array<string>;
+    //     this.shownData = adata.map(it => it.split(".")[1]);
+    //   }
+    // });
+    // modal.present();
+    // console.log(this.fb);
+  }
+
+  private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {
+    const componentFormArray: string = "plants";
+    const componentCount: string = "plantingCount";
+
+    var onComponentCountChanges = () => {
+      var plants = (fg.get(componentFormArray) as FormArray).controls || [];
+      var plantCount = fg.get(componentCount).value || 0;
+      var farr = fb.array([]);
+
+      plantCount = Math.max(0, plantCount);
+
+      for (let i = 0; i < plantCount; i++) {
+        var ctrl = null;
+        if (i < plants.length) {
+          const fld = plants[i];
+          ctrl = fld;
+        } else {
+          ctrl = SearchDropdownPage.CreateFormGroup(fb);
+        }
+        farr.push(ctrl);
       }
-    });
-    modal.present();
+      fg.setControl(componentFormArray, farr);
+    };
+
+    fg.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 
 }
