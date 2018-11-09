@@ -6,13 +6,22 @@
           <pump [no]="i + 1" [FormItem]="p"></pump>
         </div>
       </div> -->
-
-  <div *ngFor="let p of FormItem.get('plantings'); let i = index">
+  <!-- <div *ngFor="let p of FormItem.get('plantings'); let i = index">
     <ion-item text-center>
       {{ p.code}} {{p.name}}
     </ion-item> 
-  </div>
+  </div> -->
   <!-- <field-area [FormItem]="FormItem.get('plantings')"></field-area> -->
+  <div *ngFor="let p of FormItem.get('plants.name'); let i = index">
+    <span>
+       {{p}}      
+    </span>
+  </div>
+  <div *ngFor="let p of FormItem.get('plantings.plants.code'); let i = index">
+    <span>
+      {{p.code}}      
+   </span>
+  </div>
 </ion-list>
 <ion-item>
   <ion-label ion-button (click)="model()">เลือก</ion-label>

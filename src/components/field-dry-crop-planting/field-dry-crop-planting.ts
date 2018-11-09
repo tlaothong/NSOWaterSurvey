@@ -36,7 +36,7 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.text = 'Hello World';
 
     this.FormItem = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
-    
+
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -44,19 +44,12 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [null, Validators.required],
-      'plantings': fb.group({
-        'plantingTypeCount': [null],
-        'selected':fb.array([])
-      }),
-      'otherPlantings': fb.array([{
-        "code": [null],
-        "name": [null]
-      }]),
-      
+      'plantings': ModalPlantComponent.CreateFormGroup(fb),
+      'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       // 'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
-    FieldDryCropPlantingComponent.setupPlantCountChanges(fb,fg);
+    // FieldDryCropPlantingComponent.setupPlantCountChanges(fb, fg);
     return fg;
   }
 
@@ -73,49 +66,5 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.waterSources9.forEach(it => it.submitRequest());
   }
 
-  private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {
-    const componentFormArray: string = "plantings";
-    const componentCount: string = "plantingTypeCount";
-
-    var onComponentCountChanges = () => {
-      var plants = (fg.get(componentFormArray) as FormArray).controls || [];
-      var plantCount = fg.get(componentCount).value || 0;
-      var farr = fb.array([]);
-
-      plantCount = Math.max(0, plantCount);
-
-      for (let i = 0; i < plantCount; i++) {
-        var ctrl = null;
-        if (i < plants.length) {
-          const fld = plants[i];
-          ctrl = fld;
-        } else {
-          ctrl = ModalPlantComponent.CreateFormGroup(fb);
-        }
-        farr.push(ctrl);
-      }
-      fg.setControl(componentFormArray, farr);
-    };
-
-    fg.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-    onComponentCountChanges();
-  }
-
-
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage",
-  //     { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
+  
 }
