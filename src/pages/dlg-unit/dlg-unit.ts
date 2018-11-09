@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UnitPage } from '../unit/unit';
+import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 
 /**
  * Generated class for the DlgUnitPage page.
@@ -21,7 +22,7 @@ export class DlgUnitPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
-    this.FormItem = UnitPage.CreateFormGroup(this.fb);
+    this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
   }
