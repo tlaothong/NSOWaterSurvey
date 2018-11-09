@@ -13,28 +13,43 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
   templateUrl: 'modal-plant.html'
 })
 export class ModalPlantComponent {
+  static setupFieldCountChanges(fb: FormBuilder): any {
+    throw new Error("Method not implemented.");
+  }
   @Input() InputList;
   @Input() InputLimit;
   @Input() Title;
+  @Input() public FormItem: FormGroup;
 
   shownData: string[];
   text: string;
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
     console.log('Hello ModalPlantComponent Component');
     this.text = 'Hello World';
+    this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
   }
 
-  public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
-    var arr = [];
-    for (var i = 0; i < count; i++) {
-      arr.push({
-        "code": [null],
-        "name": [null]
-      });
-    }
-    return fb.array(arr);
+  // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
+  //   var arr = [];
+  //   for (var i = 0; i < count; i++) {
+  //     arr.push({
+  //       "code": [null],
+  //       "name": [null]
+  //     });
+  //   }
+  //   return fb.array(arr);
+  // }
+  
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group(
+      {
+        'code': [null],
+        'name': [null]
+      },
+    );
   }
+
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage",
       { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });

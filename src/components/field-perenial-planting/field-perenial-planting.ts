@@ -44,7 +44,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required],
-      'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
+      'plantings':  fb.array([]),
       'otherPlantings': [null],        
     'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })

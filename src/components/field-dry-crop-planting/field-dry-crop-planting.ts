@@ -1,7 +1,7 @@
 import { WaterSources9Component } from './../water-sources9/water-sources9';
 import { ISubmitRequestable } from './../../shared/ISubmitRequestable';
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
@@ -24,9 +24,11 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input('no') text: string;
   private submitRequested: boolean;
+
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
+  @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   DataList = EX_TREERAI_LIST;
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
@@ -34,20 +36,28 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.text = 'Hello World';
 
     this.FormItem = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
+    
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group({
+    var fg = fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [null, Validators.required],
-      'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
+      'plantings': fb.group({
+        'plantingTypeCount': [null],
+        'selected':fb.array([])
+      }),
       'otherPlantings': fb.array([{
         "code": [null],
         "name": [null]
       }]),
+      
+      // 'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    })
+    });
+    FieldDryCropPlantingComponent.setupPlantCountChanges(fb,fg);
+    return fg;
   }
 
   public isValid(name: string): boolean {
@@ -59,8 +69,39 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.locationT.forEach(it => it.submitRequest());
     this.fieldArea.forEach(it => it.submitRequest());
+    this.modalPlant.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
   }
+
+  private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {
+    const componentFormArray: string = "plantings";
+    const componentCount: string = "plantingTypeCount";
+
+    var onComponentCountChanges = () => {
+      var plants = (fg.get(componentFormArray) as FormArray).controls || [];
+      var plantCount = fg.get(componentCount).value || 0;
+      var farr = fb.array([]);
+
+      plantCount = Math.max(0, plantCount);
+
+      for (let i = 0; i < plantCount; i++) {
+        var ctrl = null;
+        if (i < plants.length) {
+          const fld = plants[i];
+          ctrl = fld;
+        } else {
+          ctrl = ModalPlantComponent.CreateFormGroup(fb);
+        }
+        farr.push(ctrl);
+      }
+      fg.setControl(componentFormArray, farr);
+    };
+
+    fg.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
 
   // model() {
   //   const modal = this.modalCtrl.create("SearchDropdownPage",

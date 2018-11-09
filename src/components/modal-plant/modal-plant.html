@@ -1,7 +1,18 @@
-<ion-list>
-  <ion-item *ngFor="let p of shownData" text-center>
-    {{ p }}
-  </ion-item>
+<ion-list [formGroup]="FormItem">
+  
+
+    <!-- <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value > 0">
+        <div *ngFor="let p of FormItem.get('pumps').controls; let i = index">
+          <pump [no]="i + 1" [FormItem]="p"></pump>
+        </div>
+      </div> -->
+
+  <div *ngFor="let p of FormItem.get('plantings'); let i = index">
+    <ion-item text-center>
+      {{ p.code}} {{p.name}}
+    </ion-item> 
+  </div>
+  <!-- <field-area [FormItem]="FormItem.get('plantings')"></field-area> -->
 </ion-list>
 <ion-item>
   <ion-label ion-button (click)="model()">เลือก</ion-label>

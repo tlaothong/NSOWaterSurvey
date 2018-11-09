@@ -41,7 +41,7 @@ export class FieldHerbsPlantComponent {
       'location': LocationComponent.CreateFormGroup(fb) ,
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
+      'plantings':  fb.array([]),
       'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
       'otherPlantings': [null],
