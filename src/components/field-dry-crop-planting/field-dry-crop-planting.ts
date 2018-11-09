@@ -45,10 +45,8 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
       'irrigationField': [null, Validators.required],
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
-      // 'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
-    // FieldDryCropPlantingComponent.setupPlantCountChanges(fb, fg);
     return fg;
   }
 
@@ -65,5 +63,5 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.waterSources9.forEach(it => it.submitRequest());
   }
 
-  
+
 }
