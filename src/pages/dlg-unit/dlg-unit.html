@@ -50,11 +50,11 @@
             5. ห้อง/บ้าน/อาคาร ร้าง
           </ion-option>
         </ion-select>
-        <ion-item *ngIf="isValid('subUnit.access')">
-          <span class="invalid-msg">
-            กรุณากรอกหมายเลขห้อง
-          </span>
-        </ion-item>
+      </ion-item>
+      <ion-item *ngIf="isValid('subUnit.access')">
+        <span class="invalid-msg">
+          กรุณาเลือกการเข้าพบ
+        </span>
       </ion-item>
 
       <div *ngIf="FormItem.get('subUnit.access').value == 1">
@@ -88,7 +88,7 @@
               2. มีมิเตอร์น้ำประปาแยกออกจากส่วนกลางหรือไม่
             </ion-label>
           </ion-item>
-          <ion-row radio-group formControlName="hasPlumbingMeter" >
+          <ion-row radio-group formControlName="hasPlumbingMeter">
             <!-- <ion-item *ngIf="isValid('subUnit.hasPlumbingMeter')">
               <span class="invalid-msg">
                 กรุณาเลือก
@@ -111,7 +111,7 @@
               2.1 เป็นมิเตอร์ของการประปาส่วนภูมิภาค/นครหลวงใช่หรือไม่
             </ion-label>
           </ion-item>
-          <ion-row radio-group formControlName="isPlumbingMeterXWA" >
+          <ion-row radio-group formControlName="isPlumbingMeterXWA">
             <!-- <ion-item *ngIf="isValid('subUnit.isPlumbingMeterXWA')">
               <span class="invalid-msg">
                 กรุณาเลือก
@@ -133,7 +133,7 @@
             3. ใช้น้ำบาดาลหรือไม่
           </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="hasGroundWater" >
+        <ion-row radio-group formControlName="hasGroundWater">
           <!-- <ion-item *ngIf="isValid('subUnit.hasGroundWater')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -155,7 +155,7 @@
               4. มีมิเตอร์น้ำบาดาลแยกออกจากส่วนกลางหรือไม่
             </ion-label>
           </ion-item>
-          <ion-row radio-group formControlName="hasGroundWaterMeter" >
+          <ion-row radio-group formControlName="hasGroundWaterMeter">
             <!-- <ion-item *ngIf="isValid('subUnit.hasGroundWaterMeter')">
               <span class="invalid-msg">
                 กรุณาเลือก

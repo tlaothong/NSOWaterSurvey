@@ -7,28 +7,16 @@
 
 <ion-content padding>
 
-  <div [formGroup]="FormItem">
+  <form [formGroup]="f">
 
-    <button padding (click)="Unit()">
-      
-      <ion-label>
-        ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}
-      </ion-label>
+    <div *ngIf="f.get('amount').value > 0">
+      <ion-row>
+        <ion-col *ngFor="let unit of f.get('units').controls; let i = index">
+          <unit-button [FormItem]="unit"></unit-button>
+        </ion-col>
+      </ion-row>
+    </div>
 
-    
-      <div *ngIf="FormItem.get('subUnit.access').value == 0" text-center class="start"></div>
-
-      <div *ngIf="FormItem.get('subUnit.access').value == 1">
-        <div *ngIf="FormItem.valid" text-center class="done"></div>
-        <div *ngIf="FormItem.invalid" text-center class="pause"></div>
-      </div>
-      <div *ngIf="FormItem.get('subUnit.access').value == 2" text-center class="return"></div>
-      <div *ngIf="FormItem.get('subUnit.access').value == 3" text-center class="return"></div>
-      <div *ngIf="FormItem.get('subUnit.access').value == 4" text-center class="done"></div>
-      <div *ngIf="FormItem.get('subUnit.access').value == 5" text-center class="done"></div>
-
-    </button>
-
-  </div>
+  </form>
 
 </ion-content>
