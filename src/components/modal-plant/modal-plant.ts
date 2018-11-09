@@ -14,7 +14,7 @@ import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown'
   templateUrl: 'modal-plant.html'
 })
 export class ModalPlantComponent {
- 
+
   @Input() InputList;
   @Input() InputLimit;
   @Input() Title;
@@ -24,9 +24,9 @@ export class ModalPlantComponent {
   text: string;
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
-    console.log('Hello ModalPlantComponent Component');
-    this.text = 'Hello World';
+    
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
+    console.log("dddd",JSON.stringify(this.FormItem.value))
   }
 
   // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
@@ -41,17 +41,20 @@ export class ModalPlantComponent {
   // }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    var fg =  fb.group(
+    var fg = fb.group(
       {
         'plantingCount': [null],
         'plants': fb.array([])
       },
     );
-    ModalPlantComponent.setupPlantCountChanges(fb,fg);
+    ModalPlantComponent.setupPlantCountChanges(fb, fg);
     return fg;
+    
   }
 
+
   model() {
+   
     // const modal = this.modalCtrl.create("SearchDropdownPage",
     //   { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
     // modal.onDidDismiss(data => {

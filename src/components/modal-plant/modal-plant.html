@@ -1,26 +1,8 @@
 <ion-list [formGroup]="FormItem">
-  
-
-    <!-- <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value > 0">
-        <div *ngFor="let p of FormItem.get('pumps').controls; let i = index">
-          <pump [no]="i + 1" [FormItem]="p"></pump>
-        </div>
-      </div> -->
-  <!-- <div *ngFor="let p of FormItem.get('plantings'); let i = index">
-    <ion-item text-center>
-      {{ p.code}} {{p.name}}
-    </ion-item> 
-  </div> -->
-  <!-- <field-area [FormItem]="FormItem.get('plantings')"></field-area> -->
-  <div *ngFor="let p of FormItem.get('plants.name'); let i = index">
+  <div *ngFor="let p of FormItem.get('plants').value; let i = index">
     <span>
-       {{p}}      
+      {{p.code}} {{p.name}}
     </span>
-  </div>
-  <div *ngFor="let p of FormItem.get('plantings.plants.code'); let i = index">
-    <span>
-      {{p.code}}      
-   </span>
   </div>
 </ion-list>
 <ion-item>
