@@ -44,17 +44,18 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': [null, Validators.required],
-      'plantings': fb.array([]),
-      // 'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
-      'plantingTypeCount': [null],
+      'plantings': fb.group({
+        'plantingTypeCount': [null],
+        'selected':fb.array([])
+      }),
       'otherPlantings': fb.array([{
         "code": [null],
         "name": [null]
       }]),
+      
+      // 'plantings': ModalPlantComponent.CreateFormArray(fb, 2),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
-    console.log("Ddata");
-    console.log(fg.value);
     FieldDryCropPlantingComponent.setupPlantCountChanges(fb,fg);
     return fg;
   }
