@@ -263,13 +263,13 @@
             </span>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="1" item-left></ion-radio>
+            <ion-radio [value]="false" item-left></ion-radio>
             <ion-label>
               1.ไม่เคย
             </ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="2" item-left></ion-radio>
+            <ion-radio [value]="true" item-left></ion-radio>
             <ion-label>
               2.เคย คือ
             </ion-label>
@@ -277,7 +277,7 @@
         </ion-row>
 
 
-        <div *ngIf="CommunityWaterManagement.get('hasDisaster').value == 2">
+        <div *ngIf="CommunityWaterManagement.get('hasDisaster').value ">
           <natural-disaster [FormItem]="CommunityWaterManagement.get('disasters')"></natural-disaster>
         </div>
 
@@ -294,20 +294,20 @@
             </span>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="1" item-left></ion-radio>
+            <ion-radio [value]="false" item-left></ion-radio>
             <ion-label>
               1.ไม่มี
             </ion-label>
           </ion-item>
           <ion-item col-6>
-            <ion-radio value="2" item-left></ion-radio>
+            <ion-radio [value]="true" item-left></ion-radio>
             <ion-label>
               2.มี ลักษณะการดำเนินการเป็นอย่างไร
             </ion-label>
           </ion-item>
         </ion-row>
 
-        <div *ngIf="CommunityWaterManagement.get('hasDisasterWarning').value == 2">
+        <div *ngIf="CommunityWaterManagement.get('hasDisasterWarning').value ">
           <disaster-warning-methods [FormItem]="CommunityWaterManagement.get('disasterWarningMethods')"></disaster-warning-methods>
         </div>
 
