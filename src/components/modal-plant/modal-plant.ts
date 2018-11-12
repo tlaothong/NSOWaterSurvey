@@ -55,16 +55,16 @@ export class ModalPlantComponent {
 
   model() {
    
-    // const modal = this.modalCtrl.create("SearchDropdownPage",
-    //   { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
-    // modal.onDidDismiss(data => {
-    //   if (data) {
-    //     var adata = data as Array<string>;
-    //     this.shownData = adata.map(it => it.split(".")[1]);
-    //   }
-    // });
-    // modal.present();
-    // console.log(this.fb);
+    const modal = this.modalCtrl.create("SearchDropdownPage",
+      { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
+    modal.onDidDismiss(data => {
+      if (data) {
+        var adata = data as Array<string>;
+        this.shownData = adata.map(it => it.split(".")[1]);
+      }
+    });
+    modal.present();
+    console.log(this.fb);
   }
 
   private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {

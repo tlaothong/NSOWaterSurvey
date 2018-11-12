@@ -1,6 +1,6 @@
 <ion-list [formGroup]="FormItem">
-  <div *ngFor="let p of FormItem.get('plants').value; let i = index">
-    <span>
+  <div *ngFor="let p of FormItem.get('plants').value; let i = index"  text-center>
+    <span >
       {{p.code}} {{p.name}}
     </span>
   </div>
