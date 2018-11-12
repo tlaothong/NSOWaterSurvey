@@ -23,13 +23,13 @@
 
         <ion-item>
           <ion-label>
-            1.ในหมู่บ้าน/ชุมชนแห่งนี้มี <b>แหล่งน้ำสาธารณะ(สระน้ำ/หนอง/บึง/อ่างเก็บน้ำ)</b> หรือไม่
+            1.ในหมู่บ้าน/ชุมชนแห่งนี้มี <b>แหล่งน้ำสาธารณะ(สระน้ำ/หนอง/บึง<br>/อ่างเก็บน้ำ)</b> หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="hasPublicWater" [class.invalid]="isValid('hasPublicWater')">
           <ion-item *ngIf="isValid('hasPublicWater')">
             <span class="invalid-msg">
-              กรุณาเลือก
+              กรุณากรอก
             </span>
           </ion-item>
           <ion-item col-6>
@@ -164,8 +164,8 @@
 
             <ion-item>
               <ion-label>
-                5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต เทศบาล ชุมชน นิคม ภูเขา ฯลฯ)
-                ใช่หรือไม่
+                5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต นิคม <br>เทศบาล ชุมชน  ภูเขา ฯลฯ)
+                
               </ion-label>
             </ion-item>
             <ion-row radio-group formControlName="hasWaterService" [class.invalid]="isValid('hasWaterService')">
@@ -253,7 +253,7 @@
 
         <ion-item>
           <ion-label>
-            7. ในช่วงเวลา 5 ปีที่ผ่านมา หมู่บ้าน/ชุมชนแห่งนี้เคยเกิดภัยธรรมชาติหรือไม่
+            7. ในช่วงเวลา 5 ปีที่ผ่านมา หมู่บ้าน/ชุมชนแห่งนี้เคยเกิดภัยธรรมชาติ
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="hasDisaster" [class.invalid]="isValid('hasDisaster')">
@@ -283,7 +283,7 @@
 
         <ion-item>
           <ion-label>
-            8. ในหมู่บ้าน/ชุมชนแห่งนี้มีการเตือนภัยและมาตรการช่วยเหลือน้ำท่วมหรือไม่
+            8. ในหมู่บ้าน/ชุมชนแห่งนี้มีการเตือนภัยและมาตรการช่วยเหลือน้ำท่วม
           </ion-label>
         </ion-item>
 
