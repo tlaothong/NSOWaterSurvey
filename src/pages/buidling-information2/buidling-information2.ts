@@ -23,8 +23,11 @@ export class BuidlingInformation2Page {
       'unitAccess': [null, Validators.required],
       'vacantRoomCount': [null, Validators.required],
       'occupiedRoomCount': [null, Validators.required],
-      'waterQuantity': [null, Validators.required],
-      'waterBill': [null, Validators.required],
+      'plumbingUsage': this.fb.group({
+        'waterQuantity': [null, Validators.required],
+        'cubicMeterPerMonth': [null, Validators.required],
+        'waterBill': [null, Validators.required]
+      }),
       'floorCount': [null, Validators.required],
     });
   }
