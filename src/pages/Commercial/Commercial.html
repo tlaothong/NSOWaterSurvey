@@ -53,52 +53,52 @@
                     </ion-label>
                   
                     <ion-select formControlName="buildingCode" disabled="true" interface="action-sheet">
-                        <ion-option value="433">
+                        <ion-option [value]="1">
                             1.บ้านเดี่ยว
                         </ion-option>
-                        <ion-option value="a2">
+                        <ion-option [value]="2">
                             2.บ้านแฝด/ทาวน์เฮ้า/ทาวน์โฮม
                         </ion-option>
-                        <ion-option value="a3">
+                        <ion-option [value]="3">
                             3.ห้องแถว/เรือนแถว/ตึกแถว
                         </ion-option>
-                        <ion-option value="a4">
+                        <ion-option [value]="4">
                             4.อาคารสูง/คอนโด/แมนชั่น
                         </ion-option>
-                        <ion-option value="a5">
+                        <ion-option [value]="5">
                             5.อาคารสำนักงานเอกชน
                         </ion-option>
-                        <ion-option value="a6">
+                        <ion-option [value]="6">
                             6.โรงแรม/รีสอร์ท/เกสเฮ้าส์
                         </ion-option>
-                        <ion-option value="a7">
+                        <ion-option [value]="7">
                             7.สถานพยาบาล:ภาครัฐ
                         </ion-option>
-                        <ion-option value="a8">
+                        <ion-option [value]="8">
                             8.สถานพยาบาล:ภาคเอกชน
                         </ion-option>
-                        <ion-option value="a9">
+                        <ion-option [value]="9">
                             9.สถานที่ราชการ/รัฐวิสหกิจ
                         </ion-option>
-                        <ion-option value="a10">
+                        <ion-option [value]="10">
                             10.ศาสนสถาน
                         </ion-option>
-                        <ion-option value="a11">
+                        <ion-option [value]="11">
                             11.สถานศึกษา : ภาครัฐ
                         </ion-option>
-                        <ion-option value="a12">
+                        <ion-option [value]="12">
                             12.สถานศึกษา : เอกชน
                         </ion-option>
-                        <ion-option value="a13">
+                        <ion-option [value]="13">
                             13.โกดังโรงงาน
                         </ion-option>
-                        <ion-option value="a14">
+                        <ion-option [value]="14">
                             14.โรงเรือนเพราะปลูก/เลี้ยงสัตว์
                         </ion-option>
-                        <ion-option value="a15">
+                        <ion-option [value]="15">
                             15.อาคารกำลังก่อสร้าง
                         </ion-option>
-                        <ion-option value="a16">
+                        <ion-option [value]="16">
                             16.อื่นๆ
                         </ion-option>
                     </ion-select>                   
@@ -132,14 +132,12 @@
                             3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน<br> (รวมครู, นักวิชาการ, พนักงาน, ภารโรง, ฯลฯ)
                         </ion-label>
                     </ion-item>
-
-                </div>
-                <div formGroupName="otherBuilding">
+                
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="personnelCount"
-                            [class.invalid]="isValid('otherBuilding.personnelCount')"></ion-input>
+                            [class.invalid]="isValid('questionForAcademy.personnelCount')"></ion-input>
                     </ion-item>
-                    <ion-item *ngIf="isValid('otherBuilding.personnelCount')">
+                    <ion-item *ngIf="isValid('questionForAcademy.personnelCount')">
                         <span class="invalid-msg">
                             กรุณากรอก
                         </span>
@@ -159,7 +157,6 @@
                             1) มีจำนวนห้องพักรวมทั้งหมดกี่ห้อง
                         </ion-label>
                     </ion-item>
-
 
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกจำนวน" formControlName="roomCount"
