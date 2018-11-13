@@ -1,70 +1,79 @@
-import { UnitButtonComponent } from './../../components/unit-button/unit-button';
-import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ModalController, Form } from 'ionic-angular';
 
-@IonicPage()
+/**
+ * Generated class for the UnitButtonComponent component.
+ *
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
+ */
 @Component({
-  selector: 'page-unit',
-  templateUrl: 'unit.html',
+  selector: 'unit-button',
+  templateUrl: 'unit-button.html'
 })
-export class UnitPage {
+export class UnitButtonComponent {
 
-  public class: string;
-  public f: FormGroup;
+  @Input("headline") public text: string;
+  @Input('no') public unitNo: string;
+  @Input() public FormItem: FormGroup;
+
   private submitRequested: boolean;
 
-  @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
-    this.f = this.fb.group({
-      'amount': [9],
-      'units': this.fb.array([]),
-    });
-
-    this.setupUnitsCountChanges();
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UnitPage');
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
+    console.log('Hello UnitButtonComponent Component');
+    this.text = '';
+    // TODO: Remove this
+    this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitPage');
+    console.log('load');
   }
 
-  public handleSubmit() {
-    this.submitRequested = true;
-    this.unitButton.forEach(it => it.submitRequest());
+  ionViewDidEnter() {
+    console.log('enter');
   }
 
-  private setupUnitsCountChanges() {
-    const componentFormArray: string = "units";
-    const componentCount: string = "amount";
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'subUnit': fb.group({
+        'roomNumber': [null, Validators.required],
+        'access': [null, Validators.required],
+        'hasPlumbing': [null, Validators.required],
+        'hasPlumbingMeter': [false, Validators.required],
+        'isPlumbingMeterXWA': [false, Validators.required],
+        'hasGroundWater': [null, Validators.required],
+        'hasGroundWaterMeter': [false, Validators.required],
+      }),
+      'isHouseHold': [null, Validators.required],
+      'isAgriculture': [null, Validators.required],
+      'isFactorial': [null, Validators.required],
+      'isCommercial': [null, Validators.required],
+      'comments': fb.group({
+        'at': [null],
+        'text': [''],
+      })
+    });
+  }
 
-    var onComponentCountChanges = () => {
-      var units = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var amount = this.f.get(componentCount).value || 0;
-      var farr = this.fb.array([]);
-
-      amount = Math.max(0, amount);
-
-      for (let i = 0; i < amount; i++) {
-        var ctrl = null;
-        if (i < units.length) {
-          const fld = units[i];
-          ctrl = fld;
-        } else {
-          ctrl = UnitButtonComponent.CreateFormGroup(this.fb);
-        }
-
-        farr.push(ctrl);
+  public showModal() {
+    const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
+    modal.onDidDismiss(data => {
+      if (data) {
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
       }
-      this.f.setControl(componentFormArray, farr);
-    };
+    });
+    modal.present();
+  }
 
-    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+  submitRequest() {
+    this.submitRequested = true;
+  }
 
-    onComponentCountChanges();
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }
