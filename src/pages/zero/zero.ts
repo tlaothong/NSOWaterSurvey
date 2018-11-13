@@ -5,13 +5,6 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { combineLatest } from 'rxjs/operators';
 
-/**
- * Generated class for the ZeroPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-zero',

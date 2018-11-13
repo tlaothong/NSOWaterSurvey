@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-/**
- * Generated class for the BuildingInformation1Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-building-information1',
@@ -27,7 +20,7 @@ export class BuildingInformation1Page {
       'name': [null, Validators.required],
       'houseNo': [null, Validators.required],
       'latitude': [null, Validators.required],
-      'longtitude': [null, Validators.required],
+      'longitude': [null, Validators.required],
       'buildingType': [null, Validators.required],
       'other': [null, Validators.required],
       'access': [null, Validators.required],

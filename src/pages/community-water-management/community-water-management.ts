@@ -10,13 +10,6 @@ import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-/**
- * Generated class for the CommunityWaterManagementPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-community-water-management',

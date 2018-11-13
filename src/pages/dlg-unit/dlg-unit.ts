@@ -4,13 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UnitPage } from '../unit/unit';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 
-/**
- * Generated class for the DlgUnitPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-dlg-unit',
