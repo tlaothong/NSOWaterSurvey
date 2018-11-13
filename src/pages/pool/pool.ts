@@ -1,9 +1,12 @@
-import { Component, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component,  ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the PoolPage page.
@@ -22,10 +25,10 @@ export class PoolPage {
   public f: FormGroup;
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
-
   private submitRequested: boolean;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'poolCount': [null, Validators.required],
@@ -34,13 +37,13 @@ export class PoolPage {
       'waterResourceCount': [null, Validators.required],
       'waterResources': this.fb.array([]),
     });
-
     this.setupPoolCountChanges();
     this.setupPoolCountUsageChanges();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PoolPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
+    // console.log('ionViewDidLoad PoolPage'+this.formData$);
   }
 
   public handleSubmit() {
@@ -73,7 +76,6 @@ export class PoolPage {
         } else {
           ctrl = PoolAreaComponent.CreateFormGroup(this.fb);
         }
-
         pool.push(ctrl);
       }
       this.f.setControl(componentFormArray, pool);
@@ -88,29 +90,28 @@ export class PoolPage {
     const componentFormArray: string = "waterResources";
     const componentCount: string = "waterResourceCount";
 
-    var onComponentCountChanges = () => {
+    var onComponentCountChanges = () =>
+    {
       var poolUsage = (this.f.get(componentFormArray) as FormArray).controls || [];
       var poolCountUsage = this.f.get(componentCount).value || 0;
       var pool = this.fb.array([]);
-
       poolCountUsage = Math.max(0, poolCountUsage);
-
-      for (let i = 0; i < poolCountUsage; i++) {
+      for (let i = 0; i < poolCountUsage; i++)
+      {
         var ctrl = null;
-        if (i < poolUsage.length) {
+        if (i < poolUsage.length)
+        {
           const fld = poolUsage[i];
           ctrl = fld;
-        } else {
+        } else
+        {
           ctrl = PoolUsageComponent.CreateFormGroup(this.fb);
         }
-
         pool.push(ctrl);
       }
       this.f.setControl(componentFormArray, pool);
     };
-
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
     onComponentCountChanges();
   }
 }

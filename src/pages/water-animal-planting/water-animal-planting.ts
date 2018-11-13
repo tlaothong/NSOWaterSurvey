@@ -1,9 +1,13 @@
-import { Component,ViewChildren } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
+import { Store } from '@ngrx/store';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 /**
  * Generated class for the WaterAnimalPlantingPage page.
@@ -19,14 +23,15 @@ import { CrocodileFarmingComponent } from '../../components/crocodile-farming/cr
 })
 export class WaterAnimalPlantingPage {
 
-  @ViewChildren(FishFarmingComponent) private fishFarming : FishFarmingComponent[];
-  @ViewChildren(FrogFarmingComponent) private frogFarming : FrogFarmingComponent[];
-  @ViewChildren(CrocodileFarmingComponent) private crocodileFarming : CrocodileFarmingComponent[];
-  public f: FormGroup;
+  @ViewChildren(FishFarmingComponent) private fishFarming: FishFarmingComponent[];
+  @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
+  @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
 
+  public f: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
   private submitRequested: boolean;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  // 
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       "isFish": [false, Validators.required],
@@ -48,13 +53,13 @@ export class WaterAnimalPlantingPage {
       "isReddish": [false, Validators.required],
       "reddish": FishFarmingComponent.CreateFormGroup(fb),
     }, {
-      validator: WaterAnimalPlantingPage.checkAnyOrOther()
-    });
+        validator: WaterAnimalPlantingPage.checkAnyOrOther()
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaterAnimalPlantingPage');
-
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
@@ -69,7 +74,7 @@ export class WaterAnimalPlantingPage {
     if (name == 'anycheck') {
       ctrl = this.f;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
+    }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
@@ -87,8 +92,9 @@ export class WaterAnimalPlantingPage {
 
       if (!isFish.value && !isShrimp.value && !isFrog.value && !isCrocodile.value && !isCrab.value
         && !isShellFish.value && !isTurtle.value && !isReddish.value && !isSnappingTurtle.value) {
+
         return { 'anycheck': true };
-      } 
+      }
       return null;
     }
   }

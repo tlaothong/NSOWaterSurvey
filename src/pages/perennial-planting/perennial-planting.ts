@@ -1,16 +1,17 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
-
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 /**
  * Generated class for the PerennialPlantingPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @IonicPage()
 @Component({
   selector: 'page-perennial-planting',
@@ -20,29 +21,30 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
+  // TODO
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
 
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.PerennialPlantingFrm = this.fb.group({
-      'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
-      'fields': fb.array([]),
-     
-      
+      "doing": [null, Validators.required],
+      "fieldCount": [null, Validators.required],
+      "fields": fb.array([]),
+      "_id": [null],
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerennialPlantingPage');
+    // TODO
+    this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
   }
 
-  
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldPerenialPlanting.forEach(it => it.submitRequest());
-    
   }
 
   public isValid(name: string): boolean {
@@ -50,9 +52,7 @@ export class PerennialPlantingPage {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  
   private setupFieldCountChanges() {
-
     const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
@@ -82,12 +82,10 @@ export class PerennialPlantingPage {
     onComponentCountChanges();
   }
 
-
   // model() {
   //   const modal = this.modalCtrl.create("SearchDropdownPage",
   //     { title: "พืชต้น", selected: [], list: EX_TREETON_LIST , limit: 5 });
-
-
+  
   //   modal.onDidDismiss(data => {
   //     if (data) {
   //       // this.FormItem = data;

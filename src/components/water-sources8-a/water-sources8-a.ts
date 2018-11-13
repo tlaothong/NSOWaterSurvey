@@ -33,6 +33,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      'plumbing' : [false,Validators.required],
       'underGround': [false, Validators.required],
       'pool': [false, Validators.required],
       'river': [false, Validators.required],
@@ -40,7 +41,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': [null],
+      'other': ['', Validators.required],
       'hasOther' : [false,Validators.required]
     }, {
       validator: WaterSources8AComponent.checkAnyOrOther()

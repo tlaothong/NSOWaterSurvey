@@ -4,13 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
-
-/**
- * Generated class for the GroundWaterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -22,10 +19,13 @@ export class GroundWaterPage {
 
   @ViewChildren(GroundWaterUsagePublicComponent) private groundWaterUsagePublic: GroundWaterUsagePublicComponent[];
   @ViewChildren(GroundWaterUsageComponent) private groundWaterUsage: GroundWaterUsageComponent[];
+
   private submitRequested: boolean;
   public f: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
+
+  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
@@ -33,7 +33,6 @@ export class GroundWaterPage {
         'waterResourceCount': [null, Validators.required],
         'waterResources': this.fb.array([])
       }),
-
       'publicGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'waterResourceCount': [null, Validators.required],
@@ -46,12 +45,14 @@ export class GroundWaterPage {
   }
 
   ionViewDidLoad() {
+    this.formData$.subscribe(data => this.f.setValue(data));
     console.log('ionViewDidLoad GroundWaterPage');
   }
 
   ionViewDidEnter() {
 
   }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());

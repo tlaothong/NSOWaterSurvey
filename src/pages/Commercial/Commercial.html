@@ -51,9 +51,9 @@
                     <ion-label>
                         เลือกประเภท
                     </ion-label>
-
-                    <ion-select disabled="true" interface="action-sheet">
-                        <ion-option value="a1">
+                  
+                    <ion-select formControlName="buildingCode" disabled="true" interface="action-sheet">
+                        <ion-option value="433">
                             1.บ้านเดี่ยว
                         </ion-option>
                         <ion-option value="a2">
@@ -66,7 +66,7 @@
                             4.อาคารสูง/คอนโด/แมนชั่น
                         </ion-option>
                         <ion-option value="a5">
-                            .อาคารสำนักงานเอกชน
+                            5.อาคารสำนักงานเอกชน
                         </ion-option>
                         <ion-option value="a6">
                             6.โรงแรม/รีสอร์ท/เกสเฮ้าส์
@@ -101,7 +101,7 @@
                         <ion-option value="a16">
                             16.อื่นๆ
                         </ion-option>
-                    </ion-select>
+                    </ion-select>                   
                 </ion-item>
 
             </ion-card-content>
@@ -120,12 +120,12 @@
                         </ion-label>
                     </ion-list>
                     <ion-list>
-                        <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('questionForAcademy').at(0)"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'" [FormItem]="f.get('questionForAcademy').at(1)"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'3. ประถมศึกษา'" [FormItem]="f.get('questionForAcademy').at(2)"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'4. มัธยมศึกษา'" [FormItem]="f.get('questionForAcademy').at(3)"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'5. ปวช./ปวส.'" [FormItem]="f.get('questionForAcademy').at(4)"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'6. อุดมศึกษา'" [FormItem]="f.get('questionForAcademy').at(5)"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('questionForAcademy.preSchool')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'" [FormItem]="f.get('questionForAcademy.kindergarten')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'3. ประถมศึกษา'" [FormItem]="f.get('questionForAcademy.primarySchool')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'4. มัธยมศึกษา'" [FormItem]="f.get('questionForAcademy.highSchool')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'5. ปวช./ปวส.'" [FormItem]="f.get('questionForAcademy.vocational')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'6. อุดมศึกษา'" [FormItem]="f.get('questionForAcademy.higherEducation')"></table-check-item-count>
                     </ion-list>
                     <ion-item>
                         <ion-label>

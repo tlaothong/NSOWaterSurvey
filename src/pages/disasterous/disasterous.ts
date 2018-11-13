@@ -2,6 +2,10 @@ import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { getHouseHoldSample } from '../../states/household';
 
 /**
  * Generated class for the DisasterousPage page.
@@ -19,14 +23,15 @@ export class DisasterousPage {
 
   @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
- 
-    private submitRequested: boolean;
-    Disasterous: FormGroup;
+  private submitRequested: boolean;
+  Disasterous: FormGroup;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
 
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
+      '_id': [null],
       'flooded': [null, Validators.required],
-      'yearsDisasterous' : this.fb.array([
+      'yearsDisasterous': this.fb.array([
         TableDisasterousComponent.CreateFormGroup(this.fb),
         TableDisasterousComponent.CreateFormGroup(this.fb),
         TableDisasterousComponent.CreateFormGroup(this.fb),
@@ -34,9 +39,10 @@ export class DisasterousPage {
         TableDisasterousComponent.CreateFormGroup(this.fb),
       ]),
     })
+  }
 
-    
-  
+  ionViewDidLoad() {
+    this.formData$.subscribe(data => this.Disasterous.setValue(data));
   }
 
   public showModal() {
@@ -62,5 +68,4 @@ export class DisasterousPage {
     var ctrl = this.Disasterous.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
@@ -15,7 +15,7 @@ import { WaterProblem4Component } from '../water-problem4/water-problem4';
   selector: 'pool-usage',
   templateUrl: 'pool-usage.html'
 })
-export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
+export class PoolUsageComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
@@ -29,32 +29,23 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
   constructor(public fb: FormBuilder) {
     console.log('Hello PoolUsageComponent Component');
     this.text = '1';
-
-
-    this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb);
-
-
   }
-
-  ngAfterViewInit(): void {
-    this.setupPumpCountChanges()
-    
-  }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group({
+    var fg = fb.group({
       'hasCubicMeterPerMonth': [null, Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
       'pumps': fb.array([]),
-      'waterActivity': WaterActivity6Component.CreateFormGroup(fb),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': fb.group({
-        "hasProblem": ['', Validators.required],
+        "hasProblem": [null, Validators.required],
         "problem": WaterProblem4Component.CreateFormGroup(fb)
       })
     });
+    PoolUsageComponent.setupPumpCountChanges(fb, fg);
+    return fg;
   }
 
   submitRequest() {
@@ -69,14 +60,14 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  private setupPumpCountChanges() {
+  private static setupPumpCountChanges(fb: FormBuilder, fg: FormGroup) {
     const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";
 
     var onComponentCountChanges = () => {
-      var pump = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
-      var pumpCount = this.FormItem.get(componentCount).value || 0;
-      var p = this.fb.array([]);
+      var pump = (fg.get(componentFormArray) as FormArray).controls || [];
+      var pumpCount = fg.get(componentCount).value || 0;
+      var p = fb.array([]);
 
       pumpCount = Math.max(0, pumpCount);
 
@@ -86,15 +77,15 @@ export class PoolUsageComponent implements AfterViewInit, ISubmitRequestable {
           const fld = pump[i];
           ctrl = fld;
         } else {
-          ctrl = PumpComponent.CreateFormGroup(this.fb);
+          ctrl = PumpComponent.CreateFormGroup(fb);
         }
 
         p.push(ctrl);
       }
-      this.FormItem.setControl(componentFormArray, p);
+      fg.setControl(componentFormArray, p);
     };
 
-    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+    fg.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
   }

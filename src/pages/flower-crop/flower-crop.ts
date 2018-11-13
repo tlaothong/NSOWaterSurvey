@@ -3,6 +3,11 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
+
 /**
  * Generated class for the FlowerCropPage page.
  *
@@ -16,28 +21,32 @@ import { EX_TREEDOK_LIST } from '../../models/tree';
   templateUrl: 'flower-crop.html',
 })
 export class FlowerCropPage {
-  @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop : FieldFlowerCropComponent[];
+  @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
   private submitRequested: boolean;
   flowerCropFrm: FormGroup;
   shownData: string[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController) {
+
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
-      'fields' : fb.array([
+      'fields': fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
+      "_id": [null],
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
+    this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
   }
 
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้", selected: [], list: EX_TREEDOK_LIST , limit: 5});
-
+      { title: "ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้", selected: [], list: EX_TREEDOK_LIST, limit: 5 });
 
     modal.onDidDismiss(data => {
       if (data) {
@@ -55,8 +64,7 @@ export class FlowerCropPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.fieldFlowerCrop.forEach(it=>it.submitRequest());
-
+    this.fieldFlowerCrop.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

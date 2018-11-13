@@ -1,4 +1,3 @@
-<!-- Generated template for the FieldDryCropPlantingComponent component -->
 <ion-card [formGroup]="FormItem">
   <ion-card-header>
     <b>แปลงที่ {{text}}</b>
@@ -35,13 +34,13 @@
         </span>
       </ion-item>
       <ion-item col-6>
-        <ion-radio item-left value="1"></ion-radio>
+        <ion-radio item-left [value]="true"></ion-radio>
         <ion-label>
           อยู่
         </ion-label>
       </ion-item>
       <ion-item col-6>
-        <ion-radio item-left value="2"></ion-radio>
+        <ion-radio item-left [value]="false"></ion-radio>
         <ion-label>
           ไม่อยู่
         </ion-label>
@@ -49,7 +48,6 @@
     </ion-row>
 
     <div>
-      <!-- [class.invalid]="isValid('plantings')" -->
       <ion-item>
         <ion-label>
           4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด<br>(ระบุได้ไม่เกิน 5 ชนิด)
@@ -60,20 +58,9 @@
             กรุณาเลือก
           </span>
         </ion-item> -->
-      <ion-list >
-        <ion-item *ngFor="let p of shownData" text-center>
-          {{ p }}
-        </ion-item>
-      </ion-list>
-      <ion-item>
-        <ion-label ion-button (click)="model()">เลือก</ion-label>
-      </ion-item>
+      <modal-plant Title="พืชไร่" [InputList]="DataList" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
     </div>
 
-
     <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
-
-
-
   </ion-card-content>
 </ion-card>

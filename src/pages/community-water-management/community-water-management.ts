@@ -5,6 +5,10 @@ import { DetailWaterManagementComponent } from '../../components/detail-water-ma
 import { DetailOrgWaterSupplyComponent } from '../../components/detail-org-water-supply/detail-org-water-supply';
 import { NaturalDisasterComponent } from '../../components/natural-disaster/natural-disaster';
 import { DisasterWarningMethodsComponent } from '../../components/disaster-warning-methods/disaster-warning-methods';
+import { getCommunitySample } from '../../states/community';
+import { CommunityState } from '../../states/community/community.reducer';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the CommunityWaterManagementPage page.
@@ -27,11 +31,13 @@ export class CommunityWaterManagementPage {
   public CommunityWaterManagement: FormGroup
   private submitRequested: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.management));
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<CommunityState>) {
     this.CommunityWaterManagement = this.fb.group({
       'hasPublicWater': [null, Validators.required],
       'publicWaterCount': [null, Validators.required],
-      'detail': fb.array([]),
+      'details': fb.array([]),
       'pwa': [null, Validators.required],
       'mwa': [null, Validators.required],
       'otherPlumbing': [null, Validators.required],
@@ -49,9 +55,12 @@ export class CommunityWaterManagementPage {
 
   }
 
+  ionViewDidLoad() {
+    this.formData$.subscribe(data => this.CommunityWaterManagement.setValue(data));
+  }
 
   private setupPublicWaterCountChanges() {
-    const componentFormArray: string = "detail";
+    const componentFormArray: string = "details";
     const componentCount: string = "publicWaterCount";
 
     var onComponentCountChanges = () => {
@@ -121,8 +130,8 @@ export class CommunityWaterManagementPage {
 
   }
 
-  
-  public isValid(name: string) : boolean {
+
+  public isValid(name: string): boolean {
     var ctrl = this.CommunityWaterManagement.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
@@ -145,8 +154,4 @@ export class CommunityWaterManagementPage {
   //   }
   //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
   // }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CommunityWaterManagementPage');
-  }
 }

@@ -40,6 +40,8 @@ import { DetailManagementForFarmingComponent } from './detail-management-for-far
 import { DetailOrgWaterSupplyComponent } from './detail-org-water-supply/detail-org-water-supply';
 import { NaturalDisasterComponent } from './natural-disaster/natural-disaster';
 import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disaster-warning-methods';
+import { ModalPlantComponent } from './modal-plant/modal-plant';
+import { UnitButtonComponent } from './unit-button/unit-button';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -54,7 +56,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     WaterActivity6Component,
     WaterActivity5Component,
     WaterProblem4Component,
-    WaterProblem6Component,
+    WaterProblem4Component,
     RainStorageComponent,
     LocationComponent,
     TableBuyingComponent,
@@ -82,6 +84,9 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     DetailOrgWaterSupplyComponent,
     NaturalDisasterComponent,
     DisasterWarningMethodsComponent,
+    WaterProblem6Component,
+    ModalPlantComponent,
+    UnitButtonComponent
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -101,7 +106,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     WaterActivity6Component,
     WaterActivity5Component,
     WaterProblem4Component,
-    WaterProblem6Component,
+    WaterProblem4Component,
     RainStorageComponent,
     LocationComponent,
     TableBuyingComponent,
@@ -129,6 +134,9 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
     DetailOrgWaterSupplyComponent,
     NaturalDisasterComponent,
     DisasterWarningMethodsComponent,
+    WaterProblem6Component,
+    ModalPlantComponent,
+    UnitButtonComponent
   ]
 })
 export class ComponentsModule { }

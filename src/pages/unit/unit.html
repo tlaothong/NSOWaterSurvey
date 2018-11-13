@@ -1,140 +1,22 @@
-<!--
-  Generated template for the UnitPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>unit</ion-title>
-  </ion-navbar>
+  <questionnaire-menu title="ครัวเรือน"></questionnaire-menu>
 
 </ion-header>
 
 
 <ion-content padding>
 
+  <form [formGroup]="f">
 
-  <button padding (click)="Unit()">
-          <ion-label>
-            <b>ห้องที่ {{ RoomCount }}</b>
-          </ion-label>
-    <div text-center style="
-  background-image: url('../../assets/imgs/complete.png');
-      height: 190px;
-      width: 150px;
-      background-repeat: no-repeat;
-      background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{RoomNo}} </h2>
+    <div *ngIf="f.get('amount').value > 0">
+      <ion-row>
+        <ion-col *ngFor="let unit of f.get('units').controls; let i = index">
+          <unit-button [FormItem]="unit"></unit-button>
+        </ion-col>
+      </ion-row>
     </div>
-  </button>
 
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/completecm.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{test}} </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/pause.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{test}} </h2>
-    </div>
-  </button>
-
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/pausecm.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{test}} </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/play.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{test}} </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/playcm.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{test}} </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-      background-image: url('../../assets/imgs/return.png');
-          height: 190px;
-          width: 150px;
-          background-repeat: no-repeat;
-          background-size: cover;">
-      <br><br>
-      <h2 style="color: black">{{test}} </h2>
-    </div>
-  </button>
-
-  <button padding (click)="Unit()">
-      <ion-label>
-          <b>ห้องที่ {{ RoomCount }}</b>
-        </ion-label>
-    <div text-center style="
-        background-image: url('../../assets/imgs/returncm.png');
-            height: 190px;
-            width: 150px;
-            background-repeat: no-repeat;
-            background-size: cover;">
-      <br><br>
-      <h2 style="color: black">123 </h2>
-    </div>
-  </button>
+  </form>
 
 </ion-content>

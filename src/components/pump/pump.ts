@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
@@ -28,17 +28,16 @@ export class PumpComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'pumpAuto': ['', Validators.required],
-      'unknowHoursPerPump': ['', Validators.required],
-      'hoursPerPump': ['', Validators.required],
-      'numberOfPumpsPerYear': ['', Validators.required],
-      'hasPumpRate': ['', Validators.required],
-      'pumpRate': ['', Validators.required],
-      'energySource': ['', Validators.required],
-      'pumpType': ['', Validators.required],
-      'horsePower': ['', Validators.required],
-      'suctionPipeSize': ['', Validators.required],
-      'pipelineSize': ['', Validators.required]
+      'pumpAuto': [null, Validators.required],
+      'hoursPerPump': [null, Validators.required],
+      'numberOfPumpsPerYear': [null, Validators.required],
+      'hasPumpRate': [null, Validators.required],
+      'pumpRate': [null, Validators.required],
+      'energySource': [null, Validators.required],
+      'pumpType': [null, Validators.required],
+      'horsePower': [null, Validators.required],
+      'suctionPipeSize': [null, Validators.required],
+      'pipelineSize': [null, Validators.required]
     });
   }
 

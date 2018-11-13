@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the DemoPage page.
@@ -23,20 +27,23 @@ export class CommercialPage {
   private f: FormGroup;
   private submitRequested: boolean;
 
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
-      'questionForAcademy': this.fb.array([
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        TableCheckItemCountComponent.CreateFormGroup(this.fb),
-         TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        ]),
+      'buildingCode': [null, Validators.required],
+      'questionForAcademy': this.fb.group({
+        'preSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'kindergarten': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'primarySchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'highSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
+        'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'personnelCount': [null, Validators.required],
+      }),
       'hotelsAndResorts': this.fb.group({
         'roomCount': [null, Validators.required],
         'personnelCount': [null, Validators.required],
@@ -62,12 +69,15 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
+
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources8B.forEach(it => it.submitRequest());
+    
   }
 
   public isValid(name: string): boolean {

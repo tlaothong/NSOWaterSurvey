@@ -1,9 +1,11 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { combineLatest } from 'rxjs/operators';
-import { FieldAreaComponent } from '../../components/field-area/field-area';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the RicePage page.
@@ -23,12 +25,15 @@ export class RicePage {
   f: FormGroup;
 
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
+  
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': ['', Validators.required],
+      'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),
+      '_id': [null],
     });
 
     this.setupFieldCountChanges();
@@ -36,6 +41,7 @@ export class RicePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RicePage');
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   ionViewDidEnter() {

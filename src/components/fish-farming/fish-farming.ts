@@ -1,67 +1,65 @@
-import { Component, Input, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the FishFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'fish-farming',
   templateUrl: 'fish-farming.html'
 })
-export class FishFarmingComponent implements AfterViewInit {
+export class FishFarmingComponent implements ISubmitRequestable {
+
   [x: string]: any;
 
   @Input() public FormItem: FormGroup;
   @Input('headline') text: string;
   @Input('type') type: string;
-  private submitRequested: boolean;
+
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
 
+  private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
+
     console.log('Hello FishFarmingComponent Component');
     this.text = 'Hello World';
     this.type = 'กก.';
 
-    this.FormItem = FishFarmingComponent.CreateFormGroup(fb);
-
-    // this.setupPoolCountChanges()
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group({
+    var fg = fb.group({
+
       "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "gardenGroove": [false, Validators.required],
       "stew": [false, Validators.required],
       "riceField": [false, Validators.required],
       'hasOther': [false, Validators.required],
-      "other": ['', Validators.required],
-      "fieldCount": ['', Validators.required],
-      "fieldsAreSameSize": ['', Validators.required],
+      "other": [null, Validators.required],
+      "fieldCount": [null, Validators.required],
+      "fieldsAreSameSize": [null, Validators.required],
       "fields": fb.array([]),
-      "animalsCount": ['', Validators.required],
+      "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    },{
-      validator: FishFarmingComponent.checkAnyOrOther()
-    });
+
+    }, {
+        validator: FishFarmingComponent.checkAnyOrOther()
+      });
+
+    FishFarmingComponent.setupPoolCountChanges(fb, fg);
+    return fg;
+
   }
 
-  ngAfterViewInit(): void {
-    this.setupPoolCountChanges()
-  }
-  
-  
   submitRequest() {
+
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -72,7 +70,7 @@ export class FishFarmingComponent implements AfterViewInit {
       const riceField = c.get('riceField');
       const hasOther = c.get('hasOther');
       const other = c.get('other');
-    
+
 
       if (!depression.value && !gardenGroove.value && !stew.value && !hasOther.value && !riceField.value) {
         return { 'anycheck': true };
@@ -82,15 +80,10 @@ export class FishFarmingComponent implements AfterViewInit {
       return null;
     }
   }
-  
-  // public handleSubmit() {
-  //   this.submitRequested = true;
-    
-  // }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    
+
     if (name == 'anycheck') {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
@@ -100,14 +93,14 @@ export class FishFarmingComponent implements AfterViewInit {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  private setupPoolCountChanges() {
+  private static setupPoolCountChanges(fb: FormBuilder, fg: FormGroup) {
     const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
     var onComponentCountChanges = () => {
-      var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
-      var fieldCount = this.FormItem.get(componentCount).value || 0;
-      var pool = this.fb.array([]);
+      var fields = (fg.get(componentFormArray) as FormArray).controls || [];
+      var fieldCount = fg.get(componentCount).value || 0;
+      var pool = fb.array([]);
 
       fieldCount = Math.max(0, fieldCount);
 
@@ -117,15 +110,15 @@ export class FishFarmingComponent implements AfterViewInit {
           const fld = fields[i];
           ctrl = fld;
         } else {
-          ctrl = PoolAreaComponent.CreateFormGroup(this.fb);
+          ctrl = PoolAreaComponent.CreateFormGroup(fb);
         }
 
         pool.push(ctrl);
       }
-      this.FormItem.setControl(componentFormArray, pool);
+      fg.setControl(componentFormArray, pool);
     };
 
-    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+    fg.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
   }

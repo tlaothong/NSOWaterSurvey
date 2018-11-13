@@ -11,11 +11,14 @@ export class HomePage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,
+    public modalCtrl: ModalController) {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
       { title: 'Zero', component: "ZeroPage" },
+      { title: 'HouseHold Test', component: "HouseHoldTestPage" },
+      { title: 'Community Test', component: "CommunityTestPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'Unit', component: "UnitPage" },
       { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
@@ -45,7 +48,6 @@ export class HomePage {
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
       { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
-      
     ];
   }
 
@@ -59,4 +61,5 @@ export class HomePage {
     const modal = this.modalCtrl.create("DlgUnitPage");
     modal.present();
   }
+
 }

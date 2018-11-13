@@ -34,10 +34,10 @@ export class WaterSources9Component {
       'river': [false, Validators.required],
       'irrigation': [false, Validators.required],
       'rain': [false, Validators.required],
-      'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': ['', Validators.required],
-      'hasOther' : [false,Validators.required]
+      'buying': [false, Validators.required],
+      'hasOther' : [false,Validators.required],
+      'other': [null, Validators.required],
     },{
 
       validator: WaterSources9Component.checkAnyOrOther()

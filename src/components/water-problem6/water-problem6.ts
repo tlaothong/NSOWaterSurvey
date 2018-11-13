@@ -35,8 +35,6 @@ export class WaterProblem6Component {
     });
   }
 
-
-
   submitRequest() {
     this.submitRequested = true;
   }
@@ -57,12 +55,10 @@ export class WaterProblem6Component {
     return (c: AbstractControl): ValidationErrors | null => {
       const turbidWater = c.get('turbidWater');
       const saltWater = c.get('saltWater');
-      
       const smell = c.get('smell');
       const filmOfOil = c.get('filmOfOil');
       const fogWater = c.get('fogWater');
       const hardWater = c.get('hardWater');
-      
 
       if (!turbidWater.value && !saltWater.value && !smell.value && !filmOfOil.value
         && !fogWater.value && !hardWater.value) {
