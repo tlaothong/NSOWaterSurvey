@@ -2,8 +2,16 @@ page-unit {
 
 }
 
-.start {
+.play {
     background-image: url('../../assets/imgs/play.png');
+    height: 190px;
+    width: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.playCm {
+    background-image: url('../../assets/imgs/playcm.png');
     height: 190px;
     width: 150px;
     background-repeat: no-repeat;
@@ -18,6 +26,14 @@ page-unit {
     background-size: cover;
 }
 
+.pauseCm {
+    background-image: url('../../assets/imgs/pausecm.png');
+    height: 190px;
+    width: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .return {
     background-image: url('../../assets/imgs/return.png');
     height: 190px;
@@ -26,8 +42,24 @@ page-unit {
     background-size: cover;
 }
 
-.done {
+.returnCm {
+    background-image: url('../../assets/imgs/returncm.png');
+    height: 190px;
+    width: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.complete {
     background-image: url('../../assets/imgs/complete.png');
+    height: 190px;
+    width: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.completeCm {
+    background-image: url('../../assets/imgs/completecm.png');
     height: 190px;
     width: 150px;
     background-repeat: no-repeat;
