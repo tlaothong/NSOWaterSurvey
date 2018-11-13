@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, PopoverController, ModalController } from 'ionic-angular';
-import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
-import { DlgUnitPage } from '../dlg-unit/dlg-unit';
 
 @Component({
   selector: 'page-home',
