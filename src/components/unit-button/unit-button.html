@@ -2,21 +2,34 @@
 
   <button padding (click)="showModal()">
 
-
-    <ion-label>
-      ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}
-    </ion-label>
-
-    <div *ngIf="FormItem.get('subUnit.access').invalid" text-center class="start"></div>
-
-    <div *ngIf="FormItem.get('subUnit.access').value == 1">
-      <div *ngIf="FormItem.valid" text-center class="done"></div>
-      <div *ngIf="FormItem.invalid" text-center class="pause"></div>
+    <div>
+      <h3># {{unitNo}}</h3>
     </div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 2" text-center class="return"></div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 3" text-center class="return"></div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 4" text-center class="done"></div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 5" text-center class="done"></div>
+
+    <div *ngIf="FormItem.get('subUnit.access').invalid" text-center class="play"></div>
+
+    <div [ngSwitch]="FormItem.get('subUnit.access').value">
+      <div *ngSwitchCase="1">
+        <div *ngIf="FormItem.valid" text-center>
+            <div *ngIf="FormItem.get('comments.text').value == ''" class="complete" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+            <div *ngIf="FormItem.get('comments.text').value != ''" class="completeCm" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+        </div>
+        <div *ngIf="FormItem.invalid" text-center>
+            <div *ngIf="FormItem.get('comments.text').value == ''" class="pause" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+            <div *ngIf="FormItem.get('comments.text').value != ''" class="pauseCm" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+        </div>
+      </div>
+      <div *ngSwitchCase="2" text-center>
+        <div *ngIf="FormItem.get('comments.text').value == ''" class="return" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+        <div *ngIf="FormItem.get('comments.text').value != ''" class="returnCm" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+      </div>
+      <div *ngSwitchCase="3" text-center>
+        <div *ngIf="FormItem.get('comments.text').value == ''" class="return" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+        <div *ngIf="FormItem.get('comments.text').value != ''" class="returnCm" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+      </div>
+      <div *ngSwitchCase="4" text-center class="complete" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+      <div *ngSwitchCase="5" text-center class="complete" padding>ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}</div>
+    </div>
 
   </button>
 

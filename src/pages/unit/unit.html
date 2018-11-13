@@ -10,9 +10,9 @@
   <form [formGroup]="f">
 
     <div *ngIf="f.get('amount').value > 0">
-      <ion-row>
-        <ion-col *ngFor="let unit of f.get('units').controls; let i = index">
-          <unit-button [FormItem]="unit"></unit-button>
+      <ion-row text-center>
+        <ion-col col-4 *ngFor="let unit of f.get('units').controls; let i = index">
+          <unit-button [no]="i + 1" [FormItem]="unit"></unit-button>
         </ion-col>
       </ion-row>
     </div>

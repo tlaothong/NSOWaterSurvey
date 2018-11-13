@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ModalController } from 'ionic-angular';
+import { ModalController, Form } from 'ionic-angular';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -15,6 +15,7 @@ import { ModalController } from 'ionic-angular';
 export class UnitButtonComponent {
 
   @Input("headline") public text: string;
+  @Input('no') public unitNo: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -22,9 +23,16 @@ export class UnitButtonComponent {
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
-
     // TODO: Remove this
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+  }
+
+  ionViewDidLoad() {
+    console.log('load');
+  }
+
+  ionViewDidEnter() {
+    console.log('enter');
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -44,7 +52,7 @@ export class UnitButtonComponent {
       'isCommercial': [null, Validators.required],
       'comments': fb.group({
         'at': [null],
-        'text': [null],
+        'text': [''],
       })
     });
   }
