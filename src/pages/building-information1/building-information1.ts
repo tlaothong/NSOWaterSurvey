@@ -27,7 +27,7 @@ export class BuildingInformation1Page {
       'name': [null, Validators.required],
       'houseNo': [null, Validators.required],
       'latitude': [null, Validators.required],
-      'longtitude': [null, Validators.required],
+      'longitude': [null, Validators.required],
       'buildingType': [null, Validators.required],
       'other': [null, Validators.required],
       'access': [null, Validators.required],

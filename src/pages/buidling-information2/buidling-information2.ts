@@ -25,7 +25,7 @@ export class BuidlingInformation2Page {
       'occupiedRoomCount': [null, Validators.required],
       'waterQuantity': [null, Validators.required],
       'waterBill': [null, Validators.required],
-      'floor': [null, Validators.required],
+      'floorCount': [null, Validators.required],
     });
   }
 
