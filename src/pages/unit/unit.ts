@@ -17,7 +17,7 @@ export class UnitPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'amount':[10],
+      'unitCount':[10],
       'units': this.fb.array([]),
     });
 
@@ -35,16 +35,16 @@ export class UnitPage {
 
   private setupUnitsCountChanges() {
     const componentFormArray: string = "units";
-    const componentCount: string = "amount";
+    const componentCount: string = "unitCount";
 
     var onComponentCountChanges = () => {
       var units = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var amount = this.f.get(componentCount).value || 0;
+      var unitCount = this.f.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
-      amount = Math.max(0, amount);
+      unitCount = Math.max(0, unitCount);
 
-      for (let i = 0; i < amount; i++) {
+      for (let i = 0; i < unitCount; i++) {
         var ctrl = null;
         if (i < units.length) {
           const fld = units[i];
