@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetFactorialCategory } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -42,6 +43,7 @@ export class FactorialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
   }
 
   public isValid(name: string): boolean {
