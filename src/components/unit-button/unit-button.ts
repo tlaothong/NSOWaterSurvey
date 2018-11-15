@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ModalController, Form } from 'ionic-angular';
+import { ModalController, Form, NavController } from 'ionic-angular';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -20,7 +20,7 @@ export class UnitButtonComponent {
 
   private submitRequested: boolean;
 
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController,private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     // TODO: Remove this
@@ -78,6 +78,10 @@ export class UnitButtonComponent {
 
   submitRequest() {
     this.submitRequested = true;
+  }
+
+  goWaterActivityUnitPage() {
+    this.navCtrl.push('WaterActivityUnitPage');
   }
 
   public isValid(name: string): boolean {

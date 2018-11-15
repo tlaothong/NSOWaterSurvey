@@ -18,21 +18,23 @@
 
     <div [ngSwitch]="FormItem.get('subUnit.access').value">
 
-      <div *ngSwitchCase="1">
-        <div *ngIf="FormItem.valid" text-center>
-          <div *ngIf="FormItem.get('comments.text').value == ''" class="complete" padding>ห้องที่
-            {{FormItem.get('subUnit.roomNumber').value}}</div>
-          <div *ngIf="FormItem.get('comments.text').value != ''" class="completeCm" padding>ห้องที่
-            {{FormItem.get('subUnit.roomNumber').value}}</div>
-        </div>
-        <div *ngIf="FormItem.invalid" text-center>
-          <div *ngIf="FormItem.get('comments.text').value == ''" class="pause" padding>ห้องที่
-            {{FormItem.get('subUnit.roomNumber').value}}</div>
-          <div *ngIf="FormItem.get('comments.text').value != ''" class="pauseCm" padding>ห้องที่
-            {{FormItem.get('subUnit.roomNumber').value}}</div>
+      <div (click)="goWaterActivityUnitPage()">
+        <div *ngSwitchCase="1">
+          <div *ngIf="FormItem.valid" text-center>
+            <div *ngIf="FormItem.get('comments.text').value == ''" class="complete" padding>ห้องที่
+              {{FormItem.get('subUnit.roomNumber').value}}</div>
+            <div *ngIf="FormItem.get('comments.text').value != ''" class="completeCm" padding>ห้องที่
+              {{FormItem.get('subUnit.roomNumber').value}}</div>
+          </div>
+          <div *ngIf="FormItem.invalid" text-center>
+            <div *ngIf="FormItem.get('comments.text').value == ''" class="pause" padding>ห้องที่
+              {{FormItem.get('subUnit.roomNumber').value}}</div>
+            <div *ngIf="FormItem.get('comments.text').value != ''" class="pauseCm" padding>ห้องที่
+              {{FormItem.get('subUnit.roomNumber').value}}</div>
+          </div>
         </div>
       </div>
-      
+
       <div (click)="showModal()">
         <div *ngSwitchCase="2" text-center>
           <div *ngIf="FormItem.get('comments.text').value == ''" class="return" padding>ห้องที่

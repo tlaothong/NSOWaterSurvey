@@ -37,9 +37,12 @@ export class DlgUnitPage {
 
   public okDialog() {
     this.submitRequested = true;
-    if (this.FormItem.get('subUnit.roomNumber').valid && this.FormItem.get('subUnit.access').valid) {
+    // if (this.FormItem.get('subUnit.roomNumber').valid && this.FormItem.get('subUnit.access').valid) {
       this.viewCtrl.dismiss(this.FormItem);
-    }
+      // if (this.FormItem.get('subUnit.access').value == 1) {
+      //   this.navCtrl.push('WaterActivityUnitPage');
+      // }
+    // }
   }
 
   public isValid(name: string): boolean {
