@@ -30,3 +30,7 @@ export const getResidentialGardeningUse = createSelector(
     getHouseHoldFeatureState,
     state => state.residentialGardeningUse,
 );
+export const getAgronomyPlantDoing = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agronomyPlantDoing,
+);

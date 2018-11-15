@@ -54,7 +54,7 @@ const initialState: HouseHoldState = {
     agricultureAnimalFarm: null,
     agricultureAquaticAnimals: null,
     ricePlantDoing: null,
-    agronomyPlantDoing: null,
+    agronomyPlantDoing: [],
     rubberTreeDoing: null,
     perennialPlantDoing: null,
     // ricePlantWaterSources: null,
@@ -100,6 +100,12 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 waterSources: action.payload,
             };
+        case HouseHoldTypes.SetAgronomyPlantDoing:
+            return {
+                ...state,
+                agronomyPlantDoing: action.payload,
+            };
+
         default:
             return state;
     }

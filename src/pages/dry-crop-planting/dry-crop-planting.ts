@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetAgronomyPlantDoing } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -41,6 +42,9 @@ export class DryCropPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
+    
+    
+    console.log(this.agronomyPlant.value);
   }
 
   public isValid(name: string): boolean {

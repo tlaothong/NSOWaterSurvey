@@ -37,6 +37,7 @@ export class LocationComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested)
   }
+  
   submitRequest() {
     this.submitRequested = true;
   }

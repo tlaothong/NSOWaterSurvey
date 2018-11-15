@@ -9,7 +9,8 @@ export enum HouseHoldTypes {
     SetFactorialCategory = "[HH] Set Factorial Category",
     SetWaterSource = "[HH] Set WaterSource",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
-    SetresidentialGardeningUse = "residentialGardeningUse"
+    SetresidentialGardeningUse = "residentialGardeningUse",
+    SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
 }
 
 
@@ -51,6 +52,11 @@ export class SetFactorialCategory implements Action {
 
 export class SetWaterSources implements Action {
     readonly type = HouseHoldTypes.SetWaterSource;
+    constructor(public payload: any) {
+    }
+}
+export class SetAgronomyPlantDoing implements Action {
+    readonly type = HouseHoldTypes.SetAgronomyPlantDoing;
 
     constructor(public payload: any) {
     }
@@ -78,4 +84,5 @@ export type HouseHoldActionsType =
     | SetWaterSources
     | SetCommercialServiceType
     | SetresidentialGardeningUse
+    | SetAgronomyPlantDoing
     ;

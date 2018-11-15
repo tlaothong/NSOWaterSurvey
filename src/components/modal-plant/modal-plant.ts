@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 /**
  * Generated class for the ModalPlantComponent component.
@@ -13,20 +14,32 @@ import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown'
   selector: 'modal-plant',
   templateUrl: 'modal-plant.html'
 })
-export class ModalPlantComponent {
+export class ModalPlantComponent implements ISubmitRequestable {
+
 
   @Input() InputList;
   @Input() InputLimit;
   @Input() Title;
   @Input() public FormItem: FormGroup;
 
+  private submitRequested: boolean;
   shownData: string[];
   text: string;
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
-    
+
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
-    console.log("dddd",JSON.stringify(this.FormItem.value))
+    console.log("dddd", JSON.stringify(this.FormItem.value))
+  }
+
+
+  submitRequest() {
+    this.submitRequested = true
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
@@ -49,12 +62,11 @@ export class ModalPlantComponent {
     );
     ModalPlantComponent.setupPlantCountChanges(fb, fg);
     return fg;
-    
+
   }
 
-
   model() {
-   
+
     const modal = this.modalCtrl.create("SearchDropdownPage",
       { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
     modal.onDidDismiss(data => {
