@@ -86,6 +86,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 factorialCategory: action.payload,
             };
+        case HouseHoldTypes.SetCommercialServiceType:
+            return {
+                ...state,
+                commercialServiceType: action.payload,
+            };
         default:
             return state;
     }
