@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetCommercialServiceType } from '../../states/household/household.actions';
+import { SetCommercialServiceType, SetWaterSources } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -72,6 +72,7 @@ export class CommercialPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
+    this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
 
   }
 
