@@ -11,6 +11,7 @@ export enum HouseHoldTypes {
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
     SetresidentialGardeningUse = "residentialGardeningUse",
     SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
+    SetPlant = "[HH] Set Plant",
 }
 
 
@@ -73,6 +74,12 @@ export class SetresidentialGardeningUse implements Action {
     constructor(public payload: string) {
     }
 }
+export class SetPlant implements Action {
+    readonly type = HouseHoldTypes.SetPlant;
+
+    constructor(public payload: any[]) {
+    }
+}
 
 
 export type HouseHoldActionsType =
@@ -85,4 +92,5 @@ export type HouseHoldActionsType =
     | SetCommercialServiceType
     | SetresidentialGardeningUse
     | SetAgronomyPlantDoing
+    | SetPlant
     ;

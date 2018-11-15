@@ -65,8 +65,7 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetAgronomyPlantDoing(this.FormItem.get('plantings').value));
-    console.log(this.FormItem.get('plantings').value);
+    
   }
 
 

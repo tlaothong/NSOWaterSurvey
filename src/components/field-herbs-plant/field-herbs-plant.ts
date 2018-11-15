@@ -8,7 +8,7 @@ import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getAgronomyPlantDoing } from '../../states/household';
+import { getAgronomyPlantDoing, getPlant } from '../../states/household';
 
 /**
  * Generated class for the FieldHerbsPlantComponent component.
@@ -34,7 +34,8 @@ export class FieldHerbsPlantComponent {
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
 
-  private agronomyPlantDoing$ = this.store.select(getAgronomyPlantDoing);
+  // private dataPlant$ = this.store.select(getPlant);
+  // private agronomyPlantDoing$ = this.store.select(getAgronomyPlantDoing);
 
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -59,8 +60,12 @@ export class FieldHerbsPlantComponent {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DryCropPlantingPage');
     // TODO
-    this.agronomyPlantDoing$.subscribe(data => this.FormItem.get('otherPlantings').setValue(data));
-    console.log(this.FormItem.value);
+    // this.agronomyPlantDoing$.subscribe(data => this.FormItem.get('otherPlantings').setValue(data));
+    // console.log(this.FormItem.value);
+    // this.dataPlant$.subscribe(data => this.Plant = data);
+    // console.log("xxxxx");
+    // console.log(this.Plant);
+
 
   }
 

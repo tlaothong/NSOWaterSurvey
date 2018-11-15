@@ -34,3 +34,7 @@ export const getAgronomyPlantDoing = createSelector(
     getHouseHoldFeatureState,
     state => state.agronomyPlantDoing,
 );
+export const getPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.plant,
+);
