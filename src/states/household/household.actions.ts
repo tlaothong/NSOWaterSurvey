@@ -7,6 +7,7 @@ export enum HouseHoldTypes {
     Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
     SetFactorialCategory = "[HH] Set Factorial Category",
+    SetCommercialServiceType = "[HH] Set Commercial ServiceType",
 }
 
 
@@ -46,6 +47,13 @@ export class SetFactorialCategory implements Action {
     }
 }
 
+export class SetCommercialServiceType implements Action {
+    readonly type = HouseHoldTypes.SetCommercialServiceType;
+
+    constructor(public payload: any) {
+    }
+}
+
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -53,4 +61,6 @@ export type HouseHoldActionsType =
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
     | SetFactorialCategory
+    | SetCommercialServiceType
+
     ;
