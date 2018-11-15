@@ -6,20 +6,21 @@ export enum HouseHoldTypes {
     LoadListSuccess = "[HH] Load List Success",
     Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
+    SetWaterActivity = "[HH] Set Water Activity"
 }
 
 
 
 export class LoadHouseHoldList implements Action {
     readonly type = HouseHoldTypes.LoadList;
-    
+
     constructor() {
     }
 }
 
 export class LoadHouseHoldListSuccess implements Action {
     readonly type = HouseHoldTypes.LoadListSuccess;
-    
+
     constructor() {
     }
 }
@@ -38,6 +39,14 @@ export class LoadHouseHoldSampleSuccess implements Action {
     }
 }
 
+export class SetHouseHoldSampleWaterActivity implements Action {
+    readonly type = HouseHoldTypes.SetWaterActivity;
+
+    constructor(public payload: any) {
+    }
+}
+
+
 
 
 export type HouseHoldActionsType =
@@ -45,4 +54,5 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
+    | SetHouseHoldSampleWaterActivity
     ;

@@ -13,3 +13,8 @@ export const getHouseHoldSample = createSelector(
     getHouseHoldFeatureState,
     state => state.houseHoldSample,
 );
+
+export const getHouseHoldSampleWaterActivity = createSelector(
+    getHouseHoldFeatureState,
+    state => state.isCheckWaterActivity,
+);
