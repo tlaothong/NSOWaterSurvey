@@ -14,7 +14,22 @@ export const getHouseHoldSample = createSelector(
     state => state.houseHoldSample,
 );
 
-export const getHouseHoldSampleWaterActivity = createSelector(
+export const getIsHouseHold = createSelector(
     getHouseHoldFeatureState,
-    state => state.isCheckWaterActivity,
+    state => state.isHouseHold,
+);
+
+export const getIsAgriculture = createSelector(
+    getHouseHoldFeatureState,
+    state => state.isAgriculture,
+);
+
+export const getIsFactorial = createSelector(
+    getHouseHoldFeatureState,
+    state => state.isFactorial,
+);
+
+export const getIsCommercial = createSelector(
+    getHouseHoldFeatureState,
+    state => state.isCommercial,
 );

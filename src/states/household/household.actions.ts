@@ -6,10 +6,11 @@ export enum HouseHoldTypes {
     LoadListSuccess = "[HH] Load List Success",
     Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
-    SetWaterActivity = "[HH] Set Water Activity"
+    SetIsHouseHold = "[HH] Set IsHouseHold",
+    SetIsAgriculture = "[HH] Set IsAgriculture",
+    SetIsFactorial = "[HH] Set IsFactorial",
+    SetIsCommercial = "[HH] Set IsCommercial",
 }
-
-
 
 export class LoadHouseHoldList implements Action {
     readonly type = HouseHoldTypes.LoadList;
@@ -39,20 +40,41 @@ export class LoadHouseHoldSampleSuccess implements Action {
     }
 }
 
-export class SetHouseHoldSampleWaterActivity implements Action {
-    readonly type = HouseHoldTypes.SetWaterActivity;
+export class SetIsHouseHold implements Action {
+    readonly type = HouseHoldTypes.SetIsHouseHold;
 
-    constructor(public payload: any) {
+    constructor(public payload: boolean) {
     }
 }
 
+export class SetIsAgriculture implements Action {
+    readonly type = HouseHoldTypes.SetIsAgriculture;
 
+    constructor(public payload: boolean) {
+    }
+}
 
+export class SetIsFactorial implements Action {
+    readonly type = HouseHoldTypes.SetIsFactorial;
+
+    constructor(public payload: boolean) {
+    }
+}
+
+export class SetIsCommercial implements Action {
+    readonly type = HouseHoldTypes.SetIsCommercial;
+
+    constructor(public payload: boolean) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
-    | SetHouseHoldSampleWaterActivity
+    | SetIsHouseHold
+    | SetIsAgriculture
+    | SetIsFactorial
+    | SetIsCommercial
     ;
