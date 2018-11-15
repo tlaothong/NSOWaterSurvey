@@ -1,7 +1,9 @@
 <ion-list [formGroup]="FormItem">
-  <div *ngFor="let p of FormItem.get('plants').value; let i = index"  text-center>
+  <!-- <div *ngFor="let p of FormItem.get('plants').value; let i = index"  text-center> -->
+    <div *ngFor="let p of Plant; let i = index"  text-center>
     <span >
-      {{p.code}} {{p.name}}
+      <!-- {{p.code}} {{p.name}} -->
+      {{p}}
     </span>
   </div>
 </ion-list>

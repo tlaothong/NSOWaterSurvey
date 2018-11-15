@@ -33,6 +33,7 @@ export interface HouseHoldState {
     // animalFarmWaterSources: any,
     // aquaticAnimalsWaterSources: any,
     waterSources: any,
+    plant: any[],
 }
 
 const initialState: HouseHoldState = {
@@ -67,6 +68,7 @@ const initialState: HouseHoldState = {
     // animalFarmWaterSources: null,
     // aquaticAnimalsWaterSources: null,
     waterSources: null,
+    plant: [],
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -105,7 +107,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 agronomyPlantDoing: action.payload,
             };
-
+        case HouseHoldTypes.SetPlant:
+            return {
+                ...state,
+                plant: action.payload,
+            };
         default:
             return state;
     }

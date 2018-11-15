@@ -2,6 +2,9 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavParams, Content, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetPlant } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -17,7 +20,7 @@ export class SearchDropdownPage {
   listData: Array<any>;
   searchListData: Array<any>;
   @ViewChild(Content) content: Content;
-  constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController, private store: Store<HouseHoldState>) {
     this.limit = navParams.get('limit');
     this.treeDisplay = navParams.get('title');
     this.listData = navParams.get('selected');
@@ -35,13 +38,16 @@ export class SearchDropdownPage {
     );
   }
 
-
   scrollToTop() {
     this.content.scrollToTop();
   }
 
   close() {
     this.viewCtrl.dismiss(this.listData);
+    console.log("Data");
+    console.log(this.listData);
+    this.store.dispatch(new SetPlant(this.listData));
+
   }
   select(id, name) {
     if (this.listData.filter(data => data == (id + '.' + name)).length < 1) {
@@ -97,6 +103,7 @@ export class SearchDropdownPage {
   }
   deselect(index) {
     this.listData.splice(index, 1)
+    
   }
   range(min, max, step) {
     step = step || 1;

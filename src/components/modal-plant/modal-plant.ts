@@ -3,6 +3,10 @@ import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetPlant } from '../../states/household/household.actions';
+import { getPlant } from '../../states/household';
 
 /**
  * Generated class for the ModalPlantComponent component.
@@ -25,16 +29,26 @@ export class ModalPlantComponent implements ISubmitRequestable {
   private submitRequested: boolean;
   shownData: string[];
   text: string;
+  Plant:string[];
+  private dataPlant$ = this.store.select(getPlant);
 
-  constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
+  constructor(public modalCtrl: ModalController, public fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
     console.log("dddd", JSON.stringify(this.FormItem.value))
   }
 
+  ionViewDidLoad() {
+    
+    // this.store.dispatch(new SetPlant(this.FormItem.get('dataPlant$').value));
+  }
+
 
   submitRequest() {
     this.submitRequested = true
+    this.dataPlant$.subscribe(data => this.Plant = data);
+    console.log("xxxxx");
+    console.log(this.Plant);
   }
 
   public isValid(name: string): boolean {
