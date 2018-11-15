@@ -18,3 +18,8 @@ export const getFactorialCategory = createSelector(
     getHouseHoldFeatureState,
     state => state.factorialCategory,
 );
+
+export const getAgronomyPlantDoing = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agronomyPlantDoing,
+);

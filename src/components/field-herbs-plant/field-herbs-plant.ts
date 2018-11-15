@@ -6,6 +6,9 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { LocationComponent } from '../location/location';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getAgronomyPlantDoing } from '../../states/household';
 
 /**
  * Generated class for the FieldHerbsPlantComponent component.
@@ -27,11 +30,14 @@ export class FieldHerbsPlantComponent {
   private submitRequested: boolean;
 
   @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
-  @ViewChildren(LocationComponent) private locationT : LocationComponent[];
-  @ViewChildren(WaterSources9Component) private waterSources9 : WaterSources9Component[];
+  @ViewChildren(LocationComponent) private locationT: LocationComponent[];
+  @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
 
-  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
+  private agronomyPlantDoing$ = this.store.select(getAgronomyPlantDoing);
+
+
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
 
     this.FormItem = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
 
@@ -39,16 +45,25 @@ export class FieldHerbsPlantComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'location': LocationComponent.CreateFormGroup(fb) ,
+      'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-      'plantings':  ModalPlantComponent.CreateFormGroup(fb),
+      'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
   }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DryCropPlantingPage');
+    // TODO
+    this.agronomyPlantDoing$.subscribe(data => this.FormItem.get('otherPlantings').setValue(data));
+    console.log(this.FormItem.value);
+
+  }
+
 
   submitRequest() {
     this.submitRequested = true;
