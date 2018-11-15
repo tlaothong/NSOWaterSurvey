@@ -177,96 +177,6 @@
       </ion-list>
     </div>
 
-    <ion-list>
-
-      <div *ngIf="FormItem.get('subUnit.access').value == 1">
-        <ion-item>
-          <ion-label>3.3 กิจกรรมการใช้น้ำ</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            1. เพื่อการอุปโภคบริโภค: สถานนี้มีผู้อยู่อาศัยติดต่อกันนานเกิน 3 เดือนใช่หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="isHouseHold">
-          <!-- <ion-item *ngIf="isValid('isHouseHold')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item> -->
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>ใช่</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>ไม่ใช่</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-item>
-          <ion-label>
-            2. เพื่อการเกษตร: ผู้อยู่อาศัยอยู่ในสถานที่นี้มีพื้นที่ปลูกพืช เลี้ยงสัตว์ หรือทำการเกษตร<br>เอง ใช่หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="isAgriculture">
-          <!-- <ion-item *ngIf="isValid('isAgriculture')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item> -->
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>ใช่</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>ไม่ใช่</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-item>
-          <ion-label>
-            3. เพื่อการผลิต: สถานที่นี้ใช้เพื่อทำการผลิต ใช่หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="isFactorial">
-          <!-- <ion-item *ngIf="isValid('isFactorial')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item> -->
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>ใช่</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>ไม่ใช่</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-item>
-          <ion-label>
-            4. เพื่อการบริการ: สถานที่นี้ใช้เพื่อทำการบริการ ใช่หรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="isCommercial">
-          <!-- <ion-item *ngIf="isValid('isCommercial')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item> -->
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>ใช่</ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>ไม่ใช่</ion-label>
-          </ion-item>
-        </ion-row>
-      </div>
-
-    </ion-list>
-
     <div *ngIf="FormItem.get('subUnit.access').value == 1 || FormItem.get('subUnit.access').value == 2 || FormItem.get('subUnit.access').value == 3">
       <ion-item>
         <ion-label>ปัญหา/อุปสรรค</ion-label>
@@ -284,7 +194,7 @@
           <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block>OK</button>
+          <button ion-button block [disabled]="FormItem.invalid">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>
