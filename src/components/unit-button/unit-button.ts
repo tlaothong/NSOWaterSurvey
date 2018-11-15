@@ -40,10 +40,10 @@ export class UnitButtonComponent {
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'access': [null, Validators.required],
-        'hasPlumbing': [null, Validators.required],
+        'hasPlumbing': [false, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
-        'hasGroundWater': [null, Validators.required],
+        'hasGroundWater': [false, Validators.required],
         'hasGroundWaterMeter': [false, Validators.required],
       }),
       'isHouseHold': [null, Validators.required],
@@ -55,13 +55,12 @@ export class UnitButtonComponent {
         'text': [''],
       }),
       'residence': [null, Validators.required],
-      'Agriculture': [null, Validators.required],
-      'Factory': [null, Validators.required],
-      'Commerce': [null, Validators.required],
-      'WaterUsage': [null, Validators.required],
-      'Disaster': [null, Validators.required],
-      'Closing': [null, Validators.required],
-
+      'agriculture': [null, Validators.required],
+      'factory': [null, Validators.required],
+      'commerce': [null, Validators.required],
+      'waterUsage': [null, Validators.required],
+      'disaster': [null, Validators.required],
+      'closing': [null, Validators.required],
     });
   }
 
