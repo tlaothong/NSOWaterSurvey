@@ -53,7 +53,15 @@ export class UnitButtonComponent {
       'comments': fb.group({
         'at': [null],
         'text': [''],
-      })
+      }),
+      'residence': [null, Validators.required],
+      'Agriculture': [null, Validators.required],
+      'Factory': [null, Validators.required],
+      'Commerce': [null, Validators.required],
+      'WaterUsage': [null, Validators.required],
+      'Disaster': [null, Validators.required],
+      'Closing': [null, Validators.required],
+
     });
   }
 
