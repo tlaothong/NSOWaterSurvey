@@ -73,7 +73,6 @@ export class CommercialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
-
   }
 
   public isValid(name: string): boolean {
