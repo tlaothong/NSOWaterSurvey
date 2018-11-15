@@ -18,3 +18,7 @@ export const getFactorialCategory = createSelector(
     getHouseHoldFeatureState,
     state => state.factorialCategory,
 );
+export const getWaterSource = createSelector(
+    getHouseHoldFeatureState,
+    state => state.waterSources,
+);

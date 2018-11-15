@@ -7,20 +7,21 @@ export enum HouseHoldTypes {
     Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
     SetFactorialCategory = "[HH] Set Factorial Category",
+    SetWaterSource = "[HH] Set WaterSource",
 }
 
 
 
 export class LoadHouseHoldList implements Action {
     readonly type = HouseHoldTypes.LoadList;
-    
+
     constructor() {
     }
 }
 
 export class LoadHouseHoldListSuccess implements Action {
     readonly type = HouseHoldTypes.LoadListSuccess;
-    
+
     constructor() {
     }
 }
@@ -46,6 +47,13 @@ export class SetFactorialCategory implements Action {
     }
 }
 
+export class SetWaterSources implements Action {
+    readonly type = HouseHoldTypes.SetWaterSource;
+
+    constructor(public payload: any) {
+    }
+}
+
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -53,4 +61,5 @@ export type HouseHoldActionsType =
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
     | SetFactorialCategory
+    | SetWaterSources
     ;
