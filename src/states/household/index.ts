@@ -23,3 +23,7 @@ export const getCommercialServiceType = createSelector(
     getHouseHoldFeatureState,
     state => state.commercialServiceType,
 );
+export const getResidentialGardeningUse = createSelector(
+    getHouseHoldFeatureState,
+    state => state.residentialGardeningUse,
+);

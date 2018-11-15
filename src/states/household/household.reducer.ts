@@ -91,6 +91,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 commercialServiceType: action.payload,
             };
+        case HouseHoldTypes.SetresidentialGardeningUse:
+            return {
+                ...state,
+                residentialGardeningUse: action.payload,
+            };
         default:
             return state;
     }
