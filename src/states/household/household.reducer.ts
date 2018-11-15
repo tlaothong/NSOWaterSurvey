@@ -85,6 +85,16 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 factorialCategory: action.payload,
             };
+        case HouseHoldTypes.SetCommercialServiceType:
+            return {
+                ...state,
+                commercialServiceType: action.payload,
+            };
+        case HouseHoldTypes.SetresidentialGardeningUse:
+            return {
+                ...state,
+                residentialGardeningUse: action.payload,
+            };
         case HouseHoldTypes.SetWaterSource:
             return {
                 ...state,
