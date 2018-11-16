@@ -38,3 +38,11 @@ export const getPlant = createSelector(
     getHouseHoldFeatureState,
     state => state.plant,
 );
+export const getRubberTreeSelectPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.rubberTreeSelectPlant,
+);
+export const getPerennialPlantSelectPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.perennialPlantSelectPlant,
+);
