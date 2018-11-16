@@ -4,7 +4,6 @@ import { IonicPage, NavParams, Content, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetPlant } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -44,9 +43,9 @@ export class SearchDropdownPage {
 
   close() {
     this.viewCtrl.dismiss(this.listData);
-    console.log("Data");
-    console.log(this.listData);
-    this.store.dispatch(new SetPlant(this.listData));
+    // console.log("Data");
+    // console.log(this.listData);
+    // this.store.dispatch(new SetPlant(this.listData));
 
   }
   select(id, name) {

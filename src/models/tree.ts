@@ -3,6 +3,13 @@ export interface Tree {
     name: string;
 }
 
+export const EX_RICH_LIST: Tree[] = [
+    { id: '442', name: 'ข้าว' },
+];
+
+export const EX_RUBBER_LIST: Tree[] = [
+    { id: '443', name: 'ยางพารา' },
+];
 export const EX_TREERAI_LIST: Tree[] = [
     { id: '391', name: 'กก' },
     { id: '392', name: 'กระจูด' },

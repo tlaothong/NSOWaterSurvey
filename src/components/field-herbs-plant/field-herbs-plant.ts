@@ -8,7 +8,6 @@ import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getAgronomyPlantDoing, getPlant } from '../../states/household';
 
 /**
  * Generated class for the FieldHerbsPlantComponent component.
