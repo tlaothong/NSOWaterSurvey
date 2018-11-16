@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getBuildingSample } from '../../states/building';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -10,7 +14,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
     this.f = this.fb.group({
       'unitCount': [null, Validators.required],
       'unitAccess': [null, Validators.required],
@@ -27,6 +33,7 @@ export class BuidlingInformation2Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuidlingInformation2Page');
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
   public handleSubmit() {
     this.submitRequested = true;

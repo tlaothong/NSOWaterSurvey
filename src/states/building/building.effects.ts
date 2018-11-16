@@ -13,15 +13,15 @@ export class BuildingEffects {
     }
 
     @Effect()
-    public loadHouseHoldList$: Observable<Action> = this.action$.pipe(
+    public loadBuildingList$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.LoadList),
         mergeMap(action => Observable.of(new LoadBuildingListSuccess())),
     );
 
     @Effect()
-    public loadHouseHoldSample$: Observable<Action> = this.action$.pipe(
+    public loadBuildingSample$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.Load),
-        mergeMap(action => this.cloudSync.loadHousHoldSampleTestData().pipe(
+        mergeMap(action => this.cloudSync.loadBuildingSampleTestData().pipe(
                 map(data => new LoadBuildingSampleSuccess(data)),
             )
         ),
