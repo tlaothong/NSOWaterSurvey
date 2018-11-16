@@ -35,25 +35,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
   constructor(public modalCtrl: ModalController, public fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
-    console.log("dddd", JSON.stringify(this.FormItem.value))
-  }
-
-  ionViewDidLoad() {
-    
-    // this.store.dispatch(new SetPlant(this.FormItem.get('dataPlant$').value));
-  }
-
-
-  submitRequest() {
-    this.submitRequested = true
-    this.dataPlant$.subscribe(data => this.Plant = data);
-    console.log("xxxxx");
-    console.log(this.Plant);
-  }
-
-  public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    // console.log("dddd",JSON.stringify(this.FormItem.value))
   }
 
   // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
@@ -86,11 +68,19 @@ export class ModalPlantComponent implements ISubmitRequestable {
     modal.onDidDismiss(data => {
       if (data) {
         var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
+        var arr = [];
+        adata.forEach(values => {
+          arr.push({
+            "code":values.split(".")[0],
+            "name":values.split(".")[1]
+          })
+        });
+        this.shownData = arr;
+        // this.shownData = adata.map(it => it.split("."));
       }
     });
     modal.present();
-    console.log(this.fb);
+    
   }
 
   private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {
