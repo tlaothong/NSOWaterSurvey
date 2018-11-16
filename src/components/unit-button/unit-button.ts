@@ -40,10 +40,10 @@ export class UnitButtonComponent {
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'access': [null, Validators.required],
-        'hasPlumbing': [false, Validators.required],
+        'hasPlumbing': [null, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
-        'hasGroundWater': [false, Validators.required],
+        'hasGroundWater': [null, Validators.required],
         'hasGroundWaterMeter': [false, Validators.required],
       }),
       'isHouseHold': [null, Validators.required],
