@@ -15,32 +15,51 @@ export class BuildingInformation1Page {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getBuildingSample).pipe(map(s => s.true));
+  private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
     this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
-      'road': [null, Validators.required],
-      'alley': [null, Validators.required],
-      'name': [null, Validators.required],
-      'houseNo': [null, Validators.required],
-      'latitude': [null, Validators.required],
-      'longitude': [null, Validators.required],
-      'buildingType': [null, Validators.required],
-      'other': [null, Validators.required],
-      'access': this.fb.array([]),
-      'vacancyCount': [null, Validators.required],
-      'abandonedCount': [null, Validators.required],
+      'road': [null],
+      'alley': [null],
+      'name': [null],
+      'houseNo': [null],
+      'latitude': [null],
+      'longitude': [null],
+      'buildingType': [null],
+      'other': [null],
+      'access': [null],
+      'vacancyCount': [null],
+      'abandonedCount': [null],
       'unitCount': [null],
       'unitAccess': [null],
       'vacantRoomCount': [null],
       'occupiedRoomCount': [null],
-      'waterQuantity': this.fb.group([]),
+      'waterQuantity': this.fb.group([{
+        'waterQuantity': [null, Validators.required],
+        'cubicMeterPerMonth': [null, Validators.required],
+        'waterBill': [null, Validators.required]
+      }]),
       'floorCount': [null],
-      'comments': this.fb.array([]),
-      'recCtrl': this.fb.group([]),
+      'comments': this.fb.array([
+        {
+          'at': [null],
+          'text': [null],
+        }
+      ]),
+      'recCtrl': this.fb.group([{
+        'createdDateTime': [null],
+        'lastModified': [null],
+        'deletedDateTime': [null],
+        'lastUpload': [null],
+        'lastDownload': [null],
+        'logs': fb.array([{
+          'at': [null],
+          'operationCode': [null],
+        }]),
+      }]),
       '_id': [null],
 
     });

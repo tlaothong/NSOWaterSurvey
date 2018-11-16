@@ -18,16 +18,48 @@ export class BuidlingInformation2Page {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
     this.f = this.fb.group({
+      'ea': [null],
+      'ordering': [null],
+      'road': [null],
+      'alley': [null],
+      'name': [null],
+      'houseNo': [null],
+      'latitude': [null],
+      'longitude': [null],
+      'buildingType': [null],
+      'other': [null],
+      'vacancyCount': [null],
+      'access': [null],
+      'abandonedCount': [null],
+      'comments': fb.array([
+        {
+          'at': [null],
+          'text': [null],
+        }
+      ]),
+      'recCtrl': fb.group({
+        'createdDateTime': [null],
+        'lastModified': [null],
+        'deletedDateTime': [null],
+        'lastUpload': [null],
+        'lastDownload': [null],
+        'logs': fb.array([{
+          'at': [null],
+          'operationCode': [null],
+        }]),
+      }),
+      //
+      'vacantRoomCount': [null, Validators.required],
       'unitCount': [null, Validators.required],
       'unitAccess': [null, Validators.required],
-      'vacantRoomCount': [null, Validators.required],
       'occupiedRoomCount': [null, Validators.required],
-      'plumbingUsage': this.fb.group({
+      'waterQuantity': this.fb.group({
         'waterQuantity': [null, Validators.required],
         'cubicMeterPerMonth': [null, Validators.required],
         'waterBill': [null, Validators.required]
       }),
       'floorCount': [null, Validators.required],
+      '_id': [null],
     });
   }
 
