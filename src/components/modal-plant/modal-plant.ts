@@ -29,13 +29,35 @@ export class ModalPlantComponent implements ISubmitRequestable {
   private submitRequested: boolean;
   shownData: string[];
   text: string;
-  Plant:string[];
+  plant: string[];
   private dataPlant$ = this.store.select(getPlant);
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
-    // console.log("dddd",JSON.stringify(this.FormItem.value))
+    console.log("dddd", JSON.stringify(this.FormItem.value))
+  }
+
+  ionViewDidLoad() {
+
+    // this.store.dispatch(new SetPlant(this.FormItem.get('dataPlant$').value));
+  }
+
+
+
+  submitRequest() {
+    this.submitRequested = true
+    this.plant = this.shownData;
+    this.shownData = [""];
+    this.store.dispatch(new SetPlant(this.plant));
+    // this.dataPlant$.subscribe(data => this.Plant = data);
+    console.log("Send plant");
+    console.log(this.plant);
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
@@ -71,16 +93,16 @@ export class ModalPlantComponent implements ISubmitRequestable {
         var arr = [];
         adata.forEach(values => {
           arr.push({
-            "code":values.split(".")[0],
-            "name":values.split(".")[1]
+            "code": values.split(".")[0],
+            "name": values.split(".")[1]
           })
         });
         this.shownData = arr;
-        // this.shownData = adata.map(it => it.split("."));
+        // this.shownData = adata.map(it => it.split("."));     
       }
     });
     modal.present();
-    
+    console.log(this.fb);
   }
 
   private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {
