@@ -11,9 +11,10 @@ export enum HouseHoldTypes {
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
     SetresidentialGardeningUse = "residentialGardeningUse",
     SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
-    SetRubberTreeSelectPlant = "[HH] Set Rubbertree SelectPlant",
-    SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant SelectPlant",
-    SetPlant = "[HH] Set Plant",
+    SetRubberTreeSelectPlant = "[HH] Set Rubbertree Select Plant",
+    SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
+    SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
+    SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
 }
 
 
@@ -88,14 +89,20 @@ export class SetPerennialPlantSelectPlant implements Action {
     constructor(public payload: any[]) {
     }
 }
-export class SetPlant implements Action {
-    readonly type = HouseHoldTypes.SetPlant;
+
+export class SetRicePlantSelectPlant implements Action {
+    readonly type = HouseHoldTypes.SetRicePlantSelectPlant;
 
     constructor(public payload: any[]) {
     }
 }
 
+export class SetAgronomyPlantSelectPlant implements Action {
+    readonly type = HouseHoldTypes.SetAgronomyPlantSelectPlant;
 
+    constructor(public payload: any[]) {
+    }
+}
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -108,5 +115,6 @@ export type HouseHoldActionsType =
     | SetAgronomyPlantDoing
     | SetRubberTreeSelectPlant
     | SetPerennialPlantSelectPlant
-    | SetPlant
+    | SetRicePlantSelectPlant
+    | SetAgronomyPlantSelectPlant
     ;

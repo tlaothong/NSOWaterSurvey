@@ -5,8 +5,8 @@ import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown'
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetPlant } from '../../states/household/household.actions';
-import { getPlant } from '../../states/household';
+import { SetAgronomyPlantSelectPlant, SetRicePlantSelectPlant, SetRubberTreeSelectPlant, SetPerennialPlantSelectPlant } from '../../states/household/household.actions';
+
 
 /**
  * Generated class for the ModalPlantComponent component.
@@ -30,7 +30,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
   shownData: string[];
   text: string;
   plant: string[];
-  private dataPlant$ = this.store.select(getPlant);
+  selectPlants: string[];
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder, private store: Store<HouseHoldState>) {
 
@@ -47,10 +47,31 @@ export class ModalPlantComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true
-    this.plant = this.shownData;
-    this.shownData = [""];
-    this.store.dispatch(new SetPlant(this.plant));
-    // this.dataPlant$.subscribe(data => this.Plant = data);
+    this.selectPlants = this.shownData;
+    this.plant = this.selectPlants;
+    this.selectPlants = [""];
+
+    switch (this.InputList) {
+      case "EX_RICH_LIST":
+        this.store.dispatch(new SetRicePlantSelectPlant(this.plant));
+        break;
+      case "EX_TREERAI_LIST":
+        this.store.dispatch(new SetAgronomyPlantSelectPlant(this.plant));
+        break;
+      case "EX_RUBBER_LIST":
+        this.store.dispatch(new SetRubberTreeSelectPlant(this.plant));
+        break;
+      case "EX_TREETON_LIST":
+        this.store.dispatch(new SetPerennialPlantSelectPlant(this.plant));
+        break;
+      default:
+        break;
+    }
+
+    if (this.InputList = "") {
+      this.store.dispatch(new SetAgronomyPlantSelectPlant(this.plant));
+    }
+
     console.log("Send plant");
     console.log(this.plant);
   }

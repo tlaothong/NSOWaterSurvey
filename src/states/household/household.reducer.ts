@@ -33,9 +33,10 @@ export interface HouseHoldState {
     // animalFarmWaterSources: any,
     // aquaticAnimalsWaterSources: any,
     waterSources: any,
-    rubbertreeSelectPlant: any[],
+    rubberTreeSelectPlant: any[],
     perennialPlantSelectPlant: any[],
-    plant: any[],
+    ricePlantSelectPlant: any[],
+    agronomyPlantSelectPlant: any[],
 }
 
 const initialState: HouseHoldState = {
@@ -70,9 +71,11 @@ const initialState: HouseHoldState = {
     // animalFarmWaterSources: null,
     // aquaticAnimalsWaterSources: null,
     waterSources: null,
-    rubbertreeSelectPlant: [],
+    rubberTreeSelectPlant: [],
     perennialPlantSelectPlant: [],
-    plant: [],
+    ricePlantSelectPlant: [],
+    agronomyPlantSelectPlant: [],
+
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -111,17 +114,22 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 agronomyPlantDoing: action.payload,
             };
-        case HouseHoldTypes.SetPlant:
+        case HouseHoldTypes.SetRicePlantSelectPlant:
             return {
                 ...state,
-                plant: action.payload,
+                ricePlantSelectPlant: action.payload,
             };
-        case HouseHoldTypes.SetrubbertreeSelectPlant:
+        case HouseHoldTypes.SetAgronomyPlantSelectPlant:
             return {
                 ...state,
-                rubbertreeSelectPlant: action.payload,
+                agronomyPlantSelectPlant: action.payload,
             };
-        case HouseHoldTypes.SetperennialPlantSelectPlant:
+        case HouseHoldTypes.SetRubberTreeSelectPlant:
+            return {
+                ...state,
+                rubberTreeSelectPlant: action.payload,
+            };
+        case HouseHoldTypes.SetPerennialPlantSelectPlant:
             return {
                 ...state,
                 perennialPlantSelectPlant: action.payload,

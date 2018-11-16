@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantDoing, getPlant } from '../../states/household';
+import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -18,7 +18,7 @@ export class HerbsPlantPage {
   public f: FormGroup;
   shownData: string[];
   Plant: string[];
-  
+
 
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
@@ -42,7 +42,7 @@ export class HerbsPlantPage {
     this.formData$.subscribe(data => this.f.setValue(data));
     // console.log(this.f.value);
 
-    
+
 
   }
 
