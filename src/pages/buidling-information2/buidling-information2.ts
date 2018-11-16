@@ -28,8 +28,8 @@ export class BuidlingInformation2Page {
       'longitude': [null],
       'buildingType': [null],
       'other': [null],
-      'vacancyCount': [null],
       'access': [null],
+      'vacancyCount': [null],
       'abandonedCount': [null],
       'comments': fb.array([
         {
