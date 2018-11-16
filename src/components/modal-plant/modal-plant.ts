@@ -26,7 +26,7 @@ export class ModalPlantComponent {
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
     
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
-    console.log("dddd",JSON.stringify(this.FormItem.value))
+    // console.log("dddd",JSON.stringify(this.FormItem.value))
   }
 
   // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
@@ -52,19 +52,25 @@ export class ModalPlantComponent {
     
   }
 
-
   model() {
-   
     const modal = this.modalCtrl.create("SearchDropdownPage",
       { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
     modal.onDidDismiss(data => {
       if (data) {
         var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
+        var arr = [];
+        adata.forEach(values => {
+          arr.push({
+            "code":values.split(".")[0],
+            "name":values.split(".")[1]
+          })
+        });
+        this.shownData = arr;
+        // this.shownData = adata.map(it => it.split("."));
       }
     });
     modal.present();
-    console.log(this.fb);
+    
   }
 
   private static setupPlantCountChanges(fb: FormBuilder, fg: FormGroup) {
