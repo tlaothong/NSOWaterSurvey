@@ -33,6 +33,8 @@ export interface HouseHoldState {
     // animalFarmWaterSources: any,
     // aquaticAnimalsWaterSources: any,
     waterSources: any,
+    rubbertreeSelectPlant: any[],
+    perennialPlantSelectPlant: any[],
     plant: any[],
 }
 
@@ -68,6 +70,8 @@ const initialState: HouseHoldState = {
     // animalFarmWaterSources: null,
     // aquaticAnimalsWaterSources: null,
     waterSources: null,
+    rubbertreeSelectPlant: [],
+    perennialPlantSelectPlant: [],
     plant: [],
 };
 
@@ -111,6 +115,16 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 plant: action.payload,
+            };
+        case HouseHoldTypes.SetrubbertreeSelectPlant:
+            return {
+                ...state,
+                rubbertreeSelectPlant: action.payload,
+            };
+        case HouseHoldTypes.SetperennialPlantSelectPlant:
+            return {
+                ...state,
+                perennialPlantSelectPlant: action.payload,
             };
         default:
             return state;
