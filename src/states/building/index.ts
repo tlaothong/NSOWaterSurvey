@@ -8,3 +8,4 @@ export const getBuildingSample = createSelector(
     getBuildingFeatureState,
     state => state.buildingSample,
 );
+
