@@ -1,6 +1,6 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ModalController } from 'ionic-angular';
+import { ModalController, NavParams } from 'ionic-angular';
 import { EX_TREEVET_LIST } from '../../models/tree';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { LocationComponent } from '../location/location';
@@ -24,9 +24,9 @@ export class FieldHerbsPlantComponent {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
+  @Input() shownData2: any[];
   shownData = EX_TREEVET_LIST;
-  shownData2: any=[];
-  private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
+  // private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
   private submitRequested: boolean;
 
   @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
@@ -35,7 +35,7 @@ export class FieldHerbsPlantComponent {
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   // private dataPlant$ = this.store.select(getPlant);
   // private agronomyPlantDoing$ = this.store.select(getAgronomyPlantDoing);
-  constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, private store: Store<HouseHoldState>) {
     this.FormItem = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
 
   }
@@ -54,15 +54,17 @@ export class FieldHerbsPlantComponent {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DryCropPlantingPage');
+    // this.shownData2 = this.navParams.get('shownData2');
+    // this.GetPlant$.subscribe(data => this.shownData2 = data);
+    // console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+    // console.log(this.shownData2);
+    // console.log('ionViewDidLoad DryCropPlantingPage');
     // TODO
     // this.agronomyPlantDoing$.subscribe(data => this.FormItem.get('otherPlantings').setValue(data));
     // console.log(this.FormItem.value);
     // this.dataPlant$.subscribe(data => this.Plant = data);
-    // console.log("xxxxx");
-    // console.log(this.Plant);
-    this.GetPlant$.subscribe(data => this.shownData2 = data);
-    console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+    this.shownData2 = this.navParams.get('shownData2');
+    console.log("shownData2Compo");
     console.log(this.shownData2);
 
 
