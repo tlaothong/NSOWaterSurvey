@@ -24,7 +24,7 @@ export class FieldHerbsPlantComponent {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
-  @Input() shownData2: any=[];
+  @Input() forwardListPlant: any = [];
   shownData = EX_TREEVET_LIST;
   // private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
   private submitRequested: boolean;
@@ -54,20 +54,9 @@ export class FieldHerbsPlantComponent {
   }
 
   ionViewDidLoad() {
-    // this.shownData2 = this.navParams.get('shownData2');
-    // this.GetPlant$.subscribe(data => this.shownData2 = data);
-    // console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
-    // console.log(this.shownData2);
-    // console.log('ionViewDidLoad DryCropPlantingPage');
-    // TODO
-    // this.agronomyPlantDoing$.subscribe(data => this.FormItem.get('otherPlantings').setValue(data));
-    // console.log(this.FormItem.value);
-    // this.dataPlant$.subscribe(data => this.Plant = data);
-    this.shownData2 = this.navParams.get('sumData');
+    // this.forwardListPlant = this.navParams.get('listSumData');
     console.log("shownData2Compo");
-    console.log(this.shownData2);
-    // console.log("Hearb");
-    // console.log(this.GetPlant$);
+    console.log(this.forwardListPlant);
 
   }
 

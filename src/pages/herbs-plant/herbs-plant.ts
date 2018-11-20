@@ -24,11 +24,11 @@ export class HerbsPlantPage {
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
   private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
-  shownData2: any = [];
-  shownData3: any = [];
-  shownData4: any = [];
-  shownData5: any = [];
-  sumData: any = [];
+  listDryCropData: any = [];
+  listPerenialData: any = [];
+  listRiceData: any = [];
+  listRubberData: any = [];
+  listSumData: any = [];
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -47,14 +47,14 @@ export class HerbsPlantPage {
     // TODO
     this.formData$.subscribe(data => this.f.setValue(data));
     // this.GetPlant$.subscribe(data =>this.f.get('fields').setValue(data));
-    this.GetPlantDrycrop$.subscribe(data => this.shownData2 = data);
-    this.GetPlantPerennial$.subscribe(data => this.shownData3 = data);
-    this.GetPlantRice$.subscribe(data => this.shownData4 = data);
-    this.GetPlantRubber$.subscribe(data => this.shownData5 = data);
-    var sum = this.shownData2.concat(this.shownData3).concat(this.shownData4).concat(this.shownData5)
-    this.sumData = sum;
+    this.GetPlantRice$.subscribe(data => this.listRiceData = data);
+    this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
+    this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
+    this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
+    var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
+    this.listSumData = sum;
     console.log('Sumsss : ');
-    console.log(this.sumData)
+    console.log(this.listSumData)
 
   }
 

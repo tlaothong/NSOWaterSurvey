@@ -101,7 +101,7 @@
 
       <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
         <div *ngSwitchCase="false">
-          <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="shownData2" InputLimit="1" [FormItem]="FormItem.get('primaryPlant')"></modal-plant>
+          <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1" [FormItem]="FormItem.get('primaryPlant')"></modal-plant>
         </div>
       </div>
 
