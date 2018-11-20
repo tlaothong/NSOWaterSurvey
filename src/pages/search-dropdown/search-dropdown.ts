@@ -31,8 +31,8 @@ export class SearchDropdownPage {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group(
       {
-            'code': [null],
-            'name': [null]
+        'code': [null],
+        'name': [null]
       },
     );
   }
@@ -43,42 +43,20 @@ export class SearchDropdownPage {
 
   close() {
     this.viewCtrl.dismiss(this.listData);
-    // console.log("Data");
-    // console.log(this.listData);
-    // this.store.dispatch(new SetPlant(this.listData));
-
   }
+  
   select(id, name) {
-    if (this.listData.filter(data => data == (id + '.' + name)).length < 1) {
-      if (this.type != "TREEVET2" && this.type != "TREEDOK2") {
-        if (this.listData.length < this.limit)
-          this.listData.push(id + '.' + name);
-        else {
-          const alert = this.alertCtrl.create({
-            title: 'สามารถเลือกได้สูงสุด ' + this.limit + ' ชนิด',
-            buttons: [{
-              text: 'ตกลง',
-            }]
-          });
-          alert.present();
-        }
-      } else {
-        if (this.listData.length < 1) {
-          this.listData = [];
-          this.listData.push(id + '.' + name);
-        }
-        else {
-          const alert = this.alertCtrl.create({
-            title: 'สามารถเลือกได้สูงสุด 1 ชนิด',
-            buttons: [{
-              text: 'ตกลง',
-              handler: () => {
-
-              }
-            }]
-          });
-          alert.present();
-        }
+    if (this.listData.filter(data => data.code == id).length < 1) {
+      if (this.listData.length < this.limit)
+        this.listData.push({ 'code': id, 'name': name });
+      else {
+        const alert = this.alertCtrl.create({
+          title: 'สามารถเลือกได้สูงสุด ' + this.limit + ' ชนิด',
+          buttons: [{
+            text: 'ตกลง',
+          }]
+        });
+        alert.present();
       }
       this.scrollToTop();
     } else {
@@ -102,7 +80,7 @@ export class SearchDropdownPage {
   }
   deselect(index) {
     this.listData.splice(index, 1)
-    
+
   }
   range(min, max, step) {
     step = step || 1;

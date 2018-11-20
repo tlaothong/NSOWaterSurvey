@@ -107,18 +107,19 @@ export class ModalPlantComponent implements ISubmitRequestable {
   model() {
 
     const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
+      { title: this.Title, selected: this.FormItem.get('plants').value, list: this.InputList, limit: this.InputLimit });
     modal.onDidDismiss(data => {
       if (data) {
-        var adata = data as Array<string>;
+        var adata = data as Array<any>;
         var arr = [];
-        adata.forEach(values => {
+        adata.forEach(value => {
           arr.push({
-            "code": values.split(".")[0],
-            "name": values.split(".")[1]
+            "code": value.code,
+            "name": value.name,
           })
         });
-        this.shownData = arr;
+        // this.shownData = arr;
+        this.FormItem.setValue({ 'plantingCount': arr.length, 'plants': arr });
         // this.shownData = adata.map(it => it.split("."));     
       }
     });

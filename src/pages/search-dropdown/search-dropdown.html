@@ -14,7 +14,7 @@
 <ion-content padding>
     <ion-list *ngFor="let w of range(1,listData.length)">
         <ion-item  (click)="deselect(w-1)">
-          <ion-label (click)="deselect(w-1)">{{listData[w-1]}}</ion-label>
+          <ion-label (click)="deselect(w-1)">{{listData[w-1].code}} : {{listData[w-1].name}}</ion-label>
           <ion-checkbox (click)="deselect(w-1)" disabled checked item-end></ion-checkbox>
           </ion-item>
       </ion-list>
