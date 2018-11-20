@@ -24,7 +24,7 @@ export class FieldHerbsPlantComponent {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
-  @Input() shownData2: any[];
+  @Input() shownData2: any=[];
   shownData = EX_TREEVET_LIST;
   // private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
   private submitRequested: boolean;
@@ -63,11 +63,9 @@ export class FieldHerbsPlantComponent {
     // this.agronomyPlantDoing$.subscribe(data => this.FormItem.get('otherPlantings').setValue(data));
     // console.log(this.FormItem.value);
     // this.dataPlant$.subscribe(data => this.Plant = data);
-    this.shownData2 = this.navParams.get('shownData2');
+    this.shownData2 = this.navParams.get('sumData');
     console.log("shownData2Compo");
     console.log(this.shownData2);
-
-
     // console.log("Hearb");
     // console.log(this.GetPlant$);
 

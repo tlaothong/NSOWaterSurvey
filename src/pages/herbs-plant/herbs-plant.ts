@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantSelectPlant } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -20,9 +20,15 @@ export class HerbsPlantPage {
   Plant: string[];
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
-  private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
- 
+  private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
+  private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
+  private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
+  private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
   shownData2: any = [];
+  shownData3: any = [];
+  shownData4: any = [];
+  shownData5: any = [];
+  sumData: any = [];
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -41,10 +47,15 @@ export class HerbsPlantPage {
     // TODO
     this.formData$.subscribe(data => this.f.setValue(data));
     // this.GetPlant$.subscribe(data =>this.f.get('fields').setValue(data));
-    this.GetPlant$.subscribe(data => this.shownData2 = data);
-    console.log('shownData2');
-    console.log(this.shownData2);
-    
+    this.GetPlantDrycrop$.subscribe(data => this.shownData2 = data);
+    this.GetPlantPerennial$.subscribe(data => this.shownData3 = data);
+    this.GetPlantRice$.subscribe(data => this.shownData4 = data);
+    this.GetPlantRubber$.subscribe(data => this.shownData5 = data);
+    var sum = this.shownData2.concat(this.shownData3).concat(this.shownData4).concat(this.shownData5)
+    this.sumData = sum;
+    console.log('Sumsss : ');
+    console.log(this.sumData)
+
   }
 
   public handleSubmit() {

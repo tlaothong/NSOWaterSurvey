@@ -72,7 +72,7 @@
 
     <div *ngIf="f.get('doing').value && f.get('fieldCount').value > 0">
       <div *ngFor="let far of f.get('fields').controls; let i = index">
-        <field-herbs-plant [no]="i + 1" [shownData2]="shownData2" [FormItem]="far"></field-herbs-plant>
+        <field-herbs-plant [no]="i + 1" [shownData2]="sumData" [FormItem]="far"></field-herbs-plant>
       </div>
     </div>
 

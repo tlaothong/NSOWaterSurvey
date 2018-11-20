@@ -80,7 +80,6 @@ export class SearchDropdownPage {
   }
   deselect(index) {
     this.listData.splice(index, 1)
-
   }
   range(min, max, step) {
     step = step || 1;
