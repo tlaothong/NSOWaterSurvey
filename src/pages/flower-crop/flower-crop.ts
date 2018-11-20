@@ -58,6 +58,16 @@ export class FlowerCropPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
+    console.log(this.flowerCropFrm.value);
+    let fields = this.flowerCropFrm.get('fields').value as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+      if (f.plantings && f.plantings.plants) {
+        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+      }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
   }
 
   public isValid(name: string): boolean {

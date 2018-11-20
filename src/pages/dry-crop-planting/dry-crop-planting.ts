@@ -55,6 +55,9 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
+    console.log("TTTTTTTTTTTTT");
+    console.log(selected);
+
   }
 
   public isValid(name: string): boolean {

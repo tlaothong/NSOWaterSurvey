@@ -8,6 +8,7 @@ import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { getAgronomyPlantSelectPlant } from '../../states/household';
 
 /**
  * Generated class for the FieldHerbsPlantComponent component.
@@ -24,21 +25,17 @@ export class FieldHerbsPlantComponent {
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
   shownData = EX_TREEVET_LIST;
-  shownData2: string[];
-
+  shownData2: any=[];
+  private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
   private submitRequested: boolean;
 
   @ViewChildren(FieldAreaComponent) private fieldAreas: FieldAreaComponent[];
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
-
   // private dataPlant$ = this.store.select(getPlant);
   // private agronomyPlantDoing$ = this.store.select(getAgronomyPlantDoing);
-
-
   constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
-
     this.FormItem = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
 
   }
@@ -49,7 +46,7 @@ export class FieldHerbsPlantComponent {
       'area': FieldAreaComponent.CreateFormGroup(fb),
       'irrigationField': ['', Validators.required], //แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
-      'mixedWithPrimaryPlantCode': [null, Validators.required], //ลักษณะการปลูกเป็นแบบใด
+      'primaryPlant': ModalPlantComponent.CreateFormGroup(fb), //ลักษณะการปลูกเป็นแบบใด
       'thisPlantOnly': [null, Validators.required],
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
@@ -64,10 +61,15 @@ export class FieldHerbsPlantComponent {
     // this.dataPlant$.subscribe(data => this.Plant = data);
     // console.log("xxxxx");
     // console.log(this.Plant);
+    this.GetPlant$.subscribe(data => this.shownData2 = data);
+    console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+    console.log(this.shownData2);
 
+
+    // console.log("Hearb");
+    // console.log(this.GetPlant$);
 
   }
-
 
   submitRequest() {
     this.submitRequested = true;
@@ -81,41 +83,4 @@ export class FieldHerbsPlantComponent {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage",
-  //     { title: "พืชผัก สมุนไพร", selected: [], list: EX_TREEVET_LIST, limit: 5 });
-
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
-
-  model2() {
-    const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: "พืชที่ปลูกหลัก", selected: [], list: [], limit: 5 });
-
-    modal.onDidDismiss(data => {
-      if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
-
-        // var adata = data as Array<string>;
-        // this.shownData = adata.map(it => it.split(".")[1]);
-      }
-    });
-
-    modal.present();
-  }
-
 }

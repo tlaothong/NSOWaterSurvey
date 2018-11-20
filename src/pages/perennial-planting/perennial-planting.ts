@@ -4,8 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantDoing } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetPerennialPlantSelectPlant } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -40,6 +41,17 @@ export class PerennialPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldPerenialPlanting.forEach(it => it.submitRequest());
+    console.log(this.PerennialPlantingFrm.value);
+    let fields = this.PerennialPlantingFrm.get('fields').value as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+      if (f.plantings && f.plantings.plants) {
+        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+      }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
+    this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
   }
 
   public isValid(name: string): boolean {
@@ -80,7 +92,7 @@ export class PerennialPlantingPage {
   // model() {
   //   const modal = this.modalCtrl.create("SearchDropdownPage",
   //     { title: "พืชต้น", selected: [], list: EX_TREETON_LIST , limit: 5 });
-  
+
   //   modal.onDidDismiss(data => {
   //     if (data) {
   //       // this.FormItem = data;

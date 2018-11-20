@@ -43,7 +43,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'thisPlantOnly': [null, Validators.required],
-      'mixedWithPrimaryPlantCode': [null, Validators.required],
+      'primaryPlant': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
