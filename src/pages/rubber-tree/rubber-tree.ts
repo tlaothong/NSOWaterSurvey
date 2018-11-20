@@ -1,3 +1,5 @@
+import { SetRubberTreeSelectPlant } from './../../states/household/household.actions';
+import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -19,7 +21,7 @@ export class RubberTreePage {
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
- 
+  DataList = EX_RUBBER_LIST;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
 
@@ -45,6 +47,9 @@ export class RubberTreePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
+    console.log("TTTTTTTTTTTTT");
+    console.log(this.DataList);
 
   }
 
