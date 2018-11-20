@@ -74,7 +74,7 @@ export class SearchDropdownPage {
   }
   setFilteredItems() {
     this.searchDisplay = this.searchListData.filter((tree) => {
-      let temp = '' + tree.id + tree.name;
+      let temp = '' + tree.code + tree.name;
       return temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
   }

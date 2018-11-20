@@ -8,7 +8,6 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
 import { EX_TREERAI_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { SetAgronomyPlantDoing } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 
 
