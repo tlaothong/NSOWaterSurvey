@@ -89,7 +89,7 @@
 
       <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
         <div *ngSwitchCase="false">
-          <modal-plant Title="ไม้ดอก ไม่ประดับ" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('otherPlantings')"></modal-plant>
+          <modal-plant Title="ไม้ดอก ไม่ประดับ" [InputList]="s" InputLimit="5" [FormItem]="FormItem.get('otherPlantings')"></modal-plant>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
 
 /**
  * Generated class for the FieldFlowerCropComponent component.
@@ -21,6 +22,7 @@ import { ModalPlantComponent } from '../modal-plant/modal-plant';
 export class FieldFlowerCropComponent implements ISubmitRequestable {
 
   @Input('no') text: string;
+  @Input() s: any[];
   @Input() public FormItem: FormGroup;
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
@@ -60,5 +62,4 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 }

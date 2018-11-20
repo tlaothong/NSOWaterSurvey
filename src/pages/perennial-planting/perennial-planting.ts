@@ -7,6 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getAgronomyPlantDoing } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetPerennialPlantSelectPlant } from '../../states/household/household.actions';
+import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({
@@ -52,6 +53,8 @@ export class PerennialPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
+    console.log("123123");
+    console.log(selected);
   }
 
   public isValid(name: string): boolean {
