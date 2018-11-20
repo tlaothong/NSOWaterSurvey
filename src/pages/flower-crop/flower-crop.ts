@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -14,12 +14,17 @@ import { map } from 'rxjs/operators';
   templateUrl: 'flower-crop.html',
 })
 export class FlowerCropPage {
+
+  
   @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
   private submitRequested: boolean;
   flowerCropFrm: FormGroup;
   shownData: string[];
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+  private GetPlant$ = this.store.select(getPerennialPlantSelectPlant);
+
+  shownData2: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
@@ -35,6 +40,9 @@ export class FlowerCropPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
     this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
+    this.GetPlant$.subscribe(data => this.shownData2 = data);
+    console.log('shownData2');
+    console.log(this.shownData2);
   }
 
   model() {
