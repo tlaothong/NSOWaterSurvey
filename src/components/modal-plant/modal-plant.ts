@@ -22,7 +22,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
 
 
   @Input() InputList;
-  @Input() InputLimit;
+  @Input() InputLimit: any[];
   @Input() Title;
   @Input() public FormItem: FormGroup;
 

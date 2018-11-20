@@ -21,7 +21,8 @@ export class HerbsPlantPage {
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
   private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
-
+ 
+  shownData2: any = [];
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -40,7 +41,10 @@ export class HerbsPlantPage {
     // TODO
     this.formData$.subscribe(data => this.f.setValue(data));
     // this.GetPlant$.subscribe(data =>this.f.get('fields').setValue(data));
-
+    this.GetPlant$.subscribe(data => this.shownData2 = data);
+    console.log('shownData2');
+    console.log(this.shownData2);
+    
   }
 
   public handleSubmit() {
