@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -18,10 +18,9 @@ export class HerbsPlantPage {
   public f: FormGroup;
   shownData: string[];
   Plant: string[];
-
-
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
+  private GetPlant$ = this.store.select(getAgronomyPlantSelectPlant);
 
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
@@ -40,16 +39,23 @@ export class HerbsPlantPage {
     console.log('ionViewDidLoad HerbsPlantPage');
     // TODO
     this.formData$.subscribe(data => this.f.setValue(data));
-    // console.log(this.f.value);
-
-
+    // this.GetPlant$.subscribe(data =>this.f.get('fields').setValue(data));
 
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldHerbsPlant.forEach(it => it.submitRequest());
-
+    console.log(this.f.value);
+    let fields = this.f.get('fields').value as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+      if (f.plantings && f.plantings.plants) {
+        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+      }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
   }
 
   public isValid(name: string): boolean {
