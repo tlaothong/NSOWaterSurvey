@@ -39,41 +39,10 @@ export class ModalPlantComponent implements ISubmitRequestable {
   }
 
   ionViewDidLoad() {
-
-    // this.store.dispatch(new SetPlant(this.FormItem.get('dataPlant$').value));
   }
-
-
 
   submitRequest() {
     this.submitRequested = true
-    this.selectPlants = this.shownData;
-    this.plant = this.selectPlants;
-    this.selectPlants = [""];
-
-    switch (this.InputList) {
-      case "EX_RICH_LIST":
-        this.store.dispatch(new SetRicePlantSelectPlant(this.plant));
-        break;
-      case "EX_TREERAI_LIST":
-        this.store.dispatch(new SetAgronomyPlantSelectPlant(this.plant));
-        break;
-      case "EX_RUBBER_LIST":
-        this.store.dispatch(new SetRubberTreeSelectPlant(this.plant));
-        break;
-      case "EX_TREETON_LIST":
-        this.store.dispatch(new SetPerennialPlantSelectPlant(this.plant));
-        break;
-      default:
-        break;
-    }
-
-    if (this.InputList = "") {
-      this.store.dispatch(new SetAgronomyPlantSelectPlant(this.plant));
-    }
-
-    console.log("Send plant");
-    console.log(this.plant);
   }
 
   public isValid(name: string): boolean {
