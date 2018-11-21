@@ -206,7 +206,7 @@
             <ion-option [value]="1">
               50-100 / 0.05 - 0.1
             </ion-option>
-            <ion-option [value]="2">
+            <ion-option [value]="2"  *ngIf="FormItem.get('pumpType').value == 4">
               100-200 / 0.1 - 0.2
             </ion-option>
             <ion-option [value]="3">
@@ -215,7 +215,7 @@
             <ion-option [value]="4">
               101-200 / 0.1 - 0.3
             </ion-option>
-            <ion-option [value]="5">
+            <ion-option [value]="5" *ngIf="FormItem.get('pumpType').value == 4">
               200-300 / 0.2 - 0.4
             </ion-option>
             <ion-option [value]="6">
@@ -230,7 +230,7 @@
             <ion-option [value]="9" *ngIf="FormItem.get('pumpType').value == 1">
               200-500 / 0.2 - 0.7
             </ion-option>
-            <ion-option [value]="10">
+            <ion-option [value]="10" *ngIf="FormItem.get('pumpType').value == 4">
               301-400 / 0.4 - 0.5
             </ion-option>
             <ion-option [value]="11">
@@ -239,7 +239,7 @@
             <ion-option [value]="12">
               301-500 / 0.4 - 0.7
             </ion-option>
-            <ion-option [value]="13">
+            <ion-option [value]="13" *ngIf="FormItem.get('pumpType').value == 4">
               401-500 / 0.5 - 0.7
             </ion-option>
             <ion-option [value]="14">
@@ -251,7 +251,7 @@
             <ion-option [value]="16">
               501-700 / 0.7 - 0.9
             </ion-option>
-            <ion-option [value]="17">
+            <ion-option [value]="17" *ngIf="FormItem.get('pumpType').value == 4">
               501-700 / 0.7 - 1
             </ion-option>
             <ion-option [value]="18" *ngIf="FormItem.get('pumpType').value == 1">
@@ -263,7 +263,7 @@
             <ion-option [value]="20">
               701-800 / 0.9 - 1
             </ion-option>
-            <ion-option [value]="21">
+            <ion-option [value]="21" *ngIf="FormItem.get('pumpType').value == 4">
               701-1000 / 1 - 1.5
             </ion-option>
             <ion-option [value]="22">
@@ -272,7 +272,7 @@
             <ion-option [value]="23">
               1001-1200 / 1.5 - 1.7
             </ion-option>
-            <ion-option [value]="24" *ngIf="FormItem.get('pumpType').value == 1">
+            <ion-option [value]="24" *ngIf="FormItem.get('pumpType').value == 1 ||  FormItem.get('pumpType').value == 4"> 
               1001-1400 / 1.5 - 2
             </ion-option>
             <ion-option [value]="25">
@@ -281,10 +281,10 @@
             <ion-option [value]="26">
               1201-1400 / 1.7 - 2
             </ion-option>
-            <ion-option [value]="27" *ngIf="FormItem.get('pumpType').value == 1">
+            <ion-option [value]="27" *ngIf="FormItem.get('pumpType').value == 1 || FormItem.get('pumpType').value == 4">
               1401-2000 / 2 - 2.5
             </ion-option>
-            <ion-option [value]="28">
+            <ion-option [value]="28" *ngIf="FormItem.get('pumpType').value == 3">
               1000-2500 / 1 - 3
             </ion-option>
             <ion-option [value]="29">
@@ -293,13 +293,13 @@
             <ion-option [value]="30">
               1500 / 2
             </ion-option>
-            <ion-option [value]="31">
+            <ion-option [value]="31" *ngIf="FormItem.get('pumpType').value == 3">
               2000-4000 / 2 - 5
             </ion-option>
             <ion-option [value]="32">
               2000-4000 / 2.2 - 5.5
             </ion-option>
-            <ion-option [value]="33">
+            <ion-option [value]="33" *ngIf="FormItem.get('pumpType').value == 4">
               2001-2500 / 2.5 - 3.5
             </ion-option>
             <ion-option [value]="34" *ngIf="FormItem.get('pumpType').value == 1">
@@ -308,10 +308,10 @@
             <ion-option [value]="35">
               2001-2500 / 3 - 3.5
             </ion-option>
-            <ion-option [value]="36">
+            <ion-option [value]="36" *ngIf="FormItem.get('pumpType').value == 4">
               2501-3500 / 3 - 4.5
             </ion-option>
-            <ion-option [value]="37">
+            <ion-option [value]="37" *ngIf="FormItem.get('pumpType').value == 3">
               2501-3500 / 3 - 5
             </ion-option>
             <ion-option [value]="38">
@@ -323,33 +323,37 @@
             <ion-option [value]="40" *ngIf="FormItem.get('pumpType').value == 1">
               3001-5000 / 4 -7
             </ion-option>
-            <ion-option [value]="41">
+            <ion-option [value]="41" *ngIf="FormItem.get('pumpType').value == 4">
               3501-4500 / 4.5 -6
             </ion-option>
-            <ion-option [value]="42">
+            <ion-option [value]="42" *ngIf="FormItem.get('pumpType').value == 3">
               3501-4000 / 5 -5.5
             </ion-option>
             <ion-option [value]="43">
               3501-4500 / 5 -6
             </ion-option>
             <ion-option [value]="44" *ngIf="FormItem.get('pumpType').value == 6">
-              < 4000 / < 5 </ion-option> <ion-option [value]="45">
+              < 4000 / < 5 
+            </ion-option> 
+            <ion-option [value]="45" *ngIf="FormItem.get('pumpType').value == 3">
                 4001-4500 / 5.5 - 6
             </ion-option>
-            <ion-option [value]="46" *ngIf="FormItem.get('pumpType').value == 6">
+            <ion-option [value]="46" *ngIf="FormItem.get('pumpType').value == 6 || FormItem.get('pumpType').value == 3">
               4001-5000 / 5 - 7
             </ion-option>
             <ion-option [value]="47">
               4501-5000 / 6 - 6.5
             </ion-option>
-            <ion-option [value]="48">
+            <ion-option [value]="48" *ngIf="FormItem.get('pumpType').value == 3">
               4501-5000 / 6 - 7
             </ion-option>
             <ion-option [value]="49">
               4501-5500 / 6 - 7.5
             </ion-option>
             <ion-option [value]="50" *ngIf="FormItem.get('pumpType').value == 3">
-              < 5000 / < 7 </ion-option> <ion-option [value]="51">
+              < 5000 / < 7 
+            </ion-option> 
+            <ion-option [value]="51">
                 4501-6000 / 6 - 8
             </ion-option>
             <ion-option [value]="52" *ngIf="FormItem.get('pumpType').value == 5">
@@ -358,7 +362,7 @@
             <ion-option [value]="53">
               5001-6000 / 6.5 - 8
             </ion-option>
-            <ion-option [value]="54" *ngIf="FormItem.get('pumpType').value == 6">
+            <ion-option [value]="54" *ngIf="FormItem.get('pumpType').value == 6 || FormItem.get('pumpType').value == 3">
               5001-6000 / 7 - 8
             </ion-option>
             <ion-option [value]="55" *ngIf="FormItem.get('pumpType').value == 1">
@@ -368,7 +372,9 @@
               5001-7000 / 7 - 9.5
             </ion-option>
             <ion-option [value]="57">
-              < 5500 / < 7 </ion-option> <ion-option [value]="58" *ngIf="FormItem.get('pumpType').value == 3">
+              < 5500 / < 7 
+            </ion-option> 
+            <ion-option [value]="58" *ngIf="FormItem.get('pumpType').value == 3">
                 5500-6000 / 7 - 8
             </ion-option>
             <ion-option [value]="59">
@@ -377,7 +383,7 @@
             <ion-option [value]="60" *ngIf="FormItem.get('pumpType').value == 3">
               6001-6500 / 8 - 9
             </ion-option>
-            <ion-option [value]="61">
+            <ion-option [value]="61" *ngIf="FormItem.get('pumpType').value == 3">
               6001-7000 / 8 - 9
             </ion-option>
             <ion-option [value]="62">
@@ -392,7 +398,7 @@
             <ion-option [value]="65" *ngIf="FormItem.get('pumpType').value == 3">
               6501-7000 / 9 - 9.5
             </ion-option>
-            <ion-option [value]="66">
+            <ion-option [value]="66" *ngIf="FormItem.get('pumpType').value == 3">
               >7000 / >9
             </ion-option>
             <ion-option [value]="67">
@@ -410,7 +416,7 @@
             <ion-option [value]="71">
               7001-8000 / 9.5 - 10.5
             </ion-option>
-            <ion-option [value]="72">
+            <ion-option [value]="72" *ngIf="FormItem.get('pumpType').value == 3">
               7001-8000 / 9 - 11
             </ion-option>
             <ion-option [value]="73">
@@ -431,7 +437,7 @@
             <ion-option [value]="78">
               8001-8500 / 11 - 11.5
             </ion-option>
-            <ion-option [value]="79">
+            <ion-option [value]="79" *ngIf="FormItem.get('pumpType').value == 3">
               8001-9000 / 11 - 12
             </ion-option>
             <ion-option [value]="80">
@@ -452,7 +458,7 @@
             <ion-option [value]="85">
               9001-10000 / 12 - 14
             </ion-option>
-            <ion-option [value]="86">
+            <ion-option [value]="86" *ngIf="FormItem.get('pumpType').value == 3">
               9001-11000 / 12 - 15
             </ion-option>
             <ion-option [value]="87" *ngIf="FormItem.get('pumpType').value == 3">
@@ -473,7 +479,7 @@
             <ion-option [value]="92">
               11001-12000 / 15 - 16
             </ion-option>
-            <ion-option [value]="93">
+            <ion-option [value]="93" *ngIf="FormItem.get('pumpType').value == 3">
               11001-13500 / 15 - 18
             </ion-option>
             <ion-option [value]="94" *ngIf="FormItem.get('pumpType').value == 1">
@@ -497,7 +503,7 @@
             <ion-option [value]="100">
               14001-17000 / 20 - 23
             </ion-option>
-            <ion-option [value]="101">
+            <ion-option [value]="101" *ngIf="FormItem.get('pumpType').value == 3">
               14000-18000 / 19 - 24
             </ion-option>
             <ion-option [value]="102" *ngIf="FormItem.get('pumpType').value == 1">
@@ -506,7 +512,7 @@
             <ion-option [value]="103">
               17001-20000 / 23 - 25
             </ion-option>
-            <ion-option [value]="104">
+            <ion-option [value]="104" *ngIf="FormItem.get('pumpType').value == 3">
               > 18000 / > 24
             </ion-option>
             <ion-option [value]="105">
