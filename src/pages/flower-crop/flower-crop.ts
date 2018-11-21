@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -22,9 +22,15 @@ export class FlowerCropPage {
   shownData: string[];
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
-  private GetPlant$ = this.store.select(getPerennialPlantSelectPlant);
-
-  shownData2: any = [];
+  private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
+  private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
+  private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
+  private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
+  listDryCropData: any = [];
+  listPerenialData: any = [];
+  listRiceData: any = [];
+  listRubberData: any = [];
+  listSumData: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
@@ -40,9 +46,14 @@ export class FlowerCropPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
     this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
-    this.GetPlant$.subscribe(data => this.shownData2 = data);
-    console.log('shownData2');
-    console.log(this.shownData2);
+    this.GetPlantRice$.subscribe(data => this.listRiceData = data);
+    this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
+    this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
+    this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
+    var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
+    this.listSumData = sum;
+    console.log('listSumData');
+    console.log(this.listSumData);
   }
 
   model() {
