@@ -12,7 +12,7 @@
 
     <div formGroupName="subUnit">
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-label>3.1 ลำดับครัวเรือนสถานประกอบการในบ้าน/อาคาร/สิ่งปลูกสร้าง (ยูนิตย่อย)</ion-label>
       </ion-item>
 
@@ -32,7 +32,7 @@
         <ion-label stacked>
           ผลการเข้าพบ 1/3
         </ion-label>
-        <ion-select interface="action-sheet" formControlName="access" [class.invalid]="isValid('subUnit.access')">
+        <ion-select interface="action-sheet" formControlName="accesses" [class.invalid]="isValid('subUnit.accesses')">
           <ion-option [value]="1">
             1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
           </ion-option>
@@ -50,7 +50,7 @@
           </ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="isValid('subUnit.access')">
+      <ion-item *ngIf="isValid('subUnit.accesses')">
         <span class="invalid-msg">
           กรุณาเลือกการเข้าพบ
         </span>
@@ -58,7 +58,7 @@
 
       <ion-list>
 
-        <div *ngIf="FormItem.get('subUnit.access').value == 1">
+        <div *ngIf="FormItem.get('subUnit.accesses').value == 1">
           <ion-item>
             <ion-label>3.2 การแยกมิเตอร์น้ำประปา/น้ำบาดาล</ion-label>
           </ion-item>
@@ -148,10 +148,12 @@
             </ion-row>
           </div>
         </div>
-      </ion-list>
+      </ion-list> -->
+
+      
     </div>
 
-    <div *ngIf="FormItem.get('subUnit.access').value == 1 || FormItem.get('subUnit.access').value == 2 || FormItem.get('subUnit.access').value == 3">
+    <div *ngIf="FormItem.get('subUnit.accesses').value == 1 || FormItem.get('subUnit.accesses').value == 2 || FormItem.get('subUnit.accesses').value == 3">
       <ion-item>
         <ion-label>ปัญหา/อุปสรรค</ion-label>
       </ion-item>
@@ -168,7 +170,7 @@
           <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && FormItem.get('subUnit.access').value == 1">OK</button>
+          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && FormItem.get('subUnit.accesses').value == 1">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>
