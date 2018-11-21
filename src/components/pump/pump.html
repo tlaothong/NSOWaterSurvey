@@ -121,7 +121,7 @@
               กรุณาเลือก
             </span>
           </ion-item>
-          <ion-item>
+          <ion-item >
             <ion-label>
               ใช้ไฟฟ้า
             </ion-label>
@@ -145,7 +145,6 @@
             </ion-label>
             <ion-radio [value]="4" item-left></ion-radio>
           </ion-item>
-
         </ion-row>
 
         <ion-item>
@@ -159,31 +158,31 @@
             ชนิดเครื่องสูบ
           </ion-label>
           <ion-select interface="action-sheet" formControlName="pumpType" [class.invalid]="isValid('pumpType')">
-            <ion-option [value]="1">
+            <ion-option [value]="1" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม
             </ion-option>
-            <ion-option [value]="2">
+            <ion-option [value]="2" *ngIf="FormItem.get('energySource').value == 1 || FormItem.get('energySource').value == 4">
               ปั๊มเจ็ท/ ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก
             </ion-option>
-            <ion-option [value]="3">
+            <ion-option [value]="3" *ngIf="FormItem.get('energySource').value == 1 || FormItem.get('energySource').value == 2 || FormItem.get('energySource').value == 3 ||FormItem.get('energySource').value == 4">
               ปั๊มหอยโข่ง
             </ion-option>
-            <ion-option [value]="4">
+            <ion-option [value]="4" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มชัก
             </ion-option>
-            <ion-option [value]="5">
+            <ion-option [value]="5" *ngIf="FormItem.get('energySource').value == 4">
               ปั๊มเจ็ท
             </ion-option>
-            <ion-option [value]="6">
+            <ion-option [value]="6" *ngIf="FormItem.get('energySource').value == 4">
               เทอร์ไบร์
             </ion-option>
-            <ion-option [value]="7">
+            <ion-option [value]="7" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มไดโว่/ปั๊มจุ่ม/ปั๊มแช่
             </ion-option>
-            <ion-option [value]="8">
+            <ion-option [value]="8" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มน้ำอัตโนมัติ ถังกลม/ ถังเหลี่ยม
             </ion-option>
-            <ion-option [value]="9">
+            <ion-option [value]="9" *ngIf="FormItem.get('energySource').value == 2||FormItem.get('energySource').value == 3">
               ปั๊มพญานาค
             </ion-option>
           </ion-select>
@@ -642,6 +641,9 @@
             </ion-option>
             <ion-option [value]="25">
               11 - 12
+            </ion-option>
+            <ion-option [value]="26">
+              "ไม่มีท่อดูด"
             </ion-option>
           </ion-select>
         </ion-item>
