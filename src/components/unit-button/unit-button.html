@@ -6,17 +6,17 @@
       <ion-col text-left>
         <h3># {{unitNo}}</h3>
       </ion-col>
-      <ion-col text-right *ngIf="FormItem.get('subUnit.access').value == 1" (click)="showModal()">
+      <ion-col text-right *ngIf="FormItem.get('subUnit.accesses').value == 1" (click)="showModal()">
         <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
       </ion-col>
     </ion-row>
 
 
     <div (click)="showModal()">
-      <div *ngIf="FormItem.get('subUnit.access').invalid" text-center class="play"></div>
+      <div *ngIf="FormItem.get('subUnit.roomNumber').invalid" text-center class="play"></div>
     </div>
 
-    <div [ngSwitch]="FormItem.get('subUnit.access').value">
+    <div [ngSwitch]="FormItem.get('subUnit.accesses').value">
 
       <div (click)="goWaterActivityUnitPage()">
         <div *ngSwitchCase="1">

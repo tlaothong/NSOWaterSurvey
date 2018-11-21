@@ -17,7 +17,7 @@ export class UnitPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'unitCount':[10],
+      'unitCount':[2],
       'units': this.fb.array([]),
     });
 
@@ -25,7 +25,8 @@ export class UnitPage {
   }
 
   ionViewDidEnter() {
-
+      console.log("enter");
+      
   }
 
   public handleSubmit() {

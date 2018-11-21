@@ -1,13 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ModalController, Form, NavController } from 'ionic-angular';
 
-/**
- * Generated class for the UnitButtonComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'unit-button',
   templateUrl: 'unit-button.html'
@@ -20,11 +14,16 @@ export class UnitButtonComponent {
 
   private submitRequested: boolean;
 
-  constructor(public navCtrl: NavController,private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     // TODO: Remove this
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+
+    this.setupAccessCountChanges();
+    this.setupAccessCountChangesForComments();
+
+    console.log(this.FormItem.get('subUnit.accesses').value);
   }
 
   ionViewDidLoad() {
@@ -39,7 +38,8 @@ export class UnitButtonComponent {
     return fb.group({
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
-        'access': [null, Validators.required],
+        'accessCount': [3],
+        'accesses': fb.array([]),
         'hasPlumbing': [null, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
@@ -50,10 +50,7 @@ export class UnitButtonComponent {
       'isAgriculture': [null, Validators.required],
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
-      'comments': fb.group({
-        'at': [null],
-        'text': [''],
-      }),
+      'comments': fb.array([]),
       'residence': [null, Validators.required],
       'agriculture': [null, Validators.required],
       'factory': [null, Validators.required],
@@ -64,7 +61,21 @@ export class UnitButtonComponent {
     });
   }
 
+  public static CreateAccess(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'access': [null, Validators.required],
+    });
+  }
+
+  public static CreateComment(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'at': [null],
+      'text': [''],
+    });
+  }
+
   public showModal() {
+    console.log(this.FormItem.get('subUnit.accesses').value);
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
@@ -87,4 +98,67 @@ export class UnitButtonComponent {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
+  private setupAccessCountChanges() {
+    const componentFormArray: string = "subUnit.accesses";
+    const componentCount: string = "subUnit.accessCount";
+
+    var onComponentCountChanges = () => {
+      var accesses = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.FormItem.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+      
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < accesses.length) {
+          const fld = accesses[i];
+          ctrl = fld;
+        } else {
+          ctrl = UnitButtonComponent.CreateAccess(this.fb);          
+        }
+
+        farr.push(ctrl);        
+      }
+      // this.FormItem.setControl(componentFormArray, farr);
+      let fgrp = this.FormItem.get('subUnit') as FormGroup;
+      fgrp.setControl('accesses', farr);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupAccessCountChangesForComments() {
+    const componentFormArray: string = "comments";
+    const componentCount: string = "subUnit.accessCount";
+
+    var onComponentCountChanges = () => {
+      var comments = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.FormItem.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < comments.length) {
+          const fld = comments[i];
+          ctrl = fld;
+        } else {
+          ctrl = UnitButtonComponent.CreateComment(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      this.FormItem.setControl(componentFormArray, farr);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
 }
