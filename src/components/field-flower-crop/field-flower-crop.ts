@@ -22,7 +22,7 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 export class FieldFlowerCropComponent implements ISubmitRequestable {
 
   @Input('no') text: string;
-  @Input() s: any[];
+  @Input() forwardListPlant: any[];
   @Input() public FormItem: FormGroup;
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];

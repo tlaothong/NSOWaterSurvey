@@ -77,7 +77,7 @@
 
     <div *ngIf="flowerCropFrm.get('fieldCount').value > 0 && flowerCropFrm.get('doing').value">
       <div *ngFor="let ffc of flowerCropFrm.get('fields').controls;let i=index">
-        <field-flower-crop [no]="i+1" [s]="shownData2" [FormItem]="ffc"></field-flower-crop>
+        <field-flower-crop [no]="i+1" [forwardListPlant]="listSumData" [FormItem]="ffc"></field-flower-crop>
       </div>
     </div>
 
