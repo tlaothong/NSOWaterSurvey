@@ -161,7 +161,7 @@
             <ion-option [value]="1" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม
             </ion-option>
-            <ion-option [value]="2" *ngIf="FormItem.get('energySource').value == 1 || FormItem.get('energySource').value == 4">
+            <ion-option [value]="2" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มเจ็ท/ ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก
             </ion-option>
             <ion-option [value]="3" *ngIf="FormItem.get('energySource').value == 1 || FormItem.get('energySource').value == 2 || FormItem.get('energySource').value == 3 ||FormItem.get('energySource').value == 4">
@@ -182,7 +182,7 @@
             <ion-option [value]="8" *ngIf="FormItem.get('energySource').value == 1">
               ปั๊มน้ำอัตโนมัติ ถังกลม/ ถังเหลี่ยม
             </ion-option>
-            <ion-option [value]="9" *ngIf="FormItem.get('energySource').value == 2||FormItem.get('energySource').value == 3">
+            <ion-option [value]="9" *ngIf="FormItem.get('energySource').value == 2||FormItem.get('energySource').value == 3||FormItem.get('energySource').value == 4">
               ปั๊มพญานาค
             </ion-option>
           </ion-select>
