@@ -22,7 +22,7 @@ export class DlgUnitPage {
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
 
   public access: number;
-  public comment: string;
+  public comment: string = '';
   public count: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
@@ -45,9 +45,9 @@ export class DlgUnitPage {
     if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
       this.setAccesses();
       this.viewCtrl.dismiss(this.FormItem);
-      if (this.access == 1) {
-        this.navCtrl.push("WaterActivityUnitPage")
-      }
+      // if (this.access == 1) {
+      //   this.navCtrl.push("WaterActivityUnitPage")
+      // }
     }
   }
 
