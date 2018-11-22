@@ -6,30 +6,29 @@
       <ion-col text-left>
         <h3># {{unitNo}}</h3>
       </ion-col>
-      <ion-col text-right *ngIf="FormItem.get('subUnit.accesses').value == 1" (click)="showModal()">
+      <ion-col text-right *ngIf="access == 1" (click)="showModal()">
         <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
       </ion-col>
     </ion-row>
-
 
     <div (click)="showModal()">
       <div *ngIf="FormItem.get('subUnit.roomNumber').invalid" text-center class="play"></div>
     </div>
 
-    <div [ngSwitch]="FormItem.get('subUnit.accesses').value">
+    <div [ngSwitch]="access">
 
       <div (click)="goWaterActivityUnitPage()">
         <div *ngSwitchCase="1">
           <div *ngIf="FormItem.valid" text-center>
-            <div *ngIf="FormItem.get('comments.text').value == ''" class="complete" padding>ห้องที่
+            <div *ngIf="comment == ''" class="complete" padding>ห้องที่
               {{FormItem.get('subUnit.roomNumber').value}}</div>
-            <div *ngIf="FormItem.get('comments.text').value != ''" class="completeCm" padding>ห้องที่
+            <div *ngIf="comment != ''" class="completeCm" padding>ห้องที่
               {{FormItem.get('subUnit.roomNumber').value}}</div>
           </div>
           <div *ngIf="FormItem.invalid" text-center>
-            <div *ngIf="FormItem.get('comments.text').value == ''" class="pause" padding>ห้องที่
+            <div *ngIf="comment == ''" class="pause" padding>ห้องที่
               {{FormItem.get('subUnit.roomNumber').value}}</div>
-            <div *ngIf="FormItem.get('comments.text').value != ''" class="pauseCm" padding>ห้องที่
+            <div *ngIf="comment != ''" class="pauseCm" padding>ห้องที่
               {{FormItem.get('subUnit.roomNumber').value}}</div>
           </div>
         </div>
@@ -37,15 +36,15 @@
 
       <div (click)="showModal()">
         <div *ngSwitchCase="2" text-center>
-          <div *ngIf="FormItem.get('comments.text').value == ''" class="return" padding>ห้องที่
+          <div *ngIf="comment == ''" class="return" padding>ห้องที่
             {{FormItem.get('subUnit.roomNumber').value}}</div>
-          <div *ngIf="FormItem.get('comments.text').value != ''" class="returnCm" padding>ห้องที่
+          <div *ngIf="comment != ''" class="returnCm" padding>ห้องที่
             {{FormItem.get('subUnit.roomNumber').value}}</div>
         </div>
         <div *ngSwitchCase="3" text-center>
-          <div *ngIf="FormItem.get('comments.text').value == ''" class="return" padding>ห้องที่
+          <div *ngIf="comment == ''" class="return" padding>ห้องที่
             {{FormItem.get('subUnit.roomNumber').value}}</div>
-          <div *ngIf="FormItem.get('comments.text').value != ''" class="returnCm" padding>ห้องที่
+          <div *ngIf="comment != ''" class="returnCm" padding>ห้องที่
             {{FormItem.get('subUnit.roomNumber').value}}</div>
         </div>
         <div *ngSwitchCase="4" text-center class="complete" padding>ห้องที่
@@ -53,6 +52,7 @@
         <div *ngSwitchCase="5" text-center class="complete" padding>ห้องที่
           {{FormItem.get('subUnit.roomNumber').value}}</div>
       </div>
+      
     </div>
 
   </button>

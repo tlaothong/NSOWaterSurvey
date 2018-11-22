@@ -14,18 +14,13 @@ export class UnitButtonComponent {
 
   private submitRequested: boolean;
 
+  public access: number;
+  public comment: string;
+
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.text = '';
     // TODO: Remove this
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
-  }
-
-  ionViewDidLoad() {
-    console.log('load');
-  }
-
-  ionViewDidEnter() {
-    console.log('enter');
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -76,6 +71,12 @@ export class UnitButtonComponent {
       if (data) {
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
+
+        let index = this.FormItem.get('subUnit.accessCount').value - 1;
+        let fgac = this.FormItem.get('subUnit.accesses') as FormArray;
+        let fgcm = this.FormItem.get('comments') as FormArray;
+        this.access = fgac.at(index).value.access[0];
+        this.comment = fgcm.at(index).value.text[0];
       }
     });
     modal.present();
