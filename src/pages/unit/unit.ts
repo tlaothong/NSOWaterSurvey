@@ -17,7 +17,7 @@ export class UnitPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'unitCount':[2],
+      'unitCount':[1],
       'units': this.fb.array([]),
     });
 
