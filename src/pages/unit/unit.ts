@@ -17,7 +17,7 @@ export class UnitPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'amount':[10],
+      'amount': [10],
       'units': this.fb.array([]),
     });
 
@@ -87,6 +87,7 @@ export class UnitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
+    this.unitButton.forEach(it => it.ionViewDidLoad());
   }
 
   // Unit() {

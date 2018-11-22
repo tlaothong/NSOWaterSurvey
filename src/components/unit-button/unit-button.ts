@@ -1,6 +1,9 @@
+import { getSendDataBuilding } from './../../states/building/index';
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -18,8 +21,10 @@ export class UnitButtonComponent {
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
+  private GetPlantDrycrop$ = this.storeBuild.select(getSendDataBuilding);
 
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
+  private testData: any;
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder, private storeBuild: Store<BuildingState>) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
 
@@ -59,6 +64,13 @@ export class UnitButtonComponent {
     });
     modal.present();
   }
+  ionViewDidLoad() {
+    this.GetPlantDrycrop$.subscribe(data => this.testData = data);
+    console.log('testData');
+    console.log(this.testData);
+
+  }
+
 
   submitRequest() {
     this.submitRequested = true;

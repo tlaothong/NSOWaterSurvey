@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getBuildingSample } from '../../states/building';
 import { map } from 'rxjs/operators';
+import { SetSendDataBuilding } from '../../states/building/building.actions';
 
 @IonicPage()
 @Component({
@@ -15,6 +16,8 @@ export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
     this.f = this.fb.group({
@@ -69,6 +72,11 @@ export class BuidlingInformation2Page {
   }
   public handleSubmit() {
     this.submitRequested = true;
+    this.store.dispatch(new SetSendDataBuilding(this.f.get('unitCount').value));
+    console.log('unitCount');
+    console.log(this.f.get('unitCount').value);
+
+
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

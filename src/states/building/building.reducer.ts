@@ -4,11 +4,13 @@ import { BuildingActionsType, BuildingTypes } from "./building.actions";
 export interface BuildingState {
     units: any,
     buildingSample: any,
+    sendDataBuilding: any,
 }
 
 const initialState: BuildingState = {
     units: [],
     buildingSample: null,
+    sendDataBuilding: null,
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -21,6 +23,11 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
             return {
                 ...state,
                 buildingSample: action.payload,
+            };
+            case BuildingTypes.SetSendDataBuilding:
+            return {
+                ...state,
+                sendDataBuilding: action.payload,
             };
         default:
             return state;
