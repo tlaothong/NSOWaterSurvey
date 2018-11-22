@@ -7,5 +7,10 @@ const getBuildingFeatureState = createFeatureSelector<BuildingState>(BuildingTyp
 export const getBuildingSample = createSelector(
     getBuildingFeatureState,
     state => state.buildingSample,
+
+);
+export const getSendDataBuilding = createSelector(
+    getBuildingFeatureState,
+    state => state.sendDataBuilding,
 );
 
