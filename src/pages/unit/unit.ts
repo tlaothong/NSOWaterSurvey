@@ -1,7 +1,11 @@
 import { UnitButtonComponent } from './../../components/unit-button/unit-button';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { map } from 'rxjs/operators';
+import { getHouseHoldSample } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -14,14 +18,24 @@ export class UnitPage {
   private submitRequested: boolean;
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.subUnit));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'amount':[10],
+      'amount': [10, Validators.required],
       'units': this.fb.array([]),
     });
 
     this.setupUnitsCountChanges();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UnitPage');
+    // this.formData$.subscribe(data => this.f.setValue(data));
+    // console.log("ffffff");
+    // console.log(this.formData$);
+    this.unitButton.forEach(it => it.ionViewDidLoad());
   }
 
   ionViewDidEnter() {
@@ -31,6 +45,8 @@ export class UnitPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.unitButton.forEach(it => it.submitRequest());
+
+
   }
 
   private setupUnitsCountChanges() {
@@ -84,10 +100,6 @@ export class UnitPage {
   //     })
   //   });
   // }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitPage');
-  }
 
   // Unit() {
   //   const modal = this.modalCtrl.create("DlgUnitPage", { f: this.f });

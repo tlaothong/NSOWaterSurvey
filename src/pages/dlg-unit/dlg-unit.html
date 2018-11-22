@@ -10,6 +10,8 @@
 <ion-content padding>
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+    <!-- <ion-input type="text" formControlName="ea" ></ion-input>
+    <ion-input type="text" formControlName="buildingId" ></ion-input> -->
 
     <div formGroupName="subUnit">
 
@@ -266,9 +268,12 @@
         <ion-label>ปัญหา/อุปสรรค</ion-label>
       </ion-item>
       <div formGroupName="comments">
+        <!-- <ion-item>
+          <ion-input type="text" formControlName="at"></ion-input>
+        </ion-item>
         <ion-item>
           <ion-input type="text" formControlName="text"></ion-input>
-        </ion-item>
+        </ion-item> -->
       </div>
     </div>
 

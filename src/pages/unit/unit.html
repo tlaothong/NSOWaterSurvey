@@ -12,7 +12,7 @@
     <div *ngIf="f.get('amount').value > 0">
       <ion-row>
         <ion-col *ngFor="let unit of f.get('units').controls; let i = index">
-          <unit-button [FormItem]="unit"></unit-button>
+          <unit-button  [FormItem]="unit"></unit-button>
         </ion-col>
       </ion-row>
     </div>
