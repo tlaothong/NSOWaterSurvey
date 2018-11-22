@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
+import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 
 /**
  * Generated class for the BuidlingInformation2Page page.
@@ -17,7 +20,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private store: Store<BuildingState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'unitCount': [null, Validators.required],
       'unitAccess': [null, Validators.required],
@@ -34,6 +37,9 @@ export class BuidlingInformation2Page {
   }
   public handleSubmit() {
     this.submitRequested = true;
+    this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
+    console.log('unitCount');
+    console.log(this.f.get('unitCount').value);
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

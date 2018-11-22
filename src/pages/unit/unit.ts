@@ -1,7 +1,10 @@
 import { UnitButtonComponent } from './../../components/unit-button/unit-button';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getRecieveDataFromBuilding } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -14,19 +17,23 @@ export class UnitPage {
   private submitRequested: boolean;
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'unitCount':[3],
+      'unitCount': [null, Validators.required],
       'units': this.fb.array([]),
     });
-
+    
     this.setupUnitsCountChanges();
   }
-
+  
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UnitPage');
+    this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
+  }
   ionViewDidEnter() {
-      console.log("enter");
-      
+    console.log("enter");
+
   }
 
   public handleSubmit() {
@@ -86,9 +93,6 @@ export class UnitPage {
   //   });
   // }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitPage');
-  }
 
   // Unit() {
   //   const modal = this.modalCtrl.create("DlgUnitPage", { f: this.f });
