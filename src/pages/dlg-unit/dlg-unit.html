@@ -12,7 +12,7 @@
 
     <div formGroupName="subUnit">
 
-      <!-- <ion-item>
+      <ion-item>
         <ion-label>3.1 ลำดับครัวเรือนสถานประกอบการในบ้าน/อาคาร/สิ่งปลูกสร้าง (ยูนิตย่อย)</ion-label>
       </ion-item>
 
@@ -28,37 +28,44 @@
         </span>
       </ion-item>
 
-      <ion-item>
-        <ion-label stacked>
-          ผลการเข้าพบ 1/3
-        </ion-label>
-        <ion-select interface="action-sheet" formControlName="accesses" [class.invalid]="isValid('subUnit.accesses')">
-          <ion-option [value]="1">
-            1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
-          </ion-option>
-          <ion-option [value]="2">
-            2. มีผู้ให้ข้อมูล แต่ไม่ให้ความร่วมมือ
-          </ion-option>
-          <ion-option [value]="3">
-            3. ไม่มี/ไม่พบผู้ให้ข้อมูล
-          </ion-option>
-          <ion-option [value]="4">
-            4. ห้อง/บ้าน/อาคาร ว่าง
-          </ion-option>
-          <ion-option [value]="5">
-            5. ห้อง/บ้าน/อาคาร ร้าง
-          </ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="isValid('subUnit.accesses')">
-        <span class="invalid-msg">
-          กรุณาเลือกการเข้าพบ
-        </span>
-      </ion-item>
+    </div>
+  </form>
+
+  <ion-item>
+    <ion-label stacked>
+      ผลการเข้าพบ {{count}}/3
+    </ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="access" [class.invalid]="access == null && submitRequested">
+      <ion-option [value]=1>
+        1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
+      </ion-option>
+      <ion-option [value]=2>
+        2. มีผู้ให้ข้อมูล แต่ไม่ให้ความร่วมมือ
+      </ion-option>
+      <ion-option [value]=3>
+        3. ไม่มี/ไม่พบผู้ให้ข้อมูล
+      </ion-option>
+      <ion-option [value]=4>
+        4. ห้อง/บ้าน/อาคาร ว่าง
+      </ion-option>
+      <ion-option [value]=5>
+        5. ห้อง/บ้าน/อาคาร ร้าง
+      </ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="access == null && submitRequested">
+    <span class="invalid-msg">
+      กรุณาเลือกการเข้าพบ
+    </span>
+  </ion-item>
+
+  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+
+    <div formGroupName="subUnit">
 
       <ion-list>
 
-        <div *ngIf="FormItem.get('subUnit.accesses').value == 1">
+        <div *ngIf="access == 1">
           <ion-item>
             <ion-label>3.2 การแยกมิเตอร์น้ำประปา/น้ำบาดาล</ion-label>
           </ion-item>
@@ -148,29 +155,29 @@
             </ion-row>
           </div>
         </div>
-      </ion-list> -->
+      </ion-list>
 
-      
+
     </div>
+  </form>
 
-    <div *ngIf="FormItem.get('subUnit.accesses').value == 1 || FormItem.get('subUnit.accesses').value == 2 || FormItem.get('subUnit.accesses').value == 3">
-      <ion-item>
-        <ion-label>ปัญหา/อุปสรรค</ion-label>
-      </ion-item>
-      <div formGroupName="comments">
-        <ion-item>
-          <ion-input type="text" formControlName="text"></ion-input>
-        </ion-item>
-      </div>
-    </div>
+  <div *ngIf="access == 1 || access == 2 || access == 3">
+    <ion-item>
+      <ion-label>ปัญหา/อุปสรรค</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="comment"></ion-input>
+    </ion-item>
+  </div>
 
+  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
     <ion-grid>
       <ion-row>
         <ion-col>
           <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && FormItem.get('subUnit.accesses').value == 1">OK</button>
+          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && access == 1">OK</button>
         </ion-col>
       </ion-row>
     </ion-grid>
