@@ -282,7 +282,7 @@
               1201-1400 / 1.7 - 2
             </ion-option>
             <ion-option [value]="27" *ngIf="FormItem.get('pumpType').value == 1 || FormItem.get('pumpType').value == 4 || FormItem.get('pumpType').value == 3 || FormItem.get('pumpType').value == 7">
-              1401-2000 / 2 - 3
+              1401-2000 / 2 - 2.5
             </ion-option>
             <ion-option [value]="28" *ngIf="FormItem.get('pumpType').value == 3">
               1000-2500 / 1 - 3
@@ -571,13 +571,13 @@
             ขนาดท่อดูด
           </ion-label>
           <ion-select interface="action-sheet" formControlName="suctionPipeSize" [class.invalid]="isValid('suctionPipeSize')">
-            <ion-option [value]="1">
+            <ion-option [value]="1" *ngIf="FormItem.get('hoursPerPump').value == 18">
               (1/2)-1
             </ion-option>
-            <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
+            <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97||FormItem.get('hoursPerPump').value == 5 || FormItem.get('hoursPerPump').value == 12 ||  FormItem.get('hoursPerPump').value == 18 || FormItem.get('hoursPerPump').value == 25 || FormItem.get('hoursPerPump').value == 30 || FormItem.get('hoursPerPump').value == 9 || FormItem.get('hoursPerPump').value == 24 || FormItem.get('hoursPerPump').value == 27 || FormItem.get('hoursPerPump').value == 33 || FormItem.get('hoursPerPump').value == 36 || FormItem.get('hoursPerPump').value == 41">
               (1/2)-2
             </ion-option>
-            <ion-option [value]="3">
+            <ion-option [value]="3" *ngIf="FormItem.get('hoursPerPump').value == 49 || FormItem.get('hoursPerPump').value == 59">
               (1/2)-3
             </ion-option>
             <ion-option [value]="4">
@@ -598,7 +598,7 @@
             <ion-option [value]="9">
               1(1/2)-2
             </ion-option>
-            <ion-option [value]="10">
+            <ion-option [value]="10" *ngIf="FormItem.get('hoursPerPump').value == 18">
               1(1/4)-2
             </ion-option>
             <ion-option [value]="11" *ngIf="FormItem.get('horsePower').value == 52">
@@ -607,16 +607,16 @@
             <ion-option [value]="12">
               2
             </ion-option>
-            <ion-option [value]="13">
+            <ion-option [value]="13" *ngIf="FormItem.get('hoursPerPump').value == 76 || FormItem.get('hoursPerPump').value == 102">
               2-3
             </ion-option>
-            <ion-option [value]="14">
+            <ion-option [value]="14" *ngIf="FormItem.get('hoursPerPump').value == 96 || FormItem.get('hoursPerPump').value == 105 || FormItem.get('hoursPerPump').value == 107 || FormItem.get('hoursPerPump').value == 108">
               2-4
             </ion-option>
             <ion-option [value]="15" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58 ||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
               3
             </ion-option>
-            <ion-option [value]="16" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58 ||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
+            <ion-option [value]="16" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58 ||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97||FormItem.get('hoursPerPump').value == 102">
               4
             </ion-option>
             <ion-option [value]="17">
@@ -648,6 +648,9 @@
             </ion-option>
             <ion-option [value]="26" *ngIf="FormItem.get('horsePower').value == 44 || FormItem.get('horsePower').value == 46 || FormItem.get('horsePower').value == 54||FormItem.get('horsePower').value == 63||FormItem.get('horsePower').value == 68">
               "ไม่มีท่อดูด"
+            </ion-option>
+            <ion-option [value]="27" *ngIf="FormItem.get('hoursPerPump').value == 9 || FormItem.get('hoursPerPump').value == 18 || FormItem.get('hoursPerPump').value == 24 || FormItem.get('hoursPerPump').value == 27 || FormItem.get('hoursPerPump').value == 34 || FormItem.get('hoursPerPump').value == 55 || FormItem.get('hoursPerPump').value == 74 || FormItem.get('hoursPerPump').value == 94 || FormItem.get('hoursPerPump').value == 102 || FormItem.get('hoursPerPump').value == 112 || FormItem.get('hoursPerPump').value == 116">
+              "ไม่มีท่อดูด2"
             </ion-option>
           </ion-select>
         </ion-item>
