@@ -40,9 +40,9 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)" formControlName="hoursPerPump" [class.invalid]="isValid('hoursPerPump')"></ion-input>
+        <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)" formControlName="horsePower" [class.invalid]="isValid('horsePower')"></ion-input>
       </ion-item>
-      <ion-item *ngIf="isValid('hoursPerPump')">
+      <ion-item *ngIf="isValid('horsePower')">
         <span class="invalid-msg">
           กรุณากรอก
         </span>
@@ -297,7 +297,7 @@
               2000-4000 / 2 - 5
             </ion-option>
             <ion-option [value]="32" *ngIf="FormItem.get('pumpType').value == 3 || FormItem.get('pumpType').value == 9">
-              2000-4000 / 2.2 - 5.5
+              2000-4000 / 2.5 - 5.5
             </ion-option>
             <ion-option [value]="33" *ngIf="FormItem.get('pumpType').value == 3">
               2001-2500 / 2.5 - 3.5
@@ -333,7 +333,9 @@
               3501-4500 / 5 -6
             </ion-option>
             <ion-option [value]="44" *ngIf="FormItem.get('pumpType').value == 6">
-              < 4000 / < 5 </ion-option> <ion-option [value]="45" *ngIf="FormItem.get('pumpType').value == 3 ||FormItem.get('pumpType').value == 3 || FormItem.get('pumpType').value == 9">
+              < 4000 / < 5 
+            </ion-option> 
+            <ion-option [value]="45" *ngIf="FormItem.get('pumpType').value == 3 ||FormItem.get('pumpType').value == 3 || FormItem.get('pumpType').value == 9">
                 4001-4500 / 5.5 - 6
             </ion-option>
             <ion-option [value]="46" *ngIf="FormItem.get('pumpType').value == 6 || FormItem.get('pumpType').value == 3 || FormItem.get('pumpType').value == 9">
@@ -560,6 +562,7 @@
 
           </ion-select>
         </ion-item>
+       
         <ion-item *ngIf="isValid('horsePower')">
           <span class="invalid-msg">
             กรุณาเลือก
@@ -576,13 +579,13 @@
             ขนาดท่อดูด
           </ion-label>
           <ion-select interface="action-sheet" formControlName="suctionPipeSize" [class.invalid]="isValid('suctionPipeSize')">
-            <ion-option [value]="1" *ngIf="FormItem.get('hoursPerPump').value == 18||FormItem.get('horsePower').value == 1 || FormItem.get('horsePower').value == 4||FormItem.get('horsePower').value == 7||FormItem.get('horsePower').value == 10||FormItem.get('horsePower').value == 13">
+            <ion-option [value]="1" *ngIf="FormItem.get('horsePower').value == 18||FormItem.get('horsePower').value == 1 || FormItem.get('horsePower').value == 4||FormItem.get('horsePower').value == 7||FormItem.get('horsePower').value == 10||FormItem.get('horsePower').value == 13">
               (1/2)-1
             </ion-option>
-            <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 2 || FormItem.get('hoursPerPump').value == 5 || FormItem.get('hoursPerPump').value == 9 || FormItem.get('horsePower').value == 10 || FormItem.get('hoursPerPump').value == 12 || FormItem.get('horsePower').value == 13 || FormItem.get('horsePower').value == 16 || FormItem.get('horsePower').value == 17 || FormItem.get('hoursPerPump').value == 18 || FormItem.get('horsePower').value == 20 ||FormItem.get('horsePower').value == 22 || FormItem.get('hoursPerPump').value == 24 || FormItem.get('hoursPerPump').value == 25 || FormItem.get('hoursPerPump').value == 27 || FormItem.get('horsePower').value == 28 || FormItem.get('horsePower').value == 29 || FormItem.get('hoursPerPump').value == 30 || FormItem.get('horsePower').value == 31 || FormItem.get('hoursPerPump').value == 33 || FormItem.get('hoursPerPump').value == 36 || FormItem.get('horsePower').value == 37 || FormItem.get('hoursPerPump').value == 41 || FormItem.get('horsePower').value == 45|| FormItem.get('horsePower').value == 48 || FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87 || FormItem.get('horsePower').value == 90 || FormItem.get('horsePower').value == 97|| FormItem.get('horsePower').value == 47|| FormItem.get('horsePower').value == 73|| FormItem.get('horsePower').value == 78|| FormItem.get('horsePower').value == 83|| FormItem.get('horsePower').value == 88|| FormItem.get('horsePower').value == 92|| FormItem.get('horsePower').value == 98">
+            <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 2 || FormItem.get('hoursPerPump').value == 5 || FormItem.get('hoursPerPump').value == 9 || FormItem.get('horsePower').value == 10 || FormItem.get('hoursPerPump').value == 12 || FormItem.get('horsePower').value == 13 || FormItem.get('horsePower').value == 16 || FormItem.get('horsePower').value == 17 || FormItem.get('hoursPerPump').value == 18 || FormItem.get('horsePower').value == 20 ||FormItem.get('horsePower').value == 22 || FormItem.get('hoursPerPump').value == 24 || FormItem.get('hoursPerPump').value == 25 || FormItem.get('hoursPerPump').value == 27 || FormItem.get('horsePower').value == 28 || FormItem.get('horsePower').value == 29 || FormItem.get('hoursPerPump').value == 30 || FormItem.get('horsePower').value == 31 || FormItem.get('hoursPerPump').value == 33 || FormItem.get('hoursPerPump').value == 36 || FormItem.get('horsePower').value == 37 || FormItem.get('hoursPerPump').value == 41 || FormItem.get('horsePower').value == 45|| FormItem.get('horsePower').value == 48 || FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87 || FormItem.get('horsePower').value == 90 || FormItem.get('horsePower').value == 97|| FormItem.get('horsePower').value == 47|| FormItem.get('horsePower').value == 73|| FormItem.get('horsePower').value == 78|| FormItem.get('horsePower').value == 83|| FormItem.get('horsePower').value == 88|| FormItem.get('horsePower').value == 92|| FormItem.get('horsePower').value == 98 || FormItem.get('horsePower').value == 32">
               (1/2)-2
             </ion-option>
-            <ion-option [value]="3" *ngIf="FormItem.get('horsePower').value == 21 || FormItem.get('horsePower').value == 24 || FormItem.get('horsePower').value == 27 || FormItem.get('horsePower').value == 42 || FormItem.get('horsePower').value == 46 || FormItem.get('hoursPerPump').value == 49 || FormItem.get('horsePower').value == 54 || FormItem.get('hoursPerPump').value == 59 || FormItem.get('horsePower').value == 62 || FormItem.get('horsePower').value == 72 || FormItem.get('horsePower').value == 79 ">
+            <ion-option [value]="3" *ngIf="FormItem.get('horsePower').value == 21 || FormItem.get('horsePower').value == 24 || FormItem.get('horsePower').value == 27 || FormItem.get('horsePower').value == 42 || FormItem.get('horsePower').value == 46 || FormItem.get('horsePower').value == 49 || FormItem.get('horsePower').value == 54 || FormItem.get('horsePower').value == 59 || FormItem.get('horsePower').value == 62 || FormItem.get('horsePower').value == 72 || FormItem.get('horsePower').value == 79 ">
               (1/2)-3
             </ion-option>         
             <ion-option [value]="4" *ngIf="FormItem.get('horsePower').value == 36 || FormItem.get('horsePower').value == 41 || FormItem.get('horsePower').value == 54 || FormItem.get('horsePower').value == 61 || FormItem.get('horsePower').value == 66 || FormItem.get('horsePower').value == 70 || FormItem.get('horsePower').value == 73||FormItem.get('horsePower').value == 79||FormItem.get('horsePower').value == 85 ||  FormItem.get('horsePower').value == 119|| FormItem.get('horsePower').value == 53|| FormItem.get('horsePower').value == 62|| FormItem.get('horsePower').value == 71|| FormItem.get('horsePower').value == 80">
@@ -603,7 +606,7 @@
             <ion-option [value]="9" *ngIf="FormItem.get('horsePower').value == 4||FormItem.get('horsePower').value == 7||FormItem.get('horsePower').value == 10||FormItem.get('horsePower').value == 13">
               1(1/2)-2
             </ion-option>
-            <ion-option [value]="10" *ngIf="FormItem.get('hoursPerPump').value == 18">
+            <ion-option [value]="10" *ngIf="FormItem.get('horsePower').value == 18">
               1(1/4)-2
             </ion-option>
             <ion-option [value]="11" *ngIf="FormItem.get('horsePower').value == 52">
@@ -612,10 +615,10 @@
             <ion-option [value]="12">
               2
             </ion-option>
-            <ion-option [value]="13" *ngIf="FormItem.get('hoursPerPump').value == 76 || FormItem.get('hoursPerPump').value == 102">
+            <ion-option [value]="13" *ngIf="FormItem.get('horsePower').value == 76 || FormItem.get('horsePower').value == 102">
               2-3
             </ion-option>
-            <ion-option [value]="14" *ngIf="FormItem.get('hoursPerPump').value == 96 || FormItem.get('hoursPerPump').value == 105 || FormItem.get('hoursPerPump').value == 107 || FormItem.get('hoursPerPump').value == 108">
+            <ion-option [value]="14" *ngIf="FormItem.get('horsePower').value == 96 || FormItem.get('horsePower').value == 105 || FormItem.get('horsePower').value == 107 || FormItem.get('horsePower').value == 108">
               2-4
             </ion-option>
             <ion-option [value]="15" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58 ||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97||FormItem.get('horsePower').value == 29 || FormItem.get('horsePower').value == 45 || FormItem.get('horsePower').value == 48|| FormItem.get('horsePower').value == 47|| FormItem.get('horsePower').value == 73|| FormItem.get('horsePower').value == 78|| FormItem.get('horsePower').value == 83|| FormItem.get('horsePower').value == 88|| FormItem.get('horsePower').value == 92|| FormItem.get('horsePower').value == 98">
@@ -656,6 +659,8 @@
             </ion-option>
           </ion-select>
         </ion-item>
+       
+       
         <ion-item *ngIf="isValid('suctionPipeSize')">
           <span class="invalid-msg">
             กรุณาเลือก
@@ -672,100 +677,100 @@
             ขนาดท่อส่ง
           </ion-label>
           <ion-select interface="action-sheet" formControlName="pipelineSize" [class.invalid]="isValid('pipelineSize')">
-            <ion-option [value]="1">
+            <ion-option [value]="1" *ngIf="FormItem.get('suctionPipeSize').value == 26 || FormItem.get('suctionPipeSize').value == 1">
               1/2-1
             </ion-option>
-            <ion-option [value]="2">
+            <ion-option [value]="2" *ngIf="FormItem.get('suctionPipeSize').value == 5">
               (1/2)-6
             </ion-option>
-            <ion-option [value]="3">
+            <ion-option [value]="3" *ngIf="FormItem.get('suctionPipeSize').value == 6 || FormItem.get('suctionPipeSize').value == 7">
               (1/2)-8
             </ion-option>
-            <ion-option [value]="4">
+            <ion-option [value]="4" *ngIf="FormItem.get('suctionPipeSize').value == 26">
               1 (1/2)
             </ion-option>
-            <ion-option [value]="5">
+            <ion-option [value]="5" *ngIf="FormItem.get('suctionPipeSize').value == 15">
               2 (1/2)
             </ion-option>
-            <ion-option [value]="6">
+            <ion-option [value]="6" *ngIf="FormItem.get('suctionPipeSize').value == 15">
               3 (1/2)
             </ion-option>
-            <ion-option [value]="7">
+            <ion-option [value]="7" *ngIf="FormItem.get('suctionPipeSize').value == 26 || FormItem.get('suctionPipeSize').value == 10 || FormItem.get('suctionPipeSize').value == 9">
               1 (1/2)-2
             </ion-option>
-            <ion-option [value]="8">
+            <ion-option [value]="8" *ngIf="FormItem.get('suctionPipeSize').value == 26 || FormItem.get('suctionPipeSize').value == 8">
               1/2-1 (1/2)
             </ion-option>
-            <ion-option [value]="9">
+            <ion-option [value]="9" *ngIf="FormItem.get('suctionPipeSize').value == 26">
               1 (1/2)-3
             </ion-option>
-            <ion-option [value]="10">
+            <ion-option [value]="10" *ngIf="FormItem.get('suctionPipeSize').value == 26">
               1-3
             </ion-option>
-            <ion-option [value]="11">
+            <ion-option [value]="11" *ngIf="FormItem.get('suctionPipeSize').value == 26">
               1-4
             </ion-option>
-            <ion-option [value]="12">
+            <ion-option [value]="12" *ngIf="FormItem.get('suctionPipeSize').value == 26">
               1-5
             </ion-option>
-            <ion-option [value]="13">
+            <ion-option [value]="13"*ngIf="FormItem.get('suctionPipeSize').value == 2 || FormItem.get('suctionPipeSize').value == 26">
               1/2-2
             </ion-option>
-            <ion-option [value]="14">
+            <ion-option [value]="14" *ngIf="FormItem.get('suctionPipeSize').value == 3 ||FormItem.get('suctionPipeSize').value == 26">
               1/2-3
             </ion-option>
-            <ion-option [value]="15">
+            <ion-option [value]="15" *ngIf="FormItem.get('suctionPipeSize').value == 12">
               2
             </ion-option>
-            <ion-option [value]="16">
+            <ion-option [value]="16" *ngIf="FormItem.get('suctionPipeSize').value == 13">
               2-3
             </ion-option>
-            <ion-option [value]="17">
+            <ion-option [value]="17" *ngIf="FormItem.get('suctionPipeSize').value == 14">
               2-4
             </ion-option>
-            <ion-option [value]="18">
+            <ion-option [value]="18" *ngIf="FormItem.get('suctionPipeSize').value == 26">
               2-6
             </ion-option>
-            <ion-option [value]="19">
+            <ion-option [value]="19" *ngIf="FormItem.get('suctionPipeSize').value == 16 || FormItem.get('suctionPipeSize').value == 26">
               4
             </ion-option>
-            <ion-option [value]="20">
+            <ion-option [value]="20" *ngIf="FormItem.get('suctionPipeSize').value == 17">
               4-6
             </ion-option>
-            <ion-option [value]="21">
+            <ion-option [value]="21" *ngIf="FormItem.get('suctionPipeSize').value == 16">
               4 (1/2)
             </ion-option>
-            <ion-option [value]="22">
+            <ion-option [value]="22" *ngIf="FormItem.get('suctionPipeSize').value == 4 || FormItem.get('suctionPipeSize').value == 26">
               1/2-4
             </ion-option>
-            <ion-option [value]="23">
+            <ion-option [value]="23"*ngIf="FormItem.get('suctionPipeSize').value == 19">
               5
             </ion-option>
-            <ion-option [value]="24">
+            <ion-option [value]="24" *ngIf="FormItem.get('suctionPipeSize').value == 20">
               5-6
             </ion-option>
-            <ion-option [value]="25">
+            <ion-option [value]="25" *ngIf="FormItem.get('suctionPipeSize').value == 21">
               6
             </ion-option>
-            <ion-option [value]="26">
+            <ion-option [value]="26" *ngIf="FormItem.get('suctionPipeSize').value == 22">
               6-12
             </ion-option>
-            <ion-option [value]="27">
+            <ion-option [value]="27" *ngIf="FormItem.get('suctionPipeSize').value == 23">
               7-8
             </ion-option>
-            <ion-option [value]="28">
+            <ion-option [value]="28" *ngIf="FormItem.get('suctionPipeSize').value == 24">
               9-10
             </ion-option>
-            <ion-option [value]="29">
+            <ion-option [value]="29" *ngIf="FormItem.get('suctionPipeSize').value == 25">
               11-12
             </ion-option>
-            <ion-option [value]="30">
+            <ion-option [value]="30" *ngIf="FormItem.get('suctionPipeSize').value == 18">
               4-8
             </ion-option>
-            <ion-option [value]="31">
+            <ion-option [value]="31" *ngIf="FormItem.get('suctionPipeSize').value == 26 || FormItem.get('suctionPipeSize').value == 15 || FormItem.get('suctionPipeSize').value == 16">
               3
             </ion-option>
-            <ion-option [value]="32">
+            <ion-option [value]="32" *ngIf="FormItem.get('suctionPipeSize').value == 11">
               1
             </ion-option>
           </ion-select>
