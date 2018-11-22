@@ -574,7 +574,7 @@
             <ion-option [value]="1">
               (1/2)-1
             </ion-option>
-            <ion-option [value]="2">
+            <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
               (1/2)-2
             </ion-option>
             <ion-option [value]="3">
@@ -601,7 +601,7 @@
             <ion-option [value]="10">
               1(1/4)-2
             </ion-option>
-            <ion-option [value]="11">
+            <ion-option [value]="11" *ngIf="FormItem.get('horsePower').value == 52">
               1
             </ion-option>
             <ion-option [value]="12">
@@ -613,10 +613,10 @@
             <ion-option [value]="14">
               2-4
             </ion-option>
-            <ion-option [value]="15">
+            <ion-option [value]="15" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58 ||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
               3
             </ion-option>
-            <ion-option [value]="16">
+            <ion-option [value]="16" *ngIf="FormItem.get('horsePower').value == 57 ||FormItem.get('horsePower').value == 58 ||FormItem.get('horsePower').value == 60||FormItem.get('horsePower').value == 65||FormItem.get('horsePower').value == 69||FormItem.get('horsePower').value == 75||FormItem.get('horsePower').value == 77||FormItem.get('horsePower').value == 82 ||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
               4
             </ion-option>
             <ion-option [value]="17">
@@ -631,7 +631,7 @@
             <ion-option [value]="20">
               5 - 6
             </ion-option>
-            <ion-option [value]="21">
+            <ion-option [value]="21" *ngIf="FormItem.get('horsePower').value == 82||FormItem.get('horsePower').value == 84||FormItem.get('horsePower').value == 87||FormItem.get('horsePower').value == 90||FormItem.get('horsePower').value == 97">
               6
             </ion-option>
             <ion-option [value]="22">
@@ -646,7 +646,7 @@
             <ion-option [value]="25">
               11 - 12
             </ion-option>
-            <ion-option [value]="26">
+            <ion-option [value]="26" *ngIf="FormItem.get('horsePower').value == 44 || FormItem.get('horsePower').value == 46 || FormItem.get('horsePower').value == 54||FormItem.get('horsePower').value == 63||FormItem.get('horsePower').value == 68">
               "ไม่มีท่อดูด"
             </ion-option>
           </ion-select>
