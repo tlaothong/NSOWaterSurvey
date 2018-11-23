@@ -4,10 +4,9 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantDoing, SetAgronomyPlantSelectPlant } from '../../states/household/household.actions';
-import { stringify } from '@angular/core/src/util';
+import { SetAgronomyPlantSelectPlant } from '../../states/household/household.actions';
+import { getHouseHoldSample } from '../../states/household';
 
 @IonicPage()
 @Component({
