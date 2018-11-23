@@ -9,7 +9,6 @@
 <ion-content padding>
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
-
     <div formGroupName="subUnit">
 
       <ion-item>
@@ -60,11 +59,8 @@
   </ion-item>
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
-
     <div formGroupName="subUnit">
-
       <ion-list>
-
         <div *ngIf="access == 1">
           <ion-item>
             <ion-label>3.2 การแยกมิเตอร์น้ำประปา/น้ำบาดาล</ion-label>
@@ -156,8 +152,6 @@
           </div>
         </div>
       </ion-list>
-
-
     </div>
   </form>
 
@@ -181,7 +175,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
   </form>
 
 </ion-content>

@@ -17,6 +17,10 @@ export class UnitButtonComponent {
   public access: number;
   public comment: string;
 
+  public index: number;
+  public class = "play";
+  public roomNumber = '';
+
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder) {
     this.text = '';
     // TODO: Remove this
@@ -65,21 +69,34 @@ export class UnitButtonComponent {
     });
   }
 
-  public showModal() {
+  public showModalSetting() {
+    this.FormItem.get('subUnit.accessCount').setValue(this.index);
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
-
-        let index = this.FormItem.get('subUnit.accessCount').value - 1;
-        let fgac = this.FormItem.get('subUnit.accesses') as FormArray;
-        let fgcm = this.FormItem.get('comments') as FormArray;
-        this.access = fgac.at(index).value.access[0];
-        this.comment = fgcm.at(index).value.text[0];
+        this.setAccess();
       }
     });
     modal.present();
+  }
+
+  public showModal() {
+    if (this.access == 1) {
+      this.goWaterActivityUnitPage();
+    }
+    else if (this.class != "complete" && this.class != "completeCm") {
+      const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
+      modal.onDidDismiss(data => {
+        if (data) {
+          var fg = <FormGroup>data;
+          this.FormItem.setValue(fg.value);
+          this.setAccess();
+        }
+      });
+      modal.present();
+    }
   }
 
   submitRequest() {
@@ -108,66 +125,41 @@ export class UnitButtonComponent {
     });
   }
 
-  // private setupAccessCountChanges() {
-  //   const componentFormArray: string = "subUnit.accesses";
-  //   const componentCount: string = "subUnit.accessCount";
+  private setAccess() {
+    this.index = this.FormItem.get('subUnit.accessCount').value - 1;
+    let fgac = this.FormItem.get('subUnit.accesses') as FormArray;
+    let fgcm = this.FormItem.get('comments') as FormArray;
+    this.access = fgac.at(this.index).value.access[0];
+    this.comment = fgcm.at(this.index).value.text[0];
+    this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
+    this.checkAccess();
+  }
 
-  //   var onComponentCountChanges = () => {
-  //     var accesses = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
-  //     var accessCount = this.FormItem.get(componentCount).value || 0;
-  //     var farr = this.fb.array([]);
-
-  //     accessCount = Math.max(0, accessCount);
-
-  //     for (let i = 0; i < accessCount; i++) {
-  //       var ctrl = null;
-  //       if (i < accesses.length) {
-  //         const fld = accesses[i];
-  //         ctrl = fld;
-  //       } else {
-  //         ctrl = UnitButtonComponent.CreateAccess(this.fb);
-  //       }
-
-  //       farr.push(ctrl);
-  //     }
-  //     // this.FormItem.setControl(componentFormArray, farr);
-  //     let fgrp = this.FormItem.get('subUnit') as FormGroup;
-  //     fgrp.setControl('accesses', farr);
-  //   };
-
-  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-  //   onComponentCountChanges();
-  // }
-
-  // private setupAccessCountChangesForComments() {
-  //   const componentFormArray: string = "comments";
-  //   const componentCount: string = "subUnit.accessCount";
-
-  //   var onComponentCountChanges = () => {
-  //     var comments = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
-  //     var accessCount = this.FormItem.get(componentCount).value || 0;
-  //     var farr = this.fb.array([]);
-
-  //     accessCount = Math.max(0, accessCount);
-
-  //     for (let i = 0; i < accessCount; i++) {
-  //       var ctrl = null;
-  //       if (i < comments.length) {
-  //         const fld = comments[i];
-  //         ctrl = fld;
-  //       } else {
-  //         ctrl = UnitButtonComponent.CreateComment(this.fb);
-  //       }
-
-  //       farr.push(ctrl);
-  //     }
-  //     this.FormItem.setControl(componentFormArray, farr);
-  //   };
-
-  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-  //   onComponentCountChanges();
-  // }
-
+  private checkAccess() {
+    switch (this.access) {
+      case 1:
+        if (this.FormItem.valid) {
+          this.class = (this.comment == '') ? "complete" : "completeCm";
+        }
+        else {
+          this.class = (this.comment == '') ? "pause" : "pauseCm";
+        }
+        break;
+      case 2:
+      case 3:
+        if (this.index < 2) {
+          this.class = (this.comment == '') ? "return" : "returnCm";
+        }
+        else {
+          this.class = (this.comment == '') ? "complete" : "completeCm";
+        }
+        break;
+      case 4:
+      case 5:
+        this.class = "complete";
+        break;
+      default:
+        break;
+    }
+  }
 }

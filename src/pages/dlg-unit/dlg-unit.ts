@@ -21,15 +21,20 @@ export class DlgUnitPage {
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
 
+  public index: number;
   public access: number;
   public comment: string = '';
   public count: number;
+
+  private fgac: FormArray;
+  private fgcm: FormArray;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
     const dataIn = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(dataIn.value);
-    this.count = this.FormItem.get('subUnit.accessCount').value + 1;
+
+    this.setEnvironment();
   }
 
   ionViewDidLoad() {
@@ -45,9 +50,9 @@ export class DlgUnitPage {
     if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
       this.setAccesses();
       this.viewCtrl.dismiss(this.FormItem);
-      // if (this.access == 1) {
-      //   this.navCtrl.push("WaterActivityUnitPage")
-      // }
+      if (this.access == 1) {
+        this.navCtrl.push("WaterActivityUnitPage")
+      }
     }
   }
 
@@ -58,9 +63,17 @@ export class DlgUnitPage {
 
   public setAccesses() {
     this.FormItem.get('subUnit.accessCount').setValue(this.count);
-    let fgac = this.FormItem.get('subUnit.accesses') as FormArray;
-    let fgcm = this.FormItem.get('comments') as FormArray;
-    fgac.at(this.count - 1).setValue({ 'access': [this.access] });
-    fgcm.at(this.count - 1).setValue({ 'at': [null], 'text': [this.comment], });
+    this.fgac.at(this.index).setValue({ 'access': [this.access] });
+    this.fgcm.at(this.index).setValue({ 'at': [null], 'text': [this.comment], });
+  }
+
+  public setEnvironment() {
+    this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
+    this.fgcm = this.FormItem.get('comments') as FormArray;
+
+    this.index = this.FormItem.get('subUnit.accessCount').value;
+    this.count = this.index + 1;
+    this.access = this.fgac.at(this.index).value.access[0];
+    this.comment = this.fgcm.at(this.index).value.text[0];
   }
 }
