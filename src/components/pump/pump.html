@@ -611,23 +611,23 @@
               (1/2)-1
             </ion-option>
             <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 2 
-            || FormItem.get('horsePower').value == 5 
+            || (FormItem.get('horsePower').value == 5 
             || FormItem.get('horsePower').value == 8 
             || (FormItem.get('horsePower').value == 9  && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 10 
-            || FormItem.get('horsePower').value == 12 
-            || FormItem.get('horsePower').value == 13 
+            || FormItem.get('horsePower').value == 12 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
+            || FormItem.get('horsePower').value == 13 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
             || FormItem.get('horsePower').value == 16 
             || FormItem.get('horsePower').value == 17 
-            || FormItem.get('horsePower').value == 18 
+            || FormItem.get('horsePower').value == 18 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
             || FormItem.get('horsePower').value == 20 
             || FormItem.get('horsePower').value == 22 
             || FormItem.get('horsePower').value == 24 
-            || FormItem.get('horsePower').value == 25 
+            || FormItem.get('horsePower').value == 25 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
             || FormItem.get('horsePower').value == 27 
             || FormItem.get('horsePower').value == 28 
             || FormItem.get('horsePower').value == 29 
-            || FormItem.get('horsePower').value == 30 
+            || FormItem.get('horsePower').value == 30 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
             || FormItem.get('horsePower').value == 31 
             || FormItem.get('horsePower').value == 33 
             || FormItem.get('horsePower').value == 36 
