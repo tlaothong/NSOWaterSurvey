@@ -21,9 +21,7 @@ export class UnitButtonComponent {
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
-  private GetPlantDrycrop$ = this.storeBuild.select(getSendDataBuilding);
 
-  private testData: any;
   constructor(private modalCtrl: ModalController, private fb: FormBuilder, private storeBuild: Store<BuildingState>) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
@@ -65,12 +63,7 @@ export class UnitButtonComponent {
     modal.present();
   }
   ionViewDidLoad() {
-    this.GetPlantDrycrop$.subscribe(data => this.testData = data);
-    console.log('testData');
-    console.log(this.testData);
-
   }
-
 
   submitRequest() {
     this.submitRequested = true;
