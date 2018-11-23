@@ -28,7 +28,6 @@ export class UnitButtonComponent {
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
 
-
   constructor(private modalCtrl: ModalController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
@@ -73,7 +72,8 @@ export class UnitButtonComponent {
     });
     modal.present();
   }
- 
+
+
   submitRequest() {
     this.submitRequested = true;
   }
