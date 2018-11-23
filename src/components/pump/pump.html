@@ -610,7 +610,7 @@
             || (FormItem.get('horsePower').value == 10 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 8)
             || (FormItem.get('horsePower').value == 13 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 8)">
               (1/2)-1
-            </ion-option>xxx
+            </ion-option>
             <ion-option [value]="2" *ngIf="(FormItem.get('horsePower').value == 2 && FormItem.get('pumpType').value == 4 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 8 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 5  && (FormItem.get('pumpType').value == 2||FormItem.get('pumpType').value == 4) && FormItem.get('energySource').value == 1)
@@ -648,7 +648,7 @@
             || (FormItem.get('horsePower').value == 32 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 3 )
             || (FormItem.get('horsePower').value == 44 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 3 )
             || (FormItem.get('horsePower').value == 10 && FormItem.get('pumpType').value == 4 && FormItem.get('energySource').value == 1)
-            || (FormItem.get('horsePower').value == 13 && FormItem.get('pumpType').value == 4 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 13 && (FormItem.get('pumpType').value == 4||FormItem.get('pumpType').value == 2) && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 17 && FormItem.get('pumpType').value == 4 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 28 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 3)
             || (FormItem.get('horsePower').value == 31 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 2)
@@ -660,6 +660,8 @@
             || (FormItem.get('horsePower').value == 120 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)  
             || (FormItem.get('horsePower').value == 51 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 24 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || FormItem.get('horsePower').value == 25 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
+            || FormItem.get('horsePower').value == 30 && FormItem.get('pumpType').value == 2  && FormItem.get('energySource').value == 1
             || FormItem.get('horsePower').value == 50">
               (1/2)-2
             </ion-option>
