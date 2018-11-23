@@ -1,7 +1,10 @@
 import { UnitButtonComponent } from './../../components/unit-button/unit-button';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { getSendDataBuilding } from '../../states/building';
+import { BuildingState } from '../../states/building/building.reducer';
+import { Store } from '@ngrx/store';
 
 @IonicPage()
 @Component({
@@ -14,16 +17,26 @@ export class UnitPage {
   private submitRequested: boolean;
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
+  private GetPlantDrycrop$ = this.storeBuild.select(getSendDataBuilding);
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'amount': [10],
+      'amount': [null, Validators.required],
       'units': this.fb.array([]),
     });
 
     this.setupUnitsCountChanges();
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UnitPage');
+    this.unitButton.forEach(it => it.ionViewDidLoad());
+    this.GetPlantDrycrop$.subscribe(data => this.f.get('amount').setValue(data));
+    console.log('amount');
+    console.log(this.f.get('amount').value);
+
+
+  }
   ionViewDidEnter() {
 
   }
@@ -85,10 +98,6 @@ export class UnitPage {
   //   });
   // }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitPage');
-    this.unitButton.forEach(it => it.ionViewDidLoad());
-  }
 
   // Unit() {
   //   const modal = this.modalCtrl.create("DlgUnitPage", { f: this.f });
