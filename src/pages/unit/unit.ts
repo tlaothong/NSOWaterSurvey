@@ -44,6 +44,8 @@ export class UnitPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.unitButton.forEach(it => it.submitRequest());
+
+
   }
 
   private setupUnitsCountChanges() {
@@ -97,7 +99,6 @@ export class UnitPage {
   //     })
   //   });
   // }
-
 
   // Unit() {
   //   const modal = this.modalCtrl.create("DlgUnitPage", { f: this.f });

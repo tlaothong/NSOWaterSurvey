@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { map } from 'rxjs/operators';
+import { getHouseHoldSample } from '../../states/household';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -17,12 +20,15 @@ import { BuildingState } from '../../states/building/building.reducer';
 })
 export class UnitButtonComponent {
 
+  @Input() forwardFormData$: any;
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder, private storeBuild: Store<BuildingState>) {
+
+  constructor(private modalCtrl: ModalController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
 
@@ -32,6 +38,8 @@ export class UnitButtonComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      'ea': [null, Validators.required],
+      'buildingId': [null, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'access': [null, Validators.required],
@@ -46,13 +54,15 @@ export class UnitButtonComponent {
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
       'comments': fb.group({
-        'at': [null],
-        'text': [null],
-      })
+        'at': [null, Validators.required],
+        'text': [null, Validators.required],
+      }),
     });
   }
 
   public showModal() {
+
+
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
@@ -62,12 +72,25 @@ export class UnitButtonComponent {
     });
     modal.present();
   }
-  ionViewDidLoad() {
-  }
+
 
   submitRequest() {
     this.submitRequested = true;
   }
+
+  ionViewDidEnter() {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UnitButtonComponent');
+    this.formData$.subscribe(data => this.FormItem.setValue(data));
+    // this.DlgUnitPage.forEach(it => it.ionViewDidLoad());
+    console.log('dasdsadsad');
+    console.log(this.FormItem);
+
+  }
+
+
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
