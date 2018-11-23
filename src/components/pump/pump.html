@@ -505,9 +505,6 @@
             <ion-option [value]="94" *ngIf="FormItem.get('pumpType').value == 1 || FormItem.get('pumpType').value == 3">
               10001-14000 / 15 - 20
             </ion-option>
-            <ion-option [value]="95">
-              10001-14000 / 15 - 25
-            </ion-option>
             <ion-option [value]="96" *ngIf="FormItem.get('pumpType').value == 3">
               10001-15000 / 15 - 20
             </ion-option>
@@ -616,7 +613,7 @@
             <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 2 
             || FormItem.get('horsePower').value == 5 
             || FormItem.get('horsePower').value == 8 
-            || FormItem.get('horsePower').value == 9 
+            || (FormItem.get('horsePower').value == 9  && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 10 
             || FormItem.get('horsePower').value == 12 
             || FormItem.get('horsePower').value == 13 
@@ -716,7 +713,7 @@
             </ion-option>
             <ion-option [value]="9" *ngIf="FormItem.get('horsePower').value == 4
             || FormItem.get('horsePower').value == 7
-            || FormItem.get('horsePower').value == 10
+            || FormItem.get('horsePower').value == 10 
             || FormItem.get('horsePower').value == 13">
               1(1/2)-2
             </ion-option>
@@ -939,7 +936,7 @@
             || FormItem.get('horsePower').value == 40
             || FormItem.get('horsePower').value == 56
             || FormItem.get('horsePower').value == 67
-            || FormItem.get('horsePower').value == 9 
+            || (FormItem.get('horsePower').value == 9 && FormItem.get('pumpType').value == 1)
             || FormItem.get('horsePower').value == 18 
             || FormItem.get('horsePower').value == 24 
             || FormItem.get('horsePower').value == 27 
