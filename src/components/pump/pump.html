@@ -602,7 +602,7 @@
             ขนาดท่อดูด
           </ion-label>
           <ion-select interface="action-sheet" formControlName="suctionPipeSize" [class.invalid]="isValid('suctionPipeSize')">
-            <ion-option [value]="1" *ngIf="FormItem.get('horsePower').value == 18
+            <ion-option [value]="1" *ngIf="(FormItem.get('horsePower').value == 18 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 1 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 8) 
             || (FormItem.get('horsePower').value == 4 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 8)
             || (FormItem.get('horsePower').value == 7 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 8)
@@ -611,9 +611,9 @@
               (1/2)-1
             </ion-option>xxx
             <ion-option [value]="2" *ngIf="FormItem.get('horsePower').value == 2 
-            || FormItem.get('horsePower').value == 5 
             || (FormItem.get('horsePower').value == 8 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
-            || (FormItem.get('horsePower').value == 9 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 5  && FormItem.get('pumpType').value == 2 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 9  && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 10 
             || (FormItem.get('horsePower').value == 12 && FormItem.get('pumpType').value == 2 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 13 
@@ -624,15 +624,15 @@
             || (FormItem.get('horsePower').value == 18 && FormItem.get('pumpType').value == 2 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 24 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1) 
             || FormItem.get('horsePower').value == 25 
-            || FormItem.get('horsePower').value == 27 
+            || (FormItem.get('horsePower').value == 27 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 28 
             || (FormItem.get('horsePower').value == 29 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 2)
             || FormItem.get('horsePower').value == 30 
             || FormItem.get('horsePower').value == 31 
-            || FormItem.get('horsePower').value == 33 
-            || FormItem.get('horsePower').value == 36 
+            || (FormItem.get('horsePower').value == 33 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 36 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 37 
-            || FormItem.get('horsePower').value == 41 
+            || (FormItem.get('horsePower').value == 41 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 45
             || FormItem.get('horsePower').value == 48 
             || (FormItem.get('horsePower').value == 69 && FormItem.get('energySource').value == 4 && FormItem.get('pumpType').value == 3)
@@ -659,10 +659,10 @@
             || FormItem.get('horsePower').value == 98 
             || (FormItem.get('horsePower').value == 15 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 19 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
-            || FormItem.get('horsePower').value == 24 
             || (FormItem.get('horsePower').value == 120 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)  
-            || FormItem.get('horsePower').value == 50
-            || (FormItem.get('horsePower').value == 51 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)">
+            || (FormItem.get('horsePower').value == 51 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 24 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || FormItem.get('horsePower').value == 50">
               (1/2)-2
             </ion-option>
             <ion-option [value]="3" *ngIf="FormItem.get('horsePower').value == 21 
@@ -670,10 +670,10 @@
             || FormItem.get('horsePower').value == 27 
             || FormItem.get('horsePower').value == 42 
             || (FormItem.get('horsePower').value == 46 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 2)
-            || FormItem.get('horsePower').value == 49 
             || (FormItem.get('horsePower').value == 54 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 2)
-            || FormItem.get('horsePower').value == 59 
             || (FormItem.get('horsePower').value == 62 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 2)
+            || (FormItem.get('horsePower').value == 49 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 59 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 72 
             || FormItem.get('horsePower').value == 79 
             || (FormItem.get('horsePower').value == 81 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
@@ -725,7 +725,7 @@
             || (FormItem.get('horsePower').value == 13 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 8)">
               1(1/2)-2
             </ion-option>
-            <ion-option [value]="10" *ngIf="FormItem.get('horsePower').value == 18">
+            <ion-option [value]="10" *ngIf="(FormItem.get('horsePower').value == 18 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)" >
               1(1/4)-2
             </ion-option>
             <ion-option [value]="11" *ngIf="(FormItem.get('horsePower').value == 52 && FormItem.get('pumpType').value == 5 && FormItem.get('energySource').value == 4)">
@@ -736,13 +736,13 @@
             || (FormItem.get('horsePower').value == 43 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)">
               2
             </ion-option>
-            <ion-option [value]="13" *ngIf="FormItem.get('horsePower').value == 76 || FormItem.get('horsePower').value == 102">
-              2-3
+            <ion-option [value]="13" *ngIf="(FormItem.get('horsePower').value == 76 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1) || (FormItem.get('horsePower').value == 102 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)">
+              2-3 
             </ion-option>
-            <ion-option [value]="14" *ngIf="FormItem.get('horsePower').value == 96 
-            || FormItem.get('horsePower').value == 105 
-            || FormItem.get('horsePower').value == 107 
-            || FormItem.get('horsePower').value == 108">
+            <ion-option [value]="14" *ngIf="(FormItem.get('horsePower').value == 96 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 105 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 107 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 108 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)">
               2-4
             </ion-option>
             <ion-option [value]="15" *ngIf="(FormItem.get('horsePower').value == 57 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )  
@@ -754,6 +754,10 @@
             || (FormItem.get('horsePower').value == 90 && FormItem.get('energySource').value == 4 && FormItem.get('pumpType').value == 3)
             || (FormItem.get('horsePower').value == 97 && FormItem.get('energySource').value == 4 && FormItem.get('pumpType').value == 3)
             || (FormItem.get('horsePower').value == 29 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 2)
+            || (FormItem.get('horsePower').value == 58 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || FormItem.get('horsePower').value == 60
+            || FormItem.get('horsePower').value == 65
+            || FormItem.get('horsePower').value == 84
             || FormItem.get('horsePower').value == 45 
             || FormItem.get('horsePower').value == 48
             || (FormItem.get('horsePower').value == 88 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )
@@ -795,7 +799,6 @@
             || (FormItem.get('horsePower').value == 60 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )
             || (FormItem.get('horsePower').value == 65 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )
             || (FormItem.get('horsePower').value == 84 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )
-            || FormItem.get('horsePower').value == 102
             || (FormItem.get('horsePower').value == 44 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 3 )
             || (FormItem.get('horsePower').value == 88 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )
             || (FormItem.get('horsePower').value == 92 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 4 )
@@ -812,6 +815,7 @@
             || (FormItem.get('horsePower').value == 103 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 105 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 118 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 102 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)
             || (FormItem.get('horsePower').value == 109 && FormItem.get('pumpType').value == 3 && FormItem.get('energySource').value == 1)">
               4
             </ion-option>
@@ -938,13 +942,13 @@
             || (FormItem.get('horsePower').value == 3 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 6 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 11 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
-            || (FormItem.get('horsePower').value == 14 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
+            || (FormItem.get('horsePower').value == 14 && FormItem.get('energySource').value == 1 && (FormItem.get('pumpType').value == 7||FormItem.get('pumpType').value == 1))
             || (FormItem.get('horsePower').value == 17 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 21 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 23 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 26 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 27 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
-            || (FormItem.get('horsePower').value == 40 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
+            || (FormItem.get('horsePower').value == 40 && FormItem.get('energySource').value == 1 && (FormItem.get('pumpType').value == 7||FormItem.get('pumpType').value == 1))
             || (FormItem.get('horsePower').value == 56 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 67 && FormItem.get('energySource').value == 1 && FormItem.get('pumpType').value == 7)
             || (FormItem.get('horsePower').value == 89 && (FormItem.get('pumpType').value == 3||FormItem.get('pumpType').value == 9) && FormItem.get('energySource').value == 3 )
@@ -955,17 +959,19 @@
             || (FormItem.get('horsePower').value == 63 && FormItem.get('pumpType').value == 6 && FormItem.get('energySource').value == 4)
             || (FormItem.get('horsePower').value == 68 && FormItem.get('pumpType').value == 6 && FormItem.get('energySource').value == 4)
             || (FormItem.get('horsePower').value == 34 && (FormItem.get('pumpType').value == 1 || FormItem.get('pumpType').value == 7) && FormItem.get('energySource').value == 1)
-            || (FormItem.get('horsePower').value == 9 && FormItem.get('pumpType').value == 1)
             || (FormItem.get('horsePower').value == 18 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
             || FormItem.get('horsePower').value == 24 
             || FormItem.get('horsePower').value == 27 
-            || FormItem.get('horsePower').value == 55 
-            || FormItem.get('horsePower').value == 74 
-            || FormItem.get('horsePower').value == 94 
-            || FormItem.get('horsePower').value == 102 
-            || FormItem.get('horsePower').value == 112 
-            || FormItem.get('horsePower').value == 116">
-              "ไม่มีท่อดูด"
+            || (FormItem.get('horsePower').value == 9 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 27 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 34 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 55 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 74 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 94 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 102 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 112 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)
+            || (FormItem.get('horsePower').value == 116 && FormItem.get('pumpType').value == 1 && FormItem.get('energySource').value == 1)">
+              "ไม่มีท่อดูด" 
             </ion-option>
           </ion-select>
         </ion-item>
@@ -1028,7 +1034,7 @@
             <ion-option [value]="13" *ngIf="FormItem.get('suctionPipeSize').value == 2 || FormItem.get('suctionPipeSize').value == 26">
               1/2-2
             </ion-option>
-            <ion-option [value]="14" *ngIf="FormItem.get('suctionPipeSize').value == 3 ||FormItem.get('suctionPipeSize').value == 26">
+            <ion-option [value]="14" *ngIf="FormItem.get('suctionPipeSize').value == 3 || FormItem.get('suctionPipeSize').value == 26">
               1/2-3
             </ion-option>
             <ion-option [value]="15" *ngIf="FormItem.get('suctionPipeSize').value == 12">
