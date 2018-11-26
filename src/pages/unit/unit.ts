@@ -5,6 +5,9 @@ import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding } from '../../states/building';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -18,22 +21,24 @@ export class UnitPage {
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
       'unitCount': [null, Validators.required],
       'units': this.fb.array([]),
     });
-    
+
     this.setupUnitsCountChanges();
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
+    this.unitButton.forEach(it => it.ionViewDidLoad());
   }
   ionViewDidEnter() {
     console.log("enter");
-
   }
 
   public handleSubmit() {
@@ -92,7 +97,6 @@ export class UnitPage {
   //     })
   //   });
   // }
-
 
   // Unit() {
   //   const modal = this.modalCtrl.create("DlgUnitPage", { f: this.f });

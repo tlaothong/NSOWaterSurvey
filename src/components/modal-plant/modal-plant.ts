@@ -2,6 +2,11 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown';
+import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetAgronomyPlantSelectPlant, SetRicePlantSelectPlant, SetRubberTreeSelectPlant, SetPerennialPlantSelectPlant } from '../../states/household/household.actions';
+
 
 /**
  * Generated class for the ModalPlantComponent component.
@@ -13,20 +18,36 @@ import { SearchDropdownPage } from '../../pages/search-dropdown/search-dropdown'
   selector: 'modal-plant',
   templateUrl: 'modal-plant.html'
 })
-export class ModalPlantComponent {
+export class ModalPlantComponent implements ISubmitRequestable {
+
 
   @Input() InputList;
-  @Input() InputLimit;
+  @Input() InputLimit: any[];
   @Input() Title;
   @Input() public FormItem: FormGroup;
 
+  private submitRequested: boolean;
   shownData: string[];
   text: string;
+  plant: string[];
+  selectPlants: string[];
 
-  constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
-    
+  constructor(public modalCtrl: ModalController, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+
     this.FormItem = ModalPlantComponent.CreateFormGroup(this.fb);
-    console.log("dddd",JSON.stringify(this.FormItem.value))
+    console.log("dddd", JSON.stringify(this.FormItem.value))
+  }
+
+  ionViewDidLoad() {
+  }
+
+  submitRequest() {
+    this.submitRequested = true
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   // public static CreateFormArray(fb: FormBuilder, count: number): FormArray {
@@ -49,18 +70,26 @@ export class ModalPlantComponent {
     );
     ModalPlantComponent.setupPlantCountChanges(fb, fg);
     return fg;
-    
+
   }
 
-
   model() {
-   
+
     const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: this.Title, selected: [], list: this.InputList, limit: this.InputLimit });
+      { title: this.Title, selected: this.FormItem.get('plants').value, list: this.InputList, limit: this.InputLimit });
     modal.onDidDismiss(data => {
       if (data) {
-        var adata = data as Array<string>;
-        this.shownData = adata.map(it => it.split(".")[1]);
+        var adata = data as Array<any>;
+        var arr = [];
+        adata.forEach(value => {
+          arr.push({
+            "code": value.code,
+            "name": value.name,
+          })
+        });
+        // this.shownData = arr;
+        this.FormItem.setValue({ 'plantingCount': arr.length, 'plants': arr });
+        // this.shownData = adata.map(it => it.split("."));     
       }
     });
     modal.present();

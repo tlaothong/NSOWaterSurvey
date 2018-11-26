@@ -101,15 +101,7 @@
 
       <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
         <div *ngSwitchCase="false">
-          <!-- <ion-list>
-            <ion-item *ngFor="let p of otherPlantings" text-center>
-              {{ p.code }} {{ p.name }}
-            </ion-item>
-          </ion-list>
-          <ion-item>
-            <ion-label ion-button (click)="model2()">เลือก</ion-label>
-          </ion-item> -->
-          <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('otherPlantings')"></modal-plant>
+          <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1" [FormItem]="FormItem.get('primaryPlant')"></modal-plant>
         </div>
       </div>
 

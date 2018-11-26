@@ -7,13 +7,6 @@ import { Store } from '@ngrx/store';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 
-/**
- * Generated class for the MushroomPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-mushroom',

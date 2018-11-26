@@ -4,16 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant } from '../../states/household';
 import { map } from 'rxjs/operators';
-
-
-/**
- * Generated class for the HerbsPlantPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -25,10 +17,18 @@ export class HerbsPlantPage {
   private submitRequested: boolean;
   public f: FormGroup;
   shownData: string[];
+  Plant: string[];
   // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
-
-
+  private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
+  private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
+  private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
+  private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
+  listDryCropData: any = [];
+  listPerenialData: any = [];
+  listRiceData: any = [];
+  listRubberData: any = [];
+  listSumData: any = [];
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -46,11 +46,31 @@ export class HerbsPlantPage {
     console.log('ionViewDidLoad HerbsPlantPage');
     // TODO
     this.formData$.subscribe(data => this.f.setValue(data));
+    // this.GetPlant$.subscribe(data =>this.f.get('fields').setValue(data));
+    this.GetPlantRice$.subscribe(data => this.listRiceData = data);
+    this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
+    this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
+    this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
+    var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
+    this.listSumData = sum;
+    console.log('Sumsss : ');
+    console.log(this.listSumData)
+
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldHerbsPlant.forEach(it => it.submitRequest());
+    console.log(this.f.value);
+    let fields = this.f.get('fields').value as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+      if (f.plantings && f.plantings.plants) {
+        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+      }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
   }
 
   public isValid(name: string): boolean {

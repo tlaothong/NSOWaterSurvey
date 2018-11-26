@@ -2,6 +2,8 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavParams, Content, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 @IonicPage()
 @Component({
@@ -17,7 +19,7 @@ export class SearchDropdownPage {
   listData: Array<any>;
   searchListData: Array<any>;
   @ViewChild(Content) content: Content;
-  constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController, private store: Store<HouseHoldState>) {
     this.limit = navParams.get('limit');
     this.treeDisplay = navParams.get('title');
     this.listData = navParams.get('selected');
@@ -29,12 +31,11 @@ export class SearchDropdownPage {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group(
       {
-            'code': [null],
-            'name': [null]
+        'code': [null],
+        'name': [null]
       },
     );
   }
-
 
   scrollToTop() {
     this.content.scrollToTop();
@@ -43,37 +44,19 @@ export class SearchDropdownPage {
   close() {
     this.viewCtrl.dismiss(this.listData);
   }
+  
   select(id, name) {
-    if (this.listData.filter(data => data == (id + '.' + name)).length < 1) {
-      if (this.type != "TREEVET2" && this.type != "TREEDOK2") {
-        if (this.listData.length < this.limit)
-          this.listData.push(id + '.' + name);
-        else {
-          const alert = this.alertCtrl.create({
-            title: 'สามารถเลือกได้สูงสุด ' + this.limit + ' ชนิด',
-            buttons: [{
-              text: 'ตกลง',
-            }]
-          });
-          alert.present();
-        }
-      } else {
-        if (this.listData.length < 1) {
-          this.listData = [];
-          this.listData.push(id + '.' + name);
-        }
-        else {
-          const alert = this.alertCtrl.create({
-            title: 'สามารถเลือกได้สูงสุด 1 ชนิด',
-            buttons: [{
-              text: 'ตกลง',
-              handler: () => {
-
-              }
-            }]
-          });
-          alert.present();
-        }
+    if (this.listData.filter(data => data.code == id).length < 1) {
+      if (this.listData.length < this.limit)
+        this.listData.push({ 'code': id, 'name': name });
+      else {
+        const alert = this.alertCtrl.create({
+          title: 'สามารถเลือกได้สูงสุด ' + this.limit + ' ชนิด',
+          buttons: [{
+            text: 'ตกลง',
+          }]
+        });
+        alert.present();
       }
       this.scrollToTop();
     } else {
@@ -91,7 +74,7 @@ export class SearchDropdownPage {
   }
   setFilteredItems() {
     this.searchDisplay = this.searchListData.filter((tree) => {
-      let temp = '' + tree.id + tree.name;
+      let temp = '' + tree.code + tree.name;
       return temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
   }

@@ -4,13 +4,6 @@ import { Store } from '@ngrx/store';
 import { CommunityState } from '../../states/community/community.reducer';
 import { LoadCommunitySample } from '../../states/community/community.actions';
 
-/**
- * Generated class for the CommunityTestPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-community-test',
