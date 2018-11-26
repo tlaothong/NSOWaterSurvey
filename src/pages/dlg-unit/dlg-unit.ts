@@ -17,7 +17,8 @@ export class DlgUnitPage {
   public FormItem: FormGroup;
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
-
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  
   public index: number;
   public access: number;
   public comment: string = '';
@@ -36,7 +37,7 @@ export class DlgUnitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgUnitPage');
-    // this.formData$.subscribe(data => this.FormItem.setValue(data));
+    this.formData$.subscribe(data => this.FormItem.setValue(data));
 
   }
 

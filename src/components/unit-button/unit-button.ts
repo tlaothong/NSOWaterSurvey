@@ -6,6 +6,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample } from '../../states/household';
+import { LoadHouseHoldSample } from '../../states/household/household.actions';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -133,8 +134,6 @@ export class UnitButtonComponent {
     console.log(this.FormItem);
 
   }
-
-
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);

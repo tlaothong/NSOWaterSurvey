@@ -6,6 +6,8 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 import { getBuildingSample } from '../../states/building';
 import { map } from 'rxjs/operators';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { LoadHouseHoldSample } from '../../states/household/household.actions';
 
 /**
  * Generated class for the BuidlingInformation2Page page.
@@ -28,7 +30,7 @@ export class BuidlingInformation2Page {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
     this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
@@ -84,6 +86,7 @@ export class BuidlingInformation2Page {
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
+    this.storeHouse.dispatch(new LoadHouseHoldSample());
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
