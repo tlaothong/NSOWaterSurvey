@@ -2,13 +2,10 @@ import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
-
-/**
- * Generated class for the DlgUnitPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -29,7 +26,7 @@ export class DlgUnitPage {
   private fgac: FormArray;
   private fgcm: FormArray;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
     const dataIn = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(dataIn.value);
@@ -39,6 +36,8 @@ export class DlgUnitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgUnitPage');
+    // this.formData$.subscribe(data => this.FormItem.setValue(data));
+
   }
 
   public closeDialog() {

@@ -4,15 +4,9 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-
-/**
- * Generated class for the DryCropPlantingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SetAgronomyPlantSelectPlant } from '../../states/household/household.actions';
+import { getHouseHoldSample } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -48,43 +42,27 @@ export class DryCropPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
+    console.log(this.agronomyPlant.value);
+
+    let fields = this.agronomyPlant.get('fields').value as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+      if (f.plantings && f.plantings.plants) {
+        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+      }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
+    this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
+    console.log("TTTTTTTTTTTTT");
+    console.log(selected);
+
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.agronomyPlant.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage", { type: "TREERAI", model: [], list: [] });
-
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage",
-  //     { title: "พืชไร่", selected: [], list: EX_TREERAI_LIST, limit: 5 });
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
 
   private setupFieldCountChanges() {
     const componentFormArray: string = "fields";

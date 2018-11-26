@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FieldAreaComponent } from '../../components/field-area/field-area';
 
-/**
- * Generated class for the DlgFieldAreaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-dlg-field-area',

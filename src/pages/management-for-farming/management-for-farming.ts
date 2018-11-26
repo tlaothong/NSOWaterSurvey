@@ -7,13 +7,6 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getCommunitySample } from '../../states/community';
 
-/**
- * Generated class for the ManagementForFarmingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-management-for-farming',

@@ -1,3 +1,4 @@
+import { SetRicePlantSelectPlant } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -6,13 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-
-/**
- * Generated class for the RicePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { EX_RICH_LIST } from '../../models/tree';
 
 @IonicPage()
 @Component({
@@ -25,7 +20,7 @@ export class RicePage {
   f: FormGroup;
 
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
-  
+  DataList = EX_RICH_LIST;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -51,6 +46,13 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
+    // let selectedMap = new Map<string, any>();
+    // let selected = [];
+    // selectedMap.forEach(v => selected.push(v));
+    this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
+    console.log("TTTTTTTTTTTTT");
+    console.log(this.DataList);
+
   }
 
   public isValid(name: string): boolean {

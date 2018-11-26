@@ -1,18 +1,31 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ModalController, Form, NavController } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { map } from 'rxjs/operators';
+import { getHouseHoldSample } from '../../states/household';
 
+/**
+ * Generated class for the UnitButtonComponent component.
+ *
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
+ */
 @Component({
   selector: 'unit-button',
   templateUrl: 'unit-button.html'
 })
 export class UnitButtonComponent {
 
+  @Input() forwardFormData$: any;
   @Input("headline") public text: string;
   @Input('no') public unitNo: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   public access: number;
   public comment: string;
@@ -21,14 +34,16 @@ export class UnitButtonComponent {
   public class = "play";
   public roomNumber = '';
 
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+    console.log('Hello UnitButtonComponent Component');
     this.text = '';
-    // TODO: Remove this
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      'ea': [null, Validators.required],
+      'buildingId': [null, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'accessCount': [0],
@@ -106,6 +121,20 @@ export class UnitButtonComponent {
   goWaterActivityUnitPage() {
     this.navCtrl.push('WaterActivityUnitPage');
   }
+
+  ionViewDidEnter() {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UnitButtonComponent');
+    this.formData$.subscribe(data => this.FormItem.setValue(data));
+    // this.DlgUnitPage.forEach(it => it.ionViewDidLoad());
+    console.log('dasdsadsad');
+    console.log(this.FormItem);
+
+  }
+
+
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);

@@ -6,12 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-/**
- * Generated class for the FactorialPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SetFactorialCategory, SetWaterSources } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -48,6 +43,8 @@ export class FactorialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
+    this.store.dispatch(new SetWaterSources(this.FactoryForm.get('waterSources').value));
   }
 
   public isValid(name: string): boolean {

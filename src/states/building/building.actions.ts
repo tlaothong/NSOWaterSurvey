@@ -47,6 +47,8 @@ export class SetRecieveDataFromBuilding implements Action {
 
 
 
+
+
 export type BuildingActionsType =
     LoadBuildingList
     | LoadBuildingListSuccess

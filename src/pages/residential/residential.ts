@@ -6,13 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-
-/**
- * Generated class for the ResidentialPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SetresidentialGardeningUse } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -43,6 +37,7 @@ export class ResidentialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetresidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
   }
 
   public isValid(name: string): boolean {
