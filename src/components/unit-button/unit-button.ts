@@ -4,9 +4,6 @@ import { ModalController, Form, NavController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { map } from 'rxjs/operators';
-import { getHouseHoldSample } from '../../states/household';
-import { LoadHouseHoldSample } from '../../states/household/household.actions';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -26,7 +23,7 @@ export class UnitButtonComponent {
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   public access: number;
   public comment: string;
@@ -43,6 +40,7 @@ export class UnitButtonComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      '_id': [null, Validators.required],
       'ea': [null, Validators.required],
       'buildingId': [null, Validators.required],
       'subUnit': fb.group({
@@ -82,6 +80,7 @@ export class UnitButtonComponent {
       'waterUsage': [null, Validators.required],
       'disaster': [null, Validators.required],
       'closing': [null, Validators.required],
+      'recCtrl': [null, Validators.required],
     });
   }
 
@@ -128,10 +127,10 @@ export class UnitButtonComponent {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
-    this.formData$.subscribe(data => this.FormItem.setValue(data));
+    // this.formData$.subscribe(data => this.FormItem.setValue(data));
     // this.DlgUnitPage.forEach(it => it.ionViewDidLoad());
-    console.log('dasdsadsad');
-    console.log(this.FormItem);
+    // console.log('dasdsadsad');
+    // console.log(this.FormItem);
 
   }
 
