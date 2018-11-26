@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ModalController, Form, NavController } from 'ionic-angular';
+import { ModalController, Form, NavController, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'unit-button',
@@ -15,13 +15,13 @@ export class UnitButtonComponent {
   private submitRequested: boolean;
 
   public access: number;
-  public comment: string;
+  public comment = '';
 
   public index: number;
   public class = "play";
   public roomNumber = '';
 
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder,public alertCtrl: AlertController) {
     this.text = '';
     // TODO: Remove this
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
@@ -156,10 +156,19 @@ export class UnitButtonComponent {
         break;
       case 4:
       case 5:
-        this.class = "complete";
+        this.class = "abandoned";
         break;
       default:
         break;
     }
+  }
+
+  showComment() {
+    const alert = this.alertCtrl.create({
+      title: 'ปัญหา/อุปสรรค',
+      subTitle: this.comment,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }
