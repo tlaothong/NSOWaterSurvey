@@ -3,12 +3,10 @@ import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
 export interface HouseHoldState {
     units: any,
     houseHoldSample: any,
-<<<<<<< HEAD
     isHouseHold: boolean,
     isAgriculture: boolean,
     isFactorial: boolean,
     isCommercial: boolean,
-=======
     factorialCategory: string,
     // factorialWaterSources: any,
     // residentialWaterSources: any,
@@ -42,18 +40,15 @@ export interface HouseHoldState {
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
->>>>>>> ui
 }
 
 const initialState: HouseHoldState = {
     units: [],
     houseHoldSample: null,
-<<<<<<< HEAD
     isHouseHold: null,
     isAgriculture: null,
     isFactorial: null,
     isCommercial: null,
-=======
     factorialCategory: null,
     // factorialWaterSources: null,
     // residentialWaterSources: null,
@@ -88,7 +83,6 @@ const initialState: HouseHoldState = {
     ricePlantSelectPlant: [],
     agronomyPlantSelectPlant: [],
 
->>>>>>> ui
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -102,7 +96,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 houseHoldSample: action.payload,
             };
-<<<<<<< HEAD
         case HouseHoldTypes.SetIsHouseHold:
             return {
                 ...state,
@@ -122,7 +115,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 isCommercial: action.payload,
-=======
+            };
         case HouseHoldTypes.SetFactorialCategory:
             return {
                 ...state,
@@ -167,7 +160,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 perennialPlantSelectPlant: action.payload,
->>>>>>> ui
             };
         default:
             return state;

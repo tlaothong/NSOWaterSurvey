@@ -6,12 +6,10 @@ export enum HouseHoldTypes {
     LoadListSuccess = "[HH] Load List Success",
     Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
-<<<<<<< HEAD
     SetIsHouseHold = "[HH] Set IsHouseHold",
     SetIsAgriculture = "[HH] Set IsAgriculture",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsCommercial = "[HH] Set IsCommercial",
-=======
     SetFactorialCategory = "[HH] Set Factorial Category",
     SetWaterSource = "[HH] Set WaterSource",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
@@ -21,7 +19,6 @@ export enum HouseHoldTypes {
     SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
     SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
->>>>>>> ui
 }
 
 export class LoadHouseHoldList implements Action {
@@ -52,7 +49,6 @@ export class LoadHouseHoldSampleSuccess implements Action {
     }
 }
 
-<<<<<<< HEAD
 export class SetIsHouseHold implements Action {
     readonly type = HouseHoldTypes.SetIsHouseHold;
 
@@ -80,7 +76,6 @@ export class SetIsCommercial implements Action {
     constructor(public payload: boolean) {
     }
 }
-=======
 export class SetFactorialCategory implements Action {
     readonly type = HouseHoldTypes.SetFactorialCategory;
 
@@ -133,7 +128,6 @@ export class SetRicePlantSelectPlant implements Action {
 
 export class SetAgronomyPlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetAgronomyPlantSelectPlant;
->>>>>>> ui
 
     constructor(public payload: any[]) {
     }
@@ -143,12 +137,10 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
-<<<<<<< HEAD
     | SetIsHouseHold
     | SetIsAgriculture
     | SetIsFactorial
     | SetIsCommercial
-=======
     | SetFactorialCategory
     | SetWaterSources
     | SetCommercialServiceType
@@ -158,5 +150,4 @@ export type HouseHoldActionsType =
     | SetPerennialPlantSelectPlant
     | SetRicePlantSelectPlant
     | SetAgronomyPlantSelectPlant
->>>>>>> ui
     ;
