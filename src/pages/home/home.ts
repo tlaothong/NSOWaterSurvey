@@ -18,6 +18,7 @@ export class HomePage {
       { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
       { title: 'Community Test', component: "CommunityTestPage" },
+      { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'Unit', component: "UnitPage" },
       { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
