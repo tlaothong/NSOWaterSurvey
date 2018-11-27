@@ -11,18 +11,14 @@ export class TablePopulationComponent {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public personNo: string;
-  text: string;
-  submitRequested: boolean;
+  @Input("ititle") public text: string;
+  private submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
     console.log('Hello TablePopulationComponent Component');
-    this.text = '1';
   }
 
-  presentModal() {
-    const modal = this.modalCtrl.create("DlgPopulationPage");
-    modal.present();
-  }
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
       'nameTitle': [null, Validators.required],
@@ -40,6 +36,21 @@ export class TablePopulationComponent {
     return fg
   }
 
+  presentModal() {
+    const modal = this.modalCtrl.create("DlgPopulationPage",
+    {
+      FormItem: this.FormItem,
+      iTitle: this.text,
+      no: this.personNo,
+    });
+    modal.onDidDismiss(data => {
+      if (data) {
+        var fg = <FormGroup>data;
+        this.FormItem.setValue(fg.value);
+      }
+    });
+    modal.present();
+  }
   submitRequest() {
     this.submitRequested = true;
   }
