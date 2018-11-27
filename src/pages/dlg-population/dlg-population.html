@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>dlg-population</ion-title>
+    <ion-title>แบบสอบถามสำมะโนประชากรและเคหะ</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-item>
     <ion-label>
-      คำนำหน้าชื่อ
+      1) คำนำหน้าชื่อ
     </ion-label>
   </ion-item>
 
@@ -37,13 +37,16 @@
     </ion-select>
   </ion-item>
 
-      <ion-item>
-        <ion-input type="text" placeholder="โปรดระบุ"></ion-input>
-      </ion-item>
+  <ion-item>
+    <ion-label>
+      โปรดระบุ
+    </ion-label>
+    <ion-input></ion-input>
+  </ion-item>
 
   <ion-item>
     <ion-label>
-      ชื่อตัว
+      2) ชื่อตัว
     </ion-label>
   </ion-item>
   <ion-item>
@@ -52,7 +55,7 @@
 
   <ion-item>
     <ion-label>
-      ชื่อสกุล
+      3) ชื่อสกุล
     </ion-label>
   </ion-item>
   <ion-item>
@@ -60,7 +63,7 @@
   </ion-item>
   <ion-item>
     <ion-label>
-      ความสัมพันธ์กับหัวหน้าครัวเรือน
+      4) ความสัมพันธ์กับหัวหน้าครัวเรือน
     </ion-label>
   </ion-item>
 
@@ -104,27 +107,28 @@
 
   <ion-item>
     <ion-label>
-      เพศ
+      5) เพศ
     </ion-label>
   </ion-item>
 
-  <ion-item>
-    <ion-label>
-      เพศ
-    </ion-label>
-    <ion-select interface="action-sheet">
-      <ion-option>
-        1.ชาย
-      </ion-option>
-      <ion-option>
-        2.หญิง
-      </ion-option>
-    </ion-select>
-  </ion-item>
+  <ion-row radio-group>
+    <ion-item col-6>
+      <ion-radio [value]="true" item-left></ion-radio>
+      <ion-label>
+        ชาย
+      </ion-label>
+    </ion-item>
+    <ion-item col-6>
+      <ion-radio [value]="false" item-left></ion-radio>
+      <ion-label>
+        หญิง
+      </ion-label>
+    </ion-item>
+  </ion-row>
 
   <ion-item>
     <ion-label>
-      อายุ
+      6) อายุ
     </ion-label>
   </ion-item>
   <ion-item>
@@ -134,7 +138,7 @@
 
   <ion-item>
     <ion-label>
-      สัญชาติ
+      7) สัญชาติ
     </ion-label>
   </ion-item>
 
@@ -156,7 +160,7 @@
   </ion-item>
   <ion-item>
     <ion-label>
-      การมีชื่อในทะเบียนบ้าน
+      8) การมีชื่อในทะเบียนบ้าน
     </ion-label>
   </ion-item>
 
@@ -182,8 +186,19 @@
       </ion-option>
     </ion-select>
   </ion-item>
+
   <ion-item>
-    <ion-input type="text" placeholder="โปรดระบุจังหวัด"></ion-input>
+    <ion-label>
+      ระบุจังหวัดอื่น
+    </ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option value="1">
+        1.ขอนแก่น
+      </ion-option>
+      <ion-option value="2">
+        2.เลย
+      </ion-option>
+    </ion-select>
   </ion-item>
 
   <ion-row>
