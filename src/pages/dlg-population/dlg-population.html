@@ -1,0 +1,204 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>dlg-population</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <ion-item>
+    <ion-label>
+      คำนำหน้าชื่อ
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      คำนำหน้า
+    </ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option [value]="1">
+        นาย
+      </ion-option>
+      <ion-option [value]="2">
+        นาง
+      </ion-option>
+      <ion-option [value]="3">
+        น.ส.
+      </ion-option>
+      <ion-option [value]="4">
+        เด็กชาย
+      </ion-option>
+      <ion-option [value]="5">
+        เด็กหญิง
+      </ion-option>
+      <ion-option [value]="6">
+        อื่นๆ
+      </ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div [ngSwitch]="f.get('mwa.doing').value">
+    <div *ngSwitchCase="6">
+      <ion-item>
+        <ion-input type="text" placeholder="โปรดระบุ"></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-item>
+    <ion-label>
+      ชื่อตัว
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="โปรดระบุ"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      ชื่อสกุล
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="โปรดระบุ"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      ความสัมพันธ์กับหัวหน้าครัวเรือน
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      ความสัมพันธ์กับหัวหน้าครัวเรือน
+    </ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>
+        1.หัวหน้าครัวเรือน
+      </ion-option>
+      <ion-option>
+        2.ภรรยาหรือสามี
+      </ion-option>
+      <ion-option>
+        3.บุตร ยังไมได้สมรส (รวมบุตรเลี้ยงและบุตรบุญธรรม)
+      </ion-option>
+      <ion-option>
+        4.บุตร ที่สมรสแล้ว (รวมบุตรเลี้ยงและบุตรบุญธรรม)
+      </ion-option>
+      <ion-option>
+        5.บุตรเขย บุตรสะใภ้
+      </ion-option>
+      <ion-option>
+        6.บุตรของบุตร
+      </ion-option>
+      <ion-option>
+        7.พ่อ แม่ พ่อแม่คู่สมรส
+      </ion-option>
+      <ion-option>
+        8.ญาติอื่นๆ
+      </ion-option>
+      <ion-option>
+        9.ผู้อาศัย/คนรับใช้/คนงาน
+      </ion-option>
+      <ion-option>
+        10.คนงาน/พระสงฆ์/เณร/อื่นๆ
+      </ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      เพศ
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      เพศ
+    </ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>
+        1.ชาย
+      </ion-option>
+      <ion-option>
+        2.หญิง
+      </ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      อายุ
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-input type="number" placeholder="โปรดระบุ"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label>
+      สัญชาติ
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      สัญชาติ
+    </ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option>
+        1.ไทย
+      </ion-option>
+      <ion-option>
+        2.พม่า
+      </ion-option>
+      <ion-option>
+        3.ไม่มีสัญชาติ
+      </ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      การมีชื่อในทะเบียนบ้าน
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      การมีชื่อในทะเบียนบ้าน
+    </ion-label>
+    <ion-select interface="action-sheet">
+      <ion-option value="1">
+        1.มีในบ้านนี้
+      </ion-option>
+      <ion-option value="2">
+        2.ไม่มีในบ้านนี้แต่มีบ้านอื่น
+      </ion-option>
+      <ion-option value="3">
+        3.ไม่มีในบ้านนี้ แต่อยู่จังหวัดอื่น
+      </ion-option>
+      <ion-option value="4">
+        4.ไม่มีในประเทศไทย แต่มีในประเทศอื่น
+      </ion-option>
+      <ion-option value="5">
+        5. ไม่มีที่ใดเลย
+      </ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="โปรดระบุจังหวัด"></ion-input>
+  </ion-item>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button block>OK</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
