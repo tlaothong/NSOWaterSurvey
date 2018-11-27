@@ -16,12 +16,16 @@ export class UnitButtonComponent {
 
   public access: number;
   public comment = '';
+  public allComment = '';
 
   public index: number;
   public class = "play";
   public roomNumber = '';
 
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder,public alertCtrl: AlertController) {
+  public fgac: FormArray;
+  public fgcm: FormArray;
+
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private fb: FormBuilder, public alertCtrl: AlertController) {
     this.text = '';
     // TODO: Remove this
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
@@ -126,11 +130,12 @@ export class UnitButtonComponent {
   }
 
   private setAccess() {
+    this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
+    this.fgcm = this.FormItem.get('comments') as FormArray;
     this.index = this.FormItem.get('subUnit.accessCount').value - 1;
-    let fgac = this.FormItem.get('subUnit.accesses') as FormArray;
-    let fgcm = this.FormItem.get('comments') as FormArray;
-    this.access = fgac.at(this.index).value.access[0];
-    this.comment = fgcm.at(this.index).value.text[0];
+    this.access = this.fgac.at(this.index).value.access[0];
+    this.comment = this.fgcm.at(this.index).value.text[0];
+    this.allComment += (this.fgcm.at(this.index).value.text[0]) ? 'ครั้งที่ ' + (this.index + 1) + ' : ' + this.fgcm.at(this.index).value.text[0] + '<br>' : '';
     this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
     this.checkAccess();
   }
@@ -139,24 +144,24 @@ export class UnitButtonComponent {
     switch (this.access) {
       case 1:
         if (this.FormItem.valid) {
-          this.class = (this.comment == '') ? "complete" : "completeCm";
+          this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
-          this.class = (this.comment == '') ? "pause" : "pauseCm";
+          this.class = (this.allComment == '') ? "pause" : "pauseCm";
         }
         break;
       case 2:
       case 3:
         if (this.index < 2) {
-          this.class = (this.comment == '') ? "return" : "returnCm";
+          this.class = (this.allComment == '') ? "return" : "returnCm";
         }
         else {
-          this.class = (this.comment == '') ? "complete" : "completeCm";
+          this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         break;
       case 4:
       case 5:
-        this.class = "abandoned";
+        this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
       default:
         break;
@@ -166,7 +171,7 @@ export class UnitButtonComponent {
   showComment() {
     const alert = this.alertCtrl.create({
       title: 'ปัญหา/อุปสรรค',
-      subTitle: this.comment,
+      subTitle: this.allComment,
       buttons: ['OK']
     });
     alert.present();
