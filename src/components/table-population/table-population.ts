@@ -12,7 +12,7 @@ export class TablePopulationComponent {
 
   constructor(public modalCtrl: ModalController) {
     console.log('Hello TablePopulationComponent Component');
-    this.text = 'Hello World';
+    this.text = '1';
   }
 
   presentModal() {
