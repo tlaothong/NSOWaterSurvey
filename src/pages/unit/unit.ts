@@ -17,10 +17,10 @@ export class UnitPage {
   private submitRequested: boolean;
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
-  private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
+  // private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'unitCount': [null, Validators.required],
+      'unitCount': [3, Validators.required],
       'units': this.fb.array([]),
     });
     
@@ -29,7 +29,7 @@ export class UnitPage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
-    this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
+    // this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
   }
   ionViewDidEnter() {
     console.log("enter");

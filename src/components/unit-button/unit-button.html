@@ -17,7 +17,7 @@
           <ion-col (click)="showModal()" style="padding-top: 20px">
             ห้องที่ {{roomNumber}}
           </ion-col>
-          <ion-col col-3 no-padding *ngIf="comment != ''">
+          <ion-col col-3 no-padding *ngIf="allComment != ''">
             <button ion-button clear (click)="showComment()"></button>
           </ion-col>
         </ion-row>
