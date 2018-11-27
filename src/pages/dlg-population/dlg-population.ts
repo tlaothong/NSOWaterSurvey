@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -7,8 +8,14 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'dlg-population.html',
 })
 export class DlgPopulationPage {
+  public FormItem: FormGroup;
+  text: any;
+  personNo: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+    this.FormItem = navParams.get('FormItem');
+    this.text = navParams.get("iTitle");
+    this.personNo = navParams.get("no");
   }
 
   ionViewDidLoad() {
@@ -16,5 +23,9 @@ export class DlgPopulationPage {
   }
   public closeDialog() {
     this.viewCtrl.dismiss();
+  }
+
+  public okDialog() {
+    this.viewCtrl.dismiss(this.FormItem);
   }
 }
