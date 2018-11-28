@@ -90,6 +90,7 @@ export class SetPerennialPlantSelectPlant implements Action {
     }
 }
 
+
 export class SetRicePlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetRicePlantSelectPlant;
 
@@ -117,4 +118,6 @@ export type HouseHoldActionsType =
     | SetPerennialPlantSelectPlant
     | SetRicePlantSelectPlant
     | SetAgronomyPlantSelectPlant
+    | SetCommercialServiceType
+
     ;
