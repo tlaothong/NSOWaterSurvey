@@ -9,9 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class TablePopulationComponent {
 
-  @Input() public FormItem: FormGroup;
   @Input('no') public personNo: string;
-  @Input("ititle") public text: string;
+  @Input() public FormItem: FormGroup;
+
   private submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
@@ -31,7 +31,6 @@ export class TablePopulationComponent {
       'nationality': [null, Validators.required],
       'registration': [null, Validators.required],
       'otherProvince': [null, Validators.required],
-
     });
     return fg
   }
@@ -40,8 +39,7 @@ export class TablePopulationComponent {
     const modal = this.modalCtrl.create("DlgPopulationPage",
     {
       FormItem: this.FormItem,
-      iTitle: this.text,
-      no: this.personNo,
+      iTitle: this.personNo
     });
     modal.onDidDismiss(data => {
       if (data) {

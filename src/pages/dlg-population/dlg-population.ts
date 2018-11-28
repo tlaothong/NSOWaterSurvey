@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -8,24 +8,32 @@ import { FormGroup } from '@angular/forms';
   templateUrl: 'dlg-population.html',
 })
 export class DlgPopulationPage {
-  public FormItem: FormGroup;
-  text: any;
-  personNo: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+  public FormItem: FormGroup;
+  public text: string;
+  private submitRequested: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
-    this.personNo = navParams.get("no");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgPopulationPage');
   }
+
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
 
   public okDialog() {
-    this.viewCtrl.dismiss(this.FormItem);
+    this.submitRequested = true;
+    if (this.FormItem.valid) {
+      this.viewCtrl.dismiss(this.FormItem);
+    }
+  }
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 }
