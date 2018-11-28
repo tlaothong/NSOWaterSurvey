@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, PopoverController, ModalController } from 'ionic-angular';
-import { QuestionnaireMenuPopoverComponent } from '../../components/questionnaire-menu-popover/questionnaire-menu-popover';
-import { DlgUnitPage } from '../dlg-unit/dlg-unit';
 
 @Component({
   selector: 'page-home',
@@ -17,6 +15,7 @@ export class HomePage {
     this.pages = [
       // test push
       { title: 'Zero', component: "ZeroPage" },
+      { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
       { title: 'Community Test', component: "CommunityTestPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },

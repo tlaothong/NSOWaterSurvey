@@ -9,13 +9,6 @@ import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { HouseHoldState } from '../../states/household/household.reducer';
 
-/**
- * Generated class for the WaterAnimalPlantingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-water-animal-planting',

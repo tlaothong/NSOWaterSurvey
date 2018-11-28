@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { WaterSources9Component } from './../water-sources9/water-sources9';
 import { ISubmitRequestable } from './../../shared/ISubmitRequestable';
 import { Component, Input, ViewChildren } from '@angular/core';
@@ -7,6 +8,7 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
 import { EX_TREERAI_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 
 /**
@@ -31,7 +33,7 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   DataList = EX_TREERAI_LIST;
 
-  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     console.log('Hello FieldDryCropPlantingComponent Component');
     this.text = 'Hello World';
 
@@ -62,6 +64,7 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    
   }
 
 

@@ -1,22 +1,31 @@
 <div [formGroup]="FormItem">
 
-  <button padding (click)="showModal()">
+  <button padding>
 
+    <ion-row>
+      <ion-col text-left>
+        <h3># {{unitNo}}</h3>
+      </ion-col>
+      <ion-col text-right *ngIf="FormItem.get('subUnit.roomNumber').valid" (click)="showModalSetting()">
+        <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
+      </ion-col>
+    </ion-row>
 
-    <ion-label>
-      ห้องที่ {{FormItem.get('subUnit.roomNumber').value}}
-    </ion-label>
-
-    <div *ngIf="FormItem.get('subUnit.access').invalid" text-center class="start"></div>
-
-    <div *ngIf="FormItem.get('subUnit.access').value == 1">
-      <div *ngIf="FormItem.valid" text-center class="done"></div>
-      <div *ngIf="FormItem.invalid" text-center class="pause"></div>
+    <div text-center class="{{class}}">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col (click)="showModal()" style="padding-top: 20px">
+            ห้องที่ {{roomNumber}}
+          </ion-col>
+          <ion-col col-3 no-padding *ngIf="allComment != ''">
+            <button ion-button clear (click)="showComment()"></button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <button ion-button clear full style="height: 150px" (click)="showModal()"></button>
+        </ion-row>
+      </ion-grid>
     </div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 2" text-center class="return"></div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 3" text-center class="return"></div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 4" text-center class="done"></div>
-    <div *ngIf="FormItem.get('subUnit.access').value == 5" text-center class="done"></div>
 
   </button>
 

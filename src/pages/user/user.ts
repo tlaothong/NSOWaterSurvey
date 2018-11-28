@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -15,7 +15,10 @@ export class UserPage {
   userInfo: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
-
+  private factorialCategory$ = this.store.select(getFactorialCategory);
+  public facCategory: string;
+  private commercialServiceType$ = this.store.select(getCommercialServiceType);
+  public commercialServiceType: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
@@ -26,6 +29,8 @@ export class UserPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.userInfo.setValue(data));
+    this.factorialCategory$.subscribe(data => this.facCategory = data);
+    this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
   }
 
   ionViewDidEnter() {

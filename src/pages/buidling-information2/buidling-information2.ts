@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
+import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
+import { getBuildingSample } from '../../states/building';
+import { map } from 'rxjs/operators';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { LoadHouseHoldSample } from '../../states/household/household.actions';
 
 /**
  * Generated class for the BuidlingInformation2Page page.
@@ -8,6 +15,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
 
 @IonicPage()
 @Component({
@@ -17,23 +25,68 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+
+  private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
     this.f = this.fb.group({
+      'ea': [null],
+      'ordering': [null],
+      'road': [null],
+      'alley': [null],
+      'name': [null],
+      'houseNo': [null],
+      'latitude': [null],
+      'longitude': [null],
+      'buildingType': [null],
+      'other': [null],
+      'access': [null],
+      'vacancyCount': [null],
+      'abandonedCount': [null],
+      'comments': fb.array([
+        {
+          'at': [null],
+          'text': [null],
+        }
+      ]),
+      'recCtrl': fb.group({
+        'createdDateTime': [null],
+        'lastModified': [null],
+        'deletedDateTime': [null],
+        'lastUpload': [null],
+        'lastDownload': [null],
+        'logs': fb.array([{
+          'at': [null],
+          'operationCode': [null],
+        }]),
+      }),
+      //
+      'vacantRoomCount': [null, Validators.required],
       'unitCount': [null, Validators.required],
       'unitAccess': [null, Validators.required],
-      'vacantRoomCount': [null, Validators.required],
       'occupiedRoomCount': [null, Validators.required],
-      'waterQuantity': [null, Validators.required],
-      'waterBill': [null, Validators.required],
-      'floor': [null, Validators.required],
+      'waterQuantity': this.fb.group({
+        'waterQuantity': [null, Validators.required],
+        'cubicMeterPerMonth': [null, Validators.required],
+        'waterBill': [null, Validators.required]
+      }),
+      'floorCount': [null, Validators.required],
+      '_id': [null],
     });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuidlingInformation2Page');
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
   public handleSubmit() {
     this.submitRequested = true;
+    this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
+    console.log('unitCount');
+    console.log(this.f.get('unitCount').value);
+    // this.storeHouse.dispatch(new LoadHouseHoldSample());
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
