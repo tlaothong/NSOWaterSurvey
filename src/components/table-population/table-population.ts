@@ -49,6 +49,7 @@ export class TablePopulationComponent {
     });
     modal.present();
   }
+  
   submitRequest() {
     this.submitRequested = true;
   }
