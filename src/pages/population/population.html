@@ -15,7 +15,7 @@
           </ion-label>
         </ion-item>
         <ion-item formControlName="personCount">
-          <ion-input type="number" placeholder="โปรดระบุ"></ion-input>
+          <ion-input type="number" placeholder="โปรดระบุ" [class.invalid]="isValid('personCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('personCount')">
           <span class="invalid-msg">
