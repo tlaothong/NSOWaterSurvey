@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ModalController, Form, NavController } from 'ionic-angular';
+import { ModalController, Form, NavController, AlertController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -26,13 +26,18 @@ export class UnitButtonComponent {
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   public access: number;
-  public comment: string;
+  public comment = '';
+  public allComment = '';
 
   public index: number;
   public class = "play";
   public roomNumber = '';
 
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+  public fgac: FormArray;
+  public fgcm: FormArray;
+
+
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
@@ -153,11 +158,12 @@ export class UnitButtonComponent {
   }
 
   private setAccess() {
+    this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
+    this.fgcm = this.FormItem.get('comments') as FormArray;
     this.index = this.FormItem.get('subUnit.accessCount').value - 1;
-    let fgac = this.FormItem.get('subUnit.accesses') as FormArray;
-    let fgcm = this.FormItem.get('comments') as FormArray;
-    this.access = fgac.at(this.index).value.access[0];
-    this.comment = fgcm.at(this.index).value.text[0];
+    this.access = this.fgac.at(this.index).value.access[0];
+    this.comment = this.fgcm.at(this.index).value.text[0];
+    this.allComment += (this.fgcm.at(this.index).value.text[0]) ? 'ครั้งที่ ' + (this.index + 1) + ' : ' + this.fgcm.at(this.index).value.text[0] + '<br>' : '';
     this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
     this.checkAccess();
   }
@@ -166,27 +172,36 @@ export class UnitButtonComponent {
     switch (this.access) {
       case 1:
         if (this.FormItem.valid) {
-          this.class = (this.comment == '') ? "complete" : "completeCm";
+          this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
-          this.class = (this.comment == '') ? "pause" : "pauseCm";
+          this.class = (this.allComment == '') ? "pause" : "pauseCm";
         }
         break;
       case 2:
       case 3:
         if (this.index < 2) {
-          this.class = (this.comment == '') ? "return" : "returnCm";
+          this.class = (this.allComment == '') ? "return" : "returnCm";
         }
         else {
-          this.class = (this.comment == '') ? "complete" : "completeCm";
+          this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         break;
       case 4:
       case 5:
-        this.class = "complete";
+        this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
       default:
         break;
     }
+  }
+
+  showComment() {
+    const alert = this.alertCtrl.create({
+      title: 'ปัญหา/อุปสรรค',
+      subTitle: this.allComment,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

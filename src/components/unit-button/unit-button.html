@@ -11,8 +11,20 @@
       </ion-col>
     </ion-row>
 
-    <div (click)="showModal()">
-      <div text-center class="{{class}}" padding>ห้องที่ {{roomNumber}}</div>
+    <div text-center class="{{class}}">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col (click)="showModal()" style="padding-top: 20px">
+            ห้องที่ {{roomNumber}}
+          </ion-col>
+          <ion-col col-3 no-padding *ngIf="allComment != ''">
+            <button ion-button clear (click)="showComment()"></button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <button ion-button clear full style="height: 150px" (click)="showModal()"></button>
+        </ion-row>
+      </ion-grid>
     </div>
 
   </button>
