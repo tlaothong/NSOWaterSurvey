@@ -26,14 +26,16 @@
       </ion-select>
     </ion-item>
 
-    <div *ngIf="FormItem.get('nameTitle').value == 6">
-      <ion-item>
-        <ion-label>โปรดระบุ</ion-label>
-        <ion-input [class.invalid]="isValid('otherTitle')" formControlName="otherTitle"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isValid('otherTitle')">
-        <span class="invalid-msg">กรุณากรอกข้อมูล</span>
-      </ion-item>
+    <div [ngSwitch]="FormItem.get('nameTitle').value">
+      <div *ngSwitchCase="6">
+        <ion-item>
+          <ion-label>โปรดระบุ</ion-label>
+          <ion-input [class.invalid]="isValid('otherTitle')" formControlName="otherTitle"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('otherTitle')">
+          <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+        </ion-item>
+      </div>
     </div>
 
 
