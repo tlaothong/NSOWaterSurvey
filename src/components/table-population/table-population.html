@@ -22,7 +22,7 @@
       <ion-input type="text" disabled="true" item-left formControlName="lastName"></ion-input>
     </ion-col>
   </ion-row>
-  <ion-item *ngIf="isValid('nameTitle')">
+  <ion-item *ngIf="isValid('nameTitle') && FormItem.invalid">
     <span class="invalid-msg" item-right>
       กรุณากรอกข้อมูล
     </span>

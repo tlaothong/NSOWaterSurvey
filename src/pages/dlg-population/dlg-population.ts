@@ -32,8 +32,14 @@ export class DlgPopulationPage {
       this.viewCtrl.dismiss(this.FormItem);
     }
   }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  }
+
+  public isDisabled(){
+    return this.FormItem.get('nameTitle').value == '6' && this.FormItem.get('otherTitle').value == null 
+    || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null;
   }
 }

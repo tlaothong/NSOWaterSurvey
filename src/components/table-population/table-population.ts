@@ -16,13 +16,14 @@ export class TablePopulationComponent {
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
     console.log('Hello TablePopulationComponent Component');
+    this.FormItem = TablePopulationComponent.CreateFormGroup(fb);
   }
 
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
       'nameTitle': [null, Validators.required],
-      'otherTitle': [null, Validators.required],
+      'otherTitle': [null],
       'firstName': [null, Validators.required],
       'lastName': [null, Validators.required],
       'relationship': [null, Validators.required],
@@ -30,7 +31,7 @@ export class TablePopulationComponent {
       'age': [null, Validators.required],
       'nationality': [null, Validators.required],
       'registration': [null, Validators.required],
-      'otherProvince': [null, Validators.required],
+      'otherProvince': [null],
     });
     return fg
   }
