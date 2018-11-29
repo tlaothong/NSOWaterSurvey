@@ -30,9 +30,9 @@
       <div *ngSwitchCase="6">
         <ion-item>
           <ion-label>โปรดระบุ</ion-label>
-          <ion-input [class.invalid]="isValid('otherTitle')" formControlName="otherTitle"></ion-input>
+          <ion-input [class.invalid]="FormItem.get('otherTitle').value == null" formControlName="otherTitle"></ion-input>
         </ion-item>
-        <ion-item *ngIf="isValid('otherTitle')">
+        <ion-item *ngIf="FormItem.get('otherTitle').value == null">
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
         </ion-item>
       </div>
@@ -141,10 +141,10 @@
     </ion-item>
 
     <div *ngIf="FormItem.get('registration').value == 3">
-      <ion-item *ngIf="isValid('otherProvince')">
+      <ion-item *ngIf="FormItem.get('otherProvince').value == null">
         <span class="invalid-msg">กรุณาเลือก</span>
       </ion-item>
-      <ion-item [class.invalid]="isValid('otherProvince')">
+      <ion-item [class.invalid]="FormItem.get('otherProvince').value == null">
         <ion-label>ระบุจังหวัดอื่น
         </ion-label>
         <ion-select interface="action-sheet" formControlName="otherProvince">
@@ -154,13 +154,12 @@
       </ion-item>
     </div>
 
-
     <ion-row>
       <ion-col>
         <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
       </ion-col>
       <ion-col>
-        <button ion-button block>OK</button>
+        <button ion-button block [disabled]="isDisabled()">OK</button>
       </ion-col>
     </ion-row>
   </form>
