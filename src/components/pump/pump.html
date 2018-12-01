@@ -13,7 +13,13 @@
       </ion-label>
     </ion-item>
 
-    <ion-row radio-group formControlName="pumpAuto" [class.invalid]="isValid('pumpAuto')">
+    <ion-row radio-group formControlName="pumpAuto"
+      [class.invalid]="isValid('pumpAuto')">
+      <ion-item *ngIf="isValid('pumpAuto')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
       <ion-item col-6>
         <ion-label>
           ใช่
@@ -26,11 +32,6 @@
         </ion-label>
         <ion-radio [value]="false" item-left></ion-radio>
       </ion-item>
-      <ion-item *ngIf="isValid('pumpAuto')">
-        <span class="invalid-msg">
-          กรุณาเลือก
-        </span>
-      </ion-item>
     </ion-row>
     <!-- 2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งนานเท่าไร (ให้ประมาณน้ำทุกกิจกรรมรวมกัน) -->
     <div *ngIf="FormItem.get('pumpAuto').value == false">
@@ -40,7 +41,9 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)" formControlName="hoursPerPump" [class.invalid]="isValid('hoursPerPump')"></ion-input>
+        <ion-input type="number" placeholder="จำนวนการใช้น้ำ (ชม.)"
+          formControlName="hoursPerPump"
+          [class.invalid]="isValid('hoursPerPump')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('hoursPerPump')">
         <span class="invalid-msg">
@@ -55,7 +58,9 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="จำนวนครั้ง" formControlName="numberOfPumpsPerYear" [class.invalid]="isValid('numberOfPumpsPerYear')"></ion-input>
+        <ion-input type="number" placeholder="จำนวนครั้ง"
+          formControlName="numberOfPumpsPerYear"
+          [class.invalid]="isValid('numberOfPumpsPerYear')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('numberOfPumpsPerYear')">
         <span class="invalid-msg">
@@ -70,7 +75,8 @@
         </ion-label>
       </ion-item>
 
-      <ion-row radio-group formControlName="hasPumpRate" [class.invalid]="isValid('hasPumpRate')">
+      <ion-row radio-group formControlName="hasPumpRate"
+        [class.invalid]="isValid('hasPumpRate')">
         <ion-item *ngIf="isValid('hasPumpRate')">
           <span class="invalid-msg">
             กรุณาเลือก
@@ -97,7 +103,8 @@
       <div [ngSwitch]="FormItem.get('hasPumpRate').value">
         <div *ngSwitchCase="true">
           <ion-item>
-            <ion-input tyep="number" placeholder="อัตราการสูบน้ำ (ลบ.ม./ชม.)" formControlName="pumpRate"
+            <ion-input tyep="number" placeholder="อัตราการสูบน้ำ (ลบ.ม./ชม.)"
+              formControlName="pumpRate"
               [class.invalid]="isValid('pumpRate')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('pumpRate')">
@@ -115,7 +122,8 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="energySource" [class.invalid]="isValid('energySource')">
+        <ion-row radio-group formControlName="energySource"
+          [class.invalid]="isValid('energySource')">
           <ion-item *ngIf="isValid('energySource')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -154,11 +162,11 @@
           </ion-label>
         </ion-item>
 
-        <ion-item>
+        <ion-item [class.invalid]="isValid('pumpType')">
           <ion-label>
             ชนิดเครื่องสูบ
           </ion-label>
-          <ion-select interface="action-sheet" formControlName="pumpType" [class.invalid]="isValid('pumpType')">
+          <ion-select interface="action-sheet" formControlName="pumpType">
             <ion-option [value]="1">
               ปั๊มซับเมิร์ส/ปั๊มแบบจุ่ม
             </ion-option>
@@ -199,11 +207,11 @@
             7) ขนาดวัตต์/แรงม้าเท่าไร
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item [class.invalid]="isValid('horsePower')">
           <ion-label>
             วัตต์/ขนาดแรงม้า
           </ion-label>
-          <ion-select interface="action-sheet" formControlName="horsePower" [class.invalid]="isValid('horsePower')">
+          <ion-select interface="action-sheet" formControlName="horsePower">
             <ion-option [value]="1">
               50-100 / 0.05 - 0.1
             </ion-option>
@@ -334,8 +342,10 @@
               3501-4500 / 5 -6
             </ion-option>
             <ion-option [value]="44">
-              < 4000 / < 5 </ion-option> <ion-option [value]="45">
-                4001-4500 / 5.5 - 6
+              < 4000 / < 5
+            </ion-option>
+            <ion-option [value]="45">
+              4001-4500 / 5.5 - 6
             </ion-option>
             <ion-option [value]="46">
               4001-5000 / 5 - 7
@@ -350,8 +360,10 @@
               4501-5500 / 6 - 7.5
             </ion-option>
             <ion-option [value]="50">
-              < 5000 / < 7 </ion-option> <ion-option [value]="51">
-                4501-6000 / 6 - 8
+              < 5000 / < 7 
+            </ion-option>
+            <ion-option [value]="51">
+              4501-6000 / 6 - 8
             </ion-option>
             <ion-option [value]="52">
               5000-12000 / 6.5 - 16
@@ -369,8 +381,10 @@
               5001-7000 / 7 - 9.5
             </ion-option>
             <ion-option [value]="57">
-              < 5500 / < 7 </ion-option> <ion-option [value]="58">
-                5500-6000 / 7 - 8
+              < 5500 / < 7
+            </ion-option>
+            <ion-option [value]="58">
+              5500-6000 / 7 - 8
             </ion-option>
             <ion-option [value]="59">
               5501-7500 / 7.5 - 10
@@ -563,11 +577,12 @@
             8) ขนาดท่อดูดเท่าไร (นิ้ว)
           </ion-label>
         </ion-item>
-        <ion-item>
+
+        <ion-item [class.invalid]="isValid('suctionPipeSize')">
           <ion-label>
             ขนาดท่อดูด
           </ion-label>
-          <ion-select interface="action-sheet" formControlName="suctionPipeSize" [class.invalid]="isValid('suctionPipeSize')">
+          <ion-select interface="action-sheet" formControlName="suctionPipeSize">
             <ion-option [value]="1">
               (1/2)-1
             </ion-option>
@@ -656,11 +671,11 @@
             9) ขนาดท่อส่งเท่าไร (นิ้ว)
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item [class.invalid]="isValid('pipelineSize')">
           <ion-label>
             ขนาดท่อส่ง
           </ion-label>
-          <ion-select interface="action-sheet" formControlName="pipelineSize" [class.invalid]="isValid('pipelineSize')">
+          <ion-select interface="action-sheet" formControlName="pipelineSize">
             <ion-option [value]="1">
               1/2-1
             </ion-option>
@@ -765,10 +780,6 @@
           </span>
         </ion-item>
       </div>
-
-
     </div>
-
-
   </ion-card-content>
 </ion-card>
