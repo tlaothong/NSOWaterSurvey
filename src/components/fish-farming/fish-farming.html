@@ -8,11 +8,16 @@
           <h3>{{ text }}</h3>
         </ion-label>
       </ion-item>
+      <ion-item>
+        <ion-label>
+          1) ลักษณะการเลี้ยงเป็นอย่างไร
+        </ion-label>
+      </ion-item>
       <div [class.invalid]="isValid('anycheck')">
-        <ion-item>
-          <ion-label>
-            1) ลักษณะการเลี้ยงเป็นอย่างไร
-          </ion-label>
+        <ion-item *ngIf="isValid('anycheck')" class="invalid-msg">
+          <span>
+            กรุณาเลือก
+          </span>
         </ion-item>
         <ion-item>
           <ion-checkbox formControlName="depression"></ion-checkbox>
@@ -59,14 +64,17 @@
       </div>
 
 
-      <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
+      <div *ngIf="FormItem.get('depression').value ||
+        FormItem.get('gardenGroove').value">
         <ion-item>
           <ion-label>
             2) มีจำนวนบ่อหรือร่องสวนรวมเท่าไร
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน"
+            formControlName="fieldCount"
+            [class.invalid]="isValid('fieldCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('fieldCount')">
           <span class="invalid-msg">
@@ -80,7 +88,8 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
+        <ion-row radio-group formControlName="fieldsAreSameSize"
+          [class.invalid]="isValid('fieldsAreSameSize')">
 
           <ion-item *ngIf="isValid('fieldsAreSameSize')">
             <span class="invalid-msg">
@@ -105,30 +114,32 @@
   </ion-card>
 
   <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
-
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
-      <!-- เท่ากัน -->
       <div *ngSwitchCase="true">
-        <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน"  [FormItem]="FormItem.get('fields').at(0)"></pool-area>
+        <pool-area *ngIf="FormItem.get('fields').length> 0"
+          headline="ขนาดบ่อหรือร่องสวน"
+          [FormItem]="FormItem.get('fields').at(0)"></pool-area>
       </div>
-      <!-- ไม่เท่ากัน -->
       <div *ngSwitchCase="false">
-        <div *ngFor="let pool of FormItem.get('fields').controls; let i = index">
-          <pool-area headline="ขนาดบ่อหรือร่องสวนที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
+        <div *ngFor="let pool of FormItem.get('fields').controls; let i= index">
+          <pool-area headline="ขนาดบ่อหรือร่องสวนที่" [no]="i + 1"
+            [FormItem]="pool"></pool-area>
         </div>
       </div>
     </div>
 
     <ion-card>
       <ion-card-content>
-        
+
         <ion-item>
           <ion-label>
             3) จำนวนที่เลี้ยงในปัจจุบัน กี่ {{ type }} (รวมทุกบ่อ/ร่องสวน)
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน" [class.invalid]="isValid('animalsCount')" formControlName="animalsCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน"
+            [class.invalid]="isValid('animalsCount')"
+            formControlName="animalsCount"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="isValid('animalsCount')">
@@ -139,7 +150,7 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources9 [FormItem]="FormItem.get('waterSources')" [headline]="'4) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
-
+    <water-sources9 [FormItem]="FormItem.get('waterSources')" [headline]="'4)
+      การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
   </div>
 </div>

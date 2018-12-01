@@ -9,11 +9,16 @@
         </ion-label>
       </ion-item>
 
+      <ion-item>
+        <ion-label>
+          1) ลักษณะการเลี้ยงเป็นอย่างไร
+        </ion-label>
+      </ion-item>
       <div [class.invalid]="isValid('anycheck')">
-        <ion-item>
-          <ion-label>
-            1) ลักษณะการเลี้ยงเป็นอย่างไร
-          </ion-label>
+        <ion-item *ngIf="isValid('anycheck')" class="invalid-msg">
+          <span>
+            กรุณาเลือก
+          </span>
         </ion-item>
         <ion-item>
           <ion-checkbox formControlName="depression"></ion-checkbox>
@@ -47,23 +52,29 @@
         </span>
       </ion-item>
 
-      <ion-item>
-        <ion-label>
-          2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isValid('animalsCount')">
-        <span class="invalid-msg">
-          กรุณากรอกจำนวน
-        </span>
-      </ion-item>
-
+      <div *ngIf="FormItem.get('depression').value ||
+        FormItem.get('depression').value || FormItem.get('hasOther').value">
+        <ion-item>
+          <ion-label>
+            2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกจำนวน"
+            formControlName="animalsCount"
+            [class.invalid]="isValid('animalsCount')"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isValid('animalsCount')">
+          <span class="invalid-msg">
+            กรุณากรอกจำนวน
+          </span>
+        </ion-item>
+      </div>
     </ion-card-content>
   </ion-card>
-
-  <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
-
+  <div *ngIf="FormItem.get('depression').value ||
+    FormItem.get('depression').value || FormItem.get('hasOther').value">
+    <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="3)
+      การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
+  </div>
 </div>
