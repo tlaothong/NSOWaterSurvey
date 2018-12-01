@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the GetworkPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-getwork',
@@ -20,6 +13,13 @@ export class GetworkPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GetworkPage');
+  }
+  goConfirmDownLoadPage() {
+    this.navCtrl.push("HomesPage")
+  }
+  
+  goBack() {
+    this.navCtrl.pop();
   }
 
 }

@@ -51,14 +51,14 @@
       018
     </ion-col>
     <ion-col col-1>
-      <button ion-button type="button" color="secondary">
+      <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage()">
         เลือก
       </button>
     </ion-col>
   </ion-row>
 
   <div padding text-center>
-    <button ion-button text-center>ย้อนกลับ</button>
+    <button ion-button text-center (click)="goBack()">ย้อนกลับ</button>
   </div>
 
 </ion-content>
