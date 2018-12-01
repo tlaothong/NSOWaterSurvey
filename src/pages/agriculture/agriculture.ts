@@ -23,7 +23,9 @@ export class AgriculturePage {
       'mushroomPlant': [false, Validators.required],
       'animalFarm': [false, Validators.required],
       'aquaticAnimals': [false, Validators.required],
-    });
+    }, {
+        validator: AgriculturePage.checkAnyOrOther()
+      });
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -53,6 +55,7 @@ export class AgriculturePage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    console.log(this.submitRequested);
   }
 
   public isValid(name: string): boolean {
