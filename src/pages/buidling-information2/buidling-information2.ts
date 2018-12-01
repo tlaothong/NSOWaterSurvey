@@ -17,8 +17,6 @@ export class BuidlingInformation2Page {
   private submitRequested: boolean;
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
     this.f = this.fb.group({
       'ea': [null],
@@ -70,17 +68,16 @@ export class BuidlingInformation2Page {
     console.log('ionViewDidLoad BuidlingInformation2Page');
     this.formData$.subscribe(data => this.f.setValue(data));
   }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetSendDataBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
-
-
   }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 }

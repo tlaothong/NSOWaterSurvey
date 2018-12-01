@@ -6,6 +6,11 @@
           {{text}}
         </ion-label>
       </ion-item>
+      <ion-item *ngIf="isValid('anycheck')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
       <ion-item>
         <ion-label>
           1. น้ำบาดาล

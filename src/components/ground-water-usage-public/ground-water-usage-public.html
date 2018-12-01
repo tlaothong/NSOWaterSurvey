@@ -16,6 +16,11 @@
     <div>
 
       <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')">
+        <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
+          <span class="invalid-msg">
+            กรุณากรอกจำนวน
+          </span>
+        </ion-item>
         <ion-item col-6>
           <ion-radio [value]="true" item-left></ion-radio>
           <ion-label>

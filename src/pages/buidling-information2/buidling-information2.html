@@ -37,7 +37,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-list radio-group formControlName="unitAccess" [class.invalid]="isValid('unitAccess')">
+        <ion-row radio-group formControlName="unitAccess" [class.invalid]="isValid('unitAccess')">
           <ion-item *ngIf="isValid('unitAccess')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -61,19 +61,18 @@
               ไม่อนุญาต และไม่ให้ข้อมูล
             </ion-label>
           </ion-item>
-        </ion-list>
+        </ion-row>
 
         <div [ngSwitch]="f.get('unitAccess').value">
           <div *ngSwitchCase="2">
-            <ion-list>
+            
               <ion-item>
                 <ion-label>
                   จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
                 </ion-label>
               </ion-item>
               <ion-item>
-                <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount"
-                  [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
+                <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount" [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
               </ion-item>
               <ion-item *ngIf="isValid('occupiedRoomCount')">
                 <span class="invalid-msg">
@@ -95,18 +94,18 @@
                 </span>
               </ion-item>
 
+              <ion-item>
+                <ion-label>
+                  ปริมาณการใช้น้ำ
+                </ion-label>
+              </ion-item>
+
               <div formGroupName="waterQuantity" [class.invalid]="isValid('waterQuantity.waterQuantity')">
-                <ion-list radio-group formControlName="waterQuantity">
+                <ion-row radio-group formControlName="waterQuantity">
                   <ion-item *ngIf="isValid('waterQuantity.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
-                  </ion-item>
-
-                  <ion-item>
-                    <ion-label>
-                      ปริมาณการใช้น้ำ
-                    </ion-label>
                   </ion-item>
 
                   <ion-item>
@@ -121,7 +120,7 @@
                     </ion-label>
                     <ion-radio [value]="2" item-start></ion-radio>
                   </ion-item>
-                </ion-list>
+                </ion-row>
 
                 <div [ngSwitch]="f.get('waterQuantity.waterQuantity').value">
                   <div *ngSwitchCase="1">
@@ -162,8 +161,6 @@
                     </ion-list>
                   </div>
                 </div>
-
-
               </div>
 
               <ion-item>
@@ -188,9 +185,6 @@
               <ion-item>
                 <ion-input type="text" placeholder="กรอกข้อมูล"></ion-input>
               </ion-item>
-
-            </ion-list>
-
           </div>
 
           <div *ngSwitchCase="3">

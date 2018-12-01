@@ -17,37 +17,36 @@ export class BuildingInformation1Page {
   private submitRequested: boolean;
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
-     this.f = this.fb.group({
-      'ea': [null],
-      'ordering': [null],
-      'road': [null],
-      'alley': [null],
-      'name': [null],
-      'houseNo': [null],
-      'latitude': [null],
-      'longitude': [null],
-      'buildingType': [null],
-      'other': [null],
-      'access': [null],
-      'vacancyCount': [null],
-      'abandonedCount': [null],
+    this.f = this.fb.group({
+      'ea': [null, Validators.required],
+      'ordering': [null, Validators.required],
+      'road': [null, Validators.required],
+      'alley': [null, Validators.required],
+      'name': [null, Validators.required],
+      'houseNo': [null, Validators.required],
+      'latitude': [null, Validators.required],
+      'longitude': [null, Validators.required],
+      'buildingType': [null, Validators.required],
+      'other': [null, Validators.required],
+      'access': [null, Validators.required],
+      'vacancyCount': [null, Validators.required],
+      'abandonedCount': [null, Validators.required],
       'comments': fb.array([
         {
-          'at': [null],
-          'text': [null],
+          'at': [null, Validators.required],
+          'text': [null, Validators.required],
         }
       ]),
       'recCtrl': fb.group({
-        'createdDateTime': [null],
-        'lastModified': [null],
-        'deletedDateTime': [null],
-        'lastUpload': [null],
-        'lastDownload': [null],
+        'createdDateTime': [null, Validators.required],
+        'lastModified': [null, Validators.required],
+        'deletedDateTime': [null, Validators.required],
+        'lastUpload': [null, Validators.required],
+        'lastDownload': [null, Validators.required],
         'logs': fb.array([{
-          'at': [null],
-          'operationCode': [null],
+          'at': [null, Validators.required],
+          'operationCode': [null, Validators.required],
         }]),
       }),
       //
@@ -68,16 +67,16 @@ export class BuildingInformation1Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
     this.formData$.subscribe(data => this.f.setValue(data));
-
   }
+
   public handleSubmit() {
     this.submitRequested = true;
+    console.log('unitCount');
+    console.log(this.submitRequested);
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
-
 }
