@@ -14,6 +14,10 @@ export class HomePage {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
+      { title: 'MenudetailPage', component: "MenudetailPage" },
+      { title: 'GetworkPage', component: "GetworkPage" },
+      { title: 'SelectEaPage', component: "SelectEaPage" },
+      { title: 'SendPage', component: "SendPage" },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
