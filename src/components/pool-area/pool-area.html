@@ -23,7 +23,6 @@
         <ion-label>ไม่ทราบพื้นที่ ถ้า{{ poolText }}เป็นวงกลม </ion-label>
         <ion-radio value="3" item-left></ion-radio>
       </ion-item>
-
     </div>
 
     <div [ngSwitch]="FormItem.get('shape').value">
@@ -32,46 +31,27 @@
         <field-area [FormItem]="FormItem.get('area')"></field-area>
       </div>
 
-        <div *ngSwitchCase="2" formGroupName="rectangle">
-          <!-- <div (ionChange)="showModalArea()"> -->
-              <!-- formGroupName="rectangle" -->
-          <ion-row  (click)="showModal()">
-            <ion-col col-6>
-              <ion-item>
-                <ion-label>ความกว้าง (เมตร)</ion-label>
-                <ion-input type="number" disabled="true" formControlName="width" [class.invalid]="isValid('rectangle.width')"></ion-input>
-              </ion-item>
-              <ion-item *ngIf="isValid('rectangle.width')">
-                  <span class="invalid-msg">กรุณากรอกข้อมูล</span>
-                </ion-item>
-            
-            </ion-col>
-            <ion-col col-6>
-              <ion-item>
-                <ion-label>ความยาว (เมตร)</ion-label>
-                <ion-input type="number" disabled="true" formControlName="length" [class.invalid]="isValid('rectangle.length')"></ion-input>
-                <ion-icon name="create" item-end></ion-icon>
-              </ion-item>
-              <ion-item *ngIf="isValid('rectangle.length')">
-                  <span class="invalid-msg">กรุณากรอกข้อมูล</span>
-                </ion-item>
-             
-            </ion-col>
-          </ion-row>
-          <!-- </div> -->
-        </div>
+      <div *ngSwitchCase="2" formGroupName="rectangle">
+        <ion-row (click)="showModal()">
+          <ion-col col-6>
+            <ion-item>
+              <ion-label>ความกว้าง (เมตร)</ion-label>
+              <ion-input type="number" disabled="true" formControlName="width" [class.invalid]="isValid('rectangle.width')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('rectangle.width')">
+              <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+            </ion-item>
 
-        <div *ngSwitchCase="3">
-          <ion-item>
-            <ion-label>เส้นผ่านศูนย์กลาง กี่เมตร</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-input type="number" formControlName="diameter" [class.invalid]="isValid('diameter')"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="isValid('diameter')">
-            <span class="invalid-msg">กรุณากรอกข้อมูล</span>
-          </ion-item>
-        </div>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item>
+              <ion-label>ความยาว (เมตร)</ion-label>
+              <ion-input type="number" disabled="true" formControlName="length" [class.invalid]="isValid('rectangle.length')"></ion-input>
+              <ion-icon name="create" item-end></ion-icon>
+            </ion-item>
+            <ion-item *ngIf="isValid('rectangle.length')">
+              <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+            </ion-item>
 
           </ion-col>
         </ion-row>
@@ -82,13 +62,14 @@
           <ion-label>เส้นผ่านศูนย์กลาง กี่เมตร</ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" formControlName="diameter"
-            [class.invalid]="isValid('diameter')"></ion-input>
+          <ion-input type="number" formControlName="diameter" [class.invalid]="isValid('diameter')"></ion-input>
         </ion-item>
-        <ion-item *ngIf="isValid('depth')">
+        <ion-item *ngIf="isValid('diameter')">
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
         </ion-item>
       </div>
+
+
     </div>
 
     <div *ngIf="FormItem.get('shape').value">
@@ -96,8 +77,7 @@
         <ion-label>ความลึก กี่เมตร</ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" formControlName="depth"
-          [class.invalid]="isValid('depth')"></ion-input>
+        <ion-input type="number" formControlName="depth" [class.invalid]="isValid('depth')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('depth')">
         <span class="invalid-msg">กรุณากรอกความลึก</span>
