@@ -22,4 +22,8 @@ export class ScanqrPage {
     console.log('ionViewDidLoad ScanqrPage');
   }
 
+  goBack() {
+    this.navCtrl.pop();
+  }
+
 }
