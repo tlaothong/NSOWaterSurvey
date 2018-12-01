@@ -21,5 +21,11 @@ export class FirstpagePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstpagePage');
   }
+  goScanqrPage() {
+    this.navCtrl.push("ScanqrPage")
+  }
+  goLoginPage() {
+    this.navCtrl.push("LoginPage")
+  }
 
 }
