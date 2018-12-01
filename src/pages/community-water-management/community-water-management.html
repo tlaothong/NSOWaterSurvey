@@ -18,7 +18,7 @@
         <ion-row radio-group formControlName="hasPublicWater" [class.invalid]="isValid('hasPublicWater')">
           <ion-item *ngIf="isValid('hasPublicWater')">
             <span class="invalid-msg">
-              กรุณากรอก
+              กรุณาเลือก
             </span>
           </ion-item>
           <ion-item col-6>
@@ -44,11 +44,11 @@
 
           <ion-item>
             <ion-input formControlName="publicWaterCount" [class.invalid]="isValid('publicWaterCount')" type="number"
-              placeholder="กรอกจำนวน"></ion-input>
+              placeholder="กรอกข้อมูล"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('publicWaterCount')">
             <span class="invalid-msg">
-              กรุณาเลือก
+              กรุณากรอกข้อมูล
             </span>
           </ion-item>
         </div>
@@ -187,11 +187,11 @@
 
               <ion-item>
                 <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')" type="text"
-                  placeholder="หน่วยงาน"></ion-input>
+                  placeholder="กรอกข้อมูล"></ion-input>
               </ion-item>
               <ion-item *ngIf="isValid('waterServiceCount')">
                 <span class="invalid-msg">
-                  กรุณาเลือก
+                  กรุณากรอกข้อมูล
                 </span>
               </ion-item>
             </div>
@@ -238,8 +238,6 @@
           </ion-item>
         </ion-row>
 
-
-
         <ion-item>
           <ion-label>
             7. ในช่วงเวลา 5 ปีที่ผ่านมา หมู่บ้าน/ชุมชนแห่งนี้เคยเกิดภัยธรรมชาติ
@@ -264,7 +262,6 @@
             </ion-label>
           </ion-item>
         </ion-row>
-
 
         <div *ngIf="CommunityWaterManagement.get('hasDisaster').value ">
           <natural-disaster [FormItem]="CommunityWaterManagement.get('disasters')"></natural-disaster>

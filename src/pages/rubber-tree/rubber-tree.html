@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <questionnaire-menu title="ยางพารา "></questionnaire-menu>
@@ -35,22 +34,22 @@
           </ion-item>
         </ion-row>
 
-          <div *ngIf="rubbertree.get('doing').value">
-            <ion-item>
-              <ion-label>
-                2.3.2 ถ้า “ปลูก” มีพื้นที่ปลูก<b>ยางพารา</b> จำนวนกี่แปลง
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
-            </ion-item>
+        <div *ngIf="rubbertree.get('doing').value">
+          <ion-item>
+            <ion-label>
+              2.3.2 ถ้า “ปลูก” มีพื้นที่ปลูก<b>ยางพารา</b> จำนวนกี่แปลง
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
+          </ion-item>
 
-            <ion-item *ngIf="isValid('fieldCount')">
-              <span class="invalid-msg">
-                กรุณากรอกจำนวน
-              </span>
-            </ion-item>
-          </div>
+          <ion-item *ngIf="isValid('fieldCount')">
+            <span class="invalid-msg">
+              รุณากรอกข้อมูล
+            </span>
+          </ion-item>
+        </div>
 
       </ion-card-content>
     </ion-card>

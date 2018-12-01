@@ -14,6 +14,11 @@
             1) ลักษณะการเลี้ยงเป็นอย่างไร
           </ion-label>
         </ion-item>
+        <ion-item *ngIf="isValid('anycheck')" class="invalid-msg">
+          <span>
+            กรุณาเลือก
+          </span>
+        </ion-item>
         <ion-item>
           <ion-checkbox formControlName="depression"></ion-checkbox>
           <ion-label>
@@ -109,7 +114,7 @@
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
       <!-- เท่ากัน -->
       <div *ngSwitchCase="true">
-        <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน"  [FormItem]="FormItem.get('fields').at(0)"></pool-area>
+        <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน" [FormItem]="FormItem.get('fields').at(0)"></pool-area>
       </div>
       <!-- ไม่เท่ากัน -->
       <div *ngSwitchCase="false">
@@ -121,7 +126,7 @@
 
     <ion-card>
       <ion-card-content>
-        
+
         <ion-item>
           <ion-label>
             3) จำนวนที่เลี้ยงในปัจจุบัน กี่ {{ type }} (รวมทุกบ่อ/ร่องสวน)

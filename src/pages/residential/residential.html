@@ -15,12 +15,12 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="จำนวนคน" formControlName="memberCount"
+          <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="memberCount"
             [class.invalid]="isValid('memberCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('memberCount')">
           <span class="invalid-msg">
-            กรุณากรอกจำนวน
+            กรุณากรอกข้อมูล
           </span>
         </ion-item>
 
@@ -30,12 +30,12 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="จำนวนคน" formControlName="workingAge"
+          <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="workingAge"
             [class.invalid]="isValid('workingAge')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('workingAge')">
           <span class="invalid-msg">
-            กรุณากรอกจำนวน
+            กรุณากรอกข้อมูล
           </span>
         </ion-item>
       </ion-card-content>

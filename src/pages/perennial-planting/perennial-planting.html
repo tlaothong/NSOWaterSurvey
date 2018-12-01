@@ -67,12 +67,12 @@
           </ion-item>
 
           <ion-item>
-            <ion-input type="number" class="backgroundinput" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount"
+            <ion-input type="number" class="backgroundinput" placeholder="กรอกข้อมูล" formControlName="fieldCount"
               [class.invalid]="isValid('fieldCount')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('fieldCount')">
             <span class="invalid-msg">
-              กรุณากรอกจำนวน
+              กรุณากรอกข้อมูล
             </span>
           </ion-item>
         </div>

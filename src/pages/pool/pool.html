@@ -46,11 +46,11 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวน" formControlName="poolCount" [class.invalid]="isValid('poolCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="poolCount" [class.invalid]="isValid('poolCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('poolCount')">
               <span class="invalid-msg">
-                กรุณากรอกจำนวน
+                กรุณากรอกข้อมูล
               </span>
             </ion-item>
             <ion-item>
@@ -85,7 +85,7 @@
 
     <div [ngSwitch]="f.get('doing').value">
       <div *ngSwitchCase="true">
-         
+
         <div [ngSwitch]="f.get('hasSameSize').value">
           <!-- เท่ากัน -->
           <div *ngSwitchCase="true">
@@ -107,11 +107,11 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนสระ" formControlName="waterResourceCount" [class.invalid]="isValid('waterResourceCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('waterResourceCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('waterResourceCount')">
               <span class="invalid-msg">
-                กรุณากรอกจำนวน
+                กรุณากรอกข้อมูล
               </span>
             </ion-item>
           </ion-card-content>
