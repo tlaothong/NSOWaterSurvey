@@ -1,13 +1,12 @@
 <ion-header>
 
-  <questionnaire-menu title="ตอนที่ 1 "></questionnaire-menu>
+  <questionnaire-menu title="ตอนที่ 1 ข้อมูลบ้าน/อาคาร/สิ่งปลูกสร้าง"></questionnaire-menu>
 
 </ion-header>
 
 <ion-content padding>
   <form [formGroup]="f" (ngSubmit)="handleSubmit()">
     <ion-card>
-
       <ion-card-content>
         <ion-item>
           <ion-label>
@@ -15,35 +14,36 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="กรอกชื่อถนน ลำน้ำหรือละแวกบ้าน" formControlName="road" [class.invalid]="isValid('road')"></ion-input>
+          <ion-input type="text" placeholder="กรอกชื่อถนน ลำน้ำหรือละแวกบ้าน"
+            formControlName="road" [class.invalid]="isValid('road')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('road')">
           <span class="invalid-msg">
             กรุณากรอกชื่อถนน ลำน้ำหรือละแวกบ้าน
           </span>
         </ion-item>
-
         <ion-item>
           <ion-label>
             ชื่อตรอก/ซอย
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="กรอกชื่อตรอก/ซอย" formControlName="alley" [class.invalid]="isValid('alley')"></ion-input>
+          <ion-input type="text" placeholder="กรอกชื่อตรอก/ซอย"
+            formControlName="alley" [class.invalid]="isValid('alley')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('alley')">
           <span class="invalid-msg">
             กรุณากรอกชื่อตรอก/ซอย
           </span>
         </ion-item>
-
         <ion-item>
           <ion-label>
             ชื่อหมู่บ้าน/คอนโด/อาคาร/สำนักงาน/สถานประกอบการ/สถาบัน ฯลฯ
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="กรอกชื่อหมู่บ้าน/คอนโด/อาคาร/สำนักงาน/สถานประกอบการ/สถาบัน"
+          <ion-input type="text"
+            placeholder="กรอกชื่อหมู่บ้าน/คอนโด/อาคาร/สำนักงาน/สถานประกอบการ/สถาบัน"
             formControlName="name" [class.invalid]="isValid('name')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('name')">
@@ -58,16 +58,14 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="กรอกเลขที่บ้าน/อาคาร" formControlName="houseNo" [class.invalid]="isValid('houseNo')"></ion-input>
+          <ion-input type="text" placeholder="กรอกเลขที่บ้าน/อาคาร"
+            formControlName="houseNo" [class.invalid]="isValid('houseNo')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('houseNo')">
           <span class="invalid-msg">
             กรุณากรอกเลขที่บ้าน/อาคาร
           </span>
         </ion-item>
-
-
-
       </ion-card-content>
     </ion-card>
 
@@ -81,7 +79,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" formControlName="latitude" [class.invalid]="isValid('latitude')"></ion-input>
+              <ion-input type="number" formControlName="latitude"
+                [class.invalid]="isValid('latitude')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('latitude')">
               <span class="invalid-msg">
@@ -96,7 +95,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" formControlName="longitude" [class.invalid]="isValid('longitude')"></ion-input>
+              <ion-input type="number" formControlName="longitude"
+                [class.invalid]="isValid('longitude')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('longitude')">
               <span class="invalid-msg">
@@ -154,7 +154,8 @@
               <ion-label>
                 โปรดระบุ
               </ion-label>
-              <ion-input type="text" formControlName="other" [class.invalid]="isValid('other')"></ion-input>
+              <ion-input type="text" formControlName="other"
+                [class.invalid]="isValid('other')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('other')">
               <span class="invalid-msg">
@@ -195,7 +196,8 @@
                   </ion-label>
                 </ion-item>
                 <ion-item>
-                  <ion-input type="number" placeholder="จำนวนบ้าน/อาคาร ว่าง" formControlName="vacancyCount"
+                  <ion-input type="number" placeholder="จำนวนบ้าน/อาคาร ว่าง"
+                    formControlName="vacancyCount"
                     [class.invalid]="isValid('vacancyCount')"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="isValid('vacancyCount')">
@@ -211,7 +213,8 @@
                   </ion-label>
                 </ion-item>
                 <ion-item>
-                  <ion-input type="number" placeholder="จำนวนบ้าน/อาคาร ร้าง" formControlName="abandonedCount"
+                  <ion-input type="number" placeholder="จำนวนบ้าน/อาคาร ร้าง"
+                    formControlName="abandonedCount"
                     [class.invalid]="isValid('abandonedCount')"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="isValid('abandonedCount')">
@@ -223,21 +226,21 @@
             </ion-row>
           </div>
         </div>
-       
+
         <ion-item>
           <label>
-            ให้บันทึกข้อความเกี่ยวกับ ปัญหา/อุปสรรค/การนัดหมาย/เหตุผล ที่นับจดไม่ได้
+            ให้บันทึกข้อความเกี่ยวกับ ปัญหา/อุปสรรค/การนัดหมาย/เหตุผล
+            ที่นับจดไม่ได้
           </label>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="กรอกปัญหา/อุปสรรค/การนัดหมาย/เหตุผล ที่นับจดไม่ได้"></ion-input>
+          <ion-input type="text"
+            placeholder="กรอกปัญหา/อุปสรรค/การนัดหมาย/เหตุผล ที่นับจดไม่ได้"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
 
-    <button ion-button>
-      ถัดไป
-    </button>
+    <form-buttons-bar></form-buttons-bar>
   </form>
 
 </ion-content>
