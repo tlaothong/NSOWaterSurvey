@@ -14,6 +14,10 @@ export class HomePage {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
+      { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
+      { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
+      { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
+      { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
