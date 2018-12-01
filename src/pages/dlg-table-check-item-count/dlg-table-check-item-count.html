@@ -13,7 +13,7 @@
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
     <ion-list>
-      <div [class.invalid]="isValid('anycheck')">
+      <div>
         <ion-item>
           <ion-checkbox formControlName="hasItem" ></ion-checkbox>
           <ion-label>

@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="ตอนที่ 1 "></questionnaire-menu>
+  <questionnaire-menu title="ตอนที่ 1 ข้อมูลบ้าน/อาคาร/สิ่งปลูกสร้าง"></questionnaire-menu>
 
 </ion-header>
 
@@ -21,7 +21,6 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-
         <ion-item>
           <ion-label>
             ชื่อตรอก/ซอย
@@ -35,7 +34,6 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-
         <ion-item>
           <ion-label>
             ชื่อหมู่บ้าน/คอนโด/อาคาร/สำนักงาน/สถานประกอบการ/สถาบัน ฯลฯ
@@ -63,9 +61,6 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-
-
-
       </ion-card-content>
     </ion-card>
 
@@ -150,7 +145,8 @@
               <ion-label>
                 โปรดระบุ
               </ion-label>
-              <ion-input type="text" formControlName="other" [class.invalid]="isValid('other')"></ion-input>
+              <ion-input type="text" formControlName="other"
+                [class.invalid]="isValid('other')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('other')">
               <span class="invalid-msg">
@@ -217,7 +213,8 @@
 
         <ion-item>
           <label>
-            ให้บันทึกข้อความเกี่ยวกับ ปัญหา/อุปสรรค/การนัดหมาย/เหตุผล ที่นับจดไม่ได้
+            ให้บันทึกข้อความเกี่ยวกับ ปัญหา/อุปสรรค/การนัดหมาย/เหตุผล
+            ที่นับจดไม่ได้
           </label>
         </ion-item>
 

@@ -18,9 +18,9 @@ export class BuildingInformation1Page {
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
-    this.f = this.fb.group({
-      'ea': [null, Validators.required],
-      'ordering': [null, Validators.required],
+     this.f = this.fb.group({
+      'ea': [null],
+      'ordering': [null],
       'road': [null, Validators.required],
       'alley': [null, Validators.required],
       'name': [null, Validators.required],
@@ -49,7 +49,6 @@ export class BuildingInformation1Page {
           'operationCode': [null, Validators.required],
         }]),
       }),
-      //
       'vacantRoomCount': [null, Validators.required],
       'unitCount': [null, Validators.required],
       'unitAccess': [null, Validators.required],

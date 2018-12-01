@@ -6,7 +6,8 @@
     </ion-label>
   </ion-item>
 
-  <ion-row radio-group formControlName="hasProblem" [class.invalid]="isValid('hasProblem')">
+  <ion-row radio-group formControlName="hasProblem"
+    [class.invalid]="isValid('hasProblem')">
     <ion-item *ngIf="isValid('hasProblem')">
       <span class="invalid-msg">
         กรุณาเลือก

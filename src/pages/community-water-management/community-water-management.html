@@ -154,7 +154,6 @@
             <ion-item>
               <ion-label>
                 5. ในหมู่บ้าน/ชุมชน เป็นที่ตั้งของแหล่งผลิตน้ำประปาอื่นๆ (หมู่บ้าน อบต <br>นิคม เทศบาล ชุมชน ภูเขา ฯลฯ)
-
               </ion-label>
             </ion-item>
             <ion-row radio-group formControlName="hasWaterService" [class.invalid]="isValid('hasWaterService')">
@@ -201,14 +200,11 @@
       </ion-card>
     </div>
 
-
     <div *ngIf=" CommunityWaterManagement.get('waterServiceCount').value > 0 &&  CommunityWaterManagement.get('hasWaterService').value ">
       <div *ngFor="let p of CommunityWaterManagement.get('waterServices').controls; let i = index">
         <detail-org-water-supply [no]="i + 1" [FormItem]="p"></detail-org-water-supply>
       </div>
     </div>
-
-
 
     <ion-card *ngIf=" CommunityWaterManagement.get('otherPlumbing').value == false || CommunityWaterManagement.get('waterServiceCount').value || CommunityWaterManagement.get('hasWaterService').value == false ">
       <ion-card-content>
@@ -293,7 +289,6 @@
           </ion-item>
         </ion-row>
 
-
         <div *ngIf="CommunityWaterManagement.get('hasDisasterWarning').value ">
         
           <disaster-warning-methods [FormItem]="CommunityWaterManagement.get('disasterWarningMethods')"></disaster-warning-methods>
@@ -301,8 +296,6 @@
 
       </ion-card-content>
     </ion-card>
-
-
     <form-buttons-bar></form-buttons-bar>
   </form>
 
