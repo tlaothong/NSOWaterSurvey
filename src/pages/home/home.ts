@@ -14,6 +14,11 @@ export class HomePage {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
+      { title: 'Zero', component: "ZeroPage" },
+      { title: 'Building Test', component: "BuildingTestPage" },
+      { title: 'HouseHold Test', component: "HouseHoldTestPage" },
+      { title: 'Community Test', component: "CommunityTestPage" },
+      { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
       { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
@@ -22,12 +27,7 @@ export class HomePage {
       { title: 'รับงาน', component: "GetworkPage" },
       { title: 'เลือก EA', component: "SelectEaPage" },
       { title: 'ส่งงาน', component: "SendPage" },
-      { title: 'Zero', component: "ZeroPage" },
-      { title: 'Building Test', component: "BuildingTestPage" },
-      { title: 'HouseHold Test', component: "HouseHoldTestPage" },
-      { title: 'Community Test', component: "CommunityTestPage" },
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
-      { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'Unit', component: "UnitPage" },
       { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
       { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
