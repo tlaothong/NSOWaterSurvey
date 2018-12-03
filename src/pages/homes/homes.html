@@ -23,16 +23,16 @@
         สถานะของ EA:
       </ion-label>
       <ion-select interface="action-sheet">
-        <ion-option value="a1">
+        <ion-option value="1">
           กำลังสำรวจ
         </ion-option>
-        <ion-option value="a2">
+        <ion-option value="2">
           สำรวจครบแล้ว
         </ion-option>
-        <ion-option value="a3">
+        <ion-option value="3">
           ตรวจสอบแล้ว
         </ion-option>
-        <ion-option value="a4">
+        <ion-option value="4">
           อนุมัติแล้ว
         </ion-option>
       </ion-select>
@@ -143,83 +143,33 @@
       </ion-row>
       <hr>
 
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="pause"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="pause"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          12
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
-
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="pause"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          123
-        </ion-col>
-        <ion-col col-2>
-          136
-        </ion-col>
-        <ion-col col-3>
-          ที่ไหนหนิasdvsxgmxgfmnzfnzbdfgm
-        </ion-col>
-        <ion-col col-2>
-          3
-        </ion-col>
-        <ion-col col-2>
-          5
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
+      <form [formGroup]="f">
+        <ion-row text-center align-items-center (click)=goBuildingInfo()>
+          <ion-col col-1>
+            <ion-icon disabled="false" name="pause"></ion-icon>
+          </ion-col>
+          <ion-col col-1>
+            1
+          </ion-col>
+          <ion-col col-2>
+            <ion-input formControlName="houseNo"></ion-input>
+          </ion-col>
+          <ion-col col-3>
+            <ion-input formControlName="name"></ion-input>
+          </ion-col>
+          <ion-col col-2>
+            {{ 0 }}
+          </ion-col>
+          <ion-col col-2>
+            <ion-input formControlName="unitCount"></ion-input>
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
+      </form>
     </div>
 
     <div *ngSwitchCase="'areayoi'">
