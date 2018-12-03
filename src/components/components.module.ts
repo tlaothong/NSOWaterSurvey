@@ -43,6 +43,7 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
 import { ModalPlantComponent } from './modal-plant/modal-plant';
 import { UnitButtonComponent } from './unit-button/unit-button';
 import { TablePopulationComponent } from './table-population/table-population';
+import { ItemInHomeComponent } from './item-in-home/item-in-home';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -88,7 +89,8 @@ import { TablePopulationComponent } from './table-population/table-population';
     WaterProblem6Component,
     ModalPlantComponent,
     UnitButtonComponent,
-    TablePopulationComponent
+    TablePopulationComponent,
+    ItemInHomeComponent
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -139,7 +141,8 @@ import { TablePopulationComponent } from './table-population/table-population';
     WaterProblem6Component,
     ModalPlantComponent,
     UnitButtonComponent,
-    TablePopulationComponent
+    TablePopulationComponent,
+    ItemInHomeComponent
   ]
 })
 export class ComponentsModule { }

@@ -143,33 +143,8 @@
       </ion-row>
       <hr>
 
-      <form [formGroup]="f">
-        <ion-row text-center align-items-center (click)=goBuildingInfo()>
-          <ion-col col-1>
-            <ion-icon disabled="false" name="pause"></ion-icon>
-          </ion-col>
-          <ion-col col-1>
-            1
-          </ion-col>
-          <ion-col col-2>
-            <ion-input formControlName="houseNo"></ion-input>
-          </ion-col>
-          <ion-col col-3>
-            <ion-input formControlName="name"></ion-input>
-          </ion-col>
-          <ion-col col-2>
-            {{ 0 }}
-          </ion-col>
-          <ion-col col-2>
-            <ion-input formControlName="unitCount"></ion-input>
-          </ion-col>
-          <ion-col col-1>
-            <button ion-button type="button" color="danger">
-              ลบ
-            </button>
-          </ion-col>
-        </ion-row>
-      </form>
+      <item-in-home></item-in-home>
+
     </div>
 
     <div *ngSwitchCase="'areayoi'">

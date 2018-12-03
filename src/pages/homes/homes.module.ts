@@ -9,7 +9,7 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(HomesPage),
-    
+    ComponentsModule
   ],
 })
 export class HomesPageModule {}

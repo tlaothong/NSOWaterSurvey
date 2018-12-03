@@ -22,6 +22,14 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
+      { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
+      { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
+      { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
+      { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
+      { title: 'Menu', component: "MenudetailPage" },
+      { title: 'รับงาน', component: "GetworkPage" },
+      { title: 'เลือก EA', component: "SelectEaPage" },
+      { title: 'ส่งงาน', component: "SendPage" },
       { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Commercial', component: "CommercialPage" },
