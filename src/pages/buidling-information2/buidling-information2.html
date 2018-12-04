@@ -189,6 +189,19 @@
           </div>
 
           <div *ngSwitchCase="3">
+              <ion-item>
+                  <ion-label>
+                    จำนวนชั้นของอาคาร
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="isValid('floorCount')">
+                  <span class="invalid-msg">
+                    กรุณากรอกข้อมูล
+                  </span>
+                </ion-item>
             <ion-item>
               <ion-label>
                 ปัญหา
