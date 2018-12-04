@@ -22,6 +22,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
+      { title: 'Home', component: HomePage },
+      { title: 'Homes', component: "HomesPage" },
       { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
       { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
@@ -30,7 +32,6 @@ export class MyApp {
       { title: 'รับงาน', component: "GetworkPage" },
       { title: 'เลือก EA', component: "SelectEaPage" },
       { title: 'ส่งงาน', component: "SendPage" },
-      { title: 'Home', component: HomePage },
       { title: 'Zero', component: "ZeroPage" },
       { title: 'Commercial', component: "CommercialPage" },
       { title: 'Rice', component: "RicePage" },
@@ -59,10 +60,7 @@ export class MyApp {
       { title: 'ManagementForFarming', component: "ManagementForFarmingPage" },
       { title: 'BuildingInformation1Page', component: "BuildingInformation1Page" },
       { title: 'BuidlingInformation2Page', component: "BuidlingInformation2Page" },
-      { title: 'Homes', component: "HomesPage" },
       { title: 'Unit', component: "UnitPage" },
-
-     
     ];
 
   }
@@ -80,5 +78,17 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  goGetworkPage() {
+    this.nav.push("GetworkPage")
+  }
+
+  goSelectEaPage() {
+    this.nav.push("SelectEaPage")
+  }
+
+  goSendPage() {
+    this.nav.push("SendPage")
   }
 }

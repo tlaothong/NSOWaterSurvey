@@ -6,6 +6,11 @@
     <ion-title>
       Homes
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showQuickMenu($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -38,23 +43,11 @@
       </ion-select>
     </ion-item>
 
-    <ion-col col-6>
-      <button ion-button block icon-start type="button">
-        <ion-icon name="md-refresh"></ion-icon>
-        อัพเดทข้อมูล
-      </button>
-    </ion-col>
-    <ion-col col-6>
-      <button ion-button block icon-start type="button">
-        <ion-icon name="ios-compass-outline"></ion-icon>
-        ดูแผนที่
-      </button>
-    </ion-col>
   </ion-row>
 
   <ion-row align-items-center>
     <ion-col>
-      <button ion-button block type="button">
+      <button ion-button block type="button" (click)="goBuildingInfo()">
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>

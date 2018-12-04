@@ -7,6 +7,22 @@
 
   <ion-content>
     <ion-list>
+      <button ion-button block icon-start type="button" (click)="goGetworkPage()">
+        <ion-icon name="cloud-download"></ion-icon>
+        รับงาน
+      </button>
+      <button ion-button block icon-start type="button" (click)="goSelectEaPage()">
+        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+        เลือก EA
+      </button>
+      <button ion-button block icon-start type="button" (click)="goSendPage()">
+        <ion-icon name="cloud-upload"></ion-icon>
+        ส่งข้อมูล
+      </button>
+      <button ion-button block icon-start type="button" (click)="goGetworkPage()">
+        <ion-icon name="cloud-download"></ion-icon>
+        ดาวน์โหลด
+      </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
