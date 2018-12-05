@@ -14,3 +14,7 @@ export const getSendDataBuilding = createSelector(
     state => state.sendDataBuilding,
 );
 
+export const getSendBuildingType = createSelector(
+    getBuildingFeatureState,
+    state => state.sendBuildingType,
+);

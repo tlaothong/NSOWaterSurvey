@@ -9,7 +9,7 @@ export enum HouseHoldTypes {
     SetFactorialCategory = "[HH] Set Factorial Category",
     SetWaterSource = "[HH] Set WaterSource",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
-    SetresidentialGardeningUse = "residentialGardeningUse",
+    SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
     SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
     SetRubberTreeSelectPlant = "[HH] Set Rubbertree Select Plant",
     SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
@@ -71,8 +71,8 @@ export class SetCommercialServiceType implements Action {
     constructor(public payload: any) {
     }
 }
-export class SetresidentialGardeningUse implements Action {
-    readonly type = HouseHoldTypes.SetresidentialGardeningUse;
+export class SetResidentialGardeningUse implements Action {
+    readonly type = HouseHoldTypes.SetResidentialGardeningUse;
 
     constructor(public payload: string) {
     }
@@ -112,7 +112,7 @@ export type HouseHoldActionsType =
     | SetFactorialCategory
     | SetWaterSources
     | SetCommercialServiceType
-    | SetresidentialGardeningUse
+    | SetResidentialGardeningUse
     | SetAgronomyPlantDoing
     | SetRubberTreeSelectPlant
     | SetPerennialPlantSelectPlant
