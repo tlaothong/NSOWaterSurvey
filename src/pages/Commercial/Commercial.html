@@ -52,7 +52,7 @@
                         เลือกประเภท
                     </ion-label>
                   
-                    <ion-select formControlName="buildingCode" disabled="true" interface="action-sheet">
+                    <ion-select formControlName="buildingCode" disabled="true">
                         <ion-option [value]="1">
                             1.บ้านเดี่ยว
                         </ion-option>
@@ -107,7 +107,7 @@
             </ion-card-content>
         </ion-card>
 
-        <ion-card>
+        <ion-card *ngIf="f.get('buildingCode').value == 11 || f.get('buildingCode').value == 12">
             <ion-card-header>
                 4.4 (1) สถานศึกษา/โรงเรียน/สถาบันการศึกษา
             </ion-card-header>
@@ -146,7 +146,7 @@
             </ion-card-content>
         </ion-card>
 
-        <ion-card>
+        <ion-card *ngIf="f.get('buildingCode').value == 6">
             <ion-card-header>
                 4.4 (2) โรงแรม/รีสอร์ท/เกสต์เฮาส์
             </ion-card-header>
@@ -185,7 +185,7 @@
             </ion-card-content>
         </ion-card>
 
-        <ion-card>
+        <ion-card *ngIf="f.get('buildingCode').value == 7 || f.get('buildingCode').value == 8">
             <ion-card-header>
                 4.4 (3) สถานพยาบาล/โรงพยาบาล/สถานสงเคราะห์
             </ion-card-header>
@@ -223,7 +223,7 @@
             </ion-card-content>
         </ion-card>
 
-        <ion-card>
+        <ion-card *ngIf="f.get('buildingCode').value == 4">
             <ion-card-header>
                 4.4 (4) คอนโด/อพาร์ทเม้นต์/หอพัก/แมนชั่น/แฟลต
             </ion-card-header>
@@ -276,7 +276,7 @@
             </ion-card-content>
         </ion-card>
 
-        <ion-card>
+        <ion-card *ngIf="f.get('buildingCode').value == 10">
             <ion-card-header>
                 4.4 (5) ศาสนสถาน/วัด/สำนักสงฆ์/สำนักปฏิบัติธรรม
             </ion-card-header>
@@ -301,7 +301,15 @@
             </ion-card-content>
         </ion-card>
 
-        <ion-card>
+        <ion-card *ngIf="f.get('buildingCode').value == 1 
+        || f.get('buildingCode').value == 2 
+        || f.get('buildingCode').value == 3 
+        || f.get('buildingCode').value == 5 
+        || f.get('buildingCode').value == 9
+        || f.get('buildingCode').value == 13
+        || f.get('buildingCode').value == 14
+        || f.get('buildingCode').value == 15
+        || f.get('buildingCode').value == 16">
             <ion-card-header>
                 4.4 (6) สถานประกอบการบริการประเภทอื่นๆ <br>หรือรหัสประเภทบ้าน /อาคาร /สิ่งปลูกสร้างอื่นๆในข้อ 4.6<br>
                 (เช่น ร้านค้า ร้านขายของชำ ร้านเสริมสวย เป็นต้น)
