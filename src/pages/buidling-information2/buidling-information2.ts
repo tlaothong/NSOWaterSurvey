@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getBuildingSample } from '../../states/building';
+import { getBuildingSample, getSendBuildingType } from '../../states/building';
 import { map } from 'rxjs/operators';
 import { SetSendDataBuilding } from '../../states/building/building.actions';
 
@@ -16,6 +16,8 @@ export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+
+  private getBuildingType$ = this.store.select(getSendBuildingType)
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
     this.f = this.fb.group({
@@ -67,6 +69,9 @@ export class BuidlingInformation2Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuidlingInformation2Page');
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+    console.log("dadadad");
+    console.log(this.f.get('buildingType').value);
   }
 
   public handleSubmit() {

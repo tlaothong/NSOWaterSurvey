@@ -5,12 +5,14 @@ export interface BuildingState {
     units: any,
     buildingSample: any,
     sendDataBuilding: any,
+    sendBuildingType: any,
 }
 
 const initialState: BuildingState = {
     units: [],
     buildingSample: null,
     sendDataBuilding: null,
+    sendBuildingType: null,
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -24,10 +26,15 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 ...state,
                 buildingSample: action.payload,
             };
-            case BuildingTypes.SetSendDataBuilding:
+        case BuildingTypes.SetSendDataBuilding:
             return {
                 ...state,
                 sendDataBuilding: action.payload,
+            };
+        case BuildingTypes.SetSendBuildingType:
+            return {
+                ...state,
+                sendBuildingType: action.payload,
             };
         default:
             return state;

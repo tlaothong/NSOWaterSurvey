@@ -28,7 +28,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card *ngIf="f.get('buildingType').value == 4 || f.get('buildingType').value == 5">
       <ion-card-content>
 
         <ion-item>
