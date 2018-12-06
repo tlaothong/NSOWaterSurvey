@@ -8,11 +8,8 @@ export interface HouseHoldState {
     isFactorial: boolean,
     isCommercial: boolean,
     factorialCategory: string,
-    // factorialWaterSources: any,
-    // residentialWaterSources: any,
     residentialGardeningUse: any,
     commercialServiceType: any,
-    // commercialWaterSources: any,
     agricultureRicePlant: any,
     agricultureAgronomyPlant: any,
     agricultureRubberTree: any,
@@ -26,20 +23,12 @@ export interface HouseHoldState {
     agronomyPlantDoing: any,
     rubberTreeDoing: any,
     perennialPlantDoing: any,
-    // ricePlantWaterSources: any,
-    // agronomyPlantWaterSources: any,
-    // rubberTreeWaterSources: any,
-    // perennialPlantWaterSources: any,
-    // herbsPlantWaterSources: any,
-    // flowerCropWaterSources: any,
-    // mushroomPlantWaterSources: any,
-    // animalFarmWaterSources: any,
-    // aquaticAnimalsWaterSources: any,
     waterSources: any,
     rubberTreeSelectPlant: any[],
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
+    riceDoing: any;
 }
 
 const initialState: HouseHoldState = {
@@ -50,11 +39,8 @@ const initialState: HouseHoldState = {
     isFactorial: null,
     isCommercial: null,
     factorialCategory: null,
-    // factorialWaterSources: null,
-    // residentialWaterSources: null,
     residentialGardeningUse: null,
     commercialServiceType: null,
-    // commercialWaterSources: null,
     agricultureRicePlant: null,
     agricultureAgronomyPlant: null,
     agricultureRubberTree: null,
@@ -68,21 +54,12 @@ const initialState: HouseHoldState = {
     agronomyPlantDoing: [],
     rubberTreeDoing: null,
     perennialPlantDoing: null,
-    // ricePlantWaterSources: null,
-    // agronomyPlantWaterSources: null,
-    // rubberTreeWaterSources: null,
-    // perennialPlantWaterSources: null,
-    // herbsPlantWaterSources: null,
-    // flowerCropWaterSources: null,
-    // mushroomPlantWaterSources: null,
-    // animalFarmWaterSources: null,
-    // aquaticAnimalsWaterSources: null,
     waterSources: null,
     rubberTreeSelectPlant: [],
     perennialPlantSelectPlant: [],
     ricePlantSelectPlant: [],
     agronomyPlantSelectPlant: [],
-
+    riceDoing: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -126,7 +103,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 commercialServiceType: action.payload,
             };
-        case HouseHoldTypes.SetresidentialGardeningUse:
+        case HouseHoldTypes.SetResidentialGardeningUse:
             return {
                 ...state,
                 residentialGardeningUse: action.payload,
@@ -160,6 +137,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 perennialPlantSelectPlant: action.payload,
+            };
+        case HouseHoldTypes.SetRiceDoing:
+            return {
+                ...state,
+                riceDoing: action.payload,
             };
         default:
             return state;

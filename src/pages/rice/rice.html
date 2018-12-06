@@ -15,7 +15,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')" >
           <ion-item *ngIf="isValid('doing')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -44,12 +44,12 @@
           </ion-item>
 
           <ion-item>
-            <ion-input type="number" placeholder="กรอกจำนวนแปลง" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
+            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
           </ion-item>
 
           <ion-item *ngIf="isValid('fieldCount')">
             <span class="invalid-msg">
-              กรุณากรอกจำนวน
+              กรุณากรอกข้อมูล
             </span>
           </ion-item>
         </div>

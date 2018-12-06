@@ -29,12 +29,12 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="number" placeholder="กรอกจำนวน" formControlName="plantingCount" [class.invalid]="isValid('plantingCount')"></ion-input>
+      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plantingCount" [class.invalid]="isValid('plantingCount')"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="isValid('plantingCount')">
       <span class="invalid-msg">
-        กรุณากรอกจำนวน
+        กรุณากรอกข้อมูล
       </span>
     </ion-item>
 
@@ -46,7 +46,9 @@
 
     <ion-row radio-group formControlName="plantingArea" [class.invalid]="isValid('plantingArea')">
       <ion-item *ngIf="isValid('plantingArea')">
-        <span class="invalid-msg">กรุณาเลือก</span>
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
       </ion-item>
       <ion-item>
         <ion-radio value="1" item-left></ion-radio>
@@ -96,32 +98,32 @@
       </div>
     </div>
 
-   
-        <ion-item>
-          <ion-label>
-            8) นาแปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
-          <ion-item *ngIf="isValid('irrigationField')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              1. อยู่
-            </ion-label>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              2. ไม่อยู่
-            </ion-label>
-          </ion-item>
-        </ion-row>
-    
+
+    <ion-item>
+      <ion-label>
+        8) นาแปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
+      </ion-label>
+    </ion-item>
+    <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
+      <ion-item *ngIf="isValid('irrigationField')">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
+      <ion-item col-6>
+        <ion-radio [value]="true" item-left></ion-radio>
+        <ion-label>
+          1. อยู่
+        </ion-label>
+      </ion-item>
+      <ion-item col-6>
+        <ion-radio [value]="false" item-left></ion-radio>
+        <ion-label>
+          2. ไม่อยู่
+        </ion-label>
+      </ion-item>
+    </ion-row>
+
     <!-- do -->
     <water-sources8-a headline="9) นาแปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)" [FormItem]="FormItem.get('waterSources')"></water-sources8-a>
 

@@ -3,19 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
+import { getBuildingSample, getSendBuildingType } from '../../states/building';
 import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
-import { getBuildingSample } from '../../states/building';
 import { map } from 'rxjs/operators';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { LoadHouseHoldSample } from '../../states/household/household.actions';
-
-/**
- * Generated class for the BuidlingInformation2Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 
 @IonicPage()
 @Component({
@@ -28,7 +20,7 @@ export class BuidlingInformation2Page {
 
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
-
+  private getBuildingType$ = this.store.select(getSendBuildingType)
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
     this.f = this.fb.group({
@@ -80,17 +72,21 @@ export class BuidlingInformation2Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuidlingInformation2Page');
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+    console.log("dadadad");
+    console.log(this.f.get('buildingType').value);
   }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
-    // this.storeHouse.dispatch(new LoadHouseHoldSample());
+
   }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 }

@@ -5,7 +5,7 @@ import { WaterProblem6Component } from '../../components/water-problem6/water-pr
 import { WaterActivity5Component } from '../../components/water-activity5/water-activity5';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -17,9 +17,12 @@ export class PlumbingPage {
 
   @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
+
   public f: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+  private gardeningUse$ = this.store.select(getResidentialGardeningUse);
+  public gardeningUse: boolean;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -72,7 +75,9 @@ export class PlumbingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     console.log('ionViewDidLoad PlumbingPage');
+    console.log(this.gardeningUse);
   }
 
   public handleSubmit() {

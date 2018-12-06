@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>เปิดใช้งาน Tablet</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-item text-center>
+    <ion-label>สแกน QR Code เพื่อยืนยันตัวตน</ion-label>
+  </ion-item>
+
+  <ion-item text-center>
+    <ion-img width="150" height="130" src="../assets/imgs/qrcode.png"></ion-img>
+  </ion-item>
+
+  <ion-row padding>
+    <button ion-button full color="secondary">กดเพื่อเริ่มสแกน</button>
+    <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
+  </ion-row>
+
+</ion-content>

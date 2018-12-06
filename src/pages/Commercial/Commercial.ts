@@ -8,6 +8,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources } from '../../states/household/household.actions';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getSendBuildingType } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -23,8 +25,10 @@ export class CommercialPage {
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
 
+  private getBuildingType$ = this.store.select(getSendBuildingType)
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
@@ -64,7 +68,7 @@ export class CommercialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
     this.formData$.subscribe(data => this.f.setValue(data));
-
+    this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
   }
 
   public handleSubmit() {

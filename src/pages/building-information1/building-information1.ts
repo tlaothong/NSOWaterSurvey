@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { CommunityState } from '../../states/community/community.reducer';
 import { getBuildingSample } from '../../states/building';
 import { map } from 'rxjs/operators';
+import { BuildingState } from '../../states/building/building.reducer';
+import { SetSendBuildingType } from '../../states/building/building.actions';
 
 @IonicPage()
 @Component({
@@ -17,40 +18,38 @@ export class BuildingInformation1Page {
   private submitRequested: boolean;
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>) {
      this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
-      'road': [null],
-      'alley': [null],
-      'name': [null],
-      'houseNo': [null],
-      'latitude': [null],
-      'longitude': [null],
-      'buildingType': [null],
-      'other': [null],
-      'access': [null],
-      'vacancyCount': [null],
-      'abandonedCount': [null],
+      'road': [null, Validators.required],
+      'alley': [null, Validators.required],
+      'name': [null, Validators.required],
+      'houseNo': [null, Validators.required],
+      'latitude': [null, Validators.required],
+      'longitude': [null, Validators.required],
+      'buildingType': [null, Validators.required],
+      'other': [null, Validators.required],
+      'access': [null, Validators.required],
+      'vacancyCount': [null, Validators.required],
+      'abandonedCount': [null, Validators.required],
       'comments': fb.array([
         {
-          'at': [null],
-          'text': [null],
+          'at': [null, Validators.required],
+          'text': [null, Validators.required],
         }
       ]),
       'recCtrl': fb.group({
-        'createdDateTime': [null],
-        'lastModified': [null],
-        'deletedDateTime': [null],
-        'lastUpload': [null],
-        'lastDownload': [null],
+        'createdDateTime': [null, Validators.required],
+        'lastModified': [null, Validators.required],
+        'deletedDateTime': [null, Validators.required],
+        'lastUpload': [null, Validators.required],
+        'lastDownload': [null, Validators.required],
         'logs': fb.array([{
-          'at': [null],
-          'operationCode': [null],
+          'at': [null, Validators.required],
+          'operationCode': [null, Validators.required],
         }]),
       }),
-      //
       'vacantRoomCount': [null, Validators.required],
       'unitCount': [null, Validators.required],
       'unitAccess': [null, Validators.required],
@@ -68,16 +67,17 @@ export class BuildingInformation1Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
     this.formData$.subscribe(data => this.f.setValue(data));
-
   }
+
   public handleSubmit() {
     this.submitRequested = true;
+    this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
+    console.log('unitCount');
+    console.log(this.submitRequested);
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
-
 }

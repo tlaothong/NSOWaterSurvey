@@ -57,14 +57,12 @@
                 2.2.2 ถ้า “ปลูก” มีพื้นที่ปลูก<b>พืชไร่</b>จำนวนกี่แปลง
               </ion-label>
             </ion-item>
-
             <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวน" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
             </ion-item>
-
             <ion-item *ngIf="isValid('fieldCount')">
               <span class="invalid-msg">
-                กรุณากรอกจำนวน
+                กรุณากรอกข้อมูล
               </span>
             </ion-item>
           </div>

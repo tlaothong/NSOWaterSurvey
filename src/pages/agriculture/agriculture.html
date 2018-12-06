@@ -1,70 +1,80 @@
 <ion-header>
 
-    <questionnaire-menu title="การทำการเกษตร"></questionnaire-menu>
-  
-  </ion-header>
+  <questionnaire-menu title="การทำการเกษตร"></questionnaire-menu>
+
+</ion-header>
 
 <ion-content padding>
 
-  <h3>ตอนที่ 2 การทำการเกษตร</h3>
+  <form [formGroup]="f" (ngSubmit)="handleSubmit()">
 
-  <ion-card>
-
+    <h3>ตอนที่ 2 การทำการเกษตร</h3>
+    <ion-card>
       <ion-card-content>
-        <ion-item>
-          <ion-label>
-            เลือกประเภท
-          </ion-label>
-        </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>1.ข้าว</ion-label>
-        </ion-item>
+        <div [class.invalid]="isValid('anycheck')">
+          <ion-item>
+            <ion-label>
+              เลือกประเภท
+            </ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>2.พืชไร่</ion-label>
-        </ion-item>
+          <ion-item *ngIf="isValid('anycheck')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="ricePlant"></ion-checkbox>
+            <ion-label>1.ข้าว</ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>3.ยางพารา</ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="agronomyPlant"></ion-checkbox>
+            <ion-label>2.พืชไร่</ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>4.พืชยืนต้น ไม้ผล สวนป่า </ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="rubberTree"></ion-checkbox>
+            <ion-label>3.ยางพารา</ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>5.พืชผัก สมุนไพร</ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="perennialPlant"></ion-checkbox>
+            <ion-label>4.พืชยืนต้น ไม้ผล สวนป่า </ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>6.ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="herbsPlant"></ion-checkbox>
+            <ion-label>5.พืชผัก สมุนไพร</ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>7. เพาะเชื้อและปลูกเห็ด </ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="flowerCrop"></ion-checkbox>
+            <ion-label>6.ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>8.การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร</ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="mushroomPlant"></ion-checkbox>
+            <ion-label>7. เพาะเชื้อและปลูกเห็ด </ion-label>
+          </ion-item>
 
-        <ion-item>
-          <ion-checkbox></ion-checkbox>
-          <ion-label>9. การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด  </ion-label>
-        </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="animalFarm"></ion-checkbox>
+            <ion-label>8.การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-checkbox formControlName="aquaticAnimals"></ion-checkbox>
+            <ion-label>9. การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด </ion-label>
+          </ion-item>
+
+        </div>
 
       </ion-card-content>
     </ion-card>
 
     <form-buttons-bar></form-buttons-bar>
+  </form>
 
 </ion-content>

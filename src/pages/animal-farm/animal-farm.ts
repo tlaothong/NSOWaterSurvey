@@ -52,6 +52,7 @@ export class AnimalFarmPage {
   ionViewDidEnter() {
 
   }
+  
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());

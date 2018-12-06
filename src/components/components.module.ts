@@ -42,6 +42,9 @@ import { NaturalDisasterComponent } from './natural-disaster/natural-disaster';
 import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disaster-warning-methods';
 import { ModalPlantComponent } from './modal-plant/modal-plant';
 import { UnitButtonComponent } from './unit-button/unit-button';
+import { TablePopulationComponent } from './table-population/table-population';
+import { ItemInHomeComponent } from './item-in-home/item-in-home';
+import { QuestionnaireHomeComponent } from './questionnaire-home/questionnaire-home';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -86,13 +89,18 @@ import { UnitButtonComponent } from './unit-button/unit-button';
     DisasterWarningMethodsComponent,
     WaterProblem6Component,
     ModalPlantComponent,
-    UnitButtonComponent
+    UnitButtonComponent,
+    TablePopulationComponent,
+    ItemInHomeComponent,
+    QuestionnaireHomeComponent
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
+    IonicPageModule.forChild(QuestionnaireHomeComponent),
   ],
   entryComponents: [
     QuestionnaireMenuPopoverComponent,
+    QuestionnaireHomeComponent,
   ],
   exports: [WaterSources8AComponent,
     DemoNaComponent,
@@ -136,7 +144,10 @@ import { UnitButtonComponent } from './unit-button/unit-button';
     DisasterWarningMethodsComponent,
     WaterProblem6Component,
     ModalPlantComponent,
-    UnitButtonComponent
+    UnitButtonComponent,
+    TablePopulationComponent,
+    ItemInHomeComponent,
+    QuestionnaireHomeComponent
   ]
 })
 export class ComponentsModule { }

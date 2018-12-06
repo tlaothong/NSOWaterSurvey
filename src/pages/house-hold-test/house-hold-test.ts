@@ -40,6 +40,7 @@ export class HouseHoldTestPage {
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage" },
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
+      { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
     ];
   }
 

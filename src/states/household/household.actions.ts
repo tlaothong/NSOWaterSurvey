@@ -13,12 +13,13 @@ export enum HouseHoldTypes {
     SetFactorialCategory = "[HH] Set Factorial Category",
     SetWaterSource = "[HH] Set WaterSource",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
-    SetresidentialGardeningUse = "residentialGardeningUse",
+    SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
     SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
     SetRubberTreeSelectPlant = "[HH] Set Rubbertree Select Plant",
     SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
     SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
+    SetRiceDoing = "[HH] Set Rice Donig"
 }
 
 export class LoadHouseHoldList implements Action {
@@ -100,8 +101,8 @@ export class SetCommercialServiceType implements Action {
     constructor(public payload: any) {
     }
 }
-export class SetresidentialGardeningUse implements Action {
-    readonly type = HouseHoldTypes.SetresidentialGardeningUse;
+export class SetResidentialGardeningUse implements Action {
+    readonly type = HouseHoldTypes.SetResidentialGardeningUse;
 
     constructor(public payload: string) {
     }
@@ -119,6 +120,7 @@ export class SetPerennialPlantSelectPlant implements Action {
     }
 }
 
+
 export class SetRicePlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetRicePlantSelectPlant;
 
@@ -132,6 +134,14 @@ export class SetAgronomyPlantSelectPlant implements Action {
     constructor(public payload: any[]) {
     }
 }
+
+export class SetRiceDoing implements Action {
+    readonly type = HouseHoldTypes.SetRiceDoing;
+
+    constructor(public payload: any[]) {
+    }
+}
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -144,10 +154,12 @@ export type HouseHoldActionsType =
     | SetFactorialCategory
     | SetWaterSources
     | SetCommercialServiceType
-    | SetresidentialGardeningUse
+    | SetResidentialGardeningUse
     | SetAgronomyPlantDoing
     | SetRubberTreeSelectPlant
     | SetPerennialPlantSelectPlant
     | SetRicePlantSelectPlant
     | SetAgronomyPlantSelectPlant
+    | SetCommercialServiceType
+    | SetRiceDoing
     ;

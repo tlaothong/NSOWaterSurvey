@@ -85,7 +85,6 @@ export class WaterAnimalPlantingPage {
 
       if (!isFish.value && !isShrimp.value && !isFrog.value && !isCrocodile.value && !isCrab.value
         && !isShellFish.value && !isTurtle.value && !isReddish.value && !isSnappingTurtle.value) {
-
         return { 'anycheck': true };
       }
       return null;

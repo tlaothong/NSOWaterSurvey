@@ -1,13 +1,13 @@
-import { Component,ViewChildren } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { RainStorageComponent } from '../../components/rain-storage/rain-storage';
 import { WaterActivity5Component } from '../../components/water-activity5/water-activity5';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -16,11 +16,14 @@ import { getHouseHoldSample } from '../../states/household';
 })
 export class RainPage {
 
-  @ViewChildren(RainStorageComponent) private rainStorage : RainStorageComponent[];
-  @ViewChildren(WaterActivity5Component) private waterActivity5 : WaterActivity5Component[];
+  @ViewChildren(RainStorageComponent) private rainStorage: RainStorageComponent[];
+  @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
+
+  private gardeningUse$ = this.store.select(getResidentialGardeningUse);
+  public gardeningUse: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
@@ -31,6 +34,7 @@ export class RainPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.RainFrm.setValue(data));
+    this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     console.log('ionViewDidLoad RainPage');
   }
 

@@ -29,10 +29,10 @@
         <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่วัน</ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" formControlName="avgday" [class.invalid]="isValid('avgday')"></ion-input>
+        <ion-input type="number" formControlName="avgDay" [class.invalid]="isValid('avgDay')"></ion-input>
       </ion-item>
       
-    <ion-item *ngIf="isValid('avgday')">
+    <ion-item *ngIf="isValid('avgDay')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
         </span>
@@ -42,10 +42,10 @@
         <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่ชั่วโมง</ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" formControlName="avghour" [class.invalid]="isValid('avghour')"></ion-input>
+        <ion-input type="number" formControlName="avgHour" [class.invalid]="isValid('avgHour')"></ion-input>
       </ion-item>
       
-    <ion-item *ngIf="isValid('avghour')">
+    <ion-item *ngIf="isValid('avgHour')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
         </span>
@@ -54,10 +54,10 @@
         <ion-label>ระดับความสูงเฉลี่ย (เซนติเมตร)</ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" formControlName="height" [class.invalid]="isValid('height')"></ion-input>
+        <ion-input type="number" formControlName="waterHeightCm" [class.invalid]="isValid('waterHeightCm')"></ion-input>
       </ion-item>
       
-    <ion-item *ngIf="isValid('height')">
+    <ion-item *ngIf="isValid('waterHeightCm')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
         </span>

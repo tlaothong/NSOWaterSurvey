@@ -12,3 +12,8 @@ export const getRecieveDataFromBuilding = createSelector(
     getBuildingFeatureState,
     state => state.recieveDataFromBuilding,
 );
+export const getSendBuildingType = createSelector(
+    getBuildingFeatureState,
+    state => state.sendBuildingType,
+);
+

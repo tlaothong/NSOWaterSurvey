@@ -1,4 +1,4 @@
-import { SetRicePlantSelectPlant } from './../../states/household/household.actions';
+import { SetRicePlantSelectPlant, SetRiceDoing } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -50,6 +50,7 @@ export class RicePage {
     // let selected = [];
     // selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
+    this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     console.log("TTTTTTTTTTTTT");
     console.log(this.DataList);
 

@@ -15,7 +15,7 @@
         <ion-input type="number" formControlName="rai" [class.invalid]="isValid('rai')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('rai')">
-        <span class="invalid-msg">กรุณากรอกจำนวนไร่</span>
+        <span class="invalid-msg">กรุณากรอกข้อมูล</span>
       </ion-item>
       <ion-item>
         <ion-label>งาน</ion-label>
@@ -24,7 +24,7 @@
         <ion-input type="number" formControlName="ngan" [class.invalid]="isValid('ngan')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('ngan')">
-        <span class="invalid-msg">กรุณากรอกจำนวนงานในช่วง 0-3</span>
+        <span class="invalid-msg">กรุณากรอกข้อมูลในช่วง 0-3</span>
       </ion-item>
       <ion-item>
         <ion-label>ตารางวา</ion-label>
@@ -33,7 +33,7 @@
         <ion-input type="number" formControlName="sqWa" [class.invalid]="isValid('sqWa')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('sqWa')">
-        <span class="invalid-msg">กรุณากรอกตารางวาในช่วง 0-99</span>
+        <span class="invalid-msg">กรุณากรอกข้อมูลในช่วง 0-99</span>
       </ion-item>
     </ion-list>
 

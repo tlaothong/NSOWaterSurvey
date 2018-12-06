@@ -20,6 +20,8 @@ export class PoolUsageComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
   @Input('no') no: string;
+  @Input('use') public gardeningUse: boolean;
+  @Input('doing') public riceDoing: boolean;
 
   private submitRequested: boolean;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
