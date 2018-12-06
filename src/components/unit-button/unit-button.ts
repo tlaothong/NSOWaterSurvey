@@ -86,6 +86,7 @@ export class UnitButtonComponent {
       'disaster': [null, Validators.required],
       'closing': [null, Validators.required],
       'recCtrl': [null, Validators.required],
+      'population':[null]
     });
   }
 
