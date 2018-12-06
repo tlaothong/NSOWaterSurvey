@@ -6,6 +6,10 @@ export enum HouseHoldTypes {
     LoadListSuccess = "[HH] Load List Success",
     Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
+    SetIsHouseHold = "[HH] Set IsHouseHold",
+    SetIsAgriculture = "[HH] Set IsAgriculture",
+    SetIsFactorial = "[HH] Set IsFactorial",
+    SetIsCommercial = "[HH] Set IsCommercial",
     SetFactorialCategory = "[HH] Set Factorial Category",
     SetWaterSource = "[HH] Set WaterSource",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
@@ -17,8 +21,6 @@ export enum HouseHoldTypes {
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
     SetRiceDoing = "[HH] Set Rice Donig"
 }
-
-
 
 export class LoadHouseHoldList implements Action {
     readonly type = HouseHoldTypes.LoadList;
@@ -48,6 +50,33 @@ export class LoadHouseHoldSampleSuccess implements Action {
     }
 }
 
+export class SetIsHouseHold implements Action {
+    readonly type = HouseHoldTypes.SetIsHouseHold;
+
+    constructor(public payload: boolean) {
+    }
+}
+
+export class SetIsAgriculture implements Action {
+    readonly type = HouseHoldTypes.SetIsAgriculture;
+
+    constructor(public payload: boolean) {
+    }
+}
+
+export class SetIsFactorial implements Action {
+    readonly type = HouseHoldTypes.SetIsFactorial;
+
+    constructor(public payload: boolean) {
+    }
+}
+
+export class SetIsCommercial implements Action {
+    readonly type = HouseHoldTypes.SetIsCommercial;
+
+    constructor(public payload: boolean) {
+    }
+}
 export class SetFactorialCategory implements Action {
     readonly type = HouseHoldTypes.SetFactorialCategory;
 
@@ -118,6 +147,10 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
+    | SetIsHouseHold
+    | SetIsAgriculture
+    | SetIsFactorial
+    | SetIsCommercial
     | SetFactorialCategory
     | SetWaterSources
     | SetCommercialServiceType

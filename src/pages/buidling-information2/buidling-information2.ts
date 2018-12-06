@@ -4,8 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getBuildingSample, getSendBuildingType } from '../../states/building';
+import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 import { map } from 'rxjs/operators';
-import { SetSendDataBuilding } from '../../states/building/building.actions';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -15,11 +17,12 @@ import { SetSendDataBuilding } from '../../states/building/building.actions';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
+
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
   private getBuildingType$ = this.store.select(getSendBuildingType)
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
     this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
@@ -76,9 +79,10 @@ export class BuidlingInformation2Page {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.store.dispatch(new SetSendDataBuilding(this.f.get('unitCount').value));
+    this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
+
   }
 
   public isValid(name: string): boolean {

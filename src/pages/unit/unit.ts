@@ -2,9 +2,12 @@ import { UnitButtonComponent } from './../../components/unit-button/unit-button'
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { getSendDataBuilding } from '../../states/building';
-import { BuildingState } from '../../states/building/building.reducer';
 import { Store } from '@ngrx/store';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getRecieveDataFromBuilding } from '../../states/building';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -17,11 +20,12 @@ export class UnitPage {
   private submitRequested: boolean;
 
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
-  private GetPlantDrycrop$ = this.storeBuild.select(getSendDataBuilding);
+  private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'amount': [null, Validators.required],
+      'unitCount': [3, Validators.required],
       'units': this.fb.array([]),
     });
 
@@ -30,36 +34,30 @@ export class UnitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
+    this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     this.unitButton.forEach(it => it.ionViewDidLoad());
-    this.GetPlantDrycrop$.subscribe(data => this.f.get('amount').setValue(data));
-    console.log('amount');
-    console.log(this.f.get('amount').value);
-
-
   }
   ionViewDidEnter() {
-
+    console.log("enter");
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.unitButton.forEach(it => it.submitRequest());
-
-
   }
 
   private setupUnitsCountChanges() {
     const componentFormArray: string = "units";
-    const componentCount: string = "amount";
+    const componentCount: string = "unitCount";
 
     var onComponentCountChanges = () => {
       var units = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var amount = this.f.get(componentCount).value || 0;
+      var unitCount = this.f.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
-      amount = Math.max(0, amount);
+      unitCount = Math.max(0, unitCount);
 
-      for (let i = 0; i < amount; i++) {
+      for (let i = 0; i < unitCount; i++) {
         var ctrl = null;
         if (i < units.length) {
           const fld = units[i];

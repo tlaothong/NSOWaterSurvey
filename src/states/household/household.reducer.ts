@@ -1,9 +1,12 @@
 import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
 
-
 export interface HouseHoldState {
     units: any,
     houseHoldSample: any,
+    isHouseHold: boolean,
+    isAgriculture: boolean,
+    isFactorial: boolean,
+    isCommercial: boolean,
     factorialCategory: string,
     residentialGardeningUse: any,
     commercialServiceType: any,
@@ -31,6 +34,10 @@ export interface HouseHoldState {
 const initialState: HouseHoldState = {
     units: [],
     houseHoldSample: null,
+    isHouseHold: null,
+    isAgriculture: null,
+    isFactorial: null,
+    isCommercial: null,
     factorialCategory: null,
     residentialGardeningUse: null,
     commercialServiceType: null,
@@ -65,6 +72,26 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 houseHoldSample: action.payload,
+            };
+        case HouseHoldTypes.SetIsHouseHold:
+            return {
+                ...state,
+                isHouseHold: action.payload,
+            };
+        case HouseHoldTypes.SetIsAgriculture:
+            return {
+                ...state,
+                isAgriculture: action.payload,
+            };
+        case HouseHoldTypes.SetIsFactorial:
+            return {
+                ...state,
+                isFactorial: action.payload,
+            };
+        case HouseHoldTypes.SetIsCommercial:
+            return {
+                ...state,
+                isCommercial: action.payload,
             };
         case HouseHoldTypes.SetFactorialCategory:
             return {
