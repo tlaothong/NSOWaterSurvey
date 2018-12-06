@@ -75,7 +75,7 @@
 
     <div *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0">
       <div *ngFor="let avg of f.get('privateGroundWater.waterResources').controls; let i = index">
-        <ground-water-usage [no]="i + 1" [FormItem]="avg"></ground-water-usage>
+        <ground-water-usage userice="{{riceDoing}}" use="{{gardeningUse}}" [no]="i + 1" [FormItem]="avg"></ground-water-usage>
       </div>
     </div>
 
@@ -133,7 +133,7 @@
 
     <div *ngIf="f.get('publicGroundWater.doing').value && f.get('publicGroundWater.waterResourceCount').value > 0">
       <div *ngFor="let use of f.get('publicGroundWater.waterResources').controls; let i = index">
-        <ground-water-usage-public [no]="i + 1" [FormItem]="use"></ground-water-usage-public>
+        <ground-water-usage-public userice="{{riceDoing}}" use="{{gardeningUse}}" [no]="i + 1" [FormItem]="use"></ground-water-usage-public>
       </div>
     </div>
 

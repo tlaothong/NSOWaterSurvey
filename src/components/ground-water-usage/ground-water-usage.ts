@@ -13,6 +13,8 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   @Input('no') text: string;
   @Input() public FormItem: FormGroup;
+  @Input('use') public gardeningUse: boolean;
+  @Input('userice') public riceDoing: boolean;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
