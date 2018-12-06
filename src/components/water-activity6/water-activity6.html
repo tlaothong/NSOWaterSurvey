@@ -16,7 +16,7 @@
       กรุณากรอกข้อมูล
     </span>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="gardeningUse == 'true'">
     <ion-label col-8>
       เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
     </ion-label>
@@ -27,7 +27,7 @@
       กรุณากรอกข้อมูล
     </span>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="riceDoing == 'true'">
     <ion-label col-8>
       เพื่อทำนา
     </ion-label>

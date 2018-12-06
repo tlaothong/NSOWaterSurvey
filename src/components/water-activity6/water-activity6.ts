@@ -17,6 +17,8 @@ export class WaterActivity6Component {
   @Input('headline') public text: string;
   @Input('headline2') public text2: string;
   @Input() public FormItem: FormGroup;
+  @Input('use') public gardeningUse: boolean;
+  @Input('rice') public riceDoing: boolean;
 
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterActivity6Component Component');
@@ -26,6 +28,7 @@ export class WaterActivity6Component {
 
   submitRequest() {
     this.submitRequested = true;
+    console.log(this.gardeningUse);
   }
   
   public isValid(name: string): boolean {
