@@ -16,12 +16,14 @@
       กรุณากรอกข้อมูล
     </span>
   </ion-item>
-  <ion-item>
+
+  <ion-item *ngIf="gardeningUse == 'true'">
     <ion-label col-8>
       เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plant" [class.invalid]="isValid('plant')"></ion-input>
   </ion-item>
+
   <ion-item *ngIf="isValid('plant')" text-right>
     <span class="invalid-msg">
       กรุณากรอกข้อมูล
