@@ -64,144 +64,158 @@
         </ion-row>
 
         <div [ngSwitch]="f.get('unitAccess').value">
+          <div *ngSwitchCase="1">
+            <ion-item>
+              <ion-label>
+                จำนวนชั้นของอาคาร
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('floorCount')">
+              <span class="invalid-msg">
+                กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+          </div>
+
           <div *ngSwitchCase="2">
-            
-              <ion-item>
-                <ion-label>
-                  จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount" [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
-              </ion-item>
-              <ion-item *ngIf="isValid('occupiedRoomCount')">
-                <span class="invalid-msg">
-                  กรุณากรอกข้อมูล
-                </span>
-              </ion-item>
+            <ion-item>
+              <ion-label>
+                จำนวนห้องที่มีผู้อาศัย / จำนวนสถานประกอบการ
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount" [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('occupiedRoomCount')">
+              <span class="invalid-msg">
+                กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
 
-              <ion-item>
-                <ion-label>
-                  จำนวนห้องว่าง
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="vacantRoomCount" [class.invalid]="isValid('vacantRoomCount')"></ion-input>
-              </ion-item>
-              <ion-item *ngIf="isValid('vacantRoomCount')">
-                <span class="invalid-msg">
-                  กรุณากรอกข้อมูล
-                </span>
-              </ion-item>
+            <ion-item>
+              <ion-label>
+                จำนวนห้องว่าง
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="vacantRoomCount" [class.invalid]="isValid('vacantRoomCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('vacantRoomCount')">
+              <span class="invalid-msg">
+                กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
 
-              <ion-item>
-                <ion-label>
-                  ปริมาณการใช้น้ำ
-                </ion-label>
-              </ion-item>
+            <ion-item>
+              <ion-label>
+                ปริมาณการใช้น้ำ
+              </ion-label>
+            </ion-item>
 
-              <div formGroupName="waterQuantity" [class.invalid]="isValid('waterQuantity.waterQuantity')">
-                <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('waterQuantity.waterQuantity')">
-                    <span class="invalid-msg">
-                      กรุณาเลือก
-                    </span>
-                  </ion-item>
+            <div formGroupName="waterQuantity" [class.invalid]="isValid('waterQuantity.waterQuantity')">
+              <ion-row radio-group formControlName="waterQuantity">
+                <ion-item *ngIf="isValid('waterQuantity.waterQuantity')">
+                  <span class="invalid-msg">
+                    กรุณาเลือก
+                  </span>
+                </ion-item>
 
-                  <ion-item>
-                    <ion-label>
-                      ทราบปริมาณน้ำ
-                    </ion-label>
-                    <ion-radio [value]="1" item-start></ion-radio>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label>
-                      ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ
-                    </ion-label>
-                    <ion-radio [value]="2" item-start></ion-radio>
-                  </ion-item>
-                </ion-row>
+                <ion-item>
+                  <ion-label>
+                    ทราบปริมาณน้ำ
+                  </ion-label>
+                  <ion-radio [value]="1" item-start></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    ไม่ทราบปริมาณน้ำ แต่ทราบค่าน้ำ
+                  </ion-label>
+                  <ion-radio [value]="2" item-start></ion-radio>
+                </ion-item>
+              </ion-row>
 
-                <div [ngSwitch]="f.get('waterQuantity.waterQuantity').value">
-                  <div *ngSwitchCase="1">
-                    <ion-list>
-                      <ion-item>
-                        <ion-label>
-                          ทราบปริมาณน้ำ (ลบ.ม./เดือน)
-                        </ion-label>
+              <div [ngSwitch]="f.get('waterQuantity.waterQuantity').value">
+                <div *ngSwitchCase="1">
+                  <ion-list>
+                    <ion-item>
+                      <ion-label>
+                        ทราบปริมาณน้ำ (ลบ.ม./เดือน)
+                      </ion-label>
 
-                      </ion-item>
-                      <ion-item>
-                        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="cubicMeterPerMonth"
-                          [class.invalid]="isValid('waterQuantity.cubicMeterPerMonth')"></ion-input>
-                      </ion-item>
-                      <ion-item
-                        *ngIf="isValid('waterQuantity.cubicMeterPerMonth')">
-                        <span class="invalid-msg">
-                          กรุณากรอกข้อมูล
-                        </span>
-                      </ion-item>
-                    </ion-list>
-                  </div>
+                    </ion-item>
+                    <ion-item>
+                      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="cubicMeterPerMonth"
+                        [class.invalid]="isValid('waterQuantity.cubicMeterPerMonth')"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="isValid('waterQuantity.cubicMeterPerMonth')">
+                      <span class="invalid-msg">
+                        กรุณากรอกข้อมูล
+                      </span>
+                    </ion-item>
+                  </ion-list>
+                </div>
 
-                  <div *ngSwitchCase="2">
-                    <ion-list>
-                      <ion-item>
-                        <ion-label>
-                          ทราบค่าน้ำ (บาท/เดือน)
-                        </ion-label>
-                      </ion-item>
-                      <ion-item>
-                        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterBill" [class.invalid]="isValid('waterQuantity.waterBill')"></ion-input>
-                      </ion-item>
-                      <ion-item *ngIf="isValid('waterQuantity.waterBill')">
-                        <span class="invalid-msg">
-                          กรุณากรอกข้อมูล
-                        </span>
-                      </ion-item>
-                    </ion-list>
-                  </div>
+                <div *ngSwitchCase="2">
+                  <ion-list>
+                    <ion-item>
+                      <ion-label>
+                        ทราบค่าน้ำ (บาท/เดือน)
+                      </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterBill" [class.invalid]="isValid('waterQuantity.waterBill')"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="isValid('waterQuantity.waterBill')">
+                      <span class="invalid-msg">
+                        กรุณากรอกข้อมูล
+                      </span>
+                    </ion-item>
+                  </ion-list>
                 </div>
               </div>
+            </div>
 
-              <ion-item>
-                <ion-label>
-                  จำนวนชั้นของอาคาร
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
-              </ion-item>
-              <ion-item *ngIf="isValid('floorCount')">
-                <span class="invalid-msg">
-                  กรุณากรอกข้อมูล
-                </span>
-              </ion-item>
+            <ion-item>
+              <ion-label>
+                จำนวนชั้นของอาคาร
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('floorCount')">
+              <span class="invalid-msg">
+                กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
 
-              <ion-item>
-                <ion-label>
-                  ปัญหา
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-input type="text" placeholder="กรอกข้อมูล"></ion-input>
-              </ion-item>
+            <ion-item>
+              <ion-label>
+                ปัญหา
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="text" placeholder="กรอกข้อมูล"></ion-input>
+            </ion-item>
           </div>
 
           <div *ngSwitchCase="3">
-              <ion-item>
-                  <ion-label>
-                    จำนวนชั้นของอาคาร
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
-                </ion-item>
-                <ion-item *ngIf="isValid('floorCount')">
-                  <span class="invalid-msg">
-                    กรุณากรอกข้อมูล
-                  </span>
-                </ion-item>
+            <ion-item>
+              <ion-label>
+                จำนวนชั้นของอาคาร
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('floorCount')">
+              <span class="invalid-msg">
+                กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
             <ion-item>
               <ion-label>
                 ปัญหา
