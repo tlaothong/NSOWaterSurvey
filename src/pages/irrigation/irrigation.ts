@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -21,7 +21,14 @@ export class IrrigationPage {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
+
+  private gardeningUse$ = this.store.select(getResidentialGardeningUse);
+  public gardeningUse: boolean;
+
+  private riceDoing$ = this.store.select(getRiceDoing);
+  public riceDoing: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 
@@ -42,6 +49,8 @@ export class IrrigationPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.gardeningUse$.subscribe(data => this.gardeningUse = data);
+    this.riceDoing$.subscribe(data => this.riceDoing = data);
   }
 
   public handleSubmit() {

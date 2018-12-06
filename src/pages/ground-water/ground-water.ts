@@ -5,7 +5,7 @@ import { GroundWaterUsageComponent } from '../../components/ground-water-usage/g
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -24,7 +24,13 @@ export class GroundWaterPage {
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
 
-  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  private gardeningUse$ = this.store.select(getResidentialGardeningUse);
+  public gardeningUse: boolean;
+
+  private riceDoing$ = this.store.select(getRiceDoing);
+  public riceDoing: boolean;
+
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
@@ -45,7 +51,11 @@ export class GroundWaterPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.gardeningUse$.subscribe(data => this.gardeningUse = data);
+    this.riceDoing$.subscribe(data => this.riceDoing = data);
     console.log('ionViewDidLoad GroundWaterPage');
+    console.log(this.gardeningUse);
+
   }
 
   ionViewDidEnter() {
