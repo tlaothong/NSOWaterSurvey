@@ -54,6 +54,12 @@ export class SetSendBuildingType implements Action {
     }
 }
 
+export class SetSendDataBuilding implements Action {
+    readonly type = BuildingTypes.SetSendDataBuilding;
+
+    constructor(public payload: any) {
+    }
+}
 
 
 export type BuildingActionsType =
