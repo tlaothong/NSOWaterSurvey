@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetresidentialGardeningUse } from '../../states/household/household.actions';
+import { SetResidentialGardeningUse } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -37,7 +37,7 @@ export class ResidentialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetresidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
+    this.store.dispatch(new SetResidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
   }
 
   public isValid(name: string): boolean {

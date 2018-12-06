@@ -25,6 +25,7 @@ export interface HouseHoldState {
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
+    riceDoing: any;
 }
 
 const initialState: HouseHoldState = {
@@ -51,7 +52,7 @@ const initialState: HouseHoldState = {
     perennialPlantSelectPlant: [],
     ricePlantSelectPlant: [],
     agronomyPlantSelectPlant: [],
-
+    riceDoing: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -109,6 +110,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 perennialPlantSelectPlant: action.payload,
+            };
+        case HouseHoldTypes.SetRiceDoing:
+            return {
+                ...state,
+                riceDoing: action.payload,
             };
         default:
             return state;
