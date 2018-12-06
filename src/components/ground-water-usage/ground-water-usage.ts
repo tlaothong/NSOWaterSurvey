@@ -4,12 +4,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem6Component } from '../water-problem6/water-problem6';
-/**
- * Generated class for the GroundWaterUsageComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
 @Component({
   selector: 'ground-water-usage',
   templateUrl: 'ground-water-usage.html'
