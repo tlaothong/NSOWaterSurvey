@@ -17,13 +17,8 @@ export class WaterActivity6Component {
   @Input('headline') public text: string;
   @Input('headline2') public text2: string;
   @Input() public FormItem: FormGroup;
-<<<<<<< HEAD
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
-=======
-  @Input('use') public gardeningUse: boolean;
-  @Input('rice') public riceDoing: boolean;
->>>>>>> men
 
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterActivity6Component Component');
