@@ -39,7 +39,8 @@
 
     <ion-card>
       <ion-card-content>
-        <water-activity5 headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)" [FormItem]="RainFrm.get('waterActivities')"></water-activity5>
+        <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}" agriculture="{{agricultureUse}}"
+          headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)" [FormItem]="RainFrm.get('waterActivities')"></water-activity5>
       </ion-card-content>
     </ion-card>
 
