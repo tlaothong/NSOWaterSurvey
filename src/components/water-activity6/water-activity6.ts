@@ -19,6 +19,10 @@ export class WaterActivity6Component {
   @Input() public FormItem: FormGroup;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
+  @Input('commerce') public commerceUse: boolean;
+  @Input('factory') public factoryUse: boolean;
+  @Input('residence') public residenceUse: boolean;
+  @Input('agriculture') public agricultureUse: boolean;
 
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterActivity6Component Component');
