@@ -10,7 +10,6 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [
     IonicPageModule.forChild(RiverPage),
     ComponentsModule,
-
   ],
 })
 export class RiverPageModule {}
