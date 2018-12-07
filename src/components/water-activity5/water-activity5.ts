@@ -16,6 +16,10 @@ export class WaterActivity5Component {
   @Input('headline') public text: string;
   @Input() public FormItem: FormGroup;
   @Input('use') public gardeningUse: boolean;
+  @Input('commerce') public commerceUse: boolean;
+  @Input('factory') public factoryUse: boolean;
+  @Input('residence') public residenceUse: boolean;
+  @Input('agriculture') public agricultureUse: boolean;
 
   constructor(private fb: FormBuilder) {
     console.log('Hello WaterActivity5Component Component');
