@@ -65,6 +65,33 @@ export class WaterActivityUnitPage {
       'disaster': [null, Validators.required],
       'closing': [null, Validators.required],
       'recCtrl': [null, Validators.required],
+      'population': fb.group({
+        'personCount': [null],
+        'persons': fb.array([{
+          'nameTitle': [null],
+          'otherTitle': [null],
+          'firstName': [null],
+          'lastName': [null],
+          'relationship': [null],
+          'sex': [null],
+          'age': [null],
+          'nationality': [null],
+          'registration': [null],
+          'otherProvince': [null],
+        },
+        {
+          "nameTitle": [null],
+          "otherTitle": [null],
+          "firstName": [null],
+          "lastName": [null],
+          "relationship": [null],
+          "sex": [null],
+          "age": [null],
+          "nationality": [null],
+          "registration": [null],
+          "otherProvince": [null],
+        }])
+      })
     });
   }
 

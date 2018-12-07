@@ -25,7 +25,7 @@ export class UnitPage {
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'unitCount': [3, Validators.required],
+      'unitCount': [null],
       'units': this.fb.array([]),
     });
 
