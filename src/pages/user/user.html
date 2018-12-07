@@ -22,8 +22,9 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-
-        <ion-item>
+       
+        <div *ngIf="facCategoryUse == true" >
+        <ion-item >
           <ion-label>
             ประเภทสถานประกอบการผลิต
           </ion-label>
@@ -125,7 +126,9 @@
             กรุณาเลือก
           </span>
         </ion-item>
+      </div>
 
+      <div *ngIf="commercialServiceUse == true" >
         <ion-item>
           <ion-label>
             ประเภทสถานประกอบการบริการ
@@ -290,7 +293,8 @@
             กรุณาเลือก
           </span>
         </ion-item>
-
+      </div>
+      
       </ion-card-content>
     </ion-card>
 

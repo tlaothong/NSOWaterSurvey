@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType } from '../../states/household';
+import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -19,6 +19,11 @@ export class UserPage {
   public facCategory: string;
   private commercialServiceType$ = this.store.select(getCommercialServiceType);
   public commercialServiceType: string;
+  private facCategoryUse$ = this.store.select(getIsFactorial);
+  public facCategoryUse: boolean;
+  private  commercialServiceUse$ = this.store.select(getIsCommercial);
+  public commercialServiceUse: boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
@@ -31,6 +36,8 @@ export class UserPage {
     this.formData$.subscribe(data => this.userInfo.setValue(data));
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
+    this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
+    this.commercialServiceUse$.subscribe(data => this.commercialServiceUse = data);
   }
 
   ionViewDidEnter() {
