@@ -6,7 +6,7 @@ import { WaterActivity6Component } from '../../components/water-activity6/water-
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -26,9 +26,17 @@ export class RiverPage {
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
-
   private riceDoing$ = this.store.select(getRiceDoing);
   public riceDoing: boolean;
+
+  private commerceUse$ = this.store.select(getIsCommercial);
+  public commerceUse: boolean;
+  private factoryUse$ = this.store.select(getIsFactorial);
+  public factoryUse: boolean;
+  private residenceUse$ = this.store.select(getIsHouseHold);
+  public residenceUse: boolean;
+  private agricultureUse$ = this.store.select(getIsAgriculture);
+  public agricultureUse: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -48,6 +56,10 @@ export class RiverPage {
     this.formData$.subscribe(data => this.f.setValue(data));
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
+    this.commerceUse$.subscribe(data => this.commerceUse = data);
+    this.factoryUse$.subscribe(data => this.factoryUse = data);
+    this.residenceUse$.subscribe(data => this.residenceUse = data);
+    this.agricultureUse$.subscribe(data => this.agricultureUse = data);
   }
 
   ionViewDidEnter() {
