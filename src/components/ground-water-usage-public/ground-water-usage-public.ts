@@ -15,6 +15,10 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
+  @Input('commerce') public commerceUse: boolean;
+  @Input('factory') public factoryUse: boolean;
+  @Input('residence') public residenceUse: boolean;
+  @Input('agriculture') public agricultureUse: boolean;
 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
