@@ -29,6 +29,7 @@ export class MyApp {
       { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
       { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
       { title: 'Menu', component: "MenudetailPage" },
+      { title: 'ยืนยันรหัสผ่าน', component: "FirstloginPage" },
       { title: 'รับงาน', component: "GetworkPage" },
       { title: 'เลือก EA', component: "SelectEaPage" },
       { title: 'ส่งงาน', component: "SendPage" },
