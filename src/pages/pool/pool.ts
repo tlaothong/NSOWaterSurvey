@@ -5,7 +5,7 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -29,6 +29,15 @@ export class PoolPage {
   private riceDoing$ = this.store.select(getRiceDoing);
   public riceDoing: boolean;
 
+  private commerceUse$ = this.store.select(getIsCommercial);
+  public commerceUse: boolean;
+  private factoryUse$ = this.store.select(getIsFactorial);
+  public factoryUse: boolean;
+  private residenceUse$ = this.store.select(getIsHouseHold);
+  public residenceUse: boolean;
+  private agricultureUse$ = this.store.select(getIsAgriculture);
+  public agricultureUse: boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
@@ -46,6 +55,10 @@ export class PoolPage {
     this.formData$.subscribe(data => this.f.setValue(data));
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
+    this.commerceUse$.subscribe(data => this.commerceUse = data);
+    this.factoryUse$.subscribe(data => this.factoryUse = data);
+    this.residenceUse$.subscribe(data => this.residenceUse = data);
+    this.agricultureUse$.subscribe(data => this.agricultureUse = data);
   }
 
   public handleSubmit() {

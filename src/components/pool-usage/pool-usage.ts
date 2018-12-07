@@ -22,6 +22,10 @@ export class PoolUsageComponent implements ISubmitRequestable {
   @Input('no') no: string;
   @Input('use') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
+  @Input('commerce') public commerceUse: boolean;
+  @Input('factory') public factoryUse: boolean;
+  @Input('residence') public residenceUse: boolean;
+  @Input('agriculture') public agricultureUse: boolean;
 
   private submitRequested: boolean;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];

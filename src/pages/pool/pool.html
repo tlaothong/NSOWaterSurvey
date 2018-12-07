@@ -119,7 +119,11 @@
 
         <div *ngIf="f.get('doing').value == 1 && f.get('waterResourceCount').value > 0">
           <div *ngFor="let pool of f.get('waterResources').controls; let i = index">
-            <pool-usage doing="{{riceDoing}}" use="{{gardeningUse}}" [no]="i + 1" [FormItem]="pool"></pool-usage>
+            <pool-usage doing="{{riceDoing}}" use="{{gardeningUse}}" 
+            commerce="{{commerceUse}}" 
+            factory="{{factoryUse}}"
+            residence="{{residenceUse}}" 
+            agriculture="{{agricultureUse}}"  [no]="i + 1" [FormItem]="pool"></pool-usage>
           </div>
         </div>
 
