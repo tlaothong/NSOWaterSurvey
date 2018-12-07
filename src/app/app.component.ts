@@ -61,6 +61,7 @@ export class MyApp {
       { title: 'BuildingInformation1Page', component: "BuildingInformation1Page" },
       { title: 'BuidlingInformation2Page', component: "BuidlingInformation2Page" },
       { title: 'Unit', component: "UnitPage" },
+      { title: 'WaterActivityUnitPage', component: "WaterActivityUnitPage" },
     ];
 
   }
