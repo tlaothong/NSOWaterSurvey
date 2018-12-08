@@ -1,4 +1,4 @@
-import { SetRicePlantSelectPlant, SetRiceDoing } from './../../states/household/household.actions';
+import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -46,14 +46,9 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
-    // let selectedMap = new Map<string, any>();
-    // let selected = [];
-    // selectedMap.forEach(v => selected.push(v));
+    this.fieldFarmings.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
-    console.log("TTTTTTTTTTTTT");
-    console.log(this.DataList);
-
   }
 
   public isValid(name: string): boolean {

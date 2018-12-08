@@ -7,18 +7,12 @@ import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harv
 import { LocationComponent } from '../location/location';
 import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
 
-/**
- * Generated class for the FieldFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'field-farming',
   templateUrl: 'field-farming.html'
 })
-export class FieldFarmingComponent implements ISubmitRequestable {
 
+export class FieldFarmingComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input('no') public fieldNo: string;
 
@@ -29,8 +23,6 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
-    console.log('Hello FieldFarmingComponent Component');
-
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
   }
 
@@ -62,7 +54,6 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 
   private static setupPlantingAreaChanges(fb: FormBuilder, fg: FormGroup) {
     const areaUsed: string = "areaUsed";
