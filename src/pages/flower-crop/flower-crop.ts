@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetWaterSources } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -62,10 +63,6 @@ export class FlowerCropPage {
 
     modal.onDidDismiss(data => {
       if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
-
         var adata = data as Array<string>;
         this.shownData = adata.map(it => it.split(".")[1]);
       }
@@ -77,6 +74,7 @@ export class FlowerCropPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
+    this.fieldFlowerCrop.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     console.log(this.flowerCropFrm.value);
     let fields = this.flowerCropFrm.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();

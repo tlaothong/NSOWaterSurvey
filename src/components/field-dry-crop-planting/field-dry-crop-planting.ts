@@ -38,7 +38,6 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.text = 'Hello World';
 
     this.FormItem = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
-
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -66,6 +65,4 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
     this.waterSources9.forEach(it => it.submitRequest());
     
   }
-
-
 }

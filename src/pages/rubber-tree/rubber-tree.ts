@@ -1,4 +1,4 @@
-import { SetRubberTreeSelectPlant } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetWaterSources } from './../../states/household/household.actions';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -18,13 +18,12 @@ export class RubberTreePage {
 
   private submitRequested: boolean;
   public rubbertree: FormGroup;
-  // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   DataList = EX_RUBBER_LIST;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
-
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
       'fields': fb.array([]),
@@ -36,7 +35,6 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RubberTreePage');
-    //TODO
     this.formData$.subscribe(data => this.rubbertree.setValue(data));
   }
 
@@ -47,9 +45,8 @@ export class RubberTreePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
+    this.fieldrebbertree.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-    console.log("TTTTTTTTTTTTT");
-    console.log(this.DataList);
 
   }
 

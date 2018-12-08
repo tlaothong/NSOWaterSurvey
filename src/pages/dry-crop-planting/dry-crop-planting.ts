@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant } from '../../states/household/household.actions';
+import { SetAgronomyPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 
 @IonicPage()
@@ -20,7 +20,6 @@ export class DryCropPlantingPage {
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
-  // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -34,16 +33,13 @@ export class DryCropPlantingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DryCropPlantingPage');
-    // TODO
     this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
-    console.log(this.agronomyPlant.value);
-
+    this.fieldDryCrop.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     let fields = this.agronomyPlant.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
@@ -54,9 +50,6 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
-    console.log("TTTTTTTTTTTTT");
-    console.log(selected);
-
   }
 
   public isValid(name: string): boolean {
@@ -77,6 +70,7 @@ export class DryCropPlantingPage {
 
       for (let i = 0; i < fieldCount; i++) {
         var ctrl = null;
+
         if (i < fieldDryCrop.length) {
           const fld = fieldDryCrop[i];
           ctrl = fld;

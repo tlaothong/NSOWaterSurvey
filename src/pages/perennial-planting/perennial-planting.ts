@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getAgronomyPlantDoing } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetPerennialPlantSelectPlant } from '../../states/household/household.actions';
+import { SetPerennialPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
 import { Console } from '@angular/core/src/console';
 
 @IonicPage()
@@ -18,7 +18,6 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  // TODO
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
 
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
@@ -34,14 +33,13 @@ export class PerennialPlantingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PerennialPlantingPage');
-    // TODO
     this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldPerenialPlanting.forEach(it => it.submitRequest());
+    this.fieldPerenialPlanting.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     console.log(this.PerennialPlantingFrm.value);
     let fields = this.PerennialPlantingFrm.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
@@ -53,8 +51,6 @@ export class PerennialPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
-    console.log("123123");
-    console.log(selected);
   }
 
   public isValid(name: string): boolean {
@@ -91,22 +87,4 @@ export class PerennialPlantingPage {
 
     onComponentCountChanges();
   }
-
-  // model() {
-  //   const modal = this.modalCtrl.create("SearchDropdownPage",
-  //     { title: "พืชต้น", selected: [], list: EX_TREETON_LIST , limit: 5 });
-
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       // this.FormItem = data;
-  //       // var fg = <FormGroup>data;
-  //       // this.FormItem.setValue(fg.value);
-
-  //       var adata = data as Array<string>;
-  //       this.shownData = adata.map(it => it.split(".")[1]);
-  //     }
-  //   });
-
-  //   modal.present();
-  // }
 }

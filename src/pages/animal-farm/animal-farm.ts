@@ -7,6 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetWaterSources } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -57,6 +58,7 @@ export class AnimalFarmPage {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
 
   }
 

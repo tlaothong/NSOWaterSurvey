@@ -1,13 +1,14 @@
-import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
-import { Store } from '@ngrx/store';
-import { getHouseHoldSample } from '../../states/household';
-import { map } from 'rxjs/operators';
+import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
+import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
+import { SetWaterSources } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { getHouseHoldSample } from '../../states/household';
+import { Component, ViewChildren } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class WaterAnimalPlantingPage {
   public f: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
   private submitRequested: boolean;
-  // 
+
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
@@ -51,7 +52,6 @@ export class WaterAnimalPlantingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WaterAnimalPlantingPage');
     this.formData$.subscribe(data => this.f.setValue(data));
   }
 
@@ -60,6 +60,10 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
+
+    this.fishFarming.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
+    this.frogFarming.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
+    this.crocodileFarming.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
   }
 
   public isValid(name: string): boolean {

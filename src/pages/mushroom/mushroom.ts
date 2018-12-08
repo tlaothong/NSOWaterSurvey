@@ -6,6 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetWaterSources } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -40,6 +41,7 @@ export class MushroomPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
+    this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
   }
 
   public isValid(name: string): boolean {
