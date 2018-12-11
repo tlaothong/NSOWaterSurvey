@@ -26,6 +26,10 @@ export class BuyingPage {
         TableBuyingComponent.CreateFormGruop(this.fb),
         TableBuyingComponent.CreateFormGruop(this.fb),
         TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
+        TableBuyingComponent.CreateFormGruop(this.fb),
         TableBuyingOtherComponent.CreateFormGroup(this.fb),
       ]),
     });
