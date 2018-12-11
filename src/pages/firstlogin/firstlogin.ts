@@ -21,5 +21,10 @@ export class FirstloginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstloginPage');
   }
-
+  goConfirmloginPage() {
+    this.navCtrl.push("ConfirmloginPage")
+  }
+  goBack() {
+    this.navCtrl.pop();
+  }
 }

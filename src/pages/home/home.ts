@@ -21,6 +21,7 @@ export class HomePage {
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
+      { title: 'ยืนยันการเปลี่ยนรหัสผ่าน', component: "FirstloginPage" },
       { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
       { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
       { title: 'Menu', component: "MenudetailPage" },
