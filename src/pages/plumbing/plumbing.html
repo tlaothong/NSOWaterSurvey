@@ -357,44 +357,47 @@
       </ion-card>
     </div>
 
-    <div *ngIf="f.get('mwa.doing').value == 1 || f.get('pwa.doing').value == 1 || f.get('other.doing').value == 1">
-      <h5>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h5>
-    </div>
-
-    <div [ngSwitch]="f.get('mwa.doing').value">
-
-      <div *ngSwitchCase="true">
-        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
-        <ion-card>
-          <ion-card-content>
-            <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-              agriculture="{{agricultureUse}}" headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityMWA')"></water-activity5>
-          </ion-card-content>
-        </ion-card>
+    <div *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true">
+      <div *ngIf="f.get('mwa.doing').value == 1 || f.get('pwa.doing').value == 1 || f.get('other.doing').value == 1">
+        <h5>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h5>
       </div>
-    </div>
 
-    <div [ngSwitch]="f.get('pwa.doing').value">
-      <div *ngSwitchCase="true">
-        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
-        <ion-card>
-          <ion-card-content>
-            <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-              agriculture="{{agricultureUse}}" headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityPWA')"></water-activity5>
-          </ion-card-content>
-        </ion-card>
+      <div [ngSwitch]="f.get('mwa.doing').value">
+
+        <div *ngSwitchCase="true">
+          <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
+          <ion-card>
+            <ion-card-content>
+              <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
+                agriculture="{{agricultureUse}}" headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityMWA')"></water-activity5>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </div>
-    </div>
 
-    <div [ngSwitch]="f.get('other.doing').value">
-      <div *ngSwitchCase="true">
-        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
-        <ion-card>
-          <ion-card-content>
-            <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-              agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)" [FormItem]="f.get('waterActivityOther')"></water-activity5>
-          </ion-card-content>
-        </ion-card>
+
+      <div [ngSwitch]="f.get('pwa.doing').value">
+        <div *ngSwitchCase="true">
+          <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
+          <ion-card>
+            <ion-card-content>
+              <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
+                agriculture="{{agricultureUse}}" headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityPWA')"></water-activity5>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+
+      <div [ngSwitch]="f.get('other.doing').value">
+        <div *ngSwitchCase="true">
+          <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
+          <ion-card>
+            <ion-card-content>
+              <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
+                agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)" [FormItem]="f.get('waterActivityOther')"></water-activity5>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </div>
     </div>
 

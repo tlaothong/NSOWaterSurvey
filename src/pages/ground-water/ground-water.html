@@ -73,9 +73,11 @@
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0">
-      <div *ngFor="let avg of f.get('privateGroundWater.waterResources').controls; let i = index">
-        <ground-water-usage doing="{{riceDoing}}" usee="{{gardeningUse}}" [no]="i + 1" [FormItem]="avg"></ground-water-usage>
+    <div *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
+      <div *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0">
+        <div *ngFor="let avg of f.get('privateGroundWater.waterResources').controls; let i = index">
+          <ground-water-usage doing="{{riceDoing}}" usee="{{gardeningUse}}" [no]="i + 1" [FormItem]="avg"></ground-water-usage>
+        </div>
       </div>
     </div>
 
@@ -131,10 +133,12 @@
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="f.get('publicGroundWater.doing').value && f.get('publicGroundWater.waterResourceCount').value > 0">
-      <div *ngFor="let use of f.get('publicGroundWater.waterResources').controls; let i = index">
-        <ground-water-usage-public doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="use"></ground-water-usage-public>
+    <div *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
+      <div *ngIf="f.get('publicGroundWater.doing').value && f.get('publicGroundWater.waterResourceCount').value > 0">
+        <div *ngFor="let use of f.get('publicGroundWater.waterResources').controls; let i = index">
+          <ground-water-usage-public doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+            residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="use"></ground-water-usage-public>
+        </div>
       </div>
     </div>
 
