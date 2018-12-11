@@ -22,6 +22,9 @@ export class ScanqrPage {
     console.log('ionViewDidLoad ScanqrPage');
   }
 
+  goFirstLogin() {
+    this.navCtrl.push("FirstloginPage")
+  }
   goBack() {
     this.navCtrl.pop();
   }
