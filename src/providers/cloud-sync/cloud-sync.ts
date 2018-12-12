@@ -27,4 +27,8 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/survey/building');
   }
 
+  public loadUserByQrCode(id:string) : Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetQR/'+id);
+  }
+
 }
