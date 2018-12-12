@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { SetIsHouseHold, SetIsAgriculture, SetIsFactorial, SetIsCommercial } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { HouseHoldTestPage } from '../house-hold-test/house-hold-test';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,7 @@ export class WaterActivityUnitPage {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      '_id': [null, Validators.required],
+      // '_id': [null, Validators.required],
       'ea': [null, Validators.required],
       'buildingId': [null, Validators.required],
       'subUnit': fb.group({
@@ -108,6 +109,7 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
     this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
     this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    this.navCtrl.push(HouseHoldTestPage);
   }
 
   public isValid(name: string): boolean {
