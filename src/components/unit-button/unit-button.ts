@@ -53,11 +53,14 @@ export class UnitButtonComponent {
         'accessCount': [0],
         'accesses': fb.array([{
           'access': [null],
-        }, {
+        },
+        {
           'access': [null],
-        }, {
+        },
+        {
           'access': [null],
-        }]),
+        },
+        ]),
         'hasPlumbing': [null, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],

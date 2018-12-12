@@ -7,7 +7,8 @@ import { getBuildingSample, getSendBuildingType } from '../../states/building';
 import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 import { map } from 'rxjs/operators';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadHouseHoldSample } from '../../states/household/household.actions';
+import { HomePage } from '../home/home';
+
 
 @IonicPage()
 @Component({
@@ -22,7 +23,7 @@ export class BuidlingInformation2Page {
 
   private getBuildingType$ = this.store.select(getSendBuildingType)
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
     this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
@@ -82,6 +83,7 @@ export class BuidlingInformation2Page {
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
+    this.navCtrl.push(HomePage);
 
   }
 
