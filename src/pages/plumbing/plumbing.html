@@ -5,7 +5,9 @@
 </ion-header>
 
 <ion-content padding>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+
     <h3>5.1 น้ำประปา</h3>
     <h5>5.1.1 น้ำประปาที่ใช้มาจากแหล่งใด </h5>
 
@@ -82,7 +84,6 @@
                 </ion-row>
 
                 <div [ngSwitch]="f.get('mwa.plumbingUsage.waterQuantity').value">
-
                   <div *ngSwitchCase="1">
                     <ion-item>
                       <ion-label>
@@ -198,7 +199,6 @@
                 </ion-row>
 
                 <div [ngSwitch]="f.get('pwa.plumbingUsage.waterQuantity').value">
-
                   <div *ngSwitchCase="1">
                     <ion-item>
                       <ion-label>
@@ -314,7 +314,6 @@
                 </ion-row>
 
                 <div [ngSwitch]="f.get('other.plumbingUsage.waterQuantity').value">
-
                   <div *ngSwitchCase="1">
                     <ion-item>
                       <ion-label>
@@ -363,9 +362,7 @@
       </div>
 
       <div [ngSwitch]="f.get('mwa.doing').value">
-
         <div *ngSwitchCase="true">
-          <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
           <ion-card>
             <ion-card-content>
               <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
@@ -375,10 +372,8 @@
         </div>
       </div>
 
-
       <div [ngSwitch]="f.get('pwa.doing').value">
         <div *ngSwitchCase="true">
-          <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
           <ion-card>
             <ion-card-content>
               <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
@@ -390,7 +385,6 @@
 
       <div [ngSwitch]="f.get('other.doing').value">
         <div *ngSwitchCase="true">
-          <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
           <ion-card>
             <ion-card-content>
               <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
@@ -405,6 +399,7 @@
       <h5>5.1.3 ในรอบ 12 เดือนที่ผ่านมา มีเหตุการณ์ที่น้ำประปา <b><u>ไม่ไหล</u></b> ติดต่อกันเกิน 3 วันหรือไม่</h5>
       <ion-card>
         <ion-card-content>
+          
           <ion-row radio-group formControlName="hasWaterNotRunning" [class.invalid]="isValid('hasWaterNotRunning')">
             <ion-item *ngIf="isValid('hasWaterNotRunning')">
               <span class="invalid-msg">
@@ -424,6 +419,7 @@
               </ion-label>
             </ion-item>
           </ion-row>
+
           <div [ngSwitch]="f.get('hasWaterNotRunning').value">
             <div *ngSwitchCase="true">
               <ion-item>
@@ -442,6 +438,7 @@
               </ion-item>
             </div>
           </div>
+
         </ion-card-content>
       </ion-card>
     </div>

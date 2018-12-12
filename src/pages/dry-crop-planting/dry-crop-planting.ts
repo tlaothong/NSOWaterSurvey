@@ -13,6 +13,7 @@ import { getHouseHoldSample } from '../../states/household';
   selector: 'page-dry-crop-planting',
   templateUrl: 'dry-crop-planting.html',
 })
+
 export class DryCropPlantingPage {
 
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];

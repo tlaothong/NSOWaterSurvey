@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
@@ -39,8 +39,6 @@ export class GroundWaterPage {
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
 
-  
-
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
@@ -68,9 +66,6 @@ export class GroundWaterPage {
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
-    console.log('ionViewDidLoad GroundWaterPage');
-    console.log(this.gardeningUse);
-
   }
 
   ionViewDidEnter() {

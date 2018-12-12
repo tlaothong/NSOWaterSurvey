@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormGroup} from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -33,8 +33,6 @@ export class DlgTableCheckItemCountPage {
     console.log('ionViewDidLoad DlgTableCheckItemCountPage');
   }
 
-  
-
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
@@ -43,6 +41,5 @@ export class DlgTableCheckItemCountPage {
     } 
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 
 }

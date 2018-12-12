@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
 export class RiverPage {
 
   private submitRequested: boolean;
-  f: FormGroup;
+  public f: FormGroup;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];

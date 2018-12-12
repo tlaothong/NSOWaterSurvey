@@ -20,13 +20,13 @@ export class CommercialPage {
 
   @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
+
   private f: FormGroup;
   private submitRequested: boolean;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
 
   private getBuildingType$ = this.store.select(getSendBuildingType)
-
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
     this.f = this.fb.group({

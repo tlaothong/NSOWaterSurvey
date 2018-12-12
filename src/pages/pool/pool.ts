@@ -1,4 +1,4 @@
-import { Component,  ViewChildren } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PoolAreaComponent } from '../../components/pool-area/pool-area';
@@ -105,21 +105,17 @@ export class PoolPage {
     const componentFormArray: string = "waterResources";
     const componentCount: string = "waterResourceCount";
 
-    var onComponentCountChanges = () =>
-    {
+    var onComponentCountChanges = () => {
       var poolUsage = (this.f.get(componentFormArray) as FormArray).controls || [];
       var poolCountUsage = this.f.get(componentCount).value || 0;
       var pool = this.fb.array([]);
       poolCountUsage = Math.max(0, poolCountUsage);
-      for (let i = 0; i < poolCountUsage; i++)
-      {
+      for (let i = 0; i < poolCountUsage; i++) {
         var ctrl = null;
-        if (i < poolUsage.length)
-        {
+        if (i < poolUsage.length) {
           const fld = poolUsage[i];
           ctrl = fld;
-        } else
-        {
+        } else {
           ctrl = PoolUsageComponent.CreateFormGroup(this.fb);
         }
         pool.push(ctrl);

@@ -6,12 +6,10 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
-    
-    
+        
     <ion-item>
       <ion-label col-6>ขนาดบรรจุภัณฑ์ ( {{ size }} )</ion-label>
       <ion-input type="number"  formControlName="size" [class.invalid]="isValid('size')"></ion-input>
@@ -65,8 +63,6 @@
         </span>
       </ion-item>
    
-
-
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -79,8 +75,4 @@
     </ion-grid>
 
   </form>
-
-
-
-
 </ion-content>

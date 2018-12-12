@@ -16,16 +16,16 @@ import { SetResidentialGardeningUse, SetWaterSources } from '../../states/househ
 export class ResidentialPage {
 
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
-  residentialFrm: FormGroup;
+  public residentialFrm: FormGroup;
   private submitRequested: boolean;
-  
+
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
       'workingAge': [null, Validators.required],
-      'waterSources' : WaterSources8BComponent.CreateFormGroup(this.fb),
+      'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
     });
   }

@@ -77,8 +77,6 @@ export class PlumbingPage {
       'hasWaterNotRunning': [null, Validators.required],
       'waterNotRunningCount': [null, Validators.required]
     });
-
-    // this.PlumbingForm.get('MWA.PlumbingUsage.WaterQuantity').valueChanges.subscribe(x => alert(x));
   }
 
   ionViewDidLoad() {

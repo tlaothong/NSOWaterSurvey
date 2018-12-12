@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
   templateUrl: 'community-water-management.html',
 })
 export class CommunityWaterManagementPage {
+
   @ViewChildren(NaturalDisasterComponent) private naturalDisaster: NaturalDisasterComponent[];
   @ViewChildren(DisasterWarningMethodsComponent) private disasterWarningMethods: DisasterWarningMethodsComponent[];
   @ViewChildren(DetailWaterManagementComponent) private detailWaterManagement: DetailWaterManagementComponent[];
@@ -45,7 +46,6 @@ export class CommunityWaterManagementPage {
     });
     this.setupPublicWaterCountChanges();
     this.setupWaterServiceCountChanges();
-
   }
 
   ionViewDidLoad() {
@@ -82,7 +82,6 @@ export class CommunityWaterManagementPage {
     onComponentCountChanges();
   }
 
-
   private setupWaterServiceCountChanges() {
     const waterservicecomponentFormArray: string = "waterServices";
     const waterservicecomponentCount: string = "waterServiceCount";
@@ -113,38 +112,17 @@ export class CommunityWaterManagementPage {
     onWaterServiceComponentCountChanges();
   }
 
-
   public handleSubmit() {
     this.submitRequested = true;
     this.detailWaterManagement.forEach(it => it.submitRequest());
     this.detailOrgWaterSupply.forEach(it => it.submitRequest());
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
-
   }
-
 
   public isValid(name: string): boolean {
     var ctrl = this.CommunityWaterManagement.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
-  // public isValid(name: string): boolean {
-  //   var ctrl = this.CommunityWaterManagement.get(name);
-  //   if (name == 'anycheck') {
-  //     ctrl = this.CommunityWaterManagement;
-  //     return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-  //   }
-  //   //  validate checkbox กรณีที่ใช้ในหน้า page หลักจะใช้ไม่เหมือนแบบ component
-  //   else if (name == 'disasterWarningMethods') {
-  //     return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-  //   }
-  //   //  validate checkbox โดยมี other ด้านในกรณีที่ใช้ในหน้า page หลักใช้ไม่เหมือนแบบ component
-  //   else if (name == 'other') {
-  //     let ctrl2 = this.CommunityWaterManagement.get('disasterWarningMethods');
-  //     ctrl = this.CommunityWaterManagement.get('disasterWarningMethods.other');
-  //     return ctrl2.errors && ctrl2.errors.other && (ctrl.touched || this.submitRequested);
-  //   }
-  //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  // }
+  
 }

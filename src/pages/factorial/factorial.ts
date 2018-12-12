@@ -14,8 +14,8 @@ import { SetFactorialCategory, SetWaterSources } from '../../states/household/ho
   templateUrl: 'factorial.html',
 })
 export class FactorialPage {
-  @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
 
+  @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
 
   private submitRequested: boolean;
   FactoryForm: FormGroup;
@@ -37,6 +37,7 @@ export class FactorialPage {
     this.formData$.subscribe(data => this.FactoryForm.setValue(data));
     console.log('ionViewDidLoad FactorialPage');
   }
+  
   ionViewDidEnter() {
 
   }

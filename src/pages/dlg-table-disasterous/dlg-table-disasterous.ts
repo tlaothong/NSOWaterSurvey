@@ -17,7 +17,6 @@ export class DlgTableDisasterousPage {
     this.text = navParams.get("headline");
   }
 
-
   public closeDialog() {
     this.viewCtrl.dismiss();
   }

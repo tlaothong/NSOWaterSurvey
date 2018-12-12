@@ -40,14 +40,11 @@ export class AnimalFarmPage {
       'waterSources' : WaterSources9Component.CreateFormGroup(this.fb)
     });
 
-  }
-    
-    
+  }    
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
     this.formData$.subscribe(data => this.f.setValue(data));
-
   }
 
   ionViewDidEnter() {
@@ -59,7 +56,6 @@ export class AnimalFarmPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
-
   }
 
   public isValid(name: string) : boolean {
@@ -67,6 +63,4 @@ export class AnimalFarmPage {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-    
-  
 }    

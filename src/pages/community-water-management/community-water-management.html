@@ -1,7 +1,8 @@
 <ion-header>
-  <questionnaire-menu title="การจัดการน้ำในหมู่บ้าน/ชุมชน"></questionnaire-menu>
-</ion-header>
 
+  <questionnaire-menu title="การจัดการน้ำในหมู่บ้าน/ชุมชน"></questionnaire-menu>
+
+</ion-header>
 
 <ion-content padding>
   <h3>ตอนที่ 1 การจัดการน้ำในหมู่บ้าน/ชุมชน</h3>
@@ -56,13 +57,11 @@
       </ion-card-content>
     </ion-card>
 
-
     <div *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0 && CommunityWaterManagement.get('hasPublicWater').value ">
       <div *ngFor="let p of CommunityWaterManagement.get('details').controls; let i = index">
         <detail-water-management [no]="i + 1" [FormItem]="p"></detail-water-management>
       </div>
     </div>
-
 
     <div *ngIf="CommunityWaterManagement.get('hasPublicWater').value == false || CommunityWaterManagement.get('publicWaterCount').value ">
       <ion-card>
@@ -147,7 +146,6 @@
               </ion-label>
             </ion-item>
           </ion-row>
-
 
           <div *ngIf=" CommunityWaterManagement.get('otherPlumbing').value ">
 

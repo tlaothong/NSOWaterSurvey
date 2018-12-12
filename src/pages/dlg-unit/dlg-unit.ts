@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -16,7 +16,6 @@ export class DlgUnitPage {
   public submitRequested: boolean;
   public FormItem: FormGroup;
 
-  @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
   
 
