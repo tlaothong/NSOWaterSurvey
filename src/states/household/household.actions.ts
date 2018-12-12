@@ -19,7 +19,9 @@ export enum HouseHoldTypes {
     SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
     SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
-    SetRiceDoing = "[HH] Set Rice Donig"
+    SetRiceDoing = "[HH] Set Rice Donig",
+    LoadUserByQrCode = "[HH] Load User By QrCode",
+    LoadUserByQrCodeSuccess = "[HH] Load User By QrCode Success"
 }
 
 export class LoadHouseHoldList implements Action {
@@ -142,6 +144,20 @@ export class SetRiceDoing implements Action {
     }
 }
 
+export class LoadUserByQrCodeSample implements Action {
+    readonly type = HouseHoldTypes.LoadUserByQrCode;
+
+    constructor(public payload: string) {
+    }
+}
+
+export class LoadUserByQrCodeSuccess implements Action {
+    readonly type = HouseHoldTypes.LoadUserByQrCodeSuccess;
+
+    constructor(public payload: any) {
+    }
+}
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -162,4 +178,7 @@ export type HouseHoldActionsType =
     | SetAgronomyPlantSelectPlant
     | SetCommercialServiceType
     | SetRiceDoing
+    | LoadUserByQrCodeSample
+    | LoadUserByQrCodeSuccess
+    
     ;

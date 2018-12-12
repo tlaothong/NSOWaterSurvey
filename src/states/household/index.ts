@@ -82,3 +82,7 @@ export const getRiceDoing = createSelector(
     getHouseHoldFeatureState,
     state => state.riceDoing,
 );
+export const getUserByQr = createSelector(
+    getHouseHoldFeatureState,
+    state => state.dataUserFromQr,
+);
