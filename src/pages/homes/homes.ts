@@ -8,8 +8,8 @@ import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  office: string = "building";
 
+  office: string = "building";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController) {
 

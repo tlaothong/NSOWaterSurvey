@@ -36,5 +36,4 @@ export class DlgTableBuyingOtherPage {
     return ctrl.invalid && (ctrl.touched);
   }
 
-  
 }

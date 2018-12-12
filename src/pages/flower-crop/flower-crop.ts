@@ -19,19 +19,19 @@ export class FlowerCropPage {
   
   @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
   private submitRequested: boolean;
-  flowerCropFrm: FormGroup;
-  shownData: string[];
+  public flowerCropFrm: FormGroup;
+  public shownData: string[];
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
   private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
-  listDryCropData: any = [];
-  listPerenialData: any = [];
-  listRiceData: any = [];
-  listRubberData: any = [];
-  listSumData: any = [];
+  public listDryCropData: any = [];
+  public listPerenialData: any = [];
+  public listRiceData: any = [];
+  public listRubberData: any = [];
+  public listSumData: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({

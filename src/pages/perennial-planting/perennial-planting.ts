@@ -4,10 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantDoing } from '../../states/household';
+import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetPerennialPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
-import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({

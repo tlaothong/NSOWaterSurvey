@@ -6,13 +6,6 @@ import { getUserByQr } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-/**
- * Generated class for the FirstloginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-firstlogin',
@@ -41,9 +34,11 @@ export class FirstloginPage {
     this.formData$.subscribe(data => this.f.setValue(data));
     
   }
+
   goConfirmloginPage() {
     this.navCtrl.push("ConfirmloginPage")
   }
+  
   goBack() {
     this.navCtrl.pop();
   }

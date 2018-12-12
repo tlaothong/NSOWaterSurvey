@@ -3,8 +3,11 @@
   <questionnaire-menu title="ข้อมูลพื้นฐานส่วนบุคคล "></questionnaire-menu>
 
 </ion-header>
+
 <ion-content padding>
+
   <h3>ข้อมูลพื้นฐานส่วนบุคคล</h3>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="userInfo">
     <ion-card>
       <ion-card-content>
@@ -23,7 +26,7 @@
           </span>
         </ion-item>
        
-        <div *ngIf="facCategoryUse == true" >
+        <div *ngIf="facCategoryUse == 'true'" >
         <ion-item >
           <ion-label>
             ประเภทสถานประกอบการผลิต
@@ -128,7 +131,7 @@
         </ion-item>
       </div>
 
-      <div *ngIf="commercialServiceUse == true" >
+      <div *ngIf="commercialServiceUse == 'true'" >
         <ion-item>
           <ion-label>
             ประเภทสถานประกอบการบริการ
@@ -322,5 +325,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+
   </form>
+  
 </ion-content>

@@ -13,8 +13,7 @@ export class CommunityTestPage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-      private store: Store<CommunityState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<CommunityState>) {
     this.pages = [
       // test push
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },

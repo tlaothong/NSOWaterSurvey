@@ -3,9 +3,13 @@
   <questionnaire-menu title="ข้าว "></questionnaire-menu>
 
 </ion-header>
+
 <ion-content padding>
+
   <h3>ตอนที่ 2.1 ข้าว</h3>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+
     <ion-card>
       <ion-card-content>
 
@@ -15,7 +19,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')" >
+        <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
           <ion-item *ngIf="isValid('doing')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -34,7 +38,6 @@
             </ion-label>
           </ion-item>
         </ion-row>
-
 
         <div *ngIf="f.get('doing').value">
           <ion-item>

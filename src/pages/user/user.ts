@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   templateUrl: 'user.html',
 })
 export class UserPage {
-  userInfo: FormGroup;
+  public userInfo: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
   private factorialCategory$ = this.store.select(getFactorialCategory);

@@ -18,6 +18,7 @@ export class SelectEaPage {
   goConfirmSeletEAPage() {
     this.navCtrl.push("HomesPage")
   }
+  
   goBack() {
     this.navCtrl.pop();
   }

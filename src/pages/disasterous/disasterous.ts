@@ -16,8 +16,9 @@ export class DisasterousPage {
 
   @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
+
   private submitRequested: boolean;
-  Disasterous: FormGroup;
+  public Disasterous: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -48,6 +49,7 @@ export class DisasterousPage {
     });
     modal.present();
   }
+  
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());

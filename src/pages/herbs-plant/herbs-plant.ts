@@ -17,29 +17,28 @@ import { SetWaterSources } from '../../states/household/household.actions';
 export class HerbsPlantPage {
   private submitRequested: boolean;
   public f: FormGroup;
-  shownData: string[];
-  Plant: string[];
+  public shownData: string[];
+  public Plant: string[];
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
   private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
-  listDryCropData: any = [];
-  listPerenialData: any = [];
-  listRiceData: any = [];
-  listRubberData: any = [];
-  listSumData: any = [];
+  public listDryCropData: any = [];
+  public listPerenialData: any = [];
+  public listRiceData: any = [];
+  public listRubberData: any = [];
+  public listSumData: any = [];
 
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
-      'doing': [null, Validators.required], //ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกพืชผัก สมุนไพร หรือไม่
-      'fieldCount': [null, Validators.required], // ถ้า “ปลูก” มีพื้นที่ปลูกพืชผัก สมุนไพร จ้านวนกี่แปลง
+      'doing': [null, Validators.required],
+      'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),
       "_id": [null],
     });
-
     this.setupPlantingCountChanges();
   }
 
@@ -52,7 +51,6 @@ export class HerbsPlantPage {
     this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
     this.listSumData = sum;
-
   }
 
   public handleSubmit() {

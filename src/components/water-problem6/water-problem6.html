@@ -6,8 +6,7 @@
     </ion-label>
   </ion-item>
 
-  <ion-row radio-group formControlName="hasProblem"
-    [class.invalid]="isValid('hasProblem')">
+  <ion-row radio-group formControlName="hasProblem" [class.invalid]="isValid('hasProblem')">
     <ion-item *ngIf="isValid('hasProblem')">
       <span class="invalid-msg">
         กรุณาเลือก
@@ -27,55 +26,52 @@
     </ion-item>
   </ion-row>
 
-  <div [ngSwitch]="FormItem.get('hasProblem').value">
-    <div *ngSwitchCase="true">
-      <ion-row formGroupName="problem" [class.invalid]="isValid('problem')">
-        <ion-col col-6>
-          <ion-item *ngIf="isValid('problem')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label>
-              2.1 ขุ่น/ตะกอน
-            </ion-label>
-            <ion-checkbox value="false" formControlName="turbidWater"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              2.2 เค็ม/กร่อย
-            </ion-label>
-            <ion-checkbox value="false" formControlName="saltWater"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              2.3 กระด้าง
-            </ion-label>
-            <ion-checkbox value="false" formControlName="smell"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              2.4 มีกลิ่น
-            </ion-label>
-            <ion-checkbox value="false" formControlName="filmOfOil"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              2.5 คราบมัน
-            </ion-label>
-            <ion-checkbox value="false" formControlName="fogWater"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              2.6 ฝ้าขาว
-            </ion-label>
-            <ion-checkbox value="false" formControlName="hardWater"></ion-checkbox>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </div>
-  </div>
+  <ion-row formGroupName="problem" [class.invalid]="isValid('problem') && FormItem.get('hasProblem').value == true">
+    <ion-col col-6>
+      <ion-item *ngIf="isValid('problem') && FormItem.get('hasProblem').value == true">
+        <span class="invalid-msg">
+          กรุณาเลือก
+        </span>
+      </ion-item>
+    </ion-col>
+    <ion-col col-6>
+      <ion-item>
+        <ion-label>
+          2.1 ขุ่น/ตะกอน
+        </ion-label>
+        <ion-checkbox value="false" formControlName="turbidWater"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          2.2 เค็ม/กร่อย
+        </ion-label>
+        <ion-checkbox value="false" formControlName="saltWater"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          2.3 กระด้าง
+        </ion-label>
+        <ion-checkbox value="false" formControlName="smell"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          2.4 มีกลิ่น
+        </ion-label>
+        <ion-checkbox value="false" formControlName="filmOfOil"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          2.5 คราบมัน
+        </ion-label>
+        <ion-checkbox value="false" formControlName="fogWater"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          2.6 ฝ้าขาว
+        </ion-label>
+        <ion-checkbox value="false" formControlName="hardWater"></ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  
 </div>

@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -11,73 +10,68 @@
 
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
 
-   
-      <ion-item>
-        <ion-label>จำนวนครั้งที่เกิดอุทกภัย</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" formControlName="count" [class.invalid]="isValid('count')"></ion-input>
-      </ion-item>
-      
+    <ion-item>
+      <ion-label>จำนวนครั้งที่เกิดอุทกภัย</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" formControlName="count" [class.invalid]="isValid('count')"></ion-input>
+    </ion-item>
+
     <ion-item *ngIf="isValid('count')">
-        <span class="invalid-msg">
-          กรุณากรอกข้อมูล
-        </span>
-      </ion-item>
+      <span class="invalid-msg">
+        กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่วัน</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" formControlName="avgDay" [class.invalid]="isValid('avgDay')"></ion-input>
-      </ion-item>
-      
+    <ion-item>
+      <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่วัน</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" formControlName="avgDay" [class.invalid]="isValid('avgDay')"></ion-input>
+    </ion-item>
+
     <ion-item *ngIf="isValid('avgDay')">
-        <span class="invalid-msg">
-          กรุณากรอกข้อมูล
-        </span>
-      </ion-item>
+      <span class="invalid-msg">
+        กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่ชั่วโมง</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" formControlName="avgHour" [class.invalid]="isValid('avgHour')"></ion-input>
-      </ion-item>
-      
+    <ion-item>
+      <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่ชั่วโมง</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" formControlName="avgHour" [class.invalid]="isValid('avgHour')"></ion-input>
+    </ion-item>
+
     <ion-item *ngIf="isValid('avgHour')">
-        <span class="invalid-msg">
-          กรุณากรอกข้อมูล
-        </span>
-      </ion-item>
-      <ion-item>
-        <ion-label>ระดับความสูงเฉลี่ย (เซนติเมตร)</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" formControlName="waterHeightCm" [class.invalid]="isValid('waterHeightCm')"></ion-input>
-      </ion-item>
-      
+      <span class="invalid-msg">
+        กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
+    <ion-item>
+      <ion-label>ระดับความสูงเฉลี่ย (เซนติเมตร)</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" formControlName="waterHeightCm" [class.invalid]="isValid('waterHeightCm')"></ion-input>
+    </ion-item>
+
     <ion-item *ngIf="isValid('waterHeightCm')">
-        <span class="invalid-msg">
-          กรุณากรอกข้อมูล
-        </span>
-      </ion-item>
-    
+      <span class="invalid-msg">
+        กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
 
     <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button block [disabled]="FormItem.invalid">OK</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block [disabled]="FormItem.invalid">OK</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
   </form>
-
-
-
 
 </ion-content>
