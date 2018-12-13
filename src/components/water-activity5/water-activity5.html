@@ -51,12 +51,12 @@
       กรุณากรอกข้อมูล
     </span>
   </ion-item>
-  <ion-label *ngIf="commerceUse == 'true'">
+  <ion-item *ngIf="commerceUse == 'true'">
     <ion-label col-8>
       เพื่อการบริการ
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="service" [class.invalid]="isValid('service')"></ion-input>
-  </ion-label>
+  </ion-item>
   <ion-item *ngIf="isValid('service')" text-right>
     <span class="invalid-msg">
       กรุณากรอกข้อมูล
