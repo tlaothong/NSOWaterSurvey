@@ -10,15 +10,16 @@ export class TableBuyingComponent {
 
   @Input("headline") private text: string;
   @Input() public FormItem: FormGroup;
-  @Input() public size: string;
+  @Input() public size: number;
+  @Input() public volumn: string;
 
   private submitRequested: boolean;
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     console.log('Hello TableBuyingComponent Component');
     this.text = '';
-    this.size = 'ลิตร';
-   
+    this.volumn = 'ลิตร';
     this.FormItem = TableBuyingComponent.CreateFormGruop(fb);
+    
   }
 
   public static CreateFormGruop(fb: FormBuilder): FormGroup {
@@ -34,7 +35,7 @@ export class TableBuyingComponent {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size });
+    const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size, volumn: this.volumn });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
