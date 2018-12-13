@@ -13,8 +13,7 @@ export class HouseHoldTestPage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
 
     this.pages = [
       { title: 'Unit Page', component: "UnitPage" },
