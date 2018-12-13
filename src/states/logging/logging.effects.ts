@@ -12,7 +12,7 @@ export class LoggingEffects {
     private qrCode: string
 
     constructor(private action$: Actions, private cloudSync: CloudSyncProvider) {
-        this.qrCode = "603eedf2-9670-452c-be95-77e4d24fdcd4";
+        this.qrCode = "a8445b5d-f846-4084-bd9f-e1b089bed430";
     }
 
     @Effect()

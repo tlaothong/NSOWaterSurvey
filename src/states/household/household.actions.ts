@@ -151,20 +151,6 @@ export class SetRiceDoing implements Action {
     }
 }
 
-export class LoadUserByQrCodeSample implements Action {
-    readonly type = HouseHoldTypes.LoadUserByQrCode;
-
-    constructor(public payload: string) {
-    }
-}
-
-export class LoadUserByQrCodeSuccess implements Action {
-    readonly type = HouseHoldTypes.LoadUserByQrCodeSuccess;
-
-    constructor(public payload: any) {
-    }
-}
-
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -185,5 +171,5 @@ export type HouseHoldActionsType =
     | SetAgronomyPlantSelectPlant
     | SetCommercialServiceType
     | SetRiceDoing
-    | LoadUserByQrCodeSample
-    | LoadUserByQrCodeSuccess;
+    ;
+    

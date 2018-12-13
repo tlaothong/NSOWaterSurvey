@@ -28,7 +28,6 @@ export interface HouseHoldState {
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
-    dataUserFromQr: any;
     riceDoing: any, 
 }
 
@@ -61,7 +60,6 @@ const initialState: HouseHoldState = {
     ricePlantSelectPlant: [],
     agronomyPlantSelectPlant: [],
     riceDoing: null,
-    dataUserFromQr:null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -144,11 +142,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 riceDoing: action.payload,
-            };
-        case HouseHoldTypes.LoadUserByQrCodeSuccess:
-            return{
-                ...state,
-                dataUserFromQr: action.payload,
             };
         default:
             return state;

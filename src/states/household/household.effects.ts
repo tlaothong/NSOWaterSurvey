@@ -25,13 +25,4 @@ export class HouseHoldEffects {
             map(data => new LoadHouseHoldSampleSuccess(data))),
         ),
     );
-
-    @Effect()
-    public loadUserByQrCodeSample$: Observable<Action> = this.action$.pipe(
-        ofType(HouseHoldTypes.LoadUserByQrCode),
-        mergeMap(action => this.cloudSync.loadUserByQrCode('a4daa261-451c-46a0-bbda-02dd6084d0f4').pipe(
-                map(data => new LoadHouseHoldSampleSuccess(data)),
-            )
-        ),
-    );
 }
