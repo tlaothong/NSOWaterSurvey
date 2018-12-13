@@ -11,14 +11,19 @@ export class DlgTableBuyingPage {
 
   public FormItem: FormGroup;
   public text: string;
-  public size: string;
+  public size: number;
+  public volumn: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
+    this.volumn = navParams.get("volumn");
+    console.log(this.volumn);
+    console.log(this.size);
+    this.FormItem.get('size').setValue(this.size);
   }
-  
+
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
