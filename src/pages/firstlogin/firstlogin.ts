@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { getUserInformation } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SetUserPassword } from '../../states/logging/logging.actions';
+import { AlertController } from 'ionic-angular';
+import { setPassword } from '../../app/models';
 
 
 @IonicPage()
@@ -17,12 +20,13 @@ export class FirstloginPage {
   datauser: any;
   f: FormGroup;
   formConfirm: FormGroup;
-  disBtn: boolean;
+  checkConfirmPassword: boolean;
   private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
   confirmpassword: string;
   public riceDoing: boolean;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder) {
+ 
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder, private alertCtrl: AlertController) {
     this.f = this.fb.group({
       '_idqr': [null],
       'idUser': [null],
@@ -32,7 +36,7 @@ export class FirstloginPage {
     });
 
     this.confirmpassword = '';
-    this.disBtn = true;
+    this.checkConfirmPassword = true;
   }
 
   ionViewDidLoad() {
@@ -46,9 +50,26 @@ export class FirstloginPage {
   onKey(value: string) {
     this.confirmpassword = value;
     if (this.f.get('password').value == this.confirmpassword) {
-      this.disBtn = false;
+      this.checkConfirmPassword = false;
     } else {
-      this.disBtn = true;
+      this.checkConfirmPassword = true;
+    }
+  }
+
+  goConfirmloginPage() {
+    var data = new setPassword();
+    data._idqr = this.f.get('_idqr').value;
+    data.password = this.f.get('password').value;
+
+    let alert = this.alertCtrl.create({
+      message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
+      buttons: ['ยืนยัน']
+    });
+
+    if (!this.checkConfirmPassword) {
+      this.store.dispatch(new SetUserPassword(data));
+    } else {
+      alert.present()
     }
   }
 }

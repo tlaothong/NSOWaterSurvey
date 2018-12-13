@@ -5,7 +5,7 @@ export enum LoggingTypes {
     LoadUserInformation = "[L] Load user information",
     LoadUserInformationSuccess = "[L] Loaded user information is success",
     SetUserPassword = "[L] Set user password",
-    SetUserPasswordSuccess = "[L] Set user password success"
+    SetUserPasswordSuccess = "[L] Set user password success",
 }
 
 export class LoadUserInformation implements Action {
@@ -18,7 +18,21 @@ export class LoadUserInformationSuccess implements Action {
     constructor(public payload: any) { }
 }
 
+export class SetUserPassword implements Action {
+    readonly type = LoggingTypes.SetUserPassword;
+    constructor(public payload: any) { }
+}
+
+export class SetUserPasswordSuccess implements Action {
+    readonly type = LoggingTypes.SetUserPasswordSuccess;
+
+    constructor() {
+    }
+}
 
 export type LoggingActionsType =
     LoadUserInformationSuccess
-    | LoadUserInformation;
+    | LoadUserInformation
+    | SetUserPassword
+    | SetUserPasswordSuccess
+    ;
