@@ -4,12 +4,8 @@ import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
 import { getHouseHoldSample } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-<<<<<<< HEAD
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-=======
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
->>>>>>> rn0z
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
 import { SetRubberTreeSelectPlant, SetWaterSources } from './../../states/household/household.actions';
 
