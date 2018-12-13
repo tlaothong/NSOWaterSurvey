@@ -1,12 +1,17 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>logging-test</ion-title>
-  </ion-navbar>
+  <questionnaire-menu title="Login Sample Test"></questionnaire-menu>
 
 </ion-header>
 
-
 <ion-content padding>
+
+<h3>สำมะโนน้ำฯ</h3>
+
+<ion-list>
+  <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    {{p.title}}
+  </button>
+</ion-list>
 
 </ion-content>
