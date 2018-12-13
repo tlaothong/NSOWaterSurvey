@@ -6,6 +6,7 @@ import { getUserInformation } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+
 @IonicPage()
 @Component({
   selector: 'page-firstlogin',
@@ -15,10 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class FirstloginPage {
   datauser: any;
   f: FormGroup;
+  formConfirm: FormGroup;
+  disBtn: boolean;
   private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
-
-  // private riceDoing$ = this.store.select(getRiceDoing);
+  confirmpassword: string;
   public riceDoing: boolean;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder) {
     this.f = this.fb.group({
       '_idqr': [null],
@@ -27,20 +30,25 @@ export class FirstloginPage {
       'name': [null],
       'email': [null],
     });
+
+    this.confirmpassword = '';
+    this.disBtn = true;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FirstloginPage');
-    console.log("f", this.formData$)
     this.formData$.subscribe(data => this.f.setValue(data));
-
-  }
-
-  goConfirmloginPage() {
-    this.navCtrl.push("ConfirmloginPage")
   }
 
   goBack() {
     this.navCtrl.pop();
+  }
+
+  onKey(value: string) {
+    this.confirmpassword = value;
+    if (this.f.get('password').value == this.confirmpassword) {
+      this.disBtn = false;
+    } else {
+      this.disBtn = true;
+    }
   }
 }
