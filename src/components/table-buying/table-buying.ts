@@ -10,11 +10,13 @@ export class TableBuyingComponent {
 
   @Input("headline") private text: string;
   @Input() public FormItem: FormGroup;
-  @Input() public size: string;
+  @Input() public size: number;
+  @Input() public volumn: string;
+
   private submitRequested: boolean;
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     this.text = '';
-    this.size = 'ลิตร';
+    this.volumn = 'ลิตร';
     this.FormItem = TableBuyingComponent.CreateFormGruop(fb);
   }
 
