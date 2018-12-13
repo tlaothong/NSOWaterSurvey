@@ -1,4 +1,5 @@
 <div [formGroup]="FormItem">
+
   <ion-item>
     <ion-label>
       {{text}}<br>{{text2}}
@@ -62,7 +63,7 @@
       กรุณากรอกข้อมูล
     </span>
   </ion-item>
-  <ion-item  *ngIf="commerceUse == 'true'">
+  <ion-item *ngIf="commerceUse == 'true'">
     <ion-label col-8>
       เพื่อการบริการ
     </ion-label>
@@ -79,4 +80,5 @@
     </ion-label>
     <ion-input placeholder="100" disabled="true"></ion-input>
   </ion-item>
+
 </div>

@@ -13,7 +13,6 @@
           1) ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
         </ion-label>
       </ion-item>
-
       <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')">
         <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
           <span class="invalid-msg">
@@ -34,7 +33,6 @@
         </ion-item>
       </ion-row>
 
-
       <div [ngSwitch]="FormItem.get('hasCubicMeterPerMonth').value">
         <div *ngSwitchCase="true">
           <ion-item>
@@ -52,8 +50,6 @@
           </ion-item>
         </div>
       </div>
-
-
 
       <ion-item>
         <ion-label>
@@ -90,7 +86,6 @@
           <ion-item>
             <ion-input type="number" formControlName="pumpCount" placeholder="กรอกข้อมูล" [class.invalid]="isValid('pumpCount')"></ion-input>
           </ion-item>
-
           <ion-item *ngIf="isValid('pumpCount')">
             <span class="invalid-msg">
               กรุณากรอกข้อมูล
@@ -98,13 +93,11 @@
           </ion-item>
         </div>
       </div>
+
     </ion-card-content>
   </ion-card>
 
-
-
-  <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value>
-    0">
+  <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value > 0 ">
     <div *ngFor="let p of FormItem.get('pumps').controls; let i= index">
       <pump [no]="i + 1" [FormItem]="p"></pump>
     </div>
@@ -112,17 +105,12 @@
 
   <ion-card>
     <ion-card-content>
-      <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" 
-      commerce="{{commerceUse}}" 
-      factory="{{factoryUse}}"
-      residence="{{residenceUse}}" 
-      agriculture="{{agricultureUse}}" headline="5)
+      <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+        residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="5)
         ใช้น้ำจากสระนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"
         [FormItem]="FormItem.get('waterActivities')"></water-activity6>
-      <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่"
-        [FormItem]="FormItem.get('qualityProblem')"></water-problem4>
-      </ion-card-content>
-    </ion-card>
-  
+      <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่" [FormItem]="FormItem.get('qualityProblem')"></water-problem4>
+    </ion-card-content>
+  </ion-card>
 
 </div>

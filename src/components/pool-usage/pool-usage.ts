@@ -5,12 +5,6 @@ import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem4Component } from '../water-problem4/water-problem4';
 
-/**
- * Generated class for the PoolUsageComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'pool-usage',
   templateUrl: 'pool-usage.html'
@@ -19,21 +13,19 @@ export class PoolUsageComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
-  @Input('no') no: string;
+  @Input('no') public no: string;
   @Input('use') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
   @Input('commerce') public commerceUse: boolean;
   @Input('factory') public factoryUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
-
   private submitRequested: boolean;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
   constructor(public fb: FormBuilder) {
-    console.log('Hello PoolUsageComponent Component');
     this.text = '1';
   }
 

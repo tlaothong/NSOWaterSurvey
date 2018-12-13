@@ -1,32 +1,23 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 
-/**
- * Generated class for the DisasterWarningMethodsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'disaster-warning-methods',
   templateUrl: 'disaster-warning-methods.html'
 })
 export class DisasterWarningMethodsComponent {
   @Input() public FormItem: FormGroup;
-  text: string;
+  public text: string;
   private submitRequested: boolean;
 
   constructor(private fb: FormBuilder) {
-    console.log('Hello DisasterWarningMethodsComponent Component');
     this.text = 'Hello World';
-
     this.FormItem = DisasterWarningMethodsComponent.CreateFormGroup(fb);
   }
-  
+
   submitRequest() {
     this.submitRequested = true;
   }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
@@ -39,7 +30,6 @@ export class DisasterWarningMethodsComponent {
         validator: DisasterWarningMethodsComponent.checkAnyOrOther()
       });
   }
-
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
@@ -58,7 +48,6 @@ export class DisasterWarningMethodsComponent {
     }
   }
 
-
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
@@ -70,4 +59,5 @@ export class DisasterWarningMethodsComponent {
     }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
 }

@@ -1,5 +1,7 @@
 <ion-card [formGroup]="FormItem">
+
   <ion-card-content>
+
     <ion-item>
       <ion-label>
         <b>แปลงที่ {{ fieldNo }}</b>
@@ -11,7 +13,6 @@
         1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
       </ion-label>
     </ion-item>
-
     <location [FormItem]="FormItem.get('location')"></location>
 
     <ion-item>
@@ -19,9 +20,7 @@
         2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
       </ion-label>
     </ion-item>
-    <!-- do -->
     <field-area [FormItem]="FormItem.get('area')"></field-area>
-
 
     <ion-item>
       <ion-label>
@@ -31,7 +30,6 @@
     <ion-item>
       <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plantingCount" [class.invalid]="isValid('plantingCount')"></ion-input>
     </ion-item>
-
     <ion-item *ngIf="isValid('plantingCount')">
       <span class="invalid-msg">
         กรุณากรอกข้อมูล
@@ -93,17 +91,16 @@
 
     <div *ngIf="FormItem.get('plantingCount').value > 0">
       <div *ngFor="let har of FormItem.get('harvests').controls; let i = index">
-        <!-- do -->
         <field-rice-harvest [FormItem]="har" [i]="i + 1"></field-rice-harvest>
       </div>
     </div>
-
 
     <ion-item>
       <ion-label>
         8) นาแปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
       </ion-label>
     </ion-item>
+
     <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
       <ion-item *ngIf="isValid('irrigationField')">
         <span class="invalid-msg">
@@ -124,7 +121,6 @@
       </ion-item>
     </ion-row>
 
-    <!-- do -->
     <water-sources8-a headline="9) นาแปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)" [FormItem]="FormItem.get('waterSources')"></water-sources8-a>
 
   </ion-card-content>

@@ -3,22 +3,16 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the DetailManagementForFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'detail-management-for-farming',
   templateUrl: 'detail-management-for-farming.html'
 })
-export class DetailManagementForFarmingComponent implements ISubmitRequestable{
+export class DetailManagementForFarmingComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public fieldNo: string;
-
   private submitRequested: boolean;
+
   constructor(public fb: FormBuilder) {
     this.FormItem = DetailManagementForFarmingComponent.CreateFormGroup(this.fb);
   }

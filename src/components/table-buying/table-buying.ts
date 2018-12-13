@@ -10,16 +10,12 @@ export class TableBuyingComponent {
 
   @Input("headline") private text: string;
   @Input() public FormItem: FormGroup;
-  @Input() public size: number;
-  @Input() public volumn: string;
-
+  @Input() public size: string;
   private submitRequested: boolean;
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
-    console.log('Hello TableBuyingComponent Component');
     this.text = '';
-    this.volumn = 'ลิตร';
+    this.size = 'ลิตร';
     this.FormItem = TableBuyingComponent.CreateFormGruop(fb);
-
   }
 
   public static CreateFormGruop(fb: FormBuilder): FormGroup {
@@ -31,7 +27,6 @@ export class TableBuyingComponent {
       'factory': [null, Validators.required],
       'service': [null, Validators.required],
     });
-
   }
 
   public showModal() {

@@ -1,8 +1,9 @@
-<!-- Generated template for the FieldPerenialPlantingComponent component -->
 <ion-card [formGroup]="FormItem">
+
   <ion-card-header>
     <b>แปลงที่ {{text}}</b>
   </ion-card-header>
+
   <ion-card-content>
     <ion-list>
       <ion-item>
@@ -13,13 +14,11 @@
       <location [FormItem]="FormItem.get('location')"></location>
     </ion-list>
 
-
     <ion-item>
       <ion-label>
         2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
       </ion-label>
     </ion-item>
-
     <field-area [FormItem]="FormItem.get('area')"></field-area>
 
     <ion-item>
@@ -27,6 +26,7 @@
         3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
       </ion-label>
     </ion-item>
+
     <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
       <ion-item *ngIf="isValid('irrigationField')">
         <span class="invalid-msg">
@@ -47,15 +47,14 @@
       </ion-item>
     </ion-row>
 
-    <div>
-      <ion-item>
-        <ion-label>
-          4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชยืนต้น ไม้ผล สวนป่า <br>ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด)
-        </ion-label>
-      </ion-item>
-      <modal-plant Title="พืชยืนต้น ไม้ผล สวนป่า" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
-    </div>
+    <ion-item>
+      <ion-label>
+        4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชยืนต้น ไม้ผล สวนป่า <br>ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด)
+      </ion-label>
+    </ion-item>
+    <modal-plant Title="พืชยืนต้น ไม้ผล สวนป่า" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
 
     <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+
   </ion-card-content>
 </ion-card>

@@ -11,7 +11,7 @@ import { WaterProblem6Component } from '../water-problem6/water-problem6';
 })
 export class GroundWaterUsageComponent implements ISubmitRequestable {
 
-  @Input('no') text: string;
+  @Input('no') public text: string;
   @Input() public FormItem: FormGroup;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
@@ -19,15 +19,12 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   @Input('factory') public factoryUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
-
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
-
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
-
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
   }
 

@@ -11,8 +11,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-  @Input('no') text: string;
-
+  @Input('no') public text: string;
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController,
@@ -54,4 +53,5 @@ export class PumpComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
 }

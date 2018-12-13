@@ -1,25 +1,17 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, ValidatorFn, ValidationErrors, AbstractControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the TableCheckItemCountComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'table-check-item-count',
   templateUrl: 'table-check-item-count.html'
 })
-export class TableCheckItemCountComponent implements AfterViewInit, ISubmitRequestable {
+export class TableCheckItemCountComponent implements ISubmitRequestable {
 
   @Input("ititle") public text: string;
   @Input('unit') public unittext: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
@@ -33,15 +25,10 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
     return fb.group({
       'hasItem': [false, Validators.required],
       'itemCount': [null, Validators.required]
-    },
-      {
+    }, {
         validator: TableCheckItemCountComponent.checkAnyOrOther()
       }
     );
-  }
-
-  public ngAfterViewInit() {
-    // this.FormItem.get('hasItem').valueChanges.subscribe(it => this.showModal());
   }
 
   public showModal() {
@@ -84,4 +71,5 @@ export class TableCheckItemCountComponent implements AfterViewInit, ISubmitReque
       return null;
     }
   }
+
 }

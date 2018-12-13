@@ -2,12 +2,6 @@ import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 
-/**
- * Generated class for the FrogFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'frog-farming',
   templateUrl: 'frog-farming.html'
@@ -15,14 +9,12 @@ import { WaterSources9Component } from '../water-sources9/water-sources9';
 export class FrogFarmingComponent {
 
   @Input() public FormItem: FormGroup;
-  @Input('headline') text: string;
+  @Input('headline') public text: string;
   private submitRequested: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
 
   constructor(public fb: FormBuilder) {
-    console.log('Hello FrogFarmingComponent Component');
     this.text = 'Hello World';
-
     this.FormItem = FrogFarmingComponent.CreateFormGroup(fb);
   }
 
@@ -31,7 +23,7 @@ export class FrogFarmingComponent {
       "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "stew": [false, Validators.required],
-      "other": [null , Validators.required],
+      "other": [null, Validators.required],
       'hasOther': [false, Validators.required],
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
@@ -63,7 +55,6 @@ export class FrogFarmingComponent {
       const other = c.get('other');
       const hasOther = c.get('hasOther');
 
-
       if (!depression.value && !stew.value) {
         return { 'anycheck': true };
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
@@ -72,4 +63,5 @@ export class FrogFarmingComponent {
       return null;
     }
   }
+
 }

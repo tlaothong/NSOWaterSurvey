@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
-import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 @Component({
   selector: 'water-sources8-b',
@@ -70,4 +69,5 @@ export class WaterSources8BComponent {
       return null;
     }
   }
+
 }

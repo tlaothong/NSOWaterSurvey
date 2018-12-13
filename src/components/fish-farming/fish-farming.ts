@@ -10,28 +10,20 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 })
 export class FishFarmingComponent implements ISubmitRequestable {
 
-  [x: string]: any;
-
   @Input() public FormItem: FormGroup;
-  @Input('headline') text: string;
-  @Input('type') type: string;
-
+  @Input('headline') public text: string;
+  @Input('type') public type: string;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
-
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
-
-    console.log('Hello FishFarmingComponent Component');
     this.text = 'Hello World';
     this.type = 'กก.';
-
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-
       "doing": [null, Validators.required],
       "depression": [false, Validators.required],
       "gardenGroove": [false, Validators.required],
@@ -44,14 +36,12 @@ export class FishFarmingComponent implements ISubmitRequestable {
       "fields": fb.array([]),
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-
     }, {
         validator: FishFarmingComponent.checkAnyOrOther()
       });
 
     FishFarmingComponent.setupPoolCountChanges(fb, fg);
     return fg;
-
   }
 
   submitRequest() {
@@ -59,7 +49,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    
+
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -70,7 +60,6 @@ export class FishFarmingComponent implements ISubmitRequestable {
       const riceField = c.get('riceField');
       const hasOther = c.get('hasOther');
       const other = c.get('other');
-
 
       if (!depression.value && !gardenGroove.value && !stew.value && !hasOther.value && !riceField.value) {
         return { 'anycheck': true };
@@ -121,4 +110,5 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
     onComponentCountChanges();
   }
+
 }

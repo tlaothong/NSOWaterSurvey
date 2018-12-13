@@ -1,10 +1,11 @@
-<!-- Generated template for the FieldFlowerCropComponent component -->
 <ion-card [formGroup]="FormItem">
+
   <ion-card-header>
     <b>โรงเรือน/แปลงที่ {{text}}</b>
   </ion-card-header>
 
   <ion-card-content>
+
     <ion-item>
       <ion-label>
         1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
@@ -29,7 +30,6 @@
           กรุณาเลือก
         </span>
       </ion-item>
-
       <ion-item col-6>
         <ion-radio item-left value="true"></ion-radio>
         <ion-label>
@@ -49,14 +49,6 @@
         4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>ไม้ดอก ไม้ประดับ <br>เพาะพันธุ์ไม้</b> ชนิดใด
       </ion-label>
     </ion-item>
-    <!-- <ion-list>
-      <ion-item *ngFor="let p of shownData" text-center>
-        {{ p }}
-      </ion-item>
-    </ion-list>
-    <ion-item>
-      <ion-label ion-button (click)="model()">เลือก</ion-label>
-    </ion-item> -->
     <modal-plant Title="พืชไร่" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
 
     <ion-item>
@@ -84,7 +76,6 @@
             2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่
           </ion-label>
         </ion-item>
-
       </ion-row>
 
       <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
@@ -92,9 +83,9 @@
           <modal-plant Title="ไม้ดอก ไม่ประดับ" [InputList]="forwardListPlant" InputLimit="5" [FormItem]="FormItem.get('otherPlantings')"></modal-plant>
         </div>
       </div>
-
     </div>
 
     <water-sources9 [FormItem]="FormItem.get('waterSources')" [headline]="'6) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"></water-sources9>
+
   </ion-card-content>
 </ion-card>

@@ -4,12 +4,6 @@ import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 
-/**
- * Generated class for the CrocodileFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'crocodile-farming',
   templateUrl: 'crocodile-farming.html'
@@ -18,7 +12,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
-  @Input('no') no: string;
+  @Input('no') public no: string;
 
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
 
@@ -29,16 +23,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   constructor(public fb: FormBuilder) {
     console.log('Hello CrocodileFarmingComponent Component');
     this.text = 'Hello World';
-
-    // this.FormItem = CrocodileFarmingComponent.CreateFormGroup(fb);
   }
-
-
-  // ngAfterViewInit(): void {
-  //   this.setupFieldCountChanges()
-
-  // }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
@@ -48,13 +33,9 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       "other": ['', Validators.required],
       "fieldCount": [null, Validators.required],
       "fieldsAreSameSize": [null, Validators.required],
-
       "fields": fb.array([]),
-
       "animalsCount": [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-
-
     }, {
         validator: CrocodileFarmingComponent.checkAnyOrOther()
       }
@@ -67,16 +48,13 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-
   }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const depression = c.get('depression');
       const hasOther = c.get('hasOther');
-
       const other = c.get('other');
-
 
       if (!depression.value && !hasOther.value) {
         return { 'anycheck': true };
@@ -86,7 +64,6 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       return null;
     }
   }
-
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
@@ -100,7 +77,6 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 
   private static setupFieldCountChanges(fb: FormBuilder, fg: FormGroup) {
 
@@ -132,12 +108,4 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
     onComponentCountChanges();
   }
-
-
-
-
-
-
-
-
 }

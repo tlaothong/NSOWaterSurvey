@@ -7,14 +7,14 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ItemInHomeComponent {
 
-  text: string;
+  public text: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log('Hello ItemInHomeComponent Component');
     this.text = 'Hello World';
   }
 
   goBuildingInfo(){
     this.navCtrl.push("BuildingInformation1Page")
   }
+  
 }
