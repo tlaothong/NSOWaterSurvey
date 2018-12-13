@@ -12,7 +12,8 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
     switch (action.type) {
         case LoggingTypes.LoadUserInformationSuccess:
             return {
-                ...state
+                ...state,
+                userInformation : action.payload
             };
         default:
             return state;
