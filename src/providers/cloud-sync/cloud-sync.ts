@@ -24,4 +24,9 @@ export class CloudSyncProvider {
   public loadUserFromQR(id: string): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + id);
   }
+
+  public setUserPassword(id: string): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/' + {'_idqr':'a8445b5d-f846-4084-bd9f-e1b089bed430','password':'444'},{ 'Content-Type': 'application/json' });
+  }
+
 }

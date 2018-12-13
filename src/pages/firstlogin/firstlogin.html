@@ -24,10 +24,10 @@
       <ion-label>ยืนยันรหัสผ่าน</ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="password" placeholder="รหัสผ่าน"></ion-input>
+      <ion-input type="password" placeholder="ยืนยันรหัสผ่าน" #confirmPass (keyup)="onKey(confirmPass.value)"></ion-input>
     </ion-item>
     <ion-row padding>
-      <button ion-button full color="secondary" (click)="goConfirmloginPage()">ตกลง</button>
+      <button ion-button full color="secondary" (click)="goConfirmloginPage()" [disabled]="disBtn">ตกลง</button>
       <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
     </ion-row>
   </form>
