@@ -19,7 +19,7 @@ export class TableBuyingComponent {
     this.text = '';
     this.volumn = 'ลิตร';
     this.FormItem = TableBuyingComponent.CreateFormGruop(fb);
-    
+
   }
 
   public static CreateFormGruop(fb: FormBuilder): FormGroup {

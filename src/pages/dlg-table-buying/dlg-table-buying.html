@@ -1,18 +1,11 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{ text }}</ion-title>
-    <ion-title>{{ si }}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
-
-
     <ion-item>
       <ion-label col-6>ขนาดบรรจุภัณฑ์ ( {{ volumn }} )</ion-label>
       <ion-input *ngIf="volumn != 'ลิตร'" type="number" formControlName="size" [disabled]=true></ion-input>
@@ -24,7 +17,6 @@
         กรุณากรอกข้อมูล
       </span>
     </ion-item>
-
 
     <ion-item>
       <ion-label>จำนวนที่ซื้อต่อเดือน</ion-label>
@@ -68,8 +60,6 @@
       </span>
     </ion-item>
 
-
-
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -80,10 +70,5 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
   </form>
-
-
-
-
 </ion-content>

@@ -21,9 +21,9 @@ export class DlgTableBuyingPage {
     this.volumn = navParams.get("volumn");
     console.log(this.volumn);
     console.log(this.size);
-    this.FormItem.get('size').setValue(this.size); 
+    this.FormItem.get('size').setValue(this.size);
   }
-  
+
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
