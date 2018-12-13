@@ -6,10 +6,6 @@
 
 <ion-content padding>
   <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
-<<<<<<< HEAD
-        
-=======
->>>>>>> sasa
     <ion-item>
       <ion-label col-6>ขนาดบรรจุภัณฑ์ ( {{ volumn }} )</ion-label>
       <ion-input *ngIf="volumn != 'ลิตร'" type="number" formControlName="size" [disabled]=true></ion-input>
@@ -44,18 +40,6 @@
       </span>
     </ion-item>
 
-<<<<<<< HEAD
-      <ion-item>
-        <ion-label col-6>เพื่อการบริการ</ion-label>
-        <ion-input type="number"  formControlName="service" [class.invalid]="isValid('service')"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isValid('service')">
-        <span class="invalid-msg">
-          กรุณากรอกข้อมูล
-        </span>
-      </ion-item>
-   
-=======
     <ion-item>
       <ion-label col-6>เพื่อผลิตสินค้า</ion-label>
       <ion-input type="number" formControlName="factory" [class.invalid]="isValid('factory')"></ion-input>
@@ -76,7 +60,6 @@
       </span>
     </ion-item>
 
->>>>>>> sasa
     <ion-grid>
       <ion-row>
         <ion-col>
