@@ -2,12 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-/*
-  Generated class for the CloudSyncProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class CloudSyncProvider {
 
@@ -31,4 +25,7 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetQR/'+id);
   }
 
+  public loadUserFromQR(code: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetQR/' + code);
+  }
 }

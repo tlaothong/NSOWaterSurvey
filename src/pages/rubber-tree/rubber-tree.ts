@@ -1,13 +1,17 @@
-import { SetRubberTreeSelectPlant, SetWaterSources } from './../../states/household/household.actions';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
-import { map } from 'rxjs/operators';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+<<<<<<< HEAD
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+=======
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+>>>>>>> rn0z
+import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
+import { SetRubberTreeSelectPlant, SetWaterSources } from './../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -16,9 +20,10 @@ import { map } from 'rxjs/operators';
 })
 export class RubberTreePage {
 
-  private submitRequested: boolean;
   public rubbertree: FormGroup;
+  private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
+
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   public DataList = EX_RUBBER_LIST;
 
@@ -34,7 +39,6 @@ export class RubberTreePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RubberTreePage');
     this.formData$.subscribe(data => this.rubbertree.setValue(data));
   }
 
@@ -47,7 +51,6 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.fieldrebbertree.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-
   }
 
   public isValid(name: string): boolean {

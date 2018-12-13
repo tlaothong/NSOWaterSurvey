@@ -28,8 +28,8 @@ export interface HouseHoldState {
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
-    riceDoing: any;
     dataUserFromQr: any;
+    riceDoing: any, 
 }
 
 const initialState: HouseHoldState = {

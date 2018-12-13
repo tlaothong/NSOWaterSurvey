@@ -78,6 +78,7 @@ export const getAgronomyPlantSelectPlant = createSelector(
     getHouseHoldFeatureState,
     state => state.agronomyPlantSelectPlant,
 );
+
 export const getRiceDoing = createSelector(
     getHouseHoldFeatureState,
     state => state.riceDoing,

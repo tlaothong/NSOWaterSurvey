@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getWaterSource } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -16,8 +16,12 @@ export class PopulationPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
+  public whatever: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
+  private water$ = this.store.select(getWaterSource);
+  
+
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -30,11 +34,14 @@ export class PopulationPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
-    console.log('ionViewDidLoad PopulationPage');
+    this.water$.subscribe(data => this.whatever = data);
   }
 
   public handleSubmit() {
     this.submitRequested = true;
+    console.log(this.whatever);
+
+    this.whatever = undefined;
     this.persons.forEach(it => it.submitRequest());
   }
 

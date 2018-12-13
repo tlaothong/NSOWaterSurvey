@@ -35,7 +35,6 @@ export class RicePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RicePage');
     this.formData$.subscribe(data => this.f.setValue(data));
   }
 

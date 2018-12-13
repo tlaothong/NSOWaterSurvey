@@ -1,27 +1,27 @@
 import { Action } from '@ngrx/store';
 
 export enum HouseHoldTypes {
+    Load = "[HH] Load",
     StateName = "HouseHold",
     LoadList = "[HH] Load List",
-    LoadListSuccess = "[HH] Load List Success",
-    Load = "[HH] Load",
     LoadSuccess = "[HH] Load Success",
-    SetIsHouseHold = "[HH] Set IsHouseHold",
-    SetIsAgriculture = "[HH] Set IsAgriculture",
-    SetIsFactorial = "[HH] Set IsFactorial",
-    SetIsCommercial = "[HH] Set IsCommercial",
-    SetFactorialCategory = "[HH] Set Factorial Category",
-    SetWaterSource = "[HH] Set WaterSource",
-    SetCommercialServiceType = "[HH] Set Commercial ServiceType",
-    SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
-    SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
-    SetRubberTreeSelectPlant = "[HH] Set Rubbertree Select Plant",
-    SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
-    SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
-    SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
     SetRiceDoing = "[HH] Set Rice Donig",
+    SetWaterSource = "[HH] Set WaterSource",
+    SetIsFactorial = "[HH] Set IsFactorial",
+    SetIsHouseHold = "[HH] Set IsHouseHold",
+    SetIsCommercial = "[HH] Set IsCommercial",
+    LoadListSuccess = "[HH] Load List Success",
+    SetIsAgriculture = "[HH] Set IsAgriculture",
     LoadUserByQrCode = "[HH] Load User By QrCode",
-    LoadUserByQrCodeSuccess = "[HH] Load User By QrCode Success"
+    SetFactorialCategory = "[HH] Set Factorial Category",
+    SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
+    SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
+    LoadUserByQrCodeSuccess = "[HH] Load User By QrCode Success",
+    SetCommercialServiceType = "[HH] Set Commercial ServiceType",
+    SetRubberTreeSelectPlant = "[HH] Set Rubbertree Select Plant",
+    SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
+    SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
+    SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant"
 }
 
 export class LoadHouseHoldList implements Action {
@@ -79,6 +79,7 @@ export class SetIsCommercial implements Action {
     constructor(public payload: boolean) {
     }
 }
+
 export class SetFactorialCategory implements Action {
     readonly type = HouseHoldTypes.SetFactorialCategory;
 
@@ -88,33 +89,39 @@ export class SetFactorialCategory implements Action {
 
 export class SetWaterSources implements Action {
     readonly type = HouseHoldTypes.SetWaterSource;
+
     constructor(public payload: any) {
     }
 }
+
 export class SetAgronomyPlantDoing implements Action {
     readonly type = HouseHoldTypes.SetAgronomyPlantDoing;
 
     constructor(public payload: any) {
     }
 }
+
 export class SetCommercialServiceType implements Action {
     readonly type = HouseHoldTypes.SetCommercialServiceType;
 
     constructor(public payload: any) {
     }
 }
+
 export class SetResidentialGardeningUse implements Action {
     readonly type = HouseHoldTypes.SetResidentialGardeningUse;
 
     constructor(public payload: string) {
     }
 }
+
 export class SetRubberTreeSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetRubberTreeSelectPlant;
 
     constructor(public payload: any[]) {
     }
 }
+
 export class SetPerennialPlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetPerennialPlantSelectPlant;
 
@@ -179,6 +186,4 @@ export type HouseHoldActionsType =
     | SetCommercialServiceType
     | SetRiceDoing
     | LoadUserByQrCodeSample
-    | LoadUserByQrCodeSuccess
-    
-    ;
+    | LoadUserByQrCodeSuccess;
