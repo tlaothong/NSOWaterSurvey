@@ -2,25 +2,17 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-/**
- * Generated class for the TableDisasterousComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'table-disasterous',
   templateUrl: 'table-disasterous.html'
 })
 export class TableDisasterousComponent {
 
-  @Input("headline") year: string;
+  @Input("headline") public year: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
-    console.log('Hello TableDisasterousComponent Component');
     this.year = 'Hello World';
 
     // TODO: Remove this

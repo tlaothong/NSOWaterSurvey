@@ -16,19 +16,16 @@ import { ModalPlantComponent } from '../modal-plant/modal-plant';
 export class FieldPerenialPlantingComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-  @Input('no') text: string;
+  @Input('no') public text: string;
   private submitRequested: boolean;
-
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
-  shownData = EX_TREETON_LIST;
+  public shownData = EX_TREETON_LIST;
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
-    console.log('Hello FieldPerenialPlantingComponent Component');
     this.text = 'Hello World';
-
     this.FormItem = FieldPerenialPlantingComponent.CreateFormGroup(this.fb);
   }
 
@@ -41,7 +38,7 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     });
-    return fg;  
+    return fg;
   }
 
   public isValid(name: string): boolean {
@@ -56,4 +53,5 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
   }
+
 }

@@ -5,12 +5,6 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the FieldRebbertreeComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'field-rebbertree',
   templateUrl: 'field-rebbertree.html'
@@ -18,7 +12,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
 export class FieldRebbertreeComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
-  @Input('no') text: string;
+  @Input('no') public text: string;
   private submitRequested: boolean;
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
@@ -48,4 +42,5 @@ export class FieldRebbertreeComponent implements ISubmitRequestable {
     this.waterSources9.forEach(it => it.submitRequest());
     this.submitRequested = true;
   }
+
 }

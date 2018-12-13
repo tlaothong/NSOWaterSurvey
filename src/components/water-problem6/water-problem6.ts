@@ -1,4 +1,3 @@
-import { WaterActivity6Component } from './../water-activity6/water-activity6';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 
@@ -10,11 +9,9 @@ export class WaterProblem6Component {
 
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(private fb: FormBuilder) {
-    console.log('Hello WaterProblem6Component Component');
     this.text = '1';
     this.FormItem = this.fb.group({
       'hasProblem': [null, Validators.required],
@@ -45,9 +42,6 @@ export class WaterProblem6Component {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
     } 
-    // else if (name == 'other') {
-    //   return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
-    // }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
@@ -64,13 +58,8 @@ export class WaterProblem6Component {
         && !fogWater.value && !hardWater.value) {
         return { 'anycheck': true };
       } 
-      // else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
-      //   return { 'other': true };
-      // }
       return null;
     }
   }
-
-  
 
 }

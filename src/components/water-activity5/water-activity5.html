@@ -1,5 +1,5 @@
-<!-- Generated template for the WaterActivity5Component component -->
 <div [formGroup]="FormItem">
+
   <ion-item>
     <ion-label>
       <b>{{text}}</b>
@@ -51,12 +51,12 @@
       กรุณากรอกข้อมูล
     </span>
   </ion-item>
-  <ion-item *ngIf="commerceUse == 'true'">
+  <ion-label *ngIf="commerceUse == 'true'">
     <ion-label col-8>
       เพื่อการบริการ
-    </ion-label >
+    </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="service" [class.invalid]="isValid('service')"></ion-input>
-  </ion-item>
+  </ion-label>
   <ion-item *ngIf="isValid('service')" text-right>
     <span class="invalid-msg">
       กรุณากรอกข้อมูล
@@ -68,4 +68,5 @@
     </ion-label>
     <ion-input placeholder="100" disabled="true"></ion-input>
   </ion-item>
+  
 </div>

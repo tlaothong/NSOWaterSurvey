@@ -3,12 +3,6 @@ import { ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the FieldAreaComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'field-area',
   templateUrl: 'field-area.html'
@@ -17,11 +11,9 @@ export class FieldAreaComponent implements ISubmitRequestable {
 
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
-    console.log('Hello FieldAreaComponent Component');
     this.text = '';
 
     // TODO: Remove this
@@ -55,4 +47,5 @@ export class FieldAreaComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
 }

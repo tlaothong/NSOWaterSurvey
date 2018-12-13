@@ -2,12 +2,6 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormGroup,FormBuilder ,Validators} from '@angular/forms';
 
-/**
- * Generated class for the RainStorageComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'rain-storage',
   templateUrl: 'rain-storage.html'
@@ -43,7 +37,6 @@ export class RainStorageComponent {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
   
-  DlgRainStoragePage
   presentModal() {
     const modal = this.modalCtrl.create("DlgRainStoragePage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
@@ -55,4 +48,5 @@ export class RainStorageComponent {
     });
     modal.present();
   }
+
 }

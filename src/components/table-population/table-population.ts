@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { DlgPopulationPage } from '../../pages/dlg-population/dlg-population';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,14 +10,11 @@ export class TablePopulationComponent {
 
   @Input('no') public personNo: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
-    console.log('Hello TablePopulationComponent Component');
     this.FormItem = TablePopulationComponent.CreateFormGroup(fb);
   }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
@@ -59,4 +55,5 @@ export class TablePopulationComponent {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
 }

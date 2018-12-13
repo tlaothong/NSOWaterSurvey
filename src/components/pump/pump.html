@@ -1,12 +1,12 @@
 <ion-card [formGroup]="FormItem">
-  <ion-card-content>
 
-    <!-- 1) เป็นเครื่องสูบอัตโนมัติ ใช่หรือไม่ -->
+  <ion-card-content>
     <ion-item>
       <ion-label>
         <b>เครื่องที่ {{ text }}</b>
       </ion-label>
     </ion-item>
+
     <ion-item>
       <ion-label>
         1) เป็นเครื่องสูบน้ำอัตโนมัติ ใช่หรือไม่
@@ -32,7 +32,7 @@
         <ion-radio [value]="false" item-left></ion-radio>
       </ion-item>
     </ion-row>
-    <!-- 2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งนานเท่าไร (ให้ประมาณน้ำทุกกิจกรรมรวมกัน) -->
+
     <div *ngIf="FormItem.get('pumpAuto').value == false">
       <ion-item>
         <ion-label>
@@ -48,7 +48,6 @@
         </span>
       </ion-item>
 
-      <!-- 3) ในระยะเวลา 1 ปีสูบน้ำกี่ครั้ง -->
       <ion-item>
         <ion-label>
           3) ในระยะเวลา 1 ปีสูบน้ำกี่ครั้ง
@@ -63,15 +62,13 @@
         </span>
       </ion-item>
 
-      <!-- 4) มีอัตราการสูบเท่าไร -->
       <ion-item>
         <ion-label>
           4) มีอัตราการสูบเท่าไร(ลบ.ม/ชม.)
         </ion-label>
       </ion-item>
 
-      <ion-row radio-group formControlName="hasPumpRate"
-        [class.invalid]="isValid('hasPumpRate')">
+      <ion-row radio-group formControlName="hasPumpRate" [class.invalid]="isValid('hasPumpRate')">
         <ion-item *ngIf="isValid('hasPumpRate')">
           <span class="invalid-msg">
             กรุณาเลือก
@@ -115,8 +112,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="energySource"
-          [class.invalid]="isValid('energySource')">
+        <ion-row radio-group formControlName="energySource" [class.invalid]="isValid('energySource')">
           <ion-item *ngIf="isValid('energySource')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -335,10 +331,8 @@
               3501-4500 / 5 -6
             </ion-option>
             <ion-option [value]="44">
-              < 4000 / < 5
-            </ion-option>
-            <ion-option [value]="45">
-              4001-4500 / 5.5 - 6
+              < 4000 / < 5 </ion-option> <ion-option [value]="45">
+                4001-4500 / 5.5 - 6
             </ion-option>
             <ion-option [value]="46">
               4001-5000 / 5 - 7
@@ -353,10 +347,8 @@
               4501-5500 / 6 - 7.5
             </ion-option>
             <ion-option [value]="50">
-              < 5000 / < 7 
-            </ion-option>
-            <ion-option [value]="51">
-              4501-6000 / 6 - 8
+              < 5000 / < 7 </ion-option> <ion-option [value]="51">
+                4501-6000 / 6 - 8
             </ion-option>
             <ion-option [value]="52">
               5000-12000 / 6.5 - 16
@@ -374,10 +366,8 @@
               5001-7000 / 7 - 9.5
             </ion-option>
             <ion-option [value]="57">
-              < 5500 / < 7
-            </ion-option>
-            <ion-option [value]="58">
-              5500-6000 / 7 - 8
+              < 5500 / < 7 </ion-option> <ion-option [value]="58">
+                5500-6000 / 7 - 8
             </ion-option>
             <ion-option [value]="59">
               5501-7500 / 7.5 - 10
@@ -774,5 +764,6 @@
         </ion-item>
       </div>
     </div>
+
   </ion-card-content>
 </ion-card>

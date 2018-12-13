@@ -2,12 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-/**
- * Generated class for the PoolComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
 @Component({
   selector: 'pump',
   templateUrl: 'pump.html'
@@ -15,15 +10,12 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-  @Input('no') text: string;
-
+  @Input('no') public text: string;
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController,
     public navParams: NavParams, public fb: FormBuilder) {
-
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
-
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -60,6 +52,5 @@ export class PumpComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
 
 }
