@@ -18,6 +18,7 @@ export class HomePage {
       { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
       { title: 'Community Test', component: "CommunityTestPage" },
+      { title: 'Login Test', component: "LoggingTestPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
