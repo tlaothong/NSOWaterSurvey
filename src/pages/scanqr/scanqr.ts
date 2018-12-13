@@ -18,7 +18,7 @@ export class ScanqrPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ScanqrPage');
+    
   }
 
   goFirstLogin() {

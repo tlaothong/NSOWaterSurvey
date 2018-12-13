@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalVarible, setPassword } from '../../app/models';
 
 @Injectable()
 export class CloudSyncProvider {
@@ -9,15 +10,15 @@ export class CloudSyncProvider {
     console.log('Create CloudSyncProvider Provider');
   }
 
-  public loadHousHoldSampleTestData() : Observable<any> {
+  public loadHousHoldSampleTestData(): Observable<any> {
     return this.http.get('https://nsovars.azurewebsites.net/api/survey');
   }
 
-  public loadCommunitySampleTestData() : Observable<any> {
+  public loadCommunitySampleTestData(): Observable<any> {
     return this.http.get('https://nsovars.azurewebsites.net/api/survey/community');
   }
 
-  public loadBuildingSampleTestData() : Observable<any> {
+  public loadBuildingSampleTestData(): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/survey/building');
   }
 
@@ -25,8 +26,8 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + id);
   }
 
-  public setUserPassword(id: string): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/' + {'_idqr':'a8445b5d-f846-4084-bd9f-e1b089bed430','password':'444'},{ 'Content-Type': 'application/json' });
+  public setNewUserPassword(o: setPassword): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/' + o, GlobalVarible.httpOptions);
   }
 
 }
