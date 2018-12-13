@@ -21,11 +21,7 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/survey/building');
   }
 
-  public loadUserByQrCode(id:string) : Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetQR/'+id);
-  }
-
-  public loadUserFromQR(code: string): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetQR/' + code);
+  public loadUserFromQR(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + id);
   }
 }

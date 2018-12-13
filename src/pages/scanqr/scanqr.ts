@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getUserByQr } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { LoadUserByQrCodeSample } from '../../states/household/household.actions';
+import { getUserInformation } from '../../states/logging';
+import { LoadUserInformation } from '../../states/logging/logging.actions';
 
 @IonicPage()
 @Component({
@@ -13,7 +13,7 @@ import { LoadUserByQrCodeSample } from '../../states/household/household.actions
 })
 export class ScanqrPage {
   data: any;
-  private formData$ = this.store.select(getUserByQr).pipe(map(s => s));
+  private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
   constructor(public navCtrl: NavController, public navParams: NavParams,private store: Store<HouseHoldState>) {
   }
 
@@ -22,7 +22,7 @@ export class ScanqrPage {
   }
 
   goFirstLogin() {
-    console.log("kjuyjyu",this.store.dispatch(new LoadUserByQrCodeSample('a4daa261-451c-46a0-bbda-02dd6084d0f4')));
+    console.log(this.store.dispatch(new LoadUserInformation()));
   }
 
   goBack() {

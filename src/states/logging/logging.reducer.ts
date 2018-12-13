@@ -14,11 +14,6 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state
             };
-        case LoggingTypes.LoadUserInformation:
-            return {
-                ...state,
-                userInformation: action
-            };
         default:
             return state;
     }
