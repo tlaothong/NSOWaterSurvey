@@ -21,11 +21,11 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/survey/building');
   }
 
-  public loadUserFromQR(id: string): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + id);
+  public loadUserFromQR(code: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + code);
   }
 
-  public setNewUserPassword(o: any): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', o);
+  public setNewUserPassword(payload: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', payload);
   }
 }

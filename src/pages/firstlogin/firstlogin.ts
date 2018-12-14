@@ -1,14 +1,13 @@
 import { Store } from '@ngrx/store'
 import { map } from 'rxjs/operators';
 import { Component } from '@angular/core';
+import { setPassword } from '../../app/models';
+import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { getUserInformation } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SetUserPassword } from '../../states/logging/logging.actions';
-import { AlertController } from 'ionic-angular';
-import { setPassword } from '../../app/models';
-
 
 @IonicPage()
 @Component({
@@ -17,9 +16,7 @@ import { setPassword } from '../../app/models';
 })
 
 export class FirstloginPage {
-  datauser: any;
   f: FormGroup;
-  formConfirm: FormGroup;
   private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
   public riceDoing: boolean;
 

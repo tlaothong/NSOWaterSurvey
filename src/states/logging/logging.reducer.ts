@@ -13,7 +13,7 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
         case LoggingTypes.LoadUserInformationSuccess:
             return {
                 ...state,
-                userInformation : action.payload
+                userInformation: action.payload
             };
         default:
             return state;
