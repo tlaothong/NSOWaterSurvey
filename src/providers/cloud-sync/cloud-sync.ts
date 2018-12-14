@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { setPassword } from '../../app/models';
 
 @Injectable()
 export class CloudSyncProvider {
@@ -26,18 +25,12 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + id);
   }
 
-  public setNewUserPassword(o: any): Observable<any> {
-    /*headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    params: HttpParams = new HttpParams()
-      .set('_idqr', 'a8445b5d-f846-4084-bd9f-e1b089bed430')
-      .set('password', '00000');
+  public setNewUserPassword(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', data);
+  }
 
-    httpOptions = {
-      headers: this.headers,
-      params: this.params,
-      withCredentials: true
-    };*/
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', o);
+  public loadAllWorkEA(id: string): Observable<any> {
+    return this.http.get('http://localhost:64184/api/Demo/GetAllWorkByUserID/' + id);
   }
 
 }

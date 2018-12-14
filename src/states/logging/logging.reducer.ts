@@ -1,11 +1,13 @@
 import { LoggingActionsType, LoggingTypes } from "./logging.actions";
 
 export interface LoggingState {
-    userInformation: any
+    userInformation: any,
+    dataWorkEA: any[]
 }
 
 const initialState: LoggingState = {
-    userInformation: null
+    userInformation: null,
+    dataWorkEA: []
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -13,7 +15,12 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
         case LoggingTypes.LoadUserInformationSuccess:
             return {
                 ...state,
-                userInformation : action.payload
+                userInformation: action.payload
+            };
+        case LoggingTypes.LoadDataWorkEASuccess:
+            return {
+                ...state,
+                dataWorkEA: action.payload
             };
         default:
             return state;

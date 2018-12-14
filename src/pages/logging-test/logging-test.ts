@@ -27,7 +27,7 @@ export class LoggingTestPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoggingTestPage');
-    this.store.dispatch(new LoadUserInformation());
+    // this.store.dispatch(new LoadUserInformation());
   }
 
   public openPage(page) {

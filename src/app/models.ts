@@ -17,11 +17,4 @@ export class unitModel {
     access: any;
 }
 
-export class setPassword {
-    _idqr: string;
-    idUser: string;
-    password: string;
-    name: string;
-    email: string;
-}
 
