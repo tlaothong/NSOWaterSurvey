@@ -13,8 +13,10 @@ export class DlgRainStoragePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
-    this.text = navParams.get("iTitle");
+    this.text = navParams.get('headline');
+    this.FormItem.get('category').setValue(this.text);
   }
+  
   public closeDialog() {
     this.viewCtrl.dismiss();
   }

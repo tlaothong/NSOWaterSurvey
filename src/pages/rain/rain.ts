@@ -36,7 +36,15 @@ export class RainPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
-      'rainContainers': this.fb.array([RainStorageComponent.CreateFormGroup(fb)]),
+      'rainContainers': this.fb.array([
+        RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
+      ]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
     });
   }
@@ -64,5 +72,9 @@ export class RainPage {
 
   submitRequest() {
     this.submitRequested = true;
+  }
+
+  picture() {
+
   }
 }
