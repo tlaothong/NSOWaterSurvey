@@ -3,9 +3,9 @@ import { Action } from '@ngrx/store';
 export enum LoggingTypes {
     StateName = "Logging",
     LoadUserInformation = "[L] Load user information",
-    LoadUserInformationSuccess = "[L] Loaded user information is success",
     SetUserPassword = "[L] Set user password",
     SetUserPasswordSuccess = "[L] Set user password success",
+    LoadUserInformationSuccess = "[L] Loaded user information is success",
 }
 
 export class LoadUserInformation implements Action {
