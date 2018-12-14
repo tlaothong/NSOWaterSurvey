@@ -5,7 +5,6 @@ import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword } from "./logging.actions";
-import { setPassword } from "../../app/models";
 
 @Injectable()
 export class LoggingEffects {

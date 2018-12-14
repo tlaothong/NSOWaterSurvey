@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { setPassword } from '../../app/models';
 
 @Injectable()
 export class CloudSyncProvider {
@@ -27,17 +26,6 @@ export class CloudSyncProvider {
   }
 
   public setNewUserPassword(o: any): Observable<any> {
-    /*headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    params: HttpParams = new HttpParams()
-      .set('_idqr', 'a8445b5d-f846-4084-bd9f-e1b089bed430')
-      .set('password', '00000');
-
-    httpOptions = {
-      headers: this.headers,
-      params: this.params,
-      withCredentials: true
-    };*/
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', o);
   }
-
 }
