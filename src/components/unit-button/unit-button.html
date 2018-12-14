@@ -6,7 +6,7 @@
       <ion-col text-left>
         <h3># {{unitNo}}</h3>
       </ion-col>
-      <ion-col text-right *ngIf="FormItem.get('subUnit.roomNumber').valid" (click)="showModalSetting()">
+      <ion-col text-right *ngIf="class != 'play'" (click)="showModalSetting()">
         <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
       </ion-col>
     </ion-row>
