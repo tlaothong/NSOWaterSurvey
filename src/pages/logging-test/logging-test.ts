@@ -18,6 +18,9 @@ export class LoggingTestPage {
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
       { title: 'First Login', component: "FirstloginPage" },
       { title: 'Login', component: "LoginPage" },
+      { title: 'Confirm Login', component: "ConfirmloginPage" },
+      { title: 'Select EA', component: "SelectEaPage" },
+      { title: 'Homes', component: "HomesPage" },     
       
     ];
   }
