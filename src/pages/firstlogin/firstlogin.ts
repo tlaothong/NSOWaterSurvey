@@ -58,8 +58,12 @@ export class FirstloginPage {
 
   goConfirmloginPage() {
     var data = new setPassword();
+
     data._idqr = this.f.get('_idqr').value;
+    data.idUser = ''
     data.password = this.f.get('password').value;
+    data.name = ''
+    data.email = ''
 
     let alert = this.alertCtrl.create({
       message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',

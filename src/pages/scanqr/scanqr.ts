@@ -22,7 +22,7 @@ export class ScanqrPage {
   }
 
   goFirstLogin() {
-    console.log(this.store.dispatch(new LoadUserInformation()));
+    this.store.dispatch(new LoadUserInformation());
   }
 
   goBack() {

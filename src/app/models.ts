@@ -1,4 +1,4 @@
-import { HttpHeaders } from "@angular/common/http";
+import { HttpHeaders, HttpParams } from "@angular/common/http";
 
 export class schoolCount {
     IsChecked: boolean;
@@ -25,8 +25,3 @@ export class setPassword {
     email: string;
 }
 
-export class GlobalVarible {
-    static httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-}
