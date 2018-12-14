@@ -58,6 +58,7 @@ export class HomePage {
       { title: 'Disaster', component: "DisasterPage" },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
       { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
+      { title: 'รูปภาพภาชนะกักเก็บน้ำฝน', component: "DlgRainPicturePage" },
     ];
   }
 
