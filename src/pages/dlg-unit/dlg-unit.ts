@@ -4,8 +4,6 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
-import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -15,10 +13,7 @@ import { map } from 'rxjs/operators';
 export class DlgUnitPage {
   public submitRequested: boolean;
   public FormItem: FormGroup;
-
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
   
-
   public index: number;
   public access: number;
   public comment: string = '';
@@ -31,14 +26,12 @@ export class DlgUnitPage {
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
     const dataIn = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(dataIn.value);
-
+    
     this.setEnvironment();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgUnitPage');
-    this.formData$.subscribe(data => this.FormItem.setValue(data));
-
   }
 
   public closeDialog() {
@@ -63,7 +56,7 @@ export class DlgUnitPage {
 
   public setAccesses() {
     this.FormItem.get('subUnit.accessCount').setValue(this.count);
-    this.fgac.at(this.index).setValue({ 'access': [this.access] });
+    this.fgac.at(this.index).setValue(this.access);
     this.fgcm.at(this.index).setValue({ 'at': [null], 'text': [this.comment], });
   }
 
@@ -73,7 +66,7 @@ export class DlgUnitPage {
 
     this.index = this.FormItem.get('subUnit.accessCount').value;
     this.count = this.index + 1;
-    this.access = this.fgac.at(this.index).value.access[0];
-    this.comment = this.fgcm.at(this.index).value.text[0];
+    this.access = this.fgac.at(this.index).value;
+    this.comment = this.fgcm.at(this.index).value.text;
   }
 }

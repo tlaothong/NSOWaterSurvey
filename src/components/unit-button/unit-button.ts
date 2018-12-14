@@ -4,6 +4,8 @@ import { ModalController, Form, NavController, AlertController } from 'ionic-ang
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -23,7 +25,6 @@ export class UnitButtonComponent {
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   public access: number;
   public comment = '';
@@ -36,11 +37,17 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+  }
+
+  ngOnInit() {
+    this.formData$.subscribe(data => this.FormItem.setValue(data));
+    this.setAccess();
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -51,16 +58,7 @@ export class UnitButtonComponent {
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'accessCount': [0],
-        'accesses': fb.array([{
-          'access': [null],
-        },
-        {
-          'access': [null],
-        },
-        {
-          'access': [null],
-        },
-        ]),
+        'accesses': fb.array([null, null, null]),
         'hasPlumbing': [null, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
@@ -71,16 +69,18 @@ export class UnitButtonComponent {
       'isAgriculture': [null, Validators.required],
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
-      'comments': fb.array([{
-        'at': [null],
-        'text': [''],
-      }, {
-        'at': [null],
-        'text': [''],
-      }, {
-        'at': [null],
-        'text': [''],
-      }]),
+      'comments': fb.array([
+        {
+          'at': [null],
+          'text': [''],
+        }, {
+          'at': [null],
+          'text': [''],
+        }, {
+          'at': [null],
+          'text': [''],
+        }
+      ]),
       'residence': [null, Validators.required],
       'agriculture': [null, Validators.required],
       'factory': [null, Validators.required],
@@ -89,33 +89,7 @@ export class UnitButtonComponent {
       'disaster': [null, Validators.required],
       'closing': [null, Validators.required],
       'recCtrl': [null, Validators.required],
-      'population': fb.group({
-        'personCount': [null],
-        'persons': fb.array([{
-          'nameTitle': [null],
-          'otherTitle': [null],
-          'firstName': [null],
-          'lastName': [null],
-          'relationship': [null],
-          'sex': [null],
-          'age': [null],
-          'nationality': [null],
-          'registration': [null],
-          'otherProvince': [null],
-        },
-        {
-          "nameTitle": [null],
-          "otherTitle": [null],
-          "firstName": [null],
-          "lastName": [null],
-          "relationship": [null],
-          "sex": [null],
-          "age": [null],
-          "nationality": [null],
-          "registration": [null],
-          "otherProvince": [null],
-        }])
-      })
+      'population': [null, Validators.required]
     });
   }
 
@@ -134,9 +108,9 @@ export class UnitButtonComponent {
 
   public showModal() {
     if (this.access == 1) {
-      this.goWaterActivityUnitPage();
+      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });;
     }
-    else if (this.class != "complete" && this.class != "completeCm") {
+    else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
       const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
       modal.onDidDismiss(data => {
         if (data) {
@@ -153,20 +127,11 @@ export class UnitButtonComponent {
     this.submitRequested = true;
   }
 
-  goWaterActivityUnitPage() {
-    this.navCtrl.push('WaterActivityUnitPage');
-  }
-
   ionViewDidEnter() {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
-    // this.formData$.subscribe(data => this.FormItem.setValue(data));
-    // this.DlgUnitPage.forEach(it => it.ionViewDidLoad());
-    // console.log('dasdsadsad');
-    // console.log(this.FormItem);
-
   }
 
   public isValid(name: string): boolean {
@@ -174,26 +139,20 @@ export class UnitButtonComponent {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  public static CreateAccess(fb: FormBuilder): FormGroup {
-    return fb.group({
-      'access': [null, Validators.required],
-    });
-  }
-
-  public static CreateComment(fb: FormBuilder): FormGroup {
-    return fb.group({
-      'at': [null],
-      'text': [''],
-    });
-  }
-
   private setAccess() {
     this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
     this.fgcm = this.FormItem.get('comments') as FormArray;
     this.index = this.FormItem.get('subUnit.accessCount').value - 1;
-    this.access = this.fgac.at(this.index).value.access[0];
-    this.comment = this.fgcm.at(this.index).value.text[0];
-    this.allComment += (this.fgcm.at(this.index).value.text[0]) ? 'ครั้งที่ ' + (this.index + 1) + ' : ' + this.fgcm.at(this.index).value.text[0] + '<br>' : '';
+    this.index = (this.index < 0) ? 0 : this.index;
+    this.access = this.fgac.at(this.index).value;
+    this.comment = this.fgcm.at(this.index).value.text;
+
+    let text = '';
+    for (let i = 0; i < this.index + 1; i++) {
+      text += (this.fgcm.at(i).value.text != '') ? 'ครั้งที่ ' + (i + 1) + ' : ' + this.fgcm.at(i).value.text + '<br>' : '';
+    }
+    this.allComment = text;
+
     this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
     this.checkAccess();
   }
@@ -234,4 +193,79 @@ export class UnitButtonComponent {
     });
     alert.present();
   }
+
+  // public static CreateAccess(fb: FormBuilder): FormGroup {
+  //   return fb.group({
+  //     'access': [null, Validators.required],
+  //   });
+  // }
+
+  // public static CreateComment(fb: FormBuilder): FormGroup {
+  //   return fb.group({
+  //     'at': [null],
+  //     'text': [''],
+  //   });
+  // }
+
+  // private setupAccessCountChanges() {
+  //   const componentFormArray: string = "subUnit.accesses";
+  //   const componentCount: string = "subUnit.accessCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var accesses = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var accessCount = this.FormItem.get(componentCount).value || 0;
+  //     var farr = this.fb.array([]);
+
+  //     accessCount = Math.max(0, accessCount);
+
+  //     for (let i = 0; i < accessCount; i++) {
+  //       var ctrl = null;
+  //       if (i < accesses.length) {
+  //         const fld = accesses[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = UnitButtonComponent.CreateAccess(this.fb);
+  //       }
+
+  //       farr.push(ctrl);
+  //     }
+  //     // this.FormItem.setControl(componentFormArray, farr);
+  //     let fgrp = this.FormItem.get('subUnit') as FormGroup;
+  //     fgrp.setControl('accesses', farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAccessCountChangesForComments() {
+  //   const componentFormArray: string = "comments";
+  //   const componentCount: string = "subUnit.accessCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var comments = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var accessCount = this.FormItem.get(componentCount).value || 0;
+  //     var farr = this.fb.array([]);
+
+  //     accessCount = Math.max(0, accessCount);
+
+  //     for (let i = 0; i < accessCount; i++) {
+  //       var ctrl = null;
+  //       if (i < comments.length) {
+  //         const fld = comments[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = UnitButtonComponent.CreateComment(this.fb);
+  //       }
+
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
 }
