@@ -9,7 +9,7 @@ import { FormGroup,FormBuilder ,Validators} from '@angular/forms';
 export class RainStorageComponent {
   
   @Input("headline") private text: string;
-  @Input("order") private order: string;
+  // @Input("order") private order: string;
   @Input() public FormItem: FormGroup;
   private submitRequested : boolean;
 
