@@ -2,8 +2,8 @@ import { Action } from '@ngrx/store';
 
 export enum LoggingTypes {
     StateName = "Logging",
-    LoadUserInformation = "[L] Load user information",
     SetUserPassword = "[L] Set user password",
+    LoadUserInformation = "[L] Load user information",
     SetUserPasswordSuccess = "[L] Set user password success",
     LoadUserInformationSuccess = "[L] Loaded user information is success",
 }
@@ -25,9 +25,7 @@ export class SetUserPassword implements Action {
 
 export class SetUserPasswordSuccess implements Action {
     readonly type = LoggingTypes.SetUserPasswordSuccess;
-
-    constructor() {
-    }
+    constructor() { }
 }
 
 export type LoggingActionsType =
