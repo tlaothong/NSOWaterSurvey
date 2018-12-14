@@ -9,14 +9,12 @@ import { FormGroup,FormBuilder ,Validators} from '@angular/forms';
 export class RainStorageComponent {
   
   @Input("headline") private text: string;
-  // @Input("order") private order: string;
   @Input() public FormItem: FormGroup;
   private submitRequested : boolean;
 
   constructor(public modalCtrl: ModalController,private fb: FormBuilder) {
     console.log('Hello RainStorageComponent Component');
     this.text = '';
-
     this.FormItem = RainStorageComponent.CreateFormGroup(fb);
   }
 

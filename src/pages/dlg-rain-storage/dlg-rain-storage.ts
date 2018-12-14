@@ -16,6 +16,7 @@ export class DlgRainStoragePage {
     this.text = navParams.get('headline');
     this.FormItem.get('category').setValue(this.text);
   }
+  
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
