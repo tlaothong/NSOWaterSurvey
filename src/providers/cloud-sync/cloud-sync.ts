@@ -25,7 +25,11 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + code);
   }
 
-  public setNewUserPassword(payload: any): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', payload);
+  public setNewUserPassword(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', data);
+  }
+
+  public loadAllWorkEA(id: string): Observable<any> {
+    return this.http.get('http://localhost:64184/api/Demo/GetAllWorkByUserID/' + id);
   }
 }

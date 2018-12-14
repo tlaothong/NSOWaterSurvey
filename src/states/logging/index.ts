@@ -8,3 +8,8 @@ export const getUserInformation = createSelector(
     getLoggingFeatureState,
     state => state.userInformation
 );
+
+export const getDataWorkEA = createSelector(
+    getLoggingFeatureState,
+    state => state.dataWorkEA
+);

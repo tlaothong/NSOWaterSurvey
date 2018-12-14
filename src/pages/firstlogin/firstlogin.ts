@@ -1,13 +1,13 @@
 import { Store } from '@ngrx/store'
 import { map } from 'rxjs/operators';
 import { Component } from '@angular/core';
-import { setPassword } from '../../app/models';
-import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { getUserInformation } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SetUserPassword } from '../../states/logging/logging.actions';
+import { SetUserPassword, LoadDataWorkEA } from '../../states/logging/logging.actions';
+import { AlertController } from 'ionic-angular';
+
 
 @IonicPage()
 @Component({
@@ -39,19 +39,20 @@ export class FirstloginPage {
   }
 
   goConfirmloginPage(confirmPassword: any) {
-    var data = new setPassword();
-    var currectPassword = this.f.get('password').value;
-
-    data._idqr = this.f.get('_idqr').value;
-    data.password = this.f.get('password').value;
+    let _idqr = this.f.get('_idqr').value;
+    let password = this.f.get('password').value;
 
     let alert = this.alertCtrl.create({
       message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
       buttons: ['ยืนยัน']
     });
 
-    if (currectPassword == confirmPassword) {
-      this.store.dispatch(new SetUserPassword(data));
+    if (password == confirmPassword) {
+      this.store.dispatch(new SetUserPassword({
+        _idqr,
+        password
+      }));
+      
     } else {
       alert.present()
     }
