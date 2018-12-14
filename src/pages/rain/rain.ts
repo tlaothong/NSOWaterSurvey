@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { RainStorageComponent } from '../../components/rain-storage/rain-storage';
@@ -8,6 +8,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
+import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class RainPage {
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([
         RainStorageComponent.CreateFormGroup(this.fb),
@@ -75,6 +76,7 @@ export class RainPage {
   }
 
   picture() {
-
+    let profileModal = this.modalCtrl.create("DlgRainPicturePage",{});
+    profileModal.present();
   }
 }
