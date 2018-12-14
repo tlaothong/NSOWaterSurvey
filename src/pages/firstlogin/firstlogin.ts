@@ -20,11 +20,8 @@ export class FirstloginPage {
   datauser: any;
   f: FormGroup;
   formConfirm: FormGroup;
-  checkConfirmPassword: boolean;
   private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
-  confirmpassword: string;
   public riceDoing: boolean;
- 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder, private alertCtrl: AlertController) {
     this.f = this.fb.group({
@@ -34,9 +31,6 @@ export class FirstloginPage {
       'name': [null],
       'email': [null],
     });
-
-    this.confirmpassword = '';
-    this.checkConfirmPassword = true;
   }
 
   ionViewDidLoad() {
@@ -47,30 +41,19 @@ export class FirstloginPage {
     this.navCtrl.pop();
   }
 
-  onKey(value: string) {
-    this.confirmpassword = value;
-    if (this.f.get('password').value == this.confirmpassword) {
-      this.checkConfirmPassword = false;
-    } else {
-      this.checkConfirmPassword = true;
-    }
-  }
-
-  goConfirmloginPage() {
+  goConfirmloginPage(confirmPassword: any) {
     var data = new setPassword();
+    var currectPassword = this.f.get('password').value;
 
     data._idqr = this.f.get('_idqr').value;
-    data.idUser = ''
     data.password = this.f.get('password').value;
-    data.name = ''
-    data.email = ''
 
     let alert = this.alertCtrl.create({
       message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
       buttons: ['ยืนยัน']
     });
 
-    if (!this.checkConfirmPassword) {
+    if (currectPassword == confirmPassword) {
       this.store.dispatch(new SetUserPassword(data));
     } else {
       alert.present()
