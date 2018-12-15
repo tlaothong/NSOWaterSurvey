@@ -1,11 +1,7 @@
 <ion-row (click)="showModal()" [formGroup]="FormItem">
 
   <ion-col col-3>
-    <ion-label *ngIf="volumn == 'ลิตร'">
-      {{ text }} ( {{ volumn }} )
-    </ion-label>
-
-    <ion-label *ngIf="volumn != 'ลิตร'">
+    <ion-label>
       {{ text }} ( {{ volumn }} )
     </ion-label>
   </ion-col>
