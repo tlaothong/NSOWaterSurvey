@@ -1,3 +1,4 @@
+import { RicePage } from './../../pages/rice/rice';
 import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
 
 export interface HouseHoldState {
@@ -28,7 +29,11 @@ export interface HouseHoldState {
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
-    riceDoing: any, 
+    riceDoing: any,
+    agiSelectRice: any,
+    agiSelectAgronomy: any,
+    agiSelectRubber: any,
+    agiSelectPerennial: any,
 }
 
 const initialState: HouseHoldState = {
@@ -60,6 +65,11 @@ const initialState: HouseHoldState = {
     ricePlantSelectPlant: [],
     agronomyPlantSelectPlant: [],
     riceDoing: null,
+    agiSelectRice: null,
+    agiSelectAgronomy: null,
+    agiSelectRubber: null,
+    agiSelectPerennial: null,
+
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -142,6 +152,26 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 riceDoing: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectRice:
+            return {
+                ...state,
+                agiSelectRice: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectAgronomy:
+            return {
+                ...state,
+                agiSelectAgronomy: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectRubber:
+            return {
+                ...state,
+                agiSelectRubber: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectPerennial:
+            return {
+                ...state,
+                agiSelectPerennial: action.payload,
             };
         default:
             return state;

@@ -1,6 +1,9 @@
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 @IonicPage()
 @Component({
@@ -12,7 +15,7 @@ export class AgriculturePage {
   private submitRequested: boolean;
   public f: FormGroup;
 
-  constructor(public navCtrl: NavController, public fb: FormBuilder, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": [false, Validators.required],
       'agronomyPlant': [false, Validators.required],
@@ -56,6 +59,20 @@ export class AgriculturePage {
   public handleSubmit() {
     this.submitRequested = true;
     console.log(this.submitRequested);
+    // this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
+    if (this.f.get('ricePlant').value) {
+      this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant').value));
+    }
+    if (this.f.get('agronomyPlant').value) {
+      this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant').value));
+    }
+    if (this.f.get('rubberTree').value) {
+      this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree').value));
+    }
+    if (this.f.get('perennialPlant').value) {
+      this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant').value));
+    }
+    console.log("checkdata", this.f.get('ricePlant').value, this.f.get('agronomyPlant').value, this.f.get('rubberTree').value, this.f.get('perennialPlant').value)
   }
 
   public isValid(name: string): boolean {

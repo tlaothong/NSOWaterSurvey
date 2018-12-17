@@ -21,7 +21,11 @@ export enum HouseHoldTypes {
     SetRubberTreeSelectPlant = "[HH] Set Rubbertree Select Plant",
     SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
-    SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant"
+    SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
+    SetAgiSelectRice = "[HH] Set Agiculture Select Rice",
+    SetAgiSelectAgronomy = "[HH] Set Agiculture Select Agronomy",
+    SetAgiSelectRubber = "[HH] Set Agiculture Select Rubber",
+    SetAgiSelectPerennial = "[HH] Set Agiculture Select Perennial",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -151,6 +155,34 @@ export class SetRiceDoing implements Action {
     }
 }
 
+export class SetAgiSelectRice implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectRice;
+
+    constructor(public payload: any) {
+    }
+}
+
+export class SetAgiSelectAgronomy implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectAgronomy;
+
+    constructor(public payload: any) {
+    }
+}
+
+export class SetAgiSelectRubber implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectRubber;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetAgiSelectPerennial implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectPerennial;
+
+    constructor(public payload: any) {
+    }
+}
+
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -171,5 +203,9 @@ export type HouseHoldActionsType =
     | SetAgronomyPlantSelectPlant
     | SetCommercialServiceType
     | SetRiceDoing
+    | SetAgiSelectRice
+    | SetAgiSelectAgronomy
+    | SetAgiSelectRubber
+    | SetAgiSelectPerennial
     ;
-    
+
