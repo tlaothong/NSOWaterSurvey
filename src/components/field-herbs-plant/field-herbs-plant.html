@@ -56,38 +56,39 @@
       </ion-item>
       <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
 
-      <ion-item>
-        <ion-label>
-          5) ลักษณะการปลูกเป็นแบบใด
-        </ion-label>
-      </ion-item>
-
-      <ion-row radio-group formControlName="thisPlantOnly" [class.invalid]="isValid('thisPlantOnly')">
-        <ion-item *ngIf="isValid('thisPlantOnly')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
+      <div *ngIf="GetAgiSelectRice == 'true' || GetAgiSelectAgronomy == 'true' || GetAgiSelectRubber == 'true' || GetAgiSelectPerennial == 'true'">
         <ion-item>
-          <ion-radio [value]="true" item-left></ion-radio>
           <ion-label>
-            1. แบบปลูกเฉพาะ พืชผัก สมุนไพร
+            5) ลักษณะการปลูกเป็นแบบใด
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-radio [value]="false" item-left></ion-radio>
-          <ion-label>
-            2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่
-          </ion-label>
-        </ion-item>
-      </ion-row>
 
-      <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
-        <div *ngSwitchCase="false">
-          <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1" [FormItem]="FormItem.get('primaryPlant')"></modal-plant>
+        <ion-row radio-group formControlName="thisPlantOnly" [class.invalid]="isValid('thisPlantOnly')">
+          <ion-item *ngIf="isValid('thisPlantOnly')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
+          <ion-item>
+            <ion-radio [value]="true" item-left></ion-radio>
+            <ion-label>
+              1. แบบปลูกเฉพาะ พืชผัก สมุนไพร
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio [value]="false" item-left></ion-radio>
+            <ion-label>
+              2. แบบปลูกปะปนกัน กับพืชชนิดอื่น ได้แก่
+            </ion-label>
+          </ion-item>
+        </ion-row>
+
+        <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
+          <div *ngSwitchCase="false">
+            <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1" [FormItem]="FormItem.get('primaryPlant')"></modal-plant>
+          </div>
         </div>
       </div>
-
       <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'" [FormItem]="FormItem.get('waterSources')"></water-sources9>
 
     </ion-card-content>

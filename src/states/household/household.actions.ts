@@ -158,27 +158,27 @@ export class SetRiceDoing implements Action {
 export class SetAgiSelectRice implements Action {
     readonly type = HouseHoldTypes.SetAgiSelectRice;
 
-    constructor(public payload: any) {
+    constructor(public payload: boolean) {
     }
 }
 
 export class SetAgiSelectAgronomy implements Action {
     readonly type = HouseHoldTypes.SetAgiSelectAgronomy;
 
-    constructor(public payload: any) {
+    constructor(public payload: boolean) {
     }
 }
 
 export class SetAgiSelectRubber implements Action {
     readonly type = HouseHoldTypes.SetAgiSelectRubber;
 
-    constructor(public payload: any) {
+    constructor(public payload: boolean) {
     }
 }
 export class SetAgiSelectPerennial implements Action {
     readonly type = HouseHoldTypes.SetAgiSelectPerennial;
 
-    constructor(public payload: any) {
+    constructor(public payload: boolean) {
     }
 }
 

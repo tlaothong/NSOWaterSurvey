@@ -86,20 +86,20 @@ export const getRiceDoing = createSelector(
 
 export const getAgiSelectRice = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectRice,
 );
 
 export const getAgiSelectAgronomy = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectAgronomy,
 );
 
 export const getAgiSelectRubber = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectRubber,
 );
 
 export const getAgiSelectPerennial = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectPerennial,
 );
