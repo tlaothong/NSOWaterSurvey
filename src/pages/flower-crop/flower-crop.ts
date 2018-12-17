@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources } from '../../states/household/household.actions';
 
@@ -27,11 +27,19 @@ export class FlowerCropPage {
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
   private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
+  private getAgiSelectRice$ = this.store.select(getAgiSelectRice);
+  private getAgiSelectAgronomy$ = this.store.select(getAgiSelectAgronomy);
+  private getAgiSelectRubber$ = this.store.select(getAgiSelectRubber);
+  private getAgiSelectPerennial$ = this.store.select(getAgiSelectPerennial);
   public listDryCropData: any = [];
   public listPerenialData: any = [];
   public listRiceData: any = [];
   public listRubberData: any = [];
   public listSumData: any = [];
+  public getAgiSelectRice:boolean;
+  public getAgiSelectAgronomy:boolean;
+  public getAgiSelectRubber:boolean;
+  public getAgiSelectPerennial:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
@@ -52,6 +60,10 @@ export class FlowerCropPage {
     this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
     this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
+    this.getAgiSelectRice$.subscribe(data => this.getAgiSelectRice = data);
+    this.getAgiSelectAgronomy$.subscribe(data => this.getAgiSelectAgronomy = data);
+    this.getAgiSelectRubber$.subscribe(data => this.getAgiSelectRubber = data);
+    this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
     this.listSumData = sum;
     console.log('listSumData');
     console.log(this.listSumData);

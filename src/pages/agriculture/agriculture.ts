@@ -1,4 +1,4 @@
-import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial } from './../../states/household/household.actions';
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
@@ -60,18 +60,16 @@ export class AgriculturePage {
     this.submitRequested = true;
     console.log(this.submitRequested);
     // this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    if (this.f.get('ricePlant').value) {
       this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant').value));
-    }
-    if (this.f.get('agronomyPlant').value) {
       this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant').value));
-    }
-    if (this.f.get('rubberTree').value) {
       this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree').value));
-    }
-    if (this.f.get('perennialPlant').value) {
       this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant').value));
-    }
+      this.store.dispatch(new SetAgiSelectHerbPlant(this.f.get('herbsPlant').value));
+      this.store.dispatch(new SetAgiSelectFlowerCrop(this.f.get('flowerCrop').value));
+      this.store.dispatch(new SetAgiSelectMushroomPlant(this.f.get('mushroomPlant').value));
+      this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm').value));
+      this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
+    
     console.log("checkdata", this.f.get('ricePlant').value, this.f.get('agronomyPlant').value, this.f.get('rubberTree').value, this.f.get('perennialPlant').value)
   }
 

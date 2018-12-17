@@ -86,20 +86,42 @@ export const getRiceDoing = createSelector(
 
 export const getAgiSelectRice = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectRice,
 );
 
 export const getAgiSelectAgronomy = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectAgronomy,
 );
 
 export const getAgiSelectRubber = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectRubber,
 );
 
 export const getAgiSelectPerennial = createSelector(
     getHouseHoldFeatureState,
-    state => state.riceDoing,
+    state => state.agiSelectPerennial,
 );
+
+export const getAgiSelectHerbPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectHerbsPlant,
+);
+export const getAgiSelectFlowerCrop = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectFlowerCrop,
+);
+export const getAgiSelectMushroomPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectMushroomPlant,
+);
+export const getAgiSelectAnimalFarm = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectAnimalFarm,
+);
+export const getAgiSelectAquaticAnimals = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectAquaticAnimals,
+);
+

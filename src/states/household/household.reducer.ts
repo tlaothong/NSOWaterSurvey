@@ -34,6 +34,11 @@ export interface HouseHoldState {
     agiSelectAgronomy: any,
     agiSelectRubber: any,
     agiSelectPerennial: any,
+    agiSelectHerbsPlant: any,
+    agiSelectFlowerCrop: any,
+    agiSelectMushroomPlant: any,
+    agiSelectAnimalFarm: any,
+    agiSelectAquaticAnimals: any
 }
 
 const initialState: HouseHoldState = {
@@ -69,6 +74,11 @@ const initialState: HouseHoldState = {
     agiSelectAgronomy: null,
     agiSelectRubber: null,
     agiSelectPerennial: null,
+    agiSelectHerbsPlant: null,
+    agiSelectFlowerCrop: null,
+    agiSelectMushroomPlant: null,
+    agiSelectAnimalFarm: null,
+    agiSelectAquaticAnimals: null
 
 };
 
@@ -172,6 +182,31 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 agiSelectPerennial: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectHerbPlant:
+            return {
+                ...state,
+                agiSelectHerbsPlant: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectFlowerCrop:
+            return {
+                ...state,
+                agiSelectFlowerCrop: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectMushroomPlant:
+            return {
+                ...state,
+                agiSelectMushroomPlant: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectAnimalFarm:
+            return {
+                ...state,
+                agiSelectAnimalFarm: action.payload,
+            };
+        case HouseHoldTypes.SetAgiSelectAquaticAnimals:
+            return {
+                ...state,
+                agiSelectAquaticAnimals: action.payload,
             };
         default:
             return state;

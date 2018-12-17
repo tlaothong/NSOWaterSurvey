@@ -21,6 +21,10 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(WaterSources9Component) private waterSource9: WaterSources9Component[];
+  @Input('agiselectrice') public getAgiSelectRice: boolean;
+  @Input('agiselectagronomy') public getAgiSelectAgronomy: boolean;
+  @Input('agiselectrubber') public getAgiSelectRubber: boolean;
+  @Input('agiselectperennial') public getAgiSelectPerennial: boolean;
   private submitRequested: boolean;
   public shownData = EX_TREEDOK_LIST;
 

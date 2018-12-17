@@ -16,6 +16,10 @@ export class FieldHerbsPlantComponent {
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
   @Input() public forwardListPlant: any = [];
+  @Input('agiselectrice') public getAgiSelectRice: boolean;
+  @Input('agiselectagronomy') public getAgiSelectAgronomy: boolean;
+  @Input('agiselectrubber') public getAgiSelectRubber: boolean;
+  @Input('agiselectperennial') public getAgiSelectPerennial: boolean;
   public shownData = EX_TREEVET_LIST;
   private submitRequested: boolean;
 
