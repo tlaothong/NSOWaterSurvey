@@ -20,9 +20,7 @@ export class WaterActivityUnitPage {
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
-    this.f = UnitButtonComponent.CreateFormGroup(this.fb);
-    const dataIn = navParams.get('FormItem') as FormGroup;
-    this.f.setValue(dataIn.value);
+    this.f = navParams.get('FormItem');
   }
 
   ionViewDidLoad() {

@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -13,7 +13,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 export class DlgUnitPage {
   public submitRequested: boolean;
   public FormItem: FormGroup;
-  
+
   public index: number;
   public access: number;
   public comment: string = '';
@@ -23,10 +23,8 @@ export class DlgUnitPage {
   private fgcm: FormArray;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
-    this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
-    const dataIn = navParams.get('FormItem') as FormGroup;
-    this.FormItem.setValue(dataIn.value);
-    
+    this.FormItem = navParams.get('FormItem');
+
     this.setEnvironment();
   }
 
@@ -44,7 +42,7 @@ export class DlgUnitPage {
       this.setAccesses();
       this.viewCtrl.dismiss(this.FormItem);
       if (this.access == 1) {
-        this.navCtrl.push("WaterActivityUnitPage")
+        this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
       }
     }
   }
@@ -61,11 +59,12 @@ export class DlgUnitPage {
   }
 
   public setEnvironment() {
+    this.count = this.FormItem.get('subUnit.accessCount').value;
+    this.index = this.count - 1;
+
     this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
     this.fgcm = this.FormItem.get('comments') as FormArray;
 
-    this.index = this.FormItem.get('subUnit.accessCount').value;
-    this.count = this.index + 1;
     this.access = this.fgac.at(this.index).value;
     this.comment = this.fgcm.at(this.index).value.text;
   }
