@@ -103,3 +103,25 @@ export const getAgiSelectPerennial = createSelector(
     getHouseHoldFeatureState,
     state => state.agiSelectPerennial,
 );
+
+export const getAgiSelectHerbPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectHerbsPlant,
+);
+export const getAgiSelectFlowerCrop = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectFlowerCrop,
+);
+export const getAgiSelectMushroomPlant = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectMushroomPlant,
+);
+export const getAgiSelectAnimalFarm = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectAnimalFarm,
+);
+export const getAgiSelectAquaticAnimals = createSelector(
+    getHouseHoldFeatureState,
+    state => state.agiSelectAquaticAnimals,
+);
+

@@ -26,6 +26,12 @@ export enum HouseHoldTypes {
     SetAgiSelectAgronomy = "[HH] Set Agiculture Select Agronomy",
     SetAgiSelectRubber = "[HH] Set Agiculture Select Rubber",
     SetAgiSelectPerennial = "[HH] Set Agiculture Select Perennial",
+    SetAgiSelectHerbPlant = "[HH] Set Agiculture Select HerbPlant",
+    SetAgiSelectFlowerCrop = "[HH] Set Agiculture Select FlowerCrop ",
+    SetAgiSelectMushroomPlant = "[HH] Set Agiculture Select MushroomPlant",
+    SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
+    SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
+
 }
 
 export class LoadHouseHoldList implements Action {
@@ -175,13 +181,44 @@ export class SetAgiSelectRubber implements Action {
     constructor(public payload: any) {
     }
 }
+
 export class SetAgiSelectPerennial implements Action {
     readonly type = HouseHoldTypes.SetAgiSelectPerennial;
 
     constructor(public payload: any) {
     }
 }
+export class SetAgiSelectHerbPlant implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectHerbPlant;
 
+    constructor(public payload: any) {
+    }
+}
+
+export class SetAgiSelectFlowerCrop implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectFlowerCrop;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetAgiSelectMushroomPlant implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectMushroomPlant;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetAgiSelectAnimalFarm implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectAnimalFarm;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetAgiSelectAquaticAnimals implements Action {
+    readonly type = HouseHoldTypes.SetAgiSelectAquaticAnimals;
+
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -207,5 +244,10 @@ export type HouseHoldActionsType =
     | SetAgiSelectAgronomy
     | SetAgiSelectRubber
     | SetAgiSelectPerennial
+    | SetAgiSelectHerbPlant
+    | SetAgiSelectFlowerCrop
+    | SetAgiSelectMushroomPlant
+    | SetAgiSelectAnimalFarm
+    | SetAgiSelectAquaticAnimals
     ;
 
