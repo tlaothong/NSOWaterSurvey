@@ -60,18 +60,11 @@ export class AgriculturePage {
     this.submitRequested = true;
     console.log(this.submitRequested);
     // this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    if (this.f.get('ricePlant').value) {
       this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant').value));
-    }
-    if (this.f.get('agronomyPlant').value) {
       this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant').value));
-    }
-    if (this.f.get('rubberTree').value) {
       this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree').value));
-    }
-    if (this.f.get('perennialPlant').value) {
       this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant').value));
-    }
+    
     console.log("checkdata", this.f.get('ricePlant').value, this.f.get('agronomyPlant').value, this.f.get('rubberTree').value, this.f.get('perennialPlant').value)
   }
 

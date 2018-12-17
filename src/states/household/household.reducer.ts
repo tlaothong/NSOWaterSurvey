@@ -30,10 +30,10 @@ export interface HouseHoldState {
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
     riceDoing: any,
-    agiSelectRice: boolean,
-    agiSelectAgronomy: boolean,
-    agiSelectRubber: boolean,
-    agiSelectPerennial: boolean,
+    agiSelectRice: any,
+    agiSelectAgronomy: any,
+    agiSelectRubber: any,
+    agiSelectPerennial: any,
 }
 
 const initialState: HouseHoldState = {
