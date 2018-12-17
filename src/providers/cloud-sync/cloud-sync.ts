@@ -29,7 +29,7 @@ export class CloudSyncProvider {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', data);
   }
 
-  public loadAllWorkEA(id: string): Observable<any> {
-    return this.http.get('http://localhost:64184/api/Demo/GetAllWorkByUserID/' + id);
+  public loadAllWorkEA(obj: any): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllWorkByIDUser/' + obj.idUser);
   }
 }

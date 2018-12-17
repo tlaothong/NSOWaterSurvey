@@ -20,11 +20,11 @@ export class ConfirmloginPage {
 
   constructor(private fb: FormBuilder, private navCtrl: NavController, private store: Store<LoggingState>) {
     this.fg = fb.group({
-      '_idqr': [null],
-      'idUser': [null],
-      'password': [null],
-      'name': [null],
-      'email': [null]
+      '_idqr': null,
+      'idUser': null,
+      'password': null,
+      'name': null,
+      'email': null
     });
   }
 

@@ -2,12 +2,12 @@ import { Action } from '@ngrx/store';
 
 export enum LoggingTypes {
     StateName = "Logging",
-    LoadUserInformation = "[L] Load User Information",
-    LoadUserInformationSuccess = "[L] Loaded User Information Success",
-    SetUserPassword = "[L] Set User Password",
-    SetUserPasswordSuccess = "[L] Set User Password Success",    
     LoadDataWorkEA = "[L] Load Data Work EA",
+    SetUserPassword = "[L] Set User Password",
+    LoadUserInformation = "[L] Load User Information",
     LoadDataWorkEASuccess = "[L] Load Data Work EA Success",
+    SetUserPasswordSuccess = "[L] Set User Password Success",    
+    LoadUserInformationSuccess = "[L] Loaded User Information Success",
 }
 
 export class LoadUserInformation implements Action {
@@ -33,14 +33,12 @@ export class SetUserPasswordSuccess implements Action {
 
 export class LoadDataWorkEA implements Action {
     readonly type = LoggingTypes.LoadDataWorkEA;
-    constructor(public payload: string) { }
+    constructor(public payload: any) { }
 }
 
 export class LoadDataWorkEASuccess implements Action {
     readonly type = LoggingTypes.LoadDataWorkEASuccess;
-
-    constructor(public payload: any[]) {
-    }
+    constructor(public payload: any) { }
 }
 
 export type LoggingActionsType =
