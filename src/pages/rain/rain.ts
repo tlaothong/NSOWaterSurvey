@@ -45,6 +45,7 @@ export class RainPage {
         RainStorageComponent.CreateFormGroup(this.fb),
         RainStorageComponent.CreateFormGroup(this.fb),
         RainStorageComponent.CreateFormGroup(this.fb),
+        RainStorageComponent.CreateFormGroup(this.fb),
       ]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
     });

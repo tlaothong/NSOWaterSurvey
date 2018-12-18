@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <ion-card>
+  <ion-card *ngIf="residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'">
     <ion-card-content>
       <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
         residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="5)

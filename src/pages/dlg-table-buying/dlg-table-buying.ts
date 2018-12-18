@@ -21,7 +21,6 @@ export class DlgTableBuyingPage {
     this.volumn = navParams.get("volumn");
     console.log(this.volumn);
     console.log(this.size);
-    this.FormItem.get('size').setValue(this.size);
   }
 
   public closeDialog() {
@@ -34,6 +33,9 @@ export class DlgTableBuyingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgTableBuyingPage');
+    if (this.FormItem.get('size').invalid) {
+      this.FormItem.get('size').setValue(this.size);
+    }
   }
 
   public isValid(name: string): boolean {
