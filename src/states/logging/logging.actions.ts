@@ -2,12 +2,15 @@ import { Action } from '@ngrx/store';
 
 export enum LoggingTypes {
     StateName = "Logging",
-    LoadDataWorkEA = "[L] Load Data Work EA",
     SetUserPassword = "[L] Set User Password",
-    LoadUserInformation = "[L] Load User Information",
     LoadDataWorkEASuccess = "[L] Load Data Work EA Success",
-    SetUserPasswordSuccess = "[L] Set User Password Success",    
+    LoadDataWorkEA = "[L] Load Data Work EA",
+    SetUserPasswordSuccess = "[L] Set User Password Success",
+    LoadUserInformation = "[L] Load User Information",
     LoadUserInformationSuccess = "[L] Loaded User Information Success",
+    LoadCountOfWorks = "[L] Load Count of Works",
+    LoadCountOfWorksSuccess = "[L] Load Count of Works Success",
+
 }
 
 export class LoadUserInformation implements Action {
@@ -40,6 +43,15 @@ export class LoadDataWorkEASuccess implements Action {
     readonly type = LoggingTypes.LoadDataWorkEASuccess;
     constructor(public payload: any) { }
 }
+export class LoadCountOfWorks implements Action {
+    readonly type = LoggingTypes.LoadCountOfWorks;
+    constructor(public payload: string) { }
+}
+
+export class LoadCountOfWorksSuccess implements Action {
+    readonly type = LoggingTypes.LoadCountOfWorksSuccess;
+    constructor(public payload: any) { }
+}
 
 export type LoggingActionsType =
     LoadUserInformationSuccess
@@ -48,4 +60,6 @@ export type LoggingActionsType =
     | SetUserPasswordSuccess
     | LoadDataWorkEA
     | LoadDataWorkEASuccess
+    | LoadCountOfWorks
+    | LoadCountOfWorksSuccess
     ;

@@ -1,0 +1,25 @@
+<ion-row text-center align-items-center>
+  <ion-col col-2>
+    {{FormItem.get('province').value}}
+  </ion-col>
+  <ion-col col-2>
+    {{FormItem.get('district').value}}
+  </ion-col>
+  <ion-col col-2>
+    {{FormItem.get('subDistrict').value}}
+  </ion-col>
+  <ion-col col-2>
+    {{FormItem.get('administrative').value}}
+  </ion-col>
+  <ion-col col-2>
+    {{FormItem.get('municipalities').value}}
+  </ion-col>
+  <ion-col col-1>
+    {{FormItem.get('idEA').value}}
+  </ion-col>
+  <ion-col col-1>
+    <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage()">
+      เลือก
+    </button>
+  </ion-col>
+</ion-row>

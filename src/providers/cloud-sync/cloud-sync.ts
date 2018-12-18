@@ -32,4 +32,8 @@ export class CloudSyncProvider {
   public loadAllWorkEA(obj: any): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllWorkByIDUser/' + obj.idUser);
   }
+  
+  public loadCountOfWorkEA(obj: any): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountWorkByIDUser/' + obj.idUser);
+  }
 }
