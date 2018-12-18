@@ -13,3 +13,8 @@ export const getDataWorkEA = createSelector(
     getLoggingFeatureState,
     state => state.dataWorkEA
 );
+
+export const getCountOfaWorkEA = createSelector(
+    getLoggingFeatureState,
+    state => state.countOfWorks
+);

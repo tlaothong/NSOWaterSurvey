@@ -27,7 +27,7 @@ export class ScanqrPage {
 
   goFirstLogin() {
     this.qrCode = "a8445b5d-f846-4084-bd9f-e1b089bed430";
-    this.store.dispatch(new LoadUserInformation(this.qrCode))
+    this.store.dispatch(new LoadUserInformation(this.qrCode));
   }
 
   goBack() {

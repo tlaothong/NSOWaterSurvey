@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess } from "./logging.actions";
+import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess } from "./logging.actions";
 
 @Injectable()
 export class LoggingEffects {
@@ -35,6 +35,14 @@ export class LoggingEffects {
         ofType(LoggingTypes.LoadDataWorkEA),
         mergeMap(action => this.cloudSync.loadAllWorkEA((<LoadDataWorkEA>action).payload).pipe(
             map(data => new LoadDataWorkEASuccess(data))
+        ))
+    );
+
+    @Effect()
+    public LoadCountOfWorks: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadCountOfWorks),
+        mergeMap(action => this.cloudSync.loadCountOfWorkEA((<LoadDataWorkEA>action).payload).pipe(
+            map(data => new LoadCountOfWorksSuccess(data))
         ))
     );
 }
