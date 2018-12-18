@@ -11,12 +11,12 @@ export class DlgRainStoragePage {
   public FormItem: FormGroup;
   public text: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get('headline');
-    this.FormItem.get('category').setValue(this.text);
+    console.log(this.FormItem.get('category').value);
   }
-  
+
   public closeDialog() {
     this.viewCtrl.dismiss();
   }
@@ -27,6 +27,9 @@ export class DlgRainStoragePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgRainStoragePage');
+    if (this.FormItem.get('category').invalid) {
+      this.FormItem.get('category').setValue(this.text);
+    }
   }
 
   public isValid(name: string): boolean {

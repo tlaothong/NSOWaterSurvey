@@ -16,7 +16,18 @@
         </ion-item>
         <ion-item>
           <ion-input *ngIf="text != ''" type="text" formControlName="category" [disabled]=true></ion-input>
-          <ion-input *ngIf="text == ''" type="text" formControlName="category" [class.invalid]="isValid('category')"></ion-input>
+
+          <!-- <ion-input *ngIf="text == ''" type="text" formControlName="category" [class.invalid]="isValid('category')"></ion-input> -->
+          <ion-label *ngIf="text == ''">ชนิด</ion-label>
+          <ion-select *ngIf="text == ''" formControlName="category" interface="action-sheet">
+            <ion-option value="แท้งค์น้ำ สแตนเลส">1. แท้งค์น้ำ สแตนเลส</ion-option>
+            <ion-option value="แท้งค์น้ำ โพลิเมอร์/พลาสติก">2. แท้งค์น้ำ โพลิเมอร์/พลาสติก</ion-option>
+            <ion-option value="แท้งค์น้ำ ไฟเบอร์กลาส">3. แท้งค์น้ำ ไฟเบอร์กลาส'</ion-option>
+            <ion-option value="แท้งค์น้ำ ปูน/ซีเมนต์">4. แท้งค์น้ำ ปูน/ซีเมนต์</ion-option>
+            <ion-option value="โอ่ง ปูน/ดินเผา">5. โอ่ง ปูน/ดินเผา</ion-option>
+            <ion-option value="ถัง โพลิเมอร์/พลาสติก">6. ถัง โพลิเมอร์/พลาสติก</ion-option>
+          </ion-select>
+
         </ion-item>
       </ion-col>
 
@@ -36,7 +47,8 @@
           กรุณาเลือก
         </span>
       </ion-item>
-      <ion-item *ngIf="text == '1. แท้งค์น้ำ สแตนเลส'" [class.invalid]="isValid('size')">
+      <ion-item *ngIf="text == 'แท้งค์น้ำ สแตนเลส' || FormItem.get('category').value == 'แท้งค์น้ำ สแตนเลส' "
+        [class.invalid]="isValid('size')">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
           <ion-option>100 - 1,000</ion-option>
@@ -45,7 +57,8 @@
           <ion-option>10,000 - 15,000</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == '2. แท้งค์น้ำ โพลิเมอร์/พลาสติก'" [class.invalid]="isValid('size')">
+      <ion-item *ngIf="text == 'แท้งค์น้ำ โพลิเมอร์/พลาสติก' || FormItem.get('category').value == 'แท้งค์น้ำ โพลิเมอร์/พลาสติก'"
+        [class.invalid]="isValid('size')">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
           <ion-option>100 - 1,000</ion-option>
@@ -54,7 +67,8 @@
           <ion-option>10,000 - 15,000</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == '3. แท้งค์น้ำ ไฟเบอร์กลาส'" [class.invalid]="isValid('size')">
+      <ion-item *ngIf="text == 'แท้งค์น้ำ ไฟเบอร์กลาส' || FormItem.get('category').value == 'แท้งค์น้ำ ไฟเบอร์กลาส'"
+        [class.invalid]="isValid('size') ">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
           <ion-option>500 - 1,000</ion-option>
@@ -64,7 +78,8 @@
           <ion-option>15,000 - 20,000</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == '4. แท้งค์น้ำ ปูน/ซีเมนต์'" [class.invalid]="isValid('size')">
+      <ion-item *ngIf="text == 'แท้งค์น้ำ ปูน/ซีเมนต์' || FormItem.get('category').value == 'แท้งค์น้ำ ปูน/ซีเมนต์'"
+        [class.invalid]="isValid('size')">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
           <ion-option>5,000 - 10,000</ion-option>
@@ -74,7 +89,8 @@
           <ion-option>40,000 - 50,000</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == '5. โอ่ง ปูน/ดินเผา'" [class.invalid]="isValid('size')">
+      <ion-item *ngIf="text == 'โอ่ง ปูน/ดินเผา' || FormItem.get('category').value == 'โอ่ง ปูน/ดินเผา'"
+        [class.invalid]="isValid('size')">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
           <ion-option>50 - 300</ion-option>
@@ -82,16 +98,17 @@
           <ion-option>1,000 - 2,000</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == '6. ถัง โพลิเมอร์/พลาสติก'" [class.invalid]="isValid('size')">
+      <ion-item *ngIf="text == 'ถัง โพลิเมอร์/พลาสติก' || FormItem.get('category').value == 'ถัง โพลิเมอร์/พลาสติก'"
+        [class.invalid]="isValid('size')">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
           <ion-option>50 - 200</ion-option>
           <ion-option>200 - 300</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == ''">
+      <!-- <ion-item *ngIf="text == ''">
         <ion-input  type="number" formControlName="size" [class.invalid]="isValid('size')"></ion-input>
-      </ion-item>
+      </ion-item> -->
     </ion-row>
 
     <ion-row>

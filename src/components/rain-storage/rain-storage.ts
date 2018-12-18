@@ -9,6 +9,7 @@ import { FormGroup,FormBuilder ,Validators} from '@angular/forms';
 export class RainStorageComponent {
   
   @Input("headline") private text: string;
+  @Input("no") private no: string;
   @Input() public FormItem: FormGroup;
   private submitRequested : boolean;
 
