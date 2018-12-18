@@ -47,9 +47,9 @@
                   1.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
                 <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('mwa.plumbingUsage')">
+                  <ion-item *ngIf="isValid('mwa.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
@@ -162,9 +162,9 @@
                   2.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('pwa.plumbingUsage')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('pwa.plumbingUsage.waterQuantity')">
                 <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('pwa.plumbingUsage')">
+                  <ion-item *ngIf="isValid('pwa.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
@@ -277,9 +277,9 @@
                   3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
                 <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('other.plumbingUsage')">
+                  <ion-item *ngIf="isValid('other.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
