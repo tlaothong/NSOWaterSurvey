@@ -56,8 +56,6 @@ export class UnitButtonComponent {
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
-    console.log(this.FormItem.value);
-    
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -139,7 +137,7 @@ export class UnitButtonComponent {
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
   }
-
+  
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
