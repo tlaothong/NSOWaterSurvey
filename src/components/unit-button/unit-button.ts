@@ -65,7 +65,7 @@ export class UnitButtonComponent {
       'buildingId': [null, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
-        'accessCount': [null],
+        'accessCount': [null, Validators.required],
         'accesses': fb.array([]),
         'hasPlumbing': [null, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
@@ -85,7 +85,7 @@ export class UnitButtonComponent {
       'waterUsage': [null, Validators.required],
       'disaster': [null, Validators.required],
       'closing': [null, Validators.required],
-      'recCtrl': [null, Validators.required],
+      'recCtrl': [null],
       'population': [null, Validators.required]
     });
   }
@@ -137,7 +137,7 @@ export class UnitButtonComponent {
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
   }
-
+  
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
