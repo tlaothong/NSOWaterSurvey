@@ -57,6 +57,8 @@
           </div>
         </div>
 
+        <div [ngSwitch]="f.get('hasCubicMeterPerMonth').value">
+            <div *ngSwitchCase="false">
         <ion-item>
           <ion-label>
             5.5.2 ใช้เครื่องสูบน้ำเพื่อสูบน้ำมาใช้หรือไม่
@@ -82,6 +84,8 @@
             </ion-label>
           </ion-item>
         </ion-row>
+        </div>
+        </div>
 
         <div [ngSwitch]="f.get('hasPump').value">
           <div *ngSwitchCase="true">
@@ -110,14 +114,12 @@
       </div>
     </div>
 
-    <ion-card>
+    <ion-card *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
       <ion-card-content>
-        <div *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
-          <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-            residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [headline]="'5) ใช้น้ำจากชลประทาน เพื่อทำกิจกรรม ใดบ้างคิดเป็นสัดส่วนเท่าไร'"
-            [FormItem]="f.get('waterActivities')"></water-activity6>
-          <water-problem4 [headline]="'6) มีปัญหาคุณภาพน้ำ หรือไม่'" [FormItem]="f.get('qualityProblem')"></water-problem4>
-        </div>
+        <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [headline]="'5) ใช้น้ำจากชลประทาน เพื่อทำกิจกรรม ใดบ้างคิดเป็นสัดส่วนเท่าไร'"
+          [FormItem]="f.get('waterActivities')"></water-activity6>
+        <water-problem4 [headline]="'6) มีปัญหาคุณภาพน้ำ หรือไม่'" [FormItem]="f.get('qualityProblem')"></water-problem4>
       </ion-card-content>
     </ion-card>
 
