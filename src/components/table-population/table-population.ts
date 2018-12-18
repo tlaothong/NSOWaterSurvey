@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,9 +10,10 @@ export class TablePopulationComponent {
 
   @Input('no') public personNo: string;
   @Input() public FormItem: FormGroup;
+  // @Input('nameTitle') public nameTitle: FormGroup;
   private submitRequested: boolean;
 
-  constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
+  constructor(public modalCtrl: ModalController, public fb: FormBuilder, public navParams: NavParams) {
     this.FormItem = TablePopulationComponent.CreateFormGroup(fb);
   }
 
@@ -30,14 +31,15 @@ export class TablePopulationComponent {
       'otherProvince': [null],
     });
     return fg
+
   }
 
   presentModal() {
     const modal = this.modalCtrl.create("DlgPopulationPage",
-    {
-      FormItem: this.FormItem,
-      iTitle: this.personNo
-    });
+      {
+        FormItem: this.FormItem,
+        iTitle: this.personNo
+      });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
@@ -46,7 +48,7 @@ export class TablePopulationComponent {
     });
     modal.present();
   }
-  
+
   submitRequest() {
     this.submitRequested = true;
   }

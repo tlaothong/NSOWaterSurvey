@@ -20,6 +20,7 @@ export class DlgPopulationPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgPopulationPage');
+    
   }
 
   public closeDialog() {
@@ -30,6 +31,7 @@ export class DlgPopulationPage {
     this.submitRequested = true;
     if (this.FormItem.valid) {
       this.viewCtrl.dismiss(this.FormItem);
+      console.log(this.FormItem)
     }
   }
 
