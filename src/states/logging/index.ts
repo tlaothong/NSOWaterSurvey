@@ -18,3 +18,8 @@ export const getCountOfaWorkEA = createSelector(
     getLoggingFeatureState,
     state => state.countOfWorks
 );
+
+export const getWorkEAbyIdEA = createSelector(
+    getLoggingFeatureState,
+    state => state.getWorkEA
+);

@@ -26,8 +26,15 @@ export class ScanqrPage {
   }
 
   goFirstLogin() {
-    this.qrCode = "a8445b5d-f846-4084-bd9f-e1b089bed430";
+    this.qrCode = "a1dde9b8-b281-44bf-8d43-d9adf55206a4";
     this.store.dispatch(new LoadUserInformation(this.qrCode));
+    console.log(this.formData$.subscribe(
+      data => {
+        if (data != null) {
+          console.log("Done");
+        }
+      }
+    ));
   }
 
   goBack() {

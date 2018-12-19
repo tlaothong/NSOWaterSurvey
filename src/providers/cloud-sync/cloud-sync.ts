@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CloudSyncProvider {
+    LoadWorkByIdEASuccess(payload: any): any {
+        throw new Error("Method not implemented.");
+    }
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
@@ -32,8 +35,12 @@ export class CloudSyncProvider {
   public loadAllWorkEA(obj: any): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllWorkByIDUser/' + obj.idUser);
   }
-  
+
   public loadCountOfWorkEA(obj: any): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountWorkByIDUser/' + obj.idUser);
+  }
+
+  public loadWorkEAbyIdEA(idEA: string): Observable<any> {
+    return this.http.get('http://localhost:53546/api/Demo/GetWorkByIdEA/' + idEA);
   }
 }

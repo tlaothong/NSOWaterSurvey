@@ -10,6 +10,8 @@ export enum LoggingTypes {
     LoadUserInformationSuccess = "[L] Loaded User Information Success",
     LoadCountOfWorks = "[L] Load Count of Works",
     LoadCountOfWorksSuccess = "[L] Load Count of Works Success",
+    LoadWorkByIdEA = "[L] Load Select Data WorkEA",
+    LoadWorkByIdEASuccess = "[L] Load Select Data WorkEA Success"
 
 }
 
@@ -17,28 +19,22 @@ export class LoadUserInformation implements Action {
     readonly type = LoggingTypes.LoadUserInformation;
     constructor(public payload: string) { }
 }
-
 export class LoadUserInformationSuccess implements Action {
     readonly type = LoggingTypes.LoadUserInformationSuccess;
     constructor(public payload: any) { }
 }
-
 export class SetUserPassword implements Action {
     readonly type = LoggingTypes.SetUserPassword;
     constructor(public payload: any) { }
 }
-
-
 export class SetUserPasswordSuccess implements Action {
     readonly type = LoggingTypes.SetUserPasswordSuccess;
     constructor() { }
 }
-
 export class LoadDataWorkEA implements Action {
     readonly type = LoggingTypes.LoadDataWorkEA;
     constructor(public payload: any) { }
 }
-
 export class LoadDataWorkEASuccess implements Action {
     readonly type = LoggingTypes.LoadDataWorkEASuccess;
     constructor(public payload: any) { }
@@ -47,9 +43,17 @@ export class LoadCountOfWorks implements Action {
     readonly type = LoggingTypes.LoadCountOfWorks;
     constructor(public payload: string) { }
 }
-
 export class LoadCountOfWorksSuccess implements Action {
     readonly type = LoggingTypes.LoadCountOfWorksSuccess;
+    constructor(public payload: any) { }
+}
+export class LoadWorkByIdEA implements Action {
+    readonly type = LoggingTypes.LoadWorkByIdEA;
+    constructor(public payload: string) { }
+
+}
+export class LoadWorkByIdEASuccess implements Action {
+    readonly type = LoggingTypes.LoadWorkByIdEASuccess;
     constructor(public payload: any) { }
 }
 
@@ -62,4 +66,6 @@ export type LoggingActionsType =
     | LoadDataWorkEASuccess
     | LoadCountOfWorks
     | LoadCountOfWorksSuccess
+    | LoadWorkByIdEA
+    | LoadWorkByIdEASuccess
     ;
