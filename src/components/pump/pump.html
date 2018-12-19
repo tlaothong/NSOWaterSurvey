@@ -151,6 +151,12 @@
           </ion-label>
         </ion-item>
 
+        <ion-item *ngIf="isValid('pumpType')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
+        </ion-item>
+
         <ion-item [class.invalid]="isValid('pumpType')">
           <ion-label>
             ชนิดเครื่องสูบ
@@ -185,17 +191,19 @@
             </ion-option>
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="isValid('pumpType')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
 
         <ion-item>
           <ion-label>
             7) ขนาดวัตต์/แรงม้าเท่าไร
           </ion-label>
         </ion-item>
+
+        <ion-item *ngIf="isValid('horsePower')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
+        </ion-item>
+
         <ion-item [class.invalid]="isValid('horsePower')">
           <ion-label>
             วัตต์/ขนาดแรงม้า
@@ -546,19 +554,19 @@
             <ion-option [value]="117">
               >110000 / >150
             </ion-option>
-
           </ion-select>
-        </ion-item>
-        <ion-item *ngIf="isValid('horsePower')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
         </ion-item>
 
         <ion-item>
           <ion-label>
             8) ขนาดท่อดูดเท่าไร (นิ้ว)
           </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="isValid('suctionPipeSize')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
         </ion-item>
 
         <ion-item [class.invalid]="isValid('suctionPipeSize')">
@@ -643,17 +651,19 @@
             </ion-option>
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="isValid('suctionPipeSize')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
 
         <ion-item>
           <ion-label>
             9) ขนาดท่อส่งเท่าไร (นิ้ว)
           </ion-label>
         </ion-item>
+
+        <ion-item *ngIf="isValid('pipelineSize')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
+        </ion-item>
+
         <ion-item [class.invalid]="isValid('pipelineSize')">
           <ion-label>
             ขนาดท่อส่ง
@@ -756,11 +766,6 @@
               1
             </ion-option>
           </ion-select>
-        </ion-item>
-        <ion-item *ngIf="isValid('pipelineSize')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
         </ion-item>
       </div>
     </div>

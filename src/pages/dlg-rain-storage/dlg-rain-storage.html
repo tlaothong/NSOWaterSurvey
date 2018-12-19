@@ -14,10 +14,14 @@
         <ion-item>
           <ion-label>ชนิด</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-input *ngIf="text != ''" type="text" formControlName="category" [disabled]=true></ion-input>
 
-          <!-- <ion-input *ngIf="text == ''" type="text" formControlName="category" [class.invalid]="isValid('category')"></ion-input> -->
+        <ion-item *ngIf="isValid('category')">
+          <span class="invalid-msg">
+            กรุณาเลือก
+          </span>
+        </ion-item>
+        <ion-item [class.invalid]="isValid('category')">
+          <ion-input *ngIf="text != ''" type="text" formControlName="category" [disabled]=true></ion-input>
           <ion-label *ngIf="text == ''">ชนิด</ion-label>
           <ion-select *ngIf="text == ''" formControlName="category" interface="action-sheet">
             <ion-option value="แท้งค์น้ำ สแตนเลส">1. แท้งค์น้ำ สแตนเลส</ion-option>
@@ -30,12 +34,6 @@
 
         </ion-item>
       </ion-col>
-
-      <ion-item *ngIf="isValid('category')">
-        <span class="invalid-msg">
-          กรุณาเลือก
-        </span>
-      </ion-item>
     </ion-row>
 
     <ion-row style="align-items: center">
@@ -106,9 +104,6 @@
           <ion-option>200 - 300</ion-option>
         </ion-select>
       </ion-item>
-      <!-- <ion-item *ngIf="text == ''">
-        <ion-input  type="number" formControlName="size" [class.invalid]="isValid('size')"></ion-input>
-      </ion-item> -->
     </ion-row>
 
     <ion-row>
