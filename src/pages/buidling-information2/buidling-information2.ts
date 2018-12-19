@@ -81,7 +81,7 @@ export class BuidlingInformation2Page {
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
-    this.navCtrl.push(HomePage);
+    this.navCtrl.pop();
 
   }
 
