@@ -10,7 +10,14 @@
         5.1) การทำนาครั้งที่ {{ text }} เริ่มทำนาเดือนไหนถึงเดือนไหน
       </ion-label>
     </ion-item>
-    <ion-row>
+
+    <ion-item *ngIf="isValid('plantingFromMonth')">
+      <span class="invalid-msg">
+        กรุณาเลือก
+      </span>
+    </ion-item>
+
+    <ion-row [class.invalid]="isValid('plantingFromMonth')">
       <ion-col>
         <ion-item>
           <ion-label>
@@ -18,13 +25,14 @@
           </ion-label>
         </ion-item>
       </ion-col>
+
       <ion-col>
         <ion-item>
           <ion-label>
             เดือน
           </ion-label>
 
-          <ion-select interface="action-sheet" formControlName="plantingFromMonth" [class.invalid]="isValid('plantingFromMonth')">
+          <ion-select interface="action-sheet" formControlName="plantingFromMonth">
             <ion-option [value]=1>
               1 - มกราคม
             </ion-option>
@@ -63,15 +71,16 @@
             </ion-option>
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="isValid('plantingFromMonth')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
       </ion-col>
-
     </ion-row>
-    <ion-row>
+
+    <ion-item *ngIf="isValid('plantingThruMonth')">
+      <span class="invalid-msg">
+        กรุณาเลือก
+      </span>
+    </ion-item>
+
+    <ion-row [class.invalid]="isValid('plantingThruMonth')">
       <ion-col>
         <ion-item>
           <ion-label>
@@ -84,7 +93,7 @@
           <ion-label>
             เดือน
           </ion-label>
-          <ion-select interface="action-sheet" formControlName="plantingThruMonth" [class.invalid]="isValid('plantingThruMonth')">
+          <ion-select interface="action-sheet" formControlName="plantingThruMonth">
             <ion-option [value]=1>
               1 - มกราคม
             </ion-option>
@@ -122,11 +131,6 @@
               12 - ธันวาคม
             </ion-option>
           </ion-select>
-        </ion-item>
-        <ion-item *ngIf="isValid('plantingThruMonth')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
         </ion-item>
       </ion-col>
     </ion-row>
