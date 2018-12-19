@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChildren } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { FieldFarmingComponent } from '../field-farming/field-farming';
 
 @Component({
   selector: 'detail-management-for-farming',
@@ -9,6 +10,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 })
 export class DetailManagementForFarmingComponent implements ISubmitRequestable {
 
+  @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @Input() public FormItem: FormGroup;
   @Input('no') public fieldNo: string;
   private submitRequested: boolean;
@@ -29,6 +31,7 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable {
   }
 
   submitRequest() {
+    this.fieldArea.forEach(it => it.submitRequest());
     this.submitRequested = true;
   }
 
