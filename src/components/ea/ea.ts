@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NavController } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { LoadWorkByIdEA } from '../../states/logging/logging.actions';
+
 
 /**
  * Generated class for the EaComponent component.
@@ -12,14 +17,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: 'ea.html'
 })
 export class EaComponent {
-
-  text: string;
   @Input() public FormItem: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    console.log('Hello EaComponent Component');
-    this.text = 'Hello World';
-
+  constructor(private fb: FormBuilder, public navCtrl: NavController,private store:Store<LoggingState>) {
     this.FormItem = EaComponent.CreateFormGroup(this.fb);
   }
 
@@ -35,4 +35,8 @@ export class EaComponent {
     });
   }
 
+  goConfirmSeletEAPage(id: string) {
+    this.store.dispatch(new LoadWorkByIdEA(id));
+    this.navCtrl.push("HomesPage");
+  }
 }

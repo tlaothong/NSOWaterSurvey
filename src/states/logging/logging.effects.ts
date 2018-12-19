@@ -4,13 +4,10 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess } from "./logging.actions";
+import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess, LoadWorkByIdEASuccess } from "./logging.actions";
 
 @Injectable()
 export class LoggingEffects {
-
-    private qrCode: string
-
     constructor(private action$: Actions, private cloudSync: CloudSyncProvider) {
     }
 
@@ -43,6 +40,14 @@ export class LoggingEffects {
         ofType(LoggingTypes.LoadCountOfWorks),
         mergeMap(action => this.cloudSync.loadCountOfWorkEA((<LoadDataWorkEA>action).payload).pipe(
             map(data => new LoadCountOfWorksSuccess(data))
+        ))
+    );
+
+    @Effect()
+    public LoadWorkByIdEA: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadWorkByIdEA),
+        mergeMap(action => this.cloudSync.loadWorkEAbyIdEA((<LoadDataWorkEA>action).payload).pipe(
+            map(data => new LoadWorkByIdEASuccess(data))
         ))
     );
 }
