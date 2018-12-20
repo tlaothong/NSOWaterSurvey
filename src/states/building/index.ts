@@ -16,4 +16,12 @@ export const getSendBuildingType = createSelector(
     getBuildingFeatureState,
     state => state.sendBuildingType,
 );
+export const getHomeBuilding = createSelector(
+    getBuildingFeatureState,
+    state => state.dataHomeBuilding,
+);
+export const getCountHomeBuilding = createSelector(
+    getBuildingFeatureState,
+    state => state.countOfHomeBuilding,
+);
 
