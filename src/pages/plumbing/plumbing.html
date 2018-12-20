@@ -277,8 +277,8 @@
                   3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
-                <ion-row radio-group formControlName="waterQuantity">
+              <div formGroupName="plumbingUsage">
+                <ion-row radio-group formControlName="waterQuantity" [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
                   <ion-item *ngIf="isValid('other.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
@@ -399,7 +399,7 @@
       <h5>5.1.3 ในรอบ 12 เดือนที่ผ่านมา มีเหตุการณ์ที่น้ำประปา <b><u>ไม่ไหล</u></b> ติดต่อกันเกิน 3 วันหรือไม่</h5>
       <ion-card>
         <ion-card-content>
-          
+
           <ion-row radio-group formControlName="hasWaterNotRunning" [class.invalid]="isValid('hasWaterNotRunning')">
             <ion-item *ngIf="isValid('hasWaterNotRunning')">
               <span class="invalid-msg">
