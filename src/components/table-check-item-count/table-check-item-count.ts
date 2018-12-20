@@ -22,13 +22,14 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
-    return fb.group({
+    var fg = fb.group({
       'hasItem': [false, Validators.required],
       'itemCount': [null, Validators.required]
     }, {
         validator: TableCheckItemCountComponent.checkAnyOrOther()
       }
     );
+    return fg;
   }
 
   public showModal() {
