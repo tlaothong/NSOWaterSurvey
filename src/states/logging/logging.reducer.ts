@@ -50,6 +50,7 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
                 ...state,
                 dataHomeBuilding: action.payload,
             };
+      
         default:
             return state;
     }

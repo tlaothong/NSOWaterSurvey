@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetSendBuildingType } from '../../states/building/building.actions';
 import { SetOtherBuildingType } from '../../states/household/household.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetHomeBuilding } from '../../states/logging/logging.actions';
+import { BuidlingInformation2Page } from '../buidling-information2/buidling-information2';
 
 @IonicPage()
 @Component({
@@ -19,7 +22,7 @@ export class BuildingInformation1Page {
   private submitRequested: boolean;
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>,private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
@@ -67,16 +70,17 @@ export class BuildingInformation1Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
-    this.formData$.subscribe(data => this.f.setValue(data));
+    // this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
-    console.log('unitCount');
-    console.log(this.submitRequested);
-    console.log("xxxx",this.f.get('other'));
+    this.storeLog.dispatch(new SetHomeBuilding(this.f));
+    console.log(this.f)
+    this.navCtrl.push("BuidlingInformation2Page");
+
   }
 
   public isValid(name: string): boolean {
