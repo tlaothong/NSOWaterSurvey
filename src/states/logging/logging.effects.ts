@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess, LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess } from "./logging.actions";
+import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess, LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding, SetHomeBuildingSuccess } from "./logging.actions";
 
 @Injectable()
 export class LoggingEffects {
@@ -66,6 +66,15 @@ export class LoggingEffects {
         ofType(LoggingTypes.LoadCountOfHomeBuilding),
         mergeMap(action => this.cloudSync.loadCountHomeBuilding().pipe(
                 map(data => new LoadCountOfHomeBuildingSuccess(data)),
+            )
+        ),
+    );
+
+    @Effect()
+    public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.SetHomeBuilding),
+        mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action)).pipe(
+                map(data => new SetHomeBuildingSuccess()),
             )
         ),
     );

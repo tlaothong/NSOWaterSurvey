@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CloudSyncProvider {
-    LoadWorkByIdEASuccess(payload: any): any {
-        throw new Error("Method not implemented.");
-    }
+  LoadWorkByIdEASuccess(payload: any): any {
+    throw new Error("Method not implemented.");
+  }
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
@@ -45,12 +45,15 @@ export class CloudSyncProvider {
   }
 
   public loadHomeBuilding(): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllBuildingByIdUser');
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllBuilding');
   }
 
   public loadCountHomeBuilding(): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountBuildingByIdUser');
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountBuilding');
+  }
+  public setHomeBuilding(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateBuilding', data);
   }
 
-  
+
 }
