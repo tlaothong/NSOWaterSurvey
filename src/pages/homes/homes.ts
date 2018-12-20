@@ -3,13 +3,12 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
-import { getWorkEAbyIdEA } from '../../states/logging';
+import { getWorkEAbyIdEA, getCountHomeBuilding, getHomeBuilding } from '../../states/logging';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
-import { LoadHomeBuilding, LoadCountOfHomeBuilding } from '../../states/building/building.actions';
-import { getCountHomeBuilding, getHomeBuilding } from '../../states/building';
-import { BuildingState } from '../../states/building/building.reducer';
+import { LoadHomeBuilding, LoadCountOfHomeBuilding } from '../../states/logging/logging.actions';
+
 
 @IonicPage()
 @Component({
@@ -21,10 +20,10 @@ export class HomesPage {
   f: FormGroup;
   formItem: FormGroup;
   office: string = "building";
-  private formDataWorkEA$ = this.storeLog.select(getWorkEAbyIdEA).pipe(map(s => s));
+  private formDataWorkEA$ = this.store.select(getWorkEAbyIdEA).pipe(map(s => s));
   private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
   private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
-  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private storeLog: Store<LoggingState>,private store: Store<BuildingState>) {
+  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
     this.f = this.fb.group({
       'idEA': [null],
       'idUser': [null],
@@ -58,17 +57,15 @@ export class HomesPage {
         this.formItem.get('countHomeBuilding').setValue(data);
         if (data != null) {
           this.setupHomeBuilding();
-          this.formDataHomeBuilding$.subscribe(data => this.formItem.get('homeBuilding').setValue(data));
+          this.formDataHomeBuilding$.subscribe(data => this.formItem.get('homeBuilding').patchValue(data));
         }
       }
     );
     this.formDataWorkEA$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data);
+        this.f.patchValue(data);
       }
     });
-
-
 
   }
 
@@ -77,20 +74,21 @@ export class HomesPage {
   }
 
   private setupHomeBuilding() {
-    const componentFormArray: string = "HomeBuilding";
-    const componentCount: string = "CountHomeBuilding";
+    const componentFormArray: string = "homeBuilding";
+    const componentCount: string = "countHomeBuilding";
 
+    
     var onComponentCountChanges = () => {
-      var homeBuilding = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var countHomeBuilding = this.f.get(componentCount).value || 0;
+      var Ea = (this.formItem.get(componentFormArray) as FormArray).controls || [];
+      var EaCount = this.formItem.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
-      countHomeBuilding = Math.max(0, countHomeBuilding);
+      EaCount = Math.max(0, EaCount);
 
-      for (let i = 0; i < countHomeBuilding; i++) {
+      for (let i = 0; i < EaCount; i++) {
         var ctrl = null;
-        if (i < homeBuilding.length) {
-          const fld = homeBuilding[i];
+        if (i < Ea.length) {
+          const fld = Ea[i];
           ctrl = fld;
         } else {
           ctrl = ItemInHomeComponent.CreateFormGroup(this.fb);
@@ -98,10 +96,10 @@ export class HomesPage {
 
         farr.push(ctrl);
       }
-      this.f.setControl(componentFormArray, farr);
+      this.formItem.setControl(componentFormArray, farr);
     };
 
-    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+    this.formItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
   }
