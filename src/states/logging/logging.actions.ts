@@ -11,8 +11,11 @@ export enum LoggingTypes {
     LoadCountOfWorks = "[L] Load Count of Works",
     LoadCountOfWorksSuccess = "[L] Load Count of Works Success",
     LoadWorkByIdEA = "[L] Load Select Data WorkEA",
-    LoadWorkByIdEASuccess = "[L] Load Select Data WorkEA Success"
-
+    LoadWorkByIdEASuccess = "[L] Load Select Data WorkEA Success",
+    LoadHomeBuilding = "[BLD] Load Home Building",
+    LoadHomeBuildingSuccess = "[BLD] Load Home Building Success",
+    LoadCountOfHomeBuilding = "[BLD] Load Count Home Building",
+    LoadCountOfHomeBuildingSuccess = "[BLD] Load Count Home Building Success",
 }
 
 export class LoadUserInformation implements Action {
@@ -57,6 +60,34 @@ export class LoadWorkByIdEASuccess implements Action {
     constructor(public payload: any) { }
 }
 
+export class LoadHomeBuilding implements Action {
+    readonly type = LoggingTypes.LoadHomeBuilding;
+
+    constructor() {
+    }
+}
+
+export class LoadHomeBuildingSuccess implements Action {
+    readonly type = LoggingTypes.LoadHomeBuildingSuccess;
+
+    constructor(public payload: any[]) {
+    }
+}
+
+export class LoadCountOfHomeBuilding implements Action {
+    readonly type = LoggingTypes.LoadCountOfHomeBuilding;
+
+    constructor() {
+    }
+}
+
+export class LoadCountOfHomeBuildingSuccess implements Action {
+    readonly type = LoggingTypes.LoadCountOfHomeBuildingSuccess;
+
+    constructor(public payload: any) {
+    }
+}
+
 export type LoggingActionsType =
     LoadUserInformationSuccess
     | LoadUserInformation
@@ -68,4 +99,8 @@ export type LoggingActionsType =
     | LoadCountOfWorksSuccess
     | LoadWorkByIdEA
     | LoadWorkByIdEASuccess
+    | LoadHomeBuilding
+    | LoadHomeBuildingSuccess
+    | LoadCountOfHomeBuilding
+    | LoadCountOfHomeBuildingSuccess
     ;

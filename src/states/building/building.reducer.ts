@@ -7,8 +7,8 @@ export interface BuildingState {
     sendDataBuilding: any,
     sendBuildingType: any,
     recieveDataFromBuilding: any,
-    dataHomeBuilding: any[],
-    countOfHomeBuilding: any,
+   
+    
 }
 
 const initialState: BuildingState = {
@@ -17,8 +17,8 @@ const initialState: BuildingState = {
     sendDataBuilding: null,
     sendBuildingType: null,
     recieveDataFromBuilding: null,
-    dataHomeBuilding: [],
-    countOfHomeBuilding: null
+    
+   
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -48,11 +48,7 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 ...state,
                 sendBuildingType: action.payload,
             };
-        case BuildingTypes.LoadCountOfHomeBuildingSuccess:
-            return {
-                ...state,
-                countOfHomeBuilding: action.payload,
-            };
+       
         default:
             return state;
     }
