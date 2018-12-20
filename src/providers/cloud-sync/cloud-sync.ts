@@ -41,6 +41,16 @@ export class CloudSyncProvider {
   }
 
   public loadWorkEAbyIdEA(idEA: string): Observable<any> {
-    return this.http.get('http://localhost:53546/api/Demo/GetWorkByIdEA/' + idEA);
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetWorkByIdEA/' + idEA);
   }
+
+  public loadHomeBuilding(): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllBuildingByIdUser');
+  }
+
+  public loadCountHomeBuilding(): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountBuildingByIdUser');
+  }
+
+  
 }

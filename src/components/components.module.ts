@@ -96,7 +96,7 @@ import { EaComponent } from './ea/ea';
     ItemInHomeComponent,
     QuestionnaireHomeComponent,
     EAlistComponent,
-    EaComponent
+    EaComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -153,7 +153,7 @@ import { EaComponent } from './ea/ea';
     ItemInHomeComponent,
     QuestionnaireHomeComponent,
     EAlistComponent,
-    EaComponent
+    EaComponent,
   ]
 })
 export class ComponentsModule { }
