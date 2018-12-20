@@ -38,7 +38,8 @@ export interface HouseHoldState {
     agiSelectFlowerCrop: any,
     agiSelectMushroomPlant: any,
     agiSelectAnimalFarm: any,
-    agiSelectAquaticAnimals: any
+    agiSelectAquaticAnimals: any,
+    otherBuildingType: any,
 }
 
 const initialState: HouseHoldState = {
@@ -78,7 +79,8 @@ const initialState: HouseHoldState = {
     agiSelectFlowerCrop: null,
     agiSelectMushroomPlant: null,
     agiSelectAnimalFarm: null,
-    agiSelectAquaticAnimals: null
+    agiSelectAquaticAnimals: null,
+    otherBuildingType: null,
 
 };
 
@@ -122,6 +124,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 commercialServiceType: action.payload,
+            };
+        case HouseHoldTypes.SetOtherBuildingType:
+            return {
+                ...state,
+                otherBuildingType: action.payload,
             };
         case HouseHoldTypes.SetResidentialGardeningUse:
             return {

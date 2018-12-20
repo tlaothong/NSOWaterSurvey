@@ -5,7 +5,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getOtherBuildingType } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -23,6 +23,9 @@ export class CommercialPage {
 
   private f: FormGroup;
   private submitRequested: boolean;
+
+  private otherBuildingType$ = this.store.select(getOtherBuildingType);
+  public otherBuildingType: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
 
@@ -69,6 +72,8 @@ export class CommercialPage {
     console.log('ionViewDidLoad CommercialPage');
     this.formData$.subscribe(data => this.f.setValue(data));
     this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
+    this.otherBuildingType$.subscribe(data => this.otherBuildingType = data);
+    console.log( this.otherBuildingType);
   }
 
   public handleSubmit() {

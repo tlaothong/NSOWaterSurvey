@@ -6,6 +6,7 @@ import { getBuildingSample } from '../../states/building';
 import { map } from 'rxjs/operators';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetSendBuildingType } from '../../states/building/building.actions';
+import { SetOtherBuildingType } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,7 +20,7 @@ export class BuildingInformation1Page {
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>) {
-     this.f = this.fb.group({
+    this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
       'road': [null, Validators.required],
@@ -72,8 +73,10 @@ export class BuildingInformation1Page {
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
+    this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     console.log('unitCount');
     console.log(this.submitRequested);
+    console.log("xxxx",this.f.get('other'));
   }
 
   public isValid(name: string): boolean {
