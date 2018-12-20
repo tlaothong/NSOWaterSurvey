@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -18,11 +18,12 @@ export class DlgTableCheckItemCountPage {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.unit = navParams.get("unit");
-   
+
   }
 
   public closeDialog() {
     this.viewCtrl.dismiss();
+
   }
 
   public okDialog() {
@@ -38,8 +39,26 @@ export class DlgTableCheckItemCountPage {
     if (name == 'anycheck') {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    }
+
   }
 
+  public isDisabled() {
+
+    if (this.FormItem.get('hasItem').value == true) {
+      var a = this.FormItem.get('hasItem').value;
+      var b = this.FormItem.get('itemCount').value;
+      return (
+        (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == null) ||
+        (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == 0)
+      );
+    }
+    else if (this.FormItem.get('hasItem').value == false) {
+      var a = this.FormItem.get('hasItem').value;
+      return (
+        (this.FormItem.get('itemCount').value)
+      );
+    }
+  }
 }
+
