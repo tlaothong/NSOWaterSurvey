@@ -6,7 +6,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'water-activity5.html'
 })
 export class WaterActivity5Component {
+
   private submitRequested: boolean;
+
+  private service: number;
+  private product: number;
+  private agriculture: number;
+  private plant: number;
+  private drink: number;
+  private total: number;
+
   @Input('headline') public text: string;
   @Input() public FormItem: FormGroup;
   @Input('use') public gardeningUse: boolean;
@@ -16,18 +25,43 @@ export class WaterActivity5Component {
   @Input('agriculture') public agricultureUse: boolean;
 
   constructor(private fb: FormBuilder) {
-    this.text = 'Hello World';
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
+    this.service = this.product = this.agriculture = this.plant = this.drink = this.total = 0;
   }
-  
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-  
+
   submitRequest() {
     this.submitRequested = true;
-    console.log(this.gardeningUse);
+  }
+
+  keyup(num: string, item: string) {
+    switch (item) {
+      case 'drink':
+        this.drink = Number(num);
+        this.FormItem.patchValue({ 'drink': this.drink });
+        break;
+      case 'plant':
+        this.plant = Number(num);
+        this.FormItem.patchValue({ 'plant': this.plant });
+        break;
+      case 'agriculture':
+        this.agriculture = Number(num);
+        this.FormItem.patchValue({ 'agriculture': this.agriculture });
+        break;
+      case 'product':
+        this.product = Number(num);
+        this.FormItem.patchValue({ 'product': this.product });
+        break;
+      case 'service':
+        this.service = Number(num);
+        this.FormItem.patchValue({ 'service': this.service });
+        break;
+    }
+    this.total = this.service + this.product + this.agriculture + this.plant + this.drink;
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
