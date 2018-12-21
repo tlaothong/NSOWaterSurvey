@@ -7,6 +7,8 @@ import { getBuildingSample, getSendBuildingType } from '../../states/building';
 import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 import { map } from 'rxjs/operators';
 import { HomePage } from '../home/home';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetHomeBuilding } from '../../states/logging/logging.actions';
 
 @IonicPage()
 @Component({
@@ -18,10 +20,11 @@ export class BuidlingInformation2Page {
   private submitRequested: boolean;
 
   private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+  // private formDataFromBuilding1$ = this.storeLog.select(getDataCreateBuilding).pipe(map(s => s));
 
   private getBuildingType$ = this.store.select(getSendBuildingType)
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
     this.f = this.fb.group({
       'ea': [null],
       'ordering': [null],
@@ -72,8 +75,10 @@ export class BuidlingInformation2Page {
     console.log('ionViewDidLoad BuidlingInformation2Page');
     this.formData$.subscribe(data => this.f.setValue(data));
     this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
-    console.log("dadadad");
-    console.log(this.f.get('buildingType').value);
+    this.f = this.navParams.get('f');
+    // this.formDataFromBuilding1$.subscribe(data => this.f.setValue(data));
+    console.log(" data ที่จะ post", this.f);
+    console.log("buildingType จาก building1", this.f.get('buildingType').value);
   }
 
   public handleSubmit() {
@@ -81,8 +86,10 @@ export class BuidlingInformation2Page {
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
-    this.navCtrl.popTo("HomesPage");
-
+    this.storeLog.dispatch(new SetHomeBuilding(this.f.value));
+    console.log("data ยิง API",this.f.value);
+    
+    this.navCtrl.popTo("SelectEaPage");
   }
 
   public isValid(name: string): boolean {

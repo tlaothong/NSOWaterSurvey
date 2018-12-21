@@ -77,10 +77,9 @@ export class BuildingInformation1Page {
     this.submitRequested = true;
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
-    this.storeLog.dispatch(new SetHomeBuilding(this.f.value));
+    // this.storeLog.dispatch(new SetHomeBuilding(this.f));
     console.log( this.f);
-    this.navCtrl.push("BuidlingInformation2Page");
-
+    this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
   }
 
   public isValid(name: string): boolean {
