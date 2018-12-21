@@ -22,12 +22,25 @@ export class DlgTableCheckItemCountPage {
   }
 
   public closeDialog() {
-    this.viewCtrl.dismiss();
+    if (this.FormItem.get('hasItem').value == false) {
+      this.FormItem.get('itemCount').setValue(null);
+    }
 
+    if (this.FormItem.get('itemCount').value == null || this.FormItem.get('itemCount').value == "") {
+      this.FormItem.get('hasItem').setValue(false);
+    }
+
+    var a = this.FormItem.get('itemCount').value;
+    var b = this.FormItem.get('hasItem').value;
+    this.viewCtrl.dismiss();
+    
   }
 
   public okDialog() {
+    
     this.viewCtrl.dismiss(this.FormItem);
+    // this.navCtrl.pop();
+    
   }
 
   ionViewDidLoad() {
@@ -59,6 +72,8 @@ export class DlgTableCheckItemCountPage {
         (this.FormItem.get('itemCount').value)
       );
     }
+  
   }
+  
 }
 

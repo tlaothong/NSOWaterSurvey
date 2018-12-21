@@ -39,6 +39,7 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
         iTitle: this.text,
         unit: this.unittext,
       });
+
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
