@@ -32,7 +32,7 @@ export class HomesPage {
       'subDistrict': [null],
       'administrative': [null],
       'municipalities': [null],
-     
+
     });
 
     this.formItem = fb.group({
@@ -47,11 +47,10 @@ export class HomesPage {
       ev: myEvent
     });
   }
-
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.store.dispatch(new LoadHomeBuilding());
     this.store.dispatch(new LoadCountOfHomeBuilding());
-    
+
     this.formDataCountHomeBuilding$.subscribe(
       data => {
         this.formItem.get('countHomeBuilding').setValue(data);
@@ -61,6 +60,9 @@ export class HomesPage {
         }
       }
     );
+  }
+
+  ionViewDidLoad() {
     this.formDataWorkEA$.subscribe(data => {
       if (data != null) {
         this.f.patchValue(data);
@@ -77,7 +79,7 @@ export class HomesPage {
     const componentFormArray: string = "homeBuilding";
     const componentCount: string = "countHomeBuilding";
 
-    
+
     var onComponentCountChanges = () => {
       var Ea = (this.formItem.get(componentFormArray) as FormArray).controls || [];
       var EaCount = this.formItem.get(componentCount).value || 0;

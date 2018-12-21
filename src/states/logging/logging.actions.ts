@@ -59,7 +59,7 @@ export class LoadWorkByIdEA implements Action {
 }
 export class LoadWorkByIdEASuccess implements Action {
     readonly type = LoggingTypes.LoadWorkByIdEASuccess;
-    constructor(public payload: any) { }
+    constructor(public payload: any[]) { }
 }
 
 export class LoadHomeBuilding implements Action {
@@ -94,7 +94,9 @@ export class SetHomeBuilding implements Action {
     readonly type = LoggingTypes.SetHomeBuilding;
 
     constructor(public payload: any) {
+        console.log(payload);
     }
+    
 }
 
 export class SetHomeBuildingSuccess implements Action {

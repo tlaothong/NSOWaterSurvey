@@ -73,7 +73,7 @@ export class LoggingEffects {
     @Effect()
     public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.SetHomeBuilding),
-        mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action)).pipe(
+        mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
                 map(data => new SetHomeBuildingSuccess()),
             )
         ),

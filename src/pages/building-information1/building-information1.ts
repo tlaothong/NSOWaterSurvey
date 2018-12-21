@@ -70,15 +70,15 @@ export class BuildingInformation1Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
-    // this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
-    this.storeLog.dispatch(new SetHomeBuilding(this.f));
-    console.log(this.f)
+    this.storeLog.dispatch(new SetHomeBuilding(this.f.value));
+    console.log( this.f);
     this.navCtrl.push("BuidlingInformation2Page");
 
   }
