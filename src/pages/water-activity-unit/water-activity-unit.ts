@@ -35,7 +35,18 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
     this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
 
-    this.navCtrl.push("HouseHoldTestPage");
+    if (this.f.get('isHouseHold').value) {
+      this.navCtrl.push("ResidentialPage");
+    }
+  else if (this.f.get('isAgriculture').value) {
+    this.navCtrl.push("AgriculturePage");
+  }
+  else if (this.f.get('isFactorial').value) {
+    this.navCtrl.push("FactorialPage");
+  }
+  else if (this.f.get('isCommercial').value) {
+    this.navCtrl.push("commercialPage");
+  }
   }
 
   public isValid(name: string): boolean {
