@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -88,8 +88,15 @@ export class BuidlingInformation2Page {
     console.log(this.f.get('unitCount').value);
     this.storeLog.dispatch(new SetHomeBuilding(this.f.value));
     console.log("data ยิง API",this.f.value);
-    
-    this.navCtrl.popTo("SelectEaPage");
+    this.navCtrl.push("HouseHoldTestPage");
+
+    // if (this.f.get('unitCount').value > 1 ) {
+    //   this.navCtrl.push("UnitPage");
+    // }
+    // else{
+    //   this.navCtrl.push("WaterActivityUnitPage");
+    // }
+
   }
 
   public isValid(name: string): boolean {

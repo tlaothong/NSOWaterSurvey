@@ -34,7 +34,8 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
     this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
     this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
-    this.navCtrl.pop();
+
+    this.navCtrl.push("HouseHoldTestPage");
   }
 
   public isValid(name: string): boolean {
