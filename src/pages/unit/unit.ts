@@ -23,20 +23,20 @@ export class UnitPage {
       'units': this.fb.array([]),
     });
     this.setupUnitsCountChanges();
+
     
-    this.num = this.navParams.get('num');
-    console.log("data num", this.num);
-    if (this.num == 1) {
-      this.navCtrl.push("UnitButtonComponent", { num: 1 });
-    }
-
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
-
-
+    
+    // this.num = this.navParams.get('num');
+    // console.log("data num", this.num);
+    // if (this.num == 1) {
+    //   this.navCtrl.push("UnitButtonComponent", { num: 1 });
+    // }
+    
   }
 
   ionViewDidEnter() {

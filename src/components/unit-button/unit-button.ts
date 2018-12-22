@@ -43,12 +43,8 @@ export class UnitButtonComponent {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
-    this.num = this.navParams.get('num');
-    if (this.num == 1) {
-      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
-    }
   }
-
+  
   ngOnInit() {
     let count = 0;
     this.formData$.subscribe(data => count = data.subUnit.accessCount);
@@ -60,7 +56,11 @@ export class UnitButtonComponent {
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
-
+    
+    // this.num = this.navParams.get('num');
+    // if (this.num == 1) {
+    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+    // }
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
