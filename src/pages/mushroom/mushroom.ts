@@ -23,7 +23,6 @@ export class MushroomPage {
 
   constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
-      "_id": [null, Validators.required],
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),

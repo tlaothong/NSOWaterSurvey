@@ -47,7 +47,6 @@ export class FlowerCropPage {
       'fieldCount': [null, Validators.required],
       'fields': fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
-      "_id": [null],
     });
     this.setupFieldCountChanges();
   }

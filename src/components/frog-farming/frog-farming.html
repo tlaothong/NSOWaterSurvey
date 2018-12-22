@@ -53,7 +53,7 @@
       </ion-item>
 
       <div *ngIf="FormItem.get('depression').value ||
-        FormItem.get('depression').value || FormItem.get('hasOther').value">
+        FormItem.get('stew').value || FormItem.get('hasOther').value">
         <ion-item>
           <ion-label>
             2) จำนวนกบที่เลี้ยงเฉลี่ยต่อเดือน เดือนละกี่ตัว
@@ -72,7 +72,7 @@
     </ion-card-content>
   </ion-card>
 
-  <div *ngIf="FormItem.get('depression').value || FormItem.get('depression').value || FormItem.get('hasOther').value">
+  <div *ngIf="FormItem.get('depression').value || FormItem.get('stew').value || FormItem.get('hasOther').value">
     <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="3)การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
   </div>
 

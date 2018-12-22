@@ -26,7 +26,6 @@ export class PerennialPlantingPage {
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
       "fields": fb.array([]),
-      "_id": [null],
     });
     this.setupFieldCountChanges();
   }
