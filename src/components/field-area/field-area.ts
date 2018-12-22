@@ -29,7 +29,11 @@ export class FieldAreaComponent implements ISubmitRequestable {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgFieldAreaPage", { FormItem: this.FormItem, headline: this.text });
+    const modal = this.modalCtrl.create("DlgFieldAreaPage",
+      {
+        FormItem: this.FormItem,
+        headline: this.text
+      });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;

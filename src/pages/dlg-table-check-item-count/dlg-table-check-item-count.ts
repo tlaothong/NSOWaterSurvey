@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 
 @IonicPage()
 @Component({
@@ -14,33 +15,22 @@ export class DlgTableCheckItemCountPage {
   public unit: string;
   submitRequested: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
-    this.FormItem = navParams.get('FormItem');
+  constructor(public navCtrl: NavController, private fb: FormBuilder, public navParams: NavParams, private viewCtrl: ViewController) {
+    this.FormItem = TableCheckItemCountComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
+
     this.text = navParams.get("iTitle");
     this.unit = navParams.get("unit");
-
   }
 
   public closeDialog() {
-    if (this.FormItem.get('hasItem').value == false) {
-      this.FormItem.get('itemCount').setValue(null);
-    }
-
-    if (this.FormItem.get('itemCount').value == null || this.FormItem.get('itemCount').value == "") {
-      this.FormItem.get('hasItem').setValue(false);
-    }
-
-    var a = this.FormItem.get('itemCount').value;
-    var b = this.FormItem.get('hasItem').value;
     this.viewCtrl.dismiss();
-    
   }
 
   public okDialog() {
-    
     this.viewCtrl.dismiss(this.FormItem);
     // this.navCtrl.pop();
-    
   }
 
   ionViewDidLoad() {
@@ -53,27 +43,22 @@ export class DlgTableCheckItemCountPage {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
     }
-
+    return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   public isDisabled() {
 
     if (this.FormItem.get('hasItem').value == true) {
-      var a = this.FormItem.get('hasItem').value;
-      var b = this.FormItem.get('itemCount').value;
       return (
         (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == null) ||
         (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == 0)
       );
     }
     else if (this.FormItem.get('hasItem').value == false) {
-      var a = this.FormItem.get('hasItem').value;
       return (
         (this.FormItem.get('itemCount').value)
       );
     }
-  
   }
-  
 }
 

@@ -37,7 +37,6 @@ export class PopulationPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-
     this.persons.forEach(it => it.submitRequest());
   }
 
