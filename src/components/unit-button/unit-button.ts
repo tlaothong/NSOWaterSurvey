@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { ModalController, NavController, AlertController } from 'ionic-angular';
+import { ModalController, NavController, AlertController, NavParams } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -38,11 +38,15 @@ export class UnitButtonComponent {
   public fgcm: FormArray;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
-
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+  private num: number = null;
+  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+    this.num = this.navParams.get('num');
+    if (this.num == 1) {
+      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+    }
   }
 
   ngOnInit() {
@@ -56,6 +60,7 @@ export class UnitButtonComponent {
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
+
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -104,7 +109,7 @@ export class UnitButtonComponent {
 
   public showModal() {
     if (this.access == 1) {
-      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });;
+      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
 
@@ -136,8 +141,10 @@ export class UnitButtonComponent {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
+
+
   }
-  
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

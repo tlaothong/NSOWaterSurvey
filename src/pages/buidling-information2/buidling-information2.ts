@@ -87,8 +87,11 @@ export class BuidlingInformation2Page {
     console.log('unitCount');
     console.log(this.f.get('unitCount').value);
     this.storeLog.dispatch(new SetHomeBuilding(this.f.value));
-    console.log("data ยิง API",this.f.value);
-    this.navCtrl.push("HouseHoldTestPage");
+    console.log("data ยิง API", this.f.value);
+    if (this.f.get('unitCount').value == 1) {
+      this.navCtrl.push("HouseHoldTestPage", { num: 1 });
+    }
+    else this.navCtrl.push("HouseHoldTestPage"),{ num: null };
 
     // if (this.f.get('unitCount').value > 1 ) {
     //   this.navCtrl.push("UnitPage");
