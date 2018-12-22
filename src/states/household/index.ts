@@ -133,7 +133,7 @@ export const getArraySkipPage = createSelector(
     getHouseHoldFeatureState,
     state => state.arraySkipPage,
 );
-// export const getArraySkipPageWaterSources = createSelector(
-//     getHouseHoldFeatureState,
-//     state => state.arraySkipPageWaterSources,
-// );
+export const getArraySkipPageAgiculture = createSelector(
+    getHouseHoldFeatureState,
+    state => state.arraySkipPageAgiculture,
+);

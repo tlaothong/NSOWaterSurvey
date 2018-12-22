@@ -41,7 +41,7 @@ export interface HouseHoldState {
     agiSelectAquaticAnimals: any,
     otherBuildingType: any,
     arraySkipPage: any,
-    // arraySkipPageWaterSources: any,
+    arraySkipPageAgiculture: any,
 }
 
 const initialState: HouseHoldState = {
@@ -84,7 +84,7 @@ const initialState: HouseHoldState = {
     agiSelectAquaticAnimals: null,
     otherBuildingType: null,
     arraySkipPage: null,
-    // arraySkipPageWaterSources:null,
+    arraySkipPageAgiculture: null,
 
 
 };
@@ -225,11 +225,12 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 arraySkipPage: action.payload,
             };
-            // case HouseHoldTypes.SetArraySkipPageWaterSources:
-            // return {
-            //     ...state,
-            //     arraySkipPageWaterSources: action.payload,
-            // };
+            
+            case HouseHoldTypes.SetArraySkipPageAgiculture:
+            return {
+                ...state,
+                arraySkipPageAgiculture: action.payload,
+            };
         default:
             return state;
     }
