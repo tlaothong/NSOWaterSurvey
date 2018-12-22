@@ -24,7 +24,7 @@ export interface HouseHoldState {
     agronomyPlantDoing: any,
     rubberTreeDoing: any,
     perennialPlantDoing: any,
-    waterSources: any,
+    waterSources: any[],
     rubberTreeSelectPlant: any[],
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
@@ -40,6 +40,8 @@ export interface HouseHoldState {
     agiSelectAnimalFarm: any,
     agiSelectAquaticAnimals: any,
     otherBuildingType: any,
+    arraySkipPage: any,
+    arraySkipPageAgiculture: any,
 }
 
 const initialState: HouseHoldState = {
@@ -65,7 +67,7 @@ const initialState: HouseHoldState = {
     agronomyPlantDoing: [],
     rubberTreeDoing: null,
     perennialPlantDoing: null,
-    waterSources: null,
+    waterSources: [],
     rubberTreeSelectPlant: [],
     perennialPlantSelectPlant: [],
     ricePlantSelectPlant: [],
@@ -81,6 +83,9 @@ const initialState: HouseHoldState = {
     agiSelectAnimalFarm: null,
     agiSelectAquaticAnimals: null,
     otherBuildingType: null,
+    arraySkipPage: null,
+    arraySkipPageAgiculture: null,
+
 
 };
 
@@ -214,6 +219,17 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 agiSelectAquaticAnimals: action.payload,
+            };
+        case HouseHoldTypes.SetArraySkipPage:
+            return {
+                ...state,
+                arraySkipPage: action.payload,
+            };
+            
+            case HouseHoldTypes.SetArraySkipPageAgiculture:
+            return {
+                ...state,
+                arraySkipPageAgiculture: action.payload,
             };
         default:
             return state;

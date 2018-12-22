@@ -1,9 +1,11 @@
-import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals } from './../../states/household/household.actions';
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { map } from 'rxjs/operators';
+import { getArraySkipPageAgiculture } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -14,6 +16,8 @@ export class AgriculturePage {
 
   private submitRequested: boolean;
   public f: FormGroup;
+  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private itAgi: any;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
@@ -60,17 +64,58 @@ export class AgriculturePage {
     this.submitRequested = true;
     console.log(this.submitRequested);
     // this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-      this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant').value));
-      this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant').value));
-      this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree').value));
-      this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant').value));
-      this.store.dispatch(new SetAgiSelectHerbPlant(this.f.get('herbsPlant').value));
-      this.store.dispatch(new SetAgiSelectFlowerCrop(this.f.get('flowerCrop').value));
-      this.store.dispatch(new SetAgiSelectMushroomPlant(this.f.get('mushroomPlant').value));
-      this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm').value));
-      this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
-    
-    console.log("checkdata", this.f.get('ricePlant').value, this.f.get('agronomyPlant').value, this.f.get('rubberTree').value, this.f.get('perennialPlant').value)
+    // this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant').value));
+    // this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant').value));
+    // this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree').value));
+    // this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant').value));
+    // this.store.dispatch(new SetAgiSelectHerbPlant(this.f.get('herbsPlant').value));
+    // this.store.dispatch(new SetAgiSelectFlowerCrop(this.f.get('flowerCrop').value));
+    // this.store.dispatch(new SetAgiSelectMushroomPlant(this.f.get('mushroomPlant').value));
+    // this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm').value));
+    // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
+    this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+    console.log("checkdata", this.f.value)
+    this.checkNextPage();
+  }
+
+  private checkNextPage() {
+    this.formDatAgiculture$.subscribe(data => {
+      if (data != null) {
+        this.itAgi = data;
+      }
+      console.log("it: ", this.itAgi);
+    });
+
+    if (this.itAgi.ricePlant) {
+      this.navCtrl.push("RicePage")
+    }
+    else if (this.itAgi.agronomyPlant) {
+      this.navCtrl.push("DryCropPlantingPage")
+    }
+    else if (this.itAgi.rubberTree) {
+      this.navCtrl.push("RubberTreePage")
+    }
+    else if (this.itAgi.perennialPlant) {
+      this.navCtrl.push("PerennialPlantingPage")
+    }
+    else if (this.itAgi.herbsPlant) {
+      this.navCtrl.push("HerbsPlantPage")
+    }
+    else if (this.itAgi.flowerCrop) {
+      this.navCtrl.push("FlowerCropPage")
+    }
+    else if (this.itAgi.mushroomPlant) {
+      this.navCtrl.push("MushroomPage")
+    }
+    else if (this.itAgi.animalFarm) {
+      this.navCtrl.push("AnimalFarmPage")
+    }
+    else if (this.itAgi.aquaticAnimals) {
+      this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+
+
+
   }
 
   public isValid(name: string): boolean {

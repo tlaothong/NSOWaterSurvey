@@ -5,7 +5,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getOtherBuildingType } from '../../states/household';
+import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -23,11 +23,15 @@ export class CommercialPage {
 
   private f: FormGroup;
   private submitRequested: boolean;
+  // private itG1_G4: any;
+  private itWater: any;
 
   private otherBuildingType$ = this.store.select(getOtherBuildingType);
   public otherBuildingType: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
+  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
+  // private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
 
   private getBuildingType$ = this.store.select(getSendBuildingType)
 
@@ -73,7 +77,7 @@ export class CommercialPage {
     this.formData$.subscribe(data => this.f.setValue(data));
     this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
     this.otherBuildingType$.subscribe(data => this.otherBuildingType = data);
-    console.log( this.otherBuildingType);
+    console.log(this.otherBuildingType);
   }
 
   public handleSubmit() {
@@ -82,6 +86,34 @@ export class CommercialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
+    this.checkNextPage();
+  }
+
+
+  private checkNextPage() {
+    this.formDataWater$.subscribe(data => {
+      if (data != null) {
+        this.itWater = data;
+      }
+      console.log("it: ", this.itWater);
+    });
+    // if (this.itWater != null) {
+      if (this.itWater.plumbing) {
+        this.navCtrl.push("PlumbingPage")
+      }
+      else if (this.itWater.pool) {
+        this.navCtrl.push("PoolPage")
+      }
+      else if (this.itWater.rain) {
+        this.navCtrl.push("RainPage")
+      }
+      else if (this.itWater.buying) {
+        this.navCtrl.push("BuyingPage")
+      }
+    // }
+    else {
+      this.navCtrl.push("GroundWaterPage")
+    }
   }
 
   public isValid(name: string): boolean {
