@@ -9,16 +9,16 @@
     {{FormItem.get('subDistrict').value}}
   </ion-col>
   <ion-col col-2>
-    {{FormItem.get('administrative').value}}
+    {{FormItem.get('region.outsideMunicipality').value}}
   </ion-col>
   <ion-col col-2>
-    {{FormItem.get('municipalities').value}}
+    {{FormItem.get('region.insideMunicipality').value}}
   </ion-col>
   <ion-col col-1>
-    {{FormItem.get('idEA').value}}
+    {{FormItem.get('_id').value}}
   </ion-col>
   <ion-col col-1>
-    <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(FormItem.get('idEA').value)">
+    <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(FormItem.get('_id').value)">
       เลือก
     </button>
   </ion-col>

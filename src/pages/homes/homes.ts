@@ -25,14 +25,20 @@ export class HomesPage {
   private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
   constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
     this.f = this.fb.group({
-      'idEA': [null],
+      '_id': [null],
       'idUser': [null],
+      'zone': [null],
       'province': [null],
       'district': [null],
       'subDistrict': [null],
-      'administrative': [null],
-      'municipalities': [null],
-
+      'region': fb.group({
+        'insideMunicipality': [null],
+        'outsideMunicipality': [null]
+      }),
+      'enumerationCode': [null],
+      'villageNo': [null],
+      'communityName': [null],
+      'irrigatedArea': [null]
     });
 
     this.formItem = fb.group({
