@@ -25,7 +25,7 @@ export class TableDisasterousComponent {
       'avgDay':[ null, Validators.required],
       'avgHour': [ null, Validators.required],
       'waterHeightCm': [ null, Validators.required],
-      'year': [ null, Validators.required],
+      'year': [ null],
     });
   }
 
