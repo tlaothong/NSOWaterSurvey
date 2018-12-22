@@ -13,14 +13,28 @@ export class DlgTableBuyingPage {
   public text: string;
   public size: number;
   public volumn: string;
+  public getIsHouseHold: string;
+  public getIsAgriculture: string;
+  public getIsFactorial: string;
+  public getIsCommercial: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
     this.volumn = navParams.get("volumn");
-    console.log(this.volumn);
-    console.log(this.size);
+    this.getIsHouseHold = navParams.get("getIsHouseHold");
+    this.getIsAgriculture = navParams.get("getIsAgriculture");
+    this.getIsFactorial = navParams.get("getIsFactorial");
+    this.getIsCommercial = navParams.get("getIsCommercial");
+    console.log("111");
+    console.log(this.getIsHouseHold);
+    console.log("222");
+    console.log(this.getIsAgriculture);
+    console.log("333");
+    console.log(this.getIsFactorial);
+    console.log("444");
+    console.log(this.getIsCommercial);
   }
 
   public closeDialog() {

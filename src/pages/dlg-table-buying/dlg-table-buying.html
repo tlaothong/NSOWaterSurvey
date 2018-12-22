@@ -21,7 +21,8 @@
     <ion-item>
       <ion-label>จำนวนที่ซื้อต่อเดือน</ion-label>
     </ion-item>
-    <ion-item>
+
+    <ion-item *ngIf="getIsHouseHold == 'true'">
       <ion-label col-6>เพื่ออุปโภค บริโภค</ion-label>
       <ion-input type="number" formControlName="drink" [class.invalid]="isValid('drink')"></ion-input>
     </ion-item>
@@ -30,7 +31,8 @@
         กรุณากรอกข้อมูล
       </span>
     </ion-item>
-    <ion-item>
+
+    <ion-item *ngIf="getIsAgriculture == 'true'">
       <ion-label col-6>เพื่อทำการเกษตร</ion-label>
       <ion-input type="number" formControlName="agriculture" [class.invalid]="isValid('agriculture')"></ion-input>
     </ion-item>
@@ -40,7 +42,7 @@
       </span>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="getIsFactorial == 'true'">
       <ion-label col-6>เพื่อผลิตสินค้า</ion-label>
       <ion-input type="number" formControlName="factory" [class.invalid]="isValid('factory')"></ion-input>
     </ion-item>
@@ -50,7 +52,7 @@
       </span>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="getIsCommercial == 'true'">
       <ion-label col-6>เพื่อการบริการ</ion-label>
       <ion-input type="number" formControlName="service" [class.invalid]="isValid('service')"></ion-input>
     </ion-item>

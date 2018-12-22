@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -18,6 +18,18 @@ export class BuyingPage {
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
+
+  private getIsHouseHold$ = this.store.select(getIsHouseHold);
+  public getIsHouseHold: boolean;
+
+  private getIsAgriculture$ = this.store.select(getIsAgriculture);
+  public getIsAgriculture: boolean;
+
+  private getIsFactorial$ = this.store.select(getIsFactorial);
+  public getIsFactorial: boolean;
+
+  private getIsCommercial$ = this.store.select(getIsCommercial);
+  public getIsCommercial: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.BuyingForm = this.fb.group({
@@ -37,6 +49,10 @@ export class BuyingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.BuyingForm.setValue(data));
-    console.log('ionViewDidLoad BuyingPage');
+    this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);
+    this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
+    this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
+    this.getIsCommercial$.subscribe(data => this.getIsCommercial = data);
+    console.log(this.getIsHouseHold,this.getIsAgriculture,this.getIsCommercial,this.getIsFactorial);
   }
 }

@@ -12,6 +12,10 @@ export class TableBuyingComponent {
   @Input() public FormItem: FormGroup;
   @Input() public size: number;
   @Input() public volumn: string;
+  @Input("getIsHouseHold") public getIsHouseHold: boolean;
+  @Input("getIsAgriculture") public getIsAgriculture: boolean;
+  @Input("getIsFactorial") public getIsFactorial: boolean;
+  @Input("getIsCommercial") public getIsCommercial: boolean;
 
   private submitRequested: boolean;
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
@@ -32,7 +36,7 @@ export class TableBuyingComponent {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size, volumn: this.volumn });
+    const modal = this.modalCtrl.create("DlgTableBuyingPage", { FormItem: this.FormItem, headline: this.text, size: this.size, volumn: this.volumn, getIsHouseHold: this.getIsHouseHold, getIsAgriculture: this.getIsAgriculture, getIsFactorial: this.getIsFactorial, getIsCommercial: this.getIsCommercial });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;

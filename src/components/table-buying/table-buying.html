@@ -16,16 +16,17 @@
     </div>
   </ion-col>
 
-  <ion-col>
-    <ion-input type="number" disabled="true" item-left formControlName="drink"></ion-input>
+  <ion-col *ngIf="getIsHouseHold == 'true'">
+    <ion-input  type="number" disabled="true" item-left formControlName="drink"></ion-input>
   </ion-col>
-  <ion-col>
+  <ion-col *ngIf="getIsAgriculture == 'true'">
     <ion-input type="number" disabled="true" item-left formControlName="agriculture"></ion-input>
   </ion-col>
-  <ion-col>
+  <ion-col *ngIf="getIsFactorial == 'true'">
     <ion-input type="number" disabled="true" item-left formControlName="factory"></ion-input>
   </ion-col>
-  <ion-col>
+  <ion-col *ngIf="getIsCommercial == 'true'">
     <ion-input type="number" disabled="true" item-left formControlName="service"></ion-input>
   </ion-col>
+
 </ion-row>
