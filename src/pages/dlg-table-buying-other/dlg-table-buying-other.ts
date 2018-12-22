@@ -15,6 +15,10 @@ export class DlgTableBuyingOtherPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
+    // this.FormItem = TableCheckItemCountComponent.CreateFormGroup(this.fb);
+    // const datain = navParams.get('FormItem') as FormGroup;
+    // this.FormItem.setValue(datain.value);
+
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
   }
