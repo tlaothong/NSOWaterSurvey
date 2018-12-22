@@ -19,19 +19,26 @@ import { LoadWorkByIdEA } from '../../states/logging/logging.actions';
 export class EaComponent {
   @Input() public FormItem: FormGroup;
 
-  constructor(private fb: FormBuilder, public navCtrl: NavController,private store:Store<LoggingState>) {
+  constructor(private fb: FormBuilder, public navCtrl: NavController, private store: Store<LoggingState>) {
     this.FormItem = EaComponent.CreateFormGroup(this.fb);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'idEA': [null],
+      '_id': [null],
       'idUser': [null],
+      'zone': [null],
       'province': [null],
       'district': [null],
       'subDistrict': [null],
-      'administrative': [null],
-      'municipalities': [null]
+      'region': fb.group({
+        'insideMunicipality': [null],
+        'outsideMunicipality': [null]
+      }),
+      'enumerationCode': [null],
+      'villageNo': [null],
+      'communityName': [null],
+      'irrigatedArea': [null]
     });
   }
 

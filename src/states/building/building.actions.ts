@@ -60,8 +60,6 @@ export class SetSendDataBuilding implements Action {
     }
 }
 
-
-
 export type BuildingActionsType =
     LoadBuildingList
     | LoadBuildingListSuccess
