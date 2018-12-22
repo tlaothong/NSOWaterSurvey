@@ -12,7 +12,7 @@ import { LoadHouseHoldSample } from '../../states/household/household.actions';
 export class HouseHoldTestPage {
 
   pages: Array<{ title: string, component: any }>;
-
+  private num: number = null;
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
 
     this.pages = [
@@ -41,11 +41,17 @@ export class HouseHoldTestPage {
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
     ];
-  }
 
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad HouseHoldTestPage');
     this.store.dispatch(new LoadHouseHoldSample());
+    this.num = this.navParams.get('num');
+    if (this.num == 1) {
+      this.navCtrl.push('UnitPage', { num: 1 });
+    }
+    else this.navCtrl.push("UnitPage", { num: null });
   }
 
   public openPage(page) {

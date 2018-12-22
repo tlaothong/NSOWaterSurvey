@@ -16,20 +16,27 @@ export class UnitPage {
   public f: FormGroup;
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-
+  private num: number = null;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
     });
-
     this.setupUnitsCountChanges();
-  }
 
+    
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
-    this.unitButton.forEach(it => it.ionViewDidLoad());
+    
+    // this.num = this.navParams.get('num');
+    // console.log("data num", this.num);
+    // if (this.num == 1) {
+    //   this.navCtrl.push("UnitButtonComponent", { num: 1 });
+    // }
+    
   }
 
   ionViewDidEnter() {
