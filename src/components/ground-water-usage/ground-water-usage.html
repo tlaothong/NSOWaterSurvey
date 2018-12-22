@@ -79,31 +79,33 @@
         </div>
       </div>
 
-      <ion-item>
-        <ion-label>
-          2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
-        </ion-label>
-      </ion-item>
+      <div *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 3">
+        <ion-item>
+          <ion-label>
+            2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
+          </ion-label>
+        </ion-item>
 
-      <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
-        <ion-item *ngIf="isValid('hasPump')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
-        <ion-item col-6>
-          <ion-radio [value]="true" item-left></ion-radio>
-          <ion-label>
-            ใช้
-          </ion-label>
-        </ion-item>
-        <ion-item col-6>
-          <ion-radio [value]="false" item-left></ion-radio>
-          <ion-label>
-            ไม่ใช้
-          </ion-label>
-        </ion-item>
-      </ion-row>
+        <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
+          <ion-item *ngIf="isValid('hasPump')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio [value]="true" item-left></ion-radio>
+            <ion-label>
+              ใช้
+            </ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio [value]="false" item-left></ion-radio>
+            <ion-label>
+              ไม่ใช้
+            </ion-label>
+          </ion-item>
+        </ion-row>
+      </div>
 
       <div [ngSwitch]="FormItem.get('hasPump').value">
         <div *ngSwitchCase="true">
@@ -134,14 +136,14 @@
   </div>
 
   <div *ngIf="residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'">
-  <ion-card>
-    <ion-card-content>
+    <ion-card>
+      <ion-card-content>
         <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
           residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="5) ใช้น้ำจากบ่อนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"
           [FormItem]="FormItem.get('waterActivities')"></water-activity6>
-        </ion-card-content>
-      </ion-card>
-    </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
   <ion-card>
     <water-problem6 headline="6) มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="FormItem.get('qualityProblem')"></water-problem6>

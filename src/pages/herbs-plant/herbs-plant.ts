@@ -46,7 +46,6 @@ export class HerbsPlantPage {
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),
-      "_id": [null],
     });
     this.setupPlantingCountChanges();
   }
