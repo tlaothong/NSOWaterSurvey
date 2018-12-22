@@ -1,3 +1,5 @@
+import { getArraySkipPage } from './../../states/household/index';
+import { SetArraySkipPage } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +20,8 @@ export class WaterActivityUnitPage {
   public f: FormGroup;
   private submitRequested: boolean;
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
-
+  private formData$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private it: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = navParams.get('FormItem');
   }
@@ -30,25 +33,38 @@ export class WaterActivityUnitPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
-    this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
-    this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
-    this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    this.store.dispatch(new SetArraySkipPage(this.f.value));
+    console.log("f", this.f.value);
 
-    if (this.f.get('isHouseHold').value) {
+    // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
+    // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
+    // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
+    // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+
+    this.checkNextPage();
+
+  }
+
+  private checkNextPage() {
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.it = data;
+      }
+      console.log("it: ", this.it)
+    });
+    if (this.it.isHouseHold) {
       this.navCtrl.push("ResidentialPage");
     }
-  else if (this.f.get('isAgriculture').value) {
-    this.navCtrl.push("AgriculturePage");
+    else if (this.it.isAgriculture) {
+      this.navCtrl.push("AgriculturePage");
+    }
+    else if (this.it.isFactorial) {
+      this.navCtrl.push("FactorialPage");
+    }
+    else if (this.it.isCommercial) {
+      this.navCtrl.push("CommercialPage");
+    }
   }
-  else if (this.f.get('isFactorial').value) {
-    this.navCtrl.push("FactorialPage");
-  }
-  else if (this.f.get('isCommercial').value) {
-    this.navCtrl.push("commercialPage");
-  }
-  }
-
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

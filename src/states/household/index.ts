@@ -129,4 +129,11 @@ export const getAgiSelectAquaticAnimals = createSelector(
     getHouseHoldFeatureState,
     state => state.agiSelectAquaticAnimals,
 );
-
+export const getArraySkipPage = createSelector(
+    getHouseHoldFeatureState,
+    state => state.arraySkipPage,
+);
+// export const getArraySkipPageWaterSources = createSelector(
+//     getHouseHoldFeatureState,
+//     state => state.arraySkipPageWaterSources,
+// );
