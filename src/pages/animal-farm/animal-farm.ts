@@ -5,7 +5,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources } from '../../states/household/household.actions';
 
@@ -16,14 +16,18 @@ import { SetWaterSources } from '../../states/household/household.actions';
 })
 export class AnimalFarmPage {
 
+  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
+  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private itAgi: any;
+  private itWater: any;
   @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
- 
+
   private submitRequested: boolean;
   public f: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
 
-  constructor(public navCtrl: NavController,private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -33,14 +37,14 @@ export class AnimalFarmPage {
       'sheep': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'chicken': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'duck': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-      'goose':TableCheckItemCountComponent.CreateFormGroup(this.fb),
+      'goose': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'otherName': [null, Validators.required],
-      'waterSources' : WaterSources9Component.CreateFormGroup(this.fb)
+      'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
     });
 
-  }    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
@@ -50,15 +54,53 @@ export class AnimalFarmPage {
   ionViewDidEnter() {
 
   }
-  
+
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
+    this.checkNextPage();
   }
 
-  public isValid(name: string) : boolean {
+  private checkNextPage() {
+    this.formDatAgiculture$.subscribe(data => {
+      if (data != null) {
+        this.itAgi = data;
+      }
+      console.log("it: ", this.itAgi);
+    });
+    if (this.itAgi.aquaticAnimals) {
+      this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else {
+      this.formDataWater$.subscribe(data => {
+        if (data != null) {
+          this.itWater = data;
+        }
+        console.log("it: ", this.itWater);
+      });
+      if (this.itWater != null) {
+        if (this.itWater.plumbing) {
+          this.navCtrl.push("PlumbingPage")
+        }
+        else if (this.itWater.pool) {
+          this.navCtrl.push("PoolPage")
+        }
+        else if (this.itWater.rain) {
+          this.navCtrl.push("RainPage")
+        }
+        else if (this.itWater.buying) {
+          this.navCtrl.push("BuyingPage")
+        }
+      }
+      else {
+        this.navCtrl.push("GroundWaterPage")
+      }
+    }
+  }
+
+  public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources } from '../../states/household/household.actions';
 
@@ -19,6 +19,10 @@ export class HerbsPlantPage {
   public f: FormGroup;
   public shownData: string[];
   public Plant: string[];
+  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
+  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private itAgi: any;
+  private itWater: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -78,8 +82,55 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
+    this.checkNextPage();
   }
 
+  private checkNextPage() {
+    this.formDatAgiculture$.subscribe(data => {
+      if (data != null) {
+        this.itAgi = data;
+      }
+      console.log("it: ", this.itAgi);
+    });
+    if (this.itAgi.flowerCrop) {
+      this.navCtrl.push("FlowerCropPage")
+    }
+    else if (this.itAgi.mushroomPlant) {
+      this.navCtrl.push("MushroomPage")
+    }
+    else if (this.itAgi.animalFarm) {
+      this.navCtrl.push("AnimalFarmPage")
+    }
+    else if (this.itAgi.aquaticAnimals) {
+      this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else {
+      this.formDataWater$.subscribe(data => {
+        if (data != null) {
+          this.itWater = data;
+        }
+        console.log("it: ", this.itWater);
+      });
+      if (this.itWater != null) {
+        if (this.itWater.plumbing) {
+          this.navCtrl.push("PlumbingPage")
+        }
+        else if (this.itWater.pool) {
+          this.navCtrl.push("PoolPage")
+        }
+        else if (this.itWater.rain) {
+          this.navCtrl.push("RainPage")
+        }
+        else if (this.itWater.buying) {
+          this.navCtrl.push("BuyingPage")
+        }
+      }
+      else {
+        this.navCtrl.push("GroundWaterPage")
+      }
+    }
+  }
+  
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources } from '../../states/household/household.actions';
 
@@ -16,12 +16,15 @@ import { SetWaterSources } from '../../states/household/household.actions';
 })
 export class FlowerCropPage {
 
-  
+
   @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
   private submitRequested: boolean;
   public flowerCropFrm: FormGroup;
   public shownData: string[];
-
+  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
+  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private itAgi: any;
+  private itWater: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -36,10 +39,10 @@ export class FlowerCropPage {
   public listRiceData: any = [];
   public listRubberData: any = [];
   public listSumData: any = [];
-  public getAgiSelectRice:boolean;
-  public getAgiSelectAgronomy:boolean;
-  public getAgiSelectRubber:boolean;
-  public getAgiSelectPerennial:boolean;
+  public getAgiSelectRice: boolean;
+  public getAgiSelectAgronomy: boolean;
+  public getAgiSelectRubber: boolean;
+  public getAgiSelectPerennial: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
@@ -96,6 +99,50 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
+    this.checkNextPage();
+  }
+
+  private checkNextPage() {
+    this.formDatAgiculture$.subscribe(data => {
+      if (data != null) {
+        this.itAgi = data;
+      }
+      console.log("it: ", this.itAgi);
+    });
+    if (this.itAgi.mushroomPlant) {
+      this.navCtrl.push("MushroomPage")
+    }
+    else if (this.itAgi.animalFarm) {
+      this.navCtrl.push("AnimalFarmPage")
+    }
+    else if (this.itAgi.aquaticAnimals) {
+      this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else {
+      this.formDataWater$.subscribe(data => {
+        if (data != null) {
+          this.itWater = data;
+        }
+        console.log("it: ", this.itWater);
+      });
+      if (this.itWater != null) {
+        if (this.itWater.plumbing) {
+          this.navCtrl.push("PlumbingPage")
+        }
+        else if (this.itWater.pool) {
+          this.navCtrl.push("PoolPage")
+        }
+        else if (this.itWater.rain) {
+          this.navCtrl.push("RainPage")
+        }
+        else if (this.itWater.buying) {
+          this.navCtrl.push("BuyingPage")
+        }
+      }
+      else {
+        this.navCtrl.push("GroundWaterPage")
+      }
+    }
   }
 
   public isValid(name: string): boolean {

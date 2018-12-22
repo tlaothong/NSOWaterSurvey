@@ -18,7 +18,6 @@ export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
-
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
   private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));

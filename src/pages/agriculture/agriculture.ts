@@ -113,9 +113,6 @@ export class AgriculturePage {
     else if (this.itAgi.aquaticAnimals) {
       this.navCtrl.push("WaterAnimalPlantingPage")
     }
-
-
-
   }
 
   public isValid(name: string): boolean {

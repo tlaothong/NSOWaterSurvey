@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { SetAgronomyPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -15,6 +15,10 @@ import { getHouseHoldSample } from '../../states/household';
 })
 
 export class DryCropPlantingPage {
+  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
+  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private itAgi: any;
+  private itWater: any;
 
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
 
@@ -50,8 +54,65 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
+    this.checkNextPage();
+
   }
 
+  private checkNextPage() {
+    this.formDatAgiculture$.subscribe(data => {
+      if (data != null) {
+        this.itAgi = data;
+      }
+      console.log("it: ", this.itAgi);
+    });
+    if (this.itAgi.rubberTree) {
+      this.navCtrl.push("RubberTreePage")
+    }
+    else if (this.itAgi.perennialPlant) {
+      this.navCtrl.push("PerennialPlantingPage")
+    }
+    else if (this.itAgi.herbsPlant) {
+      this.navCtrl.push("HerbsPlantPage")
+    }
+    else if (this.itAgi.flowerCrop) {
+      this.navCtrl.push("FlowerCropPage")
+    }
+    else if (this.itAgi.mushroomPlant) {
+      this.navCtrl.push("MushroomPage")
+    }
+    else if (this.itAgi.animalFarm) {
+      this.navCtrl.push("AnimalFarmPage")
+    }
+    else if (this.itAgi.aquaticAnimals) {
+      this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else {
+      this.formDataWater$.subscribe(data => {
+        if (data != null) {
+          this.itWater = data;
+        }
+        console.log("it: ", this.itWater);
+      });
+      if (this.itWater != null) {
+        if (this.itWater.plumbing) {
+          this.navCtrl.push("PlumbingPage")
+        }
+        else if (this.itWater.pool) {
+          this.navCtrl.push("PoolPage")
+        }
+        else if (this.itWater.rain) {
+          this.navCtrl.push("RainPage")
+        }
+        else if (this.itWater.buying) {
+          this.navCtrl.push("BuyingPage")
+        }
+      }
+      else {
+        this.navCtrl.push("GroundWaterPage")
+      }
+    }
+  }
+  
   public isValid(name: string): boolean {
     var ctrl = this.agronomyPlant.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

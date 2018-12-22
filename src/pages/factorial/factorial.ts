@@ -60,11 +60,9 @@ export class FactorialPage {
       }
       console.log("it: ", this.itG1_G4);
     });
-    // if (this.itG1_G4 != null) {
-      if (this.itG1_G4.isCommercial) {
-        this.navCtrl.push("CommercialPage")
-      }
-    // }
+    if (this.itG1_G4.isCommercial) {
+      this.navCtrl.push("CommercialPage")
+    }
     else {
       this.formDataWater$.subscribe(data => {
         if (data != null) {
