@@ -20,10 +20,11 @@ export class PlumbingPage {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+  private formDataPlumbing$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+  private formDataHouseHold$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
-
   private commerceUse$ = this.store.select(getIsCommercial);
   public commerceUse: boolean;
   private factoryUse$ = this.store.select(getIsFactorial);
@@ -32,6 +33,8 @@ export class PlumbingPage {
   public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
+
+  public household: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -80,14 +83,13 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formDataPlumbing$.subscribe(data => this.f.setValue(data));
+    this.formDataHouseHold$.subscribe(data => this.household  = data);
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
-    console.log('ionViewDidLoad PlumbingPage');
-    console.log(this.gardeningUse);
   }
 
   public handleSubmit() {

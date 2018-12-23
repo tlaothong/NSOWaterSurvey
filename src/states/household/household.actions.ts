@@ -32,6 +32,7 @@ export enum HouseHoldTypes {
     SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
     SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
     SetOtherBuildingType = "[HH] Set Other BuildingType",
+    UpdateWaterActivity = "[HH] Update Water Activities",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -49,9 +50,16 @@ export class LoadHouseHoldListSuccess implements Action {
 }
 
 export class LoadHouseHoldSample implements Action {
-    readonly type = HouseHoldTypes.Load;
+    readonly type = HouseHoldTypes.UpdateWaterActivity;
 
     constructor() {
+    }
+}
+
+export class UpdaterHouseHoldSample implements Action {
+    readonly type = HouseHoldTypes.Load;
+
+    constructor(public payload: any) {
     }
 }
 
