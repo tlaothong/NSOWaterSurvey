@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { UpdaterHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -36,7 +37,7 @@ export class PlumbingPage {
 
   public household: any;
   public resultSumOfWaterActivities: any;
-  public waterActivitiesToUse: any;
+  public waterActivitiesWhichToUse: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -83,11 +84,11 @@ export class PlumbingPage {
       'waterNotRunningCount': [null, Validators.required]
     });
     this.resultSumOfWaterActivities = {
-      'MWA': 0,
-      'PWA': 0,
-      'Other': 0,
+      'mwa': 0,
+      'pwa': 0,
+      'other': 0,
     };
-    this.waterActivitiesToUse = {
+    this.waterActivitiesWhichToUse = {
       'plant': false,
       'service': false,
       'product': false,
@@ -104,8 +105,7 @@ export class PlumbingPage {
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
-
-    this.waterActivitiesToUse = {
+    this.waterActivitiesWhichToUse = {
       'plant': this.gardeningUse,
       'service': this.commerceUse,
       'product': this.factoryUse,
@@ -123,29 +123,45 @@ export class PlumbingPage {
 
   public resetSumOfWaterActivities() {
     this.resultSumOfWaterActivities = {
-      'MWA': 0,
-      'PWA': 0,
-      'Other': 0,
+      'mwa': 0,
+      'pwa': 0,
+      'other': 0,
     };
   }
 
   public sumWaterActivities() {
-
+    this.resetSumOfWaterActivities();
+    for (let key in this.waterActivitiesWhichToUse) {
+      if (this.waterActivitiesWhichToUse[key]) {
+        this.resultSumOfWaterActivities.mwa += this.f.get('waterActivityMWA').value[key];
+        this.resultSumOfWaterActivities.pwa += this.f.get('waterActivityPWA').value[key];
+        this.resultSumOfWaterActivities.other += this.f.get('waterActivityOther').value[key];
+      }
+    }
   }
 
-  public assertBeforeSumEntireAreInt() {
-    let mwa = this.f.get('waterActivityMWA').value;
-    let pwa = this.f.get('waterActivityPWA').value;
-    let other = this.f.get('waterActivityOther').value;
-    console.log(mwa);
+  public makeSureEntaireWaterActivitiesAreInt() {
+    for (let key in this.f.get('waterActivityMWA').value)
+      this.f.get('waterActivityMWA').value[key] = Number(this.f.get('waterActivityMWA').value[key]);
+    for (let key in this.f.get('waterActivityPWA').value)
+      this.f.get('waterActivityPWA').value[key] = Number(this.f.get('waterActivityPWA').value[key]);
+    for (let key in this.f.get('waterActivityOther').value)
+      this.f.get('waterActivityOther').value[key] = Number(this.f.get('waterActivityOther').value[key]);
   }
 
   public OnChangeSumOfWaterActivities(event: any) {
-    var tag = event.tag;
+    this.makeSureEntaireWaterActivitiesAreInt();
+    console.log(this.f.get('waterActivityMWA').value);
+    this.sumWaterActivities();
+    this.household.waterUsage.plumbing['waterActivityMWA'] = this.f.get('waterActivityMWA').value;
+    this.household.waterUsage.plumbing['waterActivityPWA'] = this.f.get('waterActivityPWA').value;
+    this.household.waterUsage.plumbing['waterActivityOther'] = this.f.get('waterActivityOther').value;
+    this.store.dispatch(new UpdaterHouseHoldSample(this.household));
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
+
 }
