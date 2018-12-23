@@ -27,14 +27,6 @@ export class DlgTableBuyingPage {
     this.getIsAgriculture = navParams.get("getIsAgriculture");
     this.getIsFactorial = navParams.get("getIsFactorial");
     this.getIsCommercial = navParams.get("getIsCommercial");
-    console.log("111");
-    console.log(this.getIsHouseHold);
-    console.log("222");
-    console.log(this.getIsAgriculture);
-    console.log("333");
-    console.log(this.getIsFactorial);
-    console.log("444");
-    console.log(this.getIsCommercial);
   }
 
   public closeDialog() {
