@@ -95,6 +95,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 houseHoldSample: action.payload,
             };
+        case HouseHoldTypes.UpdateWaterActivity:
+            return {
+                ...state,
+                houseHoldSample: action.payload
+            };
         case HouseHoldTypes.SetIsHouseHold:
             return {
                 ...state,

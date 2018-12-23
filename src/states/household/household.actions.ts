@@ -50,14 +50,14 @@ export class LoadHouseHoldListSuccess implements Action {
 }
 
 export class LoadHouseHoldSample implements Action {
-    readonly type = HouseHoldTypes.UpdateWaterActivity;
+    readonly type = HouseHoldTypes.Load;
 
     constructor() {
     }
 }
 
 export class UpdaterHouseHoldSample implements Action {
-    readonly type = HouseHoldTypes.Load;
+    readonly type = HouseHoldTypes.UpdateWaterActivity;
 
     constructor(public payload: any) {
     }
@@ -265,5 +265,6 @@ export type HouseHoldActionsType =
     | SetAgiSelectAnimalFarm
     | SetAgiSelectAquaticAnimals
     | SetOtherBuildingType
+    | UpdaterHouseHoldSample
     ;
 

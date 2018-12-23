@@ -35,6 +35,7 @@ export class PlumbingPage {
   public agricultureUse: boolean;
 
   public household: any;
+  public resultSumOfWaterActivities: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -80,11 +81,16 @@ export class PlumbingPage {
       'hasWaterNotRunning': [null, Validators.required],
       'waterNotRunningCount': [null, Validators.required]
     });
+    this.resultSumOfWaterActivities = {
+      'MWA': 0,
+      'PWA': 0,
+      'Other': 0,
+    };
   }
 
   ionViewDidLoad() {
     this.formDataPlumbing$.subscribe(data => this.f.setValue(data));
-    this.formDataHouseHold$.subscribe(data => this.household  = data);
+    this.formDataHouseHold$.subscribe(data => this.household = data);
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
@@ -96,6 +102,18 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
+  }
+
+  public resetSumOfWaterActivities() {
+    this.resultSumOfWaterActivities = {
+      'MWA': 0,
+      'PWA': 0,
+      'Other': 0,
+    };
+  }
+
+  public sumWaterActivities() {
+
   }
 
   public isValid(name: string): boolean {

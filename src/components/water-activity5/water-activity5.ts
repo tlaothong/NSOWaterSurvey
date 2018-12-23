@@ -18,7 +18,7 @@ export class WaterActivity5Component {
   @Input('total') public total: number;
   @Input('agriculture') public agricultureUse: boolean;
 
-  @Output('tag')
+  //@Output('tag')
 
     constructor(private fb: FormBuilder) {
       this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
