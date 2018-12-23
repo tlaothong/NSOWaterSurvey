@@ -36,6 +36,7 @@ export class PlumbingPage {
 
   public household: any;
   public resultSumOfWaterActivities: any;
+  public waterActivitiesToUse: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -86,6 +87,13 @@ export class PlumbingPage {
       'PWA': 0,
       'Other': 0,
     };
+    this.waterActivitiesToUse = {
+      'plant': false,
+      'service': false,
+      'product': false,
+      'drink': false,
+      'agriculture': false,
+    }
   }
 
   ionViewDidLoad() {
@@ -96,6 +104,15 @@ export class PlumbingPage {
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
+
+    this.waterActivitiesToUse = {
+      'plant': this.gardeningUse,
+      'service': this.commerceUse,
+      'product': this.factoryUse,
+      'drink': this.residenceUse,
+      'agriculture': this.agricultureUse,
+    }
+    this.sumWaterActivities();
   }
 
   public handleSubmit() {
@@ -114,6 +131,17 @@ export class PlumbingPage {
 
   public sumWaterActivities() {
 
+  }
+
+  public assertBeforeSumEntireAreInt() {
+    let mwa = this.f.get('waterActivityMWA').value;
+    let pwa = this.f.get('waterActivityPWA').value;
+    let other = this.f.get('waterActivityOther').value;
+    console.log(mwa);
+  }
+
+  public OnChangeSumOfWaterActivities(event: any) {
+    var tag = event.tag;
   }
 
   public isValid(name: string): boolean {

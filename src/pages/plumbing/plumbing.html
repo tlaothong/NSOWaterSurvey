@@ -388,7 +388,7 @@
           <ion-card>
             <ion-card-content>
               <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-                agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)" [FormItem]="f.get('waterActivityOther')"></water-activity5>
+                agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)" [FormItem]="f.get('waterActivityOther')" (tag)="OnChangeSumOfWaterActivities($event)"></water-activity5>
             </ion-card-content>
           </ion-card>
         </div>

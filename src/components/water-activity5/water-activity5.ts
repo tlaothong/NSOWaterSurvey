@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,7 @@ export class WaterActivity5Component {
   @Input('total') public total: number;
   @Input('agriculture') public agricultureUse: boolean;
 
-  //@Output('tag')
+  @Output('tag') tag = new EventEmitter();
 
     constructor(private fb: FormBuilder) {
       this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
@@ -34,7 +34,8 @@ export class WaterActivity5Component {
   }
 
   keyup(tag: string) {
-
+    console.log(tag);
+    this.tag.emit(tag);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {

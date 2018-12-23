@@ -9,7 +9,7 @@
     <ion-label col-8>
       เพื่ออุปโภคบริโภค
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('drink')" #drink (keyup)="keyup(drink.value, 'drink')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('drink')" (keyup)="keyup('drink')"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('drink')" text-right>
     <span class="invalid-msg">
@@ -21,7 +21,7 @@
     <ion-label col-8>
       เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('plant')" #plant (keyup)="keyup(plant.value, 'plant')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('plant')" (keyup)="keyup('plant')"></ion-input>
   </ion-item>
 
   <ion-item *ngIf="isValid('plant')" text-right>
@@ -33,7 +33,7 @@
     <ion-label col-8>
       เพื่อทำเกษตร
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('agriculture')" #agriculture (keyup)="keyup(agriculture.value, 'agriculture')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('agriculture')" (keyup)="keyup('agriculture')"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('agriculture')" text-right>
     <span class="invalid-msg">
@@ -44,7 +44,7 @@
     <ion-label col-8>
       เพื่อผลิตสินค้า
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('product')" #product (keyup)="keyup(product.value, 'product')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('product')" (keyup)="keyup('product')"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('product')" text-right>
     <span class="invalid-msg">
@@ -55,7 +55,7 @@
     <ion-label col-8>
       เพื่อการบริการ
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('service')" #service (keyup)="keyup(service.value, 'service')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('service')" (keyup)="keyup('service')"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('service')" text-right>
     <span class="invalid-msg">
