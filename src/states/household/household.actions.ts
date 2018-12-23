@@ -32,10 +32,14 @@ export enum HouseHoldTypes {
     SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
     SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
     SetOtherBuildingType = "[HH] Set Other BuildingType",
+<<<<<<< HEAD
     SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
 
+=======
+    UpdateWaterActivity = "[HH] Update Water Activities",
+>>>>>>> rn0z
 }
 
 export class LoadHouseHoldList implements Action {
@@ -56,6 +60,13 @@ export class LoadHouseHoldSample implements Action {
     readonly type = HouseHoldTypes.Load;
 
     constructor() {
+    }
+}
+
+export class UpdaterHouseHoldSample implements Action {
+    readonly type = HouseHoldTypes.UpdateWaterActivity;
+
+    constructor(public payload: any) {
     }
 }
 
@@ -279,8 +290,12 @@ export type HouseHoldActionsType =
     | SetAgiSelectAnimalFarm
     | SetAgiSelectAquaticAnimals
     | SetOtherBuildingType
+<<<<<<< HEAD
     | SetArraySkipPage
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
+=======
+    | UpdaterHouseHoldSample
+>>>>>>> rn0z
     ;
 

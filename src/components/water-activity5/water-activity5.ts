@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,24 +9,21 @@ export class WaterActivity5Component {
 
   private submitRequested: boolean;
 
-  private service: number;
-  private product: number;
-  private agriculture: number;
-  private plant: number;
-  private drink: number;
-  private total: number;
-
-  @Input('headline') public text: string;
   @Input() public FormItem: FormGroup;
   @Input('use') public gardeningUse: boolean;
-  @Input('commerce') public commerceUse: boolean;
+  @Input('total') public total: number;
   @Input('factory') public factoryUse: boolean;
+  @Input('headline') public text: string;
+  @Input('commerce') public commerceUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
+  
+  @Input('tag') tagIn: String;
+
+  @Output() tagOut = new EventEmitter();
 
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
-    this.service = this.product = this.agriculture = this.plant = this.drink = this.total = 0;
   }
 
   public isValid(name: string): boolean {
@@ -38,30 +35,8 @@ export class WaterActivity5Component {
     this.submitRequested = true;
   }
 
-  keyup(num: string, item: string) {
-    switch (item) {
-      case 'drink':
-        this.drink = Number(num);
-        this.FormItem.patchValue({ 'drink': this.drink });
-        break;
-      case 'plant':
-        this.plant = Number(num);
-        this.FormItem.patchValue({ 'plant': this.plant });
-        break;
-      case 'agriculture':
-        this.agriculture = Number(num);
-        this.FormItem.patchValue({ 'agriculture': this.agriculture });
-        break;
-      case 'product':
-        this.product = Number(num);
-        this.FormItem.patchValue({ 'product': this.product });
-        break;
-      case 'service':
-        this.service = Number(num);
-        this.FormItem.patchValue({ 'service': this.service });
-        break;
-    }
-    this.total = this.service + this.product + this.agriculture + this.plant + this.drink;
+  onChangeValue() {
+    this.tagOut.emit({ tag: this.tagIn });
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
