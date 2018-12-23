@@ -12,7 +12,11 @@ export class DlgTableBuyingOtherPage {
   public FormItem: FormGroup;
   public text: string;
   public size: string;
-
+  public getIsHouseHold: string;
+  public getIsAgriculture: string;
+  public getIsFactorial: string;
+  public getIsCommercial: string;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     // this.FormItem = TableCheckItemCountComponent.CreateFormGroup(this.fb);
@@ -21,6 +25,10 @@ export class DlgTableBuyingOtherPage {
 
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
+    this.getIsHouseHold = navParams.get("getIsHouseHold");
+    this.getIsAgriculture = navParams.get("getIsAgriculture");
+    this.getIsFactorial = navParams.get("getIsFactorial");
+    this.getIsCommercial = navParams.get("getIsCommercial");
   }
 
   public closeDialog() {
