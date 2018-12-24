@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { TablePopulationComponent } from '../../components/table-population/table-population';
 
 @IonicPage()
 @Component({
@@ -16,6 +17,9 @@ export class DlgPopulationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
+    this.FormItem = TablePopulationComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
   }
 
   ionViewDidLoad() {

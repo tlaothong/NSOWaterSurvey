@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { RainStorageComponent } from '../../components/rain-storage/rain-storage';
 
 @IonicPage()
 @Component({
@@ -11,10 +12,13 @@ export class DlgRainStoragePage {
   public FormItem: FormGroup;
   public text: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private fb: FormBuilder, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get('headline');
     console.log(this.FormItem.get('category').value);
+    this.FormItem = RainStorageComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
   }
 
   public closeDialog() {

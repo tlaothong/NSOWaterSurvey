@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class DlgTableBuyingPage {
   public getIsFactorial: string;
   public getIsCommercial: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
@@ -27,6 +28,9 @@ export class DlgTableBuyingPage {
     this.getIsAgriculture = navParams.get("getIsAgriculture");
     this.getIsFactorial = navParams.get("getIsFactorial");
     this.getIsCommercial = navParams.get("getIsCommercial");
+    this.FormItem = TableBuyingComponent.CreateFormGruop(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
   }
 
   public closeDialog() {
