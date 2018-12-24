@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
 
 @IonicPage()
 @Component({
@@ -16,13 +17,12 @@ export class DlgTableBuyingOtherPage {
   public getIsAgriculture: string;
   public getIsFactorial: string;
   public getIsCommercial: string;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
-    this.FormItem = navParams.get('FormItem');
-    // this.FormItem = TableCheckItemCountComponent.CreateFormGroup(this.fb);
-    // const datain = navParams.get('FormItem') as FormGroup;
-    // this.FormItem.setValue(datain.value);
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
+    this.FormItem = navParams.get('FormItem');
+    this.FormItem = TableBuyingOtherComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
     this.getIsHouseHold = navParams.get("getIsHouseHold");

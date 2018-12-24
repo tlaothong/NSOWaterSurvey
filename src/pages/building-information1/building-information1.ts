@@ -79,7 +79,12 @@ export class BuildingInformation1Page {
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     // this.storeLog.dispatch(new SetHomeBuilding(this.f));
     console.log( this.f);
-    this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
+    if (this.f.valid && this.f.get('access').value == 1) {
+      this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
+    }
+    if (this.f.valid && (this.f.get('access').value == 2 || this.f.get('access').value == 3 || this.f.get('access').value == 4 )) {
+      this.navCtrl.push("HomesPage", { f: this.f });
+    }
   }
 
   public isValid(name: string): boolean {
