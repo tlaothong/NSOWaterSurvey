@@ -11,7 +11,7 @@
       เพื่ออุปโภคบริโภค
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="drink" [class.invalid]="isValid('drink')"
-      (change)="onChangeValue()"></ion-input>
+      (click)="onChangeValue()" (keyup)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('drink')" text-right>
     <span class="invalid-msg">
@@ -24,7 +24,7 @@
       เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plant" [class.invalid]="isValid('plant')"
-      (change)="onChangeValue()"></ion-input>
+      (click)="onChangeValue()" (keyup)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('plant')" text-right>
     <span class="invalid-msg">
@@ -37,7 +37,7 @@
       เพื่อทำเกษตร
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="agriculture" [class.invalid]="isValid('agriculture')"
-      (chage)="onChangeValue()"></ion-input>
+      (click)="onChangeValue()" (keyup)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('agriculture')" text-right>
     <span class="invalid-msg">
@@ -50,7 +50,7 @@
       เพื่อผลิตสินค้า
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="product" [class.invalid]="isValid('product')"
-      (change)="onChangeValue()"></ion-input>
+      (click)="onChangeValue()" (keyup)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('product')" text-right>
     <span class="invalid-msg">
@@ -62,7 +62,7 @@
       เพื่อการบริการ
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="service" [class.invalid]="isValid('service')"
-      (change)="onChangeValue()"></ion-input>
+      (click)="onChangeValue()" (keyup)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('service')" text-right>
     <span class="invalid-msg">
@@ -73,16 +73,16 @@
     <ion-label col-8>
       <b>รวมทุกกิจกรรม</b>
     </ion-label>
-    <ion-input type="number" [class.invalid]="!(total > 0 && total <= 100)" value="{{total}}" readonly></ion-input>
+    <ion-input type="number" [class.invalid]="resultSum != 100" value="{{resultSum}}" readonly></ion-input>
   </ion-item>
-  <ion-item *ngIf="total > 100" text-right>
+  <ion-item *ngIf="resultSum > 100" text-right>
     <span class="invalid-msg">
-      เกินมา {{total - 100}} %
+      เกินมา {{resultSum - 100}} %
     </span>
   </ion-item>
-  <ion-item *ngIf="total < 100" text-right>
+  <ion-item *ngIf="resultSum < 100" text-right>
     <span class="invalid-msg">
-      ยังขาดอีก {{100 - total}} %
+      ยังขาดอีก {{100 - resultSum}} %
     </span>
   </ion-item>
 </div>

@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { SetIsHouseHold, SetIsAgriculture, SetIsFactorial, SetIsCommercial } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 
 @IonicPage()
 @Component({
@@ -36,10 +35,10 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetArraySkipPage(this.f.value));
     console.log("f", this.f.value);
 
-    // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
-    // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
-    // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
-    // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
+    this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
+    this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
+    this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
 
     this.checkNextPage();
 

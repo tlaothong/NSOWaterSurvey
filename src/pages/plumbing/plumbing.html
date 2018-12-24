@@ -365,9 +365,9 @@
         <div *ngSwitchCase="true">
           <ion-card>
             <ion-card-content>
-              <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-                agriculture="{{agricultureUse}}" headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityMWA')"
-                tag="mwa" total="{{resultSumOfWaterActivities.mwa}}" (tagOut)="OnChangeSumOfWaterActivities($event)"></water-activity5>
+              <water-activity5 tag="mwa" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+                residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)"
+                [FormItem]="f.get('waterActivityMWA')"></water-activity5>
             </ion-card-content>
           </ion-card>
         </div>
@@ -377,9 +377,9 @@
         <div *ngSwitchCase="true">
           <ion-card>
             <ion-card-content>
-              <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-                agriculture="{{agricultureUse}}" headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityPWA')"
-                tag="pwa" total="{{resultSumOfWaterActivities.pwa}}" (tagOut)="OnChangeSumOfWaterActivities($event)"></water-activity5>
+              <water-activity5 tag="pwa" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+                residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)"
+                [FormItem]="f.get('waterActivityPWA')"></water-activity5>
             </ion-card-content>
           </ion-card>
         </div>
@@ -389,9 +389,9 @@
         <div *ngSwitchCase="true">
           <ion-card>
             <ion-card-content>
-              <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-                agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)" [FormItem]="f.get('waterActivityOther')"
-                tag="other" total="{{resultSumOfWaterActivities.other}}" (tagOut)="OnChangeSumOfWaterActivities($event)"></water-activity5>
+              <water-activity5 tag="other" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+                residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)"
+                [FormItem]="f.get('waterActivityOther')"></water-activity5>
             </ion-card-content>
           </ion-card>
         </div>

@@ -1,7 +1,6 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 
