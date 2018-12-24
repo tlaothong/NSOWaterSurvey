@@ -35,7 +35,6 @@ export enum HouseHoldTypes {
     SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
-
     UpdateWaterActivity = "[HH] Update Water Activities",
 }
 
