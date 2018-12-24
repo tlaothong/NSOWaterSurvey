@@ -26,7 +26,7 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   public DataList = EX_TREERAI_LIST;
 
-  constructor(public fb: FormBuilder, public modalCtrl: ModalController,, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
     this.FormItem = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
   }
