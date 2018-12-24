@@ -16,13 +16,20 @@ export class QuestionnaireHomeComponent {
 
   constructor(private fb: FormBuilder, private store: Store<LoggingState>) {
     this.fg = this.fb.group({
-      'idEA': [null],
+      '_id': [null],
       'idUser': [null],
+      'zone': [null],
       'province': [null],
       'district': [null],
       'subDistrict': [null],
-      'administrative': [null],
-      'municipalities': [null]
+      'region': fb.group({
+        'insideMunicipality': [null],
+        'outsideMunicipality': [null]
+      }),
+      'enumerationCode': [null],
+      'villageNo': [null],
+      'communityName': [null],
+      'irrigatedArea': [null]
     });
   }
 
