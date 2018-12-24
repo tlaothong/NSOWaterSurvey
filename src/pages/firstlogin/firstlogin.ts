@@ -52,6 +52,7 @@ export class FirstloginPage {
         _idqr,
         password
       }));
+      this.navCtrl.push("ConfirmloginPage")
       
     } else {
       alert.present()
