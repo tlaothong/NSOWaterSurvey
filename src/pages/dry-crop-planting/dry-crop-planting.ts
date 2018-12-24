@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { SetAgronomyPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -19,6 +19,8 @@ export class DryCropPlantingPage {
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private itWater: any;
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+  private itPlumbing: any;
 
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
 
@@ -43,7 +45,6 @@ export class DryCropPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
-    this.fieldDryCrop.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     let fields = this.agronomyPlant.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
@@ -87,25 +88,14 @@ export class DryCropPlantingPage {
       this.navCtrl.push("WaterAnimalPlantingPage")
     }
     else {
-      this.formDataWater$.subscribe(data => {
+      this.formCheckPlumbing$.subscribe(data => {
         if (data != null) {
-          this.itWater = data;
+          this.itPlumbing = data;
         }
-        console.log("it: ", this.itWater);
+        console.log("itPlumbing: ", this.itPlumbing);
       });
-      if (this.itWater != null) {
-        if (this.itWater.plumbing) {
-          this.navCtrl.push("PlumbingPage")
-        }
-        else if (this.itWater.pool) {
-          this.navCtrl.push("PoolPage")
-        }
-        else if (this.itWater.rain) {
-          this.navCtrl.push("RainPage")
-        }
-        else if (this.itWater.buying) {
-          this.navCtrl.push("BuyingPage")
-        }
+      if (this.itPlumbing) {
+        this.navCtrl.push("PlumbingPage")
       }
       else {
         this.navCtrl.push("GroundWaterPage")

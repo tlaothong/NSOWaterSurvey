@@ -5,9 +5,9 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource } from '../../states/household';
+import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetCommercialServiceType, SetWaterSources } from '../../states/household/household.actions';
+import { SetCommercialServiceType, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getSendBuildingType } from '../../states/building';
 
@@ -23,16 +23,12 @@ export class CommercialPage {
 
   private f: FormGroup;
   private submitRequested: boolean;
-  // private itG1_G4: any;
-  private itWater: any;
-
+  private itPlumbing: any;
   private otherBuildingType$ = this.store.select(getOtherBuildingType);
   public otherBuildingType: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
-  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
-  // private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private getBuildingType$ = this.store.select(getSendBuildingType)
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
@@ -85,32 +81,45 @@ export class CommercialPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
-    this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
+    // this.store.dispatch(new SetWaterSources([(this.f.get('waterSources.plumbing').value),
+    // (this.f.get('waterSources.underGround').value),
+    // (this.f.get('waterSources.river').value),
+    // (this.f.get('waterSources.pool').value),
+    // (this.f.get('waterSources.irrigation').value),
+    // (this.f.get('waterSources.rain').value),
+    // (this.f.get('waterSources.buying').value)]));
+    this.dispatchWaterSource();
     this.checkNextPage();
   }
 
+  private dispatchWaterSource() {
+    if (this.f.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
+    }
+    if (this.f.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
+    }
+    if (this.f.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
+    }
+    if (this.f.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
+    }
+    if (this.f.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
+    }
+  }
 
   private checkNextPage() {
-    this.formDataWater$.subscribe(data => {
+    this.formCheckPlumbing$.subscribe(data => {
       if (data != null) {
-        this.itWater = data;
+        this.itPlumbing = data;
       }
-      console.log("it: ", this.itWater);
+      console.log("itWaterAfter: ", this.itPlumbing);
     });
-    // if (this.itWater != null) {
-      if (this.itWater.plumbing) {
-        this.navCtrl.push("PlumbingPage")
-      }
-      else if (this.itWater.pool) {
-        this.navCtrl.push("PoolPage")
-      }
-      else if (this.itWater.rain) {
-        this.navCtrl.push("RainPage")
-      }
-      else if (this.itWater.buying) {
-        this.navCtrl.push("BuyingPage")
-      }
-    // }
+    if (this.itPlumbing) {
+      this.navCtrl.push("PlumbingPage")
+    }
     else {
       this.navCtrl.push("GroundWaterPage")
     }

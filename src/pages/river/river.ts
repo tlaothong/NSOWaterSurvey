@@ -63,7 +63,6 @@ export class RiverPage {
   }
 
   ionViewDidEnter() {
-
   }
 
   public handleSubmit() {
@@ -71,6 +70,7 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.navCtrl.push("PoolPage")
   }
 
   public isValid(name: string): boolean {

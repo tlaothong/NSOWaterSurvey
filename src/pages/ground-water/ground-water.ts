@@ -5,7 +5,7 @@ import { GroundWaterUsageComponent } from '../../components/ground-water-usage/g
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRiver } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -23,6 +23,8 @@ export class GroundWaterPage {
   public f: FormGroup;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
+  private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
+  private itRiver: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -69,13 +71,28 @@ export class GroundWaterPage {
   }
 
   ionViewDidEnter() {
-
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
+    this.checkNextPage();
+  }
+
+  private checkNextPage() {
+    this.formCheckRiver$.subscribe(data => {
+      if (data != null) {
+        this.itRiver = data;
+      }
+      console.log("itPlumbing: ", this.itRiver);
+    });
+    if (this.itRiver) {
+      this.navCtrl.push("RiverPage")
+    }
+    else {
+      this.navCtrl.push("PoolPage")
+    }
   }
 
   public isValid(name: string): boolean {
@@ -142,5 +159,4 @@ export class GroundWaterPage {
 
     onComponentCountChanges();
   }
-
 }

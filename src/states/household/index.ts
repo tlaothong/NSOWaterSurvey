@@ -137,3 +137,23 @@ export const getArraySkipPageAgiculture = createSelector(
     getHouseHoldFeatureState,
     state => state.arraySkipPageAgiculture,
 );
+export const getCheckWaterPlumbing = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkWaterPlumbing,
+);
+export const getCheckWaterRiver = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkWaterRiver,
+);
+export const getCheckWaterIrrigation = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkWaterIrrigation,
+);
+export const getCheckWaterRain = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkWaterRain,
+);
+export const getCheckWaterBuying = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkWaterBuying,
+);

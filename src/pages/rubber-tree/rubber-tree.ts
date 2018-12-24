@@ -2,12 +2,13 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
 import { SetRubberTreeSelectPlant, SetWaterSources } from './../../states/household/household.actions';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,10 +20,10 @@ export class RubberTreePage {
   public rubbertree: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
-  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
-  private itWater: any;
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+  private itPlumbing: any;
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   public DataList = EX_RUBBER_LIST;
 
@@ -41,17 +42,35 @@ export class RubberTreePage {
   }
 
   ionViewDidEnter() {
-
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
-    this.fieldrebbertree.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
+    this.dispatchWaterSource();
     this.checkNextPage();
   }
   
+  private dispatchWaterSource() {
+    if (this.rubbertree.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.rubbertree.get('waterSources.plumbing').value));
+    }
+    if (this.rubbertree.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.rubbertree.get('waterSources.river').value));
+    }
+    if (this.rubbertree.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.rubbertree.get('waterSources.irrigation').value));
+    }
+    if (this.rubbertree.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.rubbertree.get('waterSources.rain').value));
+    }
+    if (this.rubbertree.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.rubbertree.get('waterSources.buying').value));
+    }
+    console.log("dispatch rubber can work");
+  }
+
   private checkNextPage() {
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
@@ -78,25 +97,14 @@ export class RubberTreePage {
       this.navCtrl.push("WaterAnimalPlantingPage")
     }
     else {
-      this.formDataWater$.subscribe(data => {
+      this.formCheckPlumbing$.subscribe(data => {
         if (data != null) {
-          this.itWater = data;
+          this.itPlumbing = data;
         }
-        console.log("it: ", this.itWater);
+        console.log("itPlumbing: ", this.itPlumbing);
       });
-      if (this.itWater != null) {
-        if (this.itWater.plumbing) {
-          this.navCtrl.push("PlumbingPage")
-        }
-        else if (this.itWater.pool) {
-          this.navCtrl.push("PoolPage")
-        }
-        else if (this.itWater.rain) {
-          this.navCtrl.push("RainPage")
-        }
-        else if (this.itWater.buying) {
-          this.navCtrl.push("BuyingPage")
-        }
+      if (this.itPlumbing) {
+        this.navCtrl.push("PlumbingPage")
       }
       else {
         this.navCtrl.push("GroundWaterPage")

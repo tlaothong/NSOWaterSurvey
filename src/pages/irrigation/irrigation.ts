@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -23,7 +23,8 @@ export class IrrigationPage {
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
-
+  private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
+  private itRain: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
 
@@ -71,6 +72,22 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.checkNextPage();
+  }
+
+  private checkNextPage() {
+    this.formCheckRain$.subscribe(data => {
+      if (data != null) {
+        this.itRain = data;
+      }
+      console.log("itRain: ", this.itRain);
+    });
+
+    if (this.itRain) {
+      this.navCtrl.push("RainPage")
+    }
+    else 
+      this.navCtrl.push("BuyingPage")
   }
 
   public isValid(name: string): boolean {

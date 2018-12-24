@@ -7,6 +7,9 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'field-flower-crop',
@@ -28,7 +31,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   private submitRequested: boolean;
   public shownData = EX_TREEDOK_LIST;
 
-  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.FormItem = FieldFlowerCropComponent.CreateFormGroup(this.fb);
   }
@@ -52,8 +55,27 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSource9.forEach(it => it.submitRequest());
+    this.dispatchWaterSource();
   }
 
+  private dispatchWaterSource() {
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    }
+    if (this.FormItem.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    }
+    if (this.FormItem.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    }
+    if (this.FormItem.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    }
+    console.log("dispatch flower can work");
+  }
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

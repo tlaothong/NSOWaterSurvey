@@ -5,9 +5,9 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetWaterSources } from '../../states/household/household.actions';
+import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -16,10 +16,10 @@ import { SetWaterSources } from '../../states/household/household.actions';
 })
 export class AnimalFarmPage {
 
-  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
-  private itWater: any;
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+  private itPlumbing: any;
   @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
 
@@ -59,8 +59,27 @@ export class AnimalFarmPage {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetWaterSources(this.f.get('waterSources').value));
+    this.dispatchWaterSource();
     this.checkNextPage();
+  }
+
+  private dispatchWaterSource() {
+    if (this.f.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
+    }
+    if (this.f.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
+    }
+    if (this.f.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
+    }
+    if (this.f.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
+    }
+    if (this.f.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
+    }
+    console.log("dispatch animalFarm can work");
   }
 
   private checkNextPage() {
@@ -74,25 +93,14 @@ export class AnimalFarmPage {
       this.navCtrl.push("WaterAnimalPlantingPage")
     }
     else {
-      this.formDataWater$.subscribe(data => {
+      this.formCheckPlumbing$.subscribe(data => {
         if (data != null) {
-          this.itWater = data;
+          this.itPlumbing = data;
         }
-        console.log("it: ", this.itWater);
+        console.log("itPlumbing: ", this.itPlumbing);
       });
-      if (this.itWater != null) {
-        if (this.itWater.plumbing) {
-          this.navCtrl.push("PlumbingPage")
-        }
-        else if (this.itWater.pool) {
-          this.navCtrl.push("PoolPage")
-        }
-        else if (this.itWater.rain) {
-          this.navCtrl.push("RainPage")
-        }
-        else if (this.itWater.buying) {
-          this.navCtrl.push("BuyingPage")
-        }
+      if (this.itPlumbing) {
+        this.navCtrl.push("PlumbingPage")
       }
       else {
         this.navCtrl.push("GroundWaterPage")
