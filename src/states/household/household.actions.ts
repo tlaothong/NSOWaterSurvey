@@ -32,14 +32,11 @@ export enum HouseHoldTypes {
     SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
     SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
     SetOtherBuildingType = "[HH] Set Other BuildingType",
-<<<<<<< HEAD
     SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
 
-=======
     UpdateWaterActivity = "[HH] Update Water Activities",
->>>>>>> rn0z
 }
 
 export class LoadHouseHoldList implements Action {
@@ -290,12 +287,9 @@ export type HouseHoldActionsType =
     | SetAgiSelectAnimalFarm
     | SetAgiSelectAquaticAnimals
     | SetOtherBuildingType
-<<<<<<< HEAD
     | SetArraySkipPage
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
-=======
     | UpdaterHouseHoldSample
->>>>>>> rn0z
     ;
 
