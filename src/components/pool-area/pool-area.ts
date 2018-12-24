@@ -39,7 +39,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
