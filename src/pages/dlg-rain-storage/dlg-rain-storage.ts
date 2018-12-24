@@ -15,7 +15,6 @@ export class DlgRainStoragePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private fb: FormBuilder, private viewCtrl: ViewController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get('headline');
-    console.log(this.FormItem.get('category').value);
     this.FormItem = RainStorageComponent.CreateFormGroup(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
