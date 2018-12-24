@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetWaterSources } from '../../states/household/household.actions';
+import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -16,10 +16,11 @@ import { SetWaterSources } from '../../states/household/household.actions';
 export class MushroomPage {
   public f: FormGroup;
   private submitRequested: boolean;
-  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
-  private itWater: any;
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+  private itPlumbing: any;
+
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
 
@@ -45,7 +46,28 @@ export class MushroomPage {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
     this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
+    this.dispatchWaterSource();
     this.checkNextPage();
+  }
+
+  private dispatchWaterSource() {
+    if (this.f.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
+    }
+    if (this.f.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
+    }
+    if (this.f.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
+    }
+    if (this.f.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
+    }
+    if (this.f.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
+    }
+    console.log("dispatch mushroom can work");
+
   }
 
   private checkNextPage() {
@@ -62,25 +84,14 @@ export class MushroomPage {
       this.navCtrl.push("WaterAnimalPlantingPage")
     }
     else {
-      this.formDataWater$.subscribe(data => {
+      this.formCheckPlumbing$.subscribe(data => {
         if (data != null) {
-          this.itWater = data;
+          this.itPlumbing = data;
         }
-        console.log("it: ", this.itWater);
+        console.log("itPlumbing: ", this.itPlumbing);
       });
-      if (this.itWater != null) {
-        if (this.itWater.plumbing) {
-          this.navCtrl.push("PlumbingPage")
-        }
-        else if (this.itWater.pool) {
-          this.navCtrl.push("PoolPage")
-        }
-        else if (this.itWater.rain) {
-          this.navCtrl.push("RainPage")
-        }
-        else if (this.itWater.buying) {
-          this.navCtrl.push("BuyingPage")
-        }
+      if (this.itPlumbing) {
+        this.navCtrl.push("PlumbingPage")
       }
       else {
         this.navCtrl.push("GroundWaterPage")

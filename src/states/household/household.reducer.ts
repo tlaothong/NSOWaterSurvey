@@ -42,6 +42,11 @@ export interface HouseHoldState {
     otherBuildingType: any,
     arraySkipPage: any,
     arraySkipPageAgiculture: any,
+    checkWaterPlumbing: any,
+    checkWaterRiver: any,
+    checkWaterIrrigation: any,
+    checkWaterRain: any,
+    checkWaterBuying: any,
 }
 
 const initialState: HouseHoldState = {
@@ -85,6 +90,11 @@ const initialState: HouseHoldState = {
     otherBuildingType: null,
     arraySkipPage: null,
     arraySkipPageAgiculture: null,
+    checkWaterPlumbing: null,
+    checkWaterRiver: null,
+    checkWaterIrrigation: null,
+    checkWaterRain: null,
+    checkWaterBuying: null,
 
 
 };
@@ -230,11 +240,36 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 arraySkipPage: action.payload,
             };
-            
-            case HouseHoldTypes.SetArraySkipPageAgiculture:
+
+        case HouseHoldTypes.SetArraySkipPageAgiculture:
             return {
                 ...state,
                 arraySkipPageAgiculture: action.payload,
+            };
+    case HouseHoldTypes.SetCheckWaterPlumbing:
+            return {
+                ...state,
+                checkWaterPlumbing: action.payload,
+            };
+        case HouseHoldTypes.SetCheckWaterRiver:
+            return {
+                ...state,
+                checkWaterRiver: action.payload,
+            };
+        case HouseHoldTypes.SetCheckWaterIrrigation:
+            return {
+                ...state,
+                checkWaterIrrigation: action.payload,
+            };
+        case HouseHoldTypes.SetCheckWaterRain:
+            return {
+                ...state,
+                checkWaterRain: action.payload,
+            };
+        case HouseHoldTypes.SetCheckWaterBuying:
+            return {
+                ...state,
+                checkWaterBuying: action.payload,
             };
         default:
             return state;

@@ -2,10 +2,10 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetWaterSources } from '../../states/household/household.actions';
+import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getWaterSource, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -22,8 +22,8 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
-  private itWater: any;
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+  private itPlumbing: any;
   public f: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
   private submitRequested: boolean;
@@ -63,10 +63,6 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-
-    this.fishFarming.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    this.frogFarming.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    this.crocodileFarming.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.checkNextPage();
   }
 
@@ -84,28 +80,17 @@ export class WaterAnimalPlantingPage {
       this.navCtrl.push("CommercialPage");
     }
     else {
-      this.formDataWater$.subscribe(data => {
+      this.formCheckPlumbing$.subscribe(data => {
         if (data != null) {
-          this.itWater = data;
+          this.itPlumbing = data;
         }
-        console.log("it: ", this.itWater);
+        console.log("itPlumbing: ", this.itPlumbing);
       });
-      if (this.itWater != null) {
-        if (this.itWater.plumbing) {
-          this.navCtrl.push("PlumbingPage")
-        }
-        else if (this.itWater.pool) {
-          this.navCtrl.push("PoolPage")
-        }
-        else if (this.itWater.rain) {
-          this.navCtrl.push("RainPage")
-        }
-        else if (this.itWater.buying) {
-          this.navCtrl.push("BuyingPage")
-        }
-        else {
-          this.navCtrl.push("GroundWaterPage")
-        }
+      if (this.itPlumbing) {
+        this.navCtrl.push("PlumbingPage")
+      }
+      else {
+        this.navCtrl.push("GroundWaterPage")
       }
     }
   }

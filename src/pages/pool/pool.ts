@@ -5,7 +5,7 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -22,6 +22,12 @@ export class PoolPage {
   private submitRequested: boolean;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
+  private formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
+  private itIrrigation: any;
+  private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
+  private itRain: any;
+  private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
+  private itBuying: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -65,7 +71,47 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
+    this.checkNextPage();
+
   }
+
+  // formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
+  // private itIrrigation: any;
+  // private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
+  // private itRain: any;
+  // private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
+  // private itBuying: any;
+  private checkNextPage() {
+    this.formCheckIrrigation$.subscribe(data => {
+      if (data != null) {
+        this.itIrrigation = data;
+      }
+      console.log("itIrrigation: ", this.itIrrigation);
+    });
+    this.formCheckRain$.subscribe(data => {
+      if (data != null) {
+        this.itRain = data;
+      }
+      console.log("itRain: ", this.itRain);
+    });
+    this.formCheckBuying$.subscribe(data => {
+      if (data != null) {
+        this.itBuying = data;
+      }
+      console.log("itIrrigation: ", this.itBuying);
+    });
+
+    if (this.itIrrigation) {
+      this.navCtrl.push("IrrigationPage")
+    }
+    else if (this.itRain) {
+      this.navCtrl.push("RainPage")
+    }
+    else if (this.itBuying) {
+      this.navCtrl.push("BuyingPage")
+    }
+  }
+
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

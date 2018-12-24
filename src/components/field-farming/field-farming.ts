@@ -6,6 +6,9 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harvest';
 import { LocationComponent } from '../location/location';
 import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @Component({
   selector: 'field-farming',
@@ -22,7 +25,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   @ViewChildren(WaterSources8AComponent) private waterSources8A: WaterSources8AComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
   }
 
@@ -48,6 +51,26 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.riceHarvests.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources8A.forEach(it => it.submitRequest());
+    this.dispatchWaterSource();
+  }
+
+  private dispatchWaterSource() {
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    }
+    if (this.FormItem.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    }
+    if (this.FormItem.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    }
+    if (this.FormItem.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    }
+    console.log("dispatch rice can work");
   }
 
   public isValid(name: string): boolean {

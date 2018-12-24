@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
 
@@ -18,10 +18,12 @@ export class RicePage {
 
   private submitRequested: boolean;
   f: FormGroup;
-  private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
+  // private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
-  private itWater: any;
+  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+  private itPlumbing: any;
+  // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   public DataList = EX_RICH_LIST;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
@@ -46,7 +48,7 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
-    this.fieldFarmings.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
+    // this.fieldFarmings.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.checkNextPage();
@@ -84,25 +86,14 @@ export class RicePage {
       this.navCtrl.push("WaterAnimalPlantingPage")
     }
     else {
-      this.formDataWater$.subscribe(data => {
+      this.formCheckPlumbing$.subscribe(data => {
         if (data != null) {
-          this.itWater = data;
+          this.itPlumbing = data;
         }
-        console.log("it: ", this.itWater);
+        console.log("it: ", this.itPlumbing);
       });
-      if (this.itWater != null) {
-        if (this.itWater.plumbing) {
-          this.navCtrl.push("PlumbingPage")
-        }
-        else if (this.itWater.pool) {
-          this.navCtrl.push("PoolPage")
-        }
-        else if (this.itWater.rain) {
-          this.navCtrl.push("RainPage")
-        }
-        else if (this.itWater.buying) {
-          this.navCtrl.push("BuyingPage")
-        }
+      if (this.itPlumbing) {
+        this.navCtrl.push("PlumbingPage")
       }
       else {
         this.navCtrl.push("GroundWaterPage")

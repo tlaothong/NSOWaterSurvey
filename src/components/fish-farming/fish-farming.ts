@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationE
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'fish-farming',
@@ -17,7 +20,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
     this.type = 'กก.';
   }
@@ -49,6 +52,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    this.dispatchWaterSource();
 
   }
 
@@ -68,6 +72,25 @@ export class FishFarmingComponent implements ISubmitRequestable {
       }
       return null;
     }
+  }
+
+  private dispatchWaterSource() {
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.river').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    }
+    if (this.FormItem.get('waterSources.irrigation').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    }
+    if (this.FormItem.get('waterSources.rain').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    }
+    if (this.FormItem.get('waterSources.buying').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    }
+    console.log("dispatch fish can work");
   }
 
   public isValid(name: string): boolean {

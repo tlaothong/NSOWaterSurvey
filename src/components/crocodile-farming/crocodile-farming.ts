@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationE
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @Component({
   selector: 'crocodile-farming',
@@ -20,7 +23,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     console.log('Hello CrocodileFarmingComponent Component');
     this.text = 'Hello World';
   }
@@ -48,6 +51,26 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    this.dispatchWaterSource();
+  }
+
+  private dispatchWaterSource() {
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.plumbing').value));
+    }
+    if (this.FormItem.get('waterSources.plumbing').value) {
+      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.plumbing').value));
+    }
+    console.log("dispatch crocodile can work");
   }
 
   public static checkAnyOrOther(): ValidatorFn {

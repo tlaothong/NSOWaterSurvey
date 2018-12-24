@@ -36,6 +36,11 @@ export enum HouseHoldTypes {
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
     UpdateWaterActivity = "[HH] Update Water Activities",
+    SetCheckWaterPlumbing = "[HH] Set Check Water Plumbing",
+    SetCheckWaterRiver = "[HH]Set Check Water River",
+    SetCheckWaterIrrigation = "[HH] Set Check Water Irrigation",
+    SetCheckWaterRain = "[HH] Set Check Water Rain",
+    SetCheckWaterBuying = "[HH] Set Check Water Buying",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -112,6 +117,18 @@ export class SetWaterSources implements Action {
     readonly type = HouseHoldTypes.SetWaterSource;
 
     constructor(public payload: any[]) {
+        // if (payload != null) {
+        //     console.log("payload ก่อน ", payload);
+        //     var arr = payload;
+        //     for (let index = 0; index < arr.length; index++) {
+        //         var element = arr[index];
+        //         if (element == false) {
+        //             element = true;
+        //         }
+        //         payload.splice(index, 1, true);
+        //     }
+
+        //     console.log("payload หลัง", payload);
     }
 }
 
@@ -255,6 +272,36 @@ export class SetArraySkipPageAgiculture implements Action {
     constructor(public payload: any) {
     }
 }
+export class SetCheckWaterPlumbing implements Action {
+    readonly type = HouseHoldTypes.SetCheckWaterPlumbing;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetCheckWaterRiver implements Action {
+    readonly type = HouseHoldTypes.SetCheckWaterRiver;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetCheckWaterIrrigation implements Action {
+    readonly type = HouseHoldTypes.SetCheckWaterIrrigation;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetCheckWaterRain implements Action {
+    readonly type = HouseHoldTypes.SetCheckWaterRain;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetCheckWaterBuying implements Action {
+    readonly type = HouseHoldTypes.SetCheckWaterBuying;
+
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -290,5 +337,10 @@ export type HouseHoldActionsType =
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
     | UpdaterHouseHoldSample
+    | SetCheckWaterPlumbing
+    | SetCheckWaterRiver
+    | SetCheckWaterIrrigation
+    | SetCheckWaterRain
+    | SetCheckWaterBuying
     ;
 
