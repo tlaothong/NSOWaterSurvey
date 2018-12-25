@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { BuildingState } from '../../states/building/building.reducer';
+import { Store } from '@ngrx/store';
+import { DeleteHomeBuilding } from '../../states/building/building.actions';
 
 @Component({
   selector: 'item-in-home',
@@ -10,7 +13,7 @@ export class ItemInHomeComponent {
 
   @Input() public FormItem: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,public store:Store<BuildingState>) {
     this.FormItem = ItemInHomeComponent.CreateFormGroup(this.fb);
   }
 
@@ -56,4 +59,7 @@ export class ItemInHomeComponent {
     this.navCtrl.push("BuildingInformation1Page")
   }
 
+  DeleteBuilding(id:string){
+    this.store.dispatch(new DeleteHomeBuilding(id));
+  }
 }

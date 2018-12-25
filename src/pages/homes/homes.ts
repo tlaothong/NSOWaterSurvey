@@ -53,6 +53,7 @@ export class HomesPage {
       ev: myEvent
     });
   }
+
   ionViewDidEnter() {
     this.store.dispatch(new LoadHomeBuilding());
     this.store.dispatch(new LoadCountOfHomeBuilding());
@@ -62,7 +63,11 @@ export class HomesPage {
         this.formItem.get('countHomeBuilding').setValue(data);
         if (data != null) {
           this.setupHomeBuilding();
-          this.formDataHomeBuilding$.subscribe(data => this.formItem.get('homeBuilding').patchValue(data));
+          this.formDataHomeBuilding$.subscribe(data => {
+            if (data != null) {
+              this.formItem.get('homeBuilding').patchValue(data)
+            }
+          });
         }
       }
     );
@@ -78,7 +83,7 @@ export class HomesPage {
   }
 
   goBuildingInfo() {
-    this.navCtrl.push("BuildingInformation1Page")
+    this.navCtrl.push("BuildingTestPage")
   }
 
   private setupHomeBuilding() {

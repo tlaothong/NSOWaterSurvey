@@ -31,8 +31,8 @@ export class SelectEaPage {
   ionViewDidLoad() {
     this.formDataCountEa$.subscribe(
       data => {
-        this.f.get('EaCount').setValue(data);
         if (data != null) {
+          this.f.get('EaCount').setValue(data);
           this.setupEaCountChanges();
           this.formDataEa$.subscribe(data => this.f.get('Ea').setValue(data));
         }
@@ -40,10 +40,13 @@ export class SelectEaPage {
     );
 
     var userObj: any = null;
-    this.formDataUser$.subscribe(data => userObj = data);
-    this.store.dispatch(new LoadDataWorkEA(userObj));
-    this.store.dispatch(new LoadCountOfWorks(userObj));
-
+    this.formDataUser$.subscribe(data => {
+      if (data != null) {
+        userObj = data
+        this.store.dispatch(new LoadDataWorkEA(userObj));
+        this.store.dispatch(new LoadCountOfWorks(userObj));
+      }
+    });
     // this.store.select(getDataWorkEA).pipe(map(s => s)).subscribe(data => this.worksEachUser = data);
   }
 
