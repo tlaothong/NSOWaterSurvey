@@ -352,172 +352,172 @@ export const districtData: District[] = [
     },
     {
         codeProvince: 14,
-        codeDistrict: '#REF!',
+        codeDistrict: 1401,
         name: 'อำเภอพระนครศรีอยุธยา'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1402,
         name: 'อำเภอท่าเรือ'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1403,
         name: 'อำเภอนครหลวง'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1404,
         name: 'อำเภอบางไทร'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1405,
         name: 'อำเภอบางบาล'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1406,
         name: 'อำเภอบางปะอิน'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1407,
         name: 'อำเภอบางปะหัน'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1408,
         name: 'อำเภอผักไห่'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1409,
         name: 'อำเภอภาชี'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1410,
         name: 'อำเภอลาดบัวหลวง'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1411,
         name: 'อำเภอวังน้อย'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1412,
         name: 'อำเภอเสนา'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1413,
         name: 'อำเภอบางซ้าย'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1414,
         name: 'อำเภออุทัย'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1415,
         name: 'อำเภอมหาราช'
     },
     {
         codeProvince: 14,
-        codeDistrict: '',
+        codeDistrict: 1416,
         name: 'อำเภอบ้านแพรก'
     },
     {
         codeProvince: 15,
-        codeDistrict: '#REF!',
+        codeDistrict: 1501,
         name: 'อำเภอเมืองอ่างทอง'
     },
     {
         codeProvince: 15,
-        codeDistrict: '',
+        codeDistrict: 1502,
         name: 'อำเภอไชโย'
     },
     {
         codeProvince: 15,
-        codeDistrict: '',
+        codeDistrict: 1503,
         name: 'อำเภอป่าโมก'
     },
     {
         codeProvince: 15,
-        codeDistrict: '',
+        codeDistrict: 1504,
         name: 'อำเภอโพธิ์ทอง'
     },
     {
         codeProvince: 15,
-        codeDistrict: '',
+        codeDistrict: 1505,
         name: 'อำเภอแสวงหา'
     },
     {
         codeProvince: 15,
-        codeDistrict: '',
+        codeDistrict: 1506,
         name: 'อำเภอวิเศษชัยชาญ'
     },
     {
         codeProvince: 15,
-        codeDistrict: '',
+        codeDistrict: 1507,
         name: 'อำเภอสามโก้'
     },
     {
         codeProvince: 16,
-        codeDistrict: '#REF!',
+        codeDistrict: 1601,
         name: 'อำเภอเมืองลพบุรี'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1602,
         name: 'อำเภอพัฒนานิคม'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1603,
         name: 'อำเภอโคกสำโรง'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1604,
         name: 'อำเภอชัยบาดาล'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1605,
         name: 'อำเภอท่าวุ้ง'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1606,
         name: 'อำเภอบ้านหมี่'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1607,
         name: 'อำเภอท่าหลวง'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1608,
         name: 'อำเภอสระโบสถ์'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1609,
         name: 'อำเภอโคกเจริญ'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1610,
         name: 'อำเภอลำสนธิ'
     },
     {
         codeProvince: 16,
-        codeDistrict: '',
+        codeDistrict: 1611,
         name: 'อำเภอหนองม่วง'
     },
     {
