@@ -5,7 +5,7 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -20,7 +20,8 @@ export class PoolPage {
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
 
   private submitRequested: boolean;
-
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
   private formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
   private itIrrigation: any;
@@ -98,7 +99,7 @@ export class PoolPage {
       if (data != null) {
         this.itBuying = data;
       }
-      console.log("itIrrigation: ", this.itBuying);
+      console.log("itBuying: ", this.itBuying);
     });
 
     if (this.itIrrigation) {
@@ -109,6 +110,19 @@ export class PoolPage {
     }
     else if (this.itBuying) {
       this.navCtrl.push("BuyingPage")
+    }
+    else{
+      this.formDataG1_G4$.subscribe(data => {
+        if (data != null) {
+          this.itG1_G4 = data;
+        }
+        console.log("itG1_G4: ", this.itG1_G4);
+      });
+      if (this.itG1_G4.isHouseHold) {
+        this.navCtrl.push("DisasterousPage")
+      }
+      else 
+      this.navCtrl.push("UserPage")
     }
   }
 

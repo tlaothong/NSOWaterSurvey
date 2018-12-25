@@ -1,4 +1,4 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component, ViewChildren, transition } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
@@ -38,6 +38,7 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
+    this.navCtrl.popToRoot();
   }
 
   public isValid(name: string): boolean {

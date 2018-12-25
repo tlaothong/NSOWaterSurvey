@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -22,9 +22,13 @@ export class IrrigationPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
   private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
   private itRain: any;
+  private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
+  private itBuying: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
 
@@ -82,12 +86,32 @@ export class IrrigationPage {
       }
       console.log("itRain: ", this.itRain);
     });
+    this.formCheckBuying$.subscribe(data => {
+      if (data != null) {
+        this.itBuying = data;
+      }
+      console.log("itBuying: ", this.itBuying);
+    });
 
     if (this.itRain) {
       this.navCtrl.push("RainPage")
     }
-    else 
+    else if (this.itBuying) {
       this.navCtrl.push("BuyingPage")
+    }
+    else {
+      this.formDataG1_G4$.subscribe(data => {
+        if (data != null) {
+          this.itG1_G4 = data;
+        }
+        console.log("itG1_G4: ", this.itG1_G4);
+      });
+      if (this.itG1_G4.isHouseHold) {
+        this.navCtrl.push("DisasterousPage")
+      }
+      else
+        this.navCtrl.push("UserPage")
+    }
   }
 
   public isValid(name: string): boolean {
