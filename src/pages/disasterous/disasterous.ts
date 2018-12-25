@@ -53,6 +53,7 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
+    this.navCtrl.push("UserPage");
   }
 
   submitRequest() {

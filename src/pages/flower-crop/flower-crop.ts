@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources } from '../../states/household/household.actions';
 
@@ -25,6 +25,8 @@ export class FlowerCropPage {
   private itPlumbing: any;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -102,6 +104,12 @@ export class FlowerCropPage {
   }
 
   private checkNextPage() {
+    this.formDataG1_G4$.subscribe(data => {
+      if (data != null) {
+        this.itG1_G4 = data;
+      }
+      console.log("itG1_G4: ", this.itG1_G4);
+    });
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
         this.itAgi = data;
@@ -116,6 +124,12 @@ export class FlowerCropPage {
     }
     else if (this.itAgi.aquaticAnimals) {
       this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else if (this.itG1_G4.isFactorial) {
+      this.navCtrl.push("FactorialPage")
+    }
+    else if (this.itG1_G4.isCommercial) {
+      this.navCtrl.push("CommercialPage")
     }
     else {
       this.formCheckPlumbing$.subscribe(data => {

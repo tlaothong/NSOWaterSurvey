@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { SetAgronomyPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -18,7 +18,8 @@ export class DryCropPlantingPage {
   private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
-  private itWater: any;
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
 
@@ -60,6 +61,12 @@ export class DryCropPlantingPage {
   }
 
   private checkNextPage() {
+    this.formDataG1_G4$.subscribe(data => {
+      if (data != null) {
+        this.itG1_G4 = data;
+      }
+      console.log("itG1_G4: ", this.itG1_G4);
+    });
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
         this.itAgi = data;
@@ -86,6 +93,12 @@ export class DryCropPlantingPage {
     }
     else if (this.itAgi.aquaticAnimals) {
       this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else if (this.itG1_G4.isFactorial) {
+      this.navCtrl.push("FactorialPage")
+    }
+    else if (this.itG1_G4.isCommercial) {
+      this.navCtrl.push("CommercialPage")
     }
     else {
       this.formCheckPlumbing$.subscribe(data => {

@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -22,6 +22,8 @@ export class RubberTreePage {
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
@@ -52,6 +54,12 @@ export class RubberTreePage {
   }
  
   private checkNextPage() {
+    this.formDataG1_G4$.subscribe(data => {
+      if (data != null) {
+        this.itG1_G4 = data;
+      }
+      console.log("itG1_G4: ", this.itG1_G4);
+    });
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
         this.itAgi = data;
@@ -75,6 +83,12 @@ export class RubberTreePage {
     }
     else if (this.itAgi.aquaticAnimals) {
       this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else if (this.itG1_G4.isFactorial) {
+      this.navCtrl.push("FactorialPage")
+    }
+    else if (this.itG1_G4.isCommercial) {
+      this.navCtrl.push("CommercialPage")
     }
     else {
       this.formCheckPlumbing$.subscribe(data => {

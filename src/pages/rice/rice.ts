@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
 
@@ -23,6 +23,8 @@ export class RicePage {
   private itAgi: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   public DataList = EX_RICH_LIST;
@@ -55,6 +57,12 @@ export class RicePage {
   }
 
   private checkNextPage() {
+    this.formDataG1_G4$.subscribe(data => {
+      if (data != null) {
+        this.itG1_G4 = data;
+      }
+      console.log("itG1_G4: ", this.itG1_G4);
+    });
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
         this.itAgi = data;
@@ -84,6 +92,12 @@ export class RicePage {
     }
     else if (this.itAgi.aquaticAnimals) {
       this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else if (this.itG1_G4.isFactorial) {
+      this.navCtrl.push("FactorialPage")
+    }
+    else if (this.itG1_G4.isCommercial) {
+      this.navCtrl.push("CommercialPage")
     }
     else {
       this.formCheckPlumbing$.subscribe(data => {

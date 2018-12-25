@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
@@ -18,6 +18,8 @@ export class MushroomPage {
   private submitRequested: boolean;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
+  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
 
@@ -50,6 +52,12 @@ export class MushroomPage {
   }
   
   private checkNextPage() {
+    this.formDataG1_G4$.subscribe(data => {
+      if (data != null) {
+        this.itG1_G4 = data;
+      }
+      console.log("itG1_G4: ", this.itG1_G4);
+    });
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
         this.itAgi = data;
@@ -61,6 +69,12 @@ export class MushroomPage {
     }
     else if (this.itAgi.aquaticAnimals) {
       this.navCtrl.push("WaterAnimalPlantingPage")
+    }
+    else if (this.itG1_G4.isFactorial) {
+      this.navCtrl.push("FactorialPage")
+    }
+    else if (this.itG1_G4.isCommercial) {
+      this.navCtrl.push("CommercialPage")
     }
     else {
       this.formCheckPlumbing$.subscribe(data => {
