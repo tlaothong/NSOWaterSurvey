@@ -6,9 +6,7 @@
   <ion-item [class.invalid]="isValid('province')">
     <ion-label>จังหวัด</ion-label>
     <ion-select interface="action-sheet" formControlName="province">
-      <ion-option>กรุงเทพมหานคร</ion-option>
-      <ion-option>ขอนแก่น</ion-option>
-      <ion-option>ยโสธร</ion-option>
+      <ion-option *ngFor="let item of province">{{ item }}</ion-option>
     </ion-select>
   </ion-item>
 
