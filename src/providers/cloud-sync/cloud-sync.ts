@@ -54,6 +54,9 @@ export class CloudSyncProvider {
   public setHomeBuilding(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateBuilding', data);
   }
+  public deleteHomeBuilding(id: any): Observable<any> {
+    return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/'+ id);
+  }
 
 
 }

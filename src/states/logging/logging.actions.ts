@@ -16,8 +16,7 @@ export enum LoggingTypes {
     LoadHomeBuildingSuccess = "[BLD] Load Home Building Success",
     LoadCountOfHomeBuilding = "[BLD] Load Count Home Building",
     LoadCountOfHomeBuildingSuccess = "[BLD] Load Count Home Building Success",
-    SetHomeBuilding = "[BLD] Set HomeBuilding",
-    SetHomeBuildingSuccess = "[BLD] Set HomeBuilding Success",
+   
 }
 
 export class LoadUserInformation implements Action {
@@ -90,21 +89,7 @@ export class LoadCountOfHomeBuildingSuccess implements Action {
     }
 }
 
-export class SetHomeBuilding implements Action {
-    readonly type = LoggingTypes.SetHomeBuilding;
 
-    constructor(public payload: any) {
-        console.log(payload);
-    }
-    
-}
-
-export class SetHomeBuildingSuccess implements Action {
-    readonly type = LoggingTypes.SetHomeBuildingSuccess;
-
-    constructor() {
-    }
-}
 
 
 
@@ -123,6 +108,5 @@ export type LoggingActionsType =
     | LoadHomeBuildingSuccess
     | LoadCountOfHomeBuilding
     | LoadCountOfHomeBuildingSuccess
-    | SetHomeBuilding
-    | SetHomeBuildingSuccess
+   
     ;

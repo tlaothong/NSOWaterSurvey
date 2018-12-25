@@ -25,6 +25,7 @@ export class BuildingTestPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingTestPage');
+    this.navCtrl.push('BuildingInformation1Page');
   }
 
   public openPage(page) {

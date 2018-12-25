@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess, LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding, SetHomeBuildingSuccess } from "./logging.actions";
+import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess, LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess } from "./logging.actions";
 
 @Injectable()
 export class LoggingEffects {
@@ -51,31 +51,24 @@ export class LoggingEffects {
         ))
     );
 
-    
+
     @Effect()
     public LoadHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadHomeBuilding),
         mergeMap(action => this.cloudSync.loadHomeBuilding().pipe(
-                map(data => new LoadHomeBuildingSuccess(data)),
-            )
-        ),
-    );
-    
-    @Effect()
-    public LoadCountOfHomeBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.LoadCountOfHomeBuilding),
-        mergeMap(action => this.cloudSync.loadCountHomeBuilding().pipe(
-                map(data => new LoadCountOfHomeBuildingSuccess(data)),
-            )
+            map(data => new LoadHomeBuildingSuccess(data)),
+        )
         ),
     );
 
     @Effect()
-    public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.SetHomeBuilding),
-        mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
-                map(data => new SetHomeBuildingSuccess()),
-            )
+    public LoadCountOfHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadCountOfHomeBuilding),
+        mergeMap(action => this.cloudSync.loadCountHomeBuilding().pipe(
+            map(data => new LoadCountOfHomeBuildingSuccess(data)),
+        )
         ),
     );
+
+
 }
