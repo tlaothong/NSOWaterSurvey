@@ -119,6 +119,7 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
+    this.navCtrl.push("GroundWaterPage");
   }
 
   public resetSumOfWaterActivities() {

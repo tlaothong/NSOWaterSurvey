@@ -52,7 +52,7 @@ export class BuyingPage {
     this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
     this.getIsCommercial$.subscribe(data => this.getIsCommercial = data);
-    console.log(this.getIsHouseHold, this.getIsAgriculture, this.getIsCommercial, this.getIsFactorial);
+    console.log(this.getIsHouseHold, this.getIsAgriculture, this.getIsFactorial, this.getIsCommercial);
   }
 
   public handleSubmit() {

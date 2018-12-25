@@ -48,29 +48,9 @@ export class RubberTreePage {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-    this.dispatchWaterSource();
     this.checkNextPage();
   }
-  
-  private dispatchWaterSource() {
-    if (this.rubbertree.get('waterSources.plumbing').value) {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.rubbertree.get('waterSources.plumbing').value));
-    }
-    if (this.rubbertree.get('waterSources.river').value) {
-      this.store.dispatch(new SetCheckWaterRiver(this.rubbertree.get('waterSources.river').value));
-    }
-    if (this.rubbertree.get('waterSources.irrigation').value) {
-      this.store.dispatch(new SetCheckWaterIrrigation(this.rubbertree.get('waterSources.irrigation').value));
-    }
-    if (this.rubbertree.get('waterSources.rain').value) {
-      this.store.dispatch(new SetCheckWaterRain(this.rubbertree.get('waterSources.rain').value));
-    }
-    if (this.rubbertree.get('waterSources.buying').value) {
-      this.store.dispatch(new SetCheckWaterBuying(this.rubbertree.get('waterSources.buying').value));
-    }
-    console.log("dispatch rubber can work");
-  }
-
+ 
   private checkNextPage() {
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {

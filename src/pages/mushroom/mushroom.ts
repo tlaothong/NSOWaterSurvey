@@ -46,30 +46,9 @@ export class MushroomPage {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
     this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    this.dispatchWaterSource();
     this.checkNextPage();
   }
-
-  private dispatchWaterSource() {
-    if (this.f.get('waterSources.plumbing').value) {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
-    }
-    if (this.f.get('waterSources.river').value) {
-      this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
-    }
-    if (this.f.get('waterSources.irrigation').value) {
-      this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
-    }
-    if (this.f.get('waterSources.rain').value) {
-      this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
-    }
-    if (this.f.get('waterSources.buying').value) {
-      this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
-    }
-    console.log("dispatch mushroom can work");
-
-  }
-
+  
   private checkNextPage() {
     this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
