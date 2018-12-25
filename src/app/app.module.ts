@@ -17,6 +17,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
+import { PumpDataProvider } from '../providers/pump-data/pump-data';
+import { LocationDataProvider } from '../providers/location-data/location-data';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    CloudSyncProvider
+    CloudSyncProvider,
+    PumpDataProvider,
+    LocationDataProvider,
   ]
 })
 export class AppModule { }
