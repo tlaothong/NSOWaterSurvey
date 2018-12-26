@@ -69,7 +69,9 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.checkNextPage();
+    if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {

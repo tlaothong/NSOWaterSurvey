@@ -39,37 +39,37 @@
         <ion-label>
           2.1 ขุ่น/ตะกอน
         </ion-label>
-        <ion-checkbox value="false" formControlName="turbidWater"></ion-checkbox>
+        <ion-checkbox value="false" formControlName="turbidWater" [disabled]="!FormItem.get('hasProblem').value"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.2 เค็ม/กร่อย
         </ion-label>
-        <ion-checkbox value="false" formControlName="saltWater"></ion-checkbox>
+        <ion-checkbox value="false" formControlName="saltWater" [disabled]="!FormItem.get('hasProblem').value"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.3 กระด้าง
         </ion-label>
-        <ion-checkbox value="false" formControlName="smell"></ion-checkbox>
+        <ion-checkbox value="false" formControlName="smell" [disabled]="!FormItem.get('hasProblem').value"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.4 มีกลิ่น
         </ion-label>
-        <ion-checkbox value="false" formControlName="filmOfOil"></ion-checkbox>
+        <ion-checkbox value="false" formControlName="filmOfOil" [disabled]="!FormItem.get('hasProblem').value"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.5 คราบมัน
         </ion-label>
-        <ion-checkbox value="false" formControlName="fogWater"></ion-checkbox>
+        <ion-checkbox value="false" formControlName="fogWater" [disabled]="!FormItem.get('hasProblem').value"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
           2.6 ฝ้าขาว
         </ion-label>
-        <ion-checkbox value="false" formControlName="hardWater"></ion-checkbox>
+        <ion-checkbox value="false" formControlName="hardWater" [disabled]="!FormItem.get('hasProblem').value"></ion-checkbox>
       </ion-item>
     </ion-col>
   </ion-row>
