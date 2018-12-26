@@ -62,7 +62,9 @@ export class AnimalFarmPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
-    this.checkNextPage();
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   private dispatchWaterSource() {

@@ -57,8 +57,9 @@ export class DryCropPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
-    this.checkNextPage();
-
+    if (this.agronomyPlant.valid) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {

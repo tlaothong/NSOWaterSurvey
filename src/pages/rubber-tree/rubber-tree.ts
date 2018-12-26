@@ -51,7 +51,9 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
-    this.checkNextPage();
+    if (this.rubbertree.valid) {
+      this.checkNextPage();
+    }
   }
  
   private checkNextPage() {

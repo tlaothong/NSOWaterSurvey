@@ -54,7 +54,9 @@ export class RicePage {
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
-    this.checkNextPage();
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {

@@ -83,7 +83,9 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.checkNextPage();
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {
