@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { IonicPage, NavController } from 'ionic-angular';
-import { getUserInformation } from '../../states/logging';
+import { getUserData } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 
 @IonicPage()
@@ -14,7 +14,7 @@ import { LoggingState } from '../../states/logging/logging.reducer';
 
 export class ConfirmloginPage {
 
-  private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
+  private formData$ = this.store.select(getUserData).pipe(map(s => s));
   private userData: any;
   private fg: FormGroup;
 

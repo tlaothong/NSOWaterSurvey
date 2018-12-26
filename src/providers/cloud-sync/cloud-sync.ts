@@ -28,6 +28,11 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByQRCode/' + code);
   }
 
+  public loadUserFromId(idUser: string): Observable<any> {
+    console.log(idUser + ", LOADING USER...");
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByID/user?IdUser=' + idUser);
+  }
+
   public setNewUserPassword(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/SetPasswordUser/', data);
   }
@@ -54,6 +59,5 @@ export class CloudSyncProvider {
   public setHomeBuilding(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateBuilding', data);
   }
-
 
 }

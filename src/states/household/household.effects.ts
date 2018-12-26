@@ -9,6 +9,7 @@ import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess } 
 
 @Injectable()
 export class HouseHoldEffects {
+
     constructor(private action$: Actions, private cloudSync: CloudSyncProvider) {
     }
 

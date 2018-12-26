@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store'
 import { map } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { getUserInformation } from '../../states/logging';
+import { getUserData } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SetUserPassword } from '../../states/logging/logging.actions';
@@ -17,7 +17,7 @@ import { AlertController } from 'ionic-angular';
 
 export class FirstloginPage {
   f: FormGroup;
-  private formData$ = this.store.select(getUserInformation).pipe(map(s => s));
+  private formData$ = this.store.select(getUserData).pipe(map(s => s));
   public riceDoing: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder, private alertCtrl: AlertController) {

@@ -1,7 +1,7 @@
 import { LoggingActionsType, LoggingTypes } from "./logging.actions";
 
 export interface LoggingState {
-    userInformation: any,
+    userData: any,
     dataWorkEA: any,
     countOfWorks: any,
     getWorkEA: any,
@@ -10,7 +10,7 @@ export interface LoggingState {
 }
 
 const initialState: LoggingState = {
-    userInformation: null,
+    userData: null,
     dataWorkEA: null,
     countOfWorks: null,
     getWorkEA: null,
@@ -20,10 +20,10 @@ const initialState: LoggingState = {
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
     switch (action.type) {
-        case LoggingTypes.LoadUserInformationSuccess:
+        case LoggingTypes.LoadUserDataSuccess:
             return {
                 ...state,
-                userInformation: action.payload
+                userData: action.payload
             };
         case LoggingTypes.LoadDataWorkEASuccess:
             return {
@@ -50,7 +50,7 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
                 ...state,
                 dataHomeBuilding: action.payload,
             };
-      
+
         default:
             return state;
     }

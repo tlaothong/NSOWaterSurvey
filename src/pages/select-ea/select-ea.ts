@@ -4,7 +4,7 @@ import { Component, ViewChildren } from '@angular/core';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { LoadDataWorkEA, LoadCountOfWorks } from '../../states/logging/logging.actions';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { getDataWorkEA, getUserInformation, getCountOfaWorkEA } from '../../states/logging';
+import { getDataWorkEA, getCountOfaWorkEA, getUserData } from '../../states/logging';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EaComponent } from '../../components/ea/ea';
 
@@ -17,7 +17,7 @@ import { EaComponent } from '../../components/ea/ea';
 export class SelectEaPage {
   f: FormGroup;
   @ViewChildren(EaComponent) private ea: EaComponent[];
-  private formDataUser$ = this.store.select(getUserInformation).pipe(map(s => s));
+  private formDataUser$ = this.store.select(getUserData).pipe(map(s => s));
   private formDataEa$ = this.store.select(getDataWorkEA).pipe(map(s => s));
   private formDataCountEa$ = this.store.select(getCountOfaWorkEA).pipe(map(s => s));
 

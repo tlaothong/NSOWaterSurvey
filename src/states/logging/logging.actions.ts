@@ -6,8 +6,9 @@ export enum LoggingTypes {
     LoadDataWorkEASuccess = "[L] Load Data Work EA Success",
     LoadDataWorkEA = "[L] Load Data Work EA",
     SetUserPasswordSuccess = "[L] Set User Password Success",
-    LoadUserInformation = "[L] Load User Information",
-    LoadUserInformationSuccess = "[L] Loaded User Information Success",
+    LoadUserDataByQRCode = "[L] Load User Data From QR code",
+    LoadUserDataById = "[L] Load User From ID",
+    LoadUserDataSuccess = "[L] Loaded User Data Success",
     LoadCountOfWorks = "[L] Load Count of Works",
     LoadCountOfWorksSuccess = "[L] Load Count of Works Success",
     LoadWorkByIdEA = "[L] Load Select Data WorkEA",
@@ -20,12 +21,16 @@ export enum LoggingTypes {
     SetHomeBuildingSuccess = "[BLD] Set HomeBuilding Success",
 }
 
-export class LoadUserInformation implements Action {
-    readonly type = LoggingTypes.LoadUserInformation;
-    constructor(public payload: string) { }
+export class LoadUserDataByQRCode implements Action {
+    readonly type = LoggingTypes.LoadUserDataByQRCode;
+    constructor(public qrcode: string) { }
 }
-export class LoadUserInformationSuccess implements Action {
-    readonly type = LoggingTypes.LoadUserInformationSuccess;
+export class LoadUserDataById implements Action {
+    readonly type = LoggingTypes.LoadUserDataById;
+    constructor(public id: string) { }
+}
+export class LoadUserDataSuccess implements Action {
+    readonly type = LoggingTypes.LoadUserDataSuccess;
     constructor(public payload: any) { }
 }
 export class SetUserPassword implements Action {
@@ -64,53 +69,40 @@ export class LoadWorkByIdEASuccess implements Action {
 
 export class LoadHomeBuilding implements Action {
     readonly type = LoggingTypes.LoadHomeBuilding;
-
-    constructor() {
-    }
+    constructor() { }
 }
 
 export class LoadHomeBuildingSuccess implements Action {
     readonly type = LoggingTypes.LoadHomeBuildingSuccess;
-
-    constructor(public payload: any[]) {
-    }
+    constructor(public payload: any[]) { }
 }
 
 export class LoadCountOfHomeBuilding implements Action {
     readonly type = LoggingTypes.LoadCountOfHomeBuilding;
-
-    constructor() {
-    }
+    constructor() { }
 }
 
 export class LoadCountOfHomeBuildingSuccess implements Action {
     readonly type = LoggingTypes.LoadCountOfHomeBuildingSuccess;
-
-    constructor(public payload: any) {
-    }
+    constructor(public payload: any) { }
 }
 
 export class SetHomeBuilding implements Action {
     readonly type = LoggingTypes.SetHomeBuilding;
-
-    constructor(public payload: any) {
-        console.log(payload);
-    }
-    
+    constructor(public payload: any) { }
 }
 
 export class SetHomeBuildingSuccess implements Action {
     readonly type = LoggingTypes.SetHomeBuildingSuccess;
-
-    constructor() {
-    }
+    constructor() { }
 }
 
 
 
 export type LoggingActionsType =
-    LoadUserInformationSuccess
-    | LoadUserInformation
+    LoadUserDataSuccess
+    |LoadUserDataByQRCode
+    | LoadUserDataById
     | SetUserPassword
     | SetUserPasswordSuccess
     | LoadDataWorkEA

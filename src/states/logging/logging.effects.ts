@@ -4,7 +4,12 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { LoggingTypes, LoadUserInformationSuccess, SetUserPasswordSuccess, SetUserPassword, LoadUserInformation, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess, LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding, SetHomeBuildingSuccess } from "./logging.actions";
+import {
+    LoggingTypes, LoadUserDataSuccess, SetUserPasswordSuccess, SetUserPassword,
+    LoadUserDataByQRCode, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess,
+    LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
+    SetHomeBuildingSuccess, LoadUserDataById,
+} from "./logging.actions";
 
 @Injectable()
 export class LoggingEffects {
@@ -12,10 +17,18 @@ export class LoggingEffects {
     }
 
     @Effect()
-    public LoadUserInformation: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.LoadUserInformation),
-        mergeMap(action => this.cloudSync.loadUserFromQR((<LoadUserInformation>action).payload).pipe(
-            map(data => new LoadUserInformationSuccess(data))
+    public LoadUserDataByQRCode: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadUserDataByQRCode),
+        mergeMap(action => this.cloudSync.loadUserFromQR((<LoadUserDataByQRCode>action).qrcode).pipe(
+            map(data => new LoadUserDataSuccess(data))
+        ))
+    );
+
+    @Effect()
+    public LoadUserDataById: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadUserDataById),
+        mergeMap(action => this.cloudSync.loadUserFromId((<LoadUserDataById>action).id).pipe(
+            map(data => new LoadUserDataSuccess(data))
         ))
     );
 
@@ -51,22 +64,22 @@ export class LoggingEffects {
         ))
     );
 
-    
+
     @Effect()
     public LoadHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadHomeBuilding),
         mergeMap(action => this.cloudSync.loadHomeBuilding().pipe(
-                map(data => new LoadHomeBuildingSuccess(data)),
-            )
+            map(data => new LoadHomeBuildingSuccess(data)),
+        )
         ),
     );
-    
+
     @Effect()
     public LoadCountOfHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadCountOfHomeBuilding),
         mergeMap(action => this.cloudSync.loadCountHomeBuilding().pipe(
-                map(data => new LoadCountOfHomeBuildingSuccess(data)),
-            )
+            map(data => new LoadCountOfHomeBuildingSuccess(data)),
+        )
         ),
     );
 
@@ -74,8 +87,8 @@ export class LoggingEffects {
     public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.SetHomeBuilding),
         mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
-                map(data => new SetHomeBuildingSuccess()),
-            )
+            map(data => new SetHomeBuildingSuccess()),
+        )
         ),
     );
 }

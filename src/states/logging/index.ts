@@ -4,9 +4,9 @@ import  { createFeatureSelector, createSelector } from "@ngrx/store";
 
 const getLoggingFeatureState = createFeatureSelector<LoggingState>(LoggingTypes.StateName);
 
-export const getUserInformation = createSelector(
+export const getUserData = createSelector(
     getLoggingFeatureState,
-    state => state.userInformation
+    state => state.userData
 );
 
 export const getDataWorkEA = createSelector(
