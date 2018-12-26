@@ -68,6 +68,8 @@ export class FlowerCropPage {
     this.getAgiSelectAgronomy$.subscribe(data => this.getAgiSelectAgronomy = data);
     this.getAgiSelectRubber$.subscribe(data => this.getAgiSelectRubber = data);
     this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
+    console.log("rice agronomy rubber peren ",this.getAgiSelectRice,this.getAgiSelectAgronomy,this.getAgiSelectRubber,this.getAgiSelectPerennial);
+    
     this.listSumData = sum;
     console.log('listSumData');
     console.log(this.listSumData);

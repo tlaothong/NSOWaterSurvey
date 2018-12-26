@@ -1,4 +1,4 @@
-import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources } from './../../states/household/household.actions';
+import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources, SetAgiSelectRice } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -53,6 +53,7 @@ export class RicePage {
     // this.fieldFarmings.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
+    this.store.dispatch(new SetAgiSelectRice(true));
     this.checkNextPage();
   }
 
