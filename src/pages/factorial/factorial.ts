@@ -50,7 +50,9 @@ export class FactorialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
     this.dispatchWaterSource();
-    this.checkNextPage();
+    if (this.FactoryForm.valid) {
+      this.checkNextPage();
+    }
   }
 
   private dispatchWaterSource() {
