@@ -61,5 +61,6 @@ export class ItemInHomeComponent {
 
   DeleteBuilding(id:string){
     this.store.dispatch(new DeleteHomeBuilding(id));
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 }
