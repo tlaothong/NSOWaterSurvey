@@ -89,7 +89,9 @@ export class CommercialPage {
     // (this.f.get('waterSources.rain').value),
     // (this.f.get('waterSources.buying').value)]));
     this.dispatchWaterSource();
-    this.checkNextPage();
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   private dispatchWaterSource() {

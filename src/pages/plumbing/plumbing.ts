@@ -92,8 +92,10 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-      this.navCtrl.push("GroundWaterPage");
+    if (this.f.valid) {
+      if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+        this.navCtrl.push("GroundWaterPage");
+      }
     }
   }
 

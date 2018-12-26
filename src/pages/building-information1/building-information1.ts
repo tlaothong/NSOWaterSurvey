@@ -39,22 +39,22 @@ export class BuildingInformation1Page {
       'other': [null],
       // 'buildingAccessCount': [0],
       'access': [null, Validators.required],
-      'vacancyCount': [null],
-      'abandonedCount': [null],
+      'vacancyCount': [null, Validators.required],
+      'abandonedCount': [null, Validators.required],
       'comments': fb.array([
         {
-          "at": [null],
-          "text": [null]
+          "at": [null, Validators.required],
+          "text": [null, Validators.required]
         }
       ]),
-      'recCtrl': [null],
-      'vacantRoomCount': [null],
-      'unitCount': [0],
-      'unitAccess': [0],
-      'occupiedRoomCount': [null],
-      'waterQuantity': [null],
-      'floorCount': [null],
-      '_id': [null],
+      'recCtrl': [null, Validators.required],
+      'vacantRoomCount': [null, Validators.required],
+      'unitCount': [0, Validators.required],
+      'unitAccess': [0, Validators.required],
+      'occupiedRoomCount': [null, Validators.required],
+      'waterQuantity': [null, Validators.required],
+      'floorCount': [null, Validators.required],
+      '_id': [null, Validators.required],
     });
   }
 

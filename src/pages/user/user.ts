@@ -45,7 +45,9 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    if (this.userInfo.valid) {
     this.navCtrl.push("PopulationPage");
+      }
   }
 
   public isValid(name: string): boolean {

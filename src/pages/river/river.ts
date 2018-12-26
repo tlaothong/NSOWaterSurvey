@@ -70,7 +70,9 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    this.navCtrl.push("PoolPage")
+    if (this.f.valid) {
+    this.navCtrl.push("PoolPage");
+    }
   }
 
   public isValid(name: string): boolean {

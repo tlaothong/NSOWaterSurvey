@@ -38,7 +38,9 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
+    if (this.f.valid) {
     this.navCtrl.popToRoot();
+      }
   }
 
   public isValid(name: string): boolean {
