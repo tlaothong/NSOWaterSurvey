@@ -1,7 +1,9 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Input } from '@angular/core';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-import { LocationData } from '../../providers/location-data/location-data';
+import { provinceData } from '../../models/ProvinceData';
+import { LocationDataProvider } from '../../providers/location-data/location-data';
+import { districtData } from '../../models/DistrictData';
 
 @Component({
   selector: 'location',
@@ -10,7 +12,7 @@ import { LocationData } from '../../providers/location-data/location-data';
 
 export class LocationComponent implements ISubmitRequestable {
 
-  public locationData = LocationData;
+  public provinceData = provinceData;
   public province: any;
   public district: any;
   public subDistrict: any;
@@ -20,7 +22,7 @@ export class LocationComponent implements ISubmitRequestable {
 
   constructor(public fb: FormBuilder) {
     this.text = 'Hello World';
-    this.getprovince();
+    // this.getprovince();
     this.FormItem = LocationComponent.CreateFormGroup(this.fb);
   }
 
@@ -41,12 +43,15 @@ export class LocationComponent implements ISubmitRequestable {
     this.submitRequested = true;
   }
 
-  getprovince() {
-    this.province = Array.from(new Set(this.locationData.map(it => it.province)));
+  onChange(name: any) {
+    let code = provinceData.find(it => it.name == name)
+    this.district = LocationDataProvider.getDistric(code.codeProvince);
+    console.log(code);
+    console.log(code.codeProvince);
   }
 
-  getdistrict(item){
-    var dis = this.locationData.find
-    this.district = Array.from(new Set(this.locationData.map(it => it.province)));
+  onChange1(name: any) {
+    let code = districtData.find(it => it.name == name)
+    this.subDistrict = LocationDataProvider.getSubdistric(code.codeDistrict);
   }
 }
