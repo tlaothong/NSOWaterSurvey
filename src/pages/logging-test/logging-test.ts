@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
-import { LoadUserInformation } from '../../states/logging/logging.actions';
 
 @IonicPage()
 @Component({
@@ -26,8 +25,6 @@ export class LoggingTestPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoggingTestPage');
-    // this.store.dispatch(new LoadUserInformation());
   }
 
   public openPage(page) {
