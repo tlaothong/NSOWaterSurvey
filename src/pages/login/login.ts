@@ -30,6 +30,11 @@ export class LoginPage {
     this.store.dispatch(new LoadUserDataById(id));
     this.formData$.subscribe(it => this.userData = it);
 
+    setTimeout(()=> {
+      console.log("Hello set time out");
+      
+    }, 5000);
+
     console.log(this.userData == undefined? undefined: this.userData);
 
     let wrongPassword = this.alertCtrl.create({
