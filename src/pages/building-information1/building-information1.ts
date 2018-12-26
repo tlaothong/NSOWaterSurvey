@@ -8,10 +8,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { SetSendBuildingType, SetHomeBuilding } from '../../states/building/building.actions';
 import { SetOtherBuildingType } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-<<<<<<< HEAD
 import { BuidlingInformation2Page } from '../buidling-information2/buidling-information2';
-=======
->>>>>>> rn0z
 
 @IonicPage()
 @Component({
