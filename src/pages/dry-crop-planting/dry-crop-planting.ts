@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
+import { SetAgronomyPlantSelectPlant, SetWaterSources, SetAgiSelectAgronomy } from '../../states/household/household.actions';
 import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 
 @IonicPage()
@@ -56,6 +56,7 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
+    this.store.dispatch(new SetAgiSelectAgronomy(true));
     this.checkNextPage();
 
   }

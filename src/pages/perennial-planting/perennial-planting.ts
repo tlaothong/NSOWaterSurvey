@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetPerennialPlantSelectPlant, SetWaterSources } from '../../states/household/household.actions';
+import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -54,6 +54,7 @@ export class PerennialPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
+    this.store.dispatch(new SetAgiSelectPerennial(true));
     this.checkNextPage();
   }
 

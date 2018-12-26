@@ -51,7 +51,7 @@
     </ion-item>
     <modal-plant Title="พืชไร่" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
     
-    <div *ngIf="getAgiSelectRice == 'true' || getAgiSelectAgronomy == 'true' || getAgiSelectRubber == 'true' || getAgiSelectPerennial == 'true'">
+    <div *ngIf="getAgiSelectRice || getAgiSelectAgronomy  || getAgiSelectRubber  || getAgiSelectPerennial ">
       <ion-item>
         <ion-label>
           5) ลักษณะการปลูกเป็นแบบใด
