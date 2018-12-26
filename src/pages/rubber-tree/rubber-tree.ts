@@ -50,7 +50,9 @@ export class RubberTreePage {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-    this.checkNextPage();
+    if (this.rubbertree.valid) {
+      this.checkNextPage();
+    }
   }
  
   private checkNextPage() {

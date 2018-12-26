@@ -53,7 +53,9 @@ export class RicePage {
     // this.fieldFarmings.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
-    this.checkNextPage();
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {

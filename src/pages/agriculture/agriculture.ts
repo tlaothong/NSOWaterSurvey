@@ -75,7 +75,9 @@ export class AgriculturePage {
     // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
     this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
     console.log("checkdata", this.f.value)
-    this.checkNextPage();
+    if (!this.isValid('anycheck')) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {

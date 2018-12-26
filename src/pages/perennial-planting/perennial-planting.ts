@@ -54,7 +54,9 @@ export class PerennialPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
-    this.checkNextPage();
+    if (this.PerennialPlantingFrm.valid) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {

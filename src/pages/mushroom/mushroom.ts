@@ -48,7 +48,9 @@ export class MushroomPage {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
     this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    this.checkNextPage();
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
   
   private checkNextPage() {
