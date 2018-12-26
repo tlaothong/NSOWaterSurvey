@@ -72,8 +72,11 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    this.checkNextPage();
-
+    console.log("valid",this.f.valid);
+    console.log("this.f",this.f.value);
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   // formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));

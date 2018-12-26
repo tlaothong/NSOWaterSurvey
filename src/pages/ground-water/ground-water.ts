@@ -77,7 +77,11 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
-    this.checkNextPage();
+    console.log("valid",this.f.valid);
+    console.log("this.f",this.f.value);
+    if (this.f.valid) {
+      this.checkNextPage();
+    }
   }
 
   private checkNextPage() {
