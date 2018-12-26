@@ -20,41 +20,28 @@ export class LoginPage {
     this.userData = null;
   }
 
-  ionViewDidLoad() {
+  onkey(id: string) {
+    this.store.dispatch(new LoadUserDataById(id));
+    this.formData$.subscribe(it => this.userData = it);
   }
 
   goConfirmloginPage(event: any) {
-    var id = event.idUser._value;
-    var pass = event.password._value;
-
-    this.store.dispatch(new LoadUserDataById(id));
-    this.formData$.subscribe(it => this.userData = it);
-
-    setTimeout(()=> {
-      console.log("Hello set time out");
-      
-    }, 5000);
-
-    console.log(this.userData == undefined? undefined: this.userData);
-
     let wrongPassword = this.alertCtrl.create({
       message: 'รหัสผ่านไม่ถูกต้อง',
       buttons: ['ตกลง']
     });
-
     let notFoundUser = this.alertCtrl.create({
       message: 'ไม่พบผู้ใช่',
       buttons: ['ตกลง']
     });
 
-
     if (typeof (this.userData) == 'undefined' || this.userData == null) {
       notFoundUser.present();
-    } else if (this.userData.password != pass) {
+    } else if (this.userData.password != event.password._value) {
       wrongPassword.present();
+    } else {
+      this.navCtrl.push("ConfirmloginPage");
     }
-
-    //this.navCtrl.push("ConfirmloginPage")
   }
 
   goBack() {
