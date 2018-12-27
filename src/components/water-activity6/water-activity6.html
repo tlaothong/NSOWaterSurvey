@@ -10,7 +10,7 @@
     <ion-label col-8>
       เพื่ออุปโภคบริโภค
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="drink" [class.invalid]="isValid('drink')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="drink" [class.invalid]="isValid('drink')" (change)="onchange()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('drink')" text-right>
     <span class="invalid-msg">
@@ -21,7 +21,7 @@
     <ion-label col-8>
       เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="plant" [class.invalid]="isValid('plant')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="plant" [class.invalid]="isValid('plant')" (change)="onchange()"></ion-input>
   </ion-item>
 
   <ion-item *ngIf="isValid('plant')" text-right>
@@ -33,7 +33,7 @@
     <ion-label col-8>
       เพื่อทำนา
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="farm" [class.invalid]="isValid('farm')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="farm" [class.invalid]="isValid('farm')" (change)="onchange()"></ion-input>
   </ion-item>
 
   <ion-item *ngIf="isValid('farm')" text-right>
@@ -45,7 +45,7 @@
     <ion-label col-8>
       เพื่อทำเกษตร
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="agriculture" [class.invalid]="isValid('agriculture')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="agriculture" [class.invalid]="isValid('agriculture')" (change)="onchange()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('agriculture')" text-right>
     <span class="invalid-msg">
@@ -56,7 +56,7 @@
     <ion-label col-8>
       เพื่อผลิตสินค้า
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="product" [class.invalid]="isValid('product')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="product" [class.invalid]="isValid('product')" (change)="onchange()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('product')" text-right>
     <span class="invalid-msg">
@@ -67,7 +67,7 @@
     <ion-label col-8>
       เพื่อการบริการ
     </ion-label>
-    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="service" [class.invalid]="isValid('service')"></ion-input>
+    <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="service" [class.invalid]="isValid('service')" (change)="onchange()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('service')" text-right>
     <span class="invalid-msg">
@@ -78,7 +78,7 @@
     <ion-label col-8>
       <b>รวมทุกกิจกรรม</b>
     </ion-label>
-    <ion-input placeholder="100" disabled="true"></ion-input>
+    <ion-input value="{{totalSum}}" readonly></ion-input>
   </ion-item>
 
 </div>

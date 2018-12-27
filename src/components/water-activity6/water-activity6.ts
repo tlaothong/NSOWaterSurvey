@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ResidentialShellPageModule } from '../../shells/pages/residential-shell/residential-shell.module';
+import { summaryFileName } from '@angular/compiler/src/aot/util';
 
 @Component({
   selector: 'water-activity6',
@@ -19,14 +21,62 @@ export class WaterActivity6Component {
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
 
+  public waterActivitiesWhichToUse: any;
+  public totalSum: number
+
   constructor(private fb: FormBuilder) {
-    this.text = 'Hello World';
     this.FormItem = WaterActivity6Component.CreateFormGroup(fb);
+    this.waterActivitiesWhichToUse = {
+      'plant': false,
+      'farm': false,
+      'service': false,
+      'product': false,
+      'drink': false,
+      'agriculture': false,
+    }
+    this.totalSum = 0;
   }
 
   submitRequest() {
     this.submitRequested = true;
-    console.log(this.gardeningUse);
+  }
+
+  ngOnInit() {
+    this.waterActivitiesWhichToUse = {
+      'plant': this.gardeningUse,
+      'farm': this.riceDoing,
+      'service': this.commerceUse,
+      'product': this.factoryUse,
+      'drink': this.residenceUse,
+      'agriculture': this.agricultureUse,
+    }
+    this.sum();
+  }
+
+  resetSum() {
+    this.totalSum = 0;
+  }
+
+  sum() {
+    this.resetSum();
+    for (let k in this.waterActivitiesWhichToUse) {
+      if (this.waterActivitiesWhichToUse[k]) {
+        this.totalSum += this.FormItem.value[k];
+      }
+    }
+  }
+
+  makeAllInt() {
+    for (let k in this.waterActivitiesWhichToUse) {
+      if (this.waterActivitiesWhichToUse[k]) {
+        this.FormItem.value[k] = Number(this.FormItem.value[k]);
+      }
+    }
+  }
+
+  onchange() {
+    this.makeAllInt();
+    this.sum();
   }
 
   public isValid(name: string): boolean {
