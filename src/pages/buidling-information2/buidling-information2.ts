@@ -31,24 +31,12 @@ export class BuidlingInformation2Page {
   }
 
   ionViewDidLoad() {
-    // this.formDataFromBuilding1$.subscribe(data => console.log(data));
-    // this.formDataFromBuilding1$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data);
-    //   }
-    // });
-
-    // console.log("buildingType จาก building1", this.f.get('buildingType').value);
-    // console.log(this.f.value)
-
     this.formDataFromBuilding1$.subscribe(data => {
       if (data != null) {
         this.f.setValue(data)
+        this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
       }
     });
-
-    // this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
-
   }
 
   public handleSubmit() {
@@ -56,6 +44,8 @@ export class BuidlingInformation2Page {
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
     this.store.dispatch(new SetHomeBuilding(this.f.value));
     console.log("data ยิง API", this.f.value);
+    console.log("f.valid", this.f.valid);
+
     if (this.f.valid) {
       if (this.f.get('unitCount').value == 1) {
         this.navCtrl.push("HouseHoldTestPage", { num: 1 });
@@ -63,12 +53,7 @@ export class BuidlingInformation2Page {
       else this.navCtrl.push("HouseHoldTestPage"), { num: null };
     }
 
-    // if (this.f.get('unitCount').value > 1 ) {
-    //   this.navCtrl.push("UnitPage");
-    // }
-    // else{
-    //   this.navCtrl.push("WaterActivityUnitPage");
-    // }
+    
 
   }
 
