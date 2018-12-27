@@ -44,7 +44,7 @@ export class UnitButtonComponent {
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
   }
-  
+
   ngOnInit() {
     let count = 0;
     this.formData$.subscribe(data => count = data.subUnit.accessCount);
@@ -56,7 +56,7 @@ export class UnitButtonComponent {
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
-    
+
     // this.num = this.navParams.get('num');
     // if (this.num == 1) {
     //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
@@ -188,6 +188,8 @@ export class UnitButtonComponent {
         }
         break;
       case 4:
+        this.class = (this.allComment == '') ? "empty" : "emptyCm";
+        break;
       case 5:
         this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;

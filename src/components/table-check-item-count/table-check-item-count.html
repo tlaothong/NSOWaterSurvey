@@ -1,7 +1,7 @@
 <button ion-item (click)="showModal()" [formGroup]="FormItem">
-  <ion-checkbox item-start formControlName="hasItem" disabled="true" ></ion-checkbox>
+  <ion-checkbox item-start formControlName="hasItem" disabled="true"></ion-checkbox>
   <ion-label col-6>
     {{ text }}
   </ion-label>
-  <ion-input placeholder="กดเพื่อใส่ข้อมูล" disabled="true" clear item-end type="number" formControlName="itemCount"></ion-input>
+  <ion-input placeholder="กดเพื่อใส่ข้อมูล" clear item-end type="number" formControlName="itemCount" disabled="true"></ion-input>
 </button>
