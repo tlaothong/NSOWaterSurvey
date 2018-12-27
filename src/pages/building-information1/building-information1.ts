@@ -52,7 +52,11 @@ export class BuildingInformation1Page {
       'unitCount': [0, Validators.required],
       'unitAccess': [0, Validators.required],
       'occupiedRoomCount': [null, Validators.required],
-      'waterQuantity': [null, Validators.required],
+      'waterQuantity': fb.group({
+        'waterQuantity': [null, Validators.required],
+        'cubicMeterPerMonth': [null, Validators.required],
+        'waterBill': [null, Validators.required],
+      }),
       'floorCount': [null, Validators.required],
       '_id': [null, Validators.required],
     });
