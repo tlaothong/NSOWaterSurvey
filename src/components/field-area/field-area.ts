@@ -22,9 +22,9 @@ export class FieldAreaComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'rai': [null, [Validators.required, Validators.min(0)]],
-      'ngan': [null, [Validators.required, Validators.min(0), Validators.max(3)]],
-      'sqWa': [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      'rai': [0, [Validators.required, Validators.min(0)]],
+      'ngan': [0, [Validators.required, Validators.min(0), Validators.max(3)]],
+      'sqWa': [0, [Validators.required, Validators.min(0), Validators.max(99)]],
     });
   }
 
