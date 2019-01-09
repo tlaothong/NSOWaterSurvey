@@ -33,7 +33,7 @@ export class HouseHoldTestPage {
       { title: '5.1 น้้ำประปา ', component: "PlumbingPage" },
       { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage" },
       { title: '5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ', component: "RiverPage" },
-      { title: '5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง ', component: "PoolPage" },
+      { title: '5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง ', component: "PoolPage" },
       { title: '5.5 น้ำจากชลประทาน', component: "IrrigationPage" },
       { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage" },
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage" },
