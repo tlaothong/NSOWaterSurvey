@@ -61,4 +61,13 @@ export class WaterProblem6Component {
       return null;
     }
   }
+
+  setCheckboxFalse(){
+    this.FormItem.get('problem.saltWater').setValue(false);
+    this.FormItem.get('problem.smell').setValue(false);
+    this.FormItem.get('problem.filmOfOil').setValue(false);
+    this.FormItem.get('problem.fogWater').setValue(false);
+    this.FormItem.get('problem.turbidWater').setValue(false);
+    this.FormItem.get('problem.hardWater').setValue(false);
+   }
 }
