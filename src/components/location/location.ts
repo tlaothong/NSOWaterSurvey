@@ -51,7 +51,9 @@ export class LocationComponent implements ISubmitRequestable {
   }
 
   onChange1(name: any) {
-    let code = districtData.find(it => it.name == name)
+    var code = districtData.find(it => it.name == name)
     this.subDistrict = LocationDataProvider.getSubdistric(code.codeDistrict);
   }
+
+  
 }
