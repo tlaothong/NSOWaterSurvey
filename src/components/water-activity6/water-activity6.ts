@@ -24,6 +24,7 @@ export class WaterActivity6Component {
   public waterActivitiesWhichToUse: any;
   public totalSum: number
 
+
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity6Component.CreateFormGroup(fb);
     this.waterActivitiesWhichToUse = {
@@ -50,33 +51,16 @@ export class WaterActivity6Component {
       'drink': this.residenceUse,
       'agriculture': this.agricultureUse,
     }
-    this.sum();
+
   }
 
-  resetSum() {
-    this.totalSum = 0;
+  resetResult() {
+    this.totalSum = 0
   }
 
-  sum() {
-    this.resetSum();
-    for (let k in this.waterActivitiesWhichToUse) {
-      if (this.waterActivitiesWhichToUse[k]) {
-        this.totalSum += this.FormItem.value[k];
-      }
-    }
-  }
-
-  makeAllInt() {
-    for (let k in this.waterActivitiesWhichToUse) {
-      if (this.waterActivitiesWhichToUse[k]) {
-        this.FormItem.value[k] = Number(this.FormItem.value[k]);
-      }
-    }
-  }
-
-  onchange() {
-    this.makeAllInt();
-    this.sum();
+  onChangeValue() {
+    this.resetResult()
+    this.totalSum = Number(this.FormItem.get('plant').value) + Number(this.FormItem.get('service').value) + Number(this.FormItem.get('product').value) + Number(this.FormItem.get('drink').value) + Number(this.FormItem.get('agriculture').value) + Number(this.FormItem.get('farm').value);
   }
 
   public isValid(name: string): boolean {

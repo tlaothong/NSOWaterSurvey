@@ -62,14 +62,6 @@ export class DlgTableCheckItemCountPage {
         (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == 0)
       );
     }
-    // else if (this.FormItem.get('hasItem').value == false) {
-    //   if(this.FormItem.get('itemCount').value == null){
-        
-    //   }
-    //   return (
-    //     (this.FormItem.get('itemCount').value)
-    //   );
-    // }
   }
 }
 
