@@ -42,10 +42,9 @@ export class AnimalFarmPage {
       'goose': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-      'otherName': [null, Validators.required],
+      'otherName': null,
       'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
     });
-
   }
 
   ionViewDidLoad() {
@@ -62,8 +61,11 @@ export class AnimalFarmPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
+    console.log("valid",this.f.valid);
+    
     if (this.f.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

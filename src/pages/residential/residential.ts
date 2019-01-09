@@ -48,7 +48,8 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
     this.dispatchWaterSource();
-    this.checkNextPage();
+    // this.checkNextPage();
+    this.navCtrl.popToRoot();
     // this.checkNextPageWaterSounces();
   }
 

@@ -103,7 +103,8 @@ export class FlowerCropPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     if (this.flowerCropFrm.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

@@ -46,7 +46,8 @@ export class UserPage {
   public handleSubmit() {
     this.submitRequested = true;
     if (this.userInfo.valid) {
-    this.navCtrl.push("PopulationPage");
+      this.navCtrl.popToRoot();
+      // this.navCtrl.push("PopulationPage");
       }
   }
 

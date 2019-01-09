@@ -54,7 +54,8 @@ export class DisasterousPage {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
     if (this.Disasterous.valid) {
-    this.navCtrl.push("UserPage");
+      this.navCtrl.popToRoot();
+      // this.navCtrl.push("UserPage");
     }
   }
 

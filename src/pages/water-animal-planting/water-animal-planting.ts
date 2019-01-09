@@ -64,7 +64,8 @@ export class WaterAnimalPlantingPage {
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
     if (!this.isValid('anycheck')) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

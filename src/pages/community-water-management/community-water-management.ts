@@ -118,6 +118,7 @@ export class CommunityWaterManagementPage {
     this.detailOrgWaterSupply.forEach(it => it.submitRequest());
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
+    this.navCtrl.popToRoot();
   }
 
   public isValid(name: string): boolean {

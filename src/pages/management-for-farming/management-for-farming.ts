@@ -33,6 +33,7 @@ export class ManagementForFarmingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
+    this.navCtrl.popToRoot();
   }
 
   public isValid(name: string): boolean {

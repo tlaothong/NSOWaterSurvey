@@ -71,7 +71,8 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     if (this.f.valid) {
-    this.navCtrl.push("PoolPage");
+      this.navCtrl.popToRoot();
+      // this.navCtrl.push("PoolPage");
     }
   }
 
