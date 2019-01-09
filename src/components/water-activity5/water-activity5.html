@@ -24,7 +24,7 @@
       เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plant" [class.invalid]="isValid('plant')"
-    (ionChange)="onChangeValue($event)"></ion-input>
+    (ionChange)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('plant')" text-right>
     <span class="invalid-msg">
@@ -37,7 +37,7 @@
       เพื่อทำเกษตร
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="agriculture" [class.invalid]="isValid('agriculture')"
-     (ionChange)="onChangeValue($event)"></ion-input>
+     (ionChange)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('agriculture')" text-right>
     <span class="invalid-msg">
@@ -50,7 +50,7 @@
       เพื่อผลิตสินค้า
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="product" [class.invalid]="isValid('product')"
-     (ionChange)="onChangeValue($event)"></ion-input>
+     (ionChange)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('product')" text-right>
     <span class="invalid-msg">
@@ -62,7 +62,7 @@
       เพื่อการบริการ
     </ion-label>
     <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="service" [class.invalid]="isValid('service')"
-     (ionChange)="onChangeValue($event)"></ion-input>
+     (ionChange)="onChangeValue()"></ion-input>
   </ion-item>
   <ion-item *ngIf="isValid('service')" text-right>
     <span class="invalid-msg">
