@@ -24,6 +24,7 @@ export class WaterActivity5Component {
   @Input('agriculture') public agricultureUse: boolean;
 
   public resultSum: number;
+  public a: number;
   public household: any;
   public waterActivitiesWhichToUse: { 'plant': boolean; 'service': boolean; 'product': boolean; 'drink': boolean; 'agriculture': boolean; };
   private formDataHouseHold$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
@@ -37,7 +38,7 @@ export class WaterActivity5Component {
       'drink': false,
       'agriculture': false,
     }
-    this.resultSum = 0;
+    
   }
 
   ngOnInit() {
@@ -49,29 +50,20 @@ export class WaterActivity5Component {
       'drink': this.residenceUse,
       'agriculture': this.agricultureUse,
     }
-    this.sum();
+
   }
 
   submitRequest() {
     this.submitRequested = true;
   }
 
-  takeAllToInt() {
-    for (let key in this.FormItem.value)
-      this.FormItem.value[key] = Number(this.FormItem.value[key]);
-  }
-
-  sum() {
-    this.resultSum = 0;
-    for (let key in this.FormItem.value)
-      if (this.waterActivitiesWhichToUse[key])
-        this.resultSum += this.FormItem.value[key];
+  resetResult(){
+    this.resultSum = 0
   }
 
   onChangeValue() {
-    this.takeAllToInt();
-    this.sum();
-    this.uploadToStore()
+    this.resetResult()
+    this.resultSum = Number(this.FormItem.get('plant').value) + Number(this.FormItem.get('service').value) + Number(this.FormItem.get('product').value) + Number(this.FormItem.get('drink').value) + Number(this.FormItem.get('agriculture').value);
   }
 
   uploadToStore() {
@@ -95,12 +87,12 @@ export class WaterActivity5Component {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': [null, Validators.required],
-      'plant': [null, Validators.required],
-      'farm': [null, Validators.required],
-      'agriculture': [null, Validators.required],
-      'product': [null, Validators.required],
-      'service': [null, Validators.required]
+      'drink': [0, Validators.required],
+      'plant': [0, Validators.required],
+      'farm': [0, Validators.required],
+      'agriculture': [0, Validators.required],
+      'product': [0, Validators.required],
+      'service': [0, Validators.required]
     });
   }
 

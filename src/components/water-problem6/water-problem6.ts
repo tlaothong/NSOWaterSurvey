@@ -27,9 +27,9 @@ export class WaterProblem6Component {
       'filmOfOil': [false, Validators.required],
       'fogWater': [false, Validators.required],
       'hardWater': [false, Validators.required],
-    },{
-      validator: WaterProblem6Component.checkAnyOrOther()
-    });
+    }, {
+        validator: WaterProblem6Component.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
@@ -41,13 +41,13 @@ export class WaterProblem6Component {
     if (name == 'anycheck') {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
+    }
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
-      const turbidWater = c.get('turbidWater');
+      const turbidWater = c.get('turbidWater')
       const saltWater = c.get('saltWater');
       const smell = c.get('smell');
       const filmOfOil = c.get('filmOfOil');
@@ -57,9 +57,8 @@ export class WaterProblem6Component {
       if (!turbidWater.value && !saltWater.value && !smell.value && !filmOfOil.value
         && !fogWater.value && !hardWater.value) {
         return { 'anycheck': true };
-      } 
+      }
       return null;
     }
   }
-
 }
