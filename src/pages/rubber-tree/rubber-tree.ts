@@ -52,7 +52,8 @@ export class RubberTreePage {
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
     if (this.rubbertree.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
  

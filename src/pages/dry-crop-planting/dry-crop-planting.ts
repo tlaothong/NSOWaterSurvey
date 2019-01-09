@@ -58,7 +58,8 @@ export class DryCropPlantingPage {
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
     if (this.agronomyPlant.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

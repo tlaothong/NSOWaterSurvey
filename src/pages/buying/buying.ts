@@ -58,7 +58,8 @@ export class BuyingPage {
   public handleSubmit() {
     this.submitRequested = true;
     if (this.BuyingForm.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

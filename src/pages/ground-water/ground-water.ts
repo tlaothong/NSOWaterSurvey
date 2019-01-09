@@ -80,7 +80,8 @@ export class GroundWaterPage {
     console.log("valid",this.f.valid);
     console.log("this.f",this.f.value);
     if (this.f.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

@@ -90,7 +90,8 @@ export class CommercialPage {
     // (this.f.get('waterSources.buying').value)]));
     this.dispatchWaterSource();
     if (this.f.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

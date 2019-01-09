@@ -73,9 +73,9 @@ export class PoolPage {
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid",this.f.valid);
-    console.log("this.f",this.f.value);
     if (this.f.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 

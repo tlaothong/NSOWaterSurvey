@@ -71,7 +71,8 @@ export class RainPage {
     this.waterActivity5.forEach(it => it.submitRequest());
     if (this.RainFrm.valid) {
       if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-        this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
       }
     }
   }

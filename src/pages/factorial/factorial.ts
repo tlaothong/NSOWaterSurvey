@@ -51,7 +51,8 @@ export class FactorialPage {
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
     this.dispatchWaterSource();
     if (this.FactoryForm.valid) {
-      this.checkNextPage();
+      this.navCtrl.popToRoot();
+      // this.checkNextPage();
     }
   }
 
