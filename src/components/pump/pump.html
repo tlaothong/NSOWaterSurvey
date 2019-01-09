@@ -36,7 +36,7 @@
     <div *ngIf="FormItem.get('pumpAuto').value == false">
       <ion-item>
         <ion-label>
-          2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งเท่าไร
+          2) ใช้ระยะเวลาในการสูบน้ำต่อครั้งเท่าไร (ชั่วโมง)
         </ion-label>
       </ion-item>
       <ion-item>
@@ -571,7 +571,7 @@
 
         <ion-item [class.invalid]="isValid('suctionPipeSize')">
           <ion-label>
-            ขนาดท่อดูด
+            ขนาดท่อดูด (นิ้ว)
           </ion-label>
           <ion-select interface="action-sheet" formControlName="suctionPipeSize">
             <ion-option [value]="1">
@@ -666,7 +666,7 @@
 
         <ion-item [class.invalid]="isValid('pipelineSize')">
           <ion-label>
-            ขนาดท่อส่ง
+            ขนาดท่อส่ง (นิ้ว)
           </ion-label>
           <ion-select interface="action-sheet" formControlName="pipelineSize">
             <ion-option [value]="1">

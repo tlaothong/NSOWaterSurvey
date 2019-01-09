@@ -72,8 +72,8 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    console.log("valid",this.f.valid);
-    console.log("this.f",this.f.value);
+    console.log("valid", this.f.valid);
+    console.log("this.f", this.f.value);
     if (this.f.valid) {
       this.checkNextPage();
     }
@@ -114,7 +114,7 @@ export class PoolPage {
     else if (this.itBuying) {
       this.navCtrl.push("BuyingPage")
     }
-    else{
+    else {
       this.formDataG1_G4$.subscribe(data => {
         if (data != null) {
           this.itG1_G4 = data;
@@ -124,11 +124,10 @@ export class PoolPage {
       if (this.itG1_G4.isHouseHold) {
         this.navCtrl.push("DisasterousPage")
       }
-      else 
-      this.navCtrl.push("UserPage")
+      else
+        this.navCtrl.push("UserPage")
     }
   }
-
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
