@@ -23,7 +23,7 @@ export class TableDisasterousComponent {
     return fb.group({
       'count': [ null, Validators.required],
       'avgDay':[ null, Validators.required],
-      'avgHour': [ null, Validators.required],
+      'avgHour': [ null, [Validators.required, Validators.min(1), Validators.max(23)]],
       'waterHeightCm': [ null, Validators.required],
       'year': [ null],
     });

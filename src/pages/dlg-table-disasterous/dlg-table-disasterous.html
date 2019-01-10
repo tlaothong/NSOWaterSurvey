@@ -37,7 +37,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่ชั่วโมง</ion-label>
+      <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่ชั่วโมง (มีค่า1-23)</ion-label>
     </ion-item>
     <ion-item>
       <ion-input type="number" formControlName="avgHour" [class.invalid]="isValid('avgHour')"></ion-input>
@@ -45,7 +45,7 @@
 
     <ion-item *ngIf="isValid('avgHour')">
       <span class="invalid-msg">
-        กรุณากรอกข้อมูล
+        กรุณากรอกข้อมูลในช่วง 1-23
       </span>
     </ion-item>
     <ion-item>
