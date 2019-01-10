@@ -112,26 +112,4 @@ export class PumpComponent implements ISubmitRequestable {
       }
     console.log(this.pipeLineData);
   }
-
-  // onChangeGroundWater(code:any){
-  //   this.surfacePump = PumpDataProvider.getSurfacePumpTypeData(code);
-  // }
-
-  // onChangeGroundWater1(name:string){
-  //   var code = groundWaterPumpTypeData.find(it=>it.name == name);
-  //   this.groundWaterWattHpData = PumpDataProvider.getSurfaceWattHpData(code.codePumpType);
-  //   console.log(this.groundWaterWattHpData)
-  // }
-
-  // onChangeGroundWater2(name:string){
-  //   var code = groundWaterWattHpData.find(it=>it.name == name);
-  //   this.groundWaterSuctionPipeData = PumpDataProvider.getSurfaceSuctionPipeData(code.codeWattHp);
-  //   console.log(this.groundWaterSuctionPipeData)
-  // }
-
-  // onChangeGroundWater3(name:string){
-  //   var code = groundWaterSuctionPipeData.find(it=>it.name == name);
-  //   this.groundWaterpipeLineData = PumpDataProvider.getSurfacepipeLineData(code.codeSuctionPipe);
-  //   console.log(this.groundWaterpipeLineData);
-  // }
 }
