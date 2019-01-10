@@ -127,7 +127,7 @@
         <ion-item [class.invalid]="isValid('pumpType')">
           <ion-label>ชนิดเครื่องสูบ</ion-label>
           <ion-select interface="action-sheet" formControlName="pumpType" (ionChange)="onChange1($event)">
-            <ion-option *ngFor="let item of surfacePump">{{item.name}}</ion-option>
+            <ion-option *ngFor="let item of pumpTypes">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
 
@@ -144,7 +144,7 @@
         <ion-item [class.invalid]="isValid('horsePower')">
           <ion-label>วัตต์/ขนาดแรงม้า</ion-label>
           <ion-select interface="action-sheet" formControlName="horsePower" (ionChange)="onChange2($event)">
-            <ion-option *ngFor="let item of surfaceWattHpData">{{item.name}}</ion-option>
+            <ion-option *ngFor="let item of wattHpData">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
 
@@ -161,7 +161,7 @@
         <ion-item [class.invalid]="isValid('suctionPipeSize')">
           <ion-label>ขนาดท่อดูด (นิ้ว)</ion-label>
           <ion-select interface="action-sheet" formControlName="suctionPipeSize" (ionChange)="onChange3($event)">
-            <ion-option *ngFor="let item of surfaceSuctionPipeData">{{item.name}}</ion-option>
+            <ion-option *ngFor="let item of suctionPipeData">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
 
@@ -178,7 +178,7 @@
         <ion-item [class.invalid]="isValid('pipelineSize')">
           <ion-label>ขนาดท่อส่ง (นิ้ว)</ion-label>
           <ion-select interface="action-sheet" formControlName="pipelineSize">
-            <ion-option *ngFor="let item of surfacePipeLineData">{{item.name}}</ion-option> 
+            <ion-option *ngFor="let item of pipeLineData">{{item.name}}</ion-option> 
           </ion-select>
         </ion-item>
       </div>
