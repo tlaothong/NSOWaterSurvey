@@ -24,15 +24,11 @@
           </ion-item>
           <ion-item col-6>
             <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              มี
-            </ion-label>
+            <ion-label>มี</ion-label>
           </ion-item>
           <ion-item col-6>
             <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              ไม่มี
-            </ion-label>
+            <ion-label>ไม่มี</ion-label>
           </ion-item>
         </ion-row>
 
@@ -48,9 +44,7 @@
               <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="allCount" [class.invalid]="isValid('privateGroundWater.allCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('privateGroundWater.allCount')">
-              <span class="invalid-msg">
-                กรุณากรอกข้อมูล
-              </span>
+              <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
 
             <ion-item>
@@ -98,23 +92,17 @@
         <ion-row radio-group formControlName="doing" [class.invalid]="isValid('publicGroundWater.doing')">
 
           <ion-item *ngIf="isValid('publicGroundWater.doing')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
+            <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
 
           <ion-item col-6>
             <ion-radio [value]="true" item-left></ion-radio>
-            <ion-label>
-              ใช้
-            </ion-label>
+            <ion-label>ใช้</ion-label>
           </ion-item>
 
           <ion-item col-6>
             <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              ไม่ใช้
-            </ion-label>
+            <ion-label>ไม่ใช้</ion-label>
           </ion-item>
         </ion-row>
 
