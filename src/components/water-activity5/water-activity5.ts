@@ -22,6 +22,11 @@ export class WaterActivity5Component {
   @Input('commerce') public commerceUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
+  @Input('activeRes') public activeRes:any;
+  @Input('activeWateringRes') public activeWateringRes:any;
+  @Input('activeAgi') public activeAgi:any;
+  @Input('activeFac') public activeFac:any;
+  @Input('activeCom') public activeCom:any;
 
   public resultSum: number;
   public a: number;
@@ -37,6 +42,7 @@ export class WaterActivity5Component {
       'product': false,
       'drink': false,
       'agriculture': false,
+      
     }
     
   }
@@ -50,9 +56,9 @@ export class WaterActivity5Component {
       'drink': this.residenceUse,
       'agriculture': this.agricultureUse,
     }
-
   }
 
+  
   submitRequest() {
     this.submitRequested = true;
   }

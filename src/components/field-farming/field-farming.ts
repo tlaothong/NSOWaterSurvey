@@ -8,7 +8,7 @@ import { LocationComponent } from '../location/location';
 import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWaterSourcesRice } from '../../states/household/household.actions';
 
 @Component({
   selector: 'field-farming',
@@ -51,6 +51,8 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.riceHarvests.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources8A.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
+    console.log("waterRice",this.FormItem.get('waterSources').value);
     this.dispatchWaterSource();
   }
 

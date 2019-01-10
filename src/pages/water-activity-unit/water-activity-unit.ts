@@ -1,5 +1,5 @@
 import { getArraySkipPage } from './../../states/household/index';
-import { SetArraySkipPage } from './../../states/household/household.actions';
+import { SetArraySkipPage, SetWaterSourcesAgiculture } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -39,6 +39,7 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
     this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
     this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
 
     this.checkNextPage();
 

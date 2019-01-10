@@ -1,3 +1,4 @@
+import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -21,17 +22,13 @@ export class GroundWaterPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
   private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
   private itRiver: any;
-
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
-
   private riceDoing$ = this.store.select(getRiceDoing);
   public riceDoing: boolean;
-
   private commerceUse$ = this.store.select(getIsCommercial);
   public commerceUse: boolean;
   private factoryUse$ = this.store.select(getIsFactorial);
@@ -40,6 +37,18 @@ export class GroundWaterPage {
   public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
+  private activityResidential$ = this.store.select(getWaterSourcesResidential);
+  private activityResidential: any;
+  private activityWateringRes$ = this.store.select(getWateringResidential);
+  private activityWateringRes: any;
+  private activityRice$ = this.store.select(getWaterSourcesRice);
+  private activityRice: any;
+  private activityAgiculture$ = this.store.select(getWaterSourcesAgiculture);
+  private activityAgiculture: any;
+  private activityFactory$ = this.store.select(getWaterSourcesFactory);
+  private activityFactory: any;
+  private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
+  private activityCommercial: any;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
@@ -68,17 +77,60 @@ export class GroundWaterPage {
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
+    this.activityResidential$.subscribe(data => {
+      this.activityResidential = (data != null) ? data.underGround : null;
+    });
+    this.activityWateringRes$.subscribe(data => {
+      this.activityWateringRes = (data != null) ? data : null;
+    });
+    this.activityRice$.subscribe(data => {
+      this.activityRice = (data != null) ? data.underGround : null;
+    });
+    this.activityAgiculture$.subscribe(data => {
+      this.activityAgiculture = (data != null) ? data : null;
+    });
+    this.activityFactory$.subscribe(data => {
+      this.activityFactory = (data != null) ? data.underGround : null;
+    });
+    this.activityCommercial$.subscribe(data => {
+      this.activityCommercial = (data != null) ? data.underGround : null;
+    });
+    this.changeValueActivity();
+    console.log("activityResidential", this.activityResidential);
+    console.log("activityWateringRes", this.activityWateringRes);
+    console.log("activityRice", this.activityRice);
+    console.log("activityAgiculture", this.activityAgiculture);
+    console.log("activityFactory", this.activityFactory);
+    console.log("activityCommercial", this.activityCommercial);
   }
 
-  ionViewDidEnter() {
+  changeValueActivity() {
+    if (this.activityResidential == false) {
+      this.activityResidential = null;
+    }
+    if (this.activityWateringRes == false) {
+      this.activityWateringRes = null;
+    }
+    if (this.activityRice == false) {
+      this.activityRice = null;
+    }
+    if (this.activityAgiculture == false) {
+      this.activityAgiculture = null;
+    }
+    if (this.activityFactory == false) {
+      this.activityFactory = null;
+    }
+    if (this.activityCommercial == false) {
+      this.activityCommercial = null;
+    }
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
-    console.log("valid",this.f.valid);
-    console.log("this.f",this.f.value);
+    console.log("valid", this.f.valid);
+    console.log("this.f", this.f.value);
     if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

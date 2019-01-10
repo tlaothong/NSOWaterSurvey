@@ -1,3 +1,4 @@
+import { SetWaterSourcesResidential } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -47,6 +48,11 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.irrigation').value),
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
+    this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
+
+    console.log("gardeningUse",this.residentialFrm.get('gardeningUse').value);
+    console.log("waterRes",this.residentialFrm.get('waterSources').value);
+    
     this.dispatchWaterSource();
     // this.checkNextPage();
     this.navCtrl.popToRoot();
@@ -68,6 +74,9 @@ export class ResidentialPage {
     }
     if (this.residentialFrm.get('waterSources.buying').value) {
       this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
+    }
+    if (this.residentialFrm.get('gardeningUse').value) {
+      this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
     }
   }
 
