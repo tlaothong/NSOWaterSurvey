@@ -102,12 +102,7 @@
 
     <div *ngIf="FormItem.get('plantingCount').value > 0">
       <div *ngFor="let har of FormItem.get('harvests').controls; let i = index">
-        <div *ngIf="i == 0">
-          <field-rice-harvest [FormItem]="har" [i]="i + 1"></field-rice-harvest>
-        </div>
-        <div *ngIf="i > 0">
-          <field-rice-harvest [FormItem]="har" [i]="i + 1" [FormItemBefore]="FormItem.get('harvests').at(i-1)"></field-rice-harvest>
-        </div>
+        <field-rice-harvest [FormItem]="har" [i]="i + 1" [FormArray]="FormItem.get('harvests')"></field-rice-harvest>
       </div>
     </div>
 

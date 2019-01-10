@@ -17,131 +17,123 @@
       </span>
     </ion-item>
 
-    <ion-item *ngIf="isCheck()">
+    <ion-row [class.invalid]="isValid('plantingFromMonth')">
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            ครั้งที่ {{ text }} เริ่ม
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            เดือน
+          </ion-label>
+
+          <ion-select interface="action-sheet" formControlName="plantingFromMonth">
+            <ion-option [value]=1 *ngIf="isCheck(1,'from')">
+              1 - มกราคม
+            </ion-option>
+            <ion-option [value]=2 *ngIf="isCheck(2,'from')">
+              2 - กุมภาพันธ์
+            </ion-option>
+            <ion-option [value]=3 *ngIf="isCheck(3,'from')">
+              3 - มีนาคม
+            </ion-option>
+            <ion-option [value]=4 *ngIf="isCheck(4,'from')">
+              4 - เมษายน
+            </ion-option>
+            <ion-option [value]=5 *ngIf="isCheck(5,'from')">
+              5 - พฤษภาคม
+            </ion-option>
+            <ion-option [value]=6 *ngIf="isCheck(6,'from')">
+              6 - มิถุนายน
+            </ion-option>
+            <ion-option [value]=7 *ngIf="isCheck(7,'from')">
+              7 - กรกฎาคม
+            </ion-option>
+            <ion-option [value]=8 *ngIf="isCheck(8,'from')">
+              8 - สิงหาคม
+            </ion-option>
+            <ion-option [value]=9 *ngIf="isCheck(9,'from')">
+              9 - กันยายน
+            </ion-option>
+            <ion-option [value]=10 *ngIf="isCheck(10,'from')">
+              10 - ตุลาคม
+            </ion-option>
+            <ion-option [value]=11 *ngIf="isCheck(11,'from')">
+              11 - พฤศจิกายน
+            </ion-option>
+            <ion-option [value]=12 *ngIf="isCheck(12,'from')">
+              12 - ธันวาคม
+            </ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-item *ngIf="isValid('plantingThruMonth')">
       <span class="invalid-msg">
-        กรุณาเลือกให้ถูกต้อง
+        กรุณาเลือก
       </span>
     </ion-item>
 
-    <div [class.invalid]="isCheck()">
-      <ion-row [class.invalid]="isValid('plantingFromMonth')">
-        <ion-col>
-          <ion-item>
-            <ion-label>
-              ครั้งที่ {{ text }} เริ่ม
-            </ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col>
-          <ion-item>
-            <ion-label>
-              เดือน
-            </ion-label>
-
-            <ion-select interface="action-sheet" formControlName="plantingFromMonth">
-              <ion-option [value]=1>
-                1 - มกราคม
-              </ion-option>
-              <ion-option [value]=2>
-                2 - กุมภาพันธ์
-              </ion-option>
-              <ion-option [value]=3>
-                3 - มีนาคม
-              </ion-option>
-              <ion-option [value]=4>
-                4 - เมษายน
-              </ion-option>
-              <ion-option [value]=5>
-                5 - พฤษภาคม
-              </ion-option>
-              <ion-option [value]=6>
-                6 - มิถุนายน
-              </ion-option>
-              <ion-option [value]=7>
-                7 - กรกฎาคม
-              </ion-option>
-              <ion-option [value]=8>
-                8 - สิงหาคม
-              </ion-option>
-              <ion-option [value]=9>
-                9 - กันยายน
-              </ion-option>
-              <ion-option [value]=10>
-                10 - ตุลาคม
-              </ion-option>
-              <ion-option [value]=11>
-                11 - พฤศจิกายน
-              </ion-option>
-              <ion-option [value]=12>
-                12 - ธันวาคม
-              </ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <ion-item *ngIf="isValid('plantingThruMonth')">
-        <span class="invalid-msg">
-          กรุณาเลือก
-        </span>
-      </ion-item>
-
-      <ion-row [class.invalid]="isValid('plantingThruMonth')">
-        <ion-col>
-          <ion-item>
-            <ion-label>
-              ถึง
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label>
-              เดือน
-            </ion-label>
-            <ion-select interface="action-sheet" formControlName="plantingThruMonth">
-              <ion-option [value]=1>
-                1 - มกราคม
-              </ion-option>
-              <ion-option [value]=2>
-                2 - กุมภาพันธ์
-              </ion-option>
-              <ion-option [value]=3>
-                3 - มีนาคม
-              </ion-option>
-              <ion-option [value]=4>
-                4 - เมษายน
-              </ion-option>
-              <ion-option [value]=5>
-                5 - พฤษภาคม
-              </ion-option>
-              <ion-option [value]=6>
-                6 - มิถุนายน
-              </ion-option>
-              <ion-option [value]=7>
-                7 - กรกฎาคม
-              </ion-option>
-              <ion-option [value]=8>
-                8 - สิงหาคม
-              </ion-option>
-              <ion-option [value]=9>
-                9 - กันยายน
-              </ion-option>
-              <ion-option [value]=10>
-                10 - ตุลาคม
-              </ion-option>
-              <ion-option [value]=11>
-                11 - พฤศจิกายน
-              </ion-option>
-              <ion-option [value]=12>
-                12 - ธันวาคม
-              </ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </div>
+    <ion-row [class.invalid]="isValid('plantingThruMonth')">
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            ถึง
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            เดือน
+          </ion-label>
+          <ion-select interface="action-sheet" formControlName="plantingThruMonth">
+            <ion-option [value]=1 *ngIf="isCheck(1,'thru')">
+              1 - มกราคม
+            </ion-option>
+            <ion-option [value]=2 *ngIf="isCheck(2,'thru')">
+              2 - กุมภาพันธ์
+            </ion-option>
+            <ion-option [value]=3 *ngIf="isCheck(3,'thru')">
+              3 - มีนาคม
+            </ion-option>
+            <ion-option [value]=4 *ngIf="isCheck(4,'thru')">
+              4 - เมษายน
+            </ion-option>
+            <ion-option [value]=5 *ngIf="isCheck(5,'thru')">
+              5 - พฤษภาคม
+            </ion-option>
+            <ion-option [value]=6 *ngIf="isCheck(6,'thru')">
+              6 - มิถุนายน
+            </ion-option>
+            <ion-option [value]=7 *ngIf="isCheck(7,'thru')">
+              7 - กรกฎาคม
+            </ion-option>
+            <ion-option [value]=8 *ngIf="isCheck(8,'thru')">
+              8 - สิงหาคม
+            </ion-option>
+            <ion-option [value]=9 *ngIf="isCheck(9,'thru')">
+              9 - กันยายน
+            </ion-option>
+            <ion-option [value]=10 *ngIf="isCheck(10,'thru')">
+              10 - ตุลาคม
+            </ion-option>
+            <ion-option [value]=11 *ngIf="isCheck(11,'thru')">
+              11 - พฤศจิกายน
+            </ion-option>
+            <ion-option [value]=12 *ngIf="isCheck(12,'thru')">
+              12 - ธันวาคม
+            </ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
     <ion-item>
       <ion-label>
