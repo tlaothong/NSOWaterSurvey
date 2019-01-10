@@ -17,12 +17,19 @@ export class WaterActivity5Component {
   @Input('commerce') public commerceUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
+  @Input('activeRes') public activeRes:any;
+  @Input('activeWateringRes') public activeWateringRes:any;
+  @Input('activeAgi') public activeAgi:any;
+  @Input('activeFac') public activeFac:any;
+  @Input('activeCom') public activeCom:any;
+
   public resultSum: number;
 
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
   }
 
+  
   submitRequest() {
     this.submitRequested = true;
   }

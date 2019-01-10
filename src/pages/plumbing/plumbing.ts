@@ -1,3 +1,4 @@
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -32,6 +33,17 @@ export class PlumbingPage {
   public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
+  private activityResidential$ = this.store.select(getWaterSourcesResidential);
+  private activityResidential: any;
+  private activityWateringRes$ = this.store.select(getWateringResidential);
+  private activityWateringRes: any;
+  private activityAgiculture$ = this.store.select(getWaterSourcesAgiculture);
+  private activityAgiculture: any;
+  private activityFactory$ = this.store.select(getWaterSourcesFactory);
+  private activityFactory: any;
+  private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
+  private activityCommercial: any;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -86,6 +98,45 @@ export class PlumbingPage {
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
+    this.activityResidential$.subscribe(data => {
+      this.activityResidential = (data != null) ? data.plumbing : null;
+    });
+    this.activityWateringRes$.subscribe(data => {
+      this.activityWateringRes = (data != null) ? data : null;
+    });
+    this.activityAgiculture$.subscribe(data => {
+      this.activityAgiculture = (data != null) ? data : null;
+    });
+    this.activityFactory$.subscribe(data => {
+      this.activityFactory = (data != null) ? data.plumbing : null;
+    });
+    this.activityCommercial$.subscribe(data => {
+      this.activityCommercial = (data != null) ? data.plumbing : null;
+    });
+    this.changeValueActivity();
+    console.log("activityResidential", this.activityResidential);
+    console.log("activityWateringRes", this.activityWateringRes);
+    console.log("activityAgiculture", this.activityAgiculture);
+    console.log("activityFactory", this.activityFactory);
+    console.log("activityCommercial", this.activityCommercial);
+  }
+
+  changeValueActivity() {
+    if (this.activityResidential == false) {
+      this.activityResidential = null;
+    }
+    if (this.activityWateringRes == false) {
+      this.activityWateringRes = null;
+    }
+    if (this.activityAgiculture == false) {
+      this.activityAgiculture = null;
+    }
+    if (this.activityFactory == false) {
+      this.activityFactory = null;
+    }
+    if (this.activityCommercial == false) {
+      this.activityCommercial = null;
+    }
   }
 
   public handleSubmit() {

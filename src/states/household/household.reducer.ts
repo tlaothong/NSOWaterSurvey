@@ -1,4 +1,3 @@
-import { RicePage } from './../../pages/rice/rice';
 import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
 
 export interface HouseHoldState {
@@ -47,6 +46,14 @@ export interface HouseHoldState {
     checkWaterIrrigation: any,
     checkWaterRain: any,
     checkWaterBuying: any,
+    wateringResidential: any,
+    waterSourcesResidential: any,
+    waterSourcesRice: any,
+    waterSourcesAgiculture: any,
+    waterSourcesFactory: any,
+    waterSourcesCommercial: any,
+
+
 }
 
 const initialState: HouseHoldState = {
@@ -95,8 +102,12 @@ const initialState: HouseHoldState = {
     checkWaterIrrigation: null,
     checkWaterRain: null,
     checkWaterBuying: null,
-
-
+    wateringResidential: null,
+    waterSourcesResidential: null,
+    waterSourcesRice: null,
+    waterSourcesAgiculture: null,
+    waterSourcesFactory: null,
+    waterSourcesCommercial: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -241,7 +252,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 arraySkipPageAgiculture: action.payload,
             };
-    case HouseHoldTypes.SetCheckWaterPlumbing:
+        case HouseHoldTypes.SetCheckWaterPlumbing:
             return {
                 ...state,
                 checkWaterPlumbing: action.payload,
@@ -265,6 +276,36 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 checkWaterBuying: action.payload,
+            };
+        case HouseHoldTypes.SetWateringResidential:
+            return {
+                ...state,
+                wateringResidential: action.payload,
+            };
+        case HouseHoldTypes.SetWaterSourcesResidential:
+            return {
+                ...state,
+                waterSourcesResidential: action.payload,
+            };
+        case HouseHoldTypes.SetWaterSourcesRice:
+            return {
+                ...state,
+                waterSourcesRice: action.payload,
+            };
+        case HouseHoldTypes.SetWaterSourcesAgiculture:
+            return {
+                ...state,
+                waterSourcesAgiculture: action.payload,
+            };
+        case HouseHoldTypes.SetWaterSourcesFactory:
+            return {
+                ...state,
+                waterSourcesFactory: action.payload,
+            };
+        case HouseHoldTypes.SetWaterSourcesCommercial:
+            return {
+                ...state,
+                waterSourcesCommercial: action.payload,
             };
         default:
             return state;

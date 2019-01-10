@@ -6,7 +6,7 @@ import { WaterActivity6Component } from '../../components/water-activity6/water-
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @IonicPage()
@@ -23,12 +23,10 @@ export class RiverPage {
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
-
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
   public riceDoing: boolean;
-
   private commerceUse$ = this.store.select(getIsCommercial);
   public commerceUse: boolean;
   private factoryUse$ = this.store.select(getIsFactorial);
@@ -37,6 +35,18 @@ export class RiverPage {
   public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
+  private activityResidential$ = this.store.select(getWaterSourcesResidential);
+  private activityResidential: any;
+  private activityWateringRes$ = this.store.select(getWateringResidential);
+  private activityWateringRes: any;
+  private activityRice$ = this.store.select(getWaterSourcesRice);
+  private activityRice: any;
+  private activityAgiculture$ = this.store.select(getWaterSourcesAgiculture);
+  private activityAgiculture: any;
+  private activityFactory$ = this.store.select(getWaterSourcesFactory);
+  private activityFactory: any;
+  private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
+  private activityCommercial: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -60,6 +70,52 @@ export class RiverPage {
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
+    this.activityResidential$.subscribe(data => {
+      this.activityResidential = (data != null) ? data.river : null;
+    });
+    this.activityWateringRes$.subscribe(data => {
+      this.activityWateringRes = (data != null) ? data : null;
+    });
+    this.activityRice$.subscribe(data => {
+      this.activityRice = (data != null) ? data.river : null;
+    });
+    this.activityAgiculture$.subscribe(data => {
+      this.activityAgiculture = (data != null) ? data : null;
+    });
+    this.activityFactory$.subscribe(data => {
+      this.activityFactory = (data != null) ? data.river : null;
+    });
+    this.activityCommercial$.subscribe(data => {
+      this.activityCommercial = (data != null) ? data.river : null;
+    });
+    this.changeValueActivity();
+    console.log("activityResidential", this.activityResidential);
+    console.log("activityWateringRes", this.activityWateringRes);
+    console.log("activityRice", this.activityRice);
+    console.log("activityAgiculture", this.activityAgiculture);
+    console.log("activityFactory", this.activityFactory);
+    console.log("activityCommercial", this.activityCommercial);
+  }
+
+  changeValueActivity() {
+    if (this.activityResidential == false) {
+      this.activityResidential = null;
+    }
+    if (this.activityWateringRes == false) {
+      this.activityWateringRes = null;
+    }
+    if (this.activityRice == false) {
+      this.activityRice = null;
+    }
+    if (this.activityAgiculture == false) {
+      this.activityAgiculture = null;
+    }
+    if (this.activityFactory == false) {
+      this.activityFactory = null;
+    }
+    if (this.activityCommercial == false) {
+      this.activityCommercial = null;
+    }
   }
 
   ionViewDidEnter() {

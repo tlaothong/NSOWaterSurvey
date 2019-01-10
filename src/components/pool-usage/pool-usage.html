@@ -110,7 +110,13 @@
       <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
         residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="5)
         ใช้น้ำจากสระนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"
-        [FormItem]="FormItem.get('waterActivities')"></water-activity6>
+        [FormItem]="FormItem.get('waterActivities')"
+        activeRes="{{activeRes}}"
+        activeWateringRes="{{activeWateringRes}}"
+        activRice="{{activRice}}"
+        activeAgi="{{activeAgi}}"
+        activeFac="{{activeFac}}"
+        activeCom="{{activeCom}}"></water-activity6>
       <water-problem4 headline="6) มีปัญหาคุณภาพน้้า หรือไม่" [FormItem]="FormItem.get('qualityProblem')"></water-problem4>
     </ion-card-content>
   </ion-card>

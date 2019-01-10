@@ -40,6 +40,12 @@ export enum HouseHoldTypes {
     SetCheckWaterIrrigation = "[HH] Set Check Water Irrigation",
     SetCheckWaterRain = "[HH] Set Check Water Rain",
     SetCheckWaterBuying = "[HH] Set Check Water Buying",
+    SetWateringResidential = "[HH] Set Watering Residential",
+    SetWaterSourcesResidential = "[HH] Set WaterSources Residential",
+    SetWaterSourcesRice = "[HH] Set WaterSources Rice ",
+    SetWaterSourcesAgiculture = "[HH] Set WaterSources Agiculture",
+    SetWaterSourcesFactory = "[HH] Set WaterSources Factory",
+    SetWaterSourcesCommercial = "[HH] Set WaterSources Commercial",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -109,18 +115,6 @@ export class SetWaterSources implements Action {
     readonly type = HouseHoldTypes.SetWaterSource;
 
     constructor(public payload: any[]) {
-        // if (payload != null) {
-        //     console.log("payload ก่อน ", payload);
-        //     var arr = payload;
-        //     for (let index = 0; index < arr.length; index++) {
-        //         var element = arr[index];
-        //         if (element == false) {
-        //             element = true;
-        //         }
-        //         payload.splice(index, 1, true);
-        //     }
-
-        //     console.log("payload หลัง", payload);
     }
 }
 
@@ -294,6 +288,42 @@ export class SetCheckWaterBuying implements Action {
     constructor(public payload: any) {
     }
 }
+export class SetWateringResidential implements Action {
+    readonly type = HouseHoldTypes.SetWateringResidential;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetWaterSourcesResidential implements Action {
+    readonly type = HouseHoldTypes.SetWaterSourcesResidential;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetWaterSourcesRice implements Action {
+    readonly type = HouseHoldTypes.SetWaterSourcesRice;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetWaterSourcesAgiculture implements Action {
+    readonly type = HouseHoldTypes.SetWaterSourcesAgiculture;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetWaterSourcesFactory implements Action {
+    readonly type = HouseHoldTypes.SetWaterSourcesFactory;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetWaterSourcesCommercial implements Action {
+    readonly type = HouseHoldTypes.SetWaterSourcesCommercial;
+
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -333,5 +363,11 @@ export type HouseHoldActionsType =
     | SetCheckWaterIrrigation
     | SetCheckWaterRain
     | SetCheckWaterBuying
+    | SetWateringResidential
+    | SetWaterSourcesResidential
+    | SetWaterSourcesRice
+    | SetWaterSourcesAgiculture
+    | SetWaterSourcesFactory
+    | SetWaterSourcesCommercial
     ;
 

@@ -1,3 +1,4 @@
+import { SetWaterSourcesFactory } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -50,6 +51,9 @@ export class FactorialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
     this.dispatchWaterSource();
+    this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
+    console.log("waterFac",this.FactoryForm.get('waterSources').value);
+    
     if (this.FactoryForm.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

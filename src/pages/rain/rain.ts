@@ -7,7 +7,7 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
 
 @IonicPage()
@@ -26,10 +26,8 @@ export class RainPage {
   private itG1_G4: any;
   private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
   private itBuying: any;
-
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
-
   private commerceUse$ = this.store.select(getIsCommercial);
   public commerceUse: boolean;
   private factoryUse$ = this.store.select(getIsFactorial);
@@ -38,6 +36,16 @@ export class RainPage {
   public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
   public agricultureUse: boolean;
+  private activityResidential$ = this.store.select(getWaterSourcesResidential);
+  private activityResidential: any;
+  private activityWateringRes$ = this.store.select(getWateringResidential);
+  private activityWateringRes: any;
+  private activityAgiculture$ = this.store.select(getWaterSourcesAgiculture);
+  private activityAgiculture: any;
+  private activityFactory$ = this.store.select(getWaterSourcesFactory);
+  private activityFactory: any;
+  private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
+  private activityCommercial: any;
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
@@ -63,6 +71,45 @@ export class RainPage {
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
     console.log('ionViewDidLoad RainPage');
+    this.activityResidential$.subscribe(data => {
+      this.activityResidential = (data != null) ? data.river : null;
+    });
+    this.activityWateringRes$.subscribe(data => {
+      this.activityWateringRes = (data != null) ? data : null;
+    });
+    this.activityAgiculture$.subscribe(data => {
+      this.activityAgiculture = (data != null) ? data : null;
+    });
+    this.activityFactory$.subscribe(data => {
+      this.activityFactory = (data != null) ? data.river : null;
+    });
+    this.activityCommercial$.subscribe(data => {
+      this.activityCommercial = (data != null) ? data.river : null;
+    });
+    this.changeValueActivity();
+    console.log("activityResidential", this.activityResidential);
+    console.log("activityWateringRes", this.activityWateringRes);
+    console.log("activityAgiculture", this.activityAgiculture);
+    console.log("activityFactory", this.activityFactory);
+    console.log("activityCommercial", this.activityCommercial);
+  }
+
+  changeValueActivity() {
+    if (this.activityResidential == false) {
+      this.activityResidential = null;
+    }
+    if (this.activityWateringRes == false) {
+      this.activityWateringRes = null;
+    }
+    if (this.activityAgiculture == false) {
+      this.activityAgiculture = null;
+    }
+    if (this.activityFactory == false) {
+      this.activityFactory = null;
+    }
+    if (this.activityCommercial == false) {
+      this.activityCommercial = null;
+    }
   }
 
   public handleSubmit() {

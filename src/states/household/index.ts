@@ -157,3 +157,27 @@ export const getCheckWaterBuying = createSelector(
     getHouseHoldFeatureState,
     state => state.checkWaterBuying,
 );
+export const getWateringResidential = createSelector(
+    getHouseHoldFeatureState,
+    state => state.wateringResidential,
+);
+export const getWaterSourcesResidential = createSelector(
+    getHouseHoldFeatureState,
+    state => state.waterSourcesResidential,
+);
+export const getWaterSourcesRice = createSelector(
+    getHouseHoldFeatureState,
+    state => state.waterSourcesRice,
+);
+export const getWaterSourcesAgiculture = createSelector(
+    getHouseHoldFeatureState,
+    state => state.waterSourcesAgiculture,
+);
+export const getWaterSourcesFactory = createSelector(
+    getHouseHoldFeatureState,
+    state => state.waterSourcesFactory,
+);
+export const getWaterSourcesCommercial = createSelector(
+    getHouseHoldFeatureState,
+    state => state.waterSourcesCommercial,
+);
