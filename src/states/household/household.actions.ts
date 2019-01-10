@@ -35,7 +35,6 @@ export enum HouseHoldTypes {
     SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
-    UpdateWaterActivity = "[HH] Update Water Activities",
     SetCheckWaterPlumbing = "[HH] Set Check Water Plumbing",
     SetCheckWaterRiver = "[HH]Set Check Water River",
     SetCheckWaterIrrigation = "[HH] Set Check Water Irrigation",
@@ -61,13 +60,6 @@ export class LoadHouseHoldSample implements Action {
     readonly type = HouseHoldTypes.Load;
 
     constructor() {
-    }
-}
-
-export class UpdaterHouseHoldSample implements Action {
-    readonly type = HouseHoldTypes.UpdateWaterActivity;
-
-    constructor(public payload: any) {
     }
 }
 
@@ -336,7 +328,6 @@ export type HouseHoldActionsType =
     | SetArraySkipPage
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
-    | UpdaterHouseHoldSample
     | SetCheckWaterPlumbing
     | SetCheckWaterRiver
     | SetCheckWaterIrrigation
