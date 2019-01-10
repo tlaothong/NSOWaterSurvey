@@ -6,6 +6,9 @@ import { surfacePumpTypeData } from '../../models/SurfacePumpTypeData';
 import { PumpDataProvider } from '../../providers/pump-data/pump-data';
 import { surfaceWattHpData } from '../../models/SurfaceWattHpData';
 import { surfaceSuctionPipeData } from '../../models/SurfaceSuctionPipeData';
+import { groundWaterPumpTypeData } from '../../models/GroundPumpTypeData';
+import { groundWaterSuctionPipeData } from '../../models/GroundSuctionPipeData';
+import { groundWaterWattHpData } from '../../models/GroundWattHpData';
 
 @Component({
   selector: 'pump',
@@ -15,14 +18,15 @@ import { surfaceSuctionPipeData } from '../../models/SurfaceSuctionPipeData';
 export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
+  @Input('G') public G: boolean;
   @Input('no') public text: string;
   private submitRequested: boolean;
   public surfacePumpTypeData = surfacePumpTypeData;
-  public surfacePump: any;
-  public surfaceWattHpData: any;
-  public surfaceSuctionPipeData: any;
-  public surfacePipeLineData: any;
-  
+  public pumpTypes: any;
+  public wattHpData: any;
+  public suctionPipeData: any;
+  public pipeLineData: any;
+
   constructor(private modalCtrl: ModalController, public navCtrl: NavController,
     public navParams: NavParams, public fb: FormBuilder) {
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
@@ -63,26 +67,50 @@ export class PumpComponent implements ISubmitRequestable {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  onChange(code:any){
-    this.surfacePump = PumpDataProvider.getSurfacePumpTypeData(code);
+  onChange(code: any) {
+    if (this.G == true) {
+      this.pumpTypes = PumpDataProvider.getGroundWaterPumpTypeData(code);
+    }
+    else {
+      this.pumpTypes = PumpDataProvider.getSurfacePumpTypeData(code);
+    }
+
   }
 
-  onChange1(name:string){
-    var code = surfacePumpTypeData.find(it=>it.name == name);
-    this.surfaceWattHpData = PumpDataProvider.getSurfaceWattHpData(code.codePumpType);
-    console.log(this.surfaceWattHpData)
-  }
-  
-  onChange2(name:string){
-    var code = surfaceWattHpData.find(it=>it.name == name);
-    this.surfaceSuctionPipeData = PumpDataProvider.getSurfaceSuctionPipeData(code.codeWattHp);
-    console.log(this.surfaceSuctionPipeData)
+  onChange1(name: string) {
+    if (this.G == true) {
+      let code = groundWaterPumpTypeData.find(it => it.name == name);
+      this.wattHpData = PumpDataProvider.getGroundWaterWattHpData(code.codePumpType);
+    }
+    else {
+      let code = surfacePumpTypeData.find(it => it.name == name);
+      this.wattHpData = PumpDataProvider.getSurfaceWattHpData(code.codePumpType);
+    }
+    console.log(this.wattHpData)
   }
 
-  onChange3(name:string){
-    var code = surfaceSuctionPipeData.find(it=>it.name == name);
-    this.surfacePipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
-    console.log(this.surfacePipeLineData);
+  onChange2(name: string) {
+    if (this.G == true) {
+      let code = groundWaterWattHpData.find(it => it.name == name);
+      this.suctionPipeData = PumpDataProvider.getGroundWaterSuctionPipeData(code.codeWattHp);
+    }
+    else {
+      let code = surfaceWattHpData.find(it => it.name == name);
+      this.suctionPipeData = PumpDataProvider.getSurfaceSuctionPipeData(code.codeWattHp);
+    }
+    console.log(this.suctionPipeData)
+  }
+
+  onChange3(name: string) {
+    if (this.G == true) {
+      let code = groundWaterSuctionPipeData.find(it => it.name == name);
+      this.pipeLineData = PumpDataProvider.getGroundWaterPipeLineData(code.codeSuction);
+    }
+    else {
+      let code = surfaceSuctionPipeData.find(it=>it.name == name);
+      this.pipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
+      }
+    console.log(this.pipeLineData);
   }
 
   // onChangeGroundWater(code:any){
@@ -94,7 +122,7 @@ export class PumpComponent implements ISubmitRequestable {
   //   this.groundWaterWattHpData = PumpDataProvider.getSurfaceWattHpData(code.codePumpType);
   //   console.log(this.groundWaterWattHpData)
   // }
-  
+
   // onChangeGroundWater2(name:string){
   //   var code = groundWaterWattHpData.find(it=>it.name == name);
   //   this.groundWaterSuctionPipeData = PumpDataProvider.getSurfaceSuctionPipeData(code.codeWattHp);
@@ -103,7 +131,7 @@ export class PumpComponent implements ISubmitRequestable {
 
   // onChangeGroundWater3(name:string){
   //   var code = groundWaterSuctionPipeData.find(it=>it.name == name);
-  //   this.groundWaterPipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
-  //   console.log(this.groundWaterPipeLineData);
+  //   this.groundWaterpipeLineData = PumpDataProvider.getSurfacepipeLineData(code.codeSuctionPipe);
+  //   console.log(this.groundWaterpipeLineData);
   // }
 }

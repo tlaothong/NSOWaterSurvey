@@ -12,6 +12,7 @@ import { WaterProblem6Component } from '../water-problem6/water-problem6';
 export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
 
   @Input('no') public text: string;
+  @Input('G') public G: boolean;
   @Input() public FormItem: FormGroup;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;

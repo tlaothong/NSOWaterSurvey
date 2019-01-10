@@ -21,7 +21,7 @@ export class GroundWaterPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  public pump:boolean = true;
+  public G:boolean = true;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
   private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
