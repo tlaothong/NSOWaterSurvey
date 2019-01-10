@@ -25,6 +25,7 @@ export class DlgTableCheckItemCountPage {
   }
 
   public closeDialog() {
+
     this.viewCtrl.dismiss();
   }
 

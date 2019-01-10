@@ -33,6 +33,8 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
   }
 
   public showModal() {
+    let hasItem = this.FormItem.get('hasItem').value;
+    this.FormItem.get('hasItem').setValue(!hasItem);
     const modal = this.modalCtrl.create("DlgTableCheckItemCountPage",
       {
         FormItem: this.FormItem,
