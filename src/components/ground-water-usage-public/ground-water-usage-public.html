@@ -13,7 +13,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')">
+    <ion-row radio-group formControlName="hasCubicMeterPerMonth" [class.invalid]="isValid('hasCubicMeterPerMonth')" (ionChange)="setDefult()">
       <ion-item *ngIf="isValid('hasCubicMeterPerMonth')">
         <span class="invalid-msg">
           กรุณากรอกจำนวน

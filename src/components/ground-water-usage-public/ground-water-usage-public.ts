@@ -46,6 +46,11 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
     return fg;
   }
 
+  setDefult(){
+    this.FormItem.get('hasPump').setValue(null);
+    this.FormItem.get('pumpCount').setValue(null);
+  }
+
   submitRequest() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());

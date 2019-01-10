@@ -16,7 +16,7 @@
       </ion-item>
 
       <div formGroupName="usageType">
-        <ion-row radio-group formControlName="groundWaterQuantity" [class.invalid]="isValid('usageType.groundWaterQuantity')">
+        <ion-row radio-group formControlName="groundWaterQuantity" [class.invalid]="isValid('usageType.groundWaterQuantity')" (ionChange)="setDefult()">
           <ion-item *ngIf="isValid('usageType.groundWaterQuantity')">
             <span class="invalid-msg">
               กรุณาเลือก
