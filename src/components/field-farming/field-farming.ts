@@ -25,9 +25,6 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   @ViewChildren(WaterSources8AComponent) private waterSources8A: WaterSources8AComponent[];
   private submitRequested: boolean;
 
-  private area: number;
-  private areaUsed: number;
-
   constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
   }
@@ -81,31 +78,16 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  public isCheckArea(): boolean {
-    this.area = Number(this.FormItem.get('area.rai').value) * 400
+  public isCheckArea(far: FormGroup): boolean {
+    let area = Number(this.FormItem.get('area.rai').value) * 400
       + Number(this.FormItem.get('area.ngan').value) * 100
       + Number(this.FormItem.get('area.sqWa').value);
+      
+    let areaUsed = Number(far.get('rai').value) * 400
+      + Number(far.get('ngan').value) * 100
+      + Number(far.get('sqWa').value);
 
-    let fgar = this.FormItem.get('areaUsed') as FormArray;
-    let sumArea = 0;
-    switch (this.FormItem.get('plantingArea').value) {
-      case "2":
-        sumArea += Number(fgar.at(0).get('rai').value) * 400
-          + Number(fgar.at(0).get('ngan').value) * 100
-          + Number(fgar.at(0).get('sqWa').value)
-        break;
-      case "3":
-        for (let i = 0; i < this.FormItem.get('plantingCount').value; i++) {
-          sumArea += Number(fgar.at(i).get('rai').value) * 400
-            + Number(fgar.at(i).get('ngan').value) * 100
-            + Number(fgar.at(i).get('sqWa').value)
-        }
-        break;
-      default:
-        break;
-    }
-    this.areaUsed = sumArea;
-    return this.areaUsed > this.area;
+    return areaUsed > area;
   }
 
   private static setupPlantingAreaChanges(fb: FormBuilder, fg: FormGroup) {
