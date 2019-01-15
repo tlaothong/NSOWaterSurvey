@@ -42,7 +42,7 @@ export class AnimalFarmPage {
       'goose': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-      'otherName': null,
+      // 'otherName': null,
       'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
     });
   }
@@ -63,10 +63,10 @@ export class AnimalFarmPage {
     this.dispatchWaterSource();
     console.log("valid",this.f.valid);
     this.store.dispatch(new SetNextPageDirection(10));
-    if (this.f.valid) {
+    // if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();
-    }
+    // }
   }
 
   private dispatchWaterSource() {

@@ -119,10 +119,10 @@ export class RainPage {
     this.waterActivity5.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(19));
     if (this.RainFrm.valid) {
-      if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();
-      }
+      // }
     }
   }
 

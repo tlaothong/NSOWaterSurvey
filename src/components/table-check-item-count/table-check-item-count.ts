@@ -23,8 +23,8 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'hasItem': [false],
-      'itemCount': [null]
+      'hasItem': [false,Validators.nullValidator],
+      'itemCount': [null,Validators.nullValidator]
     }, {
         validator: TableCheckItemCountComponent.checkAnyOrOther()
       }
@@ -56,14 +56,14 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
     this.submitRequested = true;
   }
 
-  public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    if (name == 'anycheck') {
-      ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  }
+  // public isValid(name: string): boolean {
+  //   var ctrl = this.FormItem.get(name);
+  //   if (name == 'anycheck') {
+  //     ctrl = this.FormItem;
+  //     return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+  //   }
+  //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
+  // }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {

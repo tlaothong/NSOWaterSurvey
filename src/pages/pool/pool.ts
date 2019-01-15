@@ -110,10 +110,10 @@ export class PoolPage {
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     this.store.dispatch(new SetNextPageDirection(17));
-    if (this.f.valid) {
+    // if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();
-    }
+    // }
   }
 
   changeValueActivity() {

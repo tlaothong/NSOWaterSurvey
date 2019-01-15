@@ -17,11 +17,11 @@ export class WaterActivity5Component {
   @Input('commerce') public commerceUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
-  @Input('activeRes') public activeRes:any;
-  @Input('activeWateringRes') public activeWateringRes:any;
-  @Input('activeAgi') public activeAgi:any;
-  @Input('activeFac') public activeFac:any;
-  @Input('activeCom') public activeCom:any;
+  @Input('activeRes') public activeRes: any;
+  @Input('activeWateringRes') public activeWateringRes: any;
+  @Input('activeAgi') public activeAgi: any;
+  @Input('activeFac') public activeFac: any;
+  @Input('activeCom') public activeCom: any;
 
   public resultSum: number;
 
@@ -29,7 +29,7 @@ export class WaterActivity5Component {
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
   }
 
-  
+
   submitRequest() {
     this.submitRequested = true;
   }
@@ -46,12 +46,12 @@ export class WaterActivity5Component {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': [0, Validators.required],
-      'plant': [0, Validators.required],
-      'farm': [0, Validators.required],
-      'agriculture': [0, Validators.required],
-      'product': [0, Validators.required],
-      'service': [0, Validators.required]
+      'drink': [0],
+      'plant': [0],
+      'farm': [0],
+      'agriculture': [0],
+      'product': [0],
+      'service': [0]
     });
   }
 

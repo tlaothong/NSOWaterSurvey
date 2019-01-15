@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getBuildingSample, getSendBuildingType, setHomeBuilding } from '../../states/building';
 import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 import { HomePage } from '../home/home';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
@@ -48,9 +48,12 @@ export class BuidlingInformation2Page {
 
     if (this.f.valid) {
       if (this.f.get('unitCount').value == 1) {
+        delay(7000)
         this.navCtrl.push("HouseHoldTestPage", { num: 1 });
       }
-      else this.navCtrl.push("HouseHoldTestPage"), { num: null };
+      else 
+      delay(7000)
+      this.navCtrl.push("HouseHoldTestPage"), { num: null };
     }
 
     
