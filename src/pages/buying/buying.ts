@@ -7,6 +7,7 @@ import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, g
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -57,6 +58,7 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.store.dispatch(new SetNextPageDirection(20));
     if (this.BuyingForm.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

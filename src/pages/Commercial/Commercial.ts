@@ -1,4 +1,4 @@
-import { SetWaterSourcesCommercial } from './../../states/household/household.actions';
+import { SetWaterSourcesCommercial, SetNextPageDirection } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -91,7 +91,7 @@ export class CommercialPage {
     // (this.f.get('waterSources.buying').value)]));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log("waterCom",this.f.get('waterSources').value);
-    
+    this.store.dispatch(new SetNextPageDirection(13));
     this.dispatchWaterSource();
     if (this.f.valid) {
       this.navCtrl.popToRoot();

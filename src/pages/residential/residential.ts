@@ -1,4 +1,4 @@
-import { SetWaterSourcesResidential } from './../../states/household/household.actions';
+import { SetWaterSourcesResidential, SetNextPageDirection } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -52,7 +52,7 @@ export class ResidentialPage {
 
     console.log("gardeningUse",this.residentialFrm.get('gardeningUse').value);
     console.log("waterRes",this.residentialFrm.get('waterSources').value);
-    
+    this.store.dispatch(new SetNextPageDirection(1));
     this.dispatchWaterSource();
     // this.checkNextPage();
     this.navCtrl.popToRoot();

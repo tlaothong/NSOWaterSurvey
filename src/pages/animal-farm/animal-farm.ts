@@ -7,7 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -62,7 +62,7 @@ export class AnimalFarmPage {
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
     console.log("valid",this.f.valid);
-    
+    this.store.dispatch(new SetNextPageDirection(10));
     if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();
