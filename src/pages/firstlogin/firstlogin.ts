@@ -36,6 +36,7 @@ export class FirstloginPage {
 
   goBack() {
     this.navCtrl.pop();
+    this.navCtrl.push("LoginPage");
   }
 
   goConfirmloginPage(confirmPassword: any) {

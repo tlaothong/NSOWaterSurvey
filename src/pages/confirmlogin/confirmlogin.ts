@@ -34,6 +34,7 @@ export class ConfirmloginPage {
   }
 
   goGetworkPage() {
+    this.navCtrl.pop();
     this.navCtrl.push("GetworkPage")
   }
 

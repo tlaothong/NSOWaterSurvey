@@ -51,6 +51,7 @@ export class SelectEaPage {
   }
 
   goConfirmSeletEAPage() {
+    this.navCtrl.pop();
     this.navCtrl.push("HomesPage")
   }
 

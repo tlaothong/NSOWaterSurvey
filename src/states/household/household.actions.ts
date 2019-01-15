@@ -329,6 +329,9 @@ export class SetNextPageDirection implements Action {
     readonly type = HouseHoldTypes.SetNextPageDirection;
 
     constructor(public payload: any) {
+        // if (payload == null ) {
+        //     payload = 0 ;
+        // }
     }
 }
 

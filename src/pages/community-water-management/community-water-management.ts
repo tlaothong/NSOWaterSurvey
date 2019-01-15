@@ -9,6 +9,7 @@ import { getCommunitySample } from '../../states/community';
 import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -118,6 +119,7 @@ export class CommunityWaterManagementPage {
     this.detailOrgWaterSupply.forEach(it => it.submitRequest());
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetNextPageDirection(24));
     this.navCtrl.popToRoot();
   }
 

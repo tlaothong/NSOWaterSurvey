@@ -41,6 +41,7 @@ export class PopulationPage {
     this.persons.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(23));
     if (this.f.valid) {
+    this.navCtrl.push("CommunityTestPage");
     this.navCtrl.popToRoot();
       }
   }
