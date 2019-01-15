@@ -44,8 +44,15 @@ export class DlgPopulationPage {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  public isDisabled(){
-    return this.FormItem.get('nameTitle').value == '6' && this.FormItem.get('otherTitle').value == null 
-    || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null;
+  public isDisabled():boolean{
+    if (this.FormItem.get('nameTitle').value == '6' && this.FormItem.get('otherTitle').value == null 
+    || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null
+    || (this.FormItem.get('relationship').value == 7) && (this.FormItem.get('age').value < 13 && this.FormItem.get('age').value != null)
+    || (this.FormItem.get('nameTitle').value == 1 || this.FormItem.get('nameTitle').value == 4)  && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
+    || (this.FormItem.get('nameTitle').value == 2 || this.FormItem.get('nameTitle').value == 3 || this.FormItem.get('nameTitle').value == 5 ) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null)))
+    {
+      return true
+    }
+    return false;
   }
 }
