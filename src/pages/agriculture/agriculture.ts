@@ -1,4 +1,4 @@
-import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture } from './../../states/household/household.actions';
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture, SetNextPageDirection } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
@@ -74,9 +74,11 @@ export class AgriculturePage {
     // this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm').value));
     // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
     this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+    this.store.dispatch(new SetNextPageDirection(2));
     console.log("checkdata", this.f.value)
     if (!this.isValid('anycheck')) {
-      this.checkNextPage();
+      // this.checkNextPage();
+      this.navCtrl.popToRoot();
     }
   }
 

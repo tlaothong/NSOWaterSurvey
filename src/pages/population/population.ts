@@ -6,6 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -38,7 +39,9 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetNextPageDirection(23));
     if (this.f.valid) {
+    this.navCtrl.push("CommunityTestPage");
     this.navCtrl.popToRoot();
       }
   }

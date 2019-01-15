@@ -6,6 +6,7 @@ import { DetailManagementForFarmingComponent } from '../../components/detail-man
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getCommunitySample } from '../../states/community';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -33,6 +34,7 @@ export class ManagementForFarmingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetNextPageDirection(-18));
     this.navCtrl.popToRoot();
   }
 

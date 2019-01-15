@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetWaterSources } from '../../states/household/household.actions';
+import { SetWaterSources, SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -83,6 +83,7 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
+    this.store.dispatch(new SetNextPageDirection(7));
     if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

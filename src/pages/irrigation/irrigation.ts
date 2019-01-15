@@ -8,6 +8,7 @@ import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsComm
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -132,6 +133,7 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetNextPageDirection(18));
     if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

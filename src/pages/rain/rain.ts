@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -116,11 +117,12 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetNextPageDirection(19));
     if (this.RainFrm.valid) {
-      if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();
-      }
+      // }
     }
   }
 

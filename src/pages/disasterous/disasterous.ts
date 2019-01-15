@@ -6,6 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample } from '../../states/household';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -53,6 +54,7 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetNextPageDirection(21));
     if (this.Disasterous.valid) {
       this.navCtrl.popToRoot();
       // this.navCtrl.push("UserPage");

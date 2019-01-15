@@ -46,6 +46,7 @@ export enum HouseHoldTypes {
     SetWaterSourcesAgiculture = "[HH] Set WaterSources Agiculture",
     SetWaterSourcesFactory = "[HH] Set WaterSources Factory",
     SetWaterSourcesCommercial = "[HH] Set WaterSources Commercial",
+    SetNextPageDirection = "[HH] Set Next Page Direction",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -324,6 +325,15 @@ export class SetWaterSourcesCommercial implements Action {
     constructor(public payload: any) {
     }
 }
+export class SetNextPageDirection implements Action {
+    readonly type = HouseHoldTypes.SetNextPageDirection;
+
+    constructor(public payload: any) {
+        // if (payload == null ) {
+        //     payload = 0 ;
+        // }
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -369,5 +379,6 @@ export type HouseHoldActionsType =
     | SetWaterSourcesAgiculture
     | SetWaterSourcesFactory
     | SetWaterSourcesCommercial
+    | SetNextPageDirection
     ;
 

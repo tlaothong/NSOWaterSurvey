@@ -1,11 +1,11 @@
-import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop-planting/field-dry-crop-planting';
+ import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop-planting/field-dry-crop-planting';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant, SetWaterSources, SetAgiSelectAgronomy } from '../../states/household/household.actions';
+import { SetAgronomyPlantSelectPlant, SetWaterSources, SetAgiSelectAgronomy, SetNextPageDirection } from '../../states/household/household.actions';
 import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
 
 @IonicPage()
@@ -57,6 +57,7 @@ export class DryCropPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
+    this.store.dispatch(new SetNextPageDirection(4));
     if (this.agronomyPlant.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

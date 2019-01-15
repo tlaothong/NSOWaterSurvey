@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRiver } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -133,6 +134,7 @@ export class GroundWaterPage {
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
+    this.store.dispatch(new SetNextPageDirection(15));
     if (this.f.valid) {
       this.navCtrl.popToRoot();
       // this.checkNextPage();

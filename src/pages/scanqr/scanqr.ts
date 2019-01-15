@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadUserDataByQRCode } from '../../states/logging/logging.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getUserData } from '../../states/logging';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -28,6 +28,9 @@ export class ScanqrPage {
   goFirstLogin() {
     this.qrCode = "a1dde9b8-b281-44bf-8d43-d9adf55206a4";
     this.store.dispatch(new LoadUserDataByQRCode(this.qrCode));
+    delay(7000);
+    this.navCtrl.pop();
+    this.navCtrl.push("FirstloginPage");
   }
 
   goBack() {

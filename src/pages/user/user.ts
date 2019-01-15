@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -45,6 +46,7 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.store.dispatch(new SetNextPageDirection(22));
     if (this.userInfo.valid) {
       this.navCtrl.popToRoot();
       // this.navCtrl.push("PopulationPage");

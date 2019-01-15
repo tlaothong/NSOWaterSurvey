@@ -52,6 +52,7 @@ export interface HouseHoldState {
     waterSourcesAgiculture: any,
     waterSourcesFactory: any,
     waterSourcesCommercial: any,
+    nextPageDirection: any,
 
 
 }
@@ -108,6 +109,8 @@ const initialState: HouseHoldState = {
     waterSourcesAgiculture: null,
     waterSourcesFactory: null,
     waterSourcesCommercial: null,
+    nextPageDirection: null,
+
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -306,7 +309,12 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 waterSourcesCommercial: action.payload,
-            };
+            }; 
+        case HouseHoldTypes.SetNextPageDirection:
+            return {
+                ...state,
+                nextPageDirection: action.payload,
+            }; 
         default:
             return state;
     }
