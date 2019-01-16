@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'table-population',
@@ -10,6 +10,7 @@ export class TablePopulationComponent {
 
   @Input('no') public personNo: string;
   @Input() public FormItem: FormGroup;
+  @Input() public FormArray: FormArray;
   // @Input('nameTitle') public nameTitle: FormGroup;
   private submitRequested: boolean;
 
@@ -41,6 +42,7 @@ export class TablePopulationComponent {
     const modal = this.modalCtrl.create("DlgPopulationPage",
       {
         FormItem: this.FormItem,
+        FormArray: this.FormArray,
         iTitle: this.personNo
       });
     modal.onDidDismiss(data => {

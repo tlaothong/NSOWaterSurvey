@@ -52,6 +52,7 @@ export interface HouseHoldState {
     waterSourcesAgiculture: any,
     waterSourcesFactory: any,
     waterSourcesCommercial: any,
+    checkHeadfamily: boolean,
 
 
 }
@@ -108,6 +109,7 @@ const initialState: HouseHoldState = {
     waterSourcesAgiculture: null,
     waterSourcesFactory: null,
     waterSourcesCommercial: null,
+    checkHeadfamily: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -306,6 +308,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 waterSourcesCommercial: action.payload,
+            };
+        case HouseHoldTypes.SetHeadFamily:
+            return {
+                ...state,
+                checkHeadfamily: action.payload,
             };
         default:
             return state;

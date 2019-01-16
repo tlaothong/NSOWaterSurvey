@@ -181,3 +181,7 @@ export const getWaterSourcesCommercial = createSelector(
     getHouseHoldFeatureState,
     state => state.waterSourcesCommercial,
 );
+export const getCheckHeadFamily = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkHeadfamily,
+);
