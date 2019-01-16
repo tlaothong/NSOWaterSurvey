@@ -186,3 +186,7 @@ export const getNextPageDirection = createSelector(
     getHouseHoldFeatureState,
     state => state.nextPageDirection,
 );
+export const getCheckHeadFamily = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkHeadfamily,
+);
