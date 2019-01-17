@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
+import { Nationality, nationalityData } from '../../models/Nationality';
+import { Province, provinceData } from '../../models/ProvinceData';
 
 
 @IonicPage()
@@ -17,6 +19,9 @@ export class DlgPopulationPage {
   private submitRequested: boolean;
   public checkHead: boolean;
   public clickCheckHead: boolean;
+
+  public Nation: Nationality[] = nationalityData;
+  public Province: Province[] = provinceData;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
@@ -39,7 +44,7 @@ export class DlgPopulationPage {
 
   public okDialog() {
     this.submitRequested = true;
-    if (this.FormItem.valid) {
+    if (this.FormItem.valid && !this.isCheckHeadfamily()) {
       this.viewCtrl.dismiss(this.FormItem);
     }
   }
@@ -60,10 +65,13 @@ export class DlgPopulationPage {
     return false;
   }
 
-  public checkHeadfamily(): boolean {
+  public isCheckHeadfamily(): boolean {
+    let index = Number(this.text) - 1;
     let count = 0;
     for (let i = 0; i < this.FormArray.length; i++) {
-      count += (this.FormArray.at(i).get('relationship').value == "1") ? 1 : 0;
+      if (i != index) {
+        count += (this.FormArray.at(i).get('relationship').value == "1") ? 1 : 0;
+      }
     }
     count += (this.FormItem.get('relationship').value == "1") ? 1 : 0;
     return count > 1;

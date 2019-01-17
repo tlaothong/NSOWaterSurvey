@@ -20,7 +20,7 @@ export class PopulationPage {
   public whatever: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
-  
+
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
@@ -40,10 +40,21 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(23));
-    if (this.f.valid) {
-    this.navCtrl.push("CommunityTestPage");
-    this.navCtrl.popToRoot();
+    if (this.f.valid && this.isCheckHaveHeadfamily()) {
+      this.navCtrl.push("CommunityTestPage");
+      this.navCtrl.popToRoot();
+    }
+  }
+
+  public isCheckHaveHeadfamily(): boolean {
+    if (this.submitRequested == true) {
+      let persons = this.f.get('persons') as FormArray;
+      for (let i = 0; i < persons.length; i++) {
+        if (persons.at(i).get('relationship').value == "1") return true;
       }
+      return false;
+    }
+    return true;
   }
 
   public isValid(name: string): boolean {
