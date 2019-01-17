@@ -111,197 +111,198 @@
       </ion-item>
     </ion-row>
 
-    <ion-item>
-      <ion-label>6) วันที่-เดือน-ปีเกิด</ion-label>
-    </ion-item>
-    <ion-item *ngIf="isValid('birthDate' && 'birthMonth' && 'birthYear' )">
-      <span class="invalid-msg">กรุณาเลือก</span>
-    </ion-item>
-    <ion-row text-center>
-      <ion-col>
-        <ion-row>
-          <ion-col col-4>
-            <ion-select interface="action-sheet" formControlName="birthDate" [class.invalid]="isValid('birthDate')">
-              <ion-option [value]="01"> 1 </ion-option>
-              <ion-option [value]="02"> 2 </ion-option>
-              <ion-option [value]="03"> 3 </ion-option>
-              <ion-option [value]="04"> 4 </ion-option>
-              <ion-option [value]="05"> 5 </ion-option>
-              <ion-option [value]="06"> 6 </ion-option>
-              <ion-option [value]="07"> 7 </ion-option>
-              <ion-option [value]="08"> 8 </ion-option>
-              <ion-option [value]="09"> 9 </ion-option>
-              <ion-option [value]="10"> 10 </ion-option>
-              <ion-option [value]="11"> 11 </ion-option>
-              <ion-option [value]="12"> 12 </ion-option>
-              <ion-option [value]="13"> 13 </ion-option>
-              <ion-option [value]="14"> 14 </ion-option>
-              <ion-option [value]="15"> 15 </ion-option>
-              <ion-option [value]="16"> 16 </ion-option>
-              <ion-option [value]="17"> 17 </ion-option>
-              <ion-option [value]="18"> 18 </ion-option>
-              <ion-option [value]="19"> 19 </ion-option>
-              <ion-option [value]="20"> 20 </ion-option>
-              <ion-option [value]="21"> 21 </ion-option>
-              <ion-option [value]="22"> 22 </ion-option>
-              <ion-option [value]="23"> 23 </ion-option>
-              <ion-option [value]="24"> 24 </ion-option>
-              <ion-option [value]="25"> 25 </ion-option>
-              <ion-option [value]="26"> 26 </ion-option>
-              <ion-option [value]="27"> 27 </ion-option>
-              <ion-option [value]="28"> 28 </ion-option>
-              <ion-option [value]="29"> 29 </ion-option>
-              <ion-option [value]="30"> 30 </ion-option>
-              <ion-option [value]="31"> 31 </ion-option>
-              <ion-option [value]="99"> ไม่ทราบวันที่เกิด </ion-option>
-            </ion-select>
-          </ion-col>
-          <ion-col col-5>
-            <ion-select interface="action-sheet" formControlName="birthMonth" [class.invalid]="isValid('birthMonth')">
-              <ion-option [value]="01">มกราคม, เดือนยี่ หรือเดือน 2</ion-option>
-              <ion-option [value]="02">กุมภาพันธ์, เดือน 3</ion-option>
-              <ion-option [value]="03">มีนาคม, เดือน 4</ion-option>
-              <ion-option [value]="04">เมษายน, เดือน 5</ion-option>
-              <ion-option [value]="05">พฤษภาคม, เดือน 6</ion-option>
-              <ion-option [value]="06">มิถุนายน, เดือน 7</ion-option>
-              <ion-option [value]="07">กรกฎาคม, เดือน 8</ion-option>
-              <ion-option [value]="08">สิงหาคม, เดือน 9</ion-option>
-              <ion-option [value]="09">กันยายน, เดือน 10</ion-option>
-              <ion-option [value]="10">ตุลาคม, เดือน 11</ion-option>
-              <ion-option [value]="11">พฤศจิกายน, เดือน 12</ion-option>
-              <ion-option [value]="12">ธันวาคม, เดือนอ้าย หรือเดือน 1</ion-option>
-              <ion-option [value]="99">ไม่ทราบเดือนเกิด</ion-option>
-            </ion-select>
-          </ion-col>
-          <ion-col col-3>
-            <ion-select interface="action-sheet" formControlName="birthYear" [class.invalid]="isValid('birthYear')">
-              <ion-option [value]="442"> พ.ศ. 2442 </ion-option>
-              <ion-option [value]="443"> พ.ศ. 2443 </ion-option>
-              <ion-option [value]="444"> พ.ศ. 2444 </ion-option>
-              <ion-option [value]="445"> พ.ศ. 2445 </ion-option>
-              <ion-option [value]="446"> พ.ศ. 2446 </ion-option>
-              <ion-option [value]="447"> พ.ศ. 2447 </ion-option>
-              <ion-option [value]="448"> พ.ศ. 2448 </ion-option>
-              <ion-option [value]="449"> พ.ศ. 2449 </ion-option>
-              <ion-option [value]="450"> พ.ศ. 2450 </ion-option>
-              <ion-option [value]="451"> พ.ศ. 2451 </ion-option>
-              <ion-option [value]="452"> พ.ศ. 2452 </ion-option>
-              <ion-option [value]="453"> พ.ศ. 2453 </ion-option>
-              <ion-option [value]="454"> พ.ศ. 2454 </ion-option>
-              <ion-option [value]="455"> พ.ศ. 2455 </ion-option>
-              <ion-option [value]="456"> พ.ศ. 2456 </ion-option>
-              <ion-option [value]="457"> พ.ศ. 2457 </ion-option>
-              <ion-option [value]="458"> พ.ศ. 2458 </ion-option>
-              <ion-option [value]="459"> พ.ศ. 2459 </ion-option>
-              <ion-option [value]="460"> พ.ศ. 2460 </ion-option>
-              <ion-option [value]="461"> พ.ศ. 2461 </ion-option>
-              <ion-option [value]="462"> พ.ศ. 2462 </ion-option>
-              <ion-option [value]="463"> พ.ศ. 2463 </ion-option>
-              <ion-option [value]="464"> พ.ศ. 2464 </ion-option>
-              <ion-option [value]="465"> พ.ศ. 2465 </ion-option>
-              <ion-option [value]="466"> พ.ศ. 2466 </ion-option>
-              <ion-option [value]="467"> พ.ศ. 2467 </ion-option>
-              <ion-option [value]="468"> พ.ศ. 2468 </ion-option>
-              <ion-option [value]="469"> พ.ศ. 2469 </ion-option>
-              <ion-option [value]="470"> พ.ศ. 2470 </ion-option>
-              <ion-option [value]="471"> พ.ศ. 2471 </ion-option>
-              <ion-option [value]="472"> พ.ศ. 2472 </ion-option>
-              <ion-option [value]="473"> พ.ศ. 2473 </ion-option>
-              <ion-option [value]="474"> พ.ศ. 2474 </ion-option>
-              <ion-option [value]="475"> พ.ศ. 2475 </ion-option>
-              <ion-option [value]="476"> พ.ศ. 2476 </ion-option>
-              <ion-option [value]="477"> พ.ศ. 2477 </ion-option>
-              <ion-option [value]="478"> พ.ศ. 2478 </ion-option>
-              <ion-option [value]="479"> พ.ศ. 2479 </ion-option>
-              <ion-option [value]="480"> พ.ศ. 2480 </ion-option>
-              <ion-option [value]="481"> พ.ศ. 2481 </ion-option>
-              <ion-option [value]="482"> พ.ศ. 2482 </ion-option>
-              <ion-option [value]="483"> พ.ศ. 2483 </ion-option>
-              <ion-option [value]="484"> พ.ศ. 2484 </ion-option>
-              <ion-option [value]="485"> พ.ศ. 2485 </ion-option>
-              <ion-option [value]="486"> พ.ศ. 2486 </ion-option>
-              <ion-option [value]="487"> พ.ศ. 2487 </ion-option>
-              <ion-option [value]="488"> พ.ศ. 2488 </ion-option>
-              <ion-option [value]="489"> พ.ศ. 2489 </ion-option>
-              <ion-option [value]="490"> พ.ศ. 2490 </ion-option>
-              <ion-option [value]="491"> พ.ศ. 2491 </ion-option>
-              <ion-option [value]="492"> พ.ศ. 2492 </ion-option>
-              <ion-option [value]="493"> พ.ศ. 2493 </ion-option>
-              <ion-option [value]="494"> พ.ศ. 2494 </ion-option>
-              <ion-option [value]="495"> พ.ศ. 2495 </ion-option>
-              <ion-option [value]="496"> พ.ศ. 2496 </ion-option>
-              <ion-option [value]="497"> พ.ศ. 2497 </ion-option>
-              <ion-option [value]="498"> พ.ศ. 2498 </ion-option>
-              <ion-option [value]="499"> พ.ศ. 2499 </ion-option>
-              <ion-option [value]="500"> พ.ศ. 2500 </ion-option>
-              <ion-option [value]="501"> พ.ศ. 2501 </ion-option>
-              <ion-option [value]="502"> พ.ศ. 2502 </ion-option>
-              <ion-option [value]="503"> พ.ศ. 2503 </ion-option>
-              <ion-option [value]="504"> พ.ศ. 2504 </ion-option>
-              <ion-option [value]="505"> พ.ศ. 2505 </ion-option>
-              <ion-option [value]="506"> พ.ศ. 2506 </ion-option>
-              <ion-option [value]="507"> พ.ศ. 2507 </ion-option>
-              <ion-option [value]="508"> พ.ศ. 2508 </ion-option>
-              <ion-option [value]="509"> พ.ศ. 2509 </ion-option>
-              <ion-option [value]="510"> พ.ศ. 2510 </ion-option>
-              <ion-option [value]="511"> พ.ศ. 2511 </ion-option>
-              <ion-option [value]="512"> พ.ศ. 2512 </ion-option>
-              <ion-option [value]="513"> พ.ศ. 2513 </ion-option>
-              <ion-option [value]="514"> พ.ศ. 2514 </ion-option>
-              <ion-option [value]="515"> พ.ศ. 2515 </ion-option>
-              <ion-option [value]="516"> พ.ศ. 2516 </ion-option>
-              <ion-option [value]="517"> พ.ศ. 2517 </ion-option>
-              <ion-option [value]="518"> พ.ศ. 2518 </ion-option>
-              <ion-option [value]="519"> พ.ศ. 2519 </ion-option>
-              <ion-option [value]="520"> พ.ศ. 2520 </ion-option>
-              <ion-option [value]="521"> พ.ศ. 2521 </ion-option>
-              <ion-option [value]="522"> พ.ศ. 2522 </ion-option>
-              <ion-option [value]="523"> พ.ศ. 2523 </ion-option>
-              <ion-option [value]="524"> พ.ศ. 2524 </ion-option>
-              <ion-option [value]="525"> พ.ศ. 2525 </ion-option>
-              <ion-option [value]="526"> พ.ศ. 2526 </ion-option>
-              <ion-option [value]="527"> พ.ศ. 2527 </ion-option>
-              <ion-option [value]="528"> พ.ศ. 2528 </ion-option>
-              <ion-option [value]="529"> พ.ศ. 2529 </ion-option>
-              <ion-option [value]="530"> พ.ศ. 2530 </ion-option>
-              <ion-option [value]="531"> พ.ศ. 2531 </ion-option>
-              <ion-option [value]="532"> พ.ศ. 2532 </ion-option>
-              <ion-option [value]="533"> พ.ศ. 2533 </ion-option>
-              <ion-option [value]="534"> พ.ศ. 2534 </ion-option>
-              <ion-option [value]="535"> พ.ศ. 2535 </ion-option>
-              <ion-option [value]="536"> พ.ศ. 2536 </ion-option>
-              <ion-option [value]="537"> พ.ศ. 2537 </ion-option>
-              <ion-option [value]="538"> พ.ศ. 2538 </ion-option>
-              <ion-option [value]="539"> พ.ศ. 2539 </ion-option>
-              <ion-option [value]="540"> พ.ศ. 2540 </ion-option>
-              <ion-option [value]="541"> พ.ศ. 2541 </ion-option>
-              <ion-option [value]="542"> พ.ศ. 2542 </ion-option>
-              <ion-option [value]="543"> พ.ศ. 2543 </ion-option>
-              <ion-option [value]="544"> พ.ศ. 2544 </ion-option>
-              <ion-option [value]="545"> พ.ศ. 2545 </ion-option>
-              <ion-option [value]="546"> พ.ศ. 2546 </ion-option>
-              <ion-option [value]="547"> พ.ศ. 2547 </ion-option>
-              <ion-option [value]="548"> พ.ศ. 2548 </ion-option>
-              <ion-option [value]="549"> พ.ศ. 2549 </ion-option>
-              <ion-option [value]="550"> พ.ศ. 2550 </ion-option>
-              <ion-option [value]="551"> พ.ศ. 2551 </ion-option>
-              <ion-option [value]="552"> พ.ศ. 2552 </ion-option>
-              <ion-option [value]="553"> พ.ศ. 2553 </ion-option>
-              <ion-option [value]="554"> พ.ศ. 2554 </ion-option>
-              <ion-option [value]="555"> พ.ศ. 2555 </ion-option>
-              <ion-option [value]="556"> พ.ศ. 2556 </ion-option>
-              <ion-option [value]="557"> พ.ศ. 2557 </ion-option>
-              <ion-option [value]="558"> พ.ศ. 2558 </ion-option>
-              <ion-option [value]="559"> พ.ศ. 2559 </ion-option>
-              <ion-option [value]="560"> พ.ศ. 2560 </ion-option>
-              <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
-              <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
-              <ion-option [value]="999"> ไม่ทราบ </ion-option>
-            </ion-select>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
+    <div>
+      <ion-item>
+        <ion-label>6) วันที่-เดือน-ปีเกิด</ion-label>
+      </ion-item>
+      <ion-item *ngIf="isValid('birthDate' && 'birthMonth' && 'birthYear' )">
+        <span class="invalid-msg">กรุณาเลือก</span>
+      </ion-item>
+      <ion-item [class.invalid]="isValid('birthDate')">
+        <ion-label>วัน</ion-label>
+        <ion-select interface="action-sheet" formControlName="birthDate" >
+          <ion-option [value]="01"> 1 </ion-option>
+          <ion-option [value]="02"> 2 </ion-option>
+          <ion-option [value]="03"> 3 </ion-option>
+          <ion-option [value]="04"> 4 </ion-option>
+          <ion-option [value]="05"> 5 </ion-option>
+          <ion-option [value]="06"> 6 </ion-option>
+          <ion-option [value]="07"> 7 </ion-option>
+          <ion-option [value]="08"> 8 </ion-option>
+          <ion-option [value]="09"> 9 </ion-option>
+          <ion-option [value]="10"> 10 </ion-option>
+          <ion-option [value]="11"> 11 </ion-option>
+          <ion-option [value]="12"> 12 </ion-option>
+          <ion-option [value]="13"> 13 </ion-option>
+          <ion-option [value]="14"> 14 </ion-option>
+          <ion-option [value]="15"> 15 </ion-option>
+          <ion-option [value]="16"> 16 </ion-option>
+          <ion-option [value]="17"> 17 </ion-option>
+          <ion-option [value]="18"> 18 </ion-option>
+          <ion-option [value]="19"> 19 </ion-option>
+          <ion-option [value]="20"> 20 </ion-option>
+          <ion-option [value]="21"> 21 </ion-option>
+          <ion-option [value]="22"> 22 </ion-option>
+          <ion-option [value]="23"> 23 </ion-option>
+          <ion-option [value]="24"> 24 </ion-option>
+          <ion-option [value]="25"> 25 </ion-option>
+          <ion-option [value]="26"> 26 </ion-option>
+          <ion-option [value]="27"> 27 </ion-option>
+          <ion-option [value]="28"> 28 </ion-option>
+          <ion-option [value]="29"> 29 </ion-option>
+          <ion-option [value]="30"> 30 </ion-option>
+          <ion-option [value]="31"> 31 </ion-option>
+          <ion-option [value]="99"> ไม่ทราบวันที่เกิด </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item [class.invalid]="isValid('birthMonth')">
+        <ion-label>เดือน</ion-label>
+        <ion-select interface="action-sheet" formControlName="birthMonth" >
+          <ion-option [value]="01">มกราคม, เดือนยี่ หรือเดือน 2</ion-option>
+          <ion-option [value]="02">กุมภาพันธ์, เดือน 3</ion-option>
+          <ion-option [value]="03">มีนาคม, เดือน 4</ion-option>
+          <ion-option [value]="04">เมษายน, เดือน 5</ion-option>
+          <ion-option [value]="05">พฤษภาคม, เดือน 6</ion-option>
+          <ion-option [value]="06">มิถุนายน, เดือน 7</ion-option>
+          <ion-option [value]="07">กรกฎาคม, เดือน 8</ion-option>
+          <ion-option [value]="08">สิงหาคม, เดือน 9</ion-option>
+          <ion-option [value]="09">กันยายน, เดือน 10</ion-option>
+          <ion-option [value]="10">ตุลาคม, เดือน 11</ion-option>
+          <ion-option [value]="11">พฤศจิกายน, เดือน 12</ion-option>
+          <ion-option [value]="12">ธันวาคม, เดือนอ้าย หรือเดือน 1</ion-option>
+          <ion-option [value]="99">ไม่ทราบเดือนเกิด</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item [class.invalid]="isValid('birthYear')">
+        <ion-label>ปี</ion-label>
+        <ion-select interface="action-sheet" formControlName="birthYear" >
+          <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
+          <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
+          <ion-option [value]="560"> พ.ศ. 2560 </ion-option>
+          <ion-option [value]="559"> พ.ศ. 2559 </ion-option>
+          <ion-option [value]="558"> พ.ศ. 2558 </ion-option>
+          <ion-option [value]="557"> พ.ศ. 2557 </ion-option>
+          <ion-option [value]="556"> พ.ศ. 2556 </ion-option>
+          <ion-option [value]="555"> พ.ศ. 2555 </ion-option>
+          <ion-option [value]="554"> พ.ศ. 2554 </ion-option>
+          <ion-option [value]="553"> พ.ศ. 2553 </ion-option>
+          <ion-option [value]="552"> พ.ศ. 2552 </ion-option>
+          <ion-option [value]="551"> พ.ศ. 2551 </ion-option>
+          <ion-option [value]="550"> พ.ศ. 2550 </ion-option>
+          <ion-option [value]="549"> พ.ศ. 2549 </ion-option>
+          <ion-option [value]="548"> พ.ศ. 2548 </ion-option>
+          <ion-option [value]="547"> พ.ศ. 2547 </ion-option>
+          <ion-option [value]="546"> พ.ศ. 2546 </ion-option>
+          <ion-option [value]="545"> พ.ศ. 2545 </ion-option>
+          <ion-option [value]="544"> พ.ศ. 2544 </ion-option>
+          <ion-option [value]="543"> พ.ศ. 2543 </ion-option>
+          <ion-option [value]="542"> พ.ศ. 2542 </ion-option>
+          <ion-option [value]="541"> พ.ศ. 2541 </ion-option>
+          <ion-option [value]="540"> พ.ศ. 2540 </ion-option>
+          <ion-option [value]="539"> พ.ศ. 2539 </ion-option>
+          <ion-option [value]="538"> พ.ศ. 2538 </ion-option>
+          <ion-option [value]="537"> พ.ศ. 2537 </ion-option>
+          <ion-option [value]="536"> พ.ศ. 2536 </ion-option>
+          <ion-option [value]="535"> พ.ศ. 2535 </ion-option>
+          <ion-option [value]="534"> พ.ศ. 2534 </ion-option>
+          <ion-option [value]="533"> พ.ศ. 2533 </ion-option>
+          <ion-option [value]="532"> พ.ศ. 2532 </ion-option>
+          <ion-option [value]="531"> พ.ศ. 2531 </ion-option>
+          <ion-option [value]="530"> พ.ศ. 2530 </ion-option>
+          <ion-option [value]="529"> พ.ศ. 2529 </ion-option>
+          <ion-option [value]="528"> พ.ศ. 2528 </ion-option>
+          <ion-option [value]="527"> พ.ศ. 2527 </ion-option>
+          <ion-option [value]="526"> พ.ศ. 2526 </ion-option>
+          <ion-option [value]="525"> พ.ศ. 2525 </ion-option>
+          <ion-option [value]="524"> พ.ศ. 2524 </ion-option>
+          <ion-option [value]="523"> พ.ศ. 2523 </ion-option>
+          <ion-option [value]="522"> พ.ศ. 2522 </ion-option>
+          <ion-option [value]="521"> พ.ศ. 2521 </ion-option>
+          <ion-option [value]="520"> พ.ศ. 2520 </ion-option>
+          <ion-option [value]="519"> พ.ศ. 2519 </ion-option>
+          <ion-option [value]="518"> พ.ศ. 2518 </ion-option>
+          <ion-option [value]="517"> พ.ศ. 2517 </ion-option>
+          <ion-option [value]="516"> พ.ศ. 2516 </ion-option>
+          <ion-option [value]="515"> พ.ศ. 2515 </ion-option>
+          <ion-option [value]="514"> พ.ศ. 2514 </ion-option>
+          <ion-option [value]="513"> พ.ศ. 2513 </ion-option>
+          <ion-option [value]="512"> พ.ศ. 2512 </ion-option>
+          <ion-option [value]="511"> พ.ศ. 2511 </ion-option>
+          <ion-option [value]="510"> พ.ศ. 2510 </ion-option>
+          <ion-option [value]="509"> พ.ศ. 2509 </ion-option>
+          <ion-option [value]="508"> พ.ศ. 2508 </ion-option>
+          <ion-option [value]="507"> พ.ศ. 2507 </ion-option>
+          <ion-option [value]="506"> พ.ศ. 2506 </ion-option>
+          <ion-option [value]="505"> พ.ศ. 2505 </ion-option>
+          <ion-option [value]="504"> พ.ศ. 2504 </ion-option>
+          <ion-option [value]="503"> พ.ศ. 2503 </ion-option>
+          <ion-option [value]="502"> พ.ศ. 2502 </ion-option>
+          <ion-option [value]="501"> พ.ศ. 2501 </ion-option>
+          <ion-option [value]="500"> พ.ศ. 2500 </ion-option>
+          <ion-option [value]="499"> พ.ศ. 2499 </ion-option>
+          <ion-option [value]="498"> พ.ศ. 2498 </ion-option>
+          <ion-option [value]="497"> พ.ศ. 2497 </ion-option>
+          <ion-option [value]="496"> พ.ศ. 2496 </ion-option>
+          <ion-option [value]="495"> พ.ศ. 2495 </ion-option>
+          <ion-option [value]="494"> พ.ศ. 2494 </ion-option>
+          <ion-option [value]="493"> พ.ศ. 2493 </ion-option>
+          <ion-option [value]="492"> พ.ศ. 2492 </ion-option>
+          <ion-option [value]="491"> พ.ศ. 2491 </ion-option>
+          <ion-option [value]="490"> พ.ศ. 2490 </ion-option>
+          <ion-option [value]="489"> พ.ศ. 2489 </ion-option>
+          <ion-option [value]="488"> พ.ศ. 2488 </ion-option>
+          <ion-option [value]="487"> พ.ศ. 2487 </ion-option>
+          <ion-option [value]="486"> พ.ศ. 2486 </ion-option>
+          <ion-option [value]="485"> พ.ศ. 2485 </ion-option>
+          <ion-option [value]="484"> พ.ศ. 2484 </ion-option>
+          <ion-option [value]="483"> พ.ศ. 2483 </ion-option>
+          <ion-option [value]="482"> พ.ศ. 2482 </ion-option>
+          <ion-option [value]="481"> พ.ศ. 2481 </ion-option>
+          <ion-option [value]="480"> พ.ศ. 2480 </ion-option>
+          <ion-option [value]="479"> พ.ศ. 2479 </ion-option>
+          <ion-option [value]="478"> พ.ศ. 2478 </ion-option>
+          <ion-option [value]="477"> พ.ศ. 2477 </ion-option>
+          <ion-option [value]="476"> พ.ศ. 2476 </ion-option>
+          <ion-option [value]="475"> พ.ศ. 2475 </ion-option>
+          <ion-option [value]="474"> พ.ศ. 2474 </ion-option>
+          <ion-option [value]="473"> พ.ศ. 2473 </ion-option>
+          <ion-option [value]="472"> พ.ศ. 2472 </ion-option>
+          <ion-option [value]="471"> พ.ศ. 2471 </ion-option>
+          <ion-option [value]="470"> พ.ศ. 2470 </ion-option>
+          <ion-option [value]="469"> พ.ศ. 2469 </ion-option>
+          <ion-option [value]="468"> พ.ศ. 2468 </ion-option>
+          <ion-option [value]="467"> พ.ศ. 2467 </ion-option>
+          <ion-option [value]="466"> พ.ศ. 2466 </ion-option>
+          <ion-option [value]="465"> พ.ศ. 2465 </ion-option>
+          <ion-option [value]="464"> พ.ศ. 2464 </ion-option>
+          <ion-option [value]="463"> พ.ศ. 2463 </ion-option>
+          <ion-option [value]="462"> พ.ศ. 2462 </ion-option>
+          <ion-option [value]="461"> พ.ศ. 2461 </ion-option>
+          <ion-option [value]="460"> พ.ศ. 2460 </ion-option>
+          <ion-option [value]="459"> พ.ศ. 2459 </ion-option>
+          <ion-option [value]="458"> พ.ศ. 2458 </ion-option>
+          <ion-option [value]="457"> พ.ศ. 2457 </ion-option>
+          <ion-option [value]="456"> พ.ศ. 2456 </ion-option>
+          <ion-option [value]="455"> พ.ศ. 2455 </ion-option>
+          <ion-option [value]="454"> พ.ศ. 2454 </ion-option>
+          <ion-option [value]="453"> พ.ศ. 2453 </ion-option>
+          <ion-option [value]="452"> พ.ศ. 2452 </ion-option>
+          <ion-option [value]="451"> พ.ศ. 2451 </ion-option>
+          <ion-option [value]="450"> พ.ศ. 2450 </ion-option>
+          <ion-option [value]="449"> พ.ศ. 2449 </ion-option>
+          <ion-option [value]="448"> พ.ศ. 2448 </ion-option>
+          <ion-option [value]="447"> พ.ศ. 2447 </ion-option>
+          <ion-option [value]="446"> พ.ศ. 2446 </ion-option>
+          <ion-option [value]="445"> พ.ศ. 2445 </ion-option>
+          <ion-option [value]="444"> พ.ศ. 2444 </ion-option>
+          <ion-option [value]="443"> พ.ศ. 2443 </ion-option>
+          <ion-option [value]="442"> พ.ศ. 2442 </ion-option>
+          <ion-option [value]="999"> ไม่ทราบ </ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
 
     <ion-item>
       <ion-label>7) อายุ</ion-label>
