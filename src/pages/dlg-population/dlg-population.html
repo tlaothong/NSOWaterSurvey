@@ -66,8 +66,7 @@
     <ion-item *ngIf="isValid('relationship')">
       <span class="invalid-msg">กรุณาเลือก</span>
     </ion-item>
-    <ion-item *ngIf="checkHeadfamily()">
-      <ion-icon md="md-warning"></ion-icon>
+    <ion-item *ngIf="isCheckHeadfamily()">
       <span class="invalid-msg">
         ครัวเรือนมีหัวหน้าครัวเรือนได้เพียงคนเดียว
       </span>
@@ -467,9 +466,7 @@
     <ion-item [class.invalid]="isValid('nationality')">
       <ion-label>สัญชาติ</ion-label>
       <ion-select interface="action-sheet" formControlName="nationality">
-        <ion-option [value]="1">1.ไทย</ion-option>
-        <ion-option [value]="2">2.พม่า</ion-option>
-        <ion-option [value]="3">3.ไม่มีสัญชาติ</ion-option>
+        <ion-option *ngFor="let item of Nation">{{ item.name }}</ion-option>
       </ion-select>
     </ion-item>
 
@@ -498,8 +495,7 @@
         <ion-label>ระบุจังหวัดอื่น
         </ion-label>
         <ion-select interface="action-sheet" formControlName="otherProvince">
-          <ion-option [value]="1">1.ขอนแก่น</ion-option>
-          <ion-option [value]="2">2.เลย</ion-option>
+          <ion-option *ngFor="let item of Province">{{ item.name }}</ion-option>
         </ion-select>
       </ion-item>
     </div>

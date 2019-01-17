@@ -43,11 +43,19 @@
           </ion-col>
         </ion-row>
 
-        <div *ngIf="f.get('personCount').value > 0">
-          <div *ngFor="let far of f.get('persons').controls; let i = index">
-            <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')"></table-population>
+        <div [class.invalid]="!isCheckHaveHeadfamily()">
+          <div *ngIf="f.get('personCount').value > 0">
+            <div *ngFor="let far of f.get('persons').controls; let i = index">
+              <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')"></table-population>
+            </div>
           </div>
+          <ion-item *ngIf="!isCheckHaveHeadfamily()">
+            <span class="invalid-msg" item-right>
+              ครัวเรือนนี้ยังไม่มีหัวหน้าครัวเรือน
+            </span>
+          </ion-item>
         </div>
+
       </ion-card-content>
     </ion-card>
 
