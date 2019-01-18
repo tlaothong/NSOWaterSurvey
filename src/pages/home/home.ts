@@ -14,6 +14,7 @@ export class HomePage {
   pages: Array<{ title: string, component: any }>;
   // private getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
   private i: number;
+  private checkDoing: boolean ;
   constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,
     public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     // used for an example of ngFor and navigation
@@ -83,6 +84,9 @@ export class HomePage {
       console.log("index: ", index);
       console.log("page: ", page);
       this.navCtrl.push(page.component);
+      if (index == this.i + 18) {
+        this.checkDoing = true;
+      }else  this.checkDoing = false;
     }
   }
 
