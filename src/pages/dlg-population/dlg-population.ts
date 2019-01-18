@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, DateTime } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';
@@ -24,6 +24,8 @@ export class DlgPopulationPage {
   public OtherNation: Nationality[] = nationalityData.filter(it => it.Tag == false);
   public Province: Province[] = provinceData;
 
+  public dateTime: Date = new Date();
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
@@ -40,7 +42,6 @@ export class DlgPopulationPage {
   }
 
   public closeDialog() {
-
     this.viewCtrl.dismiss();
   }
 
@@ -71,11 +72,25 @@ export class DlgPopulationPage {
     let index = Number(this.text) - 1;
     let count = 0;
     for (let i = 0; i < this.FormArray.length; i++) {
-      if (i != index) {
-        count += (this.FormArray.at(i).get('relationship').value == "1") ? 1 : 0;
-      }
+      if (this.FormArray.at(i).get('relationship').value == "1" && i != index) count++;
     }
-    count += (this.FormItem.get('relationship').value == "1") ? 1 : 0;
+    if (this.FormItem.get('relationship').value == "1") count++;
     return count > 1;
   }
+
+  public CalculateAge() {
+    let birthDate = this.FormItem.get('birthDate').value;
+    let birthMonth = this.FormItem.get('birthMonth').value - 1;
+    let birthYear = this.FormItem.get('birthYear').value + 1457;
+
+    let age = this.dateTime.getFullYear() - birthYear;
+
+    if (birthDate == 99) birthDate = 0;
+    if (birthMonth == 99) birthMonth = 0;
+    if (birthMonth > this.dateTime.getMonth() || birthMonth == this.dateTime.getMonth() && birthDate > this.dateTime.getDate()) age--;
+    if (age < 0) age = null;
+    
+    this.FormItem.get('age').setValue(age);
+  }
+
 }
