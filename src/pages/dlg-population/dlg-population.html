@@ -119,7 +119,7 @@
       </ion-item>
       <ion-item [class.invalid]="isValid('birthDate')">
         <ion-label>วัน</ion-label>
-        <ion-select interface="action-sheet" formControlName="birthDate" >
+        <ion-select interface="action-sheet" formControlName="birthDate">
           <ion-option [value]="01"> 1 </ion-option>
           <ion-option [value]="02"> 2 </ion-option>
           <ion-option [value]="03"> 3 </ion-option>
@@ -157,7 +157,7 @@
 
       <ion-item [class.invalid]="isValid('birthMonth')">
         <ion-label>เดือน</ion-label>
-        <ion-select interface="action-sheet" formControlName="birthMonth" >
+        <ion-select interface="action-sheet" formControlName="birthMonth">
           <ion-option [value]="01">มกราคม, เดือนยี่ หรือเดือน 2</ion-option>
           <ion-option [value]="02">กุมภาพันธ์, เดือน 3</ion-option>
           <ion-option [value]="03">มีนาคม, เดือน 4</ion-option>
@@ -176,7 +176,7 @@
 
       <ion-item [class.invalid]="isValid('birthYear')">
         <ion-label>ปี</ion-label>
-        <ion-select interface="action-sheet" formControlName="birthYear" >
+        <ion-select interface="action-sheet" formControlName="birthYear">
           <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
           <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
           <ion-option [value]="560"> พ.ศ. 2560 </ion-option>
@@ -466,7 +466,15 @@
     <ion-item [class.invalid]="isValid('nationality')">
       <ion-label>สัญชาติ</ion-label>
       <ion-select interface="action-sheet" formControlName="nationality">
-        <ion-option *ngFor="let item of Nation">{{ item.name }}</ion-option>
+        <ion-option *ngFor="let item of Nation">{{ item.Name }}</ion-option>
+        <ion-option>สัญชาติอื่นๆ</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item [class.invalid]="isValid('nationality')" *ngIf="FormItem.get('nationality').value == 'สัญชาติอื่นๆ'">
+      <ion-label>สัญชาติ</ion-label>
+      <ion-select interface="action-sheet" formControlName="nationality">
+        <ion-option *ngFor="let item of OtherNation">{{ item.Name }}</ion-option>
       </ion-select>
     </ion-item>
 

@@ -20,7 +20,8 @@ export class DlgPopulationPage {
   public checkHead: boolean;
   public clickCheckHead: boolean;
 
-  public Nation: Nationality[] = nationalityData;
+  public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
+  public OtherNation: Nationality[] = nationalityData.filter(it => it.Tag == false);
   public Province: Province[] = provinceData;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
@@ -35,6 +36,7 @@ export class DlgPopulationPage {
   }
 
   ionViewDidLoad() {
+    console.log(this.Nation)
   }
 
   public closeDialog() {
