@@ -1,979 +1,1233 @@
 export interface Nationality {
-  code: string;
-  name: string;
+  Code: string;
+  Name: string;
+  Tag: boolean;
 }
 
 export const nationalityData: Nationality[] = [
   {
-    code: '764',
-    name: 'ไทย'
+    Code: "764",
+    Name: "ไทย",
+    Tag: true,
   },
   {
-    code: '104',
-    name: 'พม่า'
+    Code: "104",
+    Name: "พม่า",
+    Tag: true,
   },
   {
-    code: '116',
-    name: 'กัมพูชา'
+    Code: "116",
+    Name: "กัมพูชา",
+    Tag: true,
   },
   {
-    code: '418',
-    name: 'สาธารณรัฐประชาธิปไตยประชาชนลาว'
+    Code: "418",
+    Name: "สาธารณรัฐประชาธิปไตยประชาชนลาว",
+    Tag: true,
   },
   {
-    code: '156',
-    name: 'จีน'
+    Code: "156",
+    Name: "จีน",
+    Tag: true,
   },
   {
-    code: '356',
-    name: 'อินเดีย'
+    Code: "356",
+    Name: "อินเดีย",
+    Tag: true,
   },
   {
-    code: '826',
-    name: 'สหราชอาณาจักร (อังกฤษ)'
+    Code: "826",
+    Name: "สหราชอาณาจักร (อังกฤษ)",
+    Tag: true,
   },
   {
-    code: '276',
-    name: 'เยอรมนี'
+    Code: "276",
+    Name: "เยอรมนี",
+    Tag: true,
   },
   {
-    code: '608',
-    name: 'ฟิลิปปินส์'
+    Code: "608",
+    Name: "ฟิลิปปินส์",
+    Tag: true,
   },
   {
-    code: '704',
-    name: 'เวียดนาม'
+    Code: "704",
+    Name: "เวียดนาม",
+    Tag: true,
   },
   {
-    code: '392',
-    name: 'ญี่ปุ่น'
+    Code: "392",
+    Name: "ญี่ปุ่น",
+    Tag: true,
   },
   {
-    code: '840',
-    name: 'สหรัฐอเมริกา'
+    Code: "840",
+    Name: "สหรัฐอเมริกา",
+    Tag: true,
   },
   {
-    code: '634',
-    name: 'กาตาร์'
+    Code: "634",
+    Name: "กาตาร์",
+    Tag: false,
   },
   {
-    code: '398',
-    name: 'คาซัคสถาน'
+    Code: "398",
+    Name: "คาซัคสถาน",
+    Tag: false,
   },
   {
-    code: '417',
-    name: 'คีร์กีซสถาน'
+    Code: "417",
+    Name: "คีร์กีซสถาน",
+    Tag: false,
   },
   {
-    code: '414',
-    name: 'คูเวต'
+    Code: "414",
+    Name: "คูเวต",
+    Tag: false,
   },
   {
-    code: '268',
-    name: 'จอร์เจีย'
+    Code: "268",
+    Name: "จอร์เจีย",
+    Tag: false,
   },
   {
-    code: '400',
-    name: 'จอร์แดน'
+    Code: "400",
+    Name: "จอร์แดน",
+    Tag: false,
   },
   {
-    code: '682',
-    name: 'ซาอุดิอาระเบีย'
+    Code: "682",
+    Name: "ซาอุดิอาระเบีย",
+    Tag: false,
   },
   {
-    code: '196',
-    name: 'ไซปรัส'
+    Code: "196",
+    Name: "ไซปรัส",
+    Tag: false,
   },
   {
-    code: '275',
-    name: 'ดินแดนภายใต้การปกครองของปาเลสไตน์'
+    Code: "275",
+    Name: "ดินแดนภายใต้การปกครองของปาเลสไตน์",
+    Tag: false,
   },
   {
-    code: '626',
-    name: 'ติมอร์-เลสเต'
+    Code: "626",
+    Name: "ติมอร์-เลสเต",
+    Tag: false,
   },
   {
-    code: '792',
-    name: 'ตุรกี'
+    Code: "792",
+    Name: "ตุรกี",
+    Tag: false,
   },
   {
-    code: '795',
-    name: 'เติร์กเมนิสถาน'
+    Code: "795",
+    Name: "เติร์กเมนิสถาน",
+    Tag: false,
   },
   {
-    code: '888',
-    name: 'ไต้หวัน'
+    Code: "888",
+    Name: "ไต้หวัน",
+    Tag: false,
   },
   {
-    code: '762',
-    name: 'ทาจิกิสถาน'
+    Code: "762",
+    Name: "ทาจิกิสถาน",
+    Tag: false,
   },
   {
-    code: '524',
-    name: 'เนปาล'
+    Code: "524",
+    Name: "เนปาล",
+    Tag: false,
   },
   {
-    code: '096',
-    name: 'บรูไนดารุสซาลาม'
+    Code: "096",
+    Name: "บรูไนดารุสซาลาม",
+    Tag: false,
   },
   {
-    code: '050',
-    name: 'บังกลาเทศ'
+    Code: "050",
+    Name: "บังกลาเทศ",
+    Tag: false,
   },
   {
-    code: '048',
-    name: 'บาห์เรน'
+    Code: "048",
+    Name: "บาห์เรน",
+    Tag: false,
   },
   {
-    code: '586',
-    name: 'ปากีสถาน'
+    Code: "586",
+    Name: "ปากีสถาน",
+    Tag: false,
   },
   {
-    code: '064',
-    name: 'ภูฏาน'
+    Code: "064",
+    Name: "ภูฏาน",
+    Tag: false,
   },
   {
-    code: '496',
-    name: 'มองโกเลีย'
+    Code: "496",
+    Name: "มองโกเลีย",
+    Tag: false,
   },
   {
-    code: '462',
-    name: 'มัลดีฟส์'
+    Code: "462",
+    Name: "มัลดีฟส์",
+    Tag: false,
   },
   {
-    code: '446',
-    name: 'มาเก๊า  เขตบริหารพิเศษของจีน'
+    Code: "446",
+    Name: "มาเก๊า  เขตบริหารพิเศษของจีน",
+    Tag: false,
   },
   {
-    code: '458',
-    name: 'มาเลเซีย'
+    Code: "458",
+    Name: "มาเลเซีย",
+    Tag: false,
   },
   {
-    code: '887',
-    name: 'เยเมน'
+    Code: "887",
+    Name: "เยเมน",
+    Tag: false,
   },
   {
-    code: '422',
-    name: 'เลบานอน'
+    Code: "422",
+    Name: "เลบานอน",
+    Tag: false,
   },
   {
-    code: '144',
-    name: 'ศรีลังกา'
+    Code: "144",
+    Name: "ศรีลังกา",
+    Tag: false,
   },
   {
-    code: '784',
-    name: 'สหรัฐอาหรับเอมิเรตส์'
+    Code: "784",
+    Name: "สหรัฐอาหรับเอมิเรตส์",
+    Tag: false,
   },
   {
-    code: '410',
-    name: 'สาธารณรัฐเกาหลี (เกาหลีใต้)'
+    Code: "410",
+    Name: "สาธารณรัฐเกาหลี (เกาหลีใต้)",
+    Tag: false,
   },
   {
-    code: '408',
-    name: 'สาธารณรัฐประชาธิปไตยประชาชนเกาหลี (เกาหลีเหนือ)'
+    Code: "408",
+    Name: "สาธารณรัฐประชาธิปไตยประชาชนเกาหลี (เกาหลีเหนือ)",
+    Tag: false,
   },
   {
-    code: '760',
-    name: 'สาธารณรัฐอาหรับซีเรีย'
+    Code: "760",
+    Name: "สาธารณรัฐอาหรับซีเรีย",
+    Tag: false,
   },
   {
-    code: '702',
-    name: 'สิงคโปร์'
+    Code: "702",
+    Name: "สิงคโปร์",
+    Tag: false,
   },
   {
-    code: '004',
-    name: 'อัฟกานิสถาน'
+    Code: "004",
+    Name: "อัฟกานิสถาน",
+    Tag: false,
   },
   {
-    code: '031',
-    name: 'อาเซอร์ไบจาน'
+    Code: "031",
+    Name: "อาเซอร์ไบจาน",
+    Tag: false,
   },
   {
-    code: '051',
-    name: 'อาร์เมเนีย'
+    Code: "051",
+    Name: "อาร์เมเนีย",
+    Tag: false,
   },
   {
-    code: '360',
-    name: 'อินโดนีเซีย'
+    Code: "360",
+    Name: "อินโดนีเซีย",
+    Tag: false,
   },
   {
-    code: '368',
-    name: 'อิรัก'
+    Code: "368",
+    Name: "อิรัก",
+    Tag: false,
   },
   {
-    code: '376',
-    name: 'อิสราเอล'
+    Code: "376",
+    Name: "อิสราเอล",
+    Tag: false,
   },
   {
-    code: '364',
-    name: 'อิหร่าน (สาธารณรัฐอิสลาม)'
+    Code: "364",
+    Name: "อิหร่าน (สาธารณรัฐอิสลาม)",
+    Tag: false,
   },
   {
-    code: '860',
-    name: 'อุซเบกิสถาน'
+    Code: "860",
+    Name: "อุซเบกิสถาน",
+    Tag: false,
   },
   {
-    code: '512',
-    name: 'โอมาน'
+    Code: "512",
+    Name: "โอมาน",
+    Tag: false,
   },
   {
-    code: '344',
-    name: 'ฮ่องกง เขตบริหารพิเศษของจีน'
+    Code: "344",
+    Name: "ฮ่องกง เขตบริหารพิเศษของจีน",
+    Tag: false,
   },
   {
-    code: '831',
-    name: 'เกิร์นซีย์'
+    Code: "831",
+    Name: "เกิร์นซีย์",
+    Tag: false,
   },
   {
-    code: '300',
-    name: 'กรีซ'
+    Code: "300",
+    Name: "กรีซ",
+    Tag: false,
   },
   {
-    code: '304',
-    name: 'กรีนแลนด์'
+    Code: "304",
+    Name: "กรีนแลนด์",
+    Tag: false,
   },
   {
-    code: '312',
-    name: 'กวาเดอลูป'
+    Code: "312",
+    Name: "กวาเดอลูป",
+    Tag: false,
   },
   {
-    code: '833',
-    name: 'เกาะแมน'
+    Code: "833",
+    Name: "เกาะแมน",
+    Tag: false,
   },
   {
-    code: '191',
-    name: 'โครเอเชีย'
+    Code: "191",
+    Name: "โครเอเชีย",
+    Tag: false,
   },
   {
-    code: '832',
-    name: 'เจอร์ซีย์'
+    Code: "832",
+    Name: "เจอร์ซีย์",
+    Tag: false,
   },
   {
-    code: '674',
-    name: 'ซานมารีโน'
+    Code: "674",
+    Name: "ซานมารีโน",
+    Tag: false,
   },
   {
-    code: '654',
-    name: 'เซนต์เฮเลนา'
+    Code: "654",
+    Name: "เซนต์เฮเลนา",
+    Tag: false,
   },
   {
-    code: '891',
-    name: 'เซอร์เบียและมอนเตเนโกร'
+    Code: "891",
+    Name: "เซอร์เบียและมอนเตเนโกร",
+    Tag: false,
   },
   {
-    code: '666',
-    name: 'แซงปีแยร์และมีเกอลง'
+    Code: "666",
+    Name: "แซงปีแยร์และมีเกอลง",
+    Tag: false,
   },
   {
-    code: '208',
-    name: 'เดนมาร์ก'
+    Code: "208",
+    Name: "เดนมาร์ก",
+    Tag: false,
   },
   {
-    code: '578',
-    name: 'นอร์เวย์'
+    Code: "578",
+    Name: "นอร์เวย์",
+    Tag: false,
   },
   {
-    code: '540',
-    name: 'นิวแคลิโดเนีย'
+    Code: "540",
+    Name: "นิวแคลิโดเนีย",
+    Tag: false,
   },
   {
-    code: '528',
-    name: 'เนเธอร์แลนด์'
+    Code: "528",
+    Name: "เนเธอร์แลนด์",
+    Tag: false,
   },
   {
-    code: '530',
-    name: 'เนเธอร์แลนด์แอนทิลลิส'
+    Code: "530",
+    Name: "เนเธอร์แลนด์แอนทิลลิส",
+    Tag: false,
   },
   {
-    code: '070',
-    name: 'บอสเนียและเฮอร์เซโกวีนา'
+    Code: "070",
+    Name: "บอสเนียและเฮอร์เซโกวีนา",
+    Tag: false,
   },
   {
-    code: '100',
-    name: 'บัลแกเรีย'
+    Code: "100",
+    Name: "บัลแกเรีย",
+    Tag: false,
   },
   {
-    code: '056',
-    name: 'เบลเยียม'
+    Code: "056",
+    Name: "เบลเยียม",
+    Tag: false,
   },
   {
-    code: '112',
-    name: 'เบลารุส'
+    Code: "112",
+    Name: "เบลารุส",
+    Tag: false,
   },
   {
-    code: '060',
-    name: 'เบอร์มิวดา'
+    Code: "060",
+    Name: "เบอร์มิวดา",
+    Tag: false,
   },
   {
-    code: '620',
-    name: 'โปรตุเกส'
+    Code: "620",
+    Name: "โปรตุเกส",
+    Tag: false,
   },
   {
-    code: '616',
-    name: 'โปแลนด์'
+    Code: "616",
+    Name: "โปแลนด์",
+    Tag: false,
   },
   {
-    code: '250',
-    name: 'ฝรั่งเศส'
+    Code: "250",
+    Name: "ฝรั่งเศส",
+    Tag: false,
   },
   {
-    code: '612',
-    name: 'พิตแคร์น'
+    Code: "612",
+    Name: "พิตแคร์น",
+    Tag: false,
   },
   {
-    code: '246',
-    name: 'ฟินแลนด์'
+    Code: "246",
+    Name: "ฟินแลนด์",
+    Tag: false,
   },
   {
-    code: '254',
-    name: 'เฟรนช์เกียนา'
+    Code: "254",
+    Name: "เฟรนช์เกียนา",
+    Tag: false,
   },
   {
-    code: '258',
-    name: 'เฟรนช์โปลินีเซีย'
+    Code: "258",
+    Name: "เฟรนช์โปลินีเซีย",
+    Tag: false,
   },
   {
-    code: '500',
-    name: 'มอนต์เซอร์รัต'
+    Code: "500",
+    Name: "มอนต์เซอร์รัต",
+    Tag: false,
   },
   {
-    code: '470',
-    name: 'มอลตา'
+    Code: "470",
+    Name: "มอลตา",
+    Tag: false,
   },
   {
-    code: '175',
-    name: 'มายอต'
+    Code: "175",
+    Name: "มายอต",
+    Tag: false,
   },
   {
-    code: '474',
-    name: 'มาร์ตินีก'
+    Code: "474",
+    Name: "มาร์ตินีก",
+    Tag: false,
   },
   {
-    code: '492',
-    name: 'โมนาโก'
+    Code: "492",
+    Name: "โมนาโก",
+    Tag: false,
   },
   {
-    code: '292',
-    name: 'ยิบรอลตาร์'
+    Code: "292",
+    Name: "ยิบรอลตาร์",
+    Tag: false,
   },
   {
-    code: '804',
-    name: 'ยูเครน'
+    Code: "804",
+    Name: "ยูเครน",
+    Tag: false,
   },
   {
-    code: '638',
-    name: 'เรอูนียง'
+    Code: "638",
+    Name: "เรอูนียง",
+    Tag: false,
   },
   {
-    code: '642',
-    name: 'โรมาเนีย'
+    Code: "642",
+    Name: "โรมาเนีย",
+    Tag: false,
   },
   {
-    code: '442',
-    name: 'ลักเซมเบิร์ก'
+    Code: "442",
+    Name: "ลักเซมเบิร์ก",
+    Tag: false,
   },
   {
-    code: '428',
-    name: 'ลัตเวีย'
+    Code: "428",
+    Name: "ลัตเวีย",
+    Tag: false,
   },
   {
-    code: '438',
-    name: 'ลิกเตนสไตน์'
+    Code: "438",
+    Name: "ลิกเตนสไตน์",
+    Tag: false,
   },
   {
-    code: '440',
-    name: 'ลิทัวเนีย'
+    Code: "440",
+    Name: "ลิทัวเนีย",
+    Tag: false,
   },
   {
-    code: '724',
-    name: 'สเปน'
+    Code: "724",
+    Name: "สเปน",
+    Tag: false,
   },
   {
-    code: '703',
-    name: 'สโลวะเกีย'
+    Code: "703",
+    Name: "สโลวะเกีย",
+    Tag: false,
   },
   {
-    code: '705',
-    name: 'สโลวีเนีย'
+    Code: "705",
+    Name: "สโลวีเนีย",
+    Tag: false,
   },
   {
-    code: '756',
-    name: 'สวิตเซอร์แลนด์'
+    Code: "756",
+    Name: "สวิตเซอร์แลนด์",
+    Tag: false,
   },
   {
-    code: '752',
-    name: 'สวีเดน'
+    Code: "752",
+    Name: "สวีเดน",
+    Tag: false,
   },
   {
-    code: '643',
-    name: 'สหพันธรัฐรัสเซีย'
+    Code: "643",
+    Name: "สหพันธรัฐรัสเซีย",
+    Tag: false,
   },
   {
-    code: '203',
-    name: 'สาธารณรัฐเช็ก'
+    Code: "203",
+    Name: "สาธารณรัฐเช็ก",
+    Tag: false,
   },
   {
-    code: '498',
-    name: 'สาธารณรัฐมอลโดวา'
+    Code: "498",
+    Name: "สาธารณรัฐมอลโดวา",
+    Tag: false,
   },
   {
-    code: '807',
-    name: 'สาธารณรัฐยูโกสลาฟแห่งมาซิโดเนีย'
+    Code: "807",
+    Name: "สาธารณรัฐยูโกสลาฟแห่งมาซิโดเนีย",
+    Tag: false,
   },
   {
-    code: '830',
-    name: 'หมู่เกาะแชนเนล'
+    Code: "830",
+    Name: "หมู่เกาะแชนเนล",
+    Tag: false,
   },
   {
-    code: '796',
-    name: 'หมู่เกาะเติกส์และหมู่เกาะเคคอส'
+    Code: "796",
+    Name: "หมู่เกาะเติกส์และหมู่เกาะเคคอส",
+    Tag: false,
   },
   {
-    code: '092',
-    name: 'หมู่เกาะบริติชเวอร์จิน'
+    Code: "092",
+    Name: "หมู่เกาะบริติชเวอร์จิน",
+    Tag: false,
   },
   {
-    code: '238',
-    name: 'หมู่เกาะฟอล์กแลนด์ (มาลบีนาส)'
+    Code: "238",
+    Name: "หมู่เกาะฟอล์กแลนด์ (มาลบีนาส)",
+    Tag: false,
   },
   {
-    code: '234',
-    name: 'หมู่เกาะแฟโร'
+    Code: "234",
+    Name: "หมู่เกาะแฟโร",
+    Tag: false,
   },
   {
-    code: '876',
-    name: 'หมู่เกาะวาลลิสและหมู่เกาะฟุตูนา'
+    Code: "876",
+    Name: "หมู่เกาะวาลลิสและหมู่เกาะฟุตูนา",
+    Tag: false,
   },
   {
-    code: '744',
-    name: 'หมู่เกาะสฟาลบาร์และยานไมเอน'
+    Code: "744",
+    Name: "หมู่เกาะสฟาลบาร์และยานไมเอน",
+    Tag: false,
   },
   {
-    code: '248',
-    name: 'หมู่เกาะโอลันด์'
+    Code: "248",
+    Name: "หมู่เกาะโอลันด์",
+    Tag: false,
   },
   {
-    code: '040',
-    name: 'ออสเตรีย'
+    Code: "040",
+    Name: "ออสเตรีย",
+    Tag: false,
   },
   {
-    code: '020',
-    name: 'อันดอร์รา'
+    Code: "020",
+    Name: "อันดอร์รา",
+    Tag: false,
   },
   {
-    code: '533',
-    name: 'อารูบา'
+    Code: "533",
+    Name: "อารูบา",
+    Tag: false,
   },
   {
-    code: '380',
-    name: 'อิตาลี'
+    Code: "380",
+    Name: "อิตาลี",
+    Tag: false,
   },
   {
-    code: '233',
-    name: 'เอสโตเนีย'
+    Code: "233",
+    Name: "เอสโตเนีย",
+    Tag: false,
   },
   {
-    code: '660',
-    name: 'แองกวิลลา'
+    Code: "660",
+    Name: "แองกวิลลา",
+    Tag: false,
   },
   {
-    code: '008',
-    name: 'แอลเบเนีย'
+    Code: "008",
+    Name: "แอลเบเนีย",
+    Tag: false,
   },
   {
-    code: '352',
-    name: 'ไอซ์แลนด์'
+    Code: "352",
+    Name: "ไอซ์แลนด์",
+    Tag: false,
   },
   {
-    code: '372',
-    name: 'ไอร์แลนด์'
+    Code: "372",
+    Name: "ไอร์แลนด์",
+    Tag: false,
   },
   {
-    code: '336',
-    name: 'ฮอลีซี'
+    Code: "336",
+    Name: "ฮอลีซี",
+    Tag: false,
   },
   {
-    code: '348',
-    name: 'ฮังการี'
+    Code: "348",
+    Name: "ฮังการี",
+    Tag: false,
   },
   {
-    code: '320',
-    name: 'กัวเตมาลา'
+    Code: "320",
+    Name: "กัวเตมาลา",
+    Tag: false,
   },
   {
-    code: '328',
-    name: 'กายอานา'
+    Code: "328",
+    Name: "กายอานา",
+    Tag: false,
   },
   {
-    code: '308',
-    name: 'เกรเนดา'
+    Code: "308",
+    Name: "เกรเนดา",
+    Tag: false,
   },
   {
-    code: '188',
-    name: 'คอสตาริกา'
+    Code: "188",
+    Name: "คอสตาริกา",
+    Tag: false,
   },
   {
-    code: '192',
-    name: 'คิวบา'
+    Code: "192",
+    Name: "คิวบา",
+    Tag: false,
   },
   {
-    code: '170',
-    name: 'โคลอมเบีย'
+    Code: "170",
+    Name: "โคลอมเบีย",
+    Tag: false,
   },
   {
-    code: '388',
-    name: 'จาเมกา'
+    Code: "388",
+    Name: "จาเมกา",
+    Tag: false,
   },
   {
-    code: '152',
-    name: 'ชิลี'
+    Code: "152",
+    Name: "ชิลี",
+    Tag: false,
   },
   {
-    code: '740',
-    name: 'ซูรินาเม'
+    Code: "740",
+    Name: "ซูรินาเม",
+    Tag: false,
   },
   {
-    code: '659',
-    name: 'เซนต์คิตส์และเนวิส'
+    Code: "659",
+    Name: "เซนต์คิตส์และเนวิส",
+    Tag: false,
   },
   {
-    code: '662',
-    name: 'เซนต์ลูเซีย'
+    Code: "662",
+    Name: "เซนต์ลูเซีย",
+    Tag: false,
   },
   {
-    code: '670',
-    name: 'เซนต์วินเซนต์และเกรนาดีนส์'
+    Code: "670",
+    Name: "เซนต์วินเซนต์และเกรนาดีนส์",
+    Tag: false,
   },
   {
-    code: '212',
-    name: 'โดมินิกา'
+    Code: "212",
+    Name: "โดมินิกา",
+    Tag: false,
   },
   {
-    code: '780',
-    name: 'ตรินิแดดและโตเบโก'
+    Code: "780",
+    Name: "ตรินิแดดและโตเบโก",
+    Tag: false,
   },
   {
-    code: '558',
-    name: 'นิการากัว'
+    Code: "558",
+    Name: "นิการากัว",
+    Tag: false,
   },
   {
-    code: '076',
-    name: 'บราซิล'
+    Code: "076",
+    Name: "บราซิล",
+    Tag: false,
   },
   {
-    code: '052',
-    name: 'บาร์เบโดส'
+    Code: "052",
+    Name: "บาร์เบโดส",
+    Tag: false,
   },
   {
-    code: '044',
-    name: 'บาฮามาส'
+    Code: "044",
+    Name: "บาฮามาส",
+    Tag: false,
   },
   {
-    code: '084',
-    name: 'เบลีซ'
+    Code: "084",
+    Name: "เบลีซ",
+    Tag: false,
   },
   {
-    code: '068',
-    name: 'โบลิเวีย'
+    Code: "068",
+    Name: "โบลิเวีย",
+    Tag: false,
   },
   {
-    code: '591',
-    name: 'ปานามา'
+    Code: "591",
+    Name: "ปานามา",
+    Tag: false,
   },
   {
-    code: '600',
-    name: 'ปารากวัย'
+    Code: "600",
+    Name: "ปารากวัย",
+    Tag: false,
   },
   {
-    code: '604',
-    name: 'เปรู'
+    Code: "604",
+    Name: "เปรู",
+    Tag: false,
   },
   {
-    code: '630',
-    name: 'เปอร์โตริโก'
+    Code: "630",
+    Name: "เปอร์โตริโก",
+    Tag: false,
   },
   {
-    code: '484',
-    name: 'เม็กซิโก'
+    Code: "484",
+    Name: "เม็กซิโก",
+    Tag: false,
   },
   {
-    code: '862',
-    name: 'เวเนซุเอลา'
+    Code: "862",
+    Name: "เวเนซุเอลา",
+    Tag: false,
   },
   {
-    code: '214',
-    name: 'สาธารณรัฐโดมินิกัน'
+    Code: "214",
+    Name: "สาธารณรัฐโดมินิกัน",
+    Tag: false,
   },
   {
-    code: '032',
-    name: 'อาร์เจนตินา'
+    Code: "032",
+    Name: "อาร์เจนตินา",
+    Tag: false,
   },
   {
-    code: '858',
-    name: 'อุรุกวัย'
+    Code: "858",
+    Name: "อุรุกวัย",
+    Tag: false,
   },
   {
-    code: '218',
-    name: 'เอกวาดอร์'
+    Code: "218",
+    Name: "เอกวาดอร์",
+    Tag: false,
   },
   {
-    code: '222',
-    name: 'เอลซัลวาดอร์'
+    Code: "222",
+    Name: "เอลซัลวาดอร์",
+    Tag: false,
   },
   {
-    code: '028',
-    name: 'แอนติกาและบาร์บูดา'
+    Code: "028",
+    Name: "แอนติกาและบาร์บูดา",
+    Tag: false,
   },
   {
-    code: '340',
-    name: 'ฮอนดูรัส'
+    Code: "340",
+    Name: "ฮอนดูรัส",
+    Tag: false,
   },
   {
-    code: '332',
-    name: 'เฮติ'
+    Code: "332",
+    Name: "เฮติ",
+    Tag: false,
   },
   {
-    code: '316',
-    name: 'กวม'
+    Code: "316",
+    Name: "กวม",
+    Tag: false,
   },
   {
-    code: '124',
-    name: 'แคนาดา'
+    Code: "124",
+    Name: "แคนาดา",
+    Tag: false,
   },
   {
-    code: '580',
-    name: 'หมู่เกาะนอร์เทิร์นมาเรียนา'
+    Code: "580",
+    Name: "หมู่เกาะนอร์เทิร์นมาเรียนา",
+    Tag: false,
   },
   {
-    code: '850',
-    name: 'หมู่เกาะเวอร์จินของสหรัฐอเมริกา'
+    Code: '850',
+    Name: "หมู่เกาะเวอร์จินของสหรัฐอเมริกา",
+    Tag: false,
   },
   {
-    code: '016',
-    name: 'อเมริกันซามัว'
+    Code: "016",
+    Name: "อเมริกันซามัว",
+    Tag: false,
   },
   {
-    code: '288',
-    name: 'กานา'
+    Code: "288",
+    Name: "กานา",
+    Tag: false,
   },
   {
-    code: '266',
-    name: 'กาบอง'
+    Code: "266",
+    Name: "กาบอง",
+    Tag: false,
   },
   {
-    code: '324',
-    name: 'กินี'
+    Code: "324",
+    Name: "กินี",
+    Tag: false,
   },
   {
-    code: '624',
-    name: 'กินีบิสเซา'
+    Code: "624",
+    Name: "กินีบิสเซา",
+    Tag: false,
   },
   {
-    code: '270',
-    name: 'แกมเบีย'
+    Code: "270",
+    Name: "แกมเบีย",
+    Tag: false,
   },
   {
-    code: '384',
-    name: 'โกตดิวัวร์'
+    Code: "384",
+    Name: "โกตดิวัวร์",
+    Tag: false,
   },
   {
-    code: '178',
-    name: 'คองโก'
+    Code: "178",
+    Name: "คองโก",
+    Tag: false,
   },
   {
-    code: '174',
-    name: 'คอโมโรส'
+    Code: "174",
+    Name: "คอโมโรส",
+    Tag: false,
   },
   {
-    code: '404',
-    name: 'เคนยา'
+    Code: "404",
+    Name: "เคนยา",
+    Tag: false,
   },
   {
-    code: '132',
-    name: 'เคปเวิร์ด'
+    Code: "132",
+    Name: "เคปเวิร์ด",
+    Tag: false,
   },
   {
-    code: '120',
-    name: 'แคเมอรูน'
+    Code: "120",
+    Name: "แคเมอรูน",
+    Tag: false,
   },
   {
-    code: '262',
-    name: 'จิบูตี'
+    Code: "262",
+    Name: "จิบูตี",
+    Tag: false,
   },
   {
-    code: '148',
-    name: 'ชาด'
+    Code: "148",
+    Name: "ชาด",
+    Tag: false,
   },
   {
-    code: '732',
-    name: 'ซาฮาราตะวันตก'
+    Code: "732",
+    Name: "ซาฮาราตะวันตก",
+    Tag: false,
   },
   {
-    code: '716',
-    name: 'ซิมบับเว'
+    Code: "716",
+    Name: "ซิมบับเว",
+    Tag: false,
   },
   {
-    code: '736',
-    name: 'ซูดาน'
+    Code: "736",
+    Name: "ซูดาน",
+    Tag: false,
   },
   {
-    code: '690',
-    name: 'เซเชลส์'
+    Code: "690",
+    Name: "เซเชลส์",
+    Tag: false,
   },
   {
-    code: '686',
-    name: 'เซเนกัล'
+    Code: "686",
+    Name: "เซเนกัล",
+    Tag: false,
   },
   {
-    code: '678',
-    name: 'เซาตูเมและปรินซิปี'
+    Code: "678",
+    Name: "เซาตูเมและปรินซิปี",
+    Tag: false,
   },
   {
-    code: '694',
-    name: 'เซียร์ราลีโอน'
+    Code: "694",
+    Name: "เซียร์ราลีโอน",
+    Tag: false,
   },
   {
-    code: '894',
-    name: 'แซมเบีย'
+    Code: "894",
+    Name: "แซมเบีย",
+    Tag: false,
   },
   {
-    code: '706',
-    name: 'โซมาเลีย'
+    Code: "706",
+    Name: "โซมาเลีย",
+    Tag: false,
   },
   {
-    code: '788',
-    name: 'ตูนิเซีย'
+    Code: "788",
+    Name: "ตูนิเซีย",
+    Tag: false,
   },
   {
-    code: '768',
-    name: 'โตโก'
+    Code: "768",
+    Name: "โตโก",
+    Tag: false,
   },
   {
-    code: '516',
-    name: 'นามิเบีย'
+    Code: "516",
+    Name: "นามิเบีย",
+    Tag: false,
   },
   {
-    code: '566',
-    name: 'ไนจีเรีย'
+    Code: "566",
+    Name: "ไนจีเรีย",
+    Tag: false,
   },
   {
-    code: '562',
-    name: 'ไนเจอร์'
+    Code: "562",
+    Name: "ไนเจอร์",
+    Tag: false,
   },
   {
-    code: '072',
-    name: 'บอตสวานา'
+    Code: "072",
+    Name: "บอตสวานา",
+    Tag: false,
   },
   {
-    code: '108',
-    name: 'บุรุนดี'
+    Code: "108",
+    Name: "บุรุนดี",
+    Tag: false,
   },
   {
-    code: '854',
-    name: 'บูร์กินาฟาโซ'
+    Code: "854",
+    Name: "บูร์กินาฟาโซ",
+    Tag: false,
   },
   {
-    code: '204',
-    name: 'เบนิน'
+    Code: "204",
+    Name: "เบนิน",
+    Tag: false,
   },
   {
-    code: '480',
-    name: 'มอริเชียส'
+    Code: "480",
+    Name: "มอริเชียส",
+    Tag: false,
   },
   {
-    code: '478',
-    name: 'มอริเตเนีย'
+    Code: "478",
+    Name: "มอริเตเนีย",
+    Tag: false,
   },
   {
-    code: '450',
-    name: 'มาดากัสการ์'
+    Code: "450",
+    Name: "มาดากัสการ์",
+    Tag: false,
   },
   {
-    code: '454',
-    name: 'มาลาวี'
+    Code: "454",
+    Name: "มาลาวี",
+    Tag: false,
   },
   {
-    code: '466',
-    name: 'มาลี'
+    Code: "466",
+    Name: "มาลี",
+    Tag: false,
   },
   {
-    code: '508',
-    name: 'โมซัมบิก'
+    Code: "508",
+    Name: "โมซัมบิก",
+    Tag: false,
   },
   {
-    code: '504',
-    name: 'โมร็อกโก'
+    Code: "504",
+    Name: "โมร็อกโก",
+    Tag: false,
   },
   {
-    code: '800',
-    name: 'ยูกันดา'
+    Code: "800",
+    Name: "ยูกันดา",
+    Tag: false,
   },
   {
-    code: '646',
-    name: 'รวันดา'
+    Code: "646",
+    Name: "รวันดา",
+    Tag: false,
   },
   {
-    code: '426',
-    name: 'เลโซโท'
+    Code: "426",
+    Name: "เลโซโท",
+    Tag: false,
   },
   {
-    code: '430',
-    name: 'ไลบีเรีย'
+    Code: "430",
+    Name: "ไลบีเรีย",
+    Tag: false,
   },
   {
-    code: '748',
-    name: 'สวาซิแลนด์'
+    Code: "748",
+    Name: "สวาซิแลนด์",
+    Tag: false,
   },
   {
-    code: '834',
-    name: 'สหสาธารณรัฐแทนซาเนีย'
+    Code: "834",
+    Name: "สหสาธารณรัฐแทนซาเนีย",
+    Tag: false,
   },
   {
-    code: '180',
-    name: 'สาธารณรัฐประชาธิปไตยคองโก'
+    Code: "180",
+    Name: "สาธารณรัฐประชาธิปไตยคองโก",
+    Tag: false,
   },
   {
-    code: '140',
-    name: 'สาธารณรัฐแอฟริกากลาง'
+    Code: "140",
+    Name: "สาธารณรัฐแอฟริกากลาง",
+    Tag: false,
   },
   {
-    code: '434',
-    name: 'อาหรับลิเบีย'
+    Code: "434",
+    Name: "อาหรับลิเบีย",
+    Tag: false,
   },
   {
-    code: '226',
-    name: 'อิเควทอเรียลกินี'
+    Code: "226",
+    Name: "อิเควทอเรียลกินี",
+    Tag: false,
   },
   {
-    code: '818',
-    name: 'อียิปต์'
+    Code: "818",
+    Name: "อียิปต์",
+    Tag: false,
   },
   {
-    code: '231',
-    name: 'เอธิโอเปีย'
+    Code: "231",
+    Name: "เอธิโอเปีย",
+    Tag: false,
   },
   {
-    code: '232',
-    name: 'เอริเทรีย'
+    Code: "232",
+    Name: "เอริเทรีย",
+    Tag: false,
   },
   {
-    code: '024',
-    name: 'แองโกลา'
+    Code: "024",
+    Name: "แองโกลา",
+    Tag: false,
   },
   {
-    code: '710',
-    name: 'แอฟริกาใต้'
+    Code: "710",
+    Name: "แอฟริกาใต้",
+    Tag: false,
   },
   {
-    code: '012',
-    name: 'แอลจีเรีย'
+    Code: "012",
+    Name: "แอลจีเรีย",
+    Tag: false,
   },
   {
-    code: '574',
-    name: 'เกาะนอร์ฟอล์ก'
+    Code: "574",
+    Name: "เกาะนอร์ฟอล์ก",
+    Tag: false,
   },
   {
-    code: '296',
-    name: 'คิริบาตี'
+    Code: "296",
+    Name: "คิริบาตี",
+    Tag: false,
   },
   {
-    code: '882',
-    name: 'ซามัว'
+    Code: "882",
+    Name: "ซามัว",
+    Tag: false,
   },
   {
-    code: '776',
-    name: 'ตองกา'
+    Code: "776",
+    Name: "ตองกา",
+    Tag: false,
   },
   {
-    code: '798',
-    name: 'ตูวาลู'
+    Code: "798",
+    Name: "ตูวาลู",
+    Tag: false,
   },
   {
-    code: '772',
-    name: 'โตเกเลา'
+    Code: "772",
+    Name: "โตเกเลา",
+    Tag: false,
   },
   {
-    code: '520',
-    name: 'นาอูรู'
+    Code: "520",
+    Name: "นาอูรู",
+    Tag: false,
   },
   {
-    code: '554',
-    name: 'นิวซีแลนด์'
+    Code: "554",
+    Name: "นิวซีแลนด์",
+    Tag: false,
   },
   {
-    code: '570',
-    name: 'นีอูเอ'
+    Code: "570",
+    Name: "นีอูเอ",
+    Tag: false,
   },
   {
-    code: '598',
-    name: 'ปาปัวนิวกินี'
+    Code: "598",
+    Name: "ปาปัวนิวกินี",
+    Tag: false,
   },
   {
-    code: '585',
-    name: 'ปาเลา'
+    Code: "585",
+    Name: "ปาเลา",
+    Tag: false,
   },
   {
-    code: '242',
-    name: 'ฟิจิ'
+    Code: "242",
+    Name: "ฟิจิ",
+    Tag: false,
   },
   {
-    code: '583',
-    name: 'ไมโครนีเซีย (สหพันธรัฐ)'
+    Code: "583",
+    Name: "ไมโครนีเซีย (สหพันธรัฐ)",
+    Tag: false,
   },
   {
-    code: '548',
-    name: 'วานูอาตู'
+    Code: "548",
+    Name: "วานูอาตู",
+    Tag: false,
   },
   {
-    code: '184',
-    name: 'หมู่เกาะคุก'
+    Code: "184",
+    Name: "หมู่เกาะคุก",
+    Tag: false,
   },
   {
-    code: '090',
-    name: 'หมู่เกาะโซโลมอน'
+    Code: "090",
+    Name: "หมู่เกาะโซโลมอน",
+    Tag: false,
   },
   {
-    code: '584',
-    name: 'หมู่เกาะมาร์แชลล์'
+    Code: "584",
+    Name: "หมู่เกาะมาร์แชลล์",
+    Tag: false,
   },
   {
-    code: '036',
-    name: 'ออสเตรเลีย'
+    Code: "036",
+    Name: "ออสเตรเลีย",
+    Tag: false,
   },
   {
-    code: '901',
-    name: 'กะเหรี่ยง'
+    Code: "901",
+    Name: "กะเหรี่ยง",
+    Tag: false,
   },
   {
-    code: '909',
-    name: 'ขมุ'
+    Code: "909",
+    Name: "ขมุ",
+    Tag: false,
   },
   {
-    code: '905',
-    name: 'ไทยใหญ่/ส่วย/ลื้อ'
+    Code: "905",
+    Name: "ไทยใหญ่/ส่วย/ลื้อ",
+    Tag: false,
   },
   {
-    code: '902',
-    name: 'ม้ง'
+    Code: "902",
+    Name: "ม้ง",
+    Tag: false,
   },
   {
-    code: '908',
-    name: 'เย้า'
+    Code: "908",
+    Name: "เย้า",
+    Tag: false,
   },
   {
-    code: '903',
-    name: 'ละหู้'
+    Code: "903",
+    Name: "ละหู้",
+    Tag: false,
   },
   {
-    code: '906',
-    name: 'ลัว'
+    Code: "906",
+    Name: "ลัว",
+    Tag: false,
   },
   {
-    code: '907',
-    name: 'ลูซู'
+    Code: "907",
+    Name: "ลูซู",
+    Tag: false,
   },
   {
-    code: '904',
-    name: 'อาข่า'
+    Code: "904",
+    Name: "อาข่า",
+    Tag: false,
+  },
+  {
+    Code: "998",
+    Name: "ไม่มีสัญชาติ",
+    Tag: true,
+  },
+  {
+    Code: "999",
+    Name: "ไม่ทราบ",
+    Tag: true,
   }
 ]
