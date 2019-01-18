@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { SetNextPageDirection } from '../../states/household/household.actions';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { Store } from '@ngrx/store';
+import { NavController } from 'ionic-angular';
+import { getNextPageDirection } from '../../states/household';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'form-buttons-bar',
@@ -8,8 +14,33 @@ export class FormButtonsBarComponent {
 
   public text: string;
 
-  constructor() {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
   }
 
+  backToHome(){
+    this.store.dispatch(new SetNextPageDirection(-18));
+    this.navCtrl.popToRoot();
+  }
+
+  previouPage(){
+    let getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let i = 0;
+    getNextPage$.subscribe(data => {
+      if (data != null) {
+        i = data;
+      }
+      else i = null;
+      console.log("i: ", i);
+    });
+     i = i - 1;
+    this.store.dispatch(new SetNextPageDirection(i));
+    this.navCtrl.popToRoot();
+
+    // if (index != 0) {
+    //   let page = this.pages[index];
+    //   console.log("index: ", index);
+    //   console.log("page: ", page);
+    //   this.navCtrl.push(page.component);
+  }
 }
