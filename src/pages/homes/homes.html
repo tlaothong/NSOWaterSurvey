@@ -19,8 +19,8 @@
   <ion-row>
     <ion-item>
       <ion-label>
-        ตะวันออกเฉียงเหนือ {{f.get('province').value}} {{f.get('district').value}} {{f.get('subDistrict').value}}
-        {{f.get('_id').value}}
+        ตะวันออกเฉียงเหนือ {{data.properties.pro_name}} {{data.properties.dis_name}} {{data.properties.tam_name}}
+        {{data._id}}
       </ion-label>
     </ion-item>
 
@@ -48,7 +48,7 @@
 
   <ion-row align-items-center>
     <ion-col>
-      <button ion-button block type="button" (click)="goBuildingInfo()">
+      <button ion-button block type="button" (click)="goBuildingInfo(data._id)">
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>

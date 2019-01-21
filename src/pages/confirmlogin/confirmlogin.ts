@@ -24,7 +24,8 @@ export class ConfirmloginPage {
       'idUser': null,
       'password': null,
       'name': null,
-      'email': null
+      'email': null,
+      'idEA':[null]
     });
   }
 

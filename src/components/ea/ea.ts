@@ -3,15 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { LoadWorkByIdEA } from '../../states/logging/logging.actions';
 
 
-/**
- * Generated class for the EaComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'ea',
   templateUrl: 'ea.html'
@@ -26,24 +19,32 @@ export class EaComponent {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       '_id': [null],
-      'idUser': [null],
-      'zone': [null],
-      'province': [null],
-      'district': [null],
-      'subDistrict': [null],
-      'region': fb.group({
-        'insideMunicipality': [null],
-        'outsideMunicipality': [null]
+      'type': [null],
+      'properties': fb.group({
+        'fig_id': [0],
+        'ea_code_14': [null],
+        'ea_type': [null],
+        'com_name': [null],
+        'tam_name': [null],
+        'dis_name': [null],
+        'pro_name': [null],
+        'ea_remark': [null],
+        'muni_name': [null],
+        'upd_date': [null],
+        'year': [null],
+        'old_ea_ref': [null],
+        'moo': [0],
+        'hh_num': [0],
+        'map_status': [0]
       }),
-      'enumerationCode': [null],
-      'villageNo': [null],
-      'communityName': [null],
-      'irrigatedArea': [null]
+      'geometry': fb.group({
+        'type': [null],
+        'coordinates': [[[[0]]]]
+      })
     });
   }
 
-  goConfirmSeletEAPage(id: string) {
-    this.store.dispatch(new LoadWorkByIdEA(id));
+  goConfirmSeletEAPage() {
     this.navCtrl.push("HomesPage");
   }
 }

@@ -4,19 +4,18 @@ export interface LoggingState {
     userData: any,
     dataWorkEA: any,
     countOfWorks: any,
-    getWorkEA: any,
     countOfBuilding: any,
     dataHomeBuilding: any,
-    
+    idHomes:any,
 }
 
 const initialState: LoggingState = {
     userData: null,
     dataWorkEA: null,
     countOfWorks: null,
-    getWorkEA: null,
     countOfBuilding: null,
     dataHomeBuilding: null,
+    idHomes:null
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -26,7 +25,7 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
                 ...state,
                 userData: action.payload
             };
-        case LoggingTypes.LoadDataWorkEASuccess:
+        case LoggingTypes.LoadDataWorkEAByUserIdSuccess:
             return {
                 ...state,
                 dataWorkEA: action.payload
@@ -35,11 +34,6 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state,
                 countOfWorks: action.payload
-            };
-        case LoggingTypes.LoadWorkByIdEASuccess:
-            return {
-                ...state,
-                getWorkEA: action.payload
             };
         case LoggingTypes.LoadCountOfHomeBuildingSuccess:
             return {
@@ -51,6 +45,13 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
                 ...state,
                 dataHomeBuilding: action.payload,
             };
+      
+        case LoggingTypes.SetIdEaWorkHomesSuccess:
+            return {
+                ...state,
+                idHomes: action.payload,
+            };
+      
         default:
             return state;
     }

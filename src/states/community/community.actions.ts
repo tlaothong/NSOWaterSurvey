@@ -6,9 +6,8 @@ export enum CommunityTypes {
     LoadListSuccess = "[CM] Load List Success",
     Load = "[CM] Load",
     LoadSuccess = "[CM] Load Success",
+   
 }
-
-
 
 export class LoadCommunityList implements Action {
     readonly type = CommunityTypes.LoadList;
