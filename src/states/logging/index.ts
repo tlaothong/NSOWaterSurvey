@@ -19,11 +19,6 @@ export const getCountOfaWorkEA = createSelector(
     state => state.countOfWorks
 );
 
-export const getWorkEAbyIdEA = createSelector(
-    getLoggingFeatureState,
-    state => state.getWorkEA
-);
-
 export const getHomeBuilding = createSelector(
     getLoggingFeatureState,
     state => state.dataHomeBuilding,
@@ -32,3 +27,8 @@ export const getCountHomeBuilding = createSelector(
     getLoggingFeatureState,
     state => state.countOfBuilding,
 );
+export const setIdEsWorkHomes = createSelector(
+    getLoggingFeatureState,
+    state => state.idHomes,
+);
+

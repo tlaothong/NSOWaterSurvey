@@ -6,9 +6,9 @@ import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import {
     LoggingTypes, LoadUserDataSuccess, SetUserPasswordSuccess, SetUserPassword,
-    LoadUserDataByQRCode, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess,
-    LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
-    SetHomeBuildingSuccess, LoadUserDataById,
+    LoadUserDataByQRCode, LoadCountOfWorksSuccess,
+    LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
+    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId,
 } from "./logging.actions";
 
 @Injectable()
@@ -41,26 +41,18 @@ export class LoggingEffects {
     );
 
     @Effect()
-    public LoadDataWorkEA: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.LoadDataWorkEA),
-        mergeMap(action => this.cloudSync.loadAllWorkEA((<LoadDataWorkEA>action).payload).pipe(
-            map(data => new LoadDataWorkEASuccess(data))
+    public LoadDataWorkEAByUserId: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadDataWorkEAByUserId),
+        mergeMap(action => this.cloudSync.loadAllWorkEA((<LoadDataWorkEAByUserId>action).payload).pipe(
+            map(data => new LoadDataWorkEAByUserIdSuccess(data))
         ))
     );
 
     @Effect()
     public LoadCountOfWorks: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadCountOfWorks),
-        mergeMap(action => this.cloudSync.loadCountOfWorkEA((<LoadDataWorkEA>action).payload).pipe(
+        mergeMap(action => this.cloudSync.loadCountOfWorkEA((<LoadDataWorkEAByUserId>action).payload).pipe(
             map(data => new LoadCountOfWorksSuccess(data))
-        ))
-    );
-
-    @Effect()
-    public LoadWorkByIdEA: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.LoadWorkByIdEA),
-        mergeMap(action => this.cloudSync.loadWorkEAbyIdEA((<LoadDataWorkEA>action).payload).pipe(
-            map(data => new LoadWorkByIdEASuccess(data))
         ))
     );
 

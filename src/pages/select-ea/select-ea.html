@@ -35,12 +35,38 @@
   <!-- <ea></ea>
   <ea></ea> -->
 
-  <div *ngIf="f.get('EaCount').value > 0">
+  <!-- <div *ngIf="f.get('EaCount').value > 0">
     <div *ngFor="let ea of f.get('Ea').controls; let i = index">
       <ea [FormItem]="ea"></ea>
     </div>
-  </div>
+  </div> -->
 
+  <ion-row *ngFor="let item of dataEa" text-center align-items-center>
+    <ion-col col-2>
+     {{item.properties.pro_name}}
+    </ion-col>
+    <ion-col col-2>
+      {{item.properties.dis_name}}
+    </ion-col>
+    <ion-col col-2>
+      {{item.properties.tam_name}}
+    </ion-col>
+    <!-- <ion-col col-2>
+      {{FormItem.get('properties.muni_name').value}}
+    </ion-col>
+    <ion-col col-2>
+      {{FormItem.get('region.insideMunicipality').value}}
+    </ion-col> -->
+    <ion-col col-1>
+      {{item._id}}
+    </ion-col>
+    <ion-col col-1>
+      <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
+        เลือก
+      </button>
+    </ion-col>
+  </ion-row>
+  
   <div padding text-center>
     <button ion-button text-center (click)="goBack()">ย้อนกลับ</button>
   </div>

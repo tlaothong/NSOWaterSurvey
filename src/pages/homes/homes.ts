@@ -3,11 +3,11 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
-import { getWorkEAbyIdEA, getCountHomeBuilding, getHomeBuilding } from '../../states/logging';
+import { getCountHomeBuilding, getHomeBuilding } from '../../states/logging';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
-import { LoadHomeBuilding, LoadCountOfHomeBuilding } from '../../states/logging/logging.actions';
+import { LoadHomeBuilding, LoadCountOfHomeBuilding, SetIdEaWorkHomes } from '../../states/logging/logging.actions';
 
 
 @IonicPage()
@@ -17,72 +17,33 @@ import { LoadHomeBuilding, LoadCountOfHomeBuilding } from '../../states/logging/
 })
 export class HomesPage {
   @ViewChildren(ItemInHomeComponent) private itemHome: ItemInHomeComponent[];
-  f: FormGroup;
+  data: any;
   formItem: FormGroup;
   office: string = "building";
-  private formDataWorkEA$ = this.store.select(getWorkEAbyIdEA).pipe(map(s => s));
-  private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
-  private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
+  public dataEa: any;
+  // private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
+  // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
   constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
-    this.f = this.fb.group({
-      '_id': [null],
-      'idUser': [null],
-      'zone': [null],
-      'province': [null],
-      'district': [null],
-      'subDistrict': [null],
-      'region': fb.group({
-        'insideMunicipality': [null],
-        'outsideMunicipality': [null]
-      }),
-      'enumerationCode': [null],
-      'villageNo': [null],
-      'communityName': [null],
-      'irrigatedArea': [null]
-    });
-
+    this.data = this.navParams.get('data');
     this.formItem = fb.group({
       'countHomeBuilding': [null],
       'homeBuilding': this.fb.array([]),
     });
+
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, { nav: this.navCtrl });
+    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, { data: this.data });
     popover.present({
       ev: myEvent
     });
   }
 
-  ionViewDidEnter() {
-    this.store.dispatch(new LoadHomeBuilding());
-    this.store.dispatch(new LoadCountOfHomeBuilding());
-
-    this.formDataCountHomeBuilding$.subscribe(
-      data => {
-        this.formItem.get('countHomeBuilding').setValue(data);
-        if (data != null) {
-          this.setupHomeBuilding();
-          this.formDataHomeBuilding$.subscribe(data => {
-            if (data != null) {
-              this.formItem.get('homeBuilding').patchValue(data)
-            }
-          });
-        }
-      }
-    );
-  }
-
   ionViewDidLoad() {
-    this.formDataWorkEA$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data);
-      }
-    });
-
   }
 
-  goBuildingInfo() {
+  goBuildingInfo(id:any) {
+   this.store.dispatch(new SetIdEaWorkHomes(id));
     this.navCtrl.push("BuildingTestPage")
   }
 

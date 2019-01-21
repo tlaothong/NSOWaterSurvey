@@ -1,24 +1,25 @@
 <ion-row text-center align-items-center>
   <ion-col col-2>
-    {{FormItem.get('province').value}}
+    {{FormItem.get('properties.pro_name').value}}
+   
   </ion-col>
   <ion-col col-2>
-    {{FormItem.get('district').value}}
+    {{FormItem.get('properties.dis_name').value}}
   </ion-col>
   <ion-col col-2>
-    {{FormItem.get('subDistrict').value}}
+    {{FormItem.get('properties.tam_name').value}}
   </ion-col>
-  <ion-col col-2>
-    {{FormItem.get('region.outsideMunicipality').value}}
+  <!-- <ion-col col-2>
+    {{FormItem.get('properties.muni_name').value}}
   </ion-col>
   <ion-col col-2>
     {{FormItem.get('region.insideMunicipality').value}}
-  </ion-col>
+  </ion-col> -->
   <ion-col col-1>
     {{FormItem.get('_id').value}}
   </ion-col>
   <ion-col col-1>
-    <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(FormItem.get('_id').value)">
+    <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage()">
       เลือก
     </button>
   </ion-col>
