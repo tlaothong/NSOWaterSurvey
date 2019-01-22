@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the DlgPumpPictureShowPage page.
@@ -15,11 +15,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DlgPumpPictureShowPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private images: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl: ViewController) {
+    this.images = this.navParams.get('src');
+    console.log(this.images);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgPumpPictureShowPage');
+  }
+
+  public closeDialog() {
+    this.viewCtrl.dismiss();
   }
 
 }
