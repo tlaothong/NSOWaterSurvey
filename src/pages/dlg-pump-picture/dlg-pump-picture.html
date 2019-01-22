@@ -8,7 +8,7 @@
 
 <ion-content padding>
 
-  <div>
+  <div *ngIf="checkedPump == true">
     <!-- ground -->
     <ion-row>
       <ion-item>
@@ -563,7 +563,7 @@
     </ion-row>
   </div>
 
-  <div>
+  <div *ngIf="checkedPump == false">
     <!-- surface -->
     <ion-row>
       <ion-item>
