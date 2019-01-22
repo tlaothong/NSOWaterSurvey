@@ -27,6 +27,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
   @Input('activeFac') public activeFac:any;
   @Input('activeCom') public activeCom:any;
   private submitRequested: boolean;
+  public G:boolean = false; 
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
