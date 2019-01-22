@@ -11,6 +11,7 @@ export class TablePopulationComponent {
   @Input('no') public personNo: string;
   @Input() public FormItem: FormGroup;
   @Input() public FormArray: FormArray;
+  @Input('ProName') public proName: string;
   // @Input('nameTitle') public nameTitle: FormGroup;
   private submitRequested: boolean;
 
@@ -43,7 +44,8 @@ export class TablePopulationComponent {
       {
         FormItem: this.FormItem,
         FormArray: this.FormArray,
-        iTitle: this.personNo
+        iTitle: this.personNo,
+        proName: this.proName
       });
     modal.onDidDismiss(data => {
       if (data) {

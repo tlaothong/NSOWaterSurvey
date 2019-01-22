@@ -20,23 +20,30 @@ export class BuidlingInformation2Page {
   private submitRequested: boolean;
 
   // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
-  private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
+  // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   private getBuildingType$ = this.store.select(getSendBuildingType)
+  private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
+    this.dataHomeBuilding$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data);
+        console.log(this.f.value);
+      }
+    });
   }
 
   ionViewDidLoad() {
-    this.formDataFromBuilding1$.subscribe(data => {
-      if (data != null) {
-        this.f.setValue(data)
-        this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
-      }
-    });
+    // this.formDataFromBuilding1$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.setValue(data)
+    //     this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+    //   }
+    // });
   }
 
   public handleSubmit() {
@@ -51,13 +58,10 @@ export class BuidlingInformation2Page {
         delay(7000)
         this.navCtrl.push("HouseHoldTestPage", { num: 1 });
       }
-      else 
-      delay(7000)
+      else
+        delay(7000)
       this.navCtrl.push("HouseHoldTestPage"), { num: null };
     }
-
-    
-
   }
 
   public isValid(name: string): boolean {
