@@ -46,12 +46,11 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
                 dataHomeBuilding: action.payload,
             };
       
-        case LoggingTypes.SetIdEaWorkHomesSuccess:
+        case LoggingTypes.SetIdEaWorkHomes:
             return {
                 ...state,
                 idHomes: action.payload,
             };
-      
         default:
             return state;
     }

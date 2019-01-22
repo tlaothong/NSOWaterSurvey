@@ -1,13 +1,13 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
-import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
-import { getCountHomeBuilding, getHomeBuilding } from '../../states/logging';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
-import { LoadHomeBuilding, LoadCountOfHomeBuilding, SetIdEaWorkHomes } from '../../states/logging/logging.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetIdEaWorkHomes } from '../../states/logging/logging.actions';
+import { getIdEsWorkHomes } from '../../states/logging';
 
 
 @IonicPage()
@@ -23,6 +23,7 @@ export class HomesPage {
   public dataEa: any;
   // private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
   // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
+ 
   constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
     this.data = this.navParams.get('data');
     this.formItem = fb.group({
@@ -42,8 +43,10 @@ export class HomesPage {
   ionViewDidLoad() {
   }
 
-  goBuildingInfo(id:any) {
-   this.store.dispatch(new SetIdEaWorkHomes(id));
+  goBuildingInfo(id: any) {
+    var str = id.substring(1,7);
+    this.store.dispatch(new SetIdEaWorkHomes(str));
+    
     this.navCtrl.push("BuildingTestPage")
   }
 

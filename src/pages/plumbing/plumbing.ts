@@ -9,6 +9,9 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection } from '../../states/household/household.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { getIdEsWorkHomes } from '../../states/logging';
+import { subDistrictData } from '../../models/SubDistrictData';
 
 @IonicPage()
 @Component({
@@ -44,9 +47,14 @@ export class PlumbingPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
+  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  private getIdHomes: any;
 
+  public subDistrict: any;
+  public MWA:boolean;
+  public PWA:boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
@@ -115,11 +123,18 @@ export class PlumbingPage {
       this.activityCommercial = (data != null) ? data.plumbing : null;
     });
     this.changeValueActivity();
-    console.log("activityResidential", this.activityResidential);
-    console.log("activityWateringRes", this.activityWateringRes);
-    console.log("activityAgiculture", this.activityAgiculture);
-    console.log("activityFactory", this.activityFactory);
-    console.log("activityCommercial", this.activityCommercial);
+    this.getIdHomes$.subscribe(data => this.getIdHomes = data);
+    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == this.getIdHomes);
+    //1 103004 1000165
+
+    this.MWA = this.subDistrict.MWA;
+    this.PWA = this.subDistrict.PWA;
+    console.log("Id", this.getIdHomes);
+    // console.log("activityResidential", this.activityResidential);
+    // console.log("activityWateringRes", this.activityWateringRes);
+    // console.log("activityAgiculture", this.activityAgiculture);
+    // console.log("activityFactory", this.activityFactory);
+    // console.log("activityCommercial", this.activityCommercial);
   }
 
   changeValueActivity() {
@@ -147,8 +162,8 @@ export class PlumbingPage {
     this.store.dispatch(new SetNextPageDirection(14));
     if (this.f.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-        this.navCtrl.popToRoot();
-        // this.navCtrl.push("GroundWaterPage");
+      this.navCtrl.popToRoot();
+      // this.navCtrl.push("GroundWaterPage");
       // }
     }
   }
