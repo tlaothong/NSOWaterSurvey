@@ -19,6 +19,7 @@ export class DlgPopulationPage {
   private submitRequested: boolean;
   public checkHead: boolean;
   public clickCheckHead: boolean;
+  public proName:any;
 
   public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
   public OtherNation: Nationality[] = nationalityData.filter(it => it.Tag == false);
@@ -29,6 +30,7 @@ export class DlgPopulationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
+    this.proName = navParams.get('proName');
 
     this.FormItem = TablePopulationComponent.CreateFormGroup(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
@@ -58,11 +60,16 @@ export class DlgPopulationPage {
   }
 
   public isDisabled(): boolean {
+    console.log("otherProvine",this.FormItem.get('otherProvince').value+"===="+this.proName)
     if (this.FormItem.get('nameTitle').value == '6' && this.FormItem.get('otherTitle').value == null
       || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null
       || (this.FormItem.get('relationship').value == 7) && (this.FormItem.get('age').value < 13 && this.FormItem.get('age').value != null)
-      || (this.FormItem.get('nameTitle').value == 1 || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
-      || (this.FormItem.get('nameTitle').value == 2 || this.FormItem.get('nameTitle').value == 3 || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))) {
+      || (this.FormItem.get('nameTitle').value == 1 
+      || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
+      || (this.FormItem.get('nameTitle').value == 2 
+      || this.FormItem.get('nameTitle').value == 3 
+      || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
+      || this.FormItem.get('otherProvince').value == this.proName) {
       return true
     }
     return false;

@@ -1,4 +1,4 @@
-import { Component, ViewChildren, transition } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
@@ -7,6 +7,9 @@ import { Store } from '@ngrx/store';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection } from '../../states/household/household.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { getIdEsWorkHomes } from '../../states/logging';
+import { provinceData, Province } from '../../models/ProvinceData';
 
 @IonicPage()
 @Component({
@@ -20,11 +23,15 @@ export class PopulationPage {
   public whatever: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
-
+  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  public getIdHomes:any;
+  public str:any;
+  public pro:Province;
+  public proName:any;
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
@@ -34,6 +41,12 @@ export class PopulationPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.getIdHomes$.subscribe(data=> this.str = data);
+    
+    this.getIdHomes = this.str.substring(0,2); //10
+    this.pro = provinceData.find(it=>it.codeProvince == this.getIdHomes);
+    this.proName = this.pro.name;
+  
   }
 
   public handleSubmit() {
