@@ -33,7 +33,7 @@ export class DlgPumpPicturePage {
 
   pictureShow(src: string) {
 
-    let profileModal = this.modalCtrl.create("DlgPumpPictureShowPage", { src: src });
+    let profileModal = this.modalCtrl.create("DlgCalendarAgePage", { src: src });
     profileModal.present();
   }
 
