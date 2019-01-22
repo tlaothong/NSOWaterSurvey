@@ -110,7 +110,7 @@
 
     <div *ngIf="f.get('hasPump').value && f.get('pumpCount').value > 0">
       <div *ngFor="let pump of f.get('pumps').controls; let i = index">
-        <pump [no]="i + 1" [FormItem]="pump"></pump>
+        <pump [no]="i + 1" [FormItem]="pump" [G]="false"></pump>
       </div>
     </div>
 

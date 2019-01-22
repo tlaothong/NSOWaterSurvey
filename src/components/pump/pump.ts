@@ -114,7 +114,9 @@ export class PumpComponent implements ISubmitRequestable {
   }
 
   picture() {
-    let profileModal = this.modalCtrl.create("DlgPumpPicturePage", {});
+    let profileModal = this.modalCtrl.create("DlgPumpPicturePage", {
+      checkg:this.G
+    });
     profileModal.present();
   }
 }
