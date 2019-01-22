@@ -18,7 +18,6 @@ export enum LoggingTypes {
     SetHomeBuilding = "[L] Set Home Building",
     SetHomeBuildingSuccess = "[L] Set Home Building Success",
     SetIdEaWorkHomes = "[L] Set Id Ea Work Homes",
-    SetIdEaWorkHomesSuccess = "[L] Set Id Ea Work Homes Success",
 }
 
 export class LoadUserDataByQRCode implements Action {
@@ -91,10 +90,6 @@ export class SetIdEaWorkHomes implements Action {
     readonly type = LoggingTypes.SetIdEaWorkHomes;
     constructor(public payload: string) { }
 }
-export class SetIdEaWorkHomesSuccess implements Action {
-    readonly type = LoggingTypes.SetIdEaWorkHomesSuccess;
-    constructor(public payload: string) { }
-}
 
 export type LoggingActionsType =
     LoadUserDataSuccess
@@ -111,5 +106,4 @@ export type LoggingActionsType =
     | LoadCountOfHomeBuilding
     | LoadCountOfHomeBuildingSuccess
     | SetIdEaWorkHomes
-    | SetIdEaWorkHomesSuccess
     ;
