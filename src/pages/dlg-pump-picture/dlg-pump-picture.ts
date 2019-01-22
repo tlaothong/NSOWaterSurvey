@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the DlgPumpPicturePage page.
@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class DlgPumpPicturePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -24,6 +24,12 @@ export class DlgPumpPicturePage {
 
   public closeDialog() {
     this.viewCtrl.dismiss();
+  }
+
+  pictureShow(src: string) {
+
+    let profileModal = this.modalCtrl.create("DlgPumpPictureShowPage", { src: src });
+    profileModal.present();
   }
 
 }
