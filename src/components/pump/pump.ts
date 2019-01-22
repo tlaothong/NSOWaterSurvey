@@ -112,4 +112,9 @@ export class PumpComponent implements ISubmitRequestable {
       }
     console.log(this.pipeLineData);
   }
+
+  picture() {
+    let profileModal = this.modalCtrl.create("DlgPumpPicturePage", {});
+    profileModal.present();
+  }
 }
