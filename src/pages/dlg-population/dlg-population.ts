@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, DateTime } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';
 import { Province, provinceData } from '../../models/ProvinceData';
-
+import { Select } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -12,6 +12,7 @@ import { Province, provinceData } from '../../models/ProvinceData';
   templateUrl: 'dlg-population.html',
 })
 export class DlgPopulationPage {
+  @ViewChild('nationSelect') nation: Select;
 
   public FormItem: FormGroup;
   public FormArray: FormArray;
@@ -37,8 +38,24 @@ export class DlgPopulationPage {
     this.FormArray = navParams.get('FormArray');
   }
 
+
   ionViewDidLoad() {
+    if (this.FormItem.get('nationality').value != null) {
+      this.Nation = nationalityData;
+    }
     console.log(this.Nation)
+  }
+
+  change(event) {
+    if (event == 'สัญชาติอื่นๆ') {
+      this.Nation = this.OtherNation;
+      let element = document.getElementById('nationSelect');
+
+      setTimeout(() => {
+        this.nation.open();
+        console.log(this.nation);
+      }, 1000);
+    }
   }
 
   public closeDialog() {
@@ -89,8 +106,14 @@ export class DlgPopulationPage {
     if (birthMonth == 99) birthMonth = 0;
     if (birthMonth > this.dateTime.getMonth() || birthMonth == this.dateTime.getMonth() && birthDate > this.dateTime.getDate()) age--;
     if (age < 0) age = null;
-    
+
     this.FormItem.get('age').setValue(age);
   }
+
+  // public refresh(): boolean {
+  //   this.FormItem.get('OtherNation').value ;
+  //   return false;
+  // }
+
 
 }
