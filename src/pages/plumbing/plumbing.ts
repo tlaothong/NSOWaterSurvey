@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -160,10 +160,15 @@ export class PlumbingPage {
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(14));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(13);
+    console.log(arrayIsCheck);
     if (this.f.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-      this.navCtrl.popToRoot();
-      // this.navCtrl.push("GroundWaterPage");
+        this.navCtrl.pop();
+        // this.navCtrl.push("GroundWaterPage");
       // }
     }
   }

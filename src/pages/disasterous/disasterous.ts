@@ -5,7 +5,7 @@ import { TableDisasterousComponent } from '../../components/table-disasterous/ta
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck } from '../../states/household';
 import { SetNextPageDirection } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -55,8 +55,13 @@ export class DisasterousPage {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(21));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(20);
+    console.log(arrayIsCheck);
     if (this.Disasterous.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.navCtrl.push("UserPage");
     }
   }

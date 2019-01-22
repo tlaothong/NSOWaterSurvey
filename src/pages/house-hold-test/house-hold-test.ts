@@ -40,6 +40,7 @@ export class HouseHoldTestPage {
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
+      { title: 'CheckList Page', component: "CheckListPage" },
     ];
 
   }

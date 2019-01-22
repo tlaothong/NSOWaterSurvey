@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial } from '../../states/household';
+import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -47,8 +47,13 @@ export class UserPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetNextPageDirection(22));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(21);
+    console.log(arrayIsCheck);
     if (this.userInfo.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.navCtrl.push("PopulationPage");
       }
   }

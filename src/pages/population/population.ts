@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -40,9 +40,13 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(23));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(22);
+    console.log(arrayIsCheck);
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
-      this.navCtrl.push("CommunityTestPage");
-      this.navCtrl.popToRoot();
+      this.navCtrl.setRoot("UnitPage");
     }
   }
 

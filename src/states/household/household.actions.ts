@@ -47,7 +47,8 @@ export enum HouseHoldTypes {
     SetWaterSourcesFactory = "[HH] Set WaterSources Factory",
     SetWaterSourcesCommercial = "[HH] Set WaterSources Commercial",
     SetNextPageDirection = "[HH] Set Next Page Direction",
-    SetHeadFamily = "[HH] Set Head Family"
+    SetHeadFamily = "[HH] Set Head Family",
+    SetArrayIsCheck = "[HH] Set Array IsCheck",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -341,7 +342,12 @@ export class SetHeadFamily implements Action {
     constructor(public payload: boolean) {
     }
 }
+export class SetArrayIsCheck implements Action {
+    readonly type = HouseHoldTypes.SetArrayIsCheck;
 
+    constructor(public payload:  Array<number>) {
+    }
+}
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -388,4 +394,5 @@ export type HouseHoldActionsType =
     | SetWaterSourcesCommercial
     | SetNextPageDirection
     | SetHeadFamily
+    | SetArrayIsCheck
     ;

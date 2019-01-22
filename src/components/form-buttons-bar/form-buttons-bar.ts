@@ -19,8 +19,8 @@ export class FormButtonsBarComponent {
   }
 
   backToHome(){
-    this.store.dispatch(new SetNextPageDirection(-18));
-    this.navCtrl.popToRoot();
+    this.store.dispatch(new SetNextPageDirection(99));
+    this.navCtrl.setRoot("CheckListPage");
   }
 
   previouPage(){
@@ -35,7 +35,8 @@ export class FormButtonsBarComponent {
     });
      i = i - 1;
     this.store.dispatch(new SetNextPageDirection(i));
-    this.navCtrl.popToRoot();
+    // this.navCtrl.setRoot("CheckListPage");
+    this.navCtrl.pop();
 
     // if (index != 0) {
     //   let page = this.pages[index];

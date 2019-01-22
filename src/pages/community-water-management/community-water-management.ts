@@ -119,8 +119,7 @@ export class CommunityWaterManagementPage {
     this.detailOrgWaterSupply.forEach(it => it.submitRequest());
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(24));
-    this.navCtrl.popToRoot();
+    this.navCtrl.push("ManagementForFarmingPage");
   }
 
   public isValid(name: string): boolean {
