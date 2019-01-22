@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -56,8 +56,13 @@ export class PerennialPlantingPage {
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectPerennial(true));
     this.store.dispatch(new SetNextPageDirection(6));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(5);
+    console.log(arrayIsCheck);
     if (this.PerennialPlantingFrm.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     }
   }

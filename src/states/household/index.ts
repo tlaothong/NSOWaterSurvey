@@ -181,7 +181,6 @@ export const getWaterSourcesCommercial = createSelector(
     getHouseHoldFeatureState,
     state => state.waterSourcesCommercial,
 );
-
 export const getNextPageDirection = createSelector(
     getHouseHoldFeatureState,
     state => state.nextPageDirection,
@@ -189,4 +188,8 @@ export const getNextPageDirection = createSelector(
 export const getCheckHeadFamily = createSelector(
     getHouseHoldFeatureState,
     state => state.checkHeadfamily,
+);
+export const getArrayIsCheck = createSelector(
+    getHouseHoldFeatureState,
+    state => state.arrayIsCheck,
 );

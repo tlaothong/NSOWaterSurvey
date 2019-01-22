@@ -7,7 +7,7 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
 import { SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -118,9 +118,14 @@ export class RainPage {
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(19));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(18);
+    console.log(arrayIsCheck);
     if (this.RainFrm.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-      this.navCtrl.popToRoot();
+        this.navCtrl.pop();
       // this.checkNextPage();
       // }
     }

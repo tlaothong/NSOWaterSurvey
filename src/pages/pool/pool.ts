@@ -5,7 +5,7 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -110,8 +110,13 @@ export class PoolPage {
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     this.store.dispatch(new SetNextPageDirection(17));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(16);
+    console.log(arrayIsCheck);
     // if (this.f.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     // }
   }

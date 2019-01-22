@@ -6,7 +6,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -92,9 +92,15 @@ export class CommercialPage {
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log("waterCom",this.f.get('waterSources').value);
     this.store.dispatch(new SetNextPageDirection(13));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(12 );
+    console.log(arrayIsCheck);
     this.dispatchWaterSource();
     if (this.f.valid) {
-      this.navCtrl.popToRoot();
+    // this.navCtrl.setRoot("CheckListPage");
+    this.navCtrl.pop();
       // this.checkNextPage();
     }
   }

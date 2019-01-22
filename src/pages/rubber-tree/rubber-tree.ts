@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -52,8 +52,13 @@ export class RubberTreePage {
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
     this.store.dispatch(new SetNextPageDirection(5));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(4);
+    console.log(arrayIsCheck);
     if (this.rubbertree.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     }
   }

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPage, getWaterSource, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetFactorialCategory, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
@@ -54,8 +54,14 @@ export class FactorialPage {
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac",this.FactoryForm.get('waterSources').value);
     this.store.dispatch(new SetNextPageDirection(12));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(11);
+    console.log(arrayIsCheck);
     if (this.FactoryForm.valid) {
-      this.navCtrl.popToRoot();
+    // this.navCtrl.setRoot("CheckListPage");
+    this.navCtrl.pop();
       // this.checkNextPage();
     }
   }

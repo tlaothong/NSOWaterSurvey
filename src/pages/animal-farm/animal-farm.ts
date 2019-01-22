@@ -5,7 +5,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -63,8 +63,13 @@ export class AnimalFarmPage {
     this.dispatchWaterSource();
     console.log("valid",this.f.valid);
     this.store.dispatch(new SetNextPageDirection(10));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(9);
+    console.log(arrayIsCheck);
     // if (this.f.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     // }
   }

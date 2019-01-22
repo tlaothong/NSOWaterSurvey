@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -134,8 +134,13 @@ export class IrrigationPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(18));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(17);
+    console.log(arrayIsCheck);
     if (this.f.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     }
   }

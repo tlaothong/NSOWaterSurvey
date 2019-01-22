@@ -1,4 +1,5 @@
-import { SetWaterSourcesResidential, SetNextPageDirection } from './../../states/household/household.actions';
+import { getArrayIsCheck } from './../../states/household/index';
+import { SetWaterSourcesResidential, SetNextPageDirection, SetArrayIsCheck } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -53,9 +54,17 @@ export class ResidentialPage {
     console.log("gardeningUse",this.residentialFrm.get('gardeningUse').value);
     console.log("waterRes",this.residentialFrm.get('waterSources').value);
     this.store.dispatch(new SetNextPageDirection(1));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(0);
+    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetArrayIsCheck(arrayIsCheck));
     this.dispatchWaterSource();
     // this.checkNextPage();
-    this.navCtrl.popToRoot();
+    // this.navCtrl.pop();
+    this.navCtrl.setRoot("CheckListPage");
+    // this.navCtrl.pop();
     // this.checkNextPageWaterSounces();
   }
 

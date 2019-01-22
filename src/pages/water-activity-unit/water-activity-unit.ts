@@ -1,5 +1,5 @@
 import { getArraySkipPage } from './../../states/household/index';
-import { SetArraySkipPage, SetWaterSourcesAgiculture } from './../../states/household/household.actions';
+import { SetArraySkipPage, SetWaterSourcesAgiculture, SetNextPageDirection } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -54,16 +54,21 @@ export class WaterActivityUnitPage {
     });
     if (this.it.isHouseHold) {
       this.navCtrl.push("ResidentialPage");
+      // this.store.dispatch(new SetNextPageDirection(0));
     }
     else if (this.it.isAgriculture) {
       this.navCtrl.push("AgriculturePage");
+      // this.store.dispatch(new SetNextPageDirection(1));
     }
     else if (this.it.isFactorial) {
       this.navCtrl.push("FactorialPage");
+      // this.store.dispatch(new SetNextPageDirection(11));
     }
     else if (this.it.isCommercial) {
       this.navCtrl.push("CommercialPage");
+      // this.store.dispatch(new SetNextPageDirection(11));
     }
+    // this.navCtrl.setRoot("CheckListPage");
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

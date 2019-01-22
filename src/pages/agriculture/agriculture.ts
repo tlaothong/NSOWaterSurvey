@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { getArraySkipPageAgiculture } from '../../states/household';
+import { getArraySkipPageAgiculture, getArrayIsCheck } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -75,10 +75,16 @@ export class AgriculturePage {
     // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
     this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
     this.store.dispatch(new SetNextPageDirection(2));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(1);
+    console.log(arrayIsCheck);
     console.log("checkdata", this.f.value)
     if (!this.isValid('anycheck')) {
       // this.checkNextPage();
-      this.navCtrl.popToRoot();
+      this.navCtrl.setRoot("CheckListPage");
+      // this.navCtrl.push("CheckListPage");
     }
   }
 

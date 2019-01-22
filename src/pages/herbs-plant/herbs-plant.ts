@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources, SetNextPageDirection } from '../../states/household/household.actions';
 
@@ -84,8 +84,13 @@ export class HerbsPlantPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetNextPageDirection(7));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(6);
+    console.log(arrayIsCheck);
     if (this.f.valid) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     }
   }

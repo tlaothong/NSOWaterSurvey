@@ -1,9 +1,5 @@
-import { getNextPageDirection } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { NavController, PopoverController, ModalController } from 'ionic-angular';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'page-home',
@@ -16,7 +12,7 @@ export class HomePage {
   private i: number;
   private checkDoing: boolean ;
   constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,
-    public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+    public modalCtrl: ModalController) {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
@@ -70,24 +66,7 @@ export class HomePage {
   }
 
   public ionViewDidEnter() {
-    let getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    getNextPage$.subscribe(data => {
-      if (data != null) {
-        this.i = data;
-      }
-      else this.i = null;
-      console.log("i: ", this.i);
-    });
-    let index = this.i + 18;
-    if (index != 0) {
-      let page = this.pages[index];
-      console.log("index: ", index);
-      console.log("page: ", page);
-      this.navCtrl.push(page.component);
-      if (index == this.i + 18) {
-        this.checkDoing = true;
-      }else  this.checkDoing = false;
-    }
+   
   }
 
   public openPage(page) {

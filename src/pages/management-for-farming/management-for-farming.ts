@@ -34,7 +34,6 @@ export class ManagementForFarmingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(-18));
     this.navCtrl.popToRoot();
   }
 

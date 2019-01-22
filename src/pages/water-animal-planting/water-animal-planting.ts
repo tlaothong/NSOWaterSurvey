@@ -5,7 +5,7 @@ import { FishFarmingComponent } from '../../components/fish-farming/fish-farming
 import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -64,8 +64,13 @@ export class WaterAnimalPlantingPage {
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
     this.store.dispatch(new SetNextPageDirection(11));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck :Array<number>;
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+    arrayIsCheck.push(10);
+    console.log(arrayIsCheck);
     if (!this.isValid('anycheck')) {
-      this.navCtrl.popToRoot();
+      this.navCtrl.pop();
       // this.checkNextPage();
     }
   }
