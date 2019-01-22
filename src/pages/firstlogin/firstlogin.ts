@@ -27,11 +27,16 @@ export class FirstloginPage {
       'password': [null],
       'name': [null],
       'email': [null],
+      'idEA': [null]
     });
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
   }
 
   goBack() {
@@ -54,7 +59,7 @@ export class FirstloginPage {
         password
       }));
       this.navCtrl.push("ConfirmloginPage")
-      
+
     } else {
       alert.present()
     }
