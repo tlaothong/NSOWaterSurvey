@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, DateTime } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';
@@ -28,7 +28,7 @@ export class DlgPopulationPage {
 
   public dateTime: Date = new Date();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.proName = navParams.get('proName');
@@ -117,10 +117,10 @@ export class DlgPopulationPage {
     this.FormItem.get('age').setValue(age);
   }
 
-  // public refresh(): boolean {
-  //   this.FormItem.get('OtherNation').value ;
-  //   return false;
-  // }
+  picture(){
+    let profileModal = this.modalCtrl.create("DlgCalendarAgePage", { });
+    profileModal.present();
+  }
 
 
 }
