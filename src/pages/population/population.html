@@ -46,7 +46,7 @@
         <div [class.invalid]="!isCheckHaveHeadfamily()">
           <div *ngIf="f.get('personCount').value > 0">
             <div *ngFor="let far of f.get('persons').controls; let i = index">
-              <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')"></table-population>
+              <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')" [ProName]="proName"></table-population>
             </div>
           </div>
           <ion-item *ngIf="!isCheckHaveHeadfamily()">

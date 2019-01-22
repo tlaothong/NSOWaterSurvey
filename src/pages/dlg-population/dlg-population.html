@@ -493,7 +493,10 @@
       <ion-item *ngIf="FormItem.get('otherProvince').value == null">
         <span class="invalid-msg">กรุณาเลือก</span>
       </ion-item>
-      <ion-item [class.invalid]="FormItem.get('otherProvince').value == null">
+      <ion-item *ngIf="FormItem.get('otherProvince').value == proName">
+        <span class="invalid-msg">จังหวัดที่เลือก ต้องไม่ใช่จังหวัดทีทำการสำรวจ</span>
+      </ion-item>
+      <ion-item [class.invalid]="FormItem.get('otherProvince').value == null || FormItem.get('otherProvince').value == proName">
         <ion-label>ระบุจังหวัดอื่น
         </ion-label>
         <ion-select interface="action-sheet" formControlName="otherProvince">
