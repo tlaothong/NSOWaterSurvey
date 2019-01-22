@@ -465,16 +465,9 @@
     </ion-item>
     <ion-item [class.invalid]="isValid('nationality')">
       <ion-label>สัญชาติ</ion-label>
-      <ion-select interface="action-sheet" formControlName="nationality">
+      <ion-select #nationSelect interface="action-sheet" formControlName="nationality" (ionChange)="change($event)">
         <ion-option *ngFor="let item of Nation">{{ item.Name }}</ion-option>
         <ion-option>สัญชาติอื่นๆ</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item [class.invalid]="isValid('nationality')" *ngIf="FormItem.get('nationality').value == 'สัญชาติอื่นๆ'">
-      <ion-label>สัญชาติ</ion-label>
-      <ion-select interface="action-sheet" formControlName="nationality">
-        <ion-option *ngFor="let item of OtherNation">{{ item.Name }}</ion-option>
       </ion-select>
     </ion-item>
 
