@@ -52,7 +52,7 @@ export interface HouseHoldState {
     waterSourcesAgiculture: any,
     waterSourcesFactory: any,
     waterSourcesCommercial: any,
-    nextPageDirection: any,
+    nextPageDirection: Array<number>,
     checkHeadfamily: boolean,
     arrayIsCheck: Array<number>,
 
@@ -111,7 +111,7 @@ const initialState: HouseHoldState = {
     waterSourcesAgiculture: null,
     waterSourcesFactory: null,
     waterSourcesCommercial: null,
-    nextPageDirection: null,
+    nextPageDirection: Array<number>(),
     arrayIsCheck:  Array<number>(),
 
     checkHeadfamily: null,

@@ -24,6 +24,7 @@ export class IrrigationPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
+  private i: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
@@ -106,6 +107,7 @@ export class IrrigationPage {
     console.log("activityAgiculture", this.activityAgiculture);
     console.log("activityFactory", this.activityFactory);
     console.log("activityCommercial", this.activityCommercial);
+    this.i = this.navParams.get('i');
   }
 
   changeValueActivity() {
@@ -134,16 +136,25 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(18));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(17);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(18));
+
     if (this.f.valid) {
-      this.navCtrl.pop();
-      // this.checkNextPage();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(17);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

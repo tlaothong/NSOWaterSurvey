@@ -15,6 +15,7 @@ import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, S
 })
 export class PerennialPlantingPage {
 
+  private i: any;
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
@@ -38,6 +39,7 @@ export class PerennialPlantingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -55,16 +57,26 @@ export class PerennialPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectPerennial(true));
-    this.store.dispatch(new SetNextPageDirection(6));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(5);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(6));
+
     if (this.PerennialPlantingFrm.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(5);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

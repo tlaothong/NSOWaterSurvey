@@ -1,4 +1,4 @@
- import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop-planting/field-dry-crop-planting';
+import { FieldDryCropPlantingComponent } from './../../components/field-dry-crop-planting/field-dry-crop-planting';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -15,6 +15,7 @@ import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getChec
 })
 
 export class DryCropPlantingPage {
+  private i: any;
   private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
@@ -41,6 +42,7 @@ export class DryCropPlantingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -57,16 +59,25 @@ export class DryCropPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
-    this.store.dispatch(new SetNextPageDirection(4));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(3);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(4));
     if (this.agronomyPlant.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(3);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {
@@ -124,7 +135,7 @@ export class DryCropPlantingPage {
       }
     }
   }
-  
+
   public isValid(name: string): boolean {
     var ctrl = this.agronomyPlant.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

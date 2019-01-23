@@ -15,7 +15,7 @@ import { EX_RICH_LIST } from '../../models/tree';
   templateUrl: 'rice.html',
 })
 export class RicePage {
-
+  private i: number;
   private submitRequested: boolean;
   f: FormGroup;
   // private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
@@ -41,10 +41,7 @@ export class RicePage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
-  }
-
-  ionViewDidEnter() {
-
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -54,17 +51,27 @@ export class RicePage {
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
-    this.store.dispatch(new SetNextPageDirection(3));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(2);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(3));
+
     if (this.f.valid) {
       // this.checkNextPage();
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod() ;
+        this.i++;
+        this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      }
     }
-  }
+
+    arrayIsCheckMethod() {
+      let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+      let arrayIsCheck: Array<number>;
+      arrayIsCheck$.subscribe(data => {
+        if (data != null) {
+          arrayIsCheck = data;
+          arrayIsCheck.push(2);
+          console.log(arrayIsCheck);
+        }
+      });
+    }
 
   private checkNextPage() {
     this.formDataG1_G4$.subscribe(data => {

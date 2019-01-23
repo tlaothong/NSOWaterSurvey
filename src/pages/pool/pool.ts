@@ -20,6 +20,7 @@ export class PoolPage {
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
 
+  private i: any;
   private submitRequested: boolean;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
@@ -101,6 +102,7 @@ export class PoolPage {
     console.log("activityAgiculture", this.activityAgiculture);
     console.log("activityFactory", this.activityFactory);
     console.log("activityCommercial", this.activityCommercial);
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -109,16 +111,25 @@ export class PoolPage {
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    this.store.dispatch(new SetNextPageDirection(17));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(16);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(17));
+    
     // if (this.f.valid) {
-      this.navCtrl.pop();
-      // this.checkNextPage();
+    this.arrayIsCheckMethod();
+    this.i++;
+    this.navCtrl.setRoot("CheckListPage", { i: this.i });
     // }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(16);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   changeValueActivity() {

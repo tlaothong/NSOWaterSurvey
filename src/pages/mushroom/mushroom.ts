@@ -15,6 +15,7 @@ import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, Set
 })
 export class MushroomPage {
   public f: FormGroup;
+  private i: any;
   private submitRequested: boolean;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
@@ -39,27 +40,37 @@ export class MushroomPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
-
     console.log('ionViewDidLoad MushroomPage');
+    this.formData$.subscribe(data => this.f.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
     this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    this.store.dispatch(new SetNextPageDirection(9));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(8);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(9));
+    
     if (this.f.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
   }
   
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(8);
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+
   private checkNextPage() {
     this.formDataG1_G4$.subscribe(data => {
       if (data != null) {

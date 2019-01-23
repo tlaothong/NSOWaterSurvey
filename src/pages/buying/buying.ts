@@ -19,6 +19,7 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
+  private i: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
@@ -54,20 +55,29 @@ export class BuyingPage {
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
     this.getIsCommercial$.subscribe(data => this.getIsCommercial = data);
     console.log(this.getIsHouseHold, this.getIsAgriculture, this.getIsFactorial, this.getIsCommercial);
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.store.dispatch(new SetNextPageDirection(20));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(19);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(20));
+    
     if (this.BuyingForm.valid) {
       this.navCtrl.pop();
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(19);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

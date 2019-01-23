@@ -18,6 +18,7 @@ export class DisasterousPage {
   @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
 
+  private i: any;
   private submitRequested: boolean;
   public Disasterous: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
@@ -38,6 +39,7 @@ export class DisasterousPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.Disasterous.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
   public showModal() {
@@ -50,20 +52,30 @@ export class DisasterousPage {
     });
     modal.present();
   }
-  
+
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(21));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(20);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(21));
+
     if (this.Disasterous.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.navCtrl.push("UserPage");
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(20);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   submitRequest() {

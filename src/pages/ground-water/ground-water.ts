@@ -25,6 +25,7 @@ export class GroundWaterPage {
   public f: FormGroup;
   public G:boolean = true;
 
+  private i: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
   private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
   private itRiver: any;
@@ -105,6 +106,7 @@ export class GroundWaterPage {
     console.log("activityAgiculture", this.activityAgiculture);
     console.log("activityFactory", this.activityFactory);
     console.log("activityCommercial", this.activityCommercial);
+    this.i = this.navParams.get('i');
   }
 
   changeValueActivity() {
@@ -134,16 +136,26 @@ export class GroundWaterPage {
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    this.store.dispatch(new SetNextPageDirection(15));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(14);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(15));
+   
     if (this.f.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(14);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

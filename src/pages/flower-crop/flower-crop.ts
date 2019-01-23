@@ -19,6 +19,7 @@ export class FlowerCropPage {
 
   @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
   private submitRequested: boolean;
+  private i: any;
   public flowerCropFrm: FormGroup;
   public shownData: string[];
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
@@ -73,6 +74,7 @@ export class FlowerCropPage {
     this.listSumData = sum;
     console.log('listSumData');
     console.log(this.listSumData);
+    this.i = this.navParams.get('i');
   }
 
   model() {
@@ -102,16 +104,26 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.store.dispatch(new SetNextPageDirection(8));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(7);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(8));
+
     if (this.flowerCropFrm.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(7);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

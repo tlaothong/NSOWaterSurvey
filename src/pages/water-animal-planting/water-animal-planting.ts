@@ -20,6 +20,7 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FishFarmingComponent) private fishFarming: FishFarmingComponent[];
   @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
+  private i: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
@@ -56,6 +57,7 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -63,18 +65,28 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(11));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(10);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(11));
+    
     if (!this.isValid('anycheck')) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
   }
 
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(10);
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+  
   private checkNextPage() {
     this.formDataG1_G4$.subscribe(data => {
       if (data != null) {
