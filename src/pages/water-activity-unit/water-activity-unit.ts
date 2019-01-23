@@ -53,22 +53,22 @@ export class WaterActivityUnitPage {
       console.log("it: ", this.it)
     });
     if (this.it.isHouseHold) {
-      this.navCtrl.push("ResidentialPage");
-      // this.store.dispatch(new SetNextPageDirection(0));
+      // this.navCtrl.push("ResidentialPage");
+      this.store.dispatch(new SetNextPageDirection(0));
     }
     else if (this.it.isAgriculture) {
-      this.navCtrl.push("AgriculturePage");
-      // this.store.dispatch(new SetNextPageDirection(1));
+      // this.navCtrl.push("AgriculturePage");
+      this.store.dispatch(new SetNextPageDirection(1));
     }
     else if (this.it.isFactorial) {
-      this.navCtrl.push("FactorialPage");
-      // this.store.dispatch(new SetNextPageDirection(11));
+      // this.navCtrl.push("FactorialPage");
+      this.store.dispatch(new SetNextPageDirection(11));
     }
     else if (this.it.isCommercial) {
-      this.navCtrl.push("CommercialPage");
-      // this.store.dispatch(new SetNextPageDirection(11));
+      // this.navCtrl.push("CommercialPage");
+      this.store.dispatch(new SetNextPageDirection(11));
     }
-    // this.navCtrl.setRoot("CheckListPage");
+    this.navCtrl.setRoot("CheckListPage");
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
