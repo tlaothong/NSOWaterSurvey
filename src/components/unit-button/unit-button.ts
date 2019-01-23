@@ -6,6 +6,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { setHomeBuilding } from '../../states/building';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -37,22 +38,25 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  
   private num: number = null;
   constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+    
+    
   }
 
   ngOnInit() {
     let count = 0;
-    this.formData$.subscribe(data => count = data.subUnit.accessCount);
+    // this.formData$.subscribe(data => count = data.subUnit.accessCount);
     this.FormItem.get('subUnit.accessCount').setValue(count);
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
     this.setupAccessCountChanges()
-    this.formData$.subscribe(data => this.FormItem.setValue(data));
+    // this.formData$.subscribe(data => this.FormItem.setValue(data));
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
@@ -67,21 +71,21 @@ export class UnitButtonComponent {
     return fb.group({
       '_id': [null, Validators.required],
       'ea': [null, Validators.required],
-      'buildingId': [null, Validators.required],
+      'buildingId': [, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'accessCount': [null, Validators.required],
         'accesses': fb.array([]),
-        'hasPlumbing': [null, Validators.required],
+        'hasPlumbing': [false, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
-        'hasGroundWater': [null, Validators.required],
+        'hasGroundWater': [false, Validators.required],
         'hasGroundWaterMeter': [false, Validators.required],
       }),
-      'isHouseHold': [null, Validators.required],
-      'isAgriculture': [null, Validators.required],
-      'isFactorial': [null, Validators.required],
-      'isCommercial': [null, Validators.required],
+      'isHouseHold': [false, Validators.required],
+      'isAgriculture': [false, Validators.required],
+      'isFactorial': [false, Validators.required],
+      'isCommercial': [false, Validators.required],
       'comments': fb.array([]),
       'residence': [null, Validators.required],
       'agriculture': [null, Validators.required],
@@ -141,8 +145,6 @@ export class UnitButtonComponent {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
-
-
   }
 
   public isValid(name: string): boolean {

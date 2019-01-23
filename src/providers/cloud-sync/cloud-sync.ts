@@ -56,11 +56,18 @@ export class CloudSyncProvider {
   public loadCountHomeBuilding(): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountBuilding');
   }
+
   public setHomeBuilding(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateBuilding', data);
   }
+
   public deleteHomeBuilding(id: any): Observable<any> {
     return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/'+ id);
   }
+
+  public setUnit(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
+  }
+ 
 
 }
