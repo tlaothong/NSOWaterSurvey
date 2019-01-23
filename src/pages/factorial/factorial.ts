@@ -18,6 +18,7 @@ export class FactorialPage {
 
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   private itG1_G4: any;
+  private i: any;
   private itPlumbing: any;
   private submitRequested: boolean;
   FactoryForm: FormGroup;
@@ -39,35 +40,42 @@ export class FactorialPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.FactoryForm.setValue(data));
     console.log('ionViewDidLoad FactorialPage');
+    this.formData$.subscribe(data => this.FactoryForm.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
-  ionViewDidEnter() {
-
-  }
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
     this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
-    console.log("waterFac",this.FactoryForm.get('waterSources').value);
-    this.store.dispatch(new SetNextPageDirection(12));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(11);
-    console.log(arrayIsCheck);
+    console.log("waterFac", this.FactoryForm.get('waterSources').value);
+    // this.store.dispatch(new SetNextPageDirection(12));
+
     if (this.FactoryForm.valid) {
-    // this.navCtrl.setRoot("CheckListPage");
-    this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
   }
 
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(11);
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+
   private dispatchWaterSource() {
-   if (this.FactoryForm.get('waterSources.plumbing').value) {
+    if (this.FactoryForm.get('waterSources.plumbing').value) {
       this.store.dispatch(new SetCheckWaterPlumbing(this.FactoryForm.get('waterSources.plumbing').value));
     }
     if (this.FactoryForm.get('waterSources.river').value) {

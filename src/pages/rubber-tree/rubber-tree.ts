@@ -18,6 +18,7 @@ import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, Set
 export class RubberTreePage {
 
   public rubbertree: FormGroup;
+  private i: any;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
@@ -41,9 +42,7 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.rubbertree.setValue(data));
-  }
-
-  ionViewDidEnter() {
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -51,18 +50,29 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
-    this.store.dispatch(new SetNextPageDirection(5));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(4);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(5));
+   
     if (this.rubbertree.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
   }
  
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(4);
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+
   private checkNextPage() {
     this.formDataG1_G4$.subscribe(data => {
       if (data != null) {

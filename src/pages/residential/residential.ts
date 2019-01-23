@@ -17,6 +17,7 @@ import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, Set
 })
 export class ResidentialPage {
 
+  private i: any;
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
@@ -36,6 +37,7 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.residentialFrm.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -51,21 +53,30 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.buying').value)]));
     this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
 
-    console.log("gardeningUse",this.residentialFrm.get('gardeningUse').value);
-    console.log("waterRes",this.residentialFrm.get('waterSources').value);
-    this.store.dispatch(new SetNextPageDirection(1));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(0);
-    console.log(arrayIsCheck);
+    console.log("gardeningUse", this.residentialFrm.get('gardeningUse').value);
+    console.log("waterRes", this.residentialFrm.get('waterSources').value);
+    // this.store.dispatch(new SetNextPageDirection(1));
+    this.arrayIsCheckMethod();
     // this.store.dispatch(new SetArrayIsCheck(arrayIsCheck));
     this.dispatchWaterSource();
     // this.checkNextPage();
     // this.navCtrl.pop();
-    this.navCtrl.setRoot("CheckListPage");
+    this.i++;
+    this.navCtrl.setRoot("CheckListPage", { i: this.i });
     // this.navCtrl.pop();
     // this.checkNextPageWaterSounces();
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(0);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private dispatchWaterSource() {

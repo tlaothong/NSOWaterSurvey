@@ -13,7 +13,7 @@ import { getArraySkipPageAgiculture, getArrayIsCheck } from '../../states/househ
   templateUrl: 'agriculture.html',
 })
 export class AgriculturePage {
-
+  private i: any;
   private submitRequested: boolean;
   public f: FormGroup;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
@@ -58,6 +58,7 @@ export class AgriculturePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AgriculturePage');
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -74,18 +75,27 @@ export class AgriculturePage {
     // this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm').value));
     // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
     this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
-    this.store.dispatch(new SetNextPageDirection(2));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(1);
-    console.log(arrayIsCheck);
-    console.log("checkdata", this.f.value)
+    // this.store.dispatch(new SetNextPageDirection(2));
+
     if (!this.isValid('anycheck')) {
       // this.checkNextPage();
-      this.navCtrl.setRoot("CheckListPage");
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.navCtrl.push("CheckListPage");
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(1);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

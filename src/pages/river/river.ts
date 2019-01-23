@@ -24,6 +24,7 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
+  private i: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -97,6 +98,7 @@ export class RiverPage {
     console.log("activityAgiculture", this.activityAgiculture);
     console.log("activityFactory", this.activityFactory);
     console.log("activityCommercial", this.activityCommercial);
+    this.i = this.navParams.get('i');
   }
 
   changeValueActivity() {
@@ -128,18 +130,29 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(16));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(15);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(16));
+    
     if (this.f.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      // this.navCtrl.pop();
       // this.navCtrl.push("PoolPage");
     }
   }
 
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(15);
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+  
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

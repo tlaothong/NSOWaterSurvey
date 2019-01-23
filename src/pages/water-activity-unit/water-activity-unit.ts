@@ -1,4 +1,4 @@
-import { getArraySkipPage } from './../../states/household/index';
+import { getArraySkipPage, getNextPageDirection } from './../../states/household/index';
 import { SetArraySkipPage, SetWaterSourcesAgiculture, SetNextPageDirection } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -41,8 +41,19 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
     this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
 
-    this.checkNextPage();
+    this.arrayNextPageMedthod();
 
+    // this.checkNextPage();
+
+  }
+
+  arrayNextPageMedthod() {
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: Array<number>;
+    arrayNextPage$.subscribe(data => arrayNextPage = data);
+    arrayNextPage.push(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22);
+    console.log(arrayNextPage);
+    this.navCtrl.setRoot("CheckListPage", { i: -1 });
   }
 
   private checkNextPage() {
@@ -52,23 +63,25 @@ export class WaterActivityUnitPage {
       }
       console.log("it: ", this.it)
     });
-    if (this.it.isHouseHold) {
-      // this.navCtrl.push("ResidentialPage");
-      this.store.dispatch(new SetNextPageDirection(0));
-    }
-    else if (this.it.isAgriculture) {
-      // this.navCtrl.push("AgriculturePage");
-      this.store.dispatch(new SetNextPageDirection(1));
-    }
-    else if (this.it.isFactorial) {
-      // this.navCtrl.push("FactorialPage");
-      this.store.dispatch(new SetNextPageDirection(11));
-    }
-    else if (this.it.isCommercial) {
-      // this.navCtrl.push("CommercialPage");
-      this.store.dispatch(new SetNextPageDirection(11));
-    }
-    this.navCtrl.setRoot("CheckListPage");
+
+
+    // if (this.it.isHouseHold) {
+    // this.navCtrl.push("ResidentialPage");
+    // this.store.dispatch(new SetNextPageDirection(0));
+    // }
+    // else if (this.it.isAgriculture) {
+    // this.navCtrl.push("AgriculturePage");
+    // this.store.dispatch(new SetNextPageDirection(1));
+    // }
+    // else if (this.it.isFactorial) {
+    // this.navCtrl.push("FactorialPage");
+    // this.store.dispatch(new SetNextPageDirection(11));
+    // }
+    // else if (this.it.isCommercial) {
+    // this.navCtrl.push("CommercialPage");
+    // this.store.dispatch(new SetNextPageDirection(11));
+    // }
+
   }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

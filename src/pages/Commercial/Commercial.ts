@@ -23,6 +23,7 @@ export class CommercialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
 
   private f: FormGroup;
+  private i: any;
   private submitRequested: boolean;
   private itPlumbing: any;
   private otherBuildingType$ = this.store.select(getOtherBuildingType);
@@ -75,6 +76,7 @@ export class CommercialPage {
     this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
     this.otherBuildingType$.subscribe(data => this.otherBuildingType = data);
     console.log(this.otherBuildingType);
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -90,19 +92,28 @@ export class CommercialPage {
     // (this.f.get('waterSources.rain').value),
     // (this.f.get('waterSources.buying').value)]));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
-    console.log("waterCom",this.f.get('waterSources').value);
-    this.store.dispatch(new SetNextPageDirection(13));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(12 );
-    console.log(arrayIsCheck);
+    console.log("waterCom", this.f.get('waterSources').value);
+    // this.store.dispatch(new SetNextPageDirection(13));
+   
     this.dispatchWaterSource();
     if (this.f.valid) {
-    // this.navCtrl.setRoot("CheckListPage");
-    this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(12);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private dispatchWaterSource() {

@@ -330,10 +330,7 @@ export class SetWaterSourcesCommercial implements Action {
 export class SetNextPageDirection implements Action {
     readonly type = HouseHoldTypes.SetNextPageDirection;
 
-    constructor(public payload: any) {
-        // if (payload == null ) {
-        //     payload = 0 ;
-        // }
+    constructor(public payload: Array<number>) {
     }
 }
 export class SetHeadFamily implements Action {

@@ -35,6 +35,7 @@ export class HerbsPlantPage {
   private getAgiSelectRubber$ = this.store.select(getAgiSelectRubber);
   private getAgiSelectPerennial$ = this.store.select(getAgiSelectPerennial);
 
+  private i: any;
   public listDryCropData: any = [];
   public listPerenialData: any = [];
   public listRiceData: any = [];
@@ -69,6 +70,7 @@ export class HerbsPlantPage {
     this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
     this.listSumData = sum;
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -83,16 +85,26 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.store.dispatch(new SetNextPageDirection(7));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(6);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(7));
+   
     if (this.f.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(6);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private checkNextPage() {

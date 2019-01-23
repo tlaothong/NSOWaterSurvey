@@ -17,6 +17,7 @@ import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, 
 export class AnimalFarmPage {
 
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private i: any;
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
@@ -50,28 +51,36 @@ export class AnimalFarmPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
     this.formData$.subscribe(data => this.f.setValue(data));
+    this.i = this.navParams.get('i');
   }
 
-  ionViewDidEnter() {
-
-  }
-
+ 
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
     console.log("valid",this.f.valid);
-    this.store.dispatch(new SetNextPageDirection(10));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(9);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(10));
+    
     // if (this.f.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.checkNextPage();
     // }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(9);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   private dispatchWaterSource() {

@@ -13,6 +13,7 @@ import { SetNextPageDirection } from '../../states/household/household.actions';
   templateUrl: 'user.html',
 })
 export class UserPage {
+  private i: any;
   public userInfo: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
@@ -39,6 +40,7 @@ export class UserPage {
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
     this.commercialServiceUse$.subscribe(data => this.commercialServiceUse = data);
+    this.i = this.navParams.get('i');
   }
 
   ionViewDidEnter() {
@@ -46,16 +48,26 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.store.dispatch(new SetNextPageDirection(22));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(21);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(22));
+   
     if (this.userInfo.valid) {
-      this.navCtrl.pop();
+      this.arrayIsCheckMethod();
+      this.i++;
+      this.navCtrl.setRoot("CheckListPage", { i: this.i });
       // this.navCtrl.push("PopulationPage");
       }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(21);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {

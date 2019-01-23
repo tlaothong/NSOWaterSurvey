@@ -24,6 +24,7 @@ export class PlumbingPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
 
   public f: FormGroup;
+  private i: any;
   private submitRequested: boolean;
   private formDataPlumbing$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
 
@@ -135,6 +136,7 @@ export class PlumbingPage {
     // console.log("activityAgiculture", this.activityAgiculture);
     // console.log("activityFactory", this.activityFactory);
     // console.log("activityCommercial", this.activityCommercial);
+    this.i = this.navParams.get('i');
   }
 
   changeValueActivity() {
@@ -159,18 +161,28 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(14));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(13);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(14));
+    
     if (this.f.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-        this.navCtrl.pop();
+        this.arrayIsCheckMethod();
+        this.i++;
+        this.navCtrl.setRoot("CheckListPage", { i: this.i });
         // this.navCtrl.push("GroundWaterPage");
       // }
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(13);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {

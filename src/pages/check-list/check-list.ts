@@ -19,6 +19,8 @@ import { map } from 'rxjs/operators';
 })
 export class CheckListPage {
   pages: Array<{ title: string, component: any, isCheck: boolean }>;
+  private index: any;
+  private indexBack: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
     this.pages = [
@@ -50,37 +52,70 @@ export class CheckListPage {
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter CheckListPage');
-    let i: number;
-    let getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    getNextPage$.subscribe(data => {
-      
-      if (data != null) {
-        i = data;
-      }
-      else i = null;
-      console.log("i: ", i);
-    });
+    // let i: number;
+    // let getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    // getNextPage$.subscribe(data => {
 
-    let index = i;
-    let arrayIsCheck :any[];
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    for (let i = 0; i < arrayIsCheck.length; i++) {
-      // if (this.pages[arrayIsCheck[i]].isCheck == false) {
-        this.pages[arrayIsCheck[i]].isCheck = true;
-      // }
+    //   if (data != null) {
+    //     i = data;
+    //   }
+    //   else i = null;
+    //   console.log("i: ", i);
+    // });
+    if (this.navParams.get('i') != null) {
+      this.index = this.navParams.get('i');
+      this.indexBack = this.navParams.get('iBack');
+      console.log("index", this.index);
+      console.log("indexBack", this.indexBack);
+      this.arrayIsCheckMethod();
+      this.arrayNextPageMethod();
     }
+    // let index = i;
+    // if (index != 99) {
+    //   let page = this.pages[index];
+    //   console.log("index: ", index);
+    //   console.log("page: ", page);
+    //   this.navCtrl.push(page.component);
+    // if (index == i + 18) {
+    //   this.checkDoing = true;
+    // }else  this.checkDoing = false;
+    // }
+  }
 
-    if (index != 99) {
-      let page = this.pages[index];
-      console.log("index: ", index);
+  arrayNextPageMethod() {
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => arrayNextPage = data);
+
+    if (this.indexBack == 88) {
+      let page = this.pages[arrayNextPage[this.index]];
+      console.log("index: ", this.index);
       console.log("page: ", page);
-      this.navCtrl.push(page.component);
-      // if (index == i + 18) {
-      //   this.checkDoing = true;
-      // }else  this.checkDoing = false;
+      this.navCtrl.push(page.component, { i: this.index });
     }
+    if (this.index == -1) {
+      this.index += 1;
+      let page = this.pages[arrayNextPage[this.index]];
+      console.log("index: ", this.index);
+      console.log("page: ", page);
+      this.navCtrl.push(page.component, { i: this.index });
+    }
+    else if (this.index != 99) {
+      let page = this.pages[arrayNextPage[this.index]];
+      console.log("index: ", this.index);
+      console.log("page: ", page);
+      this.navCtrl.push(page.component, { i: this.index });
+    }
+  }
 
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
+
+    for (let i = 0; i < arrayIsCheck.length; i++) {
+      this.pages[arrayIsCheck[i]].isCheck = true;
+    }
   }
 
   public openPage(page) {

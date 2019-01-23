@@ -3,7 +3,7 @@ import { SetNextPageDirection } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { NavController } from 'ionic-angular';
-import { getNextPageDirection } from '../../states/household';
+import { getNextPageDirection, getArrayIsCheck } from '../../states/household';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -15,34 +15,38 @@ export class FormButtonsBarComponent {
   public text: string;
   @Input("checkEnd") public checkEnd: boolean;
 
+  private frontNum: any = 0;
+  private backNum: any = 23;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
   }
 
-  backToHome(){
-    this.store.dispatch(new SetNextPageDirection(99));
-    this.navCtrl.setRoot("CheckListPage");
+  ionViewDidLoad() {
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+      if (data != null) {
+        arrayNextPage = data;
+        this.frontNum = arrayNextPage.length;
+      }
+    });
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data
+        this.backNum = arrayIsCheck.length;
+      }
+    });
   }
 
-  previouPage(){
-    let getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let i = 0;
-    getNextPage$.subscribe(data => {
-      if (data != null) {
-        i = data;
-      }
-      else i = null;
-      console.log("i: ", i);
-    });
-     i = i - 1;
-    this.store.dispatch(new SetNextPageDirection(i));
-    // this.navCtrl.setRoot("CheckListPage");
-    this.navCtrl.pop();
+  backToHome() {
+    // this.store.dispatch(new SetNextPageDirection(99));
+    this.navCtrl.setRoot("CheckListPage", { i: 99 });
+  }
 
-    // if (index != 0) {
-    //   let page = this.pages[index];
-    //   console.log("index: ", index);
-    //   console.log("page: ", page);
-    //   this.navCtrl.push(page.component);
+  previouPage() {
+    this.navCtrl.setRoot("CheckListPage", { iBack: 88 });
   }
 }

@@ -21,7 +21,7 @@ export class PopulationPage {
   private submitRequested: boolean;
   public f: FormGroup;
   public whatever: any;
-
+  private i: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes:any;
@@ -48,21 +48,32 @@ export class PopulationPage {
     this.getIdHomes = this.str.substring(0,2); //10
     this.pro = provinceData.find(it=>it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;
-  
+    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(23));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck :Array<number>;
-    arrayIsCheck$.subscribe(data => arrayIsCheck = data);
-    arrayIsCheck.push(22);
-    console.log(arrayIsCheck);
+    // this.store.dispatch(new SetNextPageDirection(23));
+
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
+      this.arrayIsCheckMethod();
       this.navCtrl.setRoot("UnitPage");
+      // this.i++;
+      // this.navCtrl.setRoot("CheckListPage", { i: this.i });
     }
+  }
+
+  arrayIsCheckMethod() {
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        arrayIsCheck.push(22);
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isCheckHaveHeadfamily(): boolean {
