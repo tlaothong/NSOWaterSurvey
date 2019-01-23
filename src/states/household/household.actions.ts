@@ -49,6 +49,8 @@ export enum HouseHoldTypes {
     SetNextPageDirection = "[HH] Set Next Page Direction",
     SetHeadFamily = "[HH] Set Head Family",
     SetArrayIsCheck = "[HH] Set Array IsCheck",
+    SetUnit = "[HH] Set Unit",
+    SetUnitSuccess = "[HH] Set Unit Success",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -345,9 +347,20 @@ export class SetHeadFamily implements Action {
 export class SetArrayIsCheck implements Action {
     readonly type = HouseHoldTypes.SetArrayIsCheck;
 
-    constructor(public payload:  Array<number>) {
+    constructor(public payload: Array<number>) {
     }
 }
+export class SetUnit implements Action {
+    readonly type = HouseHoldTypes.SetUnit;
+    constructor(public payload: any) {
+    }
+}
+export class SetUnitSuccess implements Action {
+    readonly type = HouseHoldTypes.SetUnitSuccess;
+    constructor() {
+    }
+}
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -395,4 +408,6 @@ export type HouseHoldActionsType =
     | SetNextPageDirection
     | SetHeadFamily
     | SetArrayIsCheck
+    | SetUnit
+    | SetUnitSuccess
     ;

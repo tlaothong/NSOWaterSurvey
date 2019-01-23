@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ViewController, DateTime } from 'ionic-angular';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { setHomeBuilding } from '../../states/building';
+import { SetUnit } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -20,11 +22,16 @@ export class DlgUnitPage {
 
   private fgac: FormArray;
   private fgcm: FormArray;
+  public id_BD: string;
 
+  private dataHomeBuilding$ = this.store.select(setHomeBuilding);
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
-
     this.setEnvironment();
+
+    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
+    this.FormItem.controls['buildingId'].setValue(this.id_BD);
+    console.log(this.FormItem.value)
   }
 
   ionViewDidLoad() {
@@ -39,6 +46,7 @@ export class DlgUnitPage {
     this.submitRequested = true;
     if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
       this.setAccesses();
+      this.AddUnit();
       this.viewCtrl.dismiss(this.FormItem);
       if (this.access == 1) {
         this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
@@ -54,7 +62,7 @@ export class DlgUnitPage {
   public setAccesses() {
     this.FormItem.get('subUnit.accessCount').setValue(this.count);
     this.fgac.at(this.index).setValue(this.access);
-    this.fgcm.at(this.index).setValue({ 'at': [null], 'text': [this.comment], });
+    this.fgcm.at(this.index).setValue({ 'at': new Date(), 'text': this.comment, });
   }
 
   public setEnvironment() {
@@ -66,5 +74,9 @@ export class DlgUnitPage {
 
     this.access = this.fgac.at(this.index).value;
     this.comment = this.fgcm.at(this.index).value.text;
+  }
+
+  AddUnit() {
+    this.store.dispatch(new SetUnit(this.FormItem.value));
   }
 }
