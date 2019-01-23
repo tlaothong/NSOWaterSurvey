@@ -19,6 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
 import { PumpDataProvider } from '../providers/pump-data/pump-data';
 import { LocationDataProvider } from '../providers/location-data/location-data';
+import { SwithStateProvider } from '../providers/swith-state/swith-state';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { LocationDataProvider } from '../providers/location-data/location-data';
     CloudSyncProvider,
     PumpDataProvider,
     LocationDataProvider,
+    SwithStateProvider,
   ]
 })
 export class AppModule { }
