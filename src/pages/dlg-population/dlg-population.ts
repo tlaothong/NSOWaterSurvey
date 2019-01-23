@@ -20,7 +20,7 @@ export class DlgPopulationPage {
   private submitRequested: boolean;
   public checkHead: boolean;
   public clickCheckHead: boolean;
-  public proName:any;
+  public proName: any;
 
   public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
   public OtherNation: Nationality[] = nationalityData.filter(it => it.Tag == false);
@@ -28,7 +28,7 @@ export class DlgPopulationPage {
 
   public dateTime: Date = new Date();
 
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.proName = navParams.get('proName');
@@ -42,8 +42,14 @@ export class DlgPopulationPage {
 
 
   ionViewDidLoad() {
-    if (this.FormItem.get('nationality').value != null) {
-      this.Nation = nationalityData;
+    let check = this.FormItem.get('nationality').value
+    if (check != null) {
+      let nat = nationalityData.find(it => it.Name == check)
+      let natValue = nat.Tag
+      if (natValue = false) {
+        this.Nation = nationalityData;
+      }
+
     }
     console.log(this.Nation)
   }
@@ -77,15 +83,15 @@ export class DlgPopulationPage {
   }
 
   public isDisabled(): boolean {
-    console.log("otherProvine",this.FormItem.get('otherProvince').value+"===="+this.proName)
+    // console.log("otherProvine", this.FormItem.get('otherProvince').value + "====" + this.proName)
     if (this.FormItem.get('nameTitle').value == '6' && this.FormItem.get('otherTitle').value == null
       || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null
       || (this.FormItem.get('relationship').value == 7) && (this.FormItem.get('age').value < 13 && this.FormItem.get('age').value != null)
-      || (this.FormItem.get('nameTitle').value == 1 
-      || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
-      || (this.FormItem.get('nameTitle').value == 2 
-      || this.FormItem.get('nameTitle').value == 3 
-      || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
+      || (this.FormItem.get('nameTitle').value == 1
+        || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
+      || (this.FormItem.get('nameTitle').value == 2
+        || this.FormItem.get('nameTitle').value == 3
+        || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
       || this.FormItem.get('otherProvince').value == this.proName) {
       return true
     }
@@ -117,8 +123,8 @@ export class DlgPopulationPage {
     this.FormItem.get('age').setValue(age);
   }
 
-  picture(){
-    let profileModal = this.modalCtrl.create("DlgCalendarAgePage", { });
+  picture() {
+    let profileModal = this.modalCtrl.create("DlgCalendarAgePage", {});
     profileModal.present();
   }
 
