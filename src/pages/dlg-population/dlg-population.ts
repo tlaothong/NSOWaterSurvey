@@ -46,7 +46,7 @@ export class DlgPopulationPage {
     if (check != null) {
       let nat = nationalityData.find(it => it.Name == check)
       let natValue = nat.Tag
-      if (natValue = false) {
+      if (natValue == false) {
         this.Nation = nationalityData;
       }
 
