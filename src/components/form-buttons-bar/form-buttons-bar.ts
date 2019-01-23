@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SetNextPageDirection } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class FormButtonsBarComponent {
 
   public text: string;
+  @Input("checkEnd") public checkEnd: boolean;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';

@@ -28,6 +28,8 @@ export class PopulationPage {
   public str:any;
   public pro:Province;
   public proName:any;
+  public checkEnd :boolean;
+
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 

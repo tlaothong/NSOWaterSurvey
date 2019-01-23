@@ -16,10 +16,20 @@
       </div>
     </ion-col>
     <ion-col col-6>
-      <button ion-button block icon-end type="submit">
-        บันทึก และ ถามข้อต่อไป
-        <ion-icon name="ios-arrow-forward"></ion-icon>
-      </button>
+      <div *ngIf="checkEnd == null">
+        <button ion-button block icon-end type="submit">
+          บันทึก และ ถามข้อต่อไป
+          <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+      </div>
+
+      <div *ngIf="checkEnd == false">
+        <button ion-button block icon-end type="submit">
+          บันทึก และ สิ้นสุดการสัมภาษณ์
+          <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+      </div>
+
     </ion-col>
   </ion-row>
 </ion-grid>
