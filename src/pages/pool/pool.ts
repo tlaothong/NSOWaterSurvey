@@ -56,6 +56,8 @@ export class PoolPage {
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
 
+  public checked: boolean
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
@@ -105,6 +107,12 @@ export class PoolPage {
     this.i = this.navParams.get('i');
   }
 
+  check(): boolean {
+    if (Number(this.f.get('waterResourceCount').value) > Number(this.f.get('poolCount').value)) {
+      return this.checked = true
+    }
+    return this.checked = false
+  }
   public handleSubmit() {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
@@ -112,7 +120,7 @@ export class PoolPage {
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     // this.store.dispatch(new SetNextPageDirection(17));
-    
+
     // if (this.f.valid) {
     this.arrayIsCheckMethod();
     this.i++;

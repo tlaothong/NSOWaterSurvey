@@ -23,7 +23,7 @@ export class GroundWaterPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  public G:boolean = true;
+  public G: boolean = true;
 
   private i: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
@@ -53,6 +53,8 @@ export class GroundWaterPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
+
+  public checked: boolean;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
@@ -109,6 +111,13 @@ export class GroundWaterPage {
     this.i = this.navParams.get('i');
   }
 
+  check(): boolean {
+    if (Number(this.f.get('privateGroundWater.waterResourceCount').value) > Number(this.f.get('privateGroundWater.allCount').value)) {
+      return this.checked = true
+    }
+    return this.checked = false
+  }
+
   changeValueActivity() {
     if (this.activityResidential == false) {
       this.activityResidential = null;
@@ -137,7 +146,7 @@ export class GroundWaterPage {
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     // this.store.dispatch(new SetNextPageDirection(15));
-   
+
     if (this.f.valid) {
       this.arrayIsCheckMethod();
       this.i++;
