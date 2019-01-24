@@ -107,15 +107,16 @@ export class PumpComponent implements ISubmitRequestable {
       this.pipeLineData = PumpDataProvider.getGroundWaterPipeLineData(code.codeSuction);
     }
     else {
-      let code = surfaceSuctionPipeData.find(it=>it.name == name);
+      let code = surfaceSuctionPipeData.find(it => it.name == name);
       this.pipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
-      }
+    }
     console.log(this.pipeLineData);
   }
 
   picture() {
     let profileModal = this.modalCtrl.create("DlgPumpPicturePage", {
-      checkg:this.G
+      checkg: this.G,
+      val: this.FormItem.get('energySource').value
     });
     profileModal.present();
   }

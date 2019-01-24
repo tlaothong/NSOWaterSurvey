@@ -15,16 +15,18 @@ import { IonicPage, NavController, NavParams, ViewController, ModalController } 
 })
 export class DlgPumpPicturePage {
 
-  private checkedPump : boolean;
+  private checkedPump: boolean;
+  private val: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController) {
     this.checkedPump = this.navParams.get('checkg');
+    this.val = this.navParams.get('val');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgPumpPicturePage');
-     console.log(this.checkedPump)
-     console.log('checkg')
+    console.log('val')
+    console.log(this.val)
   }
 
   public closeDialog() {
