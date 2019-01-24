@@ -5,9 +5,9 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection } from '../../states/household/household.actions';
+import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -17,7 +17,6 @@ import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, 
 export class AnimalFarmPage {
 
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private i: any;
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
@@ -51,7 +50,6 @@ export class AnimalFarmPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
     this.formData$.subscribe(data => this.f.setValue(data));
-    this.i = this.navParams.get('i');
   }
 
  
@@ -65,13 +63,23 @@ export class AnimalFarmPage {
     
     // if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     // }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

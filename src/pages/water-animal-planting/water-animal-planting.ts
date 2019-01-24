@@ -2,10 +2,10 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection } from '../../states/household/household.actions';
+import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -20,7 +20,6 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FishFarmingComponent) private fishFarming: FishFarmingComponent[];
   @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
-  private i: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
@@ -57,7 +56,6 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -69,13 +67,23 @@ export class WaterAnimalPlantingPage {
     
     if (!this.isValid('anycheck')) {
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage",);
       // this.checkNextPage();
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

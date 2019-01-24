@@ -5,8 +5,8 @@ import { TableDisasterousComponent } from '../../components/table-disasterous/ta
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getArrayIsCheck } from '../../states/household';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -18,7 +18,6 @@ export class DisasterousPage {
   @ViewChildren(TableDisasterousComponent) private tableDisasterous: TableDisasterousComponent[];
   @Input("headline") private text: string;
 
-  private i: any;
   private submitRequested: boolean;
   public Disasterous: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
@@ -39,7 +38,6 @@ export class DisasterousPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.Disasterous.setValue(data));
-    this.i = this.navParams.get('i');
   }
 
   public showModal() {
@@ -56,17 +54,26 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(21));
 
     if (this.Disasterous.valid) {
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage");
       // this.navCtrl.push("UserPage");
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

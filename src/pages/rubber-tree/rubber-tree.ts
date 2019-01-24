@@ -2,12 +2,12 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetWaterSources, SetAgiSelectRubber, SetNextPageDirection } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetWaterSources, SetAgiSelectRubber, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -18,7 +18,6 @@ import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, Set
 export class RubberTreePage {
 
   public rubbertree: FormGroup;
-  private i: any;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
@@ -42,7 +41,6 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.rubbertree.setValue(data));
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -54,14 +52,24 @@ export class RubberTreePage {
    
     if (this.rubbertree.valid) {
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
   }
  
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+      let index: any;
+      selectorIndex$.subscribe(data => {
+  
+        if (data != null) {
+          index = data
+          console.log("selectIndex: ", index);
+        }
+      });
+      
+      this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

@@ -1,11 +1,11 @@
-import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources, SetAgiSelectRice, SetNextPageDirection } from './../../states/household/household.actions';
+import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources, SetAgiSelectRice, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
 
@@ -15,7 +15,6 @@ import { EX_RICH_LIST } from '../../models/tree';
   templateUrl: 'rice.html',
 })
 export class RicePage {
-  private i: number;
   private submitRequested: boolean;
   f: FormGroup;
   // private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
@@ -41,7 +40,6 @@ export class RicePage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.f.setValue(data));
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -56,12 +54,22 @@ export class RicePage {
     if (this.f.valid) {
       // this.checkNextPage();
       this.arrayIsCheckMethod() ;
-        this.i++;
-        this.navCtrl.setRoot("CheckListPage", { i: this.i });
+        this.navCtrl.setRoot("CheckListPage");
       }
     }
 
     arrayIsCheckMethod() {
+      let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+      let index: any;
+      selectorIndex$.subscribe(data => {
+  
+        if (data != null) {
+          index = data
+          console.log("selectIndex: ", index);
+        }
+      });
+      
+      this.store.dispatch(new SetSelectorIndex(index + 1));
       let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
       let arrayIsCheck: Array<number>;
       arrayIsCheck$.subscribe(data => {

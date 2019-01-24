@@ -1,11 +1,11 @@
-import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture, SetNextPageDirection } from './../../states/household/household.actions';
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { getArraySkipPageAgiculture, getArrayIsCheck } from '../../states/household';
+import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -13,7 +13,6 @@ import { getArraySkipPageAgiculture, getArrayIsCheck } from '../../states/househ
   templateUrl: 'agriculture.html',
 })
 export class AgriculturePage {
-  private i: any;
   private submitRequested: boolean;
   public f: FormGroup;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
@@ -58,7 +57,6 @@ export class AgriculturePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AgriculturePage');
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -80,13 +78,23 @@ export class AgriculturePage {
     if (!this.isValid('anycheck')) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage");
       // this.navCtrl.push("CheckListPage");
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

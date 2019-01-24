@@ -3,11 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
-import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArraySkipPage, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,7 +19,6 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  private i: any;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
@@ -55,7 +54,6 @@ export class BuyingPage {
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
     this.getIsCommercial$.subscribe(data => this.getIsCommercial = data);
     console.log(this.getIsHouseHold, this.getIsAgriculture, this.getIsFactorial, this.getIsCommercial);
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -63,12 +61,24 @@ export class BuyingPage {
     // this.store.dispatch(new SetNextPageDirection(20));
     
     if (this.BuyingForm.valid) {
+      this.arrayIsCheckMethod();
       this.navCtrl.pop();
       // this.checkNextPage();
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
