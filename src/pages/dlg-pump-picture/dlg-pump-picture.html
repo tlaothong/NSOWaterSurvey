@@ -8,530 +8,553 @@
 
 <ion-content padding>
 
+  <!-- ground -->
   <div *ngIf="checkedPump == true">
-    <!-- ground -->
-    <ion-row>
-      <ion-item>
-        <ion-label>(ไฟฟ้า) ปั๊มซับเมิร์ส-ปั๊มแบบจุ่ม</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images1.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images1.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images2.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images2.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images3.jpg')">
-          <img width="80px" height="80px" src="../assets/imgs/GroundPump/1.electic-submers/images3.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images4.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images4.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images5.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images5.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images6.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images6.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images7.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images7.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images8.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images8.jpg">
-        </div>
-      </ion-col>
+    <div *ngIf="val == '1'">
+      <ion-row>
+        <ion-item>
+          <ion-label>(ไฟฟ้า) ปั๊มซับเมิร์ส-ปั๊มแบบจุ่ม</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images1.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images1.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images2.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images2.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images3.jpg')">
+            <img width="80px" height="80px" src="../assets/imgs/GroundPump/1.electic-submers/images3.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images4.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images4.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images5.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images5.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images6.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images6.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images7.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images7.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/1.electic-submers/images8.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/1.electic-submers/images8.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
 
-      <ion-item>
-        <ion-label>(ไฟฟ้า) ปั๊มเจ็ท-ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/-6EAC~1.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/-6EAC~1.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/9916499_3.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/9916499_3.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/Clinton 2000.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/Clinton 2000.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/cp.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/cp.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/cpa.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/cpa.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/hp255.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/hp255.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM1.bmp')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM1.bmp">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM3.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM3.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM4.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM4.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM5.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM5.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/image005.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/image005.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/images.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/images.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/maxresdefault.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/maxresdefault.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/payslip_2014042460815.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/payslip_2014042460815.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc250-251.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc250-251.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc300-301.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc300-301.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/SPOMPA jet.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/SPOMPA jet.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/strong.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/strong.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/untitled.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/untitled.jpg">
-        </div>
-      </ion-col>
+      <ion-row>
+        <ion-item>
+          <ion-label>(ไฟฟ้า) ปั๊มเจ็ท-ปั๊มน้ำอัตโนมัติสำหรับดูดน้ำลึก</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/-6EAC~1.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/-6EAC~1.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/9916499_3.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/9916499_3.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/Clinton 2000.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/Clinton 2000.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/cp.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/cp.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/cpa.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/cpa.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/hp255.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/hp255.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM1.bmp')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM1.bmp">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM3.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM3.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM4.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM4.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/IM5.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/IM5.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/image005.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/image005.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/images.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/images.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/maxresdefault.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/maxresdefault.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/payslip_2014042460815.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/payslip_2014042460815.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc250-251.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc250-251.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc300-301.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/pumpauto-lsc300-301.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/SPOMPA jet.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/SPOMPA jet.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/strong.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/strong.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/2.electic-jet/untitled.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/2.electic-jet/untitled.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
 
-      <ion-item>
-        <ion-label>(ไฟฟ้า) ปั๊มหอยโข่ง</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/48b4e2bd06f7680d4108f44a146a263b.jpeg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/48b4e2bd06f7680d4108f44a146a263b.jpeg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/dsc01664.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/dsc01664.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/images.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/images.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/J7932723-0.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/J7932723-0.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/JstrIDRBHgmZcOv-750x500-1024x768-1024x768.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/JstrIDRBHgmZcOv-750x500-1024x768-1024x768.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/maxresdefault (1).jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/maxresdefault (1).jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/p_496043.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/p_496043.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20101129222904_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20101129222904_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20110206223752_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20110206223752_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20120819234104_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20120819234104_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20130119110851_b.jeg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20130119110851_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152226_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152226_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152933_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152933_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20150802174026_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20150802174026_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160716165039_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160716165039_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160731215643_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160731215643_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904163145_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904163145_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904170816_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904170816_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/untitled.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/untitled.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/untitled1.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/untitled1.jpg">
-        </div>
-      </ion-col>
+      <ion-row>
+        <ion-item>
+          <ion-label>(ไฟฟ้า) ปั๊มหอยโข่ง</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/48b4e2bd06f7680d4108f44a146a263b.jpeg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/48b4e2bd06f7680d4108f44a146a263b.jpeg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/dsc01664.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/dsc01664.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/images.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/images.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/J7932723-0.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/J7932723-0.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/JstrIDRBHgmZcOv-750x500-1024x768-1024x768.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/JstrIDRBHgmZcOv-750x500-1024x768-1024x768.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/maxresdefault (1).jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/maxresdefault (1).jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/p_496043.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/p_496043.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20101129222904_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20101129222904_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20110206223752_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20110206223752_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20120819234104_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20120819234104_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20130119110851_b.jeg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20130119110851_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152226_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152226_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152933_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20131212152933_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20150802174026_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20150802174026_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160716165039_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160716165039_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160731215643_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160731215643_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904163145_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904163145_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904170816_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/spd_20160904170816_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/untitled.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/untitled.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/3.electic-centrifugal/untitled1.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/3.electic-centrifugal/untitled1.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
 
-      <ion-item>
-        <ion-label>(ไฟฟ้า) ปั๊มชัก</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/am.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/am.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/champ.png')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/champ.png">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/hqdefault (1).jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/hqdefault (1).jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/hqdefault.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/hqdefault.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/Marko_Motor.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/Marko_Motor.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/stroke.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/stroke.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/uGDSLS.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/uGDSLS.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/Water-Pump-002.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/Water-Pump-002.jpg">
-        </div>
-      </ion-col>
+      <ion-row>
+        <ion-item>
+          <ion-label>(ไฟฟ้า) ปั๊มชัก</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/am.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/am.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/champ.png')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/champ.png">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/hqdefault (1).jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/hqdefault (1).jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/hqdefault.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/hqdefault.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/Marko_Motor.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/Marko_Motor.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/stroke.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/stroke.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/uGDSLS.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/uGDSLS.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/4.electic-stroke/Water-Pump-002.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/4.electic-stroke/Water-Pump-002.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
 
-      <ion-item>
-        <ion-label>(ดีเซล) ปั๊มหอยโข่ง</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/100KB-4E.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/100KB-4E.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/cbp-20.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/cbp-20.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E (1).jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E (1).jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/EA-200-26.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/EA-200-26.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/p_264603.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/p_264603.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/rh-150-2.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/rh-150-2.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/spd_20100918221005_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/spd_20100918221005_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/vr-601.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/vr-601.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/WP-40DE-OKURA.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/WP-40DE-OKURA.jpg">
-        </div>
-      </ion-col>
+    <div *ngIf="val == '2'">
+      <ion-row>
+        <ion-item>
+          <ion-label>(ดีเซล) ปั๊มหอยโข่ง</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/100KB-4E.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/100KB-4E.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/cbp-20.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/cbp-20.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E (1).jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E (1).jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/CBP-60E.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/EA-200-26.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/EA-200-26.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/p_264603.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/p_264603.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/rh-150-2.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/rh-150-2.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/spd_20100918221005_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/spd_20100918221005_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/vr-601.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/vr-601.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/5.diesel-centrifugal/WP-40DE-OKURA.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/5.diesel-centrifugal/WP-40DE-OKURA.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
 
-      <ion-item>
-        <ion-label>(เบนซิน) ปั๊มหอยโข่ง</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/EAP552.png')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/EAP552.png">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/HPW-20.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/HPW-20.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/p_565833.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/p_565833.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/p_565850.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/p_565850.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/WB20XT.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/WB20XT.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/WP-653 LPG.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/WP-653 LPG.jpg">
-        </div>
-      </ion-col>
+    <div *ngIf="val == '3'">
+      <ion-row>
+        <ion-item>
+          <ion-label>(เบนซิน) ปั๊มหอยโข่ง</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/EAP552.png')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/EAP552.png">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/HPW-20.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/HPW-20.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/p_565833.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/p_565833.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/p_565850.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/p_565850.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/WB20XT.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/WB20XT.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/6.petrol-centrifugal/WP-653 LPG.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/6.petrol-centrifugal/WP-653 LPG.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
 
-      <ion-item>
-        <ion-label>(รถไถ) ปั๊มหอยโข่ง</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/2(4942).jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/2(4942).jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/176_201507031102461..jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/176_201507031102461..jpg">
-        </div>
-      </ion-col>
+    <div *ngIf="val == '4'">
+      <ion-row>
+        <ion-item>
+          <ion-label>(รถไถ) ปั๊มหอยโข่ง</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/2(4942).jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/2(4942).jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/176_201507031102461..jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/176_201507031102461..jpg">
+          </div>
+        </ion-col>
 
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/Image (1).jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/Image (1).jpg">
-        </div>
-      </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/Image (1).jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/Image (1).jpg">
+          </div>
+        </ion-col>
 
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/Image (2).jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/Image (2).jpg">
-        </div>
-      </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/Image (2).jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/Image (2).jpg">
+          </div>
+        </ion-col>
 
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/Image.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/Image.jpg">
-        </div>
-      </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/Image.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/Image.jpg">
+          </div>
+        </ion-col>
 
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/images.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/images.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/img_0215.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/img_0215.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/new_3398410518_b.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/new_3398410518_b.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/proj._dksh1_.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/proj._dksh1_.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/pump sebu 6 (1).gif')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/pump sebu 6 (1).gif">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/rh-150-2.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/rh-150-2.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/vr-601.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/vr-601.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/WPD-150.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/WPD-150.jpg">
-        </div>
-      </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/images.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/images.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/img_0215.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/img_0215.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/new_3398410518_b.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/new_3398410518_b.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/proj._dksh1_.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/proj._dksh1_.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/pump sebu 6 (1).gif')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/pump sebu 6 (1).gif">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/rh-150-2.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/rh-150-2.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/vr-601.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/vr-601.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/7.tractor-centrifugal/WPD-150.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/7.tractor-centrifugal/WPD-150.jpg">
+          </div>
+        </ion-col>
 
-      <ion-item>
-        <ion-label>(รถไถ) ปั๊มเจ็ท</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/DSCF5357.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/DSCF5357.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/DSCF6748.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/DSCF6748.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/IM2.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/IM2.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/picture005.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/picture005.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/Strong1.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/Strong1.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/strong2.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/strong2.jpg">
-        </div>
-      </ion-col>
+        <ion-item>
+          <ion-label>(รถไถ) ปั๊มเจ็ท</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/DSCF5357.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/DSCF5357.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/DSCF6748.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/DSCF6748.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/IM2.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/IM2.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/picture005.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/picture005.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/Strong1.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/Strong1.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/8.tractor-jet/strong2.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/8.tractor-jet/strong2.jpg">
+          </div>
+        </ion-col>
 
 
-      <ion-item>
-        <ion-label>(รถไถ) เทอร์ไบร์</ion-label>
-      </ion-item>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/1.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/1.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/2.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/2.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/3.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/3.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/4.jpg')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/4.jpg">
-        </div>
-      </ion-col>
-      <ion-col col-3>
-        <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/5.png')">
-          <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/5.png">
-        </div>
-      </ion-col>
-    </ion-row>
+        <ion-item>
+          <ion-label>(รถไถ) เทอร์ไบร์</ion-label>
+        </ion-item>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/1.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/1.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/2.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/2.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/3.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/3.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/4.jpg')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/4.jpg">
+          </div>
+        </ion-col>
+        <ion-col col-3>
+          <div text-center (click)="pictureShow('../assets/imgs/GroundPump/9.tractor-turbine/5.png')">
+            <img width="80px" height="80px" object-fit: cover src="../assets/imgs/GroundPump/9.tractor-turbine/5.png">
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
   </div>
 
+
+  <!-- surface -->
   <div *ngIf="checkedPump == false">
-    <!-- surface -->
-    <ion-row>
+    <div *ngIf="val == '1'">
+      <ion-row>
       <ion-item>
         <ion-label>(ไฟฟ้า) ปั๊มไดโว่-ปั๊มจุ่ม-ป๊มแช่</ion-label>
       </ion-item>
@@ -813,7 +836,11 @@
           <img width="80px" height="80px" object-fit: cover src="../assets/imgs/SurfacePump/3.electic-centrifugal/untitled1.jpg">
         </div>
       </ion-col>
+    </ion-row>
+    </div>
 
+    <div *ngIf="val == '2'">
+      <ion-row>
       <ion-item>
         <ion-label>(ดีเซล) ปั๊มหอยโข่ง</ion-label>
       </ion-item>
@@ -907,7 +934,11 @@
           <img width="80px" height="80px" object-fit: cover src="../assets/imgs/SurfacePump/4.diesel-centrifugal/wpd-70.jpg">
         </div>
       </ion-col>
+    </ion-row>
+    </div>
 
+    <div *ngIf="val == '3'">
+      <ion-row>
       <ion-item>
         <ion-label>(เบนซิน) ปั๊มหอยโข่ง</ion-label>
       </ion-item>
@@ -958,7 +989,11 @@
           <img width="80px" height="80px" object-fit: cover src="../assets/imgs/SurfacePump/5.petro-centrifugal/WP134X.jpg">
         </div>
       </ion-col>
+    </ion-row>
+    </div>
 
+    <div *ngIf="val == '4'">
+      <ion-row>
       <ion-item>
         <ion-label>(รถไถ) ปั๊มหอยโข่ง-ปั๊มพญานาค</ion-label>
       </ion-item>
@@ -1035,8 +1070,9 @@
           <img width="80px" height="80px" object-fit: cover src="../assets/imgs/SurfacePump/6.tractor-centrifugal/WPD-150.jpg">
         </div>
       </ion-col>
-
     </ion-row>
+    </div>
+
   </div>
 
   <button ion-button block color="light" (click)="closeDialog()">ย้อนกลับ</button>
