@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getNextPageDirection, getArrayIsCheck } from '../../states/household';
+import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetSelectorIndex } from '../../states/household/household.actions';
 
 /**
  * Generated class for the CheckListPage page.
@@ -20,7 +21,7 @@ import { map } from 'rxjs/operators';
 export class CheckListPage {
   pages: Array<{ title: string, component: any, isCheck: boolean }>;
   private index: any;
-  private indexBack: any;
+  // private indexBack: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
     this.pages = [
@@ -52,34 +53,29 @@ export class CheckListPage {
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter CheckListPage');
-    // let i: number;
-    // let getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    // getNextPage$.subscribe(data => {
 
-    //   if (data != null) {
-    //     i = data;
-    //   }
-    //   else i = null;
-    //   console.log("i: ", i);
-    // });
-    if (this.navParams.get('i') != null) {
-      this.index = this.navParams.get('i');
-      this.indexBack = this.navParams.get('iBack');
-      console.log("index", this.index);
-      console.log("indexBack", this.indexBack);
-      this.arrayIsCheckMethod();
-      this.arrayNextPageMethod();
-    }
-    // let index = i;
-    // if (index != 99) {
-    //   let page = this.pages[index];
-    //   console.log("index: ", index);
-    //   console.log("page: ", page);
-    //   this.navCtrl.push(page.component);
-    // if (index == i + 18) {
-    //   this.checkDoing = true;
-    // }else  this.checkDoing = false;
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    selectorIndex$.subscribe(data => {
+      if (data != null) {
+        // if (data != 99 && data != 88) {
+          this.index = data;
+        // }
+        // else this.indexBack = data;
+      }
+    });
+
+    this.arrayIsCheckMethod();
+    // if (this.navParams.get('i') != null  ) {
+    // this.index = this.navParams.get('i');
+    // console.log("index", this.index);
     // }
+
+    //  if (this.navParams.get('iBack') != null) {
+    // this.indexBack = this.navParams.get('iBack');
+    // console.log("indexBack", this.indexBack);
+    // }
+
+    this.arrayNextPageMethod();
   }
 
   arrayNextPageMethod() {
@@ -87,24 +83,26 @@ export class CheckListPage {
     let arrayNextPage: any[];
     arrayNextPage$.subscribe(data => arrayNextPage = data);
 
-    if (this.indexBack == 88) {
-      let page = this.pages[arrayNextPage[this.index]];
-      console.log("index: ", this.index);
-      console.log("page: ", page);
-      this.navCtrl.push(page.component, { i: this.index });
-    }
+    // if (this.indexBack == 88) {
+    //   this.index -= 1;
+    //   let page = this.pages[arrayNextPage[this.index]];
+    //   console.log("index: ", this.index);
+    //   console.log("page: ", page);
+    //   this.navCtrl.push(page.component);
+    // }
     if (this.index == -1) {
       this.index += 1;
       let page = this.pages[arrayNextPage[this.index]];
       console.log("index: ", this.index);
       console.log("page: ", page);
-      this.navCtrl.push(page.component, { i: this.index });
+      this.store.dispatch(new SetSelectorIndex(this.index));
+      this.navCtrl.push(page.component);
     }
     else if (this.index != 99) {
       let page = this.pages[arrayNextPage[this.index]];
       console.log("index: ", this.index);
       console.log("page: ", page);
-      this.navCtrl.push(page.component, { i: this.index });
+      this.navCtrl.push(page.component);
     }
   }
 

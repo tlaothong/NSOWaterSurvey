@@ -193,3 +193,7 @@ export const getArrayIsCheck = createSelector(
     getHouseHoldFeatureState,
     state => state.arrayIsCheck,
 );
+export const getSelectorIndex = createSelector(
+    getHouseHoldFeatureState,
+    state => state.selectorIndex,
+);

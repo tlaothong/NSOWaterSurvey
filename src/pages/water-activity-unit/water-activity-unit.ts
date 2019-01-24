@@ -1,5 +1,5 @@
-import { getArraySkipPage, getNextPageDirection } from './../../states/household/index';
-import { SetArraySkipPage, SetWaterSourcesAgiculture, SetNextPageDirection } from './../../states/household/household.actions';
+import { getArraySkipPage, getNextPageDirection, getSelectorIndex } from './../../states/household/index';
+import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -48,12 +48,24 @@ export class WaterActivityUnitPage {
   }
 
   arrayNextPageMedthod() {
+    // let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    // let index: any;
+    // selectorIndex$.subscribe(data => {
+
+    //   if (data != null) {
+    //     index = data
+    //     console.log("selectIndex: ",index);
+        
+    //   }
+    // });
+    
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let arrayNextPage: Array<number>;
     arrayNextPage$.subscribe(data => arrayNextPage = data);
     arrayNextPage.push(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22);
     console.log(arrayNextPage);
-    this.navCtrl.setRoot("CheckListPage", { i: -1 });
+    this.store.dispatch(new SetSelectorIndex(-1));
+    this.navCtrl.setRoot("CheckListPage");
   }
 
   private checkNextPage() {

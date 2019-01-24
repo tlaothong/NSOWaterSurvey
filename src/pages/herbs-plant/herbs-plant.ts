@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetWaterSources, SetNextPageDirection } from '../../states/household/household.actions';
+import { SetWaterSources, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -35,16 +35,15 @@ export class HerbsPlantPage {
   private getAgiSelectRubber$ = this.store.select(getAgiSelectRubber);
   private getAgiSelectPerennial$ = this.store.select(getAgiSelectPerennial);
 
-  private i: any;
   public listDryCropData: any = [];
   public listPerenialData: any = [];
   public listRiceData: any = [];
   public listRubberData: any = [];
   public listSumData: any = [];
-  public getAgiSelectRice:boolean;
-  public getAgiSelectAgronomy:boolean;
-  public getAgiSelectRubber:boolean;
-  public getAgiSelectPerennial:boolean;
+  public getAgiSelectRice: boolean;
+  public getAgiSelectAgronomy: boolean;
+  public getAgiSelectRubber: boolean;
+  public getAgiSelectPerennial: boolean;
 
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
@@ -70,7 +69,6 @@ export class HerbsPlantPage {
     this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
     this.listSumData = sum;
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -86,16 +84,26 @@ export class HerbsPlantPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     // this.store.dispatch(new SetNextPageDirection(7));
-   
+
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
@@ -153,7 +161,7 @@ export class HerbsPlantPage {
       }
     }
   }
-  
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

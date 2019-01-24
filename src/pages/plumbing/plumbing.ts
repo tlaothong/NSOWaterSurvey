@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getSelectorIndex } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { subDistrictData } from '../../models/SubDistrictData';
@@ -24,7 +24,6 @@ export class PlumbingPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
 
   public f: FormGroup;
-  private i: any;
   private submitRequested: boolean;
   private formDataPlumbing$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
 
@@ -136,7 +135,6 @@ export class PlumbingPage {
     // console.log("activityAgiculture", this.activityAgiculture);
     // console.log("activityFactory", this.activityFactory);
     // console.log("activityCommercial", this.activityCommercial);
-    this.i = this.navParams.get('i');
   }
 
   changeValueActivity() {
@@ -166,14 +164,24 @@ export class PlumbingPage {
     if (this.f.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
         this.arrayIsCheckMethod();
-        this.i++;
-        this.navCtrl.setRoot("CheckListPage", { i: this.i });
+        this.navCtrl.setRoot("CheckListPage");
         // this.navCtrl.push("GroundWaterPage");
       // }
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

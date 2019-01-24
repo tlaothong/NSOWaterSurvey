@@ -1,4 +1,4 @@
-import { SetWaterSourcesCommercial, SetNextPageDirection } from './../../states/household/household.actions';
+import { SetWaterSourcesCommercial, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,7 +6,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -23,7 +23,6 @@ export class CommercialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
 
   private f: FormGroup;
-  private i: any;
   private submitRequested: boolean;
   private itPlumbing: any;
   private otherBuildingType$ = this.store.select(getOtherBuildingType);
@@ -76,7 +75,6 @@ export class CommercialPage {
     this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
     this.otherBuildingType$.subscribe(data => this.otherBuildingType = data);
     console.log(this.otherBuildingType);
-    this.i = this.navParams.get('i');
   }
 
   public handleSubmit() {
@@ -98,13 +96,23 @@ export class CommercialPage {
     this.dispatchWaterSource();
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.i++;
-      this.navCtrl.setRoot("CheckListPage", { i: this.i });
+      this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
   }
 
   arrayIsCheckMethod() {
+    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+    let index: any;
+    selectorIndex$.subscribe(data => {
+
+      if (data != null) {
+        index = data
+        console.log("selectIndex: ", index);
+      }
+    });
+    
+    this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
