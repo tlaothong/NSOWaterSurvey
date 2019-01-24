@@ -61,21 +61,22 @@
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
+            <ion-item *ngIf="f.get('privateGroundWater.waterResourceCount').value > f.get('privateGroundWater.allCount').value">
+              <span class="invalid-msg">
+                กรุณาเช็คจำนวนบ่อจากข้อ 5.2.2
+              </span>
+            </ion-item>
           </div>
         </div>
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0">
+    <div *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0 && !(f.get('privateGroundWater.waterResourceCount').value > f.get('privateGroundWater.allCount').value)">
       <div *ngFor="let avg of f.get('privateGroundWater.waterResources').controls; let i = index">
         <ground-water-usage doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="avg"
-          activeRes="{{activityResidential}}"
-          activeWateringRes="{{activityWateringRes}}"
-          activRice="{{activityRice}}"
-          activeAgi="{{activityAgiculture}}"
-          activeFac="{{activityFactory}}"
-          activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage>
+          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="avg" activeRes="{{activityResidential}}"
+          activeWateringRes="{{activityWateringRes}}" activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}"
+          activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage>
       </div>
     </div>
 
@@ -128,13 +129,9 @@
     <div *ngIf="f.get('publicGroundWater.doing').value && f.get('publicGroundWater.waterResourceCount').value > 0">
       <div *ngFor="let use of f.get('publicGroundWater.waterResources').controls; let i = index">
         <ground-water-usage-public doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="use"
-          activeRes="{{activityResidential}}"
-          activeWateringRes="{{activeWateringRes}}"
-          activRice="{{activityRice}}"
-          activeAgi="{{activityAgiculture}}"
-          activeFac="{{activityFactory}}"
-          activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage-public>
+          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="use" activeRes="{{activityResidential}}"
+          activeWateringRes="{{activeWateringRes}}" activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}"
+          activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage-public>
       </div>
     </div>
 
