@@ -55,5 +55,4 @@ export class LocationComponent implements ISubmitRequestable {
     this.subDistrict = LocationDataProvider.getSubdistric(code.codeDistrict);
   }
 
-  
 }

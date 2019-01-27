@@ -31,4 +31,8 @@ export const getIdEsWorkHomes = createSelector(
     getLoggingFeatureState,
     state => state.idHomes,
 );
+export const getDataBuilding = createSelector(
+    getLoggingFeatureState,
+    state => state.dataBuilding,
+);
 

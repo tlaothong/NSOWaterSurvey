@@ -9,6 +9,7 @@ import { SetSendBuildingType, SetHomeBuilding } from '../../states/building/buil
 import { SetOtherBuildingType } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuidlingInformation2Page } from '../buidling-information2/buidling-information2';
+import { getDataBuilding } from '../../states/logging';
 
 @IonicPage()
 @Component({
@@ -20,8 +21,10 @@ export class BuildingInformation1Page {
   public f: FormGroup;
   private submitRequested: boolean;
 
+  private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
+    this.f.controls['ea'].setValue(navParams.get('id'));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -59,6 +62,11 @@ export class BuildingInformation1Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
+    this.dataBuilding$.subscribe(data => {
+      if(data!=null){
+        this.f.setValue(data);
+      }
+    });
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data)

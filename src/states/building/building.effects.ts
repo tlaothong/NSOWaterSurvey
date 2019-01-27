@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess, DeleteHomeBuilding, DeleteHomeBuildingSuccess,  } from "./building.actions";
+import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess } from "./building.actions";
 import { mergeMap, map } from "rxjs/operators";
 import { Action } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -22,27 +22,17 @@ export class BuildingEffects {
     public loadBuildingSample$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.Load),
         mergeMap(action => this.cloudSync.loadBuildingSampleTestData().pipe(
-                map(data => new LoadBuildingSampleSuccess(data)),
-            )
+            map(data => new LoadBuildingSampleSuccess(data)),
+        )
         ),
     );
-    
+
     @Effect()
     public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.SetHomeBuilding),
         mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
-                map(data => new SetHomeBuildingSuccess(data)),
-            )
+            map(data => new SetHomeBuildingSuccess(data)),
+        )
         ),
     );
-
-    @Effect()
-    public DeleteHomeBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(BuildingTypes.DeleteHomeBuilding),
-        mergeMap(action => this.cloudSync.deleteHomeBuilding((<DeleteHomeBuilding>action).payload).pipe(
-                map(data => new DeleteHomeBuildingSuccess()),
-            )
-        ),
-    );
-
 }

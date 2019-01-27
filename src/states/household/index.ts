@@ -197,3 +197,8 @@ export const getSelectorIndex = createSelector(
     getHouseHoldFeatureState,
     state => state.selectorIndex,
 );
+
+export const getUnitByIdBuilding = createSelector(
+    getHouseHoldFeatureState,
+    state => state.unitByIdBuilding,
+);

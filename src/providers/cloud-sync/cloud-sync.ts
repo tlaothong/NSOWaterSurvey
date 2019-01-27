@@ -49,8 +49,8 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetWorkByIdEA/' + idEA);
   }
 
-  public loadHomeBuilding(): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllBuilding');
+  public loadHomeBuilding(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetBuildingByIdEA/' + id);
   }
 
   public loadCountHomeBuilding(): Observable<any> {
@@ -62,12 +62,18 @@ export class CloudSyncProvider {
   }
 
   public deleteHomeBuilding(id: any): Observable<any> {
-    return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/'+ id);
+    return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/' + id);
   }
 
   public setUnit(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
   }
- 
 
+  public getDataBuilding(id: any): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetBuilding/' + id);
+  }
+
+  public getUnitByIdBuilding(Id_BD: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUnitByIdBuilding/' + Id_BD);
+  }
 }

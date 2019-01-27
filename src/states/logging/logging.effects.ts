@@ -8,7 +8,7 @@ import {
     LoggingTypes, LoadUserDataSuccess, SetUserPasswordSuccess, SetUserPassword,
     LoadUserDataByQRCode, LoadCountOfWorksSuccess,
     LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
-    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId,
+    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId, LoadHomeBuilding, DeleteHomeBuildingSuccess, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess,
 } from "./logging.actions";
 
 @Injectable()
@@ -57,9 +57,9 @@ export class LoggingEffects {
     );
 
     @Effect()
-    public LoadHomeBuilding$: Observable<Action> = this.action$.pipe(
+    public LoadHomeBuilding: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadHomeBuilding),
-        mergeMap(action => this.cloudSync.loadHomeBuilding().pipe(
+        mergeMap(action => this.cloudSync.loadHomeBuilding((<LoadHomeBuilding>action).payload).pipe(
             map(data => new LoadHomeBuildingSuccess(data)))
         ),
     );
@@ -73,11 +73,28 @@ export class LoggingEffects {
     );
 
     @Effect()
-    public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
+    public SetHomeBuilding: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.SetHomeBuilding),
         mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
-            map(data => new SetHomeBuildingSuccess()),
-        )
+            map(data => new SetHomeBuildingSuccess())),
+        ),
+    );
+
+    @Effect()
+    public DeleteHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.DeleteHomeBuilding),
+        mergeMap(action => this.cloudSync.deleteHomeBuilding((<DeleteHomeBuilding>action).payload).pipe(
+                map(data => new DeleteHomeBuildingSuccess()),
+            )
+        ),
+    );
+
+    @Effect()
+    public LoadDataBuildingForEdit: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadDataBuildingForEdit),
+        mergeMap(action => this.cloudSync.getDataBuilding((<LoadDataBuildingForEdit>action).payload).pipe(
+                map(data => new LoadDataBuildingForEditSuccess(data)),
+            )
         ),
     );
 }

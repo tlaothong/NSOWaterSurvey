@@ -11,8 +11,7 @@ export enum BuildingTypes {
     SetRecieveDataFromBuilding = "[BLD] Recieve Data From Building",
     SetHomeBuilding = "[BLD] Set HomeBuilding",
     SetHomeBuildingSuccess = "[BLD] Set HomeBuilding Success",
-    DeleteHomeBuilding = "[BLD] Delete HomeBuilding",
-    DeleteHomeBuildingSuccess = "[BLD] Delete HomeBuilding Success",
+   
 }
 
 export class LoadBuildingList implements Action {
@@ -74,21 +73,6 @@ export class SetHomeBuildingSuccess implements Action {
     constructor(public payload: any) {
     }
 }
-export class DeleteHomeBuilding implements Action {
-    readonly type = BuildingTypes.DeleteHomeBuilding;
-
-    constructor(public payload: any) {
-    }
-}
-export class DeleteHomeBuildingSuccess implements Action {
-    readonly type = BuildingTypes.DeleteHomeBuildingSuccess;
-
-    constructor() {
-    }
-}
-
-
-
 
 export type BuildingActionsType =
     LoadBuildingList
@@ -100,6 +84,5 @@ export type BuildingActionsType =
     | SetRecieveDataFromBuilding
     | SetHomeBuilding
     | SetHomeBuildingSuccess
-    | DeleteHomeBuilding
-    | DeleteHomeBuildingSuccess
+   
     ;

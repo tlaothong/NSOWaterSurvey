@@ -52,6 +52,8 @@ export enum HouseHoldTypes {
     SetUnit = "[HH] Set Unit",
     SetUnitSuccess = "[HH] Set Unit Success",
     SetSelectorIndex = "[HH] Set Selector Index",
+    LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
+    LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -363,6 +365,16 @@ export class SetSelectorIndex implements Action {
     constructor(public payload: any) {
     }
 }
+export class LoadUnitByIdBuilding implements Action {
+    readonly type = HouseHoldTypes.LoadUnitByIdBuilding;
+    constructor(public payload: string) {
+    }
+}
+export class LoadUnitByIdBuildingSuccess implements Action {
+    readonly type = HouseHoldTypes.LoadUnitByIdBuildingSuccess;
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -414,4 +426,6 @@ export type HouseHoldActionsType =
     | SetUnit
     | SetUnitSuccess
     | SetSelectorIndex
+    | LoadUnitByIdBuilding
+    | LoadUnitByIdBuildingSuccess
     ;
