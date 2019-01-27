@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, SetUnitSuccess, SetUnit } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, SetUnitSuccess, SetUnit, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess } from "./household.actions";
 
 
 @Injectable()
@@ -31,8 +31,17 @@ export class HouseHoldEffects {
     public SetUnit$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SetUnit),
         mergeMap(action => this.cloudSync.setUnit((<SetUnit>action).payload).pipe(
-                map(data => new SetUnitSuccess()),
-            )
+            map(data => new SetUnitSuccess()),
+        )
+        ),
+    );
+
+    @Effect()
+    public LoadUnitByIdBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.LoadUnitByIdBuilding),
+        mergeMap(action => this.cloudSync.getUnitByIdBuilding((<LoadUnitByIdBuilding>action).payload).pipe(
+            map(data => new LoadUnitByIdBuildingSuccess(data)),
+        )
         ),
     );
 }

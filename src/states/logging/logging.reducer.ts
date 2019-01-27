@@ -7,6 +7,7 @@ export interface LoggingState {
     countOfBuilding: any,
     dataHomeBuilding: any,
     idHomes:any,
+    dataBuilding:any,
 }
 
 const initialState: LoggingState = {
@@ -15,7 +16,8 @@ const initialState: LoggingState = {
     countOfWorks: null,
     countOfBuilding: null,
     dataHomeBuilding: null,
-    idHomes:null
+    idHomes:null,
+    dataBuilding:null
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -50,6 +52,16 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state,
                 idHomes: action.payload,
+            };
+        case LoggingTypes.SetIdEaWorkHomes:
+            return {
+                ...state,
+                idHomes: action.payload,
+            };
+        case LoggingTypes.LoadDataBuildingForEditSuccess:
+            return {
+                ...state,
+                dataBuilding: action.payload,
             };
         default:
             return state;

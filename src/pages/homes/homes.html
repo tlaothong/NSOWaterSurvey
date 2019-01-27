@@ -136,11 +136,40 @@
         <ion-col col-1></ion-col>
       </ion-row>
       <hr>
-      <div *ngIf="formItem.get('countHomeBuilding').value > 0">
+
+
+      <div *ngFor="let item of dataEa;let i = index;">
+        <ion-row text-center align-items-cente (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-1>
+            <ion-icon disabled="false" name="pause"></ion-icon>
+          </ion-col>
+          <ion-col col-1>
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2>
+            {{item.houseNo}}
+          </ion-col>
+          <ion-col col-3>
+            {{item.name}}
+          </ion-col>
+          <ion-col col-2>
+            {{item.unitAccess}}
+          </ion-col>
+          <ion-col col-2>
+            {{item.unitCount}}
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger" (click)="DeleteBuilding(item._id)">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
+      <!-- <div *ngIf="formItem.get('countHomeBuilding').value > 0">
         <div *ngFor="let homebuilding of formItem.get('homeBuilding').controls; let i = index">
           <item-in-home [FormItem]="homebuilding"></item-in-home>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div *ngSwitchCase="'areayoi'">

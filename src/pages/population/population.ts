@@ -30,7 +30,6 @@ export class PopulationPage {
   public proName:any;
   public checkEnd :boolean;
 
-
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {

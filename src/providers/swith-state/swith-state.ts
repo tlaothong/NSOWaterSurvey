@@ -5,6 +5,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { SetSendBuildingType, SetHomeBuilding, SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 import { SetOtherBuildingType, SetIsHouseHold, SetIsAgriculture, SetIsFactorial, SetIsCommercial, SetWaterSourcesAgiculture, SetResidentialGardeningUse, SetWaterSourcesResidential, SetNextPageDirection, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential, SetArraySkipPageAgiculture, SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetRubberTreeSelectPlant, SetAgiSelectRubber, SetPerennialPlantSelectPlant, SetAgiSelectPerennial, SetFactorialCategory, SetWaterSourcesFactory, SetCommercialServiceType, SetWaterSourcesCommercial } from '../../states/household/household.actions';
+import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
 
 /*
   Generated class for the SwithStateProvider provider.
@@ -23,6 +24,7 @@ export class SwithStateProvider {
   }
 
   updateBuildingState(id: string) {
+    this.storeLog.dispatch(new LoadDataBuildingForEdit(id));
     // TODO: Recive id of Building -> call API to find Building by id -> input data in parameter
     // this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     // this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));

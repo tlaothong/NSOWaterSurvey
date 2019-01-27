@@ -6,8 +6,8 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIdEaWorkHomes } from '../../states/logging/logging.actions';
-import { getIdEsWorkHomes } from '../../states/logging';
+import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
+import { getIdEsWorkHomes, getHomeBuilding } from '../../states/logging';
 
 
 @IonicPage()
@@ -23,7 +23,7 @@ export class HomesPage {
   public dataEa: any;
   // private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
   // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
- 
+  private dataBuilding$ = this.store.select(getHomeBuilding);
   constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
     this.data = this.navParams.get('data');
     this.formItem = fb.group({
@@ -40,13 +40,29 @@ export class HomesPage {
     });
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.store.dispatch(new LoadHomeBuilding(this.data._id));
+    this.dataBuilding$.subscribe(data => {
+      if (data != null) {
+        this.dataEa = data
+      }
+      console.log(this.dataEa);
+    });
   }
 
   goBuildingInfo(id: any) {
-    var str = id.substring(1,7);
+    var str = id.substring(1, 7);
+    id = null;
+    var id_null = id;
     this.store.dispatch(new SetIdEaWorkHomes(str));
-    
+    this.store.dispatch(new LoadDataBuildingForEdit(id_null));
+
+    this.navCtrl.push("BuildingTestPage", { id: id })
+
+  }
+
+  goEditBuildingInfo(id: any){
+    this.store.dispatch(new LoadDataBuildingForEdit(id));
     this.navCtrl.push("BuildingTestPage")
   }
 
@@ -79,5 +95,10 @@ export class HomesPage {
     this.formItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
+  }
+
+  DeleteBuilding(id: string) {
+    this.store.dispatch(new DeleteHomeBuilding(id));
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 }

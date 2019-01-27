@@ -4,7 +4,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getRecieveDataFromBuilding } from '../../states/building';
+import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { getUnitByIdBuilding } from '../../states/household';
+import { LoadUnitByIdBuilding } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -16,25 +19,39 @@ export class UnitPage {
   public f: FormGroup;
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-  private num: number = null;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
+  private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
+  private dataHomeBuilding$ = this.store.select(setHomeBuilding);
+  public id_BD: string;
+  public units: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
     });
-    this.setupUnitsCountChanges();
-
-    
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
+
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
-    
+    this.setupUnitsCountChanges();
+    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
+    this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
+    this.GetUnitByIdBuilding$.subscribe(data => {
+      if (data != []) {
+        this.units = data;
+        let fgun = this.f.get('units') as FormArray;
+        for (let i = 0; i < this.units.length; i++) {
+          fgun.at(i).setValue(this.units[i]);
+        }
+        console.log(data)
+        console.log(this.f.get('units').value);
+      }
+    });
   }
 
   ionViewDidEnter() {
-    console.log("enter");
   }
 
   private setupUnitsCountChanges() {

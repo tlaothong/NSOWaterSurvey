@@ -55,6 +55,7 @@ export interface HouseHoldState {
     nextPageDirection: Array<number>,
     checkHeadfamily: boolean,
     arrayIsCheck: Array<number>,
+    unitByIdBuilding: any,
 
 
 }
@@ -112,8 +113,8 @@ const initialState: HouseHoldState = {
     waterSourcesFactory: null,
     waterSourcesCommercial: null,
     nextPageDirection: Array<number>(),
-    arrayIsCheck:  Array<number>(),
-
+    arrayIsCheck: Array<number>(),
+    unitByIdBuilding: [],
     checkHeadfamily: null,
 };
 
@@ -328,6 +329,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 arrayIsCheck: action.payload,
+            };
+        case HouseHoldTypes.LoadUnitByIdBuildingSuccess:
+            return {
+                ...state,
+                unitByIdBuilding: action.payload,
             };
         default:
             return state;

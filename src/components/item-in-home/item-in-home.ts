@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { BuildingState } from '../../states/building/building.reducer';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DeleteHomeBuilding } from '../../states/building/building.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { getHomeBuilding } from '../../states/logging';
+import { DeleteHomeBuilding } from '../../states/logging/logging.actions';
 
 @Component({
   selector: 'item-in-home',
@@ -13,45 +14,35 @@ export class ItemInHomeComponent {
 
   @Input() public FormItem: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,public store:Store<BuildingState>) {
-    this.FormItem = ItemInHomeComponent.CreateFormGroup(this.fb);
+  private dataHomeBuild$ = this.store.select(getHomeBuilding);
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,public store:Store<LoggingState>) {
+    this.FormItem = ItemInHomeComponent.CreateFormGroup(fb);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      "ea": [null],
-      "ordering": [null],
-      "road": [null],
-      "alley": [null],
-      "name": [null],
-      "houseNo": [null],
-      "latitude": [null],
-      "longitude": [null],
-      "buildingType": [null],
-      "other": [null],
-      "access": [null],
-      "vacancyCount": [null],
-      "abandonedCount": [null],
-      "unitCount": [null],
-      "unitAccess": [null],
-      "vacantRoomCount": [null],
-      "occupiedRoomCount": [null],
-      "waterQuantity": fb.group({
-        "waterQuantity": [null],
-        "cubicMeterPerMonth": [null],
-        "waterBill": [null]
-      }),
-      "floorCount": [null],
-      "comments": fb.array([]),
-      "recCtrl": fb.group({
-        "createdDateTime": [null],
-        "lastModified": [null],
-        "deletedDateTime": [null],
-        "lastUpload": [null],
-        "lastDownload": [null],
-        "logs": fb.array([])
-      }),
-      "_id": [null]
+      'ea': [null],
+      'ordering': [0],
+      'road': [null],
+      'alley': [null],
+      'name': [null],
+      'houseNo': [null],
+      'latitude': [null],
+      'longitude': [null],
+      'buildingType': [null],
+      'other': [null],
+      'access': [null],
+      'vacancyCount': [0],
+      'abandonedCount': [0],
+      'comments': fb.array([0]),
+      'recCtrl': [null],
+      'vacantRoomCount': [null],
+      'unitCount': [0],
+      'unitAccess': [0],
+      'occupiedRoomCount': [null],
+      'waterQuantity': [null],
+      'floorCount': [null],
+      '_id': [null],
     });
   }
 
