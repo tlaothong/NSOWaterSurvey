@@ -22,6 +22,8 @@ export enum LoggingTypes {
     DeleteHomeBuildingSuccess = "[L] Delete HomeBuilding Success",
     LoadDataBuildingForEdit = "[L] Load Data Building For Edit",
     LoadDataBuildingForEditSuccess = "[L] Load Data Building For Edit Success",
+    SetLogin = "[L] Set Login",
+    SetLoginSuccess = "[L] Set Login Success",
 }
 
 export class LoadUserDataByQRCode implements Action {
@@ -30,7 +32,7 @@ export class LoadUserDataByQRCode implements Action {
 }
 export class LoadUserDataById implements Action {
     readonly type = LoggingTypes.LoadUserDataById;
-    constructor(public id: string) { }
+    constructor(public payload: string) { }
 }
 export class LoadUserDataSuccess implements Action {
     readonly type = LoggingTypes.LoadUserDataSuccess;
@@ -119,8 +121,18 @@ export class LoadDataBuildingForEditSuccess implements Action {
     constructor(public payload: any) {
     }
 }
+export class SetLogin implements Action {
+    readonly type = LoggingTypes.SetLogin;
 
+    constructor(public payload: any) {
+    }
+}
+export class SetLoginSuccess implements Action {
+    readonly type = LoggingTypes.SetLoginSuccess;
 
+    constructor(public payload: any) {
+    }
+}
 
 export type LoggingActionsType =
     LoadUserDataSuccess
@@ -141,4 +153,6 @@ export type LoggingActionsType =
     | DeleteHomeBuildingSuccess
     | LoadDataBuildingForEdit
     | LoadDataBuildingForEditSuccess
+    | SetLogin
+    | SetLoginSuccess
     ;

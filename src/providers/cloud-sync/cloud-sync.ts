@@ -30,7 +30,7 @@ export class CloudSyncProvider {
 
   public loadUserFromId(idUser: string): Observable<any> {
     console.log(idUser + ", LOADING USER...");
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByID/user?IdUser=' + idUser);
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByID/' + idUser);
   }
 
   public setNewUserPassword(data: any): Observable<any> {
@@ -75,5 +75,9 @@ export class CloudSyncProvider {
 
   public getUnitByIdBuilding(Id_BD: string): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUnitByIdBuilding/' + Id_BD);
+  }
+
+  public getLogin(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/GetLogin', data);
   }
 }

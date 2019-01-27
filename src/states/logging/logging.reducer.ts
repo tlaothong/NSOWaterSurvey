@@ -8,6 +8,7 @@ export interface LoggingState {
     dataHomeBuilding: any,
     idHomes:any,
     dataBuilding:any,
+    stateLogin:any,
 }
 
 const initialState: LoggingState = {
@@ -17,7 +18,9 @@ const initialState: LoggingState = {
     countOfBuilding: null,
     dataHomeBuilding: null,
     idHomes:null,
-    dataBuilding:null
+    dataBuilding:null,
+    stateLogin:null
+
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -62,6 +65,11 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state,
                 dataBuilding: action.payload,
+            };
+        case LoggingTypes.SetLoginSuccess:
+            return {
+                ...state,
+                stateLogin: action.payload,
             };
         default:
             return state;

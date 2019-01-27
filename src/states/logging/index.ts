@@ -35,4 +35,8 @@ export const getDataBuilding = createSelector(
     getLoggingFeatureState,
     state => state.dataBuilding,
 );
+export const getLogin = createSelector(
+    getLoggingFeatureState,
+    state => state.stateLogin,
+);
 
