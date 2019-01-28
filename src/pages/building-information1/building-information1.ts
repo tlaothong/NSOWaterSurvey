@@ -25,6 +25,8 @@ export class BuildingInformation1Page {
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
+    console.log(navParams.get('id'));
+    
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -54,7 +56,11 @@ export class BuildingInformation1Page {
       'unitCount': [0, Validators.required],
       'unitAccess': [0, Validators.required],
       'occupiedRoomCount': [null],
-      'waterQuantity': [null],
+      'waterQuantity': fb.group({
+        "waterQuantity": [1],
+        "cubicMeterPerMonth": [0],
+        "waterBill": [0]
+      }),
       'floorCount': [null],
       '_id': [null],
     });
@@ -63,7 +69,7 @@ export class BuildingInformation1Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
     this.dataBuilding$.subscribe(data => {
-      if(data!=null){
+      if (data != null) {
         this.f.setValue(data);
       }
     });
