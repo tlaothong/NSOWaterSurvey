@@ -40,12 +40,12 @@ export class UnitPage {
     this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
     this.GetUnitByIdBuilding$.subscribe(data => {
       if (data != []) {
+        console.log(data)
         this.units = data;
         let fgun = this.f.get('units') as FormArray;
         for (let i = 0; i < this.units.length; i++) {
           fgun.at(i).setValue(this.units[i]);
         }
-        console.log(data)
         console.log(this.f.get('units').value);
       }
     });

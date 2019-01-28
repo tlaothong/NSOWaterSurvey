@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
+import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess } from '../../states/logging/logging.actions';
 import { getIdEsWorkHomes, getHomeBuilding } from '../../states/logging';
 
 
@@ -52,11 +52,9 @@ export class HomesPage {
 
   goBuildingInfo(id: any) {
     var str = id.substring(1, 7);
-    id = null;
-    var id_null = id;
     this.store.dispatch(new SetIdEaWorkHomes(str));
-    this.store.dispatch(new LoadDataBuildingForEdit(id_null));
-
+    this.store.dispatch(new LoadDataBuildingForEditSuccess(null));
+    
     this.navCtrl.push("BuildingTestPage", { id: id })
 
   }
