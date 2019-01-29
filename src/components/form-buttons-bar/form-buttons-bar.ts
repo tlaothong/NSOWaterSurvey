@@ -14,6 +14,7 @@ export class FormButtonsBarComponent {
 
   public text: string;
   @Input("checkEnd") public checkEnd: boolean;
+  @Input("isBuilding") public isBuilding: boolean;
 
   private frontNum: any;
   private backNum: any;
@@ -21,9 +22,10 @@ export class FormButtonsBarComponent {
     this.text = 'Hello World';
   }
 
-  // ionViewDidEnter() {
+  ionViewDidEnter() {
+    console.log(this.isBuilding);
 
-  // }
+  }
   // onSubmit() {
   //   console.log("onSubmit ");
   //   let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
@@ -50,22 +52,30 @@ export class FormButtonsBarComponent {
   // }
 
   backToHome() {
-    this.store.dispatch(new SetSelectorIndex(99));
-    // this.store.dispatch(new SetNextPageDirection(99));
-    this.navCtrl.setRoot("CheckListPage");
+    if (this.isBuilding == true) {
+      this.navCtrl.popTo("HomesPage");
+    } else {
+      this.store.dispatch(new SetSelectorIndex(99));
+      // this.store.dispatch(new SetNextPageDirection(99));
+      this.navCtrl.setRoot("CheckListPage");
+    }
   }
 
   previouPage() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    let index: any;
-    selectorIndex$.subscribe(data => {
+    if (this.isBuilding == true) {
+      this.navCtrl.popTo("HomesPage");
+    } else {
+      let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+      let index: any;
+      selectorIndex$.subscribe(data => {
 
-      if (data != null) {
-        index = data
-        console.log("selectIndex: ", index);
-      }
-    });
-    this.store.dispatch(new SetSelectorIndex(index - 1));
-    this.navCtrl.setRoot("CheckListPage");
+        if (data != null) {
+          index = data
+          console.log("selectIndex: ", index);
+        }
+      });
+      this.store.dispatch(new SetSelectorIndex(index - 1));
+      this.navCtrl.setRoot("CheckListPage");
+    }
   }
 }

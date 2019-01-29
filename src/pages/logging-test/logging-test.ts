@@ -14,6 +14,7 @@ export class LoggingTestPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private store: Store<LoggingState>) {
     this.pages = [
+      { title: 'First Page', component: "FirstpagePage" },
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
       { title: 'First Login', component: "FirstloginPage" },
       { title: 'Login', component: "LoginPage" },

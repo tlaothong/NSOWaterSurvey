@@ -16,7 +16,7 @@ import { getIdEsWorkHomes, getHomeBuilding } from '../../states/logging';
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  @ViewChildren(ItemInHomeComponent) private itemHome: ItemInHomeComponent[];
+  // @ViewChildren(ItemInHomeComponent) private itemHome: ItemInHomeComponent[];
   data: any;
   formItem: FormGroup;
   office: string = "building";
@@ -48,6 +48,8 @@ export class HomesPage {
       }
       console.log(this.dataEa);
     });
+    console.log(this.data);
+    
   }
 
   goBuildingInfo(id: any) {

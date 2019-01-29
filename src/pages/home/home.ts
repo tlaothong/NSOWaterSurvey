@@ -16,24 +16,24 @@ export class HomePage {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
-      { title: 'Zero', component: "ZeroPage" },
+      // { title: 'Zero', component: "ZeroPage" },
+      { title: 'Login Test', component: "LoggingTestPage" },
       { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
       { title: 'Community Test', component: "CommunityTestPage" },
-      { title: 'Login Test', component: "LoggingTestPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
-      { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
-      { title: 'ยืนยันการเปลี่ยนรหัสผ่าน', component: "FirstloginPage" },
-      { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
-      { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
-      { title: 'Menu', component: "MenudetailPage" },
-      { title: 'รับงาน', component: "GetworkPage" },
-      { title: 'เลือก EA', component: "SelectEaPage" },
-      { title: 'ส่งงาน', component: "SendPage" }, //14
-      { title: 'Unit', component: "UnitPage" },
+      // { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
+      // { title: 'ยืนยันการเปลี่ยนรหัสผ่าน', component: "FirstloginPage" },
+      // { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
+      // { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
+      // { title: 'Menu', component: "MenudetailPage" },
+      // { title: 'รับงาน', component: "GetworkPage" },
+      // { title: 'เลือก EA', component: "SelectEaPage" },
+      // { title: 'ส่งงาน', component: "SendPage" }, //14
       { title: 'ตอนที่ 1', component: "BuildingInformation1Page" }, //16
       { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
+      { title: 'Unit', component: "UnitPage" },
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" }, //18
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", },
       { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },//20
@@ -60,8 +60,6 @@ export class HomePage {
       // { title: 'Disaster', component: "DisasterPage", value: 23 },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
       { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },//42
-      { title: 'รูปภาพภาชนะกักเก็บน้ำฝน', component: "DlgRainPicturePage" },
-      { title: 'รูปภาพปั๊มน้ำ', component: "DlgPumpPicturePage" },
       { title: 'หน้าเลือก activity', component: "WaterActivityUnitPage" },
     ];
   }
