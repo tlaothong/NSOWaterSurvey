@@ -40,3 +40,7 @@ export const getLogin = createSelector(
     state => state.stateLogin,
 );
 
+export const getIsCheckShow = createSelector(
+    getLoggingFeatureState,
+    state => state.isCheckShow,
+);
