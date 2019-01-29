@@ -2,7 +2,7 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, ViewChildren } from '@angular/core';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { LoadDataWorkEAByUserId, LoadCountOfWorks } from '../../states/logging/logging.actions';
+import { LoadDataWorkEAByUserId, LoadCountOfWorks, StoreWorkEAOneRecord } from '../../states/logging/logging.actions';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { getDataWorkEA, getCountOfaWorkEA, getUserData } from '../../states/logging';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -46,8 +46,8 @@ export class SelectEaPage {
   }
 
   goConfirmSeletEAPage(data: any) {
-    // this.store.dispatch(new LoadWorkByIdEA(data));
-    this.navCtrl.push("HomesPage", { data: data });
+    this.store.dispatch(new StoreWorkEAOneRecord(data));
+    this.navCtrl.push("HomesPage");
   }
 
   goBack() {

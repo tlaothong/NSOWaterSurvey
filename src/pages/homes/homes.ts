@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess } from '../../states/logging/logging.actions';
-import { getIdEsWorkHomes, getHomeBuilding } from '../../states/logging';
+import { getIdEsWorkHomes, getHomeBuilding, getStoreWorkEaOneRecord } from '../../states/logging';
 
 
 @IonicPage()
@@ -21,27 +21,36 @@ export class HomesPage {
   formItem: FormGroup;
   office: string = "building";
   public dataEa: any;
+  public dataWorkEARow:any;
   // private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
   // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
   constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
-    this.data = this.navParams.get('data');
     this.formItem = fb.group({
       'countHomeBuilding': [null],
       'homeBuilding': this.fb.array([]),
     });
 
+
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, { data: this.data });
+    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, { data: this.dataWorkEARow });
     popover.present({
       ev: myEvent
     });
   }
 
   ionViewDidEnter() {
-    this.store.dispatch(new LoadHomeBuilding(this.data._id));
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.dataWorkEARow = data
+        console.log(this.dataWorkEARow);
+      }
+    });
+
+    this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
     this.dataBuilding$.subscribe(data => {
       if (data != null) {
         this.dataEa = data
@@ -54,12 +63,12 @@ export class HomesPage {
     var str = id.substring(1, 7);
     this.store.dispatch(new SetIdEaWorkHomes(str));
     this.store.dispatch(new LoadDataBuildingForEditSuccess(null));
-    
+
     this.navCtrl.push("BuildingTestPage", { id: id })
 
   }
 
-  goEditBuildingInfo(id: any){
+  goEditBuildingInfo(id: any) {
     this.store.dispatch(new LoadDataBuildingForEdit(id));
     this.navCtrl.push("BuildingTestPage")
   }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController, ViewController } from 'ionic-angular';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { Store } from '@ngrx/store';
+import { getStoreWorkEaOneRecord } from '../../states/logging';
 
 @Component({
   selector: 'questionnaire-menu-popover',
@@ -7,14 +10,22 @@ import { NavParams, NavController, ViewController } from 'ionic-angular';
 })
 export class QuestionnaireMenuPopoverComponent {
 
-  public text: string;
+  public dataWorkEARow: any;
   private navCtrl: NavController;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController) {
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>) {
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
-    this.text = 'Hello World';
 
     this.navCtrl = navParams.get('nav');
+  }
+
+  ionViewDidLoad() {
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.dataWorkEARow = data
+      }
+    });
   }
 
   public goHome() {

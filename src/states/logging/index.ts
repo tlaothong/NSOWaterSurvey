@@ -39,4 +39,8 @@ export const getLogin = createSelector(
     getLoggingFeatureState,
     state => state.stateLogin,
 );
+export const getStoreWorkEaOneRecord = createSelector(
+    getLoggingFeatureState,
+    state => state.storeWorkEaOneRecord,
+);
 
