@@ -14,11 +14,13 @@ export class LoggingTestPage {
   pagesFirstLogin: Array<{ title: string, component: any }>;
   pagesLogin: Array<{ title: string, component: any }>;
   isCheckShow: boolean;
+  index: number = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>) {
     this.pagesFirstLogin = [
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
       { title: 'First Login', component: "FirstloginPage" },
       { title: 'Confirm Login', component: "ConfirmloginPage" },
+      { title: 'Get Work', component: "GetworkPage" },
       { title: 'Select EA', component: "SelectEaPage" },
       { title: 'Homes', component: "HomesPage" },
 
@@ -36,12 +38,20 @@ export class LoggingTestPage {
     getCheck$.subscribe(data => {
       if (data != null) {
         this.isCheckShow = data
-        
       }
     });
-    
+
+
     console.log("check", this.isCheckShow);
-    this.navCtrl.push("FirstpagePage");
+    if (this.isCheckShow == true) {
+      let page = this.pagesFirstLogin[this.index]
+      this.navCtrl.push(page.component,this.index++);
+    } else if (this.isCheckShow == false) {
+      let page = this.pagesLogin[this.index]
+      this.navCtrl.push(page.component, this.index++);
+
+    } else
+      this.navCtrl.push("FirstpagePage");
   }
 
   public openPage(page) {
