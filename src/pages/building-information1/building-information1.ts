@@ -20,6 +20,7 @@ export class BuildingInformation1Page {
 
   public f: FormGroup;
   private submitRequested: boolean;
+  public isBuilding:boolean;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
