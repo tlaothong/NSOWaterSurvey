@@ -24,6 +24,11 @@ export enum LoggingTypes {
     LoadDataBuildingForEditSuccess = "[L] Load Data Building For Edit Success",
     SetLogin = "[L] Set Login",
     SetLoginSuccess = "[L] Set Login Success",
+    StoreWorkEAOneRecord = "[L] Store EAWork One Record",
+    StoreWorkEAOneRecordSuccess = "[L] Store EAWork One Record Success",
+
+
+
 }
 
 export class LoadUserDataByQRCode implements Action {
@@ -133,6 +138,12 @@ export class SetLoginSuccess implements Action {
     constructor(public payload: any) {
     }
 }
+export class StoreWorkEAOneRecord implements Action {
+    readonly type = LoggingTypes.StoreWorkEAOneRecord;
+
+    constructor(public payload: any) {
+    }
+}
 
 export type LoggingActionsType =
     LoadUserDataSuccess
@@ -155,4 +166,5 @@ export type LoggingActionsType =
     | LoadDataBuildingForEditSuccess
     | SetLogin
     | SetLoginSuccess
+    | StoreWorkEAOneRecord
     ;
