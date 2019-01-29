@@ -21,7 +21,7 @@ export class HomesPage {
   formItem: FormGroup;
   office: string = "building";
   public dataEa: any;
-  public dataWorkEARow:any;
+  public dataWorkEARow: any;
   // private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
   // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
