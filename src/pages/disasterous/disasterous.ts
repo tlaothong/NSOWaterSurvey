@@ -5,7 +5,7 @@ import { TableDisasterousComponent } from '../../components/table-disasterous/ta
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -21,7 +21,8 @@ export class DisasterousPage {
   private submitRequested: boolean;
   public Disasterous: FormGroup;
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
-
+  private frontNum: any;
+  private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
       '_id': [null],
@@ -37,6 +38,7 @@ export class DisasterousPage {
   }
 
   ionViewDidLoad() {
+    this.countNumberPage();
     this.formData$.subscribe(data => this.Disasterous.setValue(data));
   }
 
@@ -60,6 +62,33 @@ export class DisasterousPage {
       this.navCtrl.setRoot("CheckListPage");
       // this.navCtrl.push("UserPage");
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {
