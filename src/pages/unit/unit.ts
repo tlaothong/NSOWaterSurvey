@@ -35,6 +35,7 @@ export class UnitPage {
     console.log('ionViewDidLoad UnitPage');
 
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
+    console.log(this.f.get('unitCount').value);
     this.setupUnitsCountChanges();
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));

@@ -6,11 +6,11 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getSendBuildingType } from '../../states/building';
+import { getSendBuildingType, getOtherBuildingType } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -25,14 +25,14 @@ export class CommercialPage {
   private f: FormGroup;
   private submitRequested: boolean;
   private itPlumbing: any;
-  private otherBuildingType$ = this.store.select(getOtherBuildingType);
   public otherBuildingType: any;
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private getBuildingType$ = this.store.select(getSendBuildingType)
+  private otherBuildingType$ = this.storeBuild.select(getOtherBuildingType);
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
@@ -73,8 +73,11 @@ export class CommercialPage {
     console.log('ionViewDidLoad CommercialPage');
     this.formData$.subscribe(data => this.f.setValue(data));
     this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
-    this.otherBuildingType$.subscribe(data => this.otherBuildingType = data);
-    console.log(this.otherBuildingType);
+    this.otherBuildingType$.subscribe(data => {
+      if (data != null) {
+        this.otherBuildingType = data
+      }
+    });
   }
 
   public handleSubmit() {
@@ -92,7 +95,7 @@ export class CommercialPage {
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log("waterCom", this.f.get('waterSources').value);
     // this.store.dispatch(new SetNextPageDirection(13));
-   
+
     this.dispatchWaterSource();
     if (this.f.valid) {
       this.arrayIsCheckMethod();
@@ -111,7 +114,7 @@ export class CommercialPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;

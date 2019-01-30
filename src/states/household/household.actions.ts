@@ -31,7 +31,6 @@ export enum HouseHoldTypes {
     SetAgiSelectMushroomPlant = "[HH] Set Agiculture Select MushroomPlant",
     SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
     SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
-    SetOtherBuildingType = "[HH] Set Other BuildingType",
     SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
@@ -128,13 +127,6 @@ export class SetWaterSources implements Action {
 
 export class SetAgronomyPlantDoing implements Action {
     readonly type = HouseHoldTypes.SetAgronomyPlantDoing;
-
-    constructor(public payload: any) {
-    }
-}
-
-export class SetOtherBuildingType implements Action {
-    readonly type = HouseHoldTypes.SetOtherBuildingType;
 
     constructor(public payload: any) {
     }
@@ -405,7 +397,6 @@ export type HouseHoldActionsType =
     | SetAgiSelectMushroomPlant
     | SetAgiSelectAnimalFarm
     | SetAgiSelectAquaticAnimals
-    | SetOtherBuildingType
     | SetArraySkipPage
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
