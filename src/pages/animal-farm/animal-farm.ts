@@ -114,7 +114,9 @@ export class AnimalFarmPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(9);
+        if (arrayIsCheck.every(it => it != 9)) {
+          arrayIsCheck.push(9);
+        }
         console.log(arrayIsCheck);
       }
     });

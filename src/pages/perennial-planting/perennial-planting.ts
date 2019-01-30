@@ -110,7 +110,9 @@ export class PerennialPlantingPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(5);
+        if (arrayIsCheck.every(it => it != 5)) {
+          arrayIsCheck.push(5);
+        }
         console.log(arrayIsCheck);
       }
     });

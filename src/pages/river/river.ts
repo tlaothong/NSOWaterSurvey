@@ -184,7 +184,9 @@ export class RiverPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(15);
+        if (arrayIsCheck.every(it => it != 15)) {
+          arrayIsCheck.push(15);
+            }
         console.log(arrayIsCheck);
       }
     });

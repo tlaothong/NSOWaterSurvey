@@ -108,7 +108,9 @@ export class DisasterousPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(20);
+        if (arrayIsCheck.every(it => it != 20)) {
+          arrayIsCheck.push(20);
+            }
         console.log(arrayIsCheck);
       }
     });

@@ -198,7 +198,9 @@ export class GroundWaterPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(14);
+        if (arrayIsCheck.every(it => it != 14)) {
+          arrayIsCheck.push(14);
+            }
         console.log(arrayIsCheck);
       }
     });

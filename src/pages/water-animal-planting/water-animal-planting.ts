@@ -118,7 +118,9 @@ export class WaterAnimalPlantingPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 10)) {
         arrayIsCheck.push(10);
+        }
         console.log(arrayIsCheck);
       }
     });

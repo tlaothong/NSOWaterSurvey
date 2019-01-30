@@ -108,7 +108,9 @@ export class PopulationPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(22);
+        if (arrayIsCheck.every(it => it != 22)) {
+          arrayIsCheck.push(22);
+            }
         console.log(arrayIsCheck);
       }
     });

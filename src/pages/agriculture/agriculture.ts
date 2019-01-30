@@ -102,7 +102,11 @@ export class AgriculturePage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(1);
+       
+        if (arrayIsCheck.every(it => it != 1)) {
+          arrayIsCheck.push(1);
+        }
+        
         console.log(arrayIsCheck);
       }
     });

@@ -105,7 +105,9 @@ export class RicePage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(2);
+        if (arrayIsCheck.every(it => it != 2)) {
+          arrayIsCheck.push(2);
+        }
         console.log(arrayIsCheck);
       }
     });
