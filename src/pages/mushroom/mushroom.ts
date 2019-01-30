@@ -102,7 +102,9 @@ export class MushroomPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(8);
+        if (arrayIsCheck.every(it => it != 8)) {
+          arrayIsCheck.push(8);
+        }
         console.log(arrayIsCheck);
       }
     });

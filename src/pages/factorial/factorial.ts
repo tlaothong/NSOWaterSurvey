@@ -105,7 +105,9 @@ export class FactorialPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 11)) {
         arrayIsCheck.push(11);
+          }
         console.log(arrayIsCheck);
       }
     });

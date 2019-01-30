@@ -82,7 +82,7 @@ export class ResidentialPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -90,11 +90,11 @@ export class ResidentialPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -107,14 +107,16 @@ export class ResidentialPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(0);
+        if (arrayIsCheck.every(it => it != 0)) {
+          arrayIsCheck.push(0);
+        }
         console.log(arrayIsCheck);
       }
     });

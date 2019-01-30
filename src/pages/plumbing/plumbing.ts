@@ -216,7 +216,9 @@ export class PlumbingPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(13);
+        if (arrayIsCheck.every(it => it != 13)) {
+          arrayIsCheck.push(13);
+            }
         console.log(arrayIsCheck);
       }
     });

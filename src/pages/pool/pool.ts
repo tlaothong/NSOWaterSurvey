@@ -171,7 +171,9 @@ export class PoolPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(16);
+        if (arrayIsCheck.every(it => it != 16)) {
+          arrayIsCheck.push(16);
+            }
         console.log(arrayIsCheck);
       }
     });

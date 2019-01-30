@@ -32,7 +32,7 @@ export class BuyingPage {
   public getIsCommercial: boolean;
   private frontNum: any;
   private backNum: any;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.BuyingForm = this.fb.group({
       'package': this.fb.array([
@@ -62,7 +62,7 @@ export class BuyingPage {
   public handleSubmit() {
     this.submitRequested = true;
     // this.store.dispatch(new SetNextPageDirection(20));
-    
+
     if (this.BuyingForm.valid) {
       this.arrayIsCheckMethod();
       this.navCtrl.pop();
@@ -82,7 +82,7 @@ export class BuyingPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -90,11 +90,11 @@ export class BuyingPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -107,14 +107,16 @@ export class BuyingPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(19);
+        if (arrayIsCheck.some(it => it != 19)) {
+          arrayIsCheck.push(19);
+        }
         console.log(arrayIsCheck);
       }
     });

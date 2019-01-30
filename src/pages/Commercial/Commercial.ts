@@ -147,7 +147,10 @@ export class CommercialPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(12);
+        if (arrayIsCheck.every(it => it != 12)) {
+          arrayIsCheck.push(12);
+            }
+        
         console.log(arrayIsCheck);
       }
     });

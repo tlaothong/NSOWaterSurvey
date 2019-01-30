@@ -109,11 +109,17 @@ export class DryCropPlantingPage {
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
+
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(3);
+
+        if (arrayIsCheck.every(it => it != 3)) {
+          arrayIsCheck.push(3);
+        }
+
         console.log(arrayIsCheck);
       }
+      
     });
   }
 

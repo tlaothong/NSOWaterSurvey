@@ -138,7 +138,9 @@ export class HerbsPlantPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(6);
+        if (arrayIsCheck.every(it => it != 6)) {
+          arrayIsCheck.push(6);
+        }
         console.log(arrayIsCheck);
       }
     });

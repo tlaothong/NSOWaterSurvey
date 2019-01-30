@@ -100,7 +100,9 @@ export class UserPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(21);
+        if (arrayIsCheck.every(it => it != 21)) {
+          arrayIsCheck.push(21);
+            }
         console.log(arrayIsCheck);
       }
     });

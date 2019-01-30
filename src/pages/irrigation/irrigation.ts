@@ -188,7 +188,9 @@ export class IrrigationPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(17);
+        if (arrayIsCheck.every(it => it != 17)) {
+          arrayIsCheck.push(17);
+            }
         console.log(arrayIsCheck);
       }
     });

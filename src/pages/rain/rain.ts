@@ -173,7 +173,9 @@ export class RainPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(18);
+        if (arrayIsCheck.every(it => it != 18)) {
+          arrayIsCheck.push(18);
+            }
         console.log(arrayIsCheck);
       }
     });

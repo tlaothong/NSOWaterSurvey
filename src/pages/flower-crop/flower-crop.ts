@@ -157,7 +157,9 @@ export class FlowerCropPage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        arrayIsCheck.push(7);
+        if (arrayIsCheck.every(it => it != 7)) {
+          arrayIsCheck.push(7);
+        }
         console.log(arrayIsCheck);
       }
     });
