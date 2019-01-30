@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
+import { getIsCheckShow } from '../../states/logging';
 
 @IonicPage()
 @Component({
@@ -10,22 +11,47 @@ import { Store } from '@ngrx/store';
 })
 export class LoggingTestPage {
 
-  pages: Array<{ title: string, component: any }>;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,private store: Store<LoggingState>) {
-    this.pages = [
-      { title: 'First Page', component: "FirstpagePage" },
+  pagesFirstLogin: Array<{ title: string, component: any }>;
+  pagesLogin: Array<{ title: string, component: any }>;
+  isCheckShow: boolean;
+  index: number = 0;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>) {
+    this.pagesFirstLogin = [
       { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
       { title: 'First Login', component: "FirstloginPage" },
-      { title: 'Login', component: "LoginPage" },
       { title: 'Confirm Login', component: "ConfirmloginPage" },
+      { title: 'Get Work', component: "GetworkPage" },
       { title: 'Select EA', component: "SelectEaPage" },
-      { title: 'Homes', component: "HomesPage" },     
-      
+      { title: 'Homes', component: "HomesPage" },
+
+    ];
+
+    this.pagesLogin = [
+      { title: 'Login', component: "LoginPage" },
+      { title: 'Select EA', component: "SelectEaPage" },
+      { title: 'Homes', component: "HomesPage" },
     ];
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    let getCheck$ = this.store.select(getIsCheckShow);
+    getCheck$.subscribe(data => {
+      if (data != null) {
+        this.isCheckShow = data
+      }
+    });
+
+
+    console.log("check", this.isCheckShow);
+    if (this.isCheckShow == true) {
+      let page = this.pagesFirstLogin[this.index]
+      this.navCtrl.push(page.component,this.index++);
+    } else if (this.isCheckShow == false) {
+      let page = this.pagesLogin[this.index]
+      this.navCtrl.push(page.component, this.index++);
+
+    } else
+      this.navCtrl.push("FirstpagePage");
   }
 
   public openPage(page) {

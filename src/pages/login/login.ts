@@ -67,10 +67,4 @@ export class LoginPage {
     //   this.navCtrl.push("ConfirmloginPage");
     // }
   }
-
-  goBack() {
-    this.navCtrl.pop();
-    this.navCtrl.push("ConfirmloginPage");
-
-  }
 }

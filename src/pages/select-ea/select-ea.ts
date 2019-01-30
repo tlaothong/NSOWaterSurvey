@@ -50,9 +50,6 @@ export class SelectEaPage {
     this.navCtrl.push("HomesPage");
   }
 
-  goBack() {
-    this.navCtrl.pop();
-  }
 
   // private setupEaCountChanges() {
   //   const componentFormArray: string = "Ea";

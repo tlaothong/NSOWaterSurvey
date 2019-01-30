@@ -44,3 +44,7 @@ export const getStoreWorkEaOneRecord = createSelector(
     state => state.storeWorkEaOneRecord,
 );
 
+export const getIsCheckShow = createSelector(
+    getLoggingFeatureState,
+    state => state.isCheckShow,
+);

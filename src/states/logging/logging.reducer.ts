@@ -10,6 +10,7 @@ export interface LoggingState {
     dataBuilding: any,
     stateLogin: any,
     storeWorkEaOneRecord: any,
+    isCheckShow: any,
 }
 
 const initialState: LoggingState = {
@@ -22,7 +23,7 @@ const initialState: LoggingState = {
     dataBuilding: null,
     stateLogin: null,
     storeWorkEaOneRecord: null,
-
+    isCheckShow: null,
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -77,6 +78,11 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state,
                 storeWorkEaOneRecord: action.payload,
+            }
+        case LoggingTypes.SetIsCheckShow:
+            return {
+                ...state,
+                isCheckShow: action.payload,
             };
         default:
             return state;

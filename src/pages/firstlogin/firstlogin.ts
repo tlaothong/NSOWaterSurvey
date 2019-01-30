@@ -39,10 +39,7 @@ export class FirstloginPage {
     });
   }
 
-  goBack() {
-    this.navCtrl.pop();
-    this.navCtrl.push("LoginPage");
-  }
+
 
   goConfirmloginPage(confirmPassword: any) {
     let _idqr = this.f.get('_idqr').value;
@@ -58,8 +55,7 @@ export class FirstloginPage {
         _idqr,
         password
       }));
-      this.navCtrl.push("ConfirmloginPage")
-
+      this.navCtrl.pop();
     } else {
       alert.present()
     }
