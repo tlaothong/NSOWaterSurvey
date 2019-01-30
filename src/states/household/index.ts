@@ -202,3 +202,8 @@ export const getUnitByIdBuilding = createSelector(
     getHouseHoldFeatureState,
     state => state.unitByIdBuilding,
 );
+
+export const getBackToRoot = createSelector(
+    getHouseHoldFeatureState,
+    state => state.backToRoot,
+);

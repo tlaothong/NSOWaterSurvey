@@ -1,10 +1,11 @@
+import { getBackToRoot } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot } from '../../states/household/household.actions';
 
 /**
  * Generated class for the CheckListPage page.
@@ -57,24 +58,13 @@ export class CheckListPage {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     selectorIndex$.subscribe(data => {
       if (data != null) {
-        // if (data != 99 && data != 88) {
-          this.index = data;
-        // }
-        // else this.indexBack = data;
+        this.index = data;
       }
     });
 
+
+
     this.arrayIsCheckMethod();
-    // if (this.navParams.get('i') != null  ) {
-    // this.index = this.navParams.get('i');
-    // console.log("index", this.index);
-    // }
-
-    //  if (this.navParams.get('iBack') != null) {
-    // this.indexBack = this.navParams.get('iBack');
-    // console.log("indexBack", this.indexBack);
-    // }
-
     this.arrayNextPageMethod();
   }
 
@@ -83,27 +73,34 @@ export class CheckListPage {
     let arrayNextPage: any[];
     arrayNextPage$.subscribe(data => arrayNextPage = data);
 
-    // if (this.indexBack == 88) {
-    //   this.index -= 1;
-    //   let page = this.pages[arrayNextPage[this.index]];
-    //   console.log("index: ", this.index);
-    //   console.log("page: ", page);
-    //   this.navCtrl.push(page.component);
-    // }
-    if (this.index == -1) {
-      this.index += 1;
-      let page = this.pages[arrayNextPage[this.index]];
-      console.log("index: ", this.index);
-      console.log("page: ", page);
-      this.store.dispatch(new SetSelectorIndex(this.index));
-      this.navCtrl.push(page.component);
+    let backToRoot$ = this.store.select(getBackToRoot);
+    let backToRoot: any;
+    backToRoot$.subscribe(data => {
+      if (data != null) {
+        backToRoot = data;
+      }
+      console.log("backToRoot", backToRoot);
+
+    });
+  
+    if (!backToRoot) {
+
+      if (this.index == -1) {
+        this.index += 1;
+        let page = this.pages[arrayNextPage[this.index]];
+        console.log("index: ", this.index);
+        console.log("page: ", page);
+        this.store.dispatch(new SetSelectorIndex(this.index));
+        this.navCtrl.push(page.component);
+      }
+      else {
+        let page = this.pages[arrayNextPage[this.index]];
+        console.log("index: ", this.index);
+        console.log("page: ", page);
+        this.navCtrl.push(page.component);
+      }
     }
-    else if (this.index != 99) {
-      let page = this.pages[arrayNextPage[this.index]];
-      console.log("index: ", this.index);
-      console.log("page: ", page);
-      this.navCtrl.push(page.component);
-    }
+
   }
 
   arrayIsCheckMethod() {
@@ -120,5 +117,7 @@ export class CheckListPage {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
+    this.store.dispatch(new SetBackToRoot(false));
+
   }
 }

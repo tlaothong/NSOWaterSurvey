@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SetSelectorIndex } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { NavController } from 'ionic-angular';
@@ -33,7 +33,8 @@ export class FormButtonsBarComponent {
     if (this.isBuilding == true) {
       this.navCtrl.popTo("HomesPage");
     } else {
-      this.store.dispatch(new SetSelectorIndex(99));
+      
+      this.store.dispatch(new SetBackToRoot(true));
       // this.store.dispatch(new SetNextPageDirection(99));
       this.navCtrl.setRoot("CheckListPage");
     }
