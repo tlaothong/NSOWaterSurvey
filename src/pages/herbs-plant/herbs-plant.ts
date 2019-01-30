@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -44,7 +44,8 @@ export class HerbsPlantPage {
   public getAgiSelectAgronomy: boolean;
   public getAgiSelectRubber: boolean;
   public getAgiSelectPerennial: boolean;
-
+  private frontNum: any;
+  private backNum: any;
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -58,6 +59,7 @@ export class HerbsPlantPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
+    this.countNumberPage();
     this.formData$.subscribe(data => this.f.setValue(data));
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
     this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
@@ -92,6 +94,33 @@ export class HerbsPlantPage {
     }
   }
 
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
+  }
+  
   arrayIsCheckMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     let index: any;

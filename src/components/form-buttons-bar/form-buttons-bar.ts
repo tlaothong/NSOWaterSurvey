@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetSelectorIndex } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { NavController } from 'ionic-angular';
@@ -15,41 +15,43 @@ export class FormButtonsBarComponent {
   public text: string;
   @Input("checkEnd") public checkEnd: boolean;
   @Input("isBuilding") public isBuilding: boolean;
+  @Input("frontNum") public frontNum: any;
+  @Input("backNum") public backNum: any;
 
-  private frontNum: any;
-  private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
+    // this.countNumberPage();
   }
 
   ionViewDidEnter() {
     console.log(this.isBuilding);
 
   }
-  // onSubmit() {
-  //   console.log("onSubmit ");
-  //   let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-  //   let arrayNextPage: any[];
-  //   arrayNextPage$.subscribe(data => {
 
-  //     if (data != null) {
-  //       arrayNextPage = data;
-  //       this.backNum = arrayNextPage.length;
-  //     }
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
 
-  //   });
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
 
-  //   let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-  //   let arrayIsCheck: any[];
-  //   arrayIsCheck$.subscribe(data => {
+    });
 
-  //     if (data != null) {
-  //       arrayIsCheck = data
-  //       this.frontNum = arrayIsCheck.length;
-  //     }
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
 
-  //   });
-  // }
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+  }
 
   backToHome() {
     if (this.isBuilding == true) {

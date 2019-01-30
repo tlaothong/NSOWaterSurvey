@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -17,7 +17,8 @@ export class AgriculturePage {
   public f: FormGroup;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": [false, Validators.required],
@@ -57,6 +58,7 @@ export class AgriculturePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AgriculturePage');
+    this.countNumberPage();
   }
 
   public handleSubmit() {
@@ -93,7 +95,7 @@ export class AgriculturePage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
@@ -104,6 +106,33 @@ export class AgriculturePage {
         console.log(arrayIsCheck);
       }
     });
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   private checkNextPage() {

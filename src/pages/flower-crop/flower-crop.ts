@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -45,7 +45,8 @@ export class FlowerCropPage {
   public getAgiSelectAgronomy: boolean;
   public getAgiSelectRubber: boolean;
   public getAgiSelectPerennial: boolean;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
@@ -58,6 +59,7 @@ export class FlowerCropPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
+    this.countNumberPage();
     this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
     this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
@@ -109,6 +111,33 @@ export class FlowerCropPage {
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {

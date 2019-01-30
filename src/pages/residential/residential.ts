@@ -1,4 +1,4 @@
-import { getArrayIsCheck, getSelectorIndex } from './../../states/household/index';
+import { getArrayIsCheck, getSelectorIndex, getNextPageDirection } from './../../states/household/index';
 import { SetWaterSourcesResidential, SetNextPageDirection, SetArrayIsCheck, SetSelectorIndex } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -25,6 +25,8 @@ export class ResidentialPage {
   private itPlumbing: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
@@ -36,6 +38,7 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.residentialFrm.setValue(data));
+    this.countNumberPage();
   }
 
   public handleSubmit() {
@@ -65,6 +68,33 @@ export class ResidentialPage {
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -24,7 +24,8 @@ export class UserPage {
   public facCategoryUse: boolean;
   private  commercialServiceUse$ = this.store.select(getIsCommercial);
   public commercialServiceUse: boolean;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
@@ -34,6 +35,7 @@ export class UserPage {
   }
 
   ionViewDidLoad() {
+    this.countNumberPage();
     this.formData$.subscribe(data => this.userInfo.setValue(data));
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
@@ -52,6 +54,33 @@ export class UserPage {
       this.navCtrl.setRoot("CheckListPage");
       // this.navCtrl.push("PopulationPage");
       }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {

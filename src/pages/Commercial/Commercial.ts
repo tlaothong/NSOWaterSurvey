@@ -6,7 +6,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getOtherBuildingType, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -31,7 +31,8 @@ export class CommercialPage {
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private getBuildingType$ = this.store.select(getSendBuildingType)
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
@@ -71,6 +72,7 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
+    this.countNumberPage();
     this.formData$.subscribe(data => this.f.setValue(data));
     this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
     this.otherBuildingType$.subscribe(data => this.otherBuildingType = data);
@@ -99,6 +101,33 @@ export class CommercialPage {
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {
