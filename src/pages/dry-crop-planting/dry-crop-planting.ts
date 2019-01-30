@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { SetAgronomyPlantSelectPlant, SetWaterSources, SetAgiSelectAgronomy, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -22,7 +22,8 @@ export class DryCropPlantingPage {
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
-
+  private frontNum: any;
+  private backNum: any;
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
 
   public agronomyPlant: FormGroup;
@@ -41,6 +42,7 @@ export class DryCropPlantingPage {
 
   ionViewDidLoad() {
     this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
+    this.countNumberPage();
   }
 
   public handleSubmit() {
@@ -63,6 +65,33 @@ export class DryCropPlantingPage {
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {

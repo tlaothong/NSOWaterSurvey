@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getSelectorIndex } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -53,7 +53,8 @@ export class PlumbingPage {
   public subDistrict: any;
   public MWA:boolean;
   public PWA:boolean;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
@@ -101,6 +102,7 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
+    this.countNumberPage();
     this.formDataPlumbing$.subscribe(data => this.f.setValue(data));
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -168,6 +170,33 @@ export class PlumbingPage {
         // this.navCtrl.push("GroundWaterPage");
       // }
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        this.backNum = arrayNextPage.length;
+      }
+
+    });
+    console.log("back",this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+         this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum",this.frontNum);
   }
 
   arrayIsCheckMethod() {
