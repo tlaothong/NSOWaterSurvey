@@ -48,9 +48,6 @@ export class DlgUnitPage {
       this.setAccesses();
       this.AddUnit();
       this.viewCtrl.dismiss(this.FormItem);
-      if (this.access == 1) {
-        this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
-      }
     }
   }
 
