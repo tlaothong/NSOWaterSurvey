@@ -61,7 +61,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>4) ความสัมพันธ์กับหัวหน้าครัวเรือน</ion-label>
+      <ion-label>4) ความเกี่ยวพันกับหัวหน้าครัวเรือน</ion-label>
     </ion-item>
     <ion-item *ngIf="isValid('relationship')">
       <span class="invalid-msg">กรุณาเลือก</span>
@@ -72,7 +72,7 @@
       </span>
     </ion-item>
     <ion-item [class.invalid]="isValid('relationship')">
-      <ion-label>ความสัมพันธ์กับหัวหน้าครัวเรือน</ion-label>
+      <ion-label>ความเกี่ยวพันกับหัวหน้าครัวเรือน</ion-label>
       <ion-select interface="action-sheet" formControlName="relationship">
         <ion-option [value]="1">1.หัวหน้าครัวเรือน</ion-option>
         <ion-option [value]="2">2.ภรรยาหรือสามี</ion-option>
@@ -118,7 +118,7 @@
         <span class="invalid-msg">กรุณาเลือก</span>
       </ion-item>
       <ion-item [class.invalid]="isValid('birthDate')">
-        <ion-label>วัน</ion-label>
+        <ion-label>วันที่เกิด</ion-label>
         <ion-select interface="action-sheet" formControlName="birthDate" (ionChange)="CalculateAge()">
           <ion-option [value]="01"> 1 </ion-option>
           <ion-option [value]="02"> 2 </ion-option>
@@ -156,7 +156,7 @@
       </ion-item>
 
       <ion-item [class.invalid]="isValid('birthMonth')">
-        <ion-label>เดือน</ion-label>
+        <ion-label>เดือนเกิด</ion-label>
         <ion-select interface="action-sheet" formControlName="birthMonth" (ionChange)="CalculateAge()">
           <ion-option [value]="01">มกราคม, เดือนยี่ หรือเดือน 2</ion-option>
           <ion-option [value]="02">กุมภาพันธ์, เดือน 3</ion-option>
@@ -175,7 +175,7 @@
       </ion-item>
 
       <ion-item [class.invalid]="isValid('birthYear')">
-        <ion-label>ปี</ion-label>
+        <ion-label>ปีเกิด (พ.ศ.)</ion-label>
         <ion-select interface="action-sheet" formControlName="birthYear" (ionChange)="CalculateAge()">
           <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
           <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
