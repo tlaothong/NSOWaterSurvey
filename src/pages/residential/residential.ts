@@ -58,9 +58,6 @@ export class ResidentialPage {
     console.log("waterRes", this.residentialFrm.get('waterSources').value);
     // this.store.dispatch(new SetNextPageDirection(1));
     // this.store.dispatch(new SetArrayIsCheck(arrayIsCheck));
-    // this.checkNextPage();
-    // this.navCtrl.pop();
-    // this.navCtrl.pop();
     // this.checkNextPageWaterSounces();
     if (this.residentialFrm.valid) {
       this.arrayIsCheckMethod();

@@ -18,7 +18,7 @@ export class WaterActivityUnitPage {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  private formDataRecieve$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
   private formData$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private it: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -27,7 +27,7 @@ export class WaterActivityUnitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaterActivityUnitPage');
-    // this.formData$.subscribe(data => this.f.setValue(data));
+    this.formDataRecieve$.subscribe(data => this.f.setValue(data));
   }
 
   public handleSubmit() {
