@@ -19,7 +19,6 @@ export class UnitPage {
   public f: FormGroup;
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-  private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
   private dataHomeBuilding$ = this.store.select(setHomeBuilding);
   public id_BD: string;
   public units: any;
@@ -33,25 +32,10 @@ export class UnitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitPage');
-
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     this.setupUnitsCountChanges();
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
-    this.GetUnitByIdBuilding$.subscribe(data => {
-      if (data != []) {
-        console.log(data)
-        this.units = data;
-        let fgun = this.f.get('units') as FormArray;
-        for (let i = 0; i < this.units.length; i++) {
-          fgun.at(i).setValue(this.units[i]);
-        }
-        console.log(this.f.get('units').value);
-      }
-    });
-  }
-
-  ionViewDidEnter() {
   }
 
   private setupUnitsCountChanges() {
