@@ -1,4 +1,4 @@
-import { getBackToRoot } from './../../states/household/index';
+import { getBackToRoot, getHouseHoldSample } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -65,7 +65,18 @@ export class CheckListPage {
 
 
     this.arrayIsCheckMethod();
+    this.skipPageMedthod();
     this.arrayNextPageMethod();
+  }
+
+  skipPageMedthod() {
+    let  formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence.gardeningUse));
+    formData$.subscribe(data => {
+      if (data != null) {
+        console.log("data pilot skipPage",data);
+        
+      }
+    });
   }
 
   arrayNextPageMethod() {
@@ -82,7 +93,7 @@ export class CheckListPage {
       console.log("backToRoot", backToRoot);
 
     });
-  
+
     if (!backToRoot) {
 
       if (this.index == -1) {
