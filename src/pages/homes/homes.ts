@@ -1,13 +1,12 @@
-import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { map } from 'rxjs/operators';
 import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess } from '../../states/logging/logging.actions';
-import { getIdEsWorkHomes, getHomeBuilding, getStoreWorkEaOneRecord } from '../../states/logging';
+import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding } from '../../states/logging/logging.actions';
+import { getHomeBuilding, getStoreWorkEaOneRecord } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 
 
@@ -28,7 +27,7 @@ export class HomesPage {
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
   
-  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
+  constructor(private fb: FormBuilder,private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
     this.formItem = fb.group({
       'countHomeBuilding': [null],
       'homeBuilding': this.fb.array([]),
@@ -60,7 +59,7 @@ export class HomesPage {
     console.log(this.data);
 
   }
-
+  
   goBuildingInfo(id: any) {
     var str = id.substring(1, 7);
     this.store.dispatch(new SetIdEaWorkHomes(str));
@@ -71,6 +70,9 @@ export class HomesPage {
   }
 
   goEditBuildingInfo(id: any) {
+    var str = id.substring(1, 7);
+    this.store.dispatch(new SetIdEaWorkHomes(str));
+    
     this.swith.updateBuildingState(id);
     this.navCtrl.push("BuildingTestPage")
   }
@@ -108,6 +110,7 @@ export class HomesPage {
 
   DeleteBuilding(id: string) {
     this.store.dispatch(new DeleteHomeBuilding(id));
+    this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 }
