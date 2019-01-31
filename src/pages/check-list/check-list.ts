@@ -76,6 +76,8 @@ export class CheckListPage {
         console.log("data pilot skipPage", data);
         this.objSkipPage = data
       }
+      console.log("Array page ก่อน", this.arrayNextPage);
+
       if (!this.objSkipPage.isHouseHold) {
         let index1 = this.arrayNextPage.indexOf(0)
         let index2 = this.arrayNextPage.indexOf(20)
@@ -84,25 +86,37 @@ export class CheckListPage {
 
       }
       if (!this.objSkipPage.isAgriculture) {
-        let index = this.arrayNextPage.indexOf(1)
-        this.arrayNextPage.splice(index, 1);
+        let index3 = this.arrayNextPage.indexOf(1)
+        console.log(index3);
+        
+        this.arrayNextPage.splice(index3, 1);
       }
       if (!this.objSkipPage.ricePlant) {
-        let index = this.arrayNextPage.indexOf(2)
-        this.arrayNextPage.splice(index, 1);
+        let index4 = this.arrayNextPage.indexOf(2)
+        console.log(index4);
+
+        this.arrayNextPage.splice(index4, 1);
       }
       if (!this.objSkipPage.agronomyPlant) {
         let index = this.arrayNextPage.indexOf(3)
+        console.log(index);
+
         this.arrayNextPage.splice(index, 1);
       }
       if (!this.objSkipPage.rubberTree) {
         let index = this.arrayNextPage.indexOf(4)
+        console.log(index);
+
         this.arrayNextPage.splice(index, 1);
       }
       if (!this.objSkipPage.perennialPlant) {
         let index = this.arrayNextPage.indexOf(5)
+        console.log(index);
+
         this.arrayNextPage.splice(index, 1);
       }
+      console.log("Array page กลาง", this.arrayNextPage);
+
       if (!this.objSkipPage.herbsPlant) {
         let index = this.arrayNextPage.indexOf(6)
         this.arrayNextPage.splice(index, 1);
@@ -131,6 +145,8 @@ export class CheckListPage {
         let index = this.arrayNextPage.indexOf(12)
         this.arrayNextPage.splice(index, 1);
       }
+      console.log("Array page after splice", this.arrayNextPage);
+
     });
 
     let formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
@@ -139,12 +155,14 @@ export class CheckListPage {
       if (data != null) {
         itPlumbing = data;
 
-        if (itPlumbing) {
+        if (!itPlumbing) {
           let index = this.arrayNextPage.indexOf(13);
           this.arrayNextPage.splice(index, 1);
         }
 
       }
+      console.log("Array page after splice", this.arrayNextPage);
+
     });
 
     let formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
@@ -153,11 +171,13 @@ export class CheckListPage {
       if (data != null) {
         itRiver = data;
 
-        if (itRiver) {
+        if (!itRiver) {
           let index = this.arrayNextPage.indexOf(15);
           this.arrayNextPage.splice(index, 1);
         }
       }
+      console.log("Array page after splice", this.arrayNextPage);
+
     });
 
     let formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
@@ -166,11 +186,13 @@ export class CheckListPage {
       if (data != null) {
         itIrrigation = data;
 
-        if (itIrrigation) {
+        if (!itIrrigation) {
           let index = this.arrayNextPage.indexOf(17);
           this.arrayNextPage.splice(index, 1);
         }
       }
+      console.log("Array page after splice", this.arrayNextPage);
+
     });
 
     let formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
@@ -179,11 +201,13 @@ export class CheckListPage {
       if (data != null) {
         itRain = data;
 
-        if (itRain) {
+        if (!itRain) {
           let index = this.arrayNextPage.indexOf(18);
           this.arrayNextPage.splice(index, 1);
         }
       }
+      console.log("Array page after splice", this.arrayNextPage);
+
     });
 
     let formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
@@ -192,7 +216,7 @@ export class CheckListPage {
       if (data != null) {
         itBuying = data;
 
-        if (itBuying) {
+        if (!itBuying) {
           let index = this.arrayNextPage.indexOf(19);
           this.arrayNextPage.splice(index, 1);
         }
@@ -266,14 +290,17 @@ export class CheckListPage {
         console.log("page: ", page);
         this.store.dispatch(new SetSelectorIndex(this.index));
         this.navCtrl.push(page.component);
-        this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
+        console.log("Array page ก่อน dispatch", this.arrayNextPage);
+        // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
       }
       else {
         let page = this.pages[this.arrayNextPage[this.index]];
         console.log("index: ", this.index);
         console.log("page: ", page);
         this.navCtrl.push(page.component);
-        this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
+        console.log("Array page ก่อน dispatch", this.arrayNextPage);
+
+        // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
       }
     }
 
