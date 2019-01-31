@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
 import { SetUnit } from '../../states/household/household.actions';
+import { getHouseHoldSample } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -24,8 +25,10 @@ export class DlgUnitPage {
   private fgcm: FormArray;
   public id_BD: string;
 
-  private dataHomeBuilding$ = this.store.select(setHomeBuilding);
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+  private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
+  private dataHouseHold$ = this.store.select(getHouseHoldSample);
+  
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>,private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.setEnvironment();
 
@@ -35,6 +38,11 @@ export class DlgUnitPage {
   }
 
   ionViewDidLoad() {
+    this.dataHouseHold$.subscribe(data => {
+      if(data!=null){
+        this.FormItem.setValue(data);
+      }
+    });
     console.log('ionViewDidLoad DlgUnitPage');
   }
 

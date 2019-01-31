@@ -202,3 +202,9 @@ export const getBackToRoot = createSelector(
     getHouseHoldFeatureState,
     state => state.backToRoot,
 );
+
+export const getDataOfUnit = createSelector(
+    getHouseHoldFeatureState,
+    state => state.dataOfUnit,
+);
+

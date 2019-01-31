@@ -4,9 +4,11 @@ import { ModalController, NavController, AlertController, NavParams } from 'ioni
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getUnitByIdBuilding } from '../../states/household';
+import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { setHomeBuilding } from '../../states/building';
+import { LoadDataOfUnit } from '../../states/household/household.actions';
+import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -38,9 +40,11 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
+
+
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
-  
-  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+
+  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder, private swithHouseHold: SwithStateProvider) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
@@ -61,13 +65,19 @@ export class UnitButtonComponent {
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
+
+    // this.num = this.navParams.get('num');
+    // if (this.num == 1) {
+    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+    // }
+
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       '_id': [null, Validators.required],
       'ea': [null, Validators.required],
-      'buildingId': [, Validators.required],
+      'buildingId': [null, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'accessCount': [null, Validators.required],
@@ -95,7 +105,16 @@ export class UnitButtonComponent {
     });
   }
 
+  sendIdUnit() {
+    if (this.FormItem.get('_id').value != null) {
+      this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
+    } else {
+      this.swithHouseHold.updateHouseholdState(null);
+    }
+  }
+
   public showModalSetting() {
+    this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
@@ -108,6 +127,7 @@ export class UnitButtonComponent {
   }
 
   public showModal() {
+    this.sendIdUnit();
     if (this.access == 1) {
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }

@@ -57,7 +57,8 @@ export interface HouseHoldState {
     arrayIsCheck: Array<number>,
     selectorIndex: any,
     unitByIdBuilding: any,
-    backToRoot:any,
+    backToRoot: any,
+    dataOfUnit: any,
 
 }
 
@@ -118,7 +119,8 @@ const initialState: HouseHoldState = {
     selectorIndex: null,
     unitByIdBuilding: [],
     checkHeadfamily: null,
-    backToRoot:null,
+    backToRoot: null,
+    dataOfUnit: [],
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -127,7 +129,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
             };
-        case HouseHoldTypes.LoadSuccess:
+        case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             return {
                 ...state,
                 houseHoldSample: action.payload,
@@ -338,10 +340,15 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 unitByIdBuilding: action.payload,
             };
-            case HouseHoldTypes.SetBackToRoot:
+        case HouseHoldTypes.SetBackToRoot:
             return {
                 ...state,
                 backToRoot: action.payload,
+            };
+        case HouseHoldTypes.LoadDataOfUnitSuccess:
+            return {
+                ...state,
+                dataOfUnit: action.payload,
             };
         default:
             return state;

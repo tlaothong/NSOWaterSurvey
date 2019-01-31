@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 
 export enum HouseHoldTypes {
-    Load = "[HH] Load",
+    LoadHouseHoldSample = "[HH] Load",
+    LoadHouseHoldSampleSuccess = "[HH] Load Success",
     StateName = "HouseHold",
     LoadList = "[HH] Load List",
-    LoadSuccess = "[HH] Load Success",
     SetRiceDoing = "[HH] Set Rice Donig",
     SetWaterSource = "[HH] Set WaterSource",
     SetIsFactorial = "[HH] Set IsFactorial",
@@ -54,6 +54,8 @@ export enum HouseHoldTypes {
     LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
+    LoadDataOfUnit = "[HH] LoadDataOfUnit",
+    LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -71,14 +73,14 @@ export class LoadHouseHoldListSuccess implements Action {
 }
 
 export class LoadHouseHoldSample implements Action {
-    readonly type = HouseHoldTypes.Load;
+    readonly type = HouseHoldTypes.LoadHouseHoldSample;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class LoadHouseHoldSampleSuccess implements Action {
-    readonly type = HouseHoldTypes.LoadSuccess;
+    readonly type = HouseHoldTypes.LoadHouseHoldSampleSuccess;
 
     constructor(public payload: any) {
     }
@@ -373,6 +375,16 @@ export class SetBackToRoot implements Action {
     constructor(public payload: any) {
     }
 }
+export class LoadDataOfUnit implements Action {
+    readonly type = HouseHoldTypes.LoadDataOfUnit;
+    constructor(public payload: string) {
+    }
+}
+export class LoadDataOfUnitSuccess implements Action {
+    readonly type = HouseHoldTypes.LoadDataOfUnitSuccess;
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -426,4 +438,6 @@ export type HouseHoldActionsType =
     | LoadUnitByIdBuilding
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
+    | LoadDataOfUnit
+    | LoadDataOfUnitSuccess
     ;

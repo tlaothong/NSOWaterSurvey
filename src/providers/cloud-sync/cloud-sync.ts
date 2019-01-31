@@ -12,8 +12,12 @@ export class CloudSyncProvider {
     console.log('Create CloudSyncProvider Provider');
   }
 
-  public loadHousHoldSampleTestData(): Observable<any> {
-    return this.http.get('https://nsovars.azurewebsites.net/api/survey');
+  public loadHousHoldSampleTestData(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
+  }
+
+  public getDataOfUnit(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net//api/Demo/GetdataOfUnit/' + id);
   }
 
   public loadCommunitySampleTestData(): Observable<any> {
@@ -80,4 +84,6 @@ export class CloudSyncProvider {
   public getLogin(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/GetLogin', data);
   }
+
+
 }

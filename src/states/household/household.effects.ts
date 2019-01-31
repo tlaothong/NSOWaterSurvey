@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, SetUnitSuccess, SetUnit, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, SetUnitSuccess, SetUnit, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, LoadDataOfUnit, LoadDataOfUnitSuccess } from "./household.actions";
 
 
 @Injectable()
@@ -21,8 +21,8 @@ export class HouseHoldEffects {
 
     @Effect()
     public loadHouseHoldSample$: Observable<Action> = this.action$.pipe(
-        ofType(HouseHoldTypes.Load),
-        mergeMap(action => this.cloudSync.loadHousHoldSampleTestData().pipe(
+        ofType(HouseHoldTypes.LoadHouseHoldSample),
+        mergeMap(action => this.cloudSync.loadHousHoldSampleTestData((<LoadHouseHoldSample>action).payload).pipe(
             map(data => new LoadHouseHoldSampleSuccess(data))),
         ),
     );
@@ -41,6 +41,15 @@ export class HouseHoldEffects {
         ofType(HouseHoldTypes.LoadUnitByIdBuilding),
         mergeMap(action => this.cloudSync.getUnitByIdBuilding((<LoadUnitByIdBuilding>action).payload).pipe(
             map(data => new LoadUnitByIdBuildingSuccess(data)),
+        )
+        ),
+    );
+
+    @Effect()
+    public LoadDataOfUnit$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.LoadDataOfUnit),
+        mergeMap(action => this.cloudSync.getDataOfUnit((<LoadDataOfUnit>action).payload).pipe(
+            map(data => new LoadDataOfUnitSuccess(data)),
         )
         ),
     );

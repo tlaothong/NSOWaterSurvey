@@ -7,6 +7,8 @@ import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveD
 import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
 import { getDataBuilding } from '../../states/logging';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { LoadDataOfUnit, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { getDataOfUnit } from '../../states/household';
 
 /*
   Generated class for the SwithStateProvider provider.
@@ -21,6 +23,8 @@ export class SwithStateProvider {
   public Household: any;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
+  private getDataOfUnit$ = this.store.select(getDataOfUnit);
+
   constructor(private store: Store<BuildingState>, public storeLog: Store<LoggingState>, public storeHouse: Store<HouseHoldState>) {
     console.log('Hello SwithStateProvider Provider');
   }
@@ -32,14 +36,19 @@ export class SwithStateProvider {
         this.store.dispatch(new SetSendBuildingType(data.buildingType));
         this.store.dispatch(new SetOtherBuildingType(data.other));
         this.store.dispatch(new SetHomeBuilding(data));
-        this.store.dispatch(new SetRecieveDataFromBuilding(data.unitCount));  
+        this.store.dispatch(new SetRecieveDataFromBuilding(data.unitCount));
       }
     });
   }
 
   updateHouseholdState(id: string) {
     // TODO: Recive id of Household -> call API to find Household by id -> input data in parameter
-
+    this.storeHouse.dispatch(new LoadDataOfUnit(id));
+    this.getDataOfUnit$.subscribe(data => {
+      if (data != null) {
+        this.storeHouse.dispatch(new LoadHouseHoldSample(data));
+      }
+    });
     //Waterativity
     // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
     // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
