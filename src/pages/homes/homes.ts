@@ -26,12 +26,14 @@ export class HomesPage {
   // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
-  
-  constructor(private fb: FormBuilder,private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
+
+  constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
     this.formItem = fb.group({
       'countHomeBuilding': [null],
       'homeBuilding': this.fb.array([]),
     });
+
+
   }
 
   public showQuickMenu(myEvent) {
@@ -46,6 +48,8 @@ export class HomesPage {
       if (data != null) {
         this.dataWorkEARow = data
         console.log(this.dataWorkEARow);
+        var str = data._id.substring(1, 7);
+        this.store.dispatch(new SetIdEaWorkHomes(str));        
       }
     });
 
@@ -59,10 +63,8 @@ export class HomesPage {
     console.log(this.data);
 
   }
-  
+
   goBuildingInfo(id: any) {
-    var str = id.substring(1, 7);
-    this.store.dispatch(new SetIdEaWorkHomes(str));
 
     this.swith.updateBuildingState(null);
     this.navCtrl.push("BuildingTestPage", { id: id })
@@ -70,9 +72,7 @@ export class HomesPage {
   }
 
   goEditBuildingInfo(id: any) {
-    var str = id.substring(1, 7);
-    this.store.dispatch(new SetIdEaWorkHomes(str));
-    
+
     this.swith.updateBuildingState(id);
     this.navCtrl.push("BuildingTestPage")
   }
