@@ -1,11 +1,12 @@
-import { getBackToRoot, getHouseHoldSample } from './../../states/household/index';
+import { getBackToRoot, getHouseHoldSample, getCheckWaterPlumbing, getCheckWaterRiver, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot, SetNextPageDirection } from '../../states/household/household.actions';
+
 
 /**
  * Generated class for the CheckListPage page.
@@ -22,6 +23,8 @@ import { SetSelectorIndex, SetBackToRoot } from '../../states/household/househol
 export class CheckListPage {
   pages: Array<{ title: string, component: any, isCheck: boolean }>;
   private index: any;
+  private objSkipPage: any;
+  private arrayNextPage: any[];
   // private indexBack: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
@@ -38,7 +41,7 @@ export class CheckListPage {
       { title: 'ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร', component: "AnimalFarmPage", isCheck: false },
       { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage", isCheck: false },
       { title: 'ตอนที่ 3 การผลิตสินค้า ', component: "FactorialPage", isCheck: false },
-      { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage", isCheck: false },
+      { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage", isCheck: false },//12
       { title: '5.1 น้้ำประปา ', component: "PlumbingPage", isCheck: false },
       { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage", isCheck: false },
       { title: '5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ', component: "RiverPage", isCheck: false },
@@ -62,27 +65,187 @@ export class CheckListPage {
       }
     });
 
-
-
     this.arrayIsCheckMethod();
-    this.skipPageMedthod();
     this.arrayNextPageMethod();
   }
 
   skipPageMedthod() {
-    let  formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence.gardeningUse));
+    let formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
     formData$.subscribe(data => {
       if (data != null) {
-        console.log("data pilot skipPage",data);
-        
+        console.log("data pilot skipPage", data);
+        this.objSkipPage = data
+      }
+      if (!this.objSkipPage.isHouseHold) {
+        let index1 = this.arrayNextPage.indexOf(0)
+        let index2 = this.arrayNextPage.indexOf(20)
+        this.arrayNextPage.splice(index1, 1);
+        this.arrayNextPage.splice(index2, 1);
+
+      }
+      if (!this.objSkipPage.isAgriculture) {
+        let index = this.arrayNextPage.indexOf(1)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.ricePlant) {
+        let index = this.arrayNextPage.indexOf(2)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.agronomyPlant) {
+        let index = this.arrayNextPage.indexOf(3)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.rubberTree) {
+        let index = this.arrayNextPage.indexOf(4)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.perennialPlant) {
+        let index = this.arrayNextPage.indexOf(5)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.herbsPlant) {
+        let index = this.arrayNextPage.indexOf(6)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.flowerCrop) {
+        let index = this.arrayNextPage.indexOf(7)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.mushroomPlant) {
+        let index = this.arrayNextPage.indexOf(8)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.animalFarm) {
+        let index = this.arrayNextPage.indexOf(9)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.aquaticAnimals) {
+        let index = this.arrayNextPage.indexOf(10)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.isFactorial) {
+        let index = this.arrayNextPage.indexOf(11)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.isCommercial) {
+        let index = this.arrayNextPage.indexOf(12)
+        this.arrayNextPage.splice(index, 1);
       }
     });
+
+    let formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+    let itPlumbing: any;
+    formCheckPlumbing$.subscribe(data => {
+      if (data != null) {
+        itPlumbing = data;
+
+        if (itPlumbing) {
+          let index = this.arrayNextPage.indexOf(13);
+          this.arrayNextPage.splice(index, 1);
+        }
+
+      }
+    });
+
+    let formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
+    let itRiver: any;
+    formCheckRiver$.subscribe(data => {
+      if (data != null) {
+        itRiver = data;
+
+        if (itRiver) {
+          let index = this.arrayNextPage.indexOf(15);
+          this.arrayNextPage.splice(index, 1);
+        }
+      }
+    });
+
+    let formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
+    let itIrrigation: any;
+    formCheckIrrigation$.subscribe(data => {
+      if (data != null) {
+        itIrrigation = data;
+
+        if (itIrrigation) {
+          let index = this.arrayNextPage.indexOf(17);
+          this.arrayNextPage.splice(index, 1);
+        }
+      }
+    });
+
+    let formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
+    let itRain: any;
+    formCheckRain$.subscribe(data => {
+      if (data != null) {
+        itRain = data;
+
+        if (itRain) {
+          let index = this.arrayNextPage.indexOf(18);
+          this.arrayNextPage.splice(index, 1);
+        }
+      }
+    });
+
+    let formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
+    let itBuying: any;
+    formCheckBuying$.subscribe(data => {
+      if (data != null) {
+        itBuying = data;
+
+        if (itBuying) {
+          let index = this.arrayNextPage.indexOf(19);
+          this.arrayNextPage.splice(index, 1);
+        }
+      }
+    });
+
+    console.log("Array page after splice", this.arrayNextPage);
+
+    // let ojbResident$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence.waterSources));
+    // let ojbResident: any;
+    // ojbResident$.subscribe(data => {
+    //   if (data != null) {
+    //     console.log("data pilot ojbResident", data);
+    //     ojbResident = data
+    //   }
+    // });
+
+    // let ojbFactory$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory.waterSources));
+    // let ojbFactory: any;
+    // ojbFactory$.subscribe(data => {
+    //   if (data != null) {
+    //     console.log("data pilot ojbFactory", data);
+    //     ojbFactory = data
+    //   }
+    // });
+
+    // let ojbCommerce$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce.waterSources));
+    // let ojbCommerce: any;
+    // ojbCommerce$.subscribe(data => {
+    //   if (data != null) {
+    //     console.log("data pilot ojbCommerce", data);
+    //     ojbCommerce = data
+    //   }
+    // });
+
+    // let merge = ojbResident$.merge(ojbFactory$, ojbCommerce$);
+    // console.log("merge", merge);
+
+    // let ojbRice$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant.fields));
+    // let ojbRice: any;
+    // ojbRice$.subscribe(data => {
+    //   console.log("data pilot ojbRice", data);
+    //   if (data != null) {
+    //     ojbRice = data
+
+    //   }
+    // });
   }
 
   arrayNextPageMethod() {
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => arrayNextPage = data);
+    arrayNextPage$.subscribe(data => this.arrayNextPage = data);
+    this.skipPageMedthod();
 
     let backToRoot$ = this.store.select(getBackToRoot);
     let backToRoot: any;
@@ -98,17 +261,19 @@ export class CheckListPage {
 
       if (this.index == -1) {
         this.index += 1;
-        let page = this.pages[arrayNextPage[this.index]];
+        let page = this.pages[this.arrayNextPage[this.index]];
         console.log("index: ", this.index);
         console.log("page: ", page);
         this.store.dispatch(new SetSelectorIndex(this.index));
         this.navCtrl.push(page.component);
+        this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
       }
       else {
-        let page = this.pages[arrayNextPage[this.index]];
+        let page = this.pages[this.arrayNextPage[this.index]];
         console.log("index: ", this.index);
         console.log("page: ", page);
         this.navCtrl.push(page.component);
+        this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
       }
     }
 
