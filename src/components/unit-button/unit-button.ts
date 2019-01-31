@@ -47,6 +47,7 @@ export class UnitButtonComponent {
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
     
     
+    
   }
 
   ngOnInit() {
@@ -65,6 +66,7 @@ export class UnitButtonComponent {
     // if (this.num == 1) {
     //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     // }
+    
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -99,6 +101,12 @@ export class UnitButtonComponent {
     });
   }
 
+  GetUnit(){
+    // this.store(new LoadDataOfUnit());
+    console.log(this.FormItem,"dwdwdw")
+    this.showModal();
+  }
+
   public showModalSetting() {
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
@@ -112,6 +120,7 @@ export class UnitButtonComponent {
   }
 
   public showModal() {
+    
     if (this.access == 1) {
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }

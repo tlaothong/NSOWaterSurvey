@@ -12,8 +12,8 @@ export class CloudSyncProvider {
     console.log('Create CloudSyncProvider Provider');
   }
 
-  public loadHousHoldSampleTestData(): Observable<any> {
-    return this.http.get('https://nsovars.azurewebsites.net/api/survey');
+  public loadHousHoldSampleTestData(id: any): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/CreateUnit' + id);
   }
 
   public loadCommunitySampleTestData(): Observable<any> {

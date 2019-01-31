@@ -54,6 +54,8 @@ export enum HouseHoldTypes {
     LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
+    LoadDataOfUnit = "[HH] LoadDataOfUnit",
+    LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -73,7 +75,7 @@ export class LoadHouseHoldListSuccess implements Action {
 export class LoadHouseHoldSample implements Action {
     readonly type = HouseHoldTypes.Load;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -373,6 +375,16 @@ export class SetBackToRoot implements Action {
     constructor(public payload: any) {
     }
 }
+export class LoadDataOfUnit implements Action {
+    readonly type = HouseHoldTypes.LoadDataOfUnit;
+    constructor(public payload: any) {
+    }
+}
+export class LoadDataOfUnitSuccess implements Action {
+    readonly type = HouseHoldTypes.LoadDataOfUnitSuccess;
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -426,4 +438,6 @@ export type HouseHoldActionsType =
     | LoadUnitByIdBuilding
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
+    | LoadDataOfUnit
+    | LoadDataOfUnitSuccess
     ;
