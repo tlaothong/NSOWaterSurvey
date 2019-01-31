@@ -5,9 +5,6 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { setHomeBuilding } from '../../states/building';
-import { LoadDataOfUnit } from '../../states/household/household.actions';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 
 /**
@@ -144,6 +141,11 @@ export class UnitButtonComponent {
           var fg = <FormGroup>data;
           this.FormItem.setValue(fg.value);
           this.setAccess();
+          let access = this.FormItem.get('subUnit.accesses') as FormArray;
+          let lastIndex = access.length - 1;
+          if (access.at(lastIndex).value == 1) {
+            this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
+          }
         }
         else {
           this.FormItem.get('subUnit.accessCount').setValue(count - 1);
