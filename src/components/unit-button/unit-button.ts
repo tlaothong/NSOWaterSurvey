@@ -4,7 +4,7 @@ import { ModalController, NavController, AlertController, NavParams } from 'ioni
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getUnitByIdBuilding } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { setHomeBuilding } from '../../states/building';
 
@@ -38,33 +38,29 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
   
-  private num: number = null;
   constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
-    
-    
+
+    this.GetUnitByIdBuilding$.subscribe(data => {
+      if (data[Number(this.unitNo) - 1] != undefined) {
+        this.FormItem.setValue(data[Number(this.unitNo) - 1]);
+        this.setupAccessCountChanges();
+        this.setupAccessCountChangesForComments();
+        this.setAccess();
+      }
+    });
   }
 
   ngOnInit() {
-    let count = 0;
-    // this.formData$.subscribe(data => count = data.subUnit.accessCount);
-    this.FormItem.get('subUnit.accessCount').setValue(count);
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
-    this.setupAccessCountChanges()
-    // this.formData$.subscribe(data => this.FormItem.setValue(data));
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
-
-    // this.num = this.navParams.get('num');
-    // if (this.num == 1) {
-    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
-    // }
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
