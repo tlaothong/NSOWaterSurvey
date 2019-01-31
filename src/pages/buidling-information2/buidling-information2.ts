@@ -49,6 +49,7 @@ export class BuidlingInformation2Page {
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
+
     this.store.dispatch(new SetHomeBuilding(this.f.value));
     console.log("data ยิง API", this.f.value);
     console.log("f.valid", this.f.valid);

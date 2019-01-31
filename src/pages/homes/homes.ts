@@ -8,6 +8,7 @@ import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home'
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess } from '../../states/logging/logging.actions';
 import { getIdEsWorkHomes, getHomeBuilding, getStoreWorkEaOneRecord } from '../../states/logging';
+import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 
 
 @IonicPage()
@@ -26,13 +27,12 @@ export class HomesPage {
   // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
-  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
+  
+  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
     this.formItem = fb.group({
       'countHomeBuilding': [null],
       'homeBuilding': this.fb.array([]),
     });
-
-
   }
 
   public showQuickMenu(myEvent) {
@@ -58,20 +58,20 @@ export class HomesPage {
       console.log(this.dataEa);
     });
     console.log(this.data);
-    
+
   }
 
   goBuildingInfo(id: any) {
     var str = id.substring(1, 7);
     this.store.dispatch(new SetIdEaWorkHomes(str));
-    this.store.dispatch(new LoadDataBuildingForEditSuccess(null));
 
+    this.swith.updateBuildingState(null);
     this.navCtrl.push("BuildingTestPage", { id: id })
 
   }
 
   goEditBuildingInfo(id: any) {
-    this.store.dispatch(new LoadDataBuildingForEdit(id));
+    this.swith.updateBuildingState(id);
     this.navCtrl.push("BuildingTestPage")
   }
 

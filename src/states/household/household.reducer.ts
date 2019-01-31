@@ -162,11 +162,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 commercialServiceType: action.payload,
             };
-        case HouseHoldTypes.SetOtherBuildingType:
-            return {
-                ...state,
-                otherBuildingType: action.payload,
-            };
         case HouseHoldTypes.SetResidentialGardeningUse:
             return {
                 ...state,

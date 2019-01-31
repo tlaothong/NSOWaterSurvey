@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetSendBuildingType, SetHomeBuilding, SetRecieveDataFromBuilding } from '../../states/building/building.actions';
-import { SetOtherBuildingType, SetIsHouseHold, SetIsAgriculture, SetIsFactorial, SetIsCommercial, SetWaterSourcesAgiculture, SetResidentialGardeningUse, SetWaterSourcesResidential, SetNextPageDirection, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential, SetArraySkipPageAgiculture, SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetRubberTreeSelectPlant, SetAgiSelectRubber, SetPerennialPlantSelectPlant, SetAgiSelectPerennial, SetFactorialCategory, SetWaterSourcesFactory, SetCommercialServiceType, SetWaterSourcesCommercial } from '../../states/household/household.actions';
+import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveDataFromBuilding } from '../../states/building/building.actions';
 import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
+import { getDataBuilding } from '../../states/logging';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 /*
   Generated class for the SwithStateProvider provider.
@@ -16,22 +17,24 @@ import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
 @Injectable()
 export class SwithStateProvider {
 
-  public Building: any
-  public Household: any
+  public Building: any;
+  public Household: any;
 
-  constructor(public http: HttpClient, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  private dataBuilding$ = this.store.select(getDataBuilding);
+  constructor(private store: Store<BuildingState>, public storeLog: Store<LoggingState>, public storeHouse: Store<HouseHoldState>) {
     console.log('Hello SwithStateProvider Provider');
   }
 
-  updateBuildingState(id: string) {
+  public updateBuildingState(id: any) {
     this.storeLog.dispatch(new LoadDataBuildingForEdit(id));
-    // TODO: Recive id of Building -> call API to find Building by id -> input data in parameter
-    // this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
-    // this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
-    // this.store.dispatch(new SetHomeBuilding(this.f.value));
-
-    // this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-    // this.store.dispatch(new SetHomeBuilding(this.f.value));
+    this.dataBuilding$.subscribe(data => {
+      if (data != null) {
+        this.store.dispatch(new SetSendBuildingType(data.buildingType));
+        this.store.dispatch(new SetOtherBuildingType(data.other));
+        this.store.dispatch(new SetHomeBuilding(data));
+        this.store.dispatch(new SetRecieveDataFromBuilding(data.unitCount));  
+      }
+    });
   }
 
   updateHouseholdState(id: string) {

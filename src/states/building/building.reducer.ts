@@ -8,6 +8,7 @@ export interface BuildingState {
     sendBuildingType: any,
     recieveDataFromBuilding: any,
     setDataBuilding: any,
+    otherBuildingType:any,
 
 
 }
@@ -18,7 +19,8 @@ const initialState: BuildingState = {
     sendDataBuilding: null,
     sendBuildingType: null,
     recieveDataFromBuilding: null,
-    setDataBuilding: null
+    setDataBuilding: null,
+    otherBuildingType:null,
 
 
 };
@@ -54,6 +56,11 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
             return {
                 ...state,
                 setDataBuilding: action.payload,
+            };
+        case BuildingTypes.SetOtherBuildingType:
+            return {
+                ...state,
+                otherBuildingType: action.payload,
             };
 
         default:

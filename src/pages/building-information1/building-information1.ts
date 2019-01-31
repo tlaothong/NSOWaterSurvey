@@ -2,13 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getBuildingSample, setHomeBuilding } from '../../states/building';
-import { map } from 'rxjs/operators';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SetHomeBuilding } from '../../states/building/building.actions';
-import { SetOtherBuildingType } from '../../states/household/household.actions';
+import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { BuidlingInformation2Page } from '../buidling-information2/buidling-information2';
 import { getDataBuilding } from '../../states/logging';
 
 @IonicPage()
@@ -26,8 +22,6 @@ export class BuildingInformation1Page {
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
-    console.log(navParams.get('id'));
-    
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
