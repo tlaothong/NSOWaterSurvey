@@ -19,7 +19,8 @@ export class RubberTreePage {
 
   public rubbertree: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.rubberTree));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -43,7 +44,16 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.rubbertree.setValue(data));
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.rubberTree));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.rubbertree.setValue(data)
+          }
+        });
+      }
+    })
   }
 
   public handleSubmit() {

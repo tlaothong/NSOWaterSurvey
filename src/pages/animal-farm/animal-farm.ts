@@ -27,7 +27,8 @@ export class AnimalFarmPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.animalFarm));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
   private frontNum: any;
   private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
@@ -51,11 +52,16 @@ export class AnimalFarmPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.animalFarm));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
   }
 
 

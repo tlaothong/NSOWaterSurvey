@@ -25,7 +25,8 @@ export class WaterAnimalPlantingPage {
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   public f: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.aquaticAnimals));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
@@ -57,11 +58,16 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.aquaticAnimals));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
   }
 
   public handleSubmit() {

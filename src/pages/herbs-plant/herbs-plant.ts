@@ -25,7 +25,8 @@ export class HerbsPlantPage {
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.herbsPlant));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
@@ -60,11 +61,16 @@ export class HerbsPlantPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.herbsPlant));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
     this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
     this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
