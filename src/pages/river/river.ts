@@ -24,7 +24,9 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.river));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
+  
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -67,11 +69,16 @@ export class RiverPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.river));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);

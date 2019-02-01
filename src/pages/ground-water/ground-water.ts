@@ -25,7 +25,9 @@ export class GroundWaterPage {
   public f: FormGroup;
   public G: boolean = true;
 
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.groundWater));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
+
   private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
   private itRiver: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -77,11 +79,16 @@ export class GroundWaterPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.groundWater));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);

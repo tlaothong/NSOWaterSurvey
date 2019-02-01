@@ -22,7 +22,9 @@ export class RainPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.rain));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
+  
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
@@ -67,7 +69,16 @@ export class RainPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.RainFrm.setValue(data));
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.rain));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.RainFrm.setValue(data)
+          }
+        });
+      }
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
