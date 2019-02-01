@@ -69,10 +69,6 @@ export class CloudSyncProvider {
     return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/' + id);
   }
 
-  public setUnit(data: any): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
-  }
-
   public getDataBuilding(id: any): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetBuilding/' + id);
   }
@@ -84,6 +80,5 @@ export class CloudSyncProvider {
   public getLogin(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/GetLogin', data);
   }
-
 
 }

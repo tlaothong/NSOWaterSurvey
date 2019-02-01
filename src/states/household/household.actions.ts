@@ -48,14 +48,13 @@ export enum HouseHoldTypes {
     SetNextPageDirection = "[HH] Set Next Page Direction",
     SetHeadFamily = "[HH] Set Head Family",
     SetArrayIsCheck = "[HH] Set Array IsCheck",
-    SetUnit = "[HH] Set Unit",
-    SetUnitSuccess = "[HH] Set Unit Success",
     SetSelectorIndex = "[HH] Set Selector Index",
     LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
     LoadDataOfUnit = "[HH] LoadDataOfUnit",
     LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
+   
 }
 
 export class LoadHouseHoldList implements Action {
@@ -345,16 +344,6 @@ export class SetArrayIsCheck implements Action {
     constructor(public payload: Array<number>) {
     }
 }
-export class SetUnit implements Action {
-    readonly type = HouseHoldTypes.SetUnit;
-    constructor(public payload: any) {
-    }
-}
-export class SetUnitSuccess implements Action {
-    readonly type = HouseHoldTypes.SetUnitSuccess;
-    constructor() {
-    }
-}
 export class SetSelectorIndex implements Action {
     readonly type = HouseHoldTypes.SetSelectorIndex;
     constructor(public payload: any) {
@@ -385,6 +374,8 @@ export class LoadDataOfUnitSuccess implements Action {
     constructor(public payload: any) {
     }
 }
+
+
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -432,12 +423,11 @@ export type HouseHoldActionsType =
     | SetNextPageDirection
     | SetHeadFamily
     | SetArrayIsCheck
-    | SetUnit
-    | SetUnitSuccess
     | SetSelectorIndex
     | LoadUnitByIdBuilding
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
     | LoadDataOfUnit
     | LoadDataOfUnitSuccess
+   
     ;

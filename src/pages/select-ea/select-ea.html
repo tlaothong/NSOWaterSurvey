@@ -1,7 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-  <questionnaire-menu title="เลือก EA"></questionnaire-menu>
+    <ion-title>
+      เลือก EA
+    </ion-title>
+    <!-- <questionnaire-menu title="เลือก EA"></questionnaire-menu> -->
   </ion-navbar>
 
 </ion-header>
@@ -32,33 +35,24 @@
   </ion-row>
   <hr>
 
-  <!-- <ea></ea>
-  <ea></ea> -->
-
-  <!-- <div *ngIf="f.get('EaCount').value > 0">
-    <div *ngFor="let ea of f.get('Ea').controls; let i = index">
-      <ea [FormItem]="ea"></ea>
-    </div>
-  </div> -->
-
   <ion-row *ngFor="let item of dataEa" text-center align-items-center>
     <ion-col col-2>
-     {{item.properties.pro_name}}
+      {{ item.properties.pro_name }}
     </ion-col>
     <ion-col col-2>
-      {{item.properties.dis_name}}
+      {{ item.properties.dis_name }}
     </ion-col>
     <ion-col col-2>
-      {{item.properties.tam_name}}
-    </ion-col>
-    <!-- <ion-col col-2>
-      {{FormItem.get('properties.muni_name').value}}
+      {{ item.properties.tam_name }}
     </ion-col>
     <ion-col col-2>
-      {{FormItem.get('region.insideMunicipality').value}}
-    </ion-col> -->
+      {{ item.properties.ea_type }}
+    </ion-col>
+    <ion-col col-2>
+      {{ item.properties.ea_remark }}
+    </ion-col>
     <ion-col col-1>
-      {{item._id}}
+      {{ item.properties.ea_code_14 }}
     </ion-col>
     <ion-col col-1>
       <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
