@@ -42,12 +42,12 @@ export class WaterActivityUnitPage {
     this.submitRequested = true;
     this.store.dispatch(new SetArraySkipPage(this.f.value));
     console.log("f", this.f.value);
-    this.store.dispatch(new LoadDataOfUnit(this.f.get('_id').value));
-    this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
-    this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
-    this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
-    this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
-    this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
+    this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+    // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
+    // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
+    // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
+    // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    // this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
 
     this.arrayNextPageMedthod();
 

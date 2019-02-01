@@ -17,7 +17,7 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
@@ -42,7 +42,7 @@ export class PerennialPlantingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.perennialPlant));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.PerennialPlantingFrm.setValue(data)
@@ -69,7 +69,7 @@ export class PerennialPlantingPage {
     this.store.dispatch(new SetAgiSelectPerennial(true));
     // this.store.dispatch(new SetNextPageDirection(6));
 
-    if (this.PerennialPlantingFrm.valid) {
+    if (this.PerennialPlantingFrm.valid || !this.PerennialPlantingFrm.get('doing').value)  {
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();

@@ -24,7 +24,7 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
   
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -71,7 +71,7 @@ export class RiverPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.river));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.f.setValue(data)

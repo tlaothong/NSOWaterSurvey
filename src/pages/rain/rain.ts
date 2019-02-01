@@ -22,7 +22,7 @@ export class RainPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
   
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -71,7 +71,7 @@ export class RainPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.rain));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.RainFrm.setValue(data)

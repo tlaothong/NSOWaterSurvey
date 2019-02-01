@@ -25,7 +25,7 @@ export class WaterAnimalPlantingPage {
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   public f: FormGroup;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
   private submitRequested: boolean;
   private frontNum: any;
@@ -60,7 +60,7 @@ export class WaterAnimalPlantingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.aquaticAnimals));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.f.setValue(data)

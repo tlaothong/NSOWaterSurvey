@@ -29,7 +29,7 @@ export class RicePage {
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   public DataList = EX_RICH_LIST;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -45,7 +45,7 @@ export class RicePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.ricePlant));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.f.setValue(data)
@@ -64,7 +64,7 @@ export class RicePage {
     this.store.dispatch(new SetAgiSelectRice(true));
     // this.store.dispatch(new SetNextPageDirection(3));
 
-    if (this.f.valid) {
+    if (this.f.valid || !this.f.get('doing').value) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage");

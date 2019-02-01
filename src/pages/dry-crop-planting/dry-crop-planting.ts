@@ -29,7 +29,7 @@ export class DryCropPlantingPage {
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -44,7 +44,7 @@ export class DryCropPlantingPage {
   ionViewDidLoad() {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.agronomyPlant));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.agronomyPlant.setValue(data)
@@ -70,7 +70,7 @@ export class DryCropPlantingPage {
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
     // this.store.dispatch(new SetNextPageDirection(4));
-    if (this.agronomyPlant.valid) {
+    if (this.agronomyPlant.valid || !this.agronomyPlant.get('doing').value) {
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();

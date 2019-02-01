@@ -26,7 +26,7 @@ export class PlumbingPage {
   public f: FormGroup;
   private submitRequested: boolean;
 
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -107,7 +107,7 @@ export class PlumbingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.plumbing));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.f.setValue(data)

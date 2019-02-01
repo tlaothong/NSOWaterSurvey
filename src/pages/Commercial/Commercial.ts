@@ -27,7 +27,7 @@ export class CommercialPage {
   private itPlumbing: any;
   public otherBuildingType: any;
 
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.commerce));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private getBuildingType$ = this.store.select(getSendBuildingType)
   private frontNum: any;

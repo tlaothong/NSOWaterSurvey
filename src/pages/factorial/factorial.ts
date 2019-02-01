@@ -21,7 +21,7 @@ export class FactorialPage {
   private itPlumbing: any;
   private submitRequested: boolean;
   FactoryForm: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.factory));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private frontNum: any;
@@ -42,7 +42,11 @@ export class FactorialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FactorialPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => this.FactoryForm.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.FactoryForm.setValue(data)
+      }
+    });
   }
 
   public handleSubmit() {
@@ -73,7 +77,7 @@ export class FactorialPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -81,11 +85,11 @@ export class FactorialPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -98,7 +102,7 @@ export class FactorialPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
@@ -106,8 +110,8 @@ export class FactorialPage {
       if (data != null) {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 11)) {
-        arrayIsCheck.push(11);
-          }
+          arrayIsCheck.push(11);
+        }
         console.log(arrayIsCheck);
       }
     });

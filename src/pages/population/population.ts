@@ -22,7 +22,7 @@ export class PopulationPage {
   public f: FormGroup;
   public whatever: any;
   private i: any;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.population));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;

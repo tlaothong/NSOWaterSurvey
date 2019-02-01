@@ -70,25 +70,26 @@ export class CheckListPage {
   }
 
   skipPageMedthod() {
-    let formData$ = this.store.select(getDataOfUnit).pipe(map(s => s));
+    let formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
     formData$.subscribe(data => {
       if (data != null) {
         console.log("data pilot skipPage", data);
         this.objSkipPage = data
-        if (!this.objSkipPage.isHouseHold) {
+        if (!this.objSkipPage.isHouseHold && this.arrayNextPage.some(it => it == 0)) {
           let index1 = this.arrayNextPage.indexOf(0)
           this.arrayNextPage.splice(index1, 1);
           let index2 = this.arrayNextPage.indexOf(20)
           this.arrayNextPage.splice(index2, 1);
-
         }
         if (!this.objSkipPage.isAgriculture) {
-          let index3 = this.arrayNextPage.indexOf(1)
-          console.log(index3);
-
-          this.arrayNextPage.splice(index3, 1);
+          for (let i = 1; i <= 10; i++) {
+            if (this.arrayNextPage.some(it => it == i)) {
+              let index = this.arrayNextPage.indexOf(i)
+              this.arrayNextPage.splice(index, 1);
+            }
+          }
         }
-        // if (!this.objSkipPage.ricePlant) {
+        // if (!this.objSkipPage.agriculture.ricePlant) {
         //   let index4 = this.arrayNextPage.indexOf(2)
         //   console.log(index4);
 
@@ -134,136 +135,169 @@ export class CheckListPage {
         //   let index = this.arrayNextPage.indexOf(10)
         //   this.arrayNextPage.splice(index, 1);
         // }
-        if (!this.objSkipPage.isFactorial) {
+        if (!this.objSkipPage.isFactorial && this.arrayNextPage.some(it => it == 11)) {
           let index = this.arrayNextPage.indexOf(11)
           this.arrayNextPage.splice(index, 1);
         }
-        if (!this.objSkipPage.isCommercial) {
+        if (!this.objSkipPage.isCommercial && this.arrayNextPage.some(it => it == 0)) {
           let index = this.arrayNextPage.indexOf(12)
           this.arrayNextPage.splice(index, 1);
         }
         console.log("Array page after splice", this.arrayNextPage);
 
+        let formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
+        let itPlumbing: any;
+        formCheckPlumbing$.subscribe(data => {
+          if (data != null) {
+            itPlumbing = data;
+
+            if (!itPlumbing) {
+              let index = this.arrayNextPage.indexOf(13);
+              this.arrayNextPage.splice(index, 1);
+            }
+
+          }
+          console.log("Array page after splice", this.arrayNextPage);
+
+        });
+
+        let formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
+        let itRiver: any;
+        formCheckRiver$.subscribe(data => {
+          if (data != null) {
+            itRiver = data;
+
+            if (!itRiver) {
+              let index = this.arrayNextPage.indexOf(15);
+              this.arrayNextPage.splice(index, 1);
+            }
+          }
+          console.log("Array page after splice", this.arrayNextPage);
+
+        });
+
+        let formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
+        let itIrrigation: any;
+        formCheckIrrigation$.subscribe(data => {
+          if (data != null) {
+            itIrrigation = data;
+
+            if (!itIrrigation) {
+              let index = this.arrayNextPage.indexOf(17);
+              this.arrayNextPage.splice(index, 1);
+            }
+          }
+          console.log("Array page after splice", this.arrayNextPage);
+
+        });
+
+        let formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
+        let itRain: any;
+        formCheckRain$.subscribe(data => {
+          if (data != null) {
+            itRain = data;
+
+            if (!itRain) {
+              let index = this.arrayNextPage.indexOf(18);
+              this.arrayNextPage.splice(index, 1);
+            }
+          }
+          console.log("Array page after splice", this.arrayNextPage);
+
+        });
+
+        let formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
+        let itBuying: any;
+        formCheckBuying$.subscribe(data => {
+          if (data != null) {
+            itBuying = data;
+
+            if (!itBuying) {
+              let index = this.arrayNextPage.indexOf(19);
+              this.arrayNextPage.splice(index, 1);
+            }
+          }
+        });
+
+        console.log("Array page after splice", this.arrayNextPage);
+
+        // let ojbResident$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence.waterSources));
+        // let ojbResident: any;
+        // ojbResident$.subscribe(data => {
+        //   if (data != null) {
+        //     console.log("data pilot ojbResident", data);
+        //     ojbResident = data
+        //   }
+        // });
+
+        // let ojbFactory$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory.waterSources));
+        // let ojbFactory: any;
+        // ojbFactory$.subscribe(data => {
+        //   if (data != null) {
+        //     console.log("data pilot ojbFactory", data);
+        //     ojbFactory = data
+        //   }
+        // });
+
+        // let ojbCommerce$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce.waterSources));
+        // let ojbCommerce: any;
+        // ojbCommerce$.subscribe(data => {
+        //   if (data != null) {
+        //     console.log("data pilot ojbCommerce", data);
+        //     ojbCommerce = data
+        //   }
+        // });
+
+        // let merge = ojbResident$.merge(ojbFactory$, ojbCommerce$);
+        // console.log("merge", merge);
+
+        // let ojbRice$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant.fields));
+        // let ojbRice: any;
+        // ojbRice$.subscribe(data => {
+        //   console.log("data pilot ojbRice", data);
+        //   if (data != null) {
+        //     ojbRice = data
+
+        //   }
+        // });
+
+
+        let backToRoot$ = this.store.select(getBackToRoot);
+        let backToRoot: any;
+        backToRoot$.subscribe(data => {
+          if (data != null) {
+            backToRoot = data;
+            if (!backToRoot) {
+
+              if (this.index == -1) {
+                this.index += 1;
+                let page = this.pages[this.arrayNextPage[this.index]];
+                console.log("index: ", this.index);
+                console.log("page: ", page);
+                this.store.dispatch(new SetSelectorIndex(this.index));
+                this.navCtrl.push(page.component);
+                console.log("Array page ก่อน dispatch", this.arrayNextPage);
+                // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
+              }
+              else {
+                let page = this.pages[this.arrayNextPage[this.index]];
+                console.log("index: ", this.index);
+                console.log("page: ", page);
+                this.navCtrl.push(page.component);
+                console.log("Array page ก่อน dispatch", this.arrayNextPage);
+
+                // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
+              }
+            }
+          }
+          console.log("backToRoot", backToRoot);
+
+        });
       }
       console.log("Array page ก่อน", this.arrayNextPage);
 
     });
 
-    let formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-    let itPlumbing: any;
-    formCheckPlumbing$.subscribe(data => {
-      if (data != null) {
-        itPlumbing = data;
-
-        if (!itPlumbing) {
-          let index = this.arrayNextPage.indexOf(13);
-          this.arrayNextPage.splice(index, 1);
-        }
-
-      }
-      console.log("Array page after splice", this.arrayNextPage);
-
-    });
-
-    let formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
-    let itRiver: any;
-    formCheckRiver$.subscribe(data => {
-      if (data != null) {
-        itRiver = data;
-
-        if (!itRiver) {
-          let index = this.arrayNextPage.indexOf(15);
-          this.arrayNextPage.splice(index, 1);
-        }
-      }
-      console.log("Array page after splice", this.arrayNextPage);
-
-    });
-
-    let formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
-    let itIrrigation: any;
-    formCheckIrrigation$.subscribe(data => {
-      if (data != null) {
-        itIrrigation = data;
-
-        if (!itIrrigation) {
-          let index = this.arrayNextPage.indexOf(17);
-          this.arrayNextPage.splice(index, 1);
-        }
-      }
-      console.log("Array page after splice", this.arrayNextPage);
-
-    });
-
-    let formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
-    let itRain: any;
-    formCheckRain$.subscribe(data => {
-      if (data != null) {
-        itRain = data;
-
-        if (!itRain) {
-          let index = this.arrayNextPage.indexOf(18);
-          this.arrayNextPage.splice(index, 1);
-        }
-      }
-      console.log("Array page after splice", this.arrayNextPage);
-
-    });
-
-    let formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-    let itBuying: any;
-    formCheckBuying$.subscribe(data => {
-      if (data != null) {
-        itBuying = data;
-
-        if (!itBuying) {
-          let index = this.arrayNextPage.indexOf(19);
-          this.arrayNextPage.splice(index, 1);
-        }
-      }
-    });
-
-    console.log("Array page after splice", this.arrayNextPage);
-
-    // let ojbResident$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence.waterSources));
-    // let ojbResident: any;
-    // ojbResident$.subscribe(data => {
-    //   if (data != null) {
-    //     console.log("data pilot ojbResident", data);
-    //     ojbResident = data
-    //   }
-    // });
-
-    // let ojbFactory$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory.waterSources));
-    // let ojbFactory: any;
-    // ojbFactory$.subscribe(data => {
-    //   if (data != null) {
-    //     console.log("data pilot ojbFactory", data);
-    //     ojbFactory = data
-    //   }
-    // });
-
-    // let ojbCommerce$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce.waterSources));
-    // let ojbCommerce: any;
-    // ojbCommerce$.subscribe(data => {
-    //   if (data != null) {
-    //     console.log("data pilot ojbCommerce", data);
-    //     ojbCommerce = data
-    //   }
-    // });
-
-    // let merge = ojbResident$.merge(ojbFactory$, ojbCommerce$);
-    // console.log("merge", merge);
-
-    // let ojbRice$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant.fields));
-    // let ojbRice: any;
-    // ojbRice$.subscribe(data => {
-    //   console.log("data pilot ojbRice", data);
-    //   if (data != null) {
-    //     ojbRice = data
-
-    //   }
-    // });
   }
 
   arrayNextPageMethod() {
@@ -271,37 +305,6 @@ export class CheckListPage {
     arrayNextPage$.subscribe(data => this.arrayNextPage = data);
     this.skipPageMedthod();
 
-    let backToRoot$ = this.store.select(getBackToRoot);
-    let backToRoot: any;
-    backToRoot$.subscribe(data => {
-      if (data != null) {
-        backToRoot = data;
-        if (!backToRoot) {
-
-          if (this.index == -1) {
-            this.index += 1;
-            let page = this.pages[this.arrayNextPage[this.index]];
-            console.log("index: ", this.index);
-            console.log("page: ", page);
-            this.store.dispatch(new SetSelectorIndex(this.index));
-            this.navCtrl.push(page.component);
-            console.log("Array page ก่อน dispatch", this.arrayNextPage);
-            // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
-          }
-          else {
-            let page = this.pages[this.arrayNextPage[this.index]];
-            console.log("index: ", this.index);
-            console.log("page: ", page);
-            this.navCtrl.push(page.component);
-            console.log("Array page ก่อน dispatch", this.arrayNextPage);
-
-            // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
-          }
-        }
-      }
-      console.log("backToRoot", backToRoot);
-
-    });
 
 
   }

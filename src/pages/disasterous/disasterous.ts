@@ -20,7 +20,7 @@ export class DisasterousPage {
 
   private submitRequested: boolean;
   public Disasterous: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.disaster));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
   private frontNum: any;
   private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
