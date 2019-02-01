@@ -26,7 +26,9 @@ export class IrrigationPage {
 
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.irrigation));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
+
   private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
   private itRain: any;
   private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
@@ -76,11 +78,16 @@ export class IrrigationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.irrigation));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);

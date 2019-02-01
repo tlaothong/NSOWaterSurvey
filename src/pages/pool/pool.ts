@@ -23,7 +23,9 @@ export class PoolPage {
   private submitRequested: boolean;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.pool));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
+
   private formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
   private itIrrigation: any;
   private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
@@ -73,11 +75,16 @@ export class PoolPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.pool));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);

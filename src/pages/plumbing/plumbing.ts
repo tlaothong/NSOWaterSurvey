@@ -25,7 +25,9 @@ export class PlumbingPage {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  private formDataPlumbing$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.plumbing));
+
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -103,11 +105,17 @@ export class PlumbingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataPlumbing$.subscribe(data => {
+    this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.plumbing));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
       }
-    });
+    })
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);

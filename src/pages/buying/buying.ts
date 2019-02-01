@@ -19,7 +19,9 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.buying));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formData$: any;
+
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private getIsHouseHold$ = this.store.select(getIsHouseHold);
@@ -51,6 +53,16 @@ export class BuyingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.buying));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
+      }
+    })
     this.formData$.subscribe(data => this.BuyingForm.setValue(data));
     this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);
     this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
