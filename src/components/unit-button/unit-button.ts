@@ -6,6 +6,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
+import { LoadDataOfUnit } from '../../states/household/household.actions';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -37,15 +38,15 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
-
-
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
 
-  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder, private swithHouseHold: SwithStateProvider) {
+  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+  }
 
+  ngOnInit() {
     this.GetUnitByIdBuilding$.subscribe(data => {
       if (data[Number(this.unitNo) - 1] != undefined) {
         this.FormItem.setValue(data[Number(this.unitNo) - 1]);
@@ -54,9 +55,6 @@ export class UnitButtonComponent {
         this.setAccess();
       }
     });
-  }
-
-  ngOnInit() {
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
@@ -78,7 +76,7 @@ export class UnitButtonComponent {
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'accessCount': [null, Validators.required],
-        'accesses': fb.array([]),
+        'accesses': fb.array([0]),
         'hasPlumbing': [false, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
@@ -89,7 +87,7 @@ export class UnitButtonComponent {
       'isAgriculture': [false, Validators.required],
       'isFactorial': [false, Validators.required],
       'isCommercial': [false, Validators.required],
-      'comments': fb.array([]),
+      'comments': fb.array([0]),
       'residence': [null, Validators.required],
       'agriculture': [null, Validators.required],
       'factory': [null, Validators.required],
@@ -103,21 +101,22 @@ export class UnitButtonComponent {
   }
 
   sendIdUnit() {
-    if (this.FormItem.get('_id').value != null) {
-      this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
-    } else {
-      this.swithHouseHold.updateHouseholdState(null);
-    }
+    this.store.dispatch(new LoadDataOfUnit(this.FormItem.get('_id').value));
   }
 
   public showModalSetting() {
-    this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
+    this.sendIdUnit();
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
         this.setAccess();
+        let access = this.FormItem.get('subUnit.accesses') as FormArray;
+        let lastIndex = access.length - 1;
+        if (access.at(lastIndex).value == 1) {
+          this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
+        }
       }
     });
     modal.present();
