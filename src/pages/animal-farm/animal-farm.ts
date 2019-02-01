@@ -5,7 +5,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -27,7 +27,7 @@ export class AnimalFarmPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.animalFarm));
   private frontNum: any;
   private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
@@ -51,22 +51,26 @@ export class AnimalFarmPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
   }
 
- 
+
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
-    console.log("valid",this.f.valid);
+    console.log("valid", this.f.valid);
     // this.store.dispatch(new SetNextPageDirection(10));
-    
+
     // if (this.f.valid) {
-      this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
-      // this.checkNextPage();
+    this.arrayIsCheckMethod();
+    this.navCtrl.setRoot("CheckListPage");
+    // this.checkNextPage();
     // }
   }
 
@@ -82,7 +86,7 @@ export class AnimalFarmPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -90,11 +94,11 @@ export class AnimalFarmPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -107,7 +111,7 @@ export class AnimalFarmPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;

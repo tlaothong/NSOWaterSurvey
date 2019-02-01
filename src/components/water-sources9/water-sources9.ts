@@ -29,7 +29,7 @@ export class WaterSources9Component {
       'rainingAsIs': [false, Validators.required],
       'buying': [false, Validators.required],
       'hasOther': [false, Validators.required],
-      'other': ['', Validators.required],
+      'other': [''],
     }, {
         validator: WaterSources9Component.checkAnyOrOther()
       });

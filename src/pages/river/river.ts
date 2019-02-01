@@ -6,7 +6,7 @@ import { WaterActivity6Component } from '../../components/water-activity6/water-
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -24,7 +24,7 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.river));
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -67,7 +67,11 @@ export class RiverPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);

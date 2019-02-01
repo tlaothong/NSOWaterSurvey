@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { SetAgronomyPlantSelectPlant, SetWaterSources, SetAgiSelectAgronomy, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -29,7 +29,8 @@ export class DryCropPlantingPage {
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
@@ -41,7 +42,16 @@ export class DryCropPlantingPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.agronomyPlant));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.agronomyPlant.setValue(data)
+          }
+        });
+      }
+    })
     this.countNumberPage();
   }
 
@@ -79,7 +89,7 @@ export class DryCropPlantingPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -87,11 +97,11 @@ export class DryCropPlantingPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -119,7 +129,7 @@ export class DryCropPlantingPage {
 
         console.log(arrayIsCheck);
       }
-      
+
     });
   }
 

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -25,7 +25,7 @@ export class HerbsPlantPage {
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.herbsPlant));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
@@ -60,7 +60,11 @@ export class HerbsPlantPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
     this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
     this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
@@ -106,7 +110,7 @@ export class HerbsPlantPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -114,13 +118,13 @@ export class HerbsPlantPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
-  
+
   arrayIsCheckMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     let index: any;

@@ -1,5 +1,5 @@
 import { getArraySkipPage, getNextPageDirection, getSelectorIndex, getDataOfUnit } from './../../states/household/index';
-import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot } from './../../states/household/household.actions';
+import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -42,7 +42,7 @@ export class WaterActivityUnitPage {
     this.submitRequested = true;
     this.store.dispatch(new SetArraySkipPage(this.f.value));
     console.log("f", this.f.value);
-
+    this.store.dispatch(new LoadDataOfUnit(this.f.get('_id').value));
     this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
     this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
     this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));

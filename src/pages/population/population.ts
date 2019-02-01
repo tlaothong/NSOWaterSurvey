@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
@@ -22,16 +22,16 @@ export class PopulationPage {
   public f: FormGroup;
   public whatever: any;
   private i: any;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.population));
   private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
-  public getIdHomes:any;
-  public str:any;
-  public pro:Province;
-  public proName:any;
-  public checkEnd :boolean;
+  public getIdHomes: any;
+  public str: any;
+  public pro: Province;
+  public proName: any;
+  public checkEnd: boolean;
   private frontNum: any;
   private backNum: any;
-  
+
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
@@ -44,11 +44,15 @@ export class PopulationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
-    this.getIdHomes$.subscribe(data=> this.str = data);
-    
-    this.getIdHomes = this.str.substring(0,2); //10
-    this.pro = provinceData.find(it=>it.codeProvince == this.getIdHomes);
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
+    this.getIdHomes$.subscribe(data => this.str = data);
+
+    this.getIdHomes = this.str.substring(0, 2); //10
+    this.pro = provinceData.find(it => it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;
     this.i = this.navParams.get('i');
   }
@@ -78,7 +82,7 @@ export class PopulationPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -86,11 +90,11 @@ export class PopulationPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
   arrayIsCheckMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
@@ -102,7 +106,7 @@ export class PopulationPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
@@ -111,7 +115,7 @@ export class PopulationPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 22)) {
           arrayIsCheck.push(22);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

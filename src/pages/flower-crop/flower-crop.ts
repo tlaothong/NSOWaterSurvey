@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetWaterSources, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -27,7 +27,7 @@ export class FlowerCropPage {
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.flowerCrop));
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);

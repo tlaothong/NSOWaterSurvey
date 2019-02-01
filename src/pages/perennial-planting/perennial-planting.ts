@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -17,7 +17,7 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.perennialPlant));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
