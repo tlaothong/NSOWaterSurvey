@@ -30,7 +30,7 @@ export class UnitPage {
     });
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     console.log(this.f.get('unitCount').value);
