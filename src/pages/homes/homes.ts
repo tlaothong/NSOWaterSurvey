@@ -48,6 +48,13 @@ export class HomesPage {
     });
   }
 
+  // setFilteredItems(name) {
+  //   this.dataEa = this.dataEa.filter((data) => {
+  //     let temp = '';
+  //     return temp.toLowerCase().indexOf(name.toLowerCase()) > -1;
+  //   });
+  // }
+
   ionViewDidEnter() {
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
