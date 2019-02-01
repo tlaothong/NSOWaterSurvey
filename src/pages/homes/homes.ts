@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
@@ -16,26 +16,19 @@ import { SwithStateProvider } from '../../providers/swith-state/swith-state';
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  // @ViewChildren(ItemInHomeComponent) private itemHome: ItemInHomeComponent[];
+
   data: any;
   formItem: FormGroup;
   office: string = "building";
   public dataEa: any;
   public dataWorkEARow: any;
-  // private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
-  // private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
 
   public str: string;
 
-  constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
-    this.formItem = fb.group({
-      'countHomeBuilding': [null],
-      'homeBuilding': this.fb.array([]),
-    });
-
-
+  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
+    
   }
 
   public showQuickMenu(myEvent) {
@@ -77,47 +70,13 @@ export class HomesPage {
   }
 
   goBuildingInfo(id: any) {
-
     this.swith.updateBuildingState(null);
     this.navCtrl.push("BuildingTestPage", { id: id })
-
   }
 
   goEditBuildingInfo(id: any) {
-
     this.swith.updateBuildingState(id);
     this.navCtrl.push("BuildingTestPage")
-  }
-
-  private setupHomeBuilding() {
-    const componentFormArray: string = "homeBuilding";
-    const componentCount: string = "countHomeBuilding";
-
-
-    var onComponentCountChanges = () => {
-      var Ea = (this.formItem.get(componentFormArray) as FormArray).controls || [];
-      var EaCount = this.formItem.get(componentCount).value || 0;
-      var farr = this.fb.array([]);
-
-      EaCount = Math.max(0, EaCount);
-
-      for (let i = 0; i < EaCount; i++) {
-        var ctrl = null;
-        if (i < Ea.length) {
-          const fld = Ea[i];
-          ctrl = fld;
-        } else {
-          ctrl = ItemInHomeComponent.CreateFormGroup(this.fb);
-        }
-
-        farr.push(ctrl);
-      }
-      this.formItem.setControl(componentFormArray, farr);
-    };
-
-    this.formItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-    onComponentCountChanges();
   }
 
   DeleteBuilding(id: string) {
