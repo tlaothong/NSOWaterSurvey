@@ -12,13 +12,15 @@ import { NavParams } from 'ionic-angular';
 
 export class QuestionnaireHomeComponent {
   public data: any;
+  public str: string;
   constructor(private fb: FormBuilder, public navParams: NavParams, private store: Store<LoggingState>) {
-   
+
     this.data = this.navParams.get('data');
+    this.str = this.navParams.get('str');
   }
 
   ionViewDidLoad() {
-   
+
   }
 
 }

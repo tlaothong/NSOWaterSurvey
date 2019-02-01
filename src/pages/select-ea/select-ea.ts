@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Component, ViewChildren } from '@angular/core';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { LoadDataWorkEAByUserId, LoadCountOfWorks, StoreWorkEAOneRecord } from '../../states/logging/logging.actions';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { getDataWorkEA, getCountOfaWorkEA, getUserData } from '../../states/logging';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { getDataWorkEA, getUserData } from '../../states/logging';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EaComponent } from '../../components/ea/ea';
 
@@ -20,17 +20,23 @@ export class SelectEaPage {
   private formDataUser$ = this.store.select(getUserData).pipe(map(s => s));
   private formDataEa$ = this.store.select(getDataWorkEA).pipe(map(s => s));
   public dataEa: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<LoggingState>) {
-    this.f = fb.group({
-      'EaCount': [null],
-      'Ea': this.fb.array([]),
-    });
+    // this.f = fb.group({
+    //   'EaCount': [null],
+    //   'Ea': this.fb.array([]),
+    // });
   }
 
   ionViewDidLoad() {
     this.formDataEa$.subscribe(data => {
       if (data != null) {
         this.dataEa = data
+        for (let index = 0; index < this.dataEa.length; index++) {
+          this.dataEa[index].properties.ea_code_14 = this.dataEa[index].properties.ea_code_14.substring(11)
+          
+        }
+        console.log(this.dataEa);
       }
     });
 
@@ -42,6 +48,8 @@ export class SelectEaPage {
         this.store.dispatch(new LoadCountOfWorks(userObj));
       }
     });
+
+    // var str = this.dataEa._id
     // this.store.select(getDataWorkEA).pipe(map(s => s)).subscribe(data => this.worksEachUser = data);
   }
 
