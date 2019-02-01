@@ -9,6 +9,7 @@ import { QuestionnaireMenuPopoverComponent } from '../questionnaire-menu-popover
 export class QuestionnaireMenuComponent {
 
   @Input('title') public text: string;
+  @Input('Pop') public Pop:boolean;
 
   constructor(private navCtrl: NavController, private popoverCtrl: PopoverController) {
     this.text = 'Hello World';
