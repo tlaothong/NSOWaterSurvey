@@ -55,10 +55,10 @@ export class WaterActivityUnitPage {
     //   if (data != null) {
     //     index = data
     //     console.log("selectIndex: ",index);
-        
+
     //   }
     // });
-    
+
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let arrayNextPage: Array<number>;
     arrayNextPage$.subscribe(data => arrayNextPage = data);
