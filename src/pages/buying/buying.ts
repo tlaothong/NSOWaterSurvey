@@ -19,7 +19,7 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
 
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -55,10 +55,10 @@ export class BuyingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.buying));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
         this.formData$.subscribe(data => {
           if (data != null) {
-            this.f.setValue(data)
+            this.BuyingForm.setValue(data)
           }
         });
       }

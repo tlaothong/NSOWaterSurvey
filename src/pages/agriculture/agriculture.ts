@@ -15,7 +15,7 @@ import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex, getNextP
 export class AgriculturePage {
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private frontNum: any;

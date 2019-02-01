@@ -27,7 +27,7 @@ export class MushroomPage {
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
 
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
@@ -45,7 +45,7 @@ export class MushroomPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.mushroomPlant));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.f.setValue(data)
@@ -61,7 +61,7 @@ export class MushroomPage {
     this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     // this.store.dispatch(new SetNextPageDirection(9));
     
-    if (this.f.valid) {
+    if (this.f.valid || !this.f.get('doing').value) {
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();

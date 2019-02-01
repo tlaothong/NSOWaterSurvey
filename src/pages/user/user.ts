@@ -15,7 +15,7 @@ import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/h
 export class UserPage {
   public userInfo: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.closing));
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
   private factorialCategory$ = this.store.select(getFactorialCategory);
   public facCategory: string;
   private commercialServiceType$ = this.store.select(getCommercialServiceType);

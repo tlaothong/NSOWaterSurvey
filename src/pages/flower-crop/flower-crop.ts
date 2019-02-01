@@ -27,7 +27,7 @@ export class FlowerCropPage {
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -63,7 +63,7 @@ export class FlowerCropPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.flowerCrop));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.flowerCropFrm.setValue(data)
@@ -116,7 +116,7 @@ export class FlowerCropPage {
     selectedMap.forEach(v => selected.push(v));
     // this.store.dispatch(new SetNextPageDirection(8));
 
-    if (this.flowerCropFrm.valid) {
+    if (this.flowerCropFrm.valid || !this.flowerCropFrm.get('doing').value) {
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage");
       // this.checkNextPage();

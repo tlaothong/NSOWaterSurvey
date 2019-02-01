@@ -27,7 +27,7 @@ export class AnimalFarmPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
   private frontNum: any;
   private backNum: any;
@@ -54,7 +54,7 @@ export class AnimalFarmPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.animalFarm));
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
         this.formData$.subscribe(data => {
           if (data != null) {
             this.f.setValue(data)
