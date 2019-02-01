@@ -27,6 +27,8 @@ export class HomesPage {
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
 
+  public str: string;
+
   constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
     this.formItem = fb.group({
       'countHomeBuilding': [null],
@@ -37,7 +39,10 @@ export class HomesPage {
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, { data: this.dataWorkEARow });
+    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, {
+      data: this.dataWorkEARow,
+      str: this.str
+    });
     popover.present({
       ev: myEvent
     });
@@ -48,8 +53,8 @@ export class HomesPage {
       if (data != null) {
         this.dataWorkEARow = data
         console.log(this.dataWorkEARow);
-        var str = data._id.substring(1, 7);
-        this.store.dispatch(new SetIdEaWorkHomes(str));        
+        this.str = data._id.substring(1, 7);
+        this.store.dispatch(new SetIdEaWorkHomes(this.str));
       }
     });
 
