@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
-import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -19,7 +19,7 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.buying));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private getIsHouseHold$ = this.store.select(getIsHouseHold);

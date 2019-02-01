@@ -1,4 +1,4 @@
-import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from './../../states/household/index';
+import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -25,7 +25,7 @@ export class GroundWaterPage {
   public f: FormGroup;
   public G: boolean = true;
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.groundWater));
   private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
   private itRiver: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -77,7 +77,11 @@ export class GroundWaterPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -166,7 +170,7 @@ export class GroundWaterPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -174,13 +178,13 @@ export class GroundWaterPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
-  
+
   arrayIsCheckMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     let index: any;
@@ -191,7 +195,7 @@ export class GroundWaterPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
@@ -200,7 +204,7 @@ export class GroundWaterPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 14)) {
           arrayIsCheck.push(14);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

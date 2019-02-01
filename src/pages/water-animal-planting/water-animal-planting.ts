@@ -5,7 +5,7 @@ import { FishFarmingComponent } from '../../components/fish-farming/fish-farming
 import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class WaterAnimalPlantingPage {
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.aquaticAnimals));
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
@@ -57,7 +57,11 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
   }
 
   public handleSubmit() {

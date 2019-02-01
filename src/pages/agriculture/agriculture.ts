@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getHouseHoldSample } from '../../states/household';
+import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getHouseHoldSample, getDataOfUnit } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -15,7 +15,7 @@ import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex, getNextP
 export class AgriculturePage {
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private frontNum: any;
@@ -80,7 +80,11 @@ export class AgriculturePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AgriculturePage');
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
   }
 
   public handleSubmit() {

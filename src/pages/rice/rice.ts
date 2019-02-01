@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
 
@@ -29,7 +29,8 @@ export class RicePage {
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   public DataList = EX_RICH_LIST;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -41,8 +42,17 @@ export class RicePage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
     this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.ricePlant));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.setValue(data)
+          }
+        });
+      }
+    })
   }
 
   public handleSubmit() {
@@ -66,33 +76,28 @@ export class RicePage {
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let arrayNextPage: any[];
     arrayNextPage$.subscribe(data => {
-
       if (data != null) {
         arrayNextPage = data;
         this.backNum = arrayNextPage.length;
       }
-
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
     arrayIsCheck$.subscribe(data => {
-
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
-
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     let index: any;
     selectorIndex$.subscribe(data => {
-
       if (data != null) {
         index = data
         console.log("selectIndex: ", index);

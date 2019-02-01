@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -25,7 +25,7 @@ export class PlumbingPage {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  private formDataPlumbing$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+  private formDataPlumbing$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.plumbing));
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -103,7 +103,11 @@ export class PlumbingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataPlumbing$.subscribe(data => this.f.setValue(data));
+    this.formDataPlumbing$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);

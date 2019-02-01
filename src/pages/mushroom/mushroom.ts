@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -27,7 +27,7 @@ export class MushroomPage {
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.mushroomPlant));
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
@@ -42,7 +42,11 @@ export class MushroomPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MushroomPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
   }
 
   public handleSubmit() {

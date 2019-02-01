@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -19,14 +19,14 @@ export class IrrigationPage {
 
   private submitRequested: boolean;
   f: FormGroup;
-  public G:boolean = false;
+  public G: boolean = false;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.irrigation));
   private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
   private itRain: any;
   private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
@@ -76,7 +76,11 @@ export class IrrigationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -156,7 +160,7 @@ export class IrrigationPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -164,13 +168,13 @@ export class IrrigationPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
-  
+
   arrayIsCheckMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     let index: any;
@@ -181,7 +185,7 @@ export class IrrigationPage {
         console.log("selectIndex: ", index);
       }
     });
-    
+
     this.store.dispatch(new SetSelectorIndex(index + 1));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
@@ -190,7 +194,7 @@ export class IrrigationPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 17)) {
           arrayIsCheck.push(17);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

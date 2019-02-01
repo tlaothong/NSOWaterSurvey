@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetFactorialCategory, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
@@ -21,7 +21,7 @@ export class FactorialPage {
   private itPlumbing: any;
   private submitRequested: boolean;
   FactoryForm: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.factory));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private frontNum: any;

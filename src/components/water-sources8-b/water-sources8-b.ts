@@ -26,7 +26,7 @@ export class WaterSources8BComponent {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': ['', Validators.required],
+      'other': [''],
       'hasOther': [false, Validators.required]
     }, {
         validator: WaterSources8BComponent.checkAnyOrOther()

@@ -5,7 +5,7 @@ import { TableDisasterousComponent } from '../../components/table-disasterous/ta
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -20,7 +20,7 @@ export class DisasterousPage {
 
   private submitRequested: boolean;
   public Disasterous: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.disaster));
   private frontNum: any;
   private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {

@@ -7,7 +7,7 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
 import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
 
@@ -22,7 +22,7 @@ export class RainPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.waterUsage.rain));
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));

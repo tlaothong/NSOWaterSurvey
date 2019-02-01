@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
@@ -19,7 +19,7 @@ export class RubberTreePage {
 
   public rubbertree: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
+  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.rubberTree));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
