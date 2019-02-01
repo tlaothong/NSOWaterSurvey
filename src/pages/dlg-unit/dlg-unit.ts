@@ -4,8 +4,9 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { SetUnit } from '../../states/household/household.actions';
+import { LoadHouseHoldSample } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
+import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 
 @IonicPage()
 @Component({
@@ -27,20 +28,19 @@ export class DlgUnitPage {
 
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
-  
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>,private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
-    this.FormItem = navParams.get('FormItem');
-    this.setEnvironment();
 
+  constructor(private swithHouseHold: SwithStateProvider, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+    this.FormItem = navParams.get('FormItem');
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.FormItem.controls['buildingId'].setValue(this.id_BD);
-    console.log(this.FormItem.value)
+    this.setEnvironment();
   }
 
   ionViewDidLoad() {
     this.dataHouseHold$.subscribe(data => {
-      if(data!=null){
+      if (data != null) {
         this.FormItem.setValue(data);
+        this.setEnvironment();
       }
     });
     console.log('ionViewDidLoad DlgUnitPage');
@@ -82,6 +82,10 @@ export class DlgUnitPage {
   }
 
   AddUnit() {
-    this.store.dispatch(new SetUnit(this.FormItem.value));
+    // this.store.dispatch(new SetUnit(this.FormItem.value));
+    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
+    // if (this.FormItem.get('_id').value != null) {
+    //   this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
+    // }
   }
 }
