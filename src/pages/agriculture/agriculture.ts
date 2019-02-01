@@ -22,15 +22,33 @@ export class AgriculturePage {
   private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
-      "ricePlant": [false, Validators.required],
-      'agronomyPlant': [false, Validators.required],
-      'rubberTree': [false, Validators.required],
-      'perennialPlant': [false, Validators.required],
-      'herbsPlant': [false, Validators.required],
-      'flowerCrop': [false, Validators.required],
-      'mushroomPlant': [false, Validators.required],
-      'animalFarm': [false, Validators.required],
-      'aquaticAnimals': [false, Validators.required],
+      "ricePlant": this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'agronomyPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'rubberTree': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'perennialPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'herbsPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'flowerCrop': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'mushroomPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'animalFarm': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'aquaticAnimals': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
     }, {
         validator: AgriculturePage.checkAnyOrOther()
       });
@@ -106,11 +124,11 @@ export class AgriculturePage {
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-       
+
         if (arrayIsCheck.every(it => it != 1)) {
           arrayIsCheck.push(1);
         }
-        
+
         console.log(arrayIsCheck);
       }
     });
@@ -128,7 +146,7 @@ export class AgriculturePage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -136,11 +154,11 @@ export class AgriculturePage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   private checkNextPage() {
