@@ -72,16 +72,16 @@ export class CheckListPage {
   skipPageMedthod() {
     let formData$ = this.store.select(getDataOfUnit).pipe(map(s => s));
     formData$.subscribe(data => {
+      console.log("data pilot skipPage", data);
       if (data != null) {
-        console.log("data pilot skipPage", data);
         this.objSkipPage = data
       }
       console.log("Array page ก่อน", this.arrayNextPage);
 
       if (!this.objSkipPage.isHouseHold) {
         let index1 = this.arrayNextPage.indexOf(0)
-        let index2 = this.arrayNextPage.indexOf(20)
         this.arrayNextPage.splice(index1, 1);
+        let index2 = this.arrayNextPage.indexOf(20)
         this.arrayNextPage.splice(index2, 1);
 
       }
@@ -91,52 +91,52 @@ export class CheckListPage {
         
         this.arrayNextPage.splice(index3, 1);
       }
-      // if (!this.objSkipPage.ricePlant) {
-      //   let index4 = this.arrayNextPage.indexOf(2)
-      //   console.log(index4);
+      if (!this.objSkipPage.ricePlant) {
+        let index4 = this.arrayNextPage.indexOf(2)
+        console.log(index4);
 
-      //   this.arrayNextPage.splice(index4, 1);
-      // }
-      // if (!this.objSkipPage.agronomyPlant) {
-      //   let index = this.arrayNextPage.indexOf(3)
-      //   console.log(index);
+        this.arrayNextPage.splice(index4, 1);
+      }
+      if (!this.objSkipPage.agronomyPlant) {
+        let index = this.arrayNextPage.indexOf(3)
+        console.log(index);
 
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // if (!this.objSkipPage.rubberTree) {
-      //   let index = this.arrayNextPage.indexOf(4)
-      //   console.log(index);
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.rubberTree) {
+        let index = this.arrayNextPage.indexOf(4)
+        console.log(index);
 
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // if (!this.objSkipPage.perennialPlant) {
-      //   let index = this.arrayNextPage.indexOf(5)
-      //   console.log(index);
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.perennialPlant) {
+        let index = this.arrayNextPage.indexOf(5)
+        console.log(index);
 
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // console.log("Array page กลาง", this.arrayNextPage);
+        this.arrayNextPage.splice(index, 1);
+      }
+      console.log("Array page กลาง", this.arrayNextPage);
 
-      // if (!this.objSkipPage.herbsPlant) {
-      //   let index = this.arrayNextPage.indexOf(6)
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // if (!this.objSkipPage.flowerCrop) {
-      //   let index = this.arrayNextPage.indexOf(7)
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // if (!this.objSkipPage.mushroomPlant) {
-      //   let index = this.arrayNextPage.indexOf(8)
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // if (!this.objSkipPage.animalFarm) {
-      //   let index = this.arrayNextPage.indexOf(9)
-      //   this.arrayNextPage.splice(index, 1);
-      // }
-      // if (!this.objSkipPage.aquaticAnimals) {
-      //   let index = this.arrayNextPage.indexOf(10)
-      //   this.arrayNextPage.splice(index, 1);
-      // }
+      if (!this.objSkipPage.herbsPlant) {
+        let index = this.arrayNextPage.indexOf(6)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.flowerCrop) {
+        let index = this.arrayNextPage.indexOf(7)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.mushroomPlant) {
+        let index = this.arrayNextPage.indexOf(8)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.animalFarm) {
+        let index = this.arrayNextPage.indexOf(9)
+        this.arrayNextPage.splice(index, 1);
+      }
+      if (!this.objSkipPage.aquaticAnimals) {
+        let index = this.arrayNextPage.indexOf(10)
+        this.arrayNextPage.splice(index, 1);
+      }
       if (!this.objSkipPage.isFactorial) {
         let index = this.arrayNextPage.indexOf(11)
         this.arrayNextPage.splice(index, 1);
