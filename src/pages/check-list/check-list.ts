@@ -1,4 +1,4 @@
-import { getBackToRoot, getHouseHoldSample, getCheckWaterPlumbing, getCheckWaterRiver, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying } from './../../states/household/index';
+import { getBackToRoot, getHouseHoldSample, getCheckWaterPlumbing, getCheckWaterRiver, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getDataOfUnit } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -70,7 +70,7 @@ export class CheckListPage {
   }
 
   skipPageMedthod() {
-    let formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+    let formData$ = this.store.select(getDataOfUnit).pipe(map(s => s));
     formData$.subscribe(data => {
       if (data != null) {
         console.log("data pilot skipPage", data);

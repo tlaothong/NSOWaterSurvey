@@ -105,7 +105,6 @@ export class UnitButtonComponent {
   }
 
   public showModalSetting() {
-    this.sendIdUnit();
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
@@ -115,7 +114,8 @@ export class UnitButtonComponent {
         let access = this.FormItem.get('subUnit.accesses') as FormArray;
         let lastIndex = access.length - 1;
         if (access.at(lastIndex).value == 1) {
-          this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
+          this.sendIdUnit();
+          this.navCtrl.push('WaterActivityUnitPage')
         }
       }
     });
@@ -123,9 +123,9 @@ export class UnitButtonComponent {
   }
 
   public showModal() {
-    this.sendIdUnit();
     if (this.access == 1) {
-      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+      this.sendIdUnit();
+      this.navCtrl.push('WaterActivityUnitPage');
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
 
@@ -143,7 +143,8 @@ export class UnitButtonComponent {
           let access = this.FormItem.get('subUnit.accesses') as FormArray;
           let lastIndex = access.length - 1;
           if (access.at(lastIndex).value == 1) {
-            this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
+            this.sendIdUnit();
+            this.navCtrl.push('WaterActivityUnitPage')
           }
         }
         else {

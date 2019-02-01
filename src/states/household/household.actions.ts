@@ -52,7 +52,7 @@ export enum HouseHoldTypes {
     LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
-    LoadDataOfUnit = "[HH] LoadDataOfUnit",
+    LoadDataOfUnit = "[HH] Load Data Of Unit",
     LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
    
 }
