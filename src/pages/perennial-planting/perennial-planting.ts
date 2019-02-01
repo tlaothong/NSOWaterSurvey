@@ -17,7 +17,8 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.perennialPlant));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -39,7 +40,16 @@ export class PerennialPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.perennialPlant));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.PerennialPlantingFrm.setValue(data)
+          }
+        });
+      }
+    })
   }
 
   public handleSubmit() {

@@ -27,7 +27,8 @@ export class FlowerCropPage {
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.flowerCrop));
+  private formDataUnit$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture));
+  private formData$: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
@@ -60,7 +61,16 @@ export class FlowerCropPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.agriculture.flowerCrop));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.flowerCropFrm.setValue(data)
+          }
+        });
+      }
+    })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
     this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
     this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
