@@ -121,7 +121,7 @@ const initialState: HouseHoldState = {
     unitByIdBuilding: [],
     checkHeadfamily: null,
     backToRoot: null,
-    dataOfUnit: [],
+    dataOfUnit: null,
 
 };
 
