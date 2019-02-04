@@ -29,6 +29,7 @@ export interface HouseHoldState {
     ricePlantSelectPlant: any[],
     agronomyPlantSelectPlant: any[],
     riceDoing: any,
+    checkboxDoingAgiculturePage: any,
     agiSelectRice: any,
     agiSelectAgronomy: any,
     agiSelectRubber: any,
@@ -92,6 +93,7 @@ const initialState: HouseHoldState = {
     ricePlantSelectPlant: [],
     agronomyPlantSelectPlant: [],
     riceDoing: null,
+    checkboxDoingAgiculturePage: null,
     agiSelectRice: null,
     agiSelectAgronomy: null,
     agiSelectRubber: null,
@@ -180,6 +182,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 agronomyPlantDoing: action.payload,
+            };
+        case HouseHoldTypes.SetCheckboxDoingAgiculturePage:
+            return {
+                ...state,
+                checkboxDoingAgiculturePage: action.payload,
             };
         case HouseHoldTypes.SetRicePlantSelectPlant:
             return {
@@ -353,7 +360,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 dataOfUnit: action.payload,
             };
 
-       
+
         default:
             return state;
     }

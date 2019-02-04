@@ -1,4 +1,4 @@
-import { getBackToRoot, getHouseHoldSample, getCheckWaterPlumbing, getCheckWaterRiver, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getDataOfUnit } from './../../states/household/index';
+import { getBackToRoot, getHouseHoldSample, getCheckWaterPlumbing, getCheckWaterRiver, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getDataOfUnit, getArraySkipPageAgiculture } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -89,52 +89,62 @@ export class CheckListPage {
             }
           }
         }
-        // if (!this.objSkipPage.agriculture.ricePlant) {
-        //   let index4 = this.arrayNextPage.indexOf(2)
-        //   console.log(index4);
+        else {
+          let objSkipPageAgi$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+          let objSkipPageAgi: any
+          objSkipPageAgi$.subscribe(data => {
+            if (data != null) {
+              console.log("data pilot objSkipPageAgi", data);
+              objSkipPageAgi = data
 
-        //   this.arrayNextPage.splice(index4, 1);
-        // }
-        // if (!this.objSkipPage.agronomyPlant) {
-        //   let index = this.arrayNextPage.indexOf(3)
-        //   console.log(index);
+              if (!objSkipPageAgi.ricePlant.doing && this.arrayNextPage.some(it => it == 2)) {
+                let index4 = this.arrayNextPage.indexOf(2)
+                console.log(index4);
 
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // if (!this.objSkipPage.rubberTree) {
-        //   let index = this.arrayNextPage.indexOf(4)
-        //   console.log(index);
+                this.arrayNextPage.splice(index4, 1);
+              }
+              if (!objSkipPageAgi.agronomyPlant.doing && this.arrayNextPage.some(it => it == 3)) {
+                let index = this.arrayNextPage.indexOf(3)
+                console.log(index);
 
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // if (!this.objSkipPage.perennialPlant) {
-        //   let index = this.arrayNextPage.indexOf(5)
-        //   console.log(index);
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.rubberTree.doing && this.arrayNextPage.some(it => it == 4)) {
+                let index = this.arrayNextPage.indexOf(4)
+                console.log(index);
 
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // console.log("Array page กลาง", this.arrayNextPage);
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.perennialPlant.doing && this.arrayNextPage.some(it => it == 5)) {
+                let index = this.arrayNextPage.indexOf(5)
+                console.log(index);
 
-        // if (!this.objSkipPage.herbsPlant) {
-        //   let index = this.arrayNextPage.indexOf(6)
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // if (!this.objSkipPage.flowerCrop) {
-        //   let index = this.arrayNextPage.indexOf(7)
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // if (!this.objSkipPage.mushroomPlant) {
-        //   let index = this.arrayNextPage.indexOf(8)
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // if (!this.objSkipPage.animalFarm) {
-        //   let index = this.arrayNextPage.indexOf(9)
-        //   this.arrayNextPage.splice(index, 1);
-        // }
-        // if (!this.objSkipPage.aquaticAnimals) {
-        //   let index = this.arrayNextPage.indexOf(10)
-        //   this.arrayNextPage.splice(index, 1);
-        // }
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.herbsPlant.doing && this.arrayNextPage.some(it => it == 6)) {
+                let index = this.arrayNextPage.indexOf(6)
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.flowerCrop.doing && this.arrayNextPage.some(it => it == 7)) {
+                let index = this.arrayNextPage.indexOf(7)
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.mushroomPlant.doing && this.arrayNextPage.some(it => it == 8)) {
+                let index = this.arrayNextPage.indexOf(8)
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.animalFarm.doing && this.arrayNextPage.some(it => it == 9)) {
+                let index = this.arrayNextPage.indexOf(9)
+                this.arrayNextPage.splice(index, 1);
+              }
+              if (!objSkipPageAgi.aquaticAnimals.doing && this.arrayNextPage.some(it => it == 10)) {
+                let index = this.arrayNextPage.indexOf(10)
+                this.arrayNextPage.splice(index, 1);
+              }
+            }
+          });
+
+        }
         if (!this.objSkipPage.isFactorial && this.arrayNextPage.some(it => it == 11)) {
           let index = this.arrayNextPage.indexOf(11)
           this.arrayNextPage.splice(index, 1);
@@ -149,9 +159,11 @@ export class CheckListPage {
         let itPlumbing: any;
         formCheckPlumbing$.subscribe(data => {
           if (data != null) {
+            console.log("itPlumbing", data);
+
             itPlumbing = data;
 
-            if (!itPlumbing) {
+            if (!itPlumbing && this.arrayNextPage.some(it => it == 13)) {
               let index = this.arrayNextPage.indexOf(13);
               this.arrayNextPage.splice(index, 1);
             }
@@ -165,9 +177,11 @@ export class CheckListPage {
         let itRiver: any;
         formCheckRiver$.subscribe(data => {
           if (data != null) {
+            console.log("itRiver", data);
+
             itRiver = data;
 
-            if (!itRiver) {
+            if (!itRiver && this.arrayNextPage.some(it => it == 15)) {
               let index = this.arrayNextPage.indexOf(15);
               this.arrayNextPage.splice(index, 1);
             }
@@ -180,9 +194,11 @@ export class CheckListPage {
         let itIrrigation: any;
         formCheckIrrigation$.subscribe(data => {
           if (data != null) {
+            console.log("itIrrigation", data);
+
             itIrrigation = data;
 
-            if (!itIrrigation) {
+            if (!itIrrigation && this.arrayNextPage.some(it => it == 17)) {
               let index = this.arrayNextPage.indexOf(17);
               this.arrayNextPage.splice(index, 1);
             }
@@ -195,9 +211,11 @@ export class CheckListPage {
         let itRain: any;
         formCheckRain$.subscribe(data => {
           if (data != null) {
+            console.log("itRain", data);
+
             itRain = data;
 
-            if (!itRain) {
+            if (!itRain && this.arrayNextPage.some(it => it == 18)) {
               let index = this.arrayNextPage.indexOf(18);
               this.arrayNextPage.splice(index, 1);
             }
@@ -210,9 +228,11 @@ export class CheckListPage {
         let itBuying: any;
         formCheckBuying$.subscribe(data => {
           if (data != null) {
+            console.log("itBuying", data);
+
             itBuying = data;
 
-            if (!itBuying) {
+            if (!itBuying && this.arrayNextPage.some(it => it == 19)) {
               let index = this.arrayNextPage.indexOf(19);
               this.arrayNextPage.splice(index, 1);
             }
@@ -275,7 +295,7 @@ export class CheckListPage {
                 console.log("index: ", this.index);
                 console.log("page: ", page);
                 this.store.dispatch(new SetSelectorIndex(this.index));
-                this.navCtrl.push(page.component);
+                this.navCtrl.push(page.component, this.store.dispatch(new SetBackToRoot(false)));
                 console.log("Array page ก่อน dispatch", this.arrayNextPage);
                 // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
               }
@@ -283,7 +303,7 @@ export class CheckListPage {
                 let page = this.pages[this.arrayNextPage[this.index]];
                 console.log("index: ", this.index);
                 console.log("page: ", page);
-                this.navCtrl.push(page.component);
+                this.navCtrl.push(page.component, this.store.dispatch(new SetBackToRoot(false)));
                 console.log("Array page ก่อน dispatch", this.arrayNextPage);
 
                 // this.store.dispatch(new SetNextPageDirection(this.arrayNextPage));
@@ -326,8 +346,8 @@ export class CheckListPage {
   public openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.navCtrl.push(page.component);
-    this.store.dispatch(new SetBackToRoot(false));
+    this.navCtrl.push(page.component, this.store.dispatch(new SetBackToRoot(false)));
+
 
   }
 }

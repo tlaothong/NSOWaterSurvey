@@ -22,6 +22,7 @@ export enum HouseHoldTypes {
     SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
     SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
+    SetCheckboxDoingAgiculturePage = "[HH] Set Checkbox Doing Agiculture Page",
     SetAgiSelectRice = "[HH] Set Agiculture Select Rice",
     SetAgiSelectAgronomy = "[HH] Set Agiculture Select Agronomy",
     SetAgiSelectRubber = "[HH] Set Agiculture Select Rubber",
@@ -54,7 +55,7 @@ export enum HouseHoldTypes {
     SetBackToRoot = "[HH] Set Back To Root",
     LoadDataOfUnit = "[HH] Load Data Of Unit",
     LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
-   
+
 }
 
 export class LoadHouseHoldList implements Action {
@@ -161,8 +162,12 @@ export class SetPerennialPlantSelectPlant implements Action {
     constructor(public payload: any[]) {
     }
 }
+export class SetCheckboxDoingAgiculturePage implements Action {
+    readonly type = HouseHoldTypes.SetCheckboxDoingAgiculturePage;
 
-
+    constructor(public payload: any[]) {
+    }
+}
 export class SetRicePlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetRicePlantSelectPlant;
 
@@ -397,6 +402,7 @@ export type HouseHoldActionsType =
     | SetAgronomyPlantSelectPlant
     | SetCommercialServiceType
     | SetRiceDoing
+    | SetCheckboxDoingAgiculturePage
     | SetAgiSelectRice
     | SetAgiSelectAgronomy
     | SetAgiSelectRubber
@@ -429,5 +435,5 @@ export type HouseHoldActionsType =
     | SetBackToRoot
     | LoadDataOfUnit
     | LoadDataOfUnitSuccess
-   
+
     ;
