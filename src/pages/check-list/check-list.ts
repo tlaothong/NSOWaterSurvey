@@ -139,7 +139,7 @@ export class CheckListPage {
           let index = this.arrayNextPage.indexOf(11)
           this.arrayNextPage.splice(index, 1);
         }
-        if (!this.objSkipPage.isCommercial && this.arrayNextPage.some(it => it == 0)) {
+        if (!this.objSkipPage.isCommercial && this.arrayNextPage.some(it => it == 12)) {
           let index = this.arrayNextPage.indexOf(12)
           this.arrayNextPage.splice(index, 1);
         }
