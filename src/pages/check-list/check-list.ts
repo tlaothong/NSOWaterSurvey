@@ -281,7 +281,6 @@ export class CheckListPage {
         //   }
         // });
 
-
         let backToRoot$ = this.store.select(getBackToRoot);
         let backToRoot: any;
         backToRoot$.subscribe(data => {
@@ -311,22 +310,16 @@ export class CheckListPage {
             }
           }
           console.log("backToRoot", backToRoot);
-
         });
       }
       console.log("Array page ก่อน", this.arrayNextPage);
-
     });
-
   }
 
   arrayNextPageMethod() {
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     arrayNextPage$.subscribe(data => this.arrayNextPage = data);
     this.skipPageMedthod();
-
-
-
   }
 
   arrayIsCheckMethod() {
@@ -340,7 +333,6 @@ export class CheckListPage {
         }
       }
     });
-
   }
 
   public openPage(page) {
