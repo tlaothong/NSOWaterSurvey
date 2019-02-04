@@ -84,6 +84,11 @@ export const getRiceDoing = createSelector(
     state => state.riceDoing,
 );
 
+
+export const getCheckboxDoingAgiculturePage = createSelector(
+    getHouseHoldFeatureState,
+    state => state.checkboxDoingAgiculturePage,
+);
 export const getAgiSelectRice = createSelector(
     getHouseHoldFeatureState,
     state => state.agiSelectRice,

@@ -1,4 +1,4 @@
-import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetAgiSelectHerbPlant, SetAgiSelectFlowerCrop, SetAgiSelectMushroomPlant, SetAgiSelectAnimalFarm, SetAgiSelectAquaticAnimals, SetArraySkipPageAgiculture, SetNextPageDirection, SetSelectorIndex, SetCheckboxDoingAgiculturePage } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
@@ -15,7 +15,7 @@ import { getArraySkipPageAgiculture, getArrayIsCheck, getSelectorIndex, getNextP
 export class AgriculturePage {
   private submitRequested: boolean;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private frontNum: any;
@@ -80,8 +80,10 @@ export class AgriculturePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AgriculturePage');
     this.countNumberPage();
-    this.formData$.subscribe(data => {
+    this.formDatAgiculture$.subscribe(data => {
       if (data != null) {
+        console.log("data agi",data);
+
         this.f.setValue(data)
       }
     });
@@ -90,25 +92,30 @@ export class AgriculturePage {
   public handleSubmit() {
     this.submitRequested = true;
     console.log(this.submitRequested);
-    // this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
-    // this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant').value));
-    // this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant').value));
-    // this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree').value));
-    // this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant').value));
-    // this.store.dispatch(new SetAgiSelectHerbPlant(this.f.get('herbsPlant').value));
-    // this.store.dispatch(new SetAgiSelectFlowerCrop(this.f.get('flowerCrop').value));
-    // this.store.dispatch(new SetAgiSelectMushroomPlant(this.f.get('mushroomPlant').value));
-    // this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm').value));
-    // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals').value));
-    this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
-    // this.store.dispatch(new SetNextPageDirection(2));
+
 
     if (!this.isValid('anycheck')) {
       // this.checkNextPage();
+      // this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
+      this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+      // this.store.dispatch(new SetNextPageDirection(2));
+
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage");
       // this.navCtrl.push("CheckListPage");
     }
+  }
+
+  dispatchSelectAgi() {
+    // this.store.dispatch(new SetAgiSelectRice(this.f.get('ricePlant.doing').value));
+    // this.store.dispatch(new SetAgiSelectAgronomy(this.f.get('agronomyPlant.doing').value));
+    // this.store.dispatch(new SetAgiSelectRubber(this.f.get('rubberTree.doing').value));
+    // this.store.dispatch(new SetAgiSelectPerennial(this.f.get('perennialPlant.doing').value));
+    // this.store.dispatch(new SetAgiSelectHerbPlant(this.f.get('herbsPlant.doing').value));
+    // this.store.dispatch(new SetAgiSelectFlowerCrop(this.f.get('flowerCrop.doing').value));
+    // this.store.dispatch(new SetAgiSelectMushroomPlant(this.f.get('mushroomPlant.doing').value));
+    // this.store.dispatch(new SetAgiSelectAnimalFarm(this.f.get('animalFarm.doing').value));
+    // this.store.dispatch(new SetAgiSelectAquaticAnimals(this.f.get('aquaticAnimals.doing').value));
   }
 
   arrayIsCheckMethod() {
