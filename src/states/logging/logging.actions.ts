@@ -27,6 +27,7 @@ export enum LoggingTypes {
     StoreWorkEAOneRecord = "[L] Store EAWork One Record",
     StoreWorkEAOneRecordSuccess = "[L] Store EAWork One Record Success",
     SetIsCheckShow = " [L] Set IsCheck Show ",
+    SetBackToRoot = "[HH] Set Back To Root",
 }
 
 export class LoadUserDataByQRCode implements Action {
@@ -148,6 +149,12 @@ export class SetIsCheckShow implements Action {
     }
 }
 
+export class SetBackToRoot implements Action {
+    readonly type = LoggingTypes.SetBackToRoot;
+    constructor(public payload: boolean) {
+    }
+}
+
 export type LoggingActionsType =
     LoadUserDataSuccess
     | LoadUserDataByQRCode
@@ -171,4 +178,5 @@ export type LoggingActionsType =
     | SetLoginSuccess
     | StoreWorkEAOneRecord
     | SetIsCheckShow
+    | SetBackToRoot
     ;

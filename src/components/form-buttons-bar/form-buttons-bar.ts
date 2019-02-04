@@ -20,23 +20,18 @@ export class FormButtonsBarComponent {
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
-    // this.countNumberPage();
   }
 
   ionViewDidEnter() {
     console.log(this.isBuilding);
-
   }
-
 
   backToHome() {
     if (this.isBuilding == true) {
       this.navCtrl.popTo("HomesPage");
     } else {
-      
       this.store.dispatch(new SetBackToRoot(true));
-      // this.store.dispatch(new SetNextPageDirection(99));
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 
@@ -47,14 +42,13 @@ export class FormButtonsBarComponent {
       let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
       let index: any;
       selectorIndex$.subscribe(data => {
-
         if (data != null) {
           index = data
           console.log("selectIndex: ", index);
         }
       });
       this.store.dispatch(new SetSelectorIndex(index - 1));
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 }

@@ -65,7 +65,7 @@ export class RubberTreePage {
    
     if (this.rubbertree.valid || !this.rubbertree.get('doing').value) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
   }

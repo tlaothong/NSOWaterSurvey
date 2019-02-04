@@ -66,7 +66,7 @@ export class ResidentialPage {
     if (this.residentialFrm.valid) {
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
   }

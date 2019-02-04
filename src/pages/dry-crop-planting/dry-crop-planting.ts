@@ -72,7 +72,7 @@ export class DryCropPlantingPage {
     // this.store.dispatch(new SetNextPageDirection(4));
     if (this.agronomyPlant.valid || !this.agronomyPlant.get('doing').value) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
   }

@@ -34,7 +34,7 @@ export class SelectEaPage {
         this.dataEa = data
         for (let index = 0; index < this.dataEa.length; index++) {
           this.dataEa[index].properties.ea_code_14 = this.dataEa[index].properties.ea_code_14.substring(11)
-          
+
         }
         console.log(this.dataEa);
       }
@@ -55,7 +55,7 @@ export class SelectEaPage {
 
   goConfirmSeletEAPage(data: any) {
     this.store.dispatch(new StoreWorkEAOneRecord(data));
-    this.navCtrl.push("HomesPage");
+    this.navCtrl.setRoot("HomesPage");
   }
 
 

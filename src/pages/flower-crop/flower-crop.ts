@@ -118,7 +118,7 @@ export class FlowerCropPage {
 
     if (this.flowerCropFrm.valid || !this.flowerCropFrm.get('doing').value) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
   }

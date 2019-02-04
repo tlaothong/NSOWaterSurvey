@@ -75,7 +75,7 @@ export class UnitButtonComponent {
       'buildingId': [null, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
-        'accessCount': [null, Validators.required],
+        'accessCount': [0, Validators.required],
         'accesses': fb.array([0]),
         'hasPlumbing': [false, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
@@ -87,7 +87,7 @@ export class UnitButtonComponent {
       'isAgriculture': [false, Validators.required],
       'isFactorial': [false, Validators.required],
       'isCommercial': [false, Validators.required],
-      'comments': fb.array([0]),
+      'comments': fb.array([]),
       'residence': [null, Validators.required],
       'agriculture': [null, Validators.required],
       'factory': [null, Validators.required],

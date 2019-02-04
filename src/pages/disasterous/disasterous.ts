@@ -59,7 +59,7 @@ export class DisasterousPage {
 
     if (this.Disasterous.valid) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("UserPage");
     }
   }

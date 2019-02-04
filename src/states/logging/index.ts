@@ -1,6 +1,6 @@
-import  { LoggingState } from "./logging.reducer";
-import  { LoggingTypes } from "./logging.actions";
-import  { createFeatureSelector, createSelector } from "@ngrx/store";
+import { LoggingState } from "./logging.reducer";
+import { LoggingTypes } from "./logging.actions";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 const getLoggingFeatureState = createFeatureSelector<LoggingState>(LoggingTypes.StateName);
 
@@ -43,8 +43,11 @@ export const getStoreWorkEaOneRecord = createSelector(
     getLoggingFeatureState,
     state => state.storeWorkEaOneRecord,
 );
-
 export const getIsCheckShow = createSelector(
     getLoggingFeatureState,
     state => state.isCheckShow,
+);
+export const getBackToRoot = createSelector(
+    getLoggingFeatureState,
+    state => state.backToRoot,
 );

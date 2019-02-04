@@ -74,7 +74,7 @@ export class WaterActivityUnitPage {
     console.log(arrayNextPage);
     this.store.dispatch(new SetSelectorIndex(-1));
     this.store.dispatch(new SetBackToRoot(false));
-    this.navCtrl.setRoot("CheckListPage");
+    this.navCtrl.push("CheckListPage");
   }
 
   private checkNextPage() {

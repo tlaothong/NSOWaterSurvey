@@ -60,7 +60,7 @@ export class FactorialPage {
 
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
   }

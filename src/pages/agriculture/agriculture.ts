@@ -101,7 +101,7 @@ export class AgriculturePage {
       // this.store.dispatch(new SetNextPageDirection(2));
 
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("CheckListPage");
     }
   }
