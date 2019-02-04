@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { SetBackToRoot } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { PopoverController } from 'ionic-angular';
+import { QuestionnaireMenuPopoverComponent } from '../questionnaire-menu-popover/questionnaire-menu-popover';
 
 /**
  * Generated class for the BackToRootComponent component.
@@ -17,14 +19,21 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 export class BackToRootComponent {
 
   @Input('title') public text: string;
+  @Input('Pop') public Pop: boolean;
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private popoverCtrl: PopoverController) {
     console.log('Hello BackToRootComponent Component');
   }
 
   backToRoot() {
     this.store.dispatch(new SetBackToRoot(true));
-    this.navCtrl.pop();
+    this.navCtrl.popTo("CheckListPage");
   }
 
+  public showQuickMenu(myEvent) {
+    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent, { nav: this.navCtrl });
+    popover.present({
+      ev: myEvent
+    });
+  }
 }
