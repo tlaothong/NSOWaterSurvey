@@ -54,7 +54,6 @@ export enum HouseHoldTypes {
     SetBackToRoot = "[HH] Set Back To Root",
     LoadDataOfUnit = "[HH] Load Data Of Unit",
     LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
-   
 }
 
 export class LoadHouseHoldList implements Action {

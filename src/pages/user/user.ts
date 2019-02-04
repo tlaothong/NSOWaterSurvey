@@ -51,7 +51,7 @@ export class UserPage {
    
     if (this.userInfo.valid) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("PopulationPage");
       }
   }

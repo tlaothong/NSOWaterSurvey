@@ -106,7 +106,7 @@ export class AgriculturePage {
     if (!this.isValid('anycheck')) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("CheckListPage");
     }
   }

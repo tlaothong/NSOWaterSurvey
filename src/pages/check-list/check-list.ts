@@ -139,7 +139,7 @@ export class CheckListPage {
           let index = this.arrayNextPage.indexOf(11)
           this.arrayNextPage.splice(index, 1);
         }
-        if (!this.objSkipPage.isCommercial && this.arrayNextPage.some(it => it == 0)) {
+        if (!this.objSkipPage.isCommercial && this.arrayNextPage.some(it => it == 12)) {
           let index = this.arrayNextPage.indexOf(12)
           this.arrayNextPage.splice(index, 1);
         }
@@ -328,6 +328,5 @@ export class CheckListPage {
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
     this.store.dispatch(new SetBackToRoot(false));
-
   }
 }

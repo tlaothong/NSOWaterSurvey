@@ -178,7 +178,7 @@ export class PlumbingPage {
     if (this.f.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
         this.arrayIsCheckMethod();
-        this.navCtrl.setRoot("CheckListPage");
+        this.navCtrl.popTo("CheckListPage");
         // this.navCtrl.push("GroundWaterPage");
       // }
     }

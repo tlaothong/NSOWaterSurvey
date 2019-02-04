@@ -11,6 +11,7 @@ export interface LoggingState {
     stateLogin: any,
     storeWorkEaOneRecord: any,
     isCheckShow: any,
+    backToRoot: boolean,
 }
 
 const initialState: LoggingState = {
@@ -24,6 +25,7 @@ const initialState: LoggingState = {
     stateLogin: null,
     storeWorkEaOneRecord: null,
     isCheckShow: null,
+    backToRoot: false,
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -83,6 +85,11 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state,
                 isCheckShow: action.payload,
+            };
+        case LoggingTypes.SetBackToRoot:
+            return {
+                ...state,
+                backToRoot: action.payload,
             };
         default:
             return state;

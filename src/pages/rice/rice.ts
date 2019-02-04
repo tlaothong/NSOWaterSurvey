@@ -67,7 +67,7 @@ export class RicePage {
     if (this.f.valid || !this.f.get('doing').value) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 

@@ -151,7 +151,7 @@ export class IrrigationPage {
 
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 

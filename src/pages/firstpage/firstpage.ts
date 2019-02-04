@@ -19,15 +19,13 @@ export class FirstpagePage {
   }
 
   goScanqrPage() {
-    this.store.dispatch(new SetIsCheckShow(true))
-    // this.navCtrl.push("ScanqrPage")
+    this.store.dispatch(new SetIsCheckShow(true));
     this.navCtrl.pop();
   }
 
   goLoginPage() {
-    this.store.dispatch(new SetIsCheckShow(false))
+    this.store.dispatch(new SetIsCheckShow(false));
     this.navCtrl.pop();
-    // this.navCtrl.push("LoginPage")
   }
 
   

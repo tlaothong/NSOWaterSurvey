@@ -63,7 +63,7 @@ export class MushroomPage {
     
     if (this.f.valid || !this.f.get('doing').value) {
       this.arrayIsCheckMethod();
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
   }
