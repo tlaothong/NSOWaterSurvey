@@ -60,7 +60,7 @@ export class RiverPage {
       "pumps": this.fb.array([]),
       "waterActivities": WaterActivity6Component.CreateFormGroup(fb),
       "qualityProblem": this.fb.group({
-        "hasProblem": [null, Validators.required],
+        "hasProblem": [null],
         "problem": WaterProblem4Component.CreateFormGroup(this.fb)
       })
     });
@@ -143,7 +143,7 @@ export class RiverPage {
     this.waterProblem4.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(16));
     
-    if (this.f.valid) {
+    if (this.f.valid || (this.f.get('hasPump').value == false)) {
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage" );
       // this.navCtrl.pop();

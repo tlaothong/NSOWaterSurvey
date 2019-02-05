@@ -67,7 +67,7 @@
       <ion-checkbox value="false" formControlName="hasOther"></ion-checkbox>
     </ion-item>
 
-    <ion-item *ngIf="FormItem.get('hasOther').value || false">
+    <ion-item *ngIf="FormItem.get('hasOther').value == true">
       <ion-label>
         โปรดระบุ
       </ion-label>

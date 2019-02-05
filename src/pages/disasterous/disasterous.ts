@@ -57,7 +57,7 @@ export class DisasterousPage {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
 
-    if (this.Disasterous.valid) {
+    if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("UserPage");

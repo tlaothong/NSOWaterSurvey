@@ -19,7 +19,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'plumbing' : [false,Validators.required],
+      'plumbing': [false, Validators.required],
       'underGround': [false, Validators.required],
       'pool': [false, Validators.required],
       'river': [false, Validators.required],
@@ -27,11 +27,11 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': ['', Validators.required],
-      'hasOther' : [false,Validators.required]
+      'other': [''],
+      'hasOther': [false, Validators.required]
     }, {
-      validator: WaterSources8AComponent.checkAnyOrOther()
-    });
+        validator: WaterSources8AComponent.checkAnyOrOther()
+      });
   }
 
   public isValid(name: string): boolean {
@@ -66,7 +66,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       if (!underGround.value && !pool.value && !river.value && !hasOther.value && !irrigation.value
         && !rain.value && !buying.value && !rainingAsIs.value) {
         return { 'anycheck': true };
-      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+      } else if (hasOther.value == true && (!other.value || other.value == '')) {
         return { 'other': true };
       }
       return null;

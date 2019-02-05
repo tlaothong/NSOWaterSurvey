@@ -116,8 +116,10 @@ export class FlowerCropPage {
     selectedMap.forEach(v => selected.push(v));
     // this.store.dispatch(new SetNextPageDirection(8));
 
-    if (this.flowerCropFrm.valid || !this.flowerCropFrm.get('doing').value) {
+    if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
+      console.log("101010101");
+      
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
