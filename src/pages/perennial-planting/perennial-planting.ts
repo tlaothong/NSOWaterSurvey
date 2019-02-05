@@ -69,7 +69,7 @@ export class PerennialPlantingPage {
     this.store.dispatch(new SetAgiSelectPerennial(true));
     // this.store.dispatch(new SetNextPageDirection(6));
 
-    if (this.PerennialPlantingFrm.valid || !this.PerennialPlantingFrm.get('doing').value)  {
+    if (this.PerennialPlantingFrm.valid || !this.PerennialPlantingFrm.get('doing').value) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
@@ -84,11 +84,12 @@ export class PerennialPlantingPage {
 
       if (data != null) {
         arrayNextPage = data;
-        this.backNum = arrayNextPage.length;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -96,25 +97,15 @@ export class PerennialPlantingPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-      let index: any;
-      selectorIndex$.subscribe(data => {
-  
-        if (data != null) {
-          index = data
-          console.log("selectIndex: ", index);
-        }
-      });
-      
-      this.store.dispatch(new SetSelectorIndex(index + 1));
+    this.store.dispatch(new SetSelectorIndex(5));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

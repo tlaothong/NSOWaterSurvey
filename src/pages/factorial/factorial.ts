@@ -73,7 +73,8 @@ export class FactorialPage {
 
       if (data != null) {
         arrayNextPage = data;
-        this.backNum = arrayNextPage.length;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
 
     });
@@ -93,17 +94,7 @@ export class FactorialPage {
   }
 
   arrayIsCheckMethod() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    let index: any;
-    selectorIndex$.subscribe(data => {
-
-      if (data != null) {
-        index = data
-        console.log("selectIndex: ", index);
-      }
-    });
-
-    this.store.dispatch(new SetSelectorIndex(index + 1));
+    this.store.dispatch(new SetSelectorIndex(11));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
@@ -118,21 +109,11 @@ export class FactorialPage {
   }
 
   private dispatchWaterSource() {
-    if (this.FactoryForm.get('waterSources.plumbing').value) {
       this.store.dispatch(new SetCheckWaterPlumbing(this.FactoryForm.get('waterSources.plumbing').value));
-    }
-    if (this.FactoryForm.get('waterSources.river').value) {
       this.store.dispatch(new SetCheckWaterRiver(this.FactoryForm.get('waterSources.river').value));
-    }
-    if (this.FactoryForm.get('waterSources.irrigation').value) {
       this.store.dispatch(new SetCheckWaterIrrigation(this.FactoryForm.get('waterSources.irrigation').value));
-    }
-    if (this.FactoryForm.get('waterSources.rain').value) {
       this.store.dispatch(new SetCheckWaterRain(this.FactoryForm.get('waterSources.rain').value));
-    }
-    if (this.FactoryForm.get('waterSources.buying').value) {
       this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
-    }
   }
 
   private checkNextPage() {

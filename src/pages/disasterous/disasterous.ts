@@ -72,7 +72,8 @@ export class DisasterousPage {
 
       if (data != null) {
         arrayNextPage = data;
-        this.backNum = arrayNextPage.length;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
 
     });
@@ -92,17 +93,7 @@ export class DisasterousPage {
   }
 
   arrayIsCheckMethod() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    let index: any;
-    selectorIndex$.subscribe(data => {
-
-      if (data != null) {
-        index = data
-        console.log("selectIndex: ", index);
-      }
-    });
-    
-    this.store.dispatch(new SetSelectorIndex(index + 1));
+    this.store.dispatch(new SetSelectorIndex(20));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
