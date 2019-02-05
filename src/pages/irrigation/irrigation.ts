@@ -149,7 +149,7 @@ export class IrrigationPage {
     this.waterProblem4.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(18));
 
-    if (this.f.valid) {
+    if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
     }

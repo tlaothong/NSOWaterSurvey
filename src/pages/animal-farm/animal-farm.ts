@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -46,7 +46,9 @@ export class AnimalFarmPage {
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       // 'otherName': null,
       'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
-    });
+    }, {
+        validator: AnimalFarmPage.checkAnyOrOther()
+      });
   }
 
   ionViewDidLoad() {
@@ -73,9 +75,10 @@ export class AnimalFarmPage {
     console.log("valid", this.f.valid);
     // this.store.dispatch(new SetNextPageDirection(10));
 
-    // if (this.f.valid) {
-    this.arrayIsCheckMethod();
-    this.navCtrl.popTo("CheckListPage");
+    if (this.f.valid || (this.f.get('doing').value == false)) {
+      this.arrayIsCheckMethod();
+      this.navCtrl.popTo("CheckListPage");
+    }
     // this.checkNextPage();
     // }
   }
@@ -193,5 +196,26 @@ export class AnimalFarmPage {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-
+  
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const cow = c.get('cow');
+      const buffalo = c.get('buffalo');
+      const pig = c.get('pig');
+      const goat = c.get('goat');
+      const sheep = c.get('sheep');
+      const chicken = c.get('chicken');
+      const duck = c.get('duck');
+      const goose = c.get('goose');
+      const silkWool = c.get('silkWool');
+      const other = c.get('other');
+      console.log(cow.value.itemCount);
+      
+      if (!cow.value.itemCount && !buffalo.value.itemCount && !pig.value.itemCount && !goat.value.itemCount && !sheep.value.itemCount
+        && !chicken.value.itemCount && !duck.value.itemCount && !goose.value.itemCount && !silkWool.value.itemCount && !other.value.itemCount) {
+        return { 'anycheck': true };
+      }
+      return null;
+    }
+  }
 }    

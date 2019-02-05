@@ -43,8 +43,8 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
       'irrigationField': [null, Validators.required],
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
-      'thisPlantOnly': [null, Validators.required],
-      'primaryPlant': [null, Validators.required],
+      'thisPlantOnly': [null],
+      'primaryPlant': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
   }
@@ -76,6 +76,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     }
     console.log("dispatch flower can work");
   }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

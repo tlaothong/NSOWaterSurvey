@@ -63,7 +63,7 @@ export class RubberTreePage {
     this.store.dispatch(new SetAgiSelectRubber(true));
     // this.store.dispatch(new SetNextPageDirection(5));
    
-    if (this.rubbertree.valid || !this.rubbertree.get('doing').value) {
+    if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();

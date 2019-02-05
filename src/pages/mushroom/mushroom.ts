@@ -61,7 +61,7 @@ export class MushroomPage {
     this.fieldMushroom.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     // this.store.dispatch(new SetNextPageDirection(9));
     
-    if (this.f.valid || !this.f.get('doing').value) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();

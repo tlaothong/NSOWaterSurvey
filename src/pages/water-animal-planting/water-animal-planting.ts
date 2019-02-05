@@ -77,7 +77,7 @@ export class WaterAnimalPlantingPage {
     this.crocodileFarming.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(11));
     
-    if (!this.isValid('anycheck')) {
+    if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.navCtrl.setRoot("CheckListPage",);
       // this.checkNextPage();
