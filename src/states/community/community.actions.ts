@@ -6,19 +6,22 @@ export enum CommunityTypes {
     LoadListSuccess = "[CM] Load List Success",
     Load = "[CM] Load",
     LoadSuccess = "[CM] Load Success",
-   
+    SetCommunity = "[CM] Set Community",
+    SetCommunitySuccess = "[CM] Set Community Success",
+  
+
 }
 
 export class LoadCommunityList implements Action {
     readonly type = CommunityTypes.LoadList;
-    
+
     constructor() {
     }
 }
 
 export class LoadCommunityListSuccess implements Action {
     readonly type = CommunityTypes.LoadListSuccess;
-    
+
     constructor() {
     }
 }
@@ -37,6 +40,20 @@ export class LoadCommunitySampleSuccess implements Action {
     }
 }
 
+export class SetCommunity implements Action {
+    readonly type = CommunityTypes.SetCommunity;
+
+    constructor(public payload: any) {
+    }
+}
+
+export class SetCommunitySuccess implements Action {
+    readonly type = CommunityTypes.SetCommunitySuccess;
+
+    constructor(public payload: any) {
+    }
+}
+
 
 
 export type CommunityActionsType =
@@ -44,4 +61,6 @@ export type CommunityActionsType =
     | LoadCommunityListSuccess
     | LoadCommunitySample
     | LoadCommunitySampleSuccess
+    | SetCommunity
+    | SetCommunitySuccess
     ;

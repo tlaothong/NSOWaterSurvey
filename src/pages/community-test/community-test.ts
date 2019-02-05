@@ -23,6 +23,7 @@ export class CommunityTestPage {
   }
 
   ionViewDidLoad() {
+    this.navCtrl.push("CommunityWaterManagementPage");
     console.log('ionViewDidLoad CommunityTestPage');
   }
 

@@ -62,7 +62,7 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
-
+   
 
 }
 
@@ -128,7 +128,7 @@ const initialState: HouseHoldState = {
     backToRoot: null,
     back: null,
     dataOfUnit: null,
-
+  
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -401,8 +401,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 dataOfUnit: action.payload,
             };
-
-
         default:
             return state;
     }

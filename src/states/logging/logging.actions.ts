@@ -28,6 +28,10 @@ export enum LoggingTypes {
     StoreWorkEAOneRecordSuccess = "[L] Store EAWork One Record Success",
     SetIsCheckShow = " [L] Set IsCheck Show ",
     SetBackToRoot = "[HH] Set Back To Root",
+    LoadCommunity = "[CM] Load Community",
+    LoadCommunitySuccess = "[CM] Load LoadCommunity Success",
+    LoadCommunityForEdit = "[CM] Load Community For Edit",
+    LoadCommunityForEditSuccess = "[CM] Load Community For Edit Success",
 }
 
 export class LoadUserDataByQRCode implements Action {
@@ -154,6 +158,28 @@ export class SetBackToRoot implements Action {
     constructor(public payload: boolean) {
     }
 }
+export class LoadCommunity implements Action {
+    readonly type = LoggingTypes.LoadCommunity;
+    constructor(public payload: string) {
+    }
+}
+export class LoadCommunitySuccess implements Action {
+    readonly type = LoggingTypes.LoadCommunitySuccess;
+    constructor(public payload: any) {
+    }
+}
+export class LoadCommunityForEdit implements Action {
+    readonly type = LoggingTypes.LoadCommunityForEdit;
+    constructor(public payload: string) {
+    }
+}
+
+export class LoadCommunityForEditSuccess implements Action {
+    readonly type = LoggingTypes.LoadCommunityForEditSuccess;
+    constructor(public payload: any) {
+    }
+}
+
 
 export type LoggingActionsType =
     LoadUserDataSuccess
@@ -179,4 +205,8 @@ export type LoggingActionsType =
     | StoreWorkEAOneRecord
     | SetIsCheckShow
     | SetBackToRoot
+    | LoadCommunity
+    | LoadCommunitySuccess
+    | LoadCommunityForEdit
+    | LoadCommunityForEditSuccess
     ;

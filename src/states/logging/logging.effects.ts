@@ -8,7 +8,7 @@ import {
     LoggingTypes, LoadUserDataSuccess, SetUserPasswordSuccess, SetUserPassword,
     LoadUserDataByQRCode, LoadCountOfWorksSuccess,
     LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
-    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId, LoadHomeBuilding, DeleteHomeBuildingSuccess, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess, SetLogin, SetLoginSuccess,
+    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId, LoadHomeBuilding, DeleteHomeBuildingSuccess, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess, SetLogin, SetLoginSuccess, LoadCommunity, LoadCommunitySuccess, LoadCommunityForEdit, LoadCommunityForEditSuccess,
 } from "./logging.actions";
 
 @Injectable()
@@ -106,4 +106,23 @@ export class LoggingEffects {
             )
         ),
     );
+
+    @Effect()
+    public LoadCommunity$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadCommunity),
+        mergeMap(action => this.cloudSync.loadCommunity((<LoadCommunity>action).payload).pipe(
+            map(data => new LoadCommunitySuccess(data)),
+        )
+        ),
+    );
+
+    @Effect()
+    public LoadCommunityForEdit$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadCommunityForEdit),
+        mergeMap(action => this.cloudSync.loadCommunityForEdit((<LoadCommunityForEdit>action).payload).pipe(
+            map(data => new LoadCommunityForEditSuccess(data)),
+        )
+        ),
+    );
+
 }

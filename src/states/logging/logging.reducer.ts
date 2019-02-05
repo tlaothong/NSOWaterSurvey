@@ -12,6 +12,8 @@ export interface LoggingState {
     storeWorkEaOneRecord: any,
     isCheckShow: any,
     backToRoot: boolean,
+    communityList: any[],
+    communityForEdit: any,
 }
 
 const initialState: LoggingState = {
@@ -26,6 +28,8 @@ const initialState: LoggingState = {
     storeWorkEaOneRecord: null,
     isCheckShow: null,
     backToRoot: false,
+    communityList: [],
+    communityForEdit: null
 }
 
 export function reducer(state: LoggingState = initialState, action: LoggingActionsType): LoggingState {
@@ -90,6 +94,16 @@ export function reducer(state: LoggingState = initialState, action: LoggingActio
             return {
                 ...state,
                 backToRoot: action.payload,
+            };
+        case LoggingTypes.LoadCommunitySuccess:
+            return {
+                ...state,
+                communityList: action.payload,
+            };
+        case LoggingTypes.LoadCommunityForEditSuccess:
+            return {
+                ...state,
+                communityForEdit: action.payload,
             };
         default:
             return state;
