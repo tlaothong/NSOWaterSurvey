@@ -97,7 +97,7 @@ export class HerbsPlantPage {
     selectedMap.forEach(v => selected.push(v));
     // this.store.dispatch(new SetNextPageDirection(7));
 
-    if (this.f.valid || !this.f.get('doing').value) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();

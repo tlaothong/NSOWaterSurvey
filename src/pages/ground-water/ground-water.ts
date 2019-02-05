@@ -157,8 +157,8 @@ export class GroundWaterPage {
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     // this.store.dispatch(new SetNextPageDirection(15));
-
-    if (this.f.valid) {
+    
+    if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false)&&(this.f.get('publicGroundWater').value.doing == false))) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();

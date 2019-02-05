@@ -69,7 +69,7 @@ export class PerennialPlantingPage {
     this.store.dispatch(new SetAgiSelectPerennial(true));
     // this.store.dispatch(new SetNextPageDirection(6));
 
-    if (this.PerennialPlantingFrm.valid || !this.PerennialPlantingFrm.get('doing').value) {
+    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();

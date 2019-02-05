@@ -64,7 +64,7 @@ export class RicePage {
     this.store.dispatch(new SetAgiSelectRice(true));
     // this.store.dispatch(new SetNextPageDirection(3));
 
-    if (this.f.valid || !this.f.get('doing').value) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
