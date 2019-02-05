@@ -183,17 +183,7 @@ export class IrrigationPage {
   }
 
   arrayIsCheckMethod() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    let index: any;
-    selectorIndex$.subscribe(data => {
-
-      if (data != null) {
-        index = data
-        console.log("selectIndex: ", index);
-      }
-    });
-
-    this.store.dispatch(new SetSelectorIndex(index + 1));
+    this.store.dispatch(new SetSelectorIndex(17));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
