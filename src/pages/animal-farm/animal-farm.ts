@@ -88,7 +88,8 @@ export class AnimalFarmPage {
 
       if (data != null) {
         arrayNextPage = data;
-        this.backNum = arrayNextPage.length;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
 
     });

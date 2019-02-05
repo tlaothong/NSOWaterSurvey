@@ -44,7 +44,7 @@ export class ResidentialPage {
       }
     });
   }
-  
+
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
@@ -79,9 +79,9 @@ export class ResidentialPage {
 
       if (data != null) {
         arrayNextPage = data;
-        this.backNum = arrayNextPage.length;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
-
     });
     console.log("back", this.backNum);
 
@@ -114,12 +114,12 @@ export class ResidentialPage {
   }
 
   private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.residentialFrm.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.residentialFrm.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.residentialFrm.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.residentialFrm.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
-      this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
+    this.store.dispatch(new SetCheckWaterPlumbing(this.residentialFrm.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.residentialFrm.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.residentialFrm.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.residentialFrm.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
+    this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
   }
 
   private checkNextPage() {
