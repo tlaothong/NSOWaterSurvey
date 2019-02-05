@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess,  LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, LoadDataOfUnit, LoadDataOfUnitSuccess} from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, LoadDataOfUnit, LoadDataOfUnitSuccess} from "./household.actions";
 
 
 @Injectable()
@@ -45,5 +45,4 @@ export class HouseHoldEffects {
         ),
     );
 
- 
 }

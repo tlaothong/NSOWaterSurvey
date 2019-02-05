@@ -9,3 +9,10 @@ export const getCommunitySample = createSelector(
     state => state.communitySample,
 );
 
+export const getSetCommunity = createSelector(
+    getCommunityFeatureState,
+    state => state.setCommunity,
+);
+
+
+

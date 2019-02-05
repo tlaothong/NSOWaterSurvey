@@ -5,8 +5,11 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getCommunitySample } from '../../states/community';
+import { getCommunitySample, getSetCommunity } from '../../states/community';
 import { SetNextPageDirection } from '../../states/household/household.actions';
+import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
+import { SetCommunity } from '../../states/community/community.actions';
+import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
 
 @IonicPage()
 @Component({
@@ -16,24 +19,48 @@ import { SetNextPageDirection } from '../../states/household/household.actions';
 export class ManagementForFarmingPage {
 
   @ViewChildren(DetailManagementForFarmingComponent) private detailManagementForFarming: DetailManagementForFarmingComponent[];
+  // @ViewChildren(CommunityWaterManagementPage) private communityWaterManagement: CommunityWaterManagementPage;
 
   public managementforfarming: FormGroup;
   private submitRequested: boolean;
 
-  private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
+  private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
+  
+  // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
+  // private dataCommunuty$ = this.store.select(getSetCommunity);
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  private DataStoreWorkEaOneRecord: any;
 
+  private getSetCommunity$ = this.store.select(getSetCommunity);
+  public getSetCommunity: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
-    this.managementforfarming = this.fb.group({
+    this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
+    this.setupprojectcountChanges();
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
       'doing': [null, Validators.required],
       'projectCount': [null, Validators.required],
       'details': fb.array([]),
     });
-    this.setupprojectcountChanges();
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
+
+    let formItem = this.fb.group({
+      'management': [null],
+      'communityProject': this.managementforfarming,
+      'ea':[null],
+      '_id': [null]
+    });
+    formItem.controls['ea'].setValue(this.DataStoreWorkEaOneRecord._id);
+    formItem.controls['_id'].setValue(this.getSetCommunity._id);
+    console.log(formItem.value);
+    
+    this.store.dispatch(new SetCommunity(formItem.value));
     this.navCtrl.popToRoot();
   }
 
@@ -44,13 +71,22 @@ export class ManagementForFarmingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManagementForFarmingPage');
-    this.formData$.subscribe(data => this.managementforfarming.setValue(data));
+    this.formDataCom$.subscribe(data => this.managementforfarming.setValue(data));
+    this.getSetCommunity$.subscribe(data => {
+      if (data != null) {
+        this.getSetCommunity = data
+      }
+    });
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.DataStoreWorkEaOneRecord = data;
+      }
+    });
   }
 
   private setupprojectcountChanges() {
     const componentFormArray: string = "details";
     const componentCount: string = "projectCount";
-
     var onComponentCountChanges = () => {
       var fieldFlowerCrop = (this.managementforfarming.get(componentFormArray) as FormArray).controls || [];
       var fieldCount = this.managementforfarming.get(componentCount).value || 0;
@@ -71,9 +107,7 @@ export class ManagementForFarmingPage {
       }
       this.managementforfarming.setControl(componentFormArray, field);
     };
-
     this.managementforfarming.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
     onComponentCountChanges();
   }
 }

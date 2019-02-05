@@ -48,3 +48,12 @@ export const getIsCheckShow = createSelector(
     getLoggingFeatureState,
     state => state.isCheckShow,
 );
+
+export const getLoadCommunity = createSelector(
+    getLoggingFeatureState,
+    state => state.communityList,
+);
+export const getLoadCommunityForEdit = createSelector(
+    getLoggingFeatureState,
+    state => state.communityForEdit,
+);

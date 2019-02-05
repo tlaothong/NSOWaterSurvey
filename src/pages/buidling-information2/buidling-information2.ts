@@ -22,7 +22,7 @@ export class BuidlingInformation2Page {
   // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
   // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
-  private getBuildingType$ = this.store.select(getSendBuildingType)
+  private getBuildingType$ = this.store.select(getSendBuildingType);
   private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];

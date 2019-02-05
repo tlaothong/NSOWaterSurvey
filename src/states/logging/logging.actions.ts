@@ -27,6 +27,10 @@ export enum LoggingTypes {
     StoreWorkEAOneRecord = "[L] Store EAWork One Record",
     StoreWorkEAOneRecordSuccess = "[L] Store EAWork One Record Success",
     SetIsCheckShow = " [L] Set IsCheck Show ",
+    LoadCommunity = "[CM] Load Community",
+    LoadCommunitySuccess = "[CM] Load LoadCommunity Success",
+    LoadCommunityForEdit = "[CM] Load Community For Edit",
+    LoadCommunityForEditSuccess = "[CM] Load Community For Edit Success",
 }
 
 export class LoadUserDataByQRCode implements Action {
@@ -148,6 +152,29 @@ export class SetIsCheckShow implements Action {
     }
 }
 
+export class LoadCommunity implements Action {
+    readonly type = LoggingTypes.LoadCommunity;
+    constructor(public payload: string) {
+    }
+}
+export class LoadCommunitySuccess implements Action {
+    readonly type = LoggingTypes.LoadCommunitySuccess;
+    constructor(public payload: any) {
+    }
+}
+export class LoadCommunityForEdit implements Action {
+    readonly type = LoggingTypes.LoadCommunityForEdit;
+    constructor(public payload: string) {
+    }
+}
+
+export class LoadCommunityForEditSuccess implements Action {
+    readonly type = LoggingTypes.LoadCommunityForEditSuccess;
+    constructor(public payload: any) {
+    }
+}
+
+
 export type LoggingActionsType =
     LoadUserDataSuccess
     | LoadUserDataByQRCode
@@ -171,4 +198,8 @@ export type LoggingActionsType =
     | SetLoginSuccess
     | StoreWorkEAOneRecord
     | SetIsCheckShow
+    | LoadCommunity
+    | LoadCommunitySuccess
+    | LoadCommunityForEdit
+    | LoadCommunityForEditSuccess
     ;

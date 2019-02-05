@@ -19,7 +19,7 @@
   <ion-row>
     <ion-item>
       <ion-label>
-        {{ dataWorkEARow?.properties.pro_name }} 
+        {{ dataWorkEARow?.properties.pro_name }}
         {{ dataWorkEARow?.properties.dis_name }}
         {{ dataWorkEARow?.properties.tam_name }}
         {{ str }}
@@ -64,13 +64,13 @@
 
   <div>
     <ion-segment [(ngModel)]="office">
-      <ion-segment-button value="building">
+      <ion-segment-button value="building" (click)="changeNum('1')">
         สน.1 ข้อมูลอาคาร
       </ion-segment-button>
-      <ion-segment-button value="areayoi">
+      <ion-segment-button value="areayoi" (click)="changeNum('2')">
         สน.2 พื้นที่ย่อย
       </ion-segment-button>
-      <ion-segment-button value="fsedit">
+      <ion-segment-button value="fsedit" (click)="changeNum('3')">
         FS ให้แก้ไข
       </ion-segment-button>
     </ion-segment>
@@ -215,30 +215,31 @@
           ชื่อหมู่บ้าน
         </ion-col>
         <ion-col col-1>
-
         </ion-col>
       </ion-row>
 
       <hr>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="pause"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          -
-        </ion-col>
-        <ion-col col-7>
-          -
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
+      <div *ngFor="let itemCom of dataCommunity;let i=index">
+        <ion-row text-center align-items-center>
+          <ion-col col-1>
+            <ion-icon disabled="false" name="pause"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id)">
+           {{dataWorkEARow.properties.moo}}
+          </ion-col>
+          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
+            -
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
 
     <div *ngSwitchCase="'fsedit'">

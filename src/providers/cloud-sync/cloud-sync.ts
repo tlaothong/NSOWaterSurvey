@@ -81,4 +81,16 @@ export class CloudSyncProvider {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/GetLogin', data);
   }
 
+  public setCommunity(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateCommunity', data);
+  }
+
+  public loadCommunity(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllCommunityByIdEA/'+ id);
+  }
+
+  public loadCommunityForEdit(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/'+ id);
+  }
+
 }
