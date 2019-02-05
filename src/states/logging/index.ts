@@ -47,12 +47,10 @@ export const getIsCheckShow = createSelector(
     getLoggingFeatureState,
     state => state.isCheckShow,
 );
-<<<<<<< HEAD
 export const getBackToRoot = createSelector(
     getLoggingFeatureState,
     state => state.backToRoot,
 );
-=======
 
 export const getLoadCommunity = createSelector(
     getLoggingFeatureState,
@@ -62,4 +60,3 @@ export const getLoadCommunityForEdit = createSelector(
     getLoggingFeatureState,
     state => state.communityForEdit,
 );
->>>>>>> noodle
