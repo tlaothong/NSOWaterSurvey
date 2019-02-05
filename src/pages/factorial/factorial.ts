@@ -34,7 +34,7 @@ export class FactorialPage {
       'heavyMachine': ['', Validators.required],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'hasWasteWaterFromProduction': ['', Validators.required],
-      'hasWasteWaterTreatment': ['', Validators.required],
+      'hasWasteWaterTreatment': [null],
       'wasteWaterReuse': ['', Validators.required]
     });
   }
