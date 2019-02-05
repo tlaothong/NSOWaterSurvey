@@ -44,7 +44,7 @@ export class ResidentialPage {
       }
     });
   }
-
+  
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
@@ -99,17 +99,7 @@ export class ResidentialPage {
   }
 
   arrayIsCheckMethod() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    let index: any;
-    selectorIndex$.subscribe(data => {
-
-      if (data != null) {
-        index = data
-        console.log("selectIndex: ", index);
-      }
-    });
-
-    this.store.dispatch(new SetSelectorIndex(index + 1));
+    this.store.dispatch(new SetSelectorIndex(0));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
@@ -124,24 +114,12 @@ export class ResidentialPage {
   }
 
   private dispatchWaterSource() {
-    if (this.residentialFrm.get('waterSources.plumbing').value) {
       this.store.dispatch(new SetCheckWaterPlumbing(this.residentialFrm.get('waterSources.plumbing').value));
-    }
-    if (this.residentialFrm.get('waterSources.river').value) {
       this.store.dispatch(new SetCheckWaterRiver(this.residentialFrm.get('waterSources.river').value));
-    }
-    if (this.residentialFrm.get('waterSources.irrigation').value) {
       this.store.dispatch(new SetCheckWaterIrrigation(this.residentialFrm.get('waterSources.irrigation').value));
-    }
-    if (this.residentialFrm.get('waterSources.rain').value) {
       this.store.dispatch(new SetCheckWaterRain(this.residentialFrm.get('waterSources.rain').value));
-    }
-    if (this.residentialFrm.get('waterSources.buying').value) {
       this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
-    }
-    if (this.residentialFrm.get('gardeningUse').value) {
       this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
-    }
   }
 
   private checkNextPage() {
