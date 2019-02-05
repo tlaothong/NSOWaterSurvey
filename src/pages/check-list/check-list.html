@@ -13,7 +13,7 @@
 
   <ion-list>
     <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-      <ion-icon color="secondary" ios="ios-checkbox" md="md-checkbox"  *ngIf="p.isCheck"></ion-icon>
+      <ion-icon color="secondary" ios="ios-checkbox" md="md-checkbox" *ngIf="p.isCheck"></ion-icon>
       {{p.title}}
     </button>
   </ion-list>
