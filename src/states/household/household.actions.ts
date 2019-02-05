@@ -7,6 +7,7 @@ export enum HouseHoldTypes {
     LoadList = "[HH] Load List",
     SetRiceDoing = "[HH] Set Rice Donig",
     SetWaterSource = "[HH] Set WaterSource",
+    SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsHouseHold = "[HH] Set IsHouseHold",
     SetIsCommercial = "[HH] Set IsCommercial",
@@ -85,6 +86,20 @@ export class LoadHouseHoldSampleSuccess implements Action {
     constructor(public payload: any) {
     }
 }
+
+export class SetSelectG1234 implements Action {
+    readonly type = HouseHoldTypes.SetSelectG1234;
+
+    constructor(public payload: any) {
+    }
+}
+
+// export interface IG1234 {
+//     g1: boolean;
+//     g2: boolean;
+//     g3: boolean;
+//     g4: boolean;
+// }
 
 export class SetIsHouseHold implements Action {
     readonly type = HouseHoldTypes.SetIsHouseHold;
@@ -334,7 +349,7 @@ export class SetWaterSourcesCommercial implements Action {
 export class SetNextPageDirection implements Action {
     readonly type = HouseHoldTypes.SetNextPageDirection;
 
-    constructor(public payload: Array<number>) {
+    constructor(public payload: Array<boolean>) {
     }
 }
 export class SetHeadFamily implements Action {
@@ -387,6 +402,7 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
+    | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
     | SetIsFactorial

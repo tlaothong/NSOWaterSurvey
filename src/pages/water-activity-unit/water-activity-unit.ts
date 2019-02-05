@@ -1,5 +1,5 @@
 import { getArraySkipPage, getNextPageDirection, getSelectorIndex, getDataOfUnit } from './../../states/household/index';
-import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit } from './../../states/household/household.actions';
+import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -40,16 +40,31 @@ export class WaterActivityUnitPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.store.dispatch(new SetArraySkipPage(this.f.value));
-    console.log("f", this.f.value);
+    // this.store.dispatch(new SetArraySkipPage(this.f.value));
+    this.arrayNextPageMedthod();
     this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+    this.store.dispatch(new SetSelectG1234(this.f.value));
+
+    console.log(this.f.value);
+    
+
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let pilot: any
+    arrayNextPage$.subscribe(data => {
+      console.log("pilot: ", data);
+
+      if (data != null) {
+        pilot = data
+      }
+    });
+
     // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
     // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
     // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
     // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
     // this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
 
-    this.arrayNextPageMedthod();
+    this.navCtrl.push("CheckListPage");
 
     // this.checkNextPage();
 
@@ -67,14 +82,11 @@ export class WaterActivityUnitPage {
     //   }
     // });
 
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: Array<number>;
-    arrayNextPage$.subscribe(data => arrayNextPage = data);
-    arrayNextPage.push(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22);
-    console.log(arrayNextPage);
+
+    let arrayNextPage: Array<boolean> = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+    this.store.dispatch(new SetNextPageDirection(arrayNextPage));
     this.store.dispatch(new SetSelectorIndex(-1));
     this.store.dispatch(new SetBackToRoot(false));
-    this.navCtrl.push("CheckListPage");
   }
 
   private checkNextPage() {
