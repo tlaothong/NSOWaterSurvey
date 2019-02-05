@@ -60,6 +60,7 @@ export interface HouseHoldState {
     selectorIndex: any,
     unitByIdBuilding: any,
     backToRoot: any,
+    back: any,
     dataOfUnit: any,
 
 
@@ -125,6 +126,7 @@ const initialState: HouseHoldState = {
     unitByIdBuilding: [],
     checkHeadfamily: null,
     backToRoot: null,
+    back: null,
     dataOfUnit: null,
 
 };
@@ -388,6 +390,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 backToRoot: action.payload,
+            };
+        case HouseHoldTypes.SetBack:
+            return {
+                ...state,
+                back: action.payload,
             };
         case HouseHoldTypes.LoadDataOfUnitSuccess:
             return {

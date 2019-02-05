@@ -1,5 +1,5 @@
 import { getArraySkipPage, getNextPageDirection, getSelectorIndex, getDataOfUnit } from './../../states/household/index';
-import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection } from './../../states/household/household.actions';
+import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -87,6 +87,7 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetNextPageDirection(arrayNextPage));
     this.store.dispatch(new SetSelectorIndex(-1));
     this.store.dispatch(new SetBackToRoot(false));
+    this.store.dispatch(new SetBack(false));
   }
 
   private checkNextPage() {
