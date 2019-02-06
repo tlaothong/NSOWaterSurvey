@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { SetBackToRoot } from '../../states/household/household.actions';
+import { SetBackToRoot, SetSelectorIndex } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { PopoverController } from 'ionic-angular';
@@ -26,6 +26,7 @@ export class BackToRootComponent {
   }
 
   backToRoot() {
+    this.store.dispatch(new SetSelectorIndex(-1));
     this.store.dispatch(new SetBackToRoot(true));
     this.navCtrl.popTo("CheckListPage");
   }

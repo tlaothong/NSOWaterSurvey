@@ -20,7 +20,7 @@ export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -38,11 +38,11 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.residentialFrm.setValue(data)
-      }
-    });
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.residentialFrm.setValue(data)
+    //   }
+    // });
   }
 
   public handleSubmit() {
