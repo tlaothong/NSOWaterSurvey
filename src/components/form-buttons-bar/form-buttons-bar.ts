@@ -30,6 +30,7 @@ export class FormButtonsBarComponent {
     if (this.isBuilding == true) {
       this.navCtrl.popTo("HomesPage");
     } else {
+      this.store.dispatch(new SetSelectorIndex(-1));
       this.store.dispatch(new SetBackToRoot(true));
       this.navCtrl.popTo("CheckListPage");
     }

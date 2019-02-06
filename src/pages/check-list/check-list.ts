@@ -58,7 +58,6 @@ export class CheckListPage {
   ionViewDidEnter() {
     console.log('ionViewDidEnter CheckListPage');
 
-
     this.arrayIsCheckMethod();
     this.arrayNextPageMethod();
   }
@@ -313,25 +312,21 @@ export class CheckListPage {
   // }
 
   skipPageMedthod() {
-    let backToRoot$ = this.store.select(getBackToRoot);
-    let back$ = this.store.select(getBack);
-    backToRoot$.subscribe(data => {
-      if (data != null && !data) {
-        back$.subscribe(data => {
-          if (data != null) {
-            data ? this.goBackPage() : this.goNextPage();
-          }
-        })
-      }
-    })
+    let backToRoot: boolean;
+    let back: boolean;
+    let backToRoot$ = this.store.select(getBackToRoot).subscribe(data => backToRoot = data);
+    let back$ = this.store.select(getBack).subscribe(data => back = data);
+    if (!backToRoot) {
+      back ? this.goBackPage() : this.goNextPage();
+    }
   }
 
   goNextPage() {
     for (let i = this.index + 1; i <= 23; i++) {
       if (this.arrayNextPage[i]) {
-        let page = this.pages[i];
+        console.log("goNextPage");
         this.store.dispatch(new SetSelectorIndex(i));
-        this.navCtrl.push(page.component, this.store.dispatch(new SetBackToRoot(false)));
+        this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
         break;
       }
     }
@@ -340,10 +335,10 @@ export class CheckListPage {
   goBackPage() {
     for (let i = this.index - 1; i >= 0; i--) {
       if (this.arrayNextPage[i]) {
-        let page = this.pages[i];
+        console.log("goBackPage");
         this.store.dispatch(new SetSelectorIndex(i));
         this.store.dispatch(new SetBack(false));
-        this.navCtrl.push(page.component, this.store.dispatch(new SetBackToRoot(false)));
+        this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
         break;
       }
     }
@@ -351,12 +346,7 @@ export class CheckListPage {
 
   arrayNextPageMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    selectorIndex$.subscribe(data => {
-      if (data != null) {
-        this.index = data;
-        console.log("my index: ", this.index);
-      }
-    });
+    selectorIndex$.subscribe(data => this.index = data);
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     arrayNextPage$.subscribe(data => {
       if (data != null) {
@@ -382,7 +372,8 @@ export class CheckListPage {
   public openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    this.store.dispatch(new SetBackToRoot(false));
     this.store.dispatch(new SetBack(false));
-    this.navCtrl.push(page.component, this.store.dispatch(new SetBackToRoot(false)));
+    this.navCtrl.push(page.component);
   }
 }
