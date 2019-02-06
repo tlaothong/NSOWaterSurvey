@@ -69,6 +69,8 @@ export class HomesPage {
     this.dataBuilding$.subscribe(data => {
       if (data != null) {
         this.dataEa = data
+        console.log(this.dataEa);
+        
       }
     });
 
@@ -87,7 +89,7 @@ export class HomesPage {
   goBuildingInfo() {
     if (this.num == '1') {
       this.swith.updateBuildingState(null);
-      this.navCtrl.push("BuildingTestPage", { id: null })
+      this.navCtrl.push("BuildingTestPage", { id: this.dataWorkEARow._id })
     } else if (this.num == '2') {
       this.store.dispatch(new LoadCommunityForEdit(null));
       this.navCtrl.push("CommunityTestPage", { id: null })

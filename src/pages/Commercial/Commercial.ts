@@ -46,26 +46,26 @@ export class CommercialPage {
         'highSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        'personnelCount': [null, Validators.required],
+        'personnelCount': [null],
       }),
       'hotelsAndResorts': this.fb.group({
-        'roomCount': [null, Validators.required],
-        'personnelCount': [null, Validators.required],
+        'roomCount': [null],
+        'personnelCount': [null],
       }),
       'hospital': this.fb.group({
-        'bedCount': [null, Validators.required],
-        'personnelCount': [null, Validators.required],
+        'bedCount': [null],
+        'personnelCount': [null],
       }),
       'building': this.fb.group({
-        'roomCount': [null, Validators.required],
-        'occupiedRoomCount': [null, Validators.required],
-        'personnelCount': [null, Validators.required],
+        'roomCount': [null],
+        'occupiedRoomCount': [null],
+        'personnelCount': [null],
       }),
       'religious': this.fb.group({
-        'peopleCount': [null, Validators.required],
+        'peopleCount': [null],
       }),
       'otherBuilding': this.fb.group({
-        'personnelCount': [null, Validators.required],
+        'personnelCount': [null],
       }),
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
     });
