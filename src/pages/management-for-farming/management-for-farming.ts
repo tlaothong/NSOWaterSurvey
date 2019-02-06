@@ -24,15 +24,17 @@ export class ManagementForFarmingPage {
   public managementforfarming: FormGroup;
   private submitRequested: boolean;
 
-  private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
-  
+  // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
+
   // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
   // private dataCommunuty$ = this.store.select(getSetCommunity);
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private DataStoreWorkEaOneRecord: any;
 
   private getSetCommunity$ = this.store.select(getSetCommunity);
-  public getSetCommunity: any;
+  public getSetCommunity: FormGroup;
+
+  private formData: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
     this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
     this.setupprojectcountChanges();
@@ -46,21 +48,41 @@ export class ManagementForFarmingPage {
     });
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ManagementForFarmingPage');
+    this.formData = this.navParams.get('formData');
+    console.log("ก่อนส่ง: ", this.formData);
+
+    if (this.formData.communityProject) {
+      this.managementforfarming.setValue(this.formData.communityProject)
+    }
+
+    // this.getSetCommunity = this.fb.group({
+    //   '_id': [null],
+    //   'ea': [null],
+    //   'management': [null],
+    //   'communityProject': [null],
+    // })
+    // this.getSetCommunity$.subscribe(data => {
+    //   if (data != null) {
+    //     this.getSetCommunity.setValue(data);
+    //     console.log("ก่อนส่ง: ", this.getSetCommunity.value);
+    //     let communityProject = this.getSetCommunity.get('communityProject').value;
+    //     if (communityProject) {
+    //       this.managementforfarming.setValue(communityProject)
+    //     }
+    //   }
+    // });
+  }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
 
-    let formItem = this.fb.group({
-      'management': [null],
-      'communityProject': this.managementforfarming,
-      'ea':[null],
-      '_id': [null]
-    });
-    formItem.controls['ea'].setValue(this.DataStoreWorkEaOneRecord._id);
-    formItem.controls['_id'].setValue(this.getSetCommunity._id);
-    console.log(formItem.value);
-    
-    this.store.dispatch(new SetCommunity(formItem.value));
+    // this.getSetCommunity.get('communityProject').setValue(this.managementforfarming.value);
+    this.formData.communityProject = this.managementforfarming.value;
+    this.store.dispatch(new SetCommunity(this.formData));
+    console.log("หลังส่ง: ", this.formData);
     this.navCtrl.popToRoot();
   }
 
@@ -69,20 +91,6 @@ export class ManagementForFarmingPage {
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagementForFarmingPage');
-    this.formDataCom$.subscribe(data => this.managementforfarming.setValue(data));
-    this.getSetCommunity$.subscribe(data => {
-      if (data != null) {
-        this.getSetCommunity = data
-      }
-    });
-    this.DataStoreWorkEaOneRecord$.subscribe(data => {
-      if (data != null) {
-        this.DataStoreWorkEaOneRecord = data;
-      }
-    });
-  }
 
   private setupprojectcountChanges() {
     const componentFormArray: string = "details";

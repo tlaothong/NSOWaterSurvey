@@ -11,6 +11,8 @@ import { map } from 'rxjs/operators';
 import { SetCommunity } from '../../states/community/community.actions';
 import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
+import { getCommunitySample } from '../../states/community';
+import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
 
 @IonicPage()
 @Component({
@@ -30,7 +32,9 @@ export class CommunityWaterManagementPage {
 
   // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.management));
   private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s));
-  private formDataCom: any;
+  private formDataCom: FormGroup;
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  private DataStoreWorkEaOneRecord: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
@@ -58,19 +62,28 @@ export class CommunityWaterManagementPage {
   }
 
   ionViewDidLoad() {
+    this.formDataCom = this.fb.group({
+      '_id': [null],
+      'ea': [null],
+      'management': [null],
+      'communityProject': [null],
+    })
     this.formDataCom$.subscribe(data => {
       if (data != null) {
+        this.formDataCom.setValue(data);
         this.CommunityWaterManagement.setValue(data.management);
-        this.formDataCom = data
       }
     });
-    console.log(this.CommunityWaterManagement.value);
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.DataStoreWorkEaOneRecord = data;
+      }
+    });
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.CommunityWaterManagement.setValue(data)
     //   }
     // });
-
   }
 
   private setupPublicWaterCountChanges() {
@@ -140,18 +153,11 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
 
-    let formItem = this.fb.group({
-      'management': this.CommunityWaterManagement,
-      'communityProject': [null],
-      'ea': [null],
-      '_id': [null]
-    })
-    formItem.controls['ea'].setValue(this.formDataCom.ea);
-    formItem.controls['_id'].setValue(this.formDataCom._id);
-    console.log(formItem.value);
-    
-    this.store.dispatch(new SetCommunity(formItem.value));
-    this.navCtrl.push("ManagementForFarmingPage");
+    this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
+    this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
+    // this.store.dispatch(new SetCommunity(this.formDataCom.value));
+
+    this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
   }
 
   public isValid(name: string): boolean {
