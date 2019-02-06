@@ -29,12 +29,12 @@ export class CommercialPage {
 
   private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private getBuildingType$ = this.store.select(getSendBuildingType)
+  private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
   private backNum: any;
   private otherBuildingType$ = this.storeBuild.select(getOtherBuildingType);
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private storeBuilding: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
@@ -76,10 +76,16 @@ export class CommercialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
+        console.log("HH", data);
+
         this.f.setValue(data)
       }
     });
-    this.getBuildingType$.subscribe(data => this.f.get('buildingCode').setValue(data));
+    this.getBuildingType$.subscribe(data => {
+      if (data != null) {
+        this.f.get('buildingCode').setValue(data)
+      }
+    });
     this.otherBuildingType$.subscribe(data => {
       if (data != null) {
         this.otherBuildingType = data
@@ -156,11 +162,11 @@ export class CommercialPage {
   }
 
   private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
+    this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
   }
 
   private checkNextPage() {
