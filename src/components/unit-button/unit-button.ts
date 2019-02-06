@@ -49,10 +49,14 @@ export class UnitButtonComponent {
   ngOnInit() {
     this.GetUnitByIdBuilding$.subscribe(data => {
       if (data[Number(this.unitNo) - 1] != undefined) {
-        this.FormItem.setValue(data[Number(this.unitNo) - 1]);
+        
+        let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
+        this.FormItem.get('subUnit.accessCount').setValue(count);
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
-        this.setAccess();
+        console.log(data);
+        this.FormItem.setValue(data[Number(this.unitNo) - 1]);
+        this.setAccess();        
       }
     });
     this.setupAccessCountChanges();
@@ -88,15 +92,15 @@ export class UnitButtonComponent {
       'isFactorial': [false, Validators.required],
       'isCommercial': [false, Validators.required],
       'comments': fb.array([]),
-      'residence': [null, Validators.required],
-      'agriculture': [null, Validators.required],
-      'factory': [null, Validators.required],
-      'commerce': [null, Validators.required],
-      'waterUsage': [null, Validators.required],
-      'disaster': [null, Validators.required],
-      'closing': [null, Validators.required],
-      'recCtrl': [null],
-      'population': [null, Validators.required]
+      'residence': fb.group({}),
+      'agriculture': fb.group({}),
+      'factory': fb.group({}),
+      'commerce': fb.group({}),
+      'waterUsage': fb.group({}),
+      'disaster': fb.group({}),
+      'closing': fb.group({}),
+      'recCtrl': fb.group({}),
+      'population': fb.group({}),
     });
   }
 
