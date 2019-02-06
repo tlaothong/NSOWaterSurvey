@@ -174,8 +174,12 @@ export class PlumbingPage {
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(14));
+    console.log(this.f.get('mwa').value);
     
-    if (this.f.valid) {
+    if (this.f.valid 
+      || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
+      || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
+      || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
         this.arrayIsCheckMethod();
         this.navCtrl.popTo("CheckListPage");
