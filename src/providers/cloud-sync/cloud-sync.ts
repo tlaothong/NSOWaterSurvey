@@ -13,7 +13,7 @@ export class CloudSyncProvider {
   }
 
   public loadHousHoldSampleTestData(data: any): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);
   }
 
   public getDataOfUnit(id: string): Observable<any> {

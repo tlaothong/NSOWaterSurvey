@@ -4,9 +4,18 @@ import { ModalController, NavController, AlertController, NavParams } from 'ioni
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit, getBack } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { LoadDataOfUnit } from '../../states/household/household.actions';
+import { WaterSources9Component } from '../water-sources9/water-sources9';
+import { TableCheckItemCountComponent } from '../table-check-item-count/table-check-item-count';
+import { FishFarmingComponent } from '../fish-farming/fish-farming';
+import { FrogFarmingComponent } from '../frog-farming/frog-farming';
+import { CrocodileFarmingComponent } from '../crocodile-farming/crocodile-farming';
+import { WaterProblem6Component } from '../water-problem6/water-problem6';
+import { WaterActivity5Component } from '../water-activity5/water-activity5';
+import { WaterActivity6Component } from '../water-activity6/water-activity6';
+import { WaterProblem4Component } from '../water-problem4/water-problem4';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -49,14 +58,15 @@ export class UnitButtonComponent {
   ngOnInit() {
     this.GetUnitByIdBuilding$.subscribe(data => {
       if (data[Number(this.unitNo) - 1] != undefined) {
-        
+
         let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
         this.FormItem.get('subUnit.accessCount').setValue(count);
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
-        console.log(data);
+        console.log(data[Number(this.unitNo) - 1]);
+        console.log(this.FormItem.value);
         this.FormItem.setValue(data[Number(this.unitNo) - 1]);
-        this.setAccess();        
+        this.setAccess();
       }
     });
     this.setupAccessCountChanges();
@@ -87,20 +97,621 @@ export class UnitButtonComponent {
         'hasGroundWater': [false, Validators.required],
         'hasGroundWaterMeter': [false, Validators.required],
       }),
-      'isHouseHold': [false, Validators.required],
-      'isAgriculture': [false, Validators.required],
-      'isFactorial': [false, Validators.required],
-      'isCommercial': [false, Validators.required],
+      'isHouseHold': [null, Validators.required],
+      'isAgriculture': [null, Validators.required],
+      'isFactorial': [null, Validators.required],
+      'isCommercial': [null, Validators.required],
       'comments': fb.array([]),
-      'residence': fb.group({}),
-      'agriculture': fb.group({}),
-      'factory': fb.group({}),
-      'commerce': fb.group({}),
-      'waterUsage': fb.group({}),
-      'disaster': fb.group({}),
-      'closing': fb.group({}),
-      'recCtrl': fb.group({}),
-      'population': fb.group({}),
+      'residence': fb.group({
+        'memberCount': [null],
+        'workingAge': [null],
+        'waterSources': fb.group({
+          'plumbing': [null],
+          'underGround': [null],
+          'pool': [null],
+          'river': [null],
+          'irrigation': [null],
+          'rain': [null],
+          'rainingAsIs': [null],
+          'buying': [null],
+          'hasOther': [null],
+          'other': [null],
+        }),
+        'gardeningUse': [null]
+      }),
+      'agriculture': fb.group({
+        'ricePlant': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'agronomyPlant': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'rubberTree': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'perennialPlant': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'herbsPlant': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'flowerCrop': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'mushroomPlant': fb.group({
+          'doing': [null],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'animalFarm': fb.group({
+          'doing': [null],
+          'cow': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'buffalo': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'pig': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'goat': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'sheep': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'chicken': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'duck': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'goose': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'silkWool': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'other': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'waterSources': fb.group({
+            'plumbing': [null],
+            'underGround': [null],
+            'pool': [null],
+            'river': [null],
+            'irrigation': [null],
+            'rain': [null],
+            'rainingAsIs': [null],
+            'buying': [null],
+            'hasOther': [null],
+            'other': [null],
+          }),
+        }),
+        'aquaticAnimals': fb.group({
+          'doing': [null],
+          'isFish': [null],
+          'fish': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'gardenGroove': [null],
+            'stew': [null],
+            'riceField': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isShrimp': [null],
+          'shrimp': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'gardenGroove': [null],
+            'stew': [null],
+            'riceField': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isFrog': [null],
+          'frog': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'stew': [null],
+            'other': [null],
+            'hasOther': [null],
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isCrocodile': [null],
+          'crocodile': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isSnappingTurtle': [null],
+          'snappingTurtle': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isCrab': [null],
+          'crab': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'gardenGroove': [null],
+            'stew': [null],
+            'riceField': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isShellFish': [null],
+          'shellFish': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'gardenGroove': [null],
+            'stew': [null],
+            'riceField': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isTurtle': [null],
+          'turtle': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+          'isReddish': [null],
+          'reddish': fb.group({
+            'doing': [null],
+            'depression': [null],
+            'gardenGroove': [null],
+            'stew': [null],
+            'riceField': [null],
+            'hasOther': [null],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [null],
+              'underGround': [null],
+              'pool': [null],
+              'river': [null],
+              'irrigation': [null],
+              'rain': [null],
+              'rainingAsIs': [null],
+              'buying': [null],
+              'hasOther': [null],
+              'other': [null],
+            }),
+          }),
+        })
+      }),
+      'factory': fb.group({
+        'name': [null],
+        'category': [null],
+        'workersCount': [null],
+        'heavyMachine': [null],
+        'waterSources': fb.group({
+          'plumbing': [null],
+          'underGround': [null],
+          'pool': [null],
+          'river': [null],
+          'irrigation': [null],
+          'rain': [null],
+          'rainingAsIs': [null],
+          'buying': [null],
+          'hasOther': [null],
+          'other': [null],
+        }),
+        'hasWasteWaterFromProduction': [null],
+        'hasWasteWaterTreatment': [null],
+        'wasteWaterReuse': [null]
+      }),
+      'commerce': fb.group({
+        'name': [null],
+        'serviceType': [null],
+        'buildingCode': [0],
+        'questionForAcademy': fb.group({
+          'preSchool': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'kindergarten': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'primarySchool': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'highSchool': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'vocational': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'higherEducation': fb.group({
+            'hasItem': [null],
+            'itemCount': [null]
+          }),
+          'personnelCount': [null]
+        }),
+        'hotelsAndResorts': fb.group({
+          'roomCount': [null],
+          'personnelCount': [null]
+        }),
+        'hospital': fb.group({
+          'bedCount': [null],
+          'personnelCount': [null]
+        }),
+        'building': fb.group({
+          'roomCount': [null],
+          'occupiedRoomCount': [null],
+          'personnelCount': [null]
+        }),
+        'religious': fb.group({
+          'peopleCount': [null]
+        }),
+        'otherBuilding': fb.group({
+          'personnelCount': [null]
+        }),
+        'waterSources': fb.group({
+          'plumbing': [null],
+          'underGround': [null],
+          'pool': [null],
+          'river': [null],
+          'irrigation': [null],
+          'rain': [null],
+          'rainingAsIs': [null],
+          'buying': [null],
+          'hasOther': [null],
+          'other': [null],
+        }),
+      }),
+      'waterUsage': fb.group({
+        "plumbing": fb.group({
+          'mwa': fb.group({
+            'doing': [null],
+            'qualityProblem': fb.group({
+              'hasProblem': [null],
+              'problem': fb.group({
+                'turbidWater': [false],
+                'saltWater': [false],
+                'smell': [false],
+                'filmOfOil': [false],
+                'fogWater': [false],
+                'hardWater': [false],
+              })
+            }),
+            'plumbingUsage': fb.group({
+              'waterQuantity': [0],
+              'cubicMeterPerMonth': [null],
+              'waterBill': [null]
+            })
+          }),
+          'pwa': fb.group({
+            'doing': [null],
+            'qualityProblem': fb.group({
+              'hasProblem': [null],
+              'problem': fb.group({
+                'turbidWater': [false],
+                'saltWater': [false],
+                'smell': [false],
+                'filmOfOil': [false],
+                'fogWater': [false],
+                'hardWater': [false],
+              })
+            }),
+            'plumbingUsage': fb.group({
+              'waterQuantity': [0],
+              'cubicMeterPerMonth': [null],
+              'waterBill': [null],
+            })
+          }),
+          'other': fb.group({
+            'doing': [null],
+            'qualityProblem': fb.group({
+              'hasProblem': [null],
+              'problem': fb.group({
+                'turbidWater': [false],
+                'saltWater': [false],
+                'smell': [false],
+                'filmOfOil': [false],
+                'fogWater': [false],
+                'hardWater': [false],
+              })
+            }),
+            'plumbingUsage': fb.group({
+              'waterQuantity': [0],
+              'cubicMeterPerMonth': [null],
+              'waterBill': [null],
+            })
+          }),
+          'waterActivityMWA': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'waterActivityPWA': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'waterActivityOther': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'hasWaterNotRunning': [null],
+          'waterNotRunningCount': [null]
+        }),
+        'groundWater': fb.group({
+          'privateGroundWater': fb.group({
+            'doing': [null],
+            'allCount': [0],
+            'waterResourceCount': [0],
+            'waterResources': fb.array([])
+          }),
+          'publicGroundWater': fb.group({
+            'doing': [null],
+            'waterResourceCount': [0],
+            'waterResources': fb.array([])
+          })
+        }),
+        'river': fb.group({
+          'hasPump': [null],
+          'pumpCount': [0],
+          'pumps': fb.array([]),
+          'waterActivities': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'qualityProblem': fb.group({
+            'hasProblem': [null],
+            'problem': fb.group({
+              'turbidWater': [false],
+              'saltWater': [false],
+              'smell': [false],
+              'filmOfOil': [false],
+              'fogWater': [false],
+              'hardWater': [false],
+            })
+          })
+        }),
+        'pool': fb.group({
+          'doing': [null],
+          'waterResourceCount': [0],
+          'waterResources': fb.array([]),
+          'poolCount': [0],
+          'hasSameSize': [null],
+          'poolSizes': fb.array([]),
+        }),
+        'irrigation': fb.group({
+          'hasCubicMeterPerMonth': [null],
+          'cubicMeterPerMonth': [null],
+          'hasPump': [null],
+          'pumpCount': [0],
+          'pumps': fb.array([]),
+          'waterActivities': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'qualityProblem': fb.group({
+            'hasProblem': [null],
+            'problem': fb.group({
+              'turbidWater': [false],
+              'saltWater': [false],
+              'smell': [false],
+              'filmOfOil': [false],
+              'fogWater': [false],
+              'hardWater': [false],
+            })
+          })
+        }),
+        'rain': fb.group({
+          'rainContainers': fb.array([]),
+          'waterActivities': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+        }),
+        'buying': fb.group({
+          'package': fb.array([]),
+        })
+      }),
+      'disaster': fb.group({
+        'flooded': [null],
+        'yearsDisasterous': fb.array([]),
+        '_id': [null]
+      }),
+      'closing': fb.group({
+        'informer': [null],
+        'factorialCategoryCode': [0],
+        'serviceTypeCode': [0]
+      }),
+      'recCtrl': fb.group({
+        'createdDateTime': [Date],
+        'lastModified': [Date],
+        'deletedDateTime': [null],
+        'lastUpload': [null],
+        'lastDownload': [null],
+        'logs': fb.array([])
+      }),
+      'population': fb.group({
+        'personCount': [0],
+        'persons': fb.array([])
+      }),
     });
   }
 
