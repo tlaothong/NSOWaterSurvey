@@ -21,8 +21,9 @@ export class PopulationPage {
   private submitRequested: boolean;
   public f: FormGroup;
   public whatever: any;
-  private i: any;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
+  private formData: any;
+  private i:any
+  private formData$ = this.store.select(getDataOfUnit)
   private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;
@@ -46,7 +47,8 @@ export class PopulationPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.f.setValue(data.population)
+        this.formData = data
       }
     });
     this.getIdHomes$.subscribe(data => this.str = data);
@@ -61,10 +63,10 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(23));
-
+    this.formData.population = this.f.value
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));     
+      this.store.dispatch(new LoadHouseHoldSample(this.formData));     
       this.navCtrl.setRoot("UnitPage");
       // this.i++;
       // this.navCtrl.setRoot("CheckListPage", { i: this.i });

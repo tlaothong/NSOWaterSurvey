@@ -15,14 +15,15 @@ import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../
 export class UserPage {
   public userInfo: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
+  private formData$ = this.store.select(getDataOfUnit)
+  private formData: any;
   private factorialCategory$ = this.store.select(getFactorialCategory);
   public facCategory: string;
   private commercialServiceType$ = this.store.select(getCommercialServiceType);
   public commercialServiceType: string;
   private facCategoryUse$ = this.store.select(getIsFactorial);
   public facCategoryUse: boolean;
-  private  commercialServiceUse$ = this.store.select(getIsCommercial);
+  private commercialServiceUse$ = this.store.select(getIsCommercial);
   public commercialServiceUse: boolean;
   private frontNum: any;
   private backNum: any;
@@ -36,7 +37,12 @@ export class UserPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.userInfo.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.formData = data;
+        this.userInfo.setValue(data.closing)
+      }
+    })
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
@@ -48,13 +54,13 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-   
+    this.formData.closing = this.userInfo.value
     if (this.userInfo.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.userInfo.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("PopulationPage");
-      }
+    }
   }
 
   countNumberPage() {
@@ -70,7 +76,7 @@ export class UserPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -78,11 +84,11 @@ export class UserPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -94,7 +100,7 @@ export class UserPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 21)) {
           arrayIsCheck.push(21);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

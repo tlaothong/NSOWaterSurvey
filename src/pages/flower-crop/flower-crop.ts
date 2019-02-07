@@ -27,7 +27,7 @@ export class FlowerCropPage {
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -63,12 +63,9 @@ export class FlowerCropPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.flowerCropFrm.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+        this.formData$ = data
+        this.flowerCropFrm.setValue(data.agriculture.flowerCrop)
       }
     })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
@@ -115,10 +112,10 @@ export class FlowerCropPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     // this.store.dispatch(new SetNextPageDirection(8));
-
+    this.formData$.agriculture.flowerCrop = this.flowerCropFrm.value
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.flowerCropFrm.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

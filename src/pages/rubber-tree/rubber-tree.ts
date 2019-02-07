@@ -17,9 +17,10 @@ import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, Set
 })
 export class RubberTreePage {
 
+  @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   public rubbertree: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
@@ -27,7 +28,6 @@ export class RubberTreePage {
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
-  @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   public DataList = EX_RUBBER_LIST;
   private frontNum: any;
   private backNum: any;
@@ -46,12 +46,9 @@ export class RubberTreePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.rubbertree.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
+        this.formData$ = data;
+        this.rubbertree.setValue(data.agriculture.rubberTree)
       }
     })
   }
@@ -62,10 +59,10 @@ export class RubberTreePage {
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
     // this.store.dispatch(new SetNextPageDirection(5));
-   
+    this.formData$.agriculture.rubberTree = this.rubbertree.value
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.rubbertree.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

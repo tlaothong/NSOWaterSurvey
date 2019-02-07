@@ -21,7 +21,8 @@ export class FactorialPage {
   private itPlumbing: any;
   private submitRequested: boolean;
   FactoryForm: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory));
+  private formData$ = this.store.select(getDataOfUnit)
+  private formData: any
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private frontNum: any;
@@ -44,7 +45,8 @@ export class FactorialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.FactoryForm.setValue(data)
+        this.FactoryForm.setValue(data.factory);
+        this.formData = data;
       }
     });
   }
@@ -57,10 +59,10 @@ export class FactorialPage {
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
     // this.store.dispatch(new SetNextPageDirection(12));
-
+    this.formData.factory = this.FactoryForm.value
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.FactoryForm.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }
@@ -110,11 +112,11 @@ export class FactorialPage {
   }
 
   private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FactoryForm.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.FactoryForm.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FactoryForm.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.FactoryForm.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
+    this.store.dispatch(new SetCheckWaterPlumbing(this.FactoryForm.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.FactoryForm.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.FactoryForm.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.FactoryForm.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
   }
 
   private checkNextPage() {
