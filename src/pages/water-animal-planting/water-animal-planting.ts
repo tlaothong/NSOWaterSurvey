@@ -25,7 +25,7 @@ export class WaterAnimalPlantingPage {
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   public f: FormGroup;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
   private submitRequested: boolean;
   private frontNum: any;
@@ -60,12 +60,9 @@ export class WaterAnimalPlantingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+        this.formData$ = data
+        this.f.setValue(data.agriculture.aquaticAnimals)
       }
     })
   }
@@ -76,10 +73,10 @@ export class WaterAnimalPlantingPage {
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(11));
-    
+    this.formData$.agriculture.aquaticAnimals = this.f.value
     if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.setRoot("CheckListPage",);
       // this.checkNextPage();
     }

@@ -26,7 +26,7 @@ export class PlumbingPage {
   public f: FormGroup;
   private submitRequested: boolean;
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -107,12 +107,9 @@ export class PlumbingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+        this.formData$ = data;
+        this.f.setValue(data.waterUsage.plumbing)
       }
     })
 
@@ -175,14 +172,14 @@ export class PlumbingPage {
     this.waterActivity5.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(14));
     console.log(this.f.get('mwa').value);
-
+    this.formData$.waterUsage.plumbing = this.f.value
     if (this.f.valid
       || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
       || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
       || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("GroundWaterPage");
       // }

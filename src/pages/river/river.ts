@@ -24,7 +24,7 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
   
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -71,12 +71,9 @@ export class RiverPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+        this.formData$ = data;
+        this.f.setValue(data.waterUsage.river)
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -142,10 +139,10 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(16));
-    
+    this.formData$.waterUsage.river = this.f.value
     if (this.f.valid || (this.f.get('hasPump').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.setRoot("CheckListPage" );
       // this.navCtrl.pop();
       // this.navCtrl.push("PoolPage");

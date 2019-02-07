@@ -27,7 +27,8 @@ export class CommercialPage {
   private itPlumbing: any;
   public otherBuildingType: any;
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
+  private formData$ = this.store.select(getDataOfUnit);
+  private formData: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
@@ -76,9 +77,8 @@ export class CommercialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        console.log("HH", data);
-
-        this.f.setValue(data)
+        this.formData = data;
+        this.f.setValue(data.commerce)
       }
     });
     this.getBuildingType$.subscribe(data => {
@@ -108,11 +108,11 @@ export class CommercialPage {
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log("waterCom", this.f.get('waterSources').value);
     // this.store.dispatch(new SetNextPageDirection(13));
-
     this.dispatchWaterSource();
+    this.formData.commerce = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

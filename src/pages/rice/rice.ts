@@ -29,8 +29,8 @@ export class RicePage {
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   public DataList = EX_RICH_LIST;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formData$: any;
+  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private data: any
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
@@ -45,12 +45,9 @@ export class RicePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
+        this.f.setValue(data.agriculture.ricePlant);
+        this.data = data;
       }
     })
   }
@@ -63,11 +60,11 @@ export class RicePage {
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
     // this.store.dispatch(new SetNextPageDirection(3));
-
+    this.data.agriculture.ricePlant = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));      
+      this.store.dispatch(new LoadHouseHoldSample(this.data));
       this.navCtrl.popTo("CheckListPage");
     }
   }

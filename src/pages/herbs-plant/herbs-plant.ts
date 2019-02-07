@@ -25,7 +25,7 @@ export class HerbsPlantPage {
   private itG1_G4: any;
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -63,12 +63,9 @@ export class HerbsPlantPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        });
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
+        this.formData$ = data
+        this.f.setValue(data.agriculture.herbsPlant)
       }
     })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
@@ -96,10 +93,10 @@ export class HerbsPlantPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     // this.store.dispatch(new SetNextPageDirection(7));
-
+    this.formData$.agriculture.herbsPlant = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

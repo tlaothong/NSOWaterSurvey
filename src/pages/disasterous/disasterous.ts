@@ -20,7 +20,8 @@ export class DisasterousPage {
 
   private submitRequested: boolean;
   public Disasterous: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
+  private formData$ = this.store.select(getDataOfUnit)
+  private formData: any;
   private frontNum: any;
   private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -39,7 +40,12 @@ export class DisasterousPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => this.Disasterous.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.formData = data
+        this.Disasterous.setValue(data.disaster)
+      }
+    })
   }
 
   public showModal() {
@@ -56,10 +62,10 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-
+    this.formData.disaster = this.Disasterous.value
     if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.Disasterous.value));      
+      this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
       // this.navCtrl.push("UserPage");
     }
@@ -78,7 +84,7 @@ export class DisasterousPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -86,11 +92,11 @@ export class DisasterousPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -102,7 +108,7 @@ export class DisasterousPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 20)) {
           arrayIsCheck.push(20);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });
