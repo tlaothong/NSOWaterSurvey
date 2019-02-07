@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
-import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -24,7 +24,7 @@ export class RainPage {
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
-  
+
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
@@ -134,8 +134,9 @@ export class RainPage {
 
     if (this.RainFrm.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-        this.arrayIsCheckMethod();
-        this.navCtrl.popTo("CheckListPage");
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.RainFrm.value));
+      this.navCtrl.popTo("CheckListPage");
       // }
     }
   }
@@ -153,7 +154,7 @@ export class RainPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -161,11 +162,11 @@ export class RainPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -177,7 +178,7 @@ export class RainPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 18)) {
           arrayIsCheck.push(18);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRiver } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -160,6 +160,7 @@ export class GroundWaterPage {
     
     if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false)&&(this.f.get('publicGroundWater').value.doing == false))) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

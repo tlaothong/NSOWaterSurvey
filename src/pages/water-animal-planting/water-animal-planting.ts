@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
@@ -79,6 +79,7 @@ export class WaterAnimalPlantingPage {
     
     if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
       this.navCtrl.setRoot("CheckListPage",);
       // this.checkNextPage();
     }

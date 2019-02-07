@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetWaterSources, SetAgiSelectRubber, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetWaterSources, SetAgiSelectRubber, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -65,6 +65,7 @@ export class RubberTreePage {
    
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.rubbertree.value));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { subDistrictData } from '../../models/SubDistrictData';
@@ -53,8 +53,8 @@ export class PlumbingPage {
   private getIdHomes: any;
 
   public subDistrict: any;
-  public MWA:boolean;
-  public PWA:boolean;
+  public MWA: boolean;
+  public PWA: boolean;
   private frontNum: any;
   private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
@@ -175,15 +175,16 @@ export class PlumbingPage {
     this.waterActivity5.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetNextPageDirection(14));
     console.log(this.f.get('mwa').value);
-    
-    if (this.f.valid 
+
+    if (this.f.valid
       || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
       || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
       || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-        this.arrayIsCheckMethod();
-        this.navCtrl.popTo("CheckListPage");
-        // this.navCtrl.push("GroundWaterPage");
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+      this.navCtrl.popTo("CheckListPage");
+      // this.navCtrl.push("GroundWaterPage");
       // }
     }
   }
@@ -201,7 +202,7 @@ export class PlumbingPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -209,11 +210,11 @@ export class PlumbingPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -225,7 +226,7 @@ export class PlumbingPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 13)) {
           arrayIsCheck.push(13);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

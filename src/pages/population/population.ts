@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
@@ -64,6 +64,7 @@ export class PopulationPage {
 
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.f.value));     
       this.navCtrl.setRoot("UnitPage");
       // this.i++;
       // this.navCtrl.setRoot("CheckListPage", { i: this.i });
