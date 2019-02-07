@@ -1,4 +1,4 @@
-import { SetWaterSourcesFactory, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
+import { SetWaterSourcesFactory, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -60,6 +60,7 @@ export class FactorialPage {
 
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.FactoryForm.value));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

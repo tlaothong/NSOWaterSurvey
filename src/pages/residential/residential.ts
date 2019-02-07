@@ -1,5 +1,5 @@
 import { getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
-import { SetWaterSourcesResidential, SetNextPageDirection, SetArrayIsCheck, SetSelectorIndex } from './../../states/household/household.actions';
+import { SetWaterSourcesResidential, SetNextPageDirection, SetArrayIsCheck, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -20,13 +20,15 @@ export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
+  // private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.residence));
+  private formData$ = this.store.select(getDataOfUnit)
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private itPlumbing: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
   private frontNum: any;
   private backNum: any;
+  public data:any
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
@@ -38,11 +40,14 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.residentialFrm.setValue(data)
-    //   }
-    // });
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.residentialFrm.setValue(data.residence)
+        this.data = data
+        console.log(data.residence);
+        console.log(this.residentialFrm);
+      }
+    });
   }
 
   public handleSubmit() {
@@ -63,9 +68,15 @@ export class ResidentialPage {
     // this.store.dispatch(new SetNextPageDirection(1));
     // this.store.dispatch(new SetArrayIsCheck(arrayIsCheck));
     // this.checkNextPageWaterSounces();
+    console.log(this.residentialFrm);
+    console.log(this.residentialFrm.valid);
+    this.data.residence = this.residentialFrm.value
     if (this.residentialFrm.valid) {
+      console.log("5555555555");
+      
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
+      this.store.dispatch(new LoadHouseHoldSample(this.data));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

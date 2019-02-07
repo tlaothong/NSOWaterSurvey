@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, SetNextPageDirection, SetSelectorIndex } from '../../states/household/household.actions';
+import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -71,6 +71,7 @@ export class PerennialPlantingPage {
 
     if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.PerennialPlantingFrm.value));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

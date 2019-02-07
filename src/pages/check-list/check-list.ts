@@ -369,9 +369,10 @@ export class CheckListPage {
     });
   }
 
-  public openPage(page) {
+  public openPage(page,index) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    this.store.dispatch(new SetSelectorIndex(index));
     this.store.dispatch(new SetBackToRoot(false));
     this.store.dispatch(new SetBack(false));
     this.navCtrl.push(page.component);

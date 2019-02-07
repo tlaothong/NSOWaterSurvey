@@ -1,4 +1,4 @@
-import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources, SetAgiSelectRice, SetNextPageDirection, SetSelectorIndex } from './../../states/household/household.actions';
+import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources, SetAgiSelectRice, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -67,6 +67,7 @@ export class RicePage {
     if (this.f.valid || (this.f.get('doing').value == false)) {
       // this.checkNextPage();
       this.arrayIsCheckMethod();
+      this.store.dispatch(new LoadHouseHoldSample(this.f.value));      
       this.navCtrl.popTo("CheckListPage");
     }
   }
