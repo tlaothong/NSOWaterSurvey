@@ -30,14 +30,14 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      "doing": [null, Validators.required],
-      "depression": [false, Validators.required],
-      "hasOther": [false, Validators.required],
-      "other": ['', Validators.required],
-      "fieldCount": [null, Validators.required],
-      "fieldsAreSameSize": [null, Validators.required],
-      "fields": fb.array([]),
-      "animalsCount": [null, Validators.required],
+      'doing': [null, Validators.required],
+      'depression': [false, Validators.required],
+      'hasOther': [false, Validators.required],
+      'other': ['', Validators.required],
+      'fieldCount': [null, Validators.required],
+      'fieldsAreSameSize': [null, Validators.required],
+      'fields': fb.array([]),
+      'animalsCount': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: CrocodileFarmingComponent.checkAnyOrOther()

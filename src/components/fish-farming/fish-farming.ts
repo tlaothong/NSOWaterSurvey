@@ -27,17 +27,17 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      "doing": [null, Validators.required],
-      "depression": [false, Validators.required],
-      "gardenGroove": [false, Validators.required],
-      "stew": [false, Validators.required],
-      "riceField": [false, Validators.required],
+      'doing': [null, Validators.required],
+      'depression': [false, Validators.required],
+      'gardenGroove': [false, Validators.required],
+      'stew': [false, Validators.required],
+      'riceField': [false, Validators.required],
       'hasOther': [false, Validators.required],
-      "other": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
-      "fieldsAreSameSize": [null, Validators.required],
-      "fields": fb.array([]),
-      "animalsCount": [null, Validators.required],
+      'other': [null, Validators.required],
+      'fieldCount': [null, Validators.required],
+      'fieldsAreSameSize': [null, Validators.required],
+      'fields': fb.array([]),
+      'animalsCount': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: FishFarmingComponent.checkAnyOrOther()
