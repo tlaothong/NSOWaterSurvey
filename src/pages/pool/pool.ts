@@ -128,7 +128,6 @@ export class PoolPage {
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    // this.store.dispatch(new SetNextPageDirection(17));
     this.formData$.waterUsage.pool = this.f.value
     // if (this.f.valid) {
     this.arrayIsCheckMethod();
@@ -198,55 +197,6 @@ export class PoolPage {
     }
     if (this.activityCommercial == false) {
       this.activityCommercial = null;
-    }
-  }
-  // formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
-  // private itIrrigation: any;
-  // private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
-  // private itRain: any;
-  // private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-  // private itBuying: any;
-  private checkNextPage() {
-    this.formCheckIrrigation$.subscribe(data => {
-      if (data != null) {
-        this.itIrrigation = data;
-      }
-      console.log("itIrrigation: ", this.itIrrigation);
-    });
-    this.formCheckRain$.subscribe(data => {
-      if (data != null) {
-        this.itRain = data;
-      }
-      console.log("itRain: ", this.itRain);
-    });
-    this.formCheckBuying$.subscribe(data => {
-      if (data != null) {
-        this.itBuying = data;
-      }
-      console.log("itBuying: ", this.itBuying);
-    });
-
-    if (this.itIrrigation) {
-      this.navCtrl.push("IrrigationPage")
-    }
-    else if (this.itRain) {
-      this.navCtrl.push("RainPage")
-    }
-    else if (this.itBuying) {
-      this.navCtrl.push("BuyingPage")
-    }
-    else {
-      this.formDataG1_G4$.subscribe(data => {
-        if (data != null) {
-          this.itG1_G4 = data;
-        }
-        console.log("itG1_G4: ", this.itG1_G4);
-      });
-      if (this.itG1_G4.isHouseHold) {
-        this.navCtrl.push("DisasterousPage")
-      }
-      else
-        this.navCtrl.push("UserPage")
     }
   }
 

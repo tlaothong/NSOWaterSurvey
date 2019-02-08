@@ -63,12 +63,11 @@ export class DisasterousPage {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
     this.formData.disaster = this.Disasterous.value
-    if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
+    // if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
-      // this.navCtrl.push("UserPage");
-    }
+    // }
   }
 
   countNumberPage() {

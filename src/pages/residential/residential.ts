@@ -44,8 +44,8 @@ export class ResidentialPage {
       if (data != null) {
         this.residentialFrm.setValue(data.residence)
         this.data = data
-        console.log(data.residence);
-        console.log(this.residentialFrm);
+        console.log(data);
+        console.log(this.residentialFrm.value);
       }
     });
   }

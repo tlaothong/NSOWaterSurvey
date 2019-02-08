@@ -72,13 +72,11 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(11));
     this.formData$.agriculture.aquaticAnimals = this.f.value
     if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.setRoot("CheckListPage",);
-      // this.checkNextPage();
     }
   }
 
@@ -124,36 +122,7 @@ export class WaterAnimalPlantingPage {
       }
     });
   }
-  
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
-      if (data != null) {
-        this.itG1_G4 = data;
-      }
-      console.log("it: ", this.itG1_G4)
-    });
-    if (this.itG1_G4.isFactorial) {
-      this.navCtrl.push("FactorialPage");
-    }
-    else if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage");
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
-        }
-        console.log("itPlumbing: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
-      }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
-  }
-
+ 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     if (name == 'anycheck') {

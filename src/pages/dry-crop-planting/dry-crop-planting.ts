@@ -47,7 +47,7 @@ export class DryCropPlantingPage {
       if (data != null) {
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
         this.formData$ = data;
-        this.agronomyPlant.setValue(data.agriculture.agronomyPlant);
+        this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
       }
     })
     this.countNumberPage();

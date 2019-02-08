@@ -37,7 +37,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group(
       {
-        'plantingCount': [null],
+        'plantingCount': 0,
         'plants': fb.array([])
       },
     );

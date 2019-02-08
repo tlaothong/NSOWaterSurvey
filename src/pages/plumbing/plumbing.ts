@@ -170,7 +170,6 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(14));
     console.log(this.f.get('mwa').value);
     this.formData$.waterUsage.plumbing = this.f.value
     if (this.f.valid
@@ -181,7 +180,6 @@ export class PlumbingPage {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
-      // this.navCtrl.push("GroundWaterPage");
       // }
     }
   }

@@ -153,13 +153,11 @@ export class GroundWaterPage {
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    // this.store.dispatch(new SetNextPageDirection(15));
     this.formData$.waterUsage.groundWater = this.f.value
     if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false)&&(this.f.get('publicGroundWater').value.doing == false))) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     }
   }
 
@@ -206,20 +204,7 @@ export class GroundWaterPage {
     });
   }
 
-  private checkNextPage() {
-    this.formCheckRiver$.subscribe(data => {
-      if (data != null) {
-        this.itRiver = data;
-      }
-      console.log("itPlumbing: ", this.itRiver);
-    });
-    if (this.itRiver) {
-      this.navCtrl.push("RiverPage")
-    }
-    else {
-      this.navCtrl.push("PoolPage")
-    }
-  }
+ 
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

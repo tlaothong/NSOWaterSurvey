@@ -57,7 +57,7 @@ export class BuyingPage {
       if (data != null) {
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
         this.formData$ = data;
-        this.BuyingForm.setValue(data.waterUsage.buying)
+        this.BuyingForm.patchValue(data.waterUsage.buying)
       }
     })
     this.formData$.subscribe(data => this.BuyingForm.setValue(data));
@@ -70,14 +70,12 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    // this.store.dispatch(new SetNextPageDirection(20));
     this.formData$.waterUsage.buying = this.BuyingForm.value
-    if (this.BuyingForm.valid) {
+    // if (this.BuyingForm.valid) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.pop();
-      // this.checkNextPage();
-    }
+    // }
   }
 
   countNumberPage() {
@@ -121,19 +119,5 @@ export class BuyingPage {
         console.log(arrayIsCheck);
       }
     });
-  }
-
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
-      if (data != null) {
-        this.itG1_G4 = data;
-      }
-      console.log("itG1_G4: ", this.itG1_G4);
-    });
-    if (this.itG1_G4.isHouseHold) {
-      this.navCtrl.push("DisasterousPage")
-    }
-    else
-      this.navCtrl.push("UserPage")
   }
 }

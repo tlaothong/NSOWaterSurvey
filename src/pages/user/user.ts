@@ -55,12 +55,11 @@ export class UserPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.formData.closing = this.userInfo.value
-    if (this.userInfo.valid) {
+    // if (this.userInfo.valid) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
-      // this.navCtrl.push("PopulationPage");
-    }
+    // }
   }
 
   countNumberPage() {

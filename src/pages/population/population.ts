@@ -62,15 +62,12 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(23));
     this.formData.population = this.f.value
-    if (this.f.valid && this.isCheckHaveHeadfamily()) {
+    // if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData));     
       this.navCtrl.setRoot("UnitPage");
-      // this.i++;
-      // this.navCtrl.setRoot("CheckListPage", { i: this.i });
-    }
+    // }
   }
 
   countNumberPage() {

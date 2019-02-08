@@ -4,10 +4,10 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample } from '../../states/household/household.actions';
+import { LoadHouseHoldSample, LoadDataOfUnit } from '../../states/household/household.actions';
 import { getHouseHoldSample, getDataOfUnit } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
-
+import { Guid } from "guid-typescript";
 @IonicPage()
 @Component({
   selector: 'page-dlg-unit',
@@ -27,7 +27,7 @@ export class DlgUnitPage {
   public id_BD: string;
 
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
-  // private dataHouseHold$ = this.store.select(getDataOfUnit);
+  private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
   constructor(private swithHouseHold: SwithStateProvider, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
@@ -37,6 +37,7 @@ export class DlgUnitPage {
   }
 
   ionViewDidLoad() {
+    // this.store.dispatch(new LoadDataOfUnit(this.FormItem.get('_id').value));
     // this.dataHouseHold$.subscribe(data => {
     //   if (data != null) {
     //     this.FormItem.setValue(data);
@@ -83,6 +84,9 @@ export class DlgUnitPage {
 
   AddUnit() {
     // this.store.dispatch(new SetUnit(this.FormItem.value));
+    // this.FormItem.get('_id').setValue(String(Guid.create()))
+    // console.log(this.FormItem.get('_id').value);
+    
     this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
     // if (this.FormItem.get('_id').value != null) {
     //   this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);

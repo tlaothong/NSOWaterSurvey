@@ -58,7 +58,6 @@ export class FactorialPage {
     this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
-    // this.store.dispatch(new SetNextPageDirection(12));
     this.formData.factory = this.FactoryForm.value
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();

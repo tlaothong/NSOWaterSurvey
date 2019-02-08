@@ -62,7 +62,7 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
-   
+
 
 }
 
@@ -128,7 +128,7 @@ const initialState: HouseHoldState = {
     backToRoot: null,
     back: null,
     dataOfUnit: null,
-  
+
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -397,36 +397,120 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 back: action.payload,
             };
         case HouseHoldTypes.LoadDataOfUnitSuccess:
+            let s = resetStatesForModel(action.payload);
+
             return {
                 ...state,
                 dataOfUnit: action.payload,
+                selectG1234: s.selectG1234,
+                // residentialGardeningUse: s.residentialGardeningUse,
+                // waterSourcesResidential: s.waterSourcesResidential,
+                arraySkipPageAgiculture: s.agi,
+                // ricePlantSelectPlant:s. ถามพี่อ้น
+                // rubberTreeSelectPlant:       ถามพี่อ้น
+                // SetPerennialPlantSelectPlant ถามพี่อ้น
+                //  watersource หน้าต่างๆ
+                // riceDoing: s.riceDoing,
+                // agiSelectRice: s.agiSelectRice,
+                // agiSelectRubber: s.agiSelectRubber,
+                // agiSelectPerennial: s.agiSelectPerennial,
+                // factorialCategory: s.factorialCategory,
+                // commercialServiceType: s.commercialServiceType,
             };
         default:
             return state;
     }
 }
 
+function resetStatesForModel(model: any): any {
+    let objG12345 = {};
+    if (model) {
+        objG12345 = {
+            isHouseHold: model.isHouseHold,
+            isAgriculture: model.isAgriculture,
+            isFactorial: model.isFactorial,
+            isCommercial: model.isCommercial,
+        }
+    }
+
+    let objAgri = {};
+
+        let ag = model && model.agriculture;
+        if (ag) {
+            objAgri = {
+                ricePlant: ag.ricePlant && ag.ricePlant.doing,
+                agronomyPlant: ag.agronomyPlant && ag.agronomyPlant.doing,
+                rubberTree: ag.rubberTree && ag.rubberTree.doing,
+                perennialPlant: ag.perennialPlant && ag.perennialPlant.doing,
+                herbsPlant: ag.herbsPlant && ag.herbsPlant.doing,
+                flowerCrop: ag.flowerCrop && ag.flowerCrop.doing,
+                mushroomPlant: ag.mushroomPlant && ag.mushroomPlant.doing,
+                animalFarm: ag.animalFarm && ag.animalFarm.doing,
+                aquaticAnimals: ag.aquaticAnimals && ag.aquaticAnimals.doing,
+            };
+        };
+
+    
+    let waterSource = {
+        plumbing: true,
+        underGround: true,
+        river: true,
+        pool: true,
+        irrigation: true,
+        rain: true,
+        buying: true,
+        rainingAsIs: true,
+        hasOther: true,
+        other: "water",
+    }
+
+    return {
+
+        selectG1234: objG12345,
+        // residentialGardeningUse: model.residence && model.residence.gardeningUse,
+        agi: objAgri ,
+        // waterSourcesResidential: waterSource,
+        // ricePlantSelectPlant:model. ถามพี่อ้น
+        // rubberTreeSelectPlant:       ถามพี่อ้น
+        // SetPerennialPlantSelectPlant ถามพี่อ้น
+
+        //  watersource หน้าต่างๆ
+        // waterSourcesRice: waterSource,
+        // riceDoing: ag && ag.ricePlant.doing,
+        // agiSelectRice: ag && ag.ricePlant.doing,
+        // agiSelectRubber: ag && ag.rubberTree.doing,
+        // agiSelectPerennial: ag && ag.perennialPlant.doing,
+        // factorialCategory: model.factory && model.factory.category,
+        // commercialServiceType: model.commerce && model.commerce.serviceType,
+        // checkWaterPlumbing: waterSource.plumbing,
+        // checkWaterRiver:  waterSource.river,
+        // checkWaterIrrigation: waterSource.irrigation,
+        // checkWaterRain:  waterSource.rain,
+        // checkWaterBuying:  waterSource.buying,
+    };
+}
+
 function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     console.log(JSON.stringify(state.selectG1234));
     let arr: Array<boolean> = state.nextPageDirection;
-    arr[0] = (state.selectG1234.isHouseHold) ? true : false;
-    arr[20] = (state.selectG1234.isHouseHold) ? true : false;
-    arr[1] = (state.selectG1234.isAgriculture) ? true : false;
-    arr[11] = (state.selectG1234.isFactorial) ? true : false;
-    arr[12] = (state.selectG1234.isCommercial) ? true : false;
+    arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
+    arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
+    arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
+    arr[11] = (state.selectG1234 && state.selectG1234.isFactorial) ? true : false;
+    arr[12] = (state.selectG1234 && state.selectG1234.isCommercial) ? true : false;
     for (let i = 2; i <= 10; i++) {
         arr[i] = arr[1]
     }
     if (state.arraySkipPageAgiculture) {
-        arr[2] = (state.arraySkipPageAgiculture.ricePlant.doing) ? true : false;
-        arr[3] = (state.arraySkipPageAgiculture.agronomyPlant.doing) ? true : false;
-        arr[4] = (state.arraySkipPageAgiculture.rubberTree.doing) ? true : false;
-        arr[5] = (state.arraySkipPageAgiculture.perennialPlant.doing) ? true : false;
-        arr[6] = (state.arraySkipPageAgiculture.herbsPlant.doing) ? true : false;
-        arr[7] = (state.arraySkipPageAgiculture.flowerCrop.doing) ? true : false;
-        arr[8] = (state.arraySkipPageAgiculture.mushroomPlant.doing) ? true : false;
-        arr[9] = (state.arraySkipPageAgiculture.animalFarm.doing) ? true : false;
-        arr[10] = (state.arraySkipPageAgiculture.aquaticAnimals.doing) ? true : false;
+        arr[2] = (state.arraySkipPageAgiculture.ricePlant && state.arraySkipPageAgiculture.ricePlant.doing) ? true : false;
+        arr[3] = (state.arraySkipPageAgiculture.agronomyPlant && state.arraySkipPageAgiculture.agronomyPlant.doing) ? true : false;
+        arr[4] = (state.arraySkipPageAgiculture.rubberTree && state.arraySkipPageAgiculture.rubberTree.doing) ? true : false;
+        arr[5] = (state.arraySkipPageAgiculture.perennialPlant && state.arraySkipPageAgiculture.perennialPlant.doing) ? true : false;
+        arr[6] = (state.arraySkipPageAgiculture.herbsPlant && state.arraySkipPageAgiculture.herbsPlant.doing) ? true : false;
+        arr[7] = (state.arraySkipPageAgiculture.flowerCrop && state.arraySkipPageAgiculture.flowerCrop.doing) ? true : false;
+        arr[8] = (state.arraySkipPageAgiculture.mushroomPlant && state.arraySkipPageAgiculture.mushroomPlant.doing) ? true : false;
+        arr[9] = (state.arraySkipPageAgiculture.animalFarm && state.arraySkipPageAgiculture.animalFarm.doing) ? true : false;
+        arr[10] = (state.arraySkipPageAgiculture.aquaticAnimals && state.arraySkipPageAgiculture.aquaticAnimals.doing) ? true : false;
     }
     console.log(JSON.stringify(state.checkWaterPlumbing));
     console.log(JSON.stringify(state.checkWaterRiver));

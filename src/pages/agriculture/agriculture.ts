@@ -84,7 +84,7 @@ export class AgriculturePage {
       if (data != null) {
         console.log("data agi",data);
 
-        this.f.setValue(data)
+        this.f.patchValue(data)
       }
     });
   }

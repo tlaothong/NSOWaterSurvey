@@ -65,7 +65,7 @@ export class HerbsPlantPage {
       if (data != null) {
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
         this.formData$ = data
-        this.f.setValue(data.agriculture.herbsPlant)
+        this.f.patchValue(data.agriculture.herbsPlant)
       }
     })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
@@ -92,13 +92,11 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    // this.store.dispatch(new SetNextPageDirection(7));
     this.formData$.agriculture.herbsPlant = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     }
   }
 
@@ -143,53 +141,6 @@ export class HerbsPlantPage {
         console.log(arrayIsCheck);
       }
     });
-  }
-
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
-      if (data != null) {
-        this.itG1_G4 = data;
-      }
-      console.log("itG1_G4: ", this.itG1_G4);
-    });
-    this.formDatAgiculture$.subscribe(data => {
-      if (data != null) {
-        this.itAgi = data;
-      }
-      console.log("it: ", this.itAgi);
-    });
-    if (this.itAgi.flowerCrop) {
-      this.navCtrl.push("FlowerCropPage")
-    }
-    else if (this.itAgi.mushroomPlant) {
-      this.navCtrl.push("MushroomPage")
-    }
-    else if (this.itAgi.animalFarm) {
-      this.navCtrl.push("AnimalFarmPage")
-    }
-    else if (this.itAgi.aquaticAnimals) {
-      this.navCtrl.push("WaterAnimalPlantingPage")
-    }
-    else if (this.itG1_G4.isFactorial) {
-      this.navCtrl.push("FactorialPage")
-    }
-    else if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage")
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
-        }
-        console.log("itPlumbing: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
-      }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
   }
 
   public isValid(name: string): boolean {

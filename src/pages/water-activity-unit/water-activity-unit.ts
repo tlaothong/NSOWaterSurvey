@@ -27,13 +27,13 @@ export class WaterActivityUnitPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WaterActivityUnitPage');
+    console.log(this.f.value);
     this.formDataRecieve$.subscribe(data => {
       if (data != null) {
         this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
-        this.f.setValue(data);
+        this.f.patchValue(data);
         console.log(this.f.value);
       }
     });
@@ -46,7 +46,14 @@ export class WaterActivityUnitPage {
     console.log(this.f.value);
     
     this.store.dispatch(new LoadHouseHoldSample(this.f.value));
-    this.store.dispatch(new SetSelectG1234(this.f.value));
+    let objRes :any = {
+      isHouseHold : this.f.get('isHouseHold').value,
+      isAgriculture : this.f.get('isAgriculture').value,
+      isFactorial : this.f.get('isFactorial').value,
+      isCommercial : this.f.get('isCommercial').value,
+      
+    }
+    this.store.dispatch(new SetSelectG1234(objRes));
 
     
     

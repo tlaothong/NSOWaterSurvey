@@ -144,7 +144,6 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(18));
     this.formData$.waterUsage.irrigation = this.f.value
     if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
       this.arrayIsCheckMethod();
@@ -194,41 +193,6 @@ export class IrrigationPage {
         console.log(arrayIsCheck);
       }
     });
-  }
-
-  private checkNextPage() {
-    this.formCheckRain$.subscribe(data => {
-      if (data != null) {
-        this.itRain = data;
-      }
-      console.log("itRain: ", this.itRain);
-    });
-    this.formCheckBuying$.subscribe(data => {
-      if (data != null) {
-        this.itBuying = data;
-      }
-      console.log("itBuying: ", this.itBuying);
-    });
-
-    if (this.itRain) {
-      this.navCtrl.push("RainPage")
-    }
-    else if (this.itBuying) {
-      this.navCtrl.push("BuyingPage")
-    }
-    else {
-      this.formDataG1_G4$.subscribe(data => {
-        if (data != null) {
-          this.itG1_G4 = data;
-        }
-        console.log("itG1_G4: ", this.itG1_G4);
-      });
-      if (this.itG1_G4.isHouseHold) {
-        this.navCtrl.push("DisasterousPage")
-      }
-      else
-        this.navCtrl.push("UserPage")
-    }
   }
 
   public isValid(name: string): boolean {

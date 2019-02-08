@@ -55,14 +55,11 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
-    // this.fieldFarmings.forEach(it => this.store.dispatch(new SetWaterSources(it.FormItem.get('waterSources').value)));
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
-    // this.store.dispatch(new SetNextPageDirection(3));
     this.data.agriculture.ricePlant = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
-      // this.checkNextPage();
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.data));
       this.navCtrl.popTo("CheckListPage");
@@ -108,64 +105,7 @@ export class RicePage {
     });
   }
 
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
-      if (data != null) {
-        this.itG1_G4 = data;
-      }
-      console.log("itG1_G4: ", this.itG1_G4);
-    });
-    this.formDatAgiculture$.subscribe(data => {
-      if (data != null) {
-        this.itAgi = data;
-      }
-      console.log("it: ", this.itAgi);
-    });
-    if (this.itAgi.agronomyPlant) {
-      this.navCtrl.push("DryCropPlantingPage")
-    }
-    else if (this.itAgi.rubberTree) {
-      this.navCtrl.push("RubberTreePage")
-    }
-    else if (this.itAgi.perennialPlant) {
-      this.navCtrl.push("PerennialPlantingPage")
-    }
-    else if (this.itAgi.herbsPlant) {
-      this.navCtrl.push("HerbsPlantPage")
-    }
-    else if (this.itAgi.flowerCrop) {
-      this.navCtrl.push("FlowerCropPage")
-    }
-    else if (this.itAgi.mushroomPlant) {
-      this.navCtrl.push("MushroomPage")
-    }
-    else if (this.itAgi.animalFarm) {
-      this.navCtrl.push("AnimalFarmPage")
-    }
-    else if (this.itAgi.aquaticAnimals) {
-      this.navCtrl.push("WaterAnimalPlantingPage")
-    }
-    else if (this.itG1_G4.isFactorial) {
-      this.navCtrl.push("FactorialPage")
-    }
-    else if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage")
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
-        }
-        console.log("it: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
-      }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
-  }
+  
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

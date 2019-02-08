@@ -22,7 +22,7 @@ export class RainPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample)
   private formData$: any;
 
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -73,7 +73,7 @@ export class RainPage {
       if (data != null) {
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
         this.formData$ = data;
-        this.RainFrm.setValue(data.waterUsage.rain)
+        this.RainFrm.patchValue(data.waterUsage.rain)
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -127,15 +127,14 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(19));
     this.formData$.waterUsage.rain = this.RainFrm.value
-    if (this.RainFrm.valid) {
+    // if (this.RainFrm.valid) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
       // }
-    }
+    // }
   }
 
   countNumberPage() {
@@ -179,32 +178,6 @@ export class RainPage {
         console.log(arrayIsCheck);
       }
     });
-  }
-
-  private checkNextPage() {
-    this.formCheckBuying$.subscribe(data => {
-      if (data != null) {
-        this.itBuying = data;
-      }
-      console.log("itBuying: ", this.itBuying);
-    });
-
-    if (this.itBuying) {
-      this.navCtrl.push("BuyingPage")
-    }
-    else {
-      this.formDataG1_G4$.subscribe(data => {
-        if (data != null) {
-          this.itG1_G4 = data;
-        }
-        console.log("itG1_G4: ", this.itG1_G4);
-      });
-      if (this.itG1_G4.isHouseHold) {
-        this.navCtrl.push("DisasterousPage")
-      }
-      else
-        this.navCtrl.push("UserPage")
-    }
   }
 
   public isValid(name: string): boolean {

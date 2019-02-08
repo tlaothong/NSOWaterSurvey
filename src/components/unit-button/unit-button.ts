@@ -4,8 +4,9 @@ import { ModalController, NavController, AlertController, NavParams } from 'ioni
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit, getBack } from '../../states/household';
-import { LoadDataOfUnit } from '../../states/household/household.actions';
+import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit, getBack, getArrayIsCheck } from '../../states/household';
+import { LoadDataOfUnit, SetArrayIsCheck } from '../../states/household/household.actions';
+import { map } from 'rxjs/operators';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -55,7 +56,7 @@ export class UnitButtonComponent {
         this.setupAccessCountChangesForComments();
         console.log(data[Number(this.unitNo) - 1]);
         console.log(this.FormItem.value);
-        this.FormItem.setValue(data[Number(this.unitNo) - 1]);
+        this.FormItem.patchValue(data[Number(this.unitNo) - 1]);
         this.setAccess();
       }
     });
@@ -111,42 +112,42 @@ export class UnitButtonComponent {
       }),
       'agriculture': fb.group({
         'ricePlant': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'agronomyPlant': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'rubberTree': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'perennialPlant': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'herbsPlant': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'flowerCrop': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'mushroomPlant': fb.group({
-          'doing': [null],
+          'doing': [false],
           'fieldCount': [0],
           'fields': fb.array([]),
         }),
         'animalFarm': fb.group({
-          'doing': [null],
+          'doing': [false],
           'cow': fb.group({
             'hasItem': [false],
             'itemCount': [null]
@@ -201,7 +202,7 @@ export class UnitButtonComponent {
           }),
         }),
         'aquaticAnimals': fb.group({
-          'doing': [null],
+          'doing': [false],
           'isFish': [false],
           'fish': fb.group({
             'doing': [null],
@@ -707,6 +708,17 @@ export class UnitButtonComponent {
 
   sendIdUnit() {
     this.store.dispatch(new LoadDataOfUnit(this.FormItem.get('_id').value));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 8)) {
+          arrayIsCheck.splice(0, arrayIsCheck.length);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public showModalSetting() {
@@ -720,6 +732,7 @@ export class UnitButtonComponent {
         let lastIndex = access.length - 1;
         if (access.at(lastIndex).value == 1) {
           this.sendIdUnit();
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
           // this.navCtrl.push('WaterActivityUnitPage')
         }
       }
@@ -749,6 +762,7 @@ export class UnitButtonComponent {
           let lastIndex = access.length - 1;
           if (access.at(lastIndex).value == 1) {
             this.sendIdUnit();
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
             // this.navCtrl.push('WaterActivityUnitPage')
           }
         }

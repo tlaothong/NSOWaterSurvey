@@ -138,14 +138,11 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetNextPageDirection(16));
     this.formData$.waterUsage.river = this.f.value
     if (this.f.valid || (this.f.get('hasPump').value == false)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.setRoot("CheckListPage" );
-      // this.navCtrl.pop();
-      // this.navCtrl.push("PoolPage");
     }
   }
 

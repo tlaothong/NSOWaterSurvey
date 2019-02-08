@@ -98,23 +98,14 @@ export class CommercialPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
-    // this.store.dispatch(new SetWaterSources([(this.f.get('waterSources.plumbing').value),
-    // (this.f.get('waterSources.underGround').value),
-    // (this.f.get('waterSources.river').value),
-    // (this.f.get('waterSources.pool').value),
-    // (this.f.get('waterSources.irrigation').value),
-    // (this.f.get('waterSources.rain').value),
-    // (this.f.get('waterSources.buying').value)]));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log("waterCom", this.f.get('waterSources').value);
-    // this.store.dispatch(new SetNextPageDirection(13));
     this.dispatchWaterSource();
     this.formData.commerce = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     }
   }
 
@@ -168,21 +159,6 @@ export class CommercialPage {
     this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
     this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
     this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
-  }
-
-  private checkNextPage() {
-    this.formCheckPlumbing$.subscribe(data => {
-      if (data != null) {
-        this.itPlumbing = data;
-      }
-      console.log("itWaterAfter: ", this.itPlumbing);
-    });
-    if (this.itPlumbing) {
-      this.navCtrl.push("PlumbingPage")
-    }
-    else {
-      this.navCtrl.push("GroundWaterPage")
-    }
   }
 
   public isValid(name: string): boolean {

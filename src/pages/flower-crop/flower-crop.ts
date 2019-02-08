@@ -65,7 +65,7 @@ export class FlowerCropPage {
       if (data != null) {
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
         this.formData$ = data
-        this.flowerCropFrm.setValue(data.agriculture.flowerCrop)
+        this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
       }
     })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
@@ -111,7 +111,6 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    // this.store.dispatch(new SetNextPageDirection(8));
     this.formData$.agriculture.flowerCrop = this.flowerCropFrm.value
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
@@ -162,50 +161,6 @@ export class FlowerCropPage {
         console.log(arrayIsCheck);
       }
     });
-  }
-
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
-      if (data != null) {
-        this.itG1_G4 = data;
-      }
-      console.log("itG1_G4: ", this.itG1_G4);
-    });
-    this.formDatAgiculture$.subscribe(data => {
-      if (data != null) {
-        this.itAgi = data;
-      }
-      console.log("it: ", this.itAgi);
-    });
-    if (this.itAgi.mushroomPlant) {
-      this.navCtrl.push("MushroomPage")
-    }
-    else if (this.itAgi.animalFarm) {
-      this.navCtrl.push("AnimalFarmPage")
-    }
-    else if (this.itAgi.aquaticAnimals) {
-      this.navCtrl.push("WaterAnimalPlantingPage")
-    }
-    else if (this.itG1_G4.isFactorial) {
-      this.navCtrl.push("FactorialPage")
-    }
-    else if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage")
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
-        }
-        console.log("itPlumbing: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
-      }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
   }
 
   public isValid(name: string): boolean {
