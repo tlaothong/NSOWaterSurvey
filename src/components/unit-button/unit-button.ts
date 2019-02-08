@@ -261,7 +261,7 @@ export class UnitButtonComponent {
             'stew': [false],
             'other': [null],
             'hasOther': [false],
-            'animalsCount': [false],
+            'animalsCount': [null],
             'waterSources': fb.group({
               'plumbing': [false],
               'underGround': [false],
@@ -720,7 +720,7 @@ export class UnitButtonComponent {
         let lastIndex = access.length - 1;
         if (access.at(lastIndex).value == 1) {
           this.sendIdUnit();
-          this.navCtrl.push('WaterActivityUnitPage')
+          // this.navCtrl.push('WaterActivityUnitPage')
         }
       }
     });
@@ -749,7 +749,7 @@ export class UnitButtonComponent {
           let lastIndex = access.length - 1;
           if (access.at(lastIndex).value == 1) {
             this.sendIdUnit();
-            this.navCtrl.push('WaterActivityUnitPage')
+            // this.navCtrl.push('WaterActivityUnitPage')
           }
         }
         else {

@@ -34,6 +34,7 @@ export class WaterActivityUnitPage {
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
         this.f.setValue(data);
+        console.log(this.f.value);
       }
     });
   }
@@ -42,10 +43,12 @@ export class WaterActivityUnitPage {
     this.submitRequested = true;
     // this.store.dispatch(new SetArraySkipPage(this.f.value));
     this.arrayNextPageMedthod();
+    console.log(this.f.value);
+    
     this.store.dispatch(new LoadHouseHoldSample(this.f.value));
     this.store.dispatch(new SetSelectG1234(this.f.value));
 
-    console.log(this.f.value);
+    
     
 
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
