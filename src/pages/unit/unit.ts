@@ -37,6 +37,8 @@ export class UnitPage {
     this.setupUnitsCountChanges();
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
+    console.log(this.f.get('units').value);
+    
   }
 
   private setupUnitsCountChanges() {
