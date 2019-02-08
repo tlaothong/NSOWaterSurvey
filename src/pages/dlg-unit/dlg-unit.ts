@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
 import { LoadHouseHoldSample } from '../../states/household/household.actions';
-import { getHouseHoldSample } from '../../states/household';
+import { getHouseHoldSample, getDataOfUnit } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 
 @IonicPage()
@@ -27,7 +27,7 @@ export class DlgUnitPage {
   public id_BD: string;
 
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
-  private dataHouseHold$ = this.store.select(getHouseHoldSample);
+  // private dataHouseHold$ = this.store.select(getDataOfUnit);
 
   constructor(private swithHouseHold: SwithStateProvider, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
@@ -37,13 +37,13 @@ export class DlgUnitPage {
   }
 
   ionViewDidLoad() {
-    this.dataHouseHold$.subscribe(data => {
-      if (data != null) {
-        this.FormItem.setValue(data);
-        this.setEnvironment();
-      }
-    });
-    console.log('ionViewDidLoad DlgUnitPage');
+    // this.dataHouseHold$.subscribe(data => {
+    //   if (data != null) {
+    //     this.FormItem.setValue(data);
+    //     console.log(data);
+    //     this.setEnvironment();
+    //   }
+    // });
   }
 
   public closeDialog() {
