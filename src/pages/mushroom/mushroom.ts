@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({

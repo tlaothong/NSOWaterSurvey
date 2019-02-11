@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';

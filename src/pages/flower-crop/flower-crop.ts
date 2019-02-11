@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial,  getArrayIsCheck,  getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import {  SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
