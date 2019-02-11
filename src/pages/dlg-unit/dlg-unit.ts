@@ -7,7 +7,7 @@ import { setHomeBuilding } from '../../states/building';
 import { LoadHouseHoldSample, LoadDataOfUnit } from '../../states/household/household.actions';
 import { getHouseHoldSample, getDataOfUnit } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
-import { Guid } from "guid-typescript";
+// import { Guid } from "guid-typescript";
 @IonicPage()
 @Component({
   selector: 'page-dlg-unit',
