@@ -1,4 +1,4 @@
-import { SetWaterSourcesCommercial, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetWaterSourcesCommercial,  SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -24,7 +24,6 @@ export class CommercialPage {
 
   private f: FormGroup;
   private submitRequested: boolean;
-  private itPlumbing: any;
   public otherBuildingType: any;
 
   private formData$ = this.store.select(getDataOfUnit);

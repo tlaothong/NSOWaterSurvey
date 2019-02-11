@@ -43,7 +43,7 @@ export class DisasterousPage {
     this.formData$.subscribe(data => {
       if (data != null) {
         this.formData = data
-        this.Disasterous.setValue(data.disaster)
+        this.Disasterous.patchValue(data.disaster)
       }
     })
   }
@@ -53,7 +53,7 @@ export class DisasterousPage {
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
-        this.Disasterous.setValue(fg.value);
+        this.Disasterous.patchValue(fg.value);
       }
     });
     modal.present();

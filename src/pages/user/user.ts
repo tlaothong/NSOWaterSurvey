@@ -48,10 +48,7 @@ export class UserPage {
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
     this.commercialServiceUse$.subscribe(data => this.commercialServiceUse = data);
   }
-
-  ionViewDidEnter() {
-  }
-
+  
   public handleSubmit() {
     this.submitRequested = true;
     this.formData.closing = this.userInfo.value
