@@ -6,7 +6,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -29,7 +29,6 @@ export class CommercialPage {
 
   private formData$ = this.store.select(getDataOfUnit);
   private formData: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
   private backNum: any;

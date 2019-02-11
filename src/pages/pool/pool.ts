@@ -5,9 +5,9 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck,  getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,19 +19,9 @@ export class PoolPage {
   public f: FormGroup;
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
-
   private submitRequested: boolean;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
-
-  private formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
-  private itIrrigation: any;
-  private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
-  private itRain: any;
-  private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-  private itBuying: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -149,7 +139,7 @@ export class PoolPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -157,13 +147,13 @@ export class PoolPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
-  
+
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(16));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
@@ -173,7 +163,7 @@ export class PoolPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 16)) {
           arrayIsCheck.push(16);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });

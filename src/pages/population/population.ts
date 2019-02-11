@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
@@ -64,9 +64,9 @@ export class PopulationPage {
     this.persons.forEach(it => it.submitRequest());
     this.formData.population = this.f.value
     // if (this.f.valid && this.isCheckHaveHeadfamily()) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData));     
-      this.navCtrl.setRoot("UnitPage");
+    this.arrayIsCheckMethod();
+    this.store.dispatch(new LoadHouseHoldSample(this.formData));
+    this.navCtrl.setRoot("UnitPage");
     // }
   }
 

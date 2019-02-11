@@ -2,12 +2,12 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck,  getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetWaterSources, SetAgiSelectRubber, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -22,12 +22,6 @@ export class RubberTreePage {
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
-  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private itAgi: any;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
   public DataList = EX_RUBBER_LIST;
   private frontNum: any;
   private backNum: any;

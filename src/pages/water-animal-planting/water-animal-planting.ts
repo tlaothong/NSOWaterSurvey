@@ -2,10 +2,10 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -20,10 +20,6 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FishFarmingComponent) private fishFarming: FishFarmingComponent[];
   @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
   public f: FormGroup;
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
@@ -76,7 +72,7 @@ export class WaterAnimalPlantingPage {
     if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
-      this.navCtrl.setRoot("CheckListPage",);
+      this.navCtrl.setRoot("CheckListPage");
     }
   }
 
@@ -93,7 +89,7 @@ export class WaterAnimalPlantingPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -101,11 +97,11 @@ export class WaterAnimalPlantingPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -116,13 +112,13 @@ export class WaterAnimalPlantingPage {
       if (data != null) {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 10)) {
-        arrayIsCheck.push(10);
+          arrayIsCheck.push(10);
         }
         console.log(arrayIsCheck);
       }
     });
   }
- 
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     if (name == 'anycheck') {

@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getUnitByIdBuilding } from '../../states/household';
 import { LoadUnitByIdBuilding } from '../../states/household/household.actions';
 
 @IonicPage()

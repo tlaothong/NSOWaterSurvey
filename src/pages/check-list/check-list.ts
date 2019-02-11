@@ -1,11 +1,11 @@
-import { getBackToRoot, getHouseHoldSample, getCheckWaterPlumbing, getCheckWaterRiver, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getDataOfUnit, getArraySkipPageAgiculture, getSelectG1234, getBack } from './../../states/household/index';
+import { getBackToRoot, getHouseHoldSample, getBack } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot, SetNextPageDirection, SetBack } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot,  SetBack } from '../../states/household/household.actions';
 
 
 /**

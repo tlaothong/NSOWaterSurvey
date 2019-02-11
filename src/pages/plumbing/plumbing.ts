@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck,  getNextPageDirection, getDataOfUnit } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetPerennialPlantSelectPlant, SetAgiSelectPerennial, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,12 +19,6 @@ export class PerennialPlantingPage {
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData: any;
-  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private itAgi: any;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
   private frontNum: any;
   private backNum: any;
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
@@ -64,8 +58,8 @@ export class PerennialPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectPerennial(true));
-    this.formData.agriculture.perennialPlant == this.PerennialPlantingFrm.value; 
-    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
+    this.formData.agriculture.perennialPlant == this.PerennialPlantingFrm.value;
+    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");

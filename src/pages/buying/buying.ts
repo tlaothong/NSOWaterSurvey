@@ -3,11 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
-import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -21,9 +21,6 @@ export class BuyingPage {
   BuyingForm: FormGroup;
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
-
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
   private getIsHouseHold$ = this.store.select(getIsHouseHold);
   public getIsHouseHold: boolean;
   private getIsAgriculture$ = this.store.select(getIsAgriculture);
@@ -60,7 +57,7 @@ export class BuyingPage {
         this.BuyingForm.patchValue(data.waterUsage.buying)
       }
     })
-    this.formData$.subscribe(data => this.BuyingForm.setValue(data));
+    // this.formData$.subscribe(data => this.BuyingForm.setValue(data));
     this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);
     this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
@@ -72,9 +69,9 @@ export class BuyingPage {
     this.submitRequested = true;
     this.formData$.waterUsage.buying = this.BuyingForm.value
     // if (this.BuyingForm.valid) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
-      this.navCtrl.pop();
+    this.arrayIsCheckMethod();
+    this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+    this.navCtrl.pop();
     // }
   }
 

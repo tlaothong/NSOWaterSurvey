@@ -44,10 +44,6 @@ export const getFactorialCategory = createSelector(
     state => state.factorialCategory,
 );
 
-export const getWaterSource = createSelector(
-    getHouseHoldFeatureState,
-    state => state.waterSources,
-);
 
 export const getCommercialServiceType = createSelector(
     getHouseHoldFeatureState,
@@ -57,11 +53,6 @@ export const getCommercialServiceType = createSelector(
 export const getResidentialGardeningUse = createSelector(
     getHouseHoldFeatureState,
     state => state.residentialGardeningUse,
-);
-
-export const getAgronomyPlantDoing = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agronomyPlantDoing,
 );
 
 export const getRubberTreeSelectPlant = createSelector(
@@ -89,11 +80,6 @@ export const getRiceDoing = createSelector(
     state => state.riceDoing,
 );
 
-
-export const getCheckboxDoingAgiculturePage = createSelector(
-    getHouseHoldFeatureState,
-    state => state.checkboxDoingAgiculturePage,
-);
 export const getAgiSelectRice = createSelector(
     getHouseHoldFeatureState,
     state => state.agiSelectRice,
@@ -112,31 +98,6 @@ export const getAgiSelectRubber = createSelector(
 export const getAgiSelectPerennial = createSelector(
     getHouseHoldFeatureState,
     state => state.agiSelectPerennial,
-);
-
-export const getAgiSelectHerbPlant = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectHerbsPlant,
-);
-export const getAgiSelectFlowerCrop = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectFlowerCrop,
-);
-export const getAgiSelectMushroomPlant = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectMushroomPlant,
-);
-export const getAgiSelectAnimalFarm = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectAnimalFarm,
-);
-export const getAgiSelectAquaticAnimals = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectAquaticAnimals,
-);
-export const getArraySkipPage = createSelector(
-    getHouseHoldFeatureState,
-    state => state.arraySkipPage,
 );
 export const getArraySkipPageAgiculture = createSelector(
     getHouseHoldFeatureState,
@@ -189,10 +150,6 @@ export const getWaterSourcesCommercial = createSelector(
 export const getNextPageDirection = createSelector(
     getHouseHoldFeatureState,
     state => state.nextPageDirection,
-);
-export const getCheckHeadFamily = createSelector(
-    getHouseHoldFeatureState,
-    state => state.checkHeadfamily,
 );
 export const getArrayIsCheck = createSelector(
     getHouseHoldFeatureState,

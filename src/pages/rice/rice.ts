@@ -1,11 +1,11 @@
-import { SetRicePlantSelectPlant, SetRiceDoing, SetWaterSources, SetAgiSelectRice, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getWaterSource, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
 
@@ -17,13 +17,7 @@ import { EX_RICH_LIST } from '../../models/tree';
 export class RicePage {
   private submitRequested: boolean;
   f: FormGroup;
-  // private formDataWater$ = this.store.select(getWaterSource).pipe(map(s => s));
-  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private itAgi: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
+
   private frontNum: any;
   private backNum: any;
   // private itWater: any;
@@ -105,7 +99,7 @@ export class RicePage {
     });
   }
 
-  
+
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

@@ -1,5 +1,5 @@
-import { getArraySkipPage, getNextPageDirection, getSelectorIndex, getDataOfUnit } from './../../states/household/index';
-import { SetArraySkipPage, SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
+import { getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -20,8 +20,6 @@ export class WaterActivityUnitPage {
   public f: FormGroup;
   private submitRequested: boolean;
   private formDataRecieve$ = this.store.select(getDataOfUnit);
-  private formData$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private it: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = UnitButtonComponent.CreateFormGroup(fb);
   }
@@ -41,22 +39,21 @@ export class WaterActivityUnitPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    // this.store.dispatch(new SetArraySkipPage(this.f.value));
     this.arrayNextPageMedthod();
     console.log(this.f.value);
-    
+
     this.store.dispatch(new LoadHouseHoldSample(this.f.value));
-    let objRes :any = {
-      isHouseHold : this.f.get('isHouseHold').value,
-      isAgriculture : this.f.get('isAgriculture').value,
-      isFactorial : this.f.get('isFactorial').value,
-      isCommercial : this.f.get('isCommercial').value,
-      
+    let objRes: any = {
+      isHouseHold: this.f.get('isHouseHold').value,
+      isAgriculture: this.f.get('isAgriculture').value,
+      isFactorial: this.f.get('isFactorial').value,
+      isCommercial: this.f.get('isCommercial').value,
+
     }
     this.store.dispatch(new SetSelectG1234(objRes));
 
-    
-    
+
+
 
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let pilot: any
@@ -68,10 +65,10 @@ export class WaterActivityUnitPage {
       }
     });
 
-    // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
-    // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
-    // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
-    // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
+    this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
+    this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
+    this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
     // this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
 
     this.navCtrl.push("CheckListPage");
@@ -81,18 +78,6 @@ export class WaterActivityUnitPage {
   }
 
   arrayNextPageMedthod() {
-    // let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    // let index: any;
-    // selectorIndex$.subscribe(data => {
-
-    //   if (data != null) {
-    //     index = data
-    //     console.log("selectIndex: ",index);
-
-    //   }
-    // });
-
-
     let arrayNextPage: Array<boolean> = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
     this.store.dispatch(new SetNextPageDirection(arrayNextPage));
     this.store.dispatch(new SetSelectorIndex(-1));
@@ -100,33 +85,6 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetBack(false));
   }
 
-  private checkNextPage() {
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.it = data;
-      }
-      console.log("it: ", this.it)
-    });
-
-
-    // if (this.it.isHouseHold) {
-    // this.navCtrl.push("ResidentialPage");
-    // this.store.dispatch(new SetNextPageDirection(0));
-    // }
-    // else if (this.it.isAgriculture) {
-    // this.navCtrl.push("AgriculturePage");
-    // this.store.dispatch(new SetNextPageDirection(1));
-    // }
-    // else if (this.it.isFactorial) {
-    // this.navCtrl.push("FactorialPage");
-    // this.store.dispatch(new SetNextPageDirection(11));
-    // }
-    // else if (this.it.isCommercial) {
-    // this.navCtrl.push("CommercialPage");
-    // this.store.dispatch(new SetNextPageDirection(11));
-    // }
-
-  }
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);

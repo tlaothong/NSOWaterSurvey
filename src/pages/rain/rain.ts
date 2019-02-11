@@ -7,9 +7,9 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -24,11 +24,6 @@ export class RainPage {
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getHouseHoldSample)
   private formData$: any;
-
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-  private itBuying: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private commerceUse$ = this.store.select(getIsCommercial);
@@ -129,11 +124,11 @@ export class RainPage {
     this.waterActivity5.forEach(it => it.submitRequest());
     this.formData$.waterUsage.rain = this.RainFrm.value
     // if (this.RainFrm.valid) {
-      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
-      this.navCtrl.popTo("CheckListPage");
-      // }
+    // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+    this.arrayIsCheckMethod();
+    this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+    this.navCtrl.popTo("CheckListPage");
+    // }
     // }
   }
 

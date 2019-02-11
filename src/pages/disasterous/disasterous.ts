@@ -5,8 +5,8 @@ import { TableDisasterousComponent } from '../../components/table-disasterous/ta
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -64,9 +64,9 @@ export class DisasterousPage {
     this.tableDisasterous.forEach(it => it.submitRequest());
     this.formData.disaster = this.Disasterous.value
     // if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData));
-      this.navCtrl.popTo("CheckListPage");
+    this.arrayIsCheckMethod();
+    this.store.dispatch(new LoadHouseHoldSample(this.formData));
+    this.navCtrl.popTo("CheckListPage");
     // }
   }
 

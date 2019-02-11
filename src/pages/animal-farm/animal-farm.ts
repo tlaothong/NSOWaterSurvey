@@ -5,9 +5,9 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying,  SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -16,12 +16,6 @@ import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, 
 })
 export class AnimalFarmPage {
 
-  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private itAgi: any;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
   @ViewChildren(TableCheckItemCountComponent) private tableCheckItemCount: TableCheckItemCountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
 
@@ -122,11 +116,11 @@ export class AnimalFarmPage {
   }
 
   private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
+    this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
     console.log("dispatch animalFarm can work");
   }
 
@@ -134,7 +128,7 @@ export class AnimalFarmPage {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
   }
-  
+
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const cow = c.get('cow');
@@ -148,7 +142,7 @@ export class AnimalFarmPage {
       const silkWool = c.get('silkWool');
       const other = c.get('other');
       console.log(cow.value.itemCount);
-      
+
       if (!cow.value.itemCount && !buffalo.value.itemCount && !pig.value.itemCount && !goat.value.itemCount && !sheep.value.itemCount
         && !chicken.value.itemCount && !duck.value.itemCount && !goose.value.itemCount && !silkWool.value.itemCount && !other.value.itemCount) {
         return { 'anycheck': true };

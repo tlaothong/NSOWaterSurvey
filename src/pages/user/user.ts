@@ -3,9 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -56,9 +56,9 @@ export class UserPage {
     this.submitRequested = true;
     this.formData.closing = this.userInfo.value
     // if (this.userInfo.valid) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData));
-      this.navCtrl.popTo("CheckListPage");
+    this.arrayIsCheckMethod();
+    this.store.dispatch(new LoadHouseHoldSample(this.formData));
+    this.navCtrl.popTo("CheckListPage");
     // }
   }
 

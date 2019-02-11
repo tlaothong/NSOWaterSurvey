@@ -3,8 +3,6 @@ import { SetSelectorIndex, SetBackToRoot, SetBack } from '../../states/household
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { NavController } from 'ionic-angular';
-import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'form-buttons-bar',
@@ -40,14 +38,6 @@ export class FormButtonsBarComponent {
     if (this.isBuilding == true) {
       this.navCtrl.popTo("HomesPage");
     } else {
-      // let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-      // let index: any;
-      // selectorIndex$.subscribe(data => {
-      //   if (data != null) {
-      //     index = data
-      //     console.log("selectIndex: ", index);
-      //   }
-      // });
       this.store.dispatch(new SetBack(true));
       this.navCtrl.popTo("CheckListPage");
     }

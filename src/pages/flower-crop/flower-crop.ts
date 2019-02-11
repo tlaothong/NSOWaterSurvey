@@ -5,9 +5,9 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial,  getArrayIsCheck,  getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetWaterSources, SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -21,12 +21,6 @@ export class FlowerCropPage {
   private submitRequested: boolean;
   public flowerCropFrm: FormGroup;
   public shownData: string[];
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
-  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private itAgi: any;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
@@ -77,8 +71,8 @@ export class FlowerCropPage {
     this.getAgiSelectAgronomy$.subscribe(data => this.getAgiSelectAgronomy = data);
     this.getAgiSelectRubber$.subscribe(data => this.getAgiSelectRubber = data);
     this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
-    console.log("rice agronomy rubber peren ",this.getAgiSelectRice,this.getAgiSelectAgronomy,this.getAgiSelectRubber,this.getAgiSelectPerennial);
-    
+    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
+
     this.listSumData = sum;
     console.log('listSumData');
     console.log(this.listSumData);
@@ -133,7 +127,7 @@ export class FlowerCropPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -141,15 +135,15 @@ export class FlowerCropPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
-      this.store.dispatch(new SetSelectorIndex(7));
+    this.store.dispatch(new SetSelectorIndex(7));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

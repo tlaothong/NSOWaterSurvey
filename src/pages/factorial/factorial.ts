@@ -5,9 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArraySkipPage, getWaterSource, getCheckWaterPlumbing, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetFactorialCategory, SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { SetFactorialCategory, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -17,14 +17,10 @@ import { SetFactorialCategory, SetWaterSources, SetCheckWaterPlumbing, SetCheckW
 export class FactorialPage {
 
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
-  private itG1_G4: any;
-  private itPlumbing: any;
   private submitRequested: boolean;
   FactoryForm: FormGroup;
   private formData$ = this.store.select(getDataOfUnit)
   private formData: any
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
   private frontNum: any;
   private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -63,7 +59,6 @@ export class FactorialPage {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     }
   }
 
@@ -118,31 +113,7 @@ export class FactorialPage {
     this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
   }
 
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
-      if (data != null) {
-        this.itG1_G4 = data;
-      }
-      console.log("it: ", this.itG1_G4);
-    });
-    if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage")
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
-        }
-        console.log("itWaterAfter: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
-      }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
-  }
+
 
   public isValid(name: string): boolean {
     var ctrl = this.FactoryForm.get(name);

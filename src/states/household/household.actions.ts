@@ -6,7 +6,6 @@ export enum HouseHoldTypes {
     StateName = "HouseHold",
     LoadList = "[HH] Load List",
     SetRiceDoing = "[HH] Set Rice Donig",
-    SetWaterSource = "[HH] Set WaterSource",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsHouseHold = "[HH] Set IsHouseHold",
@@ -15,7 +14,6 @@ export enum HouseHoldTypes {
     SetIsAgriculture = "[HH] Set IsAgriculture",
     LoadUserByQrCode = "[HH] Load User By QrCode",
     SetFactorialCategory = "[HH] Set Factorial Category",
-    SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
     SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
     LoadUserByQrCodeSuccess = "[HH] Load User By QrCode Success",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
@@ -23,17 +21,10 @@ export enum HouseHoldTypes {
     SetResidentialGardeningUse = "[HH] Set Residential GardeningUse",
     SetAgronomyPlantSelectPlant = "[HH] Set AgronomyPlant Select Plant",
     SetPerennialPlantSelectPlant = "[HH] Set PerennialPlant Select Plant",
-    SetCheckboxDoingAgiculturePage = "[HH] Set Checkbox Doing Agiculture Page",
     SetAgiSelectRice = "[HH] Set Agiculture Select Rice",
     SetAgiSelectAgronomy = "[HH] Set Agiculture Select Agronomy",
     SetAgiSelectRubber = "[HH] Set Agiculture Select Rubber",
     SetAgiSelectPerennial = "[HH] Set Agiculture Select Perennial",
-    SetAgiSelectHerbPlant = "[HH] Set Agiculture Select HerbPlant",
-    SetAgiSelectFlowerCrop = "[HH] Set Agiculture Select FlowerCrop ",
-    SetAgiSelectMushroomPlant = "[HH] Set Agiculture Select MushroomPlant",
-    SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
-    SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
-    SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
     SetCheckWaterPlumbing = "[HH] Set Check Water Plumbing",
@@ -48,7 +39,6 @@ export enum HouseHoldTypes {
     SetWaterSourcesFactory = "[HH] Set WaterSources Factory",
     SetWaterSourcesCommercial = "[HH] Set WaterSources Commercial",
     SetNextPageDirection = "[HH] Set Next Page Direction",
-    SetHeadFamily = "[HH] Set Head Family",
     SetArrayIsCheck = "[HH] Set Array IsCheck",
     SetSelectorIndex = "[HH] Set Selector Index",
     LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
@@ -138,19 +128,6 @@ export class SetFactorialCategory implements Action {
     }
 }
 
-export class SetWaterSources implements Action {
-    readonly type = HouseHoldTypes.SetWaterSource;
-
-    constructor(public payload: any[]) {
-    }
-}
-
-export class SetAgronomyPlantDoing implements Action {
-    readonly type = HouseHoldTypes.SetAgronomyPlantDoing;
-
-    constructor(public payload: any) {
-    }
-}
 
 export class SetCommercialServiceType implements Action {
     readonly type = HouseHoldTypes.SetCommercialServiceType;
@@ -179,12 +156,7 @@ export class SetPerennialPlantSelectPlant implements Action {
     constructor(public payload: any[]) {
     }
 }
-export class SetCheckboxDoingAgiculturePage implements Action {
-    readonly type = HouseHoldTypes.SetCheckboxDoingAgiculturePage;
 
-    constructor(public payload: any[]) {
-    }
-}
 export class SetRicePlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetRicePlantSelectPlant;
 
@@ -233,43 +205,7 @@ export class SetAgiSelectPerennial implements Action {
     constructor(public payload: any) {
     }
 }
-export class SetAgiSelectHerbPlant implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectHerbPlant;
 
-    constructor(public payload: any) {
-    }
-}
-
-export class SetAgiSelectFlowerCrop implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectFlowerCrop;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetAgiSelectMushroomPlant implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectMushroomPlant;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetAgiSelectAnimalFarm implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectAnimalFarm;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetAgiSelectAquaticAnimals implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectAquaticAnimals;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetArraySkipPage implements Action {
-    readonly type = HouseHoldTypes.SetArraySkipPage;
-
-    constructor(public payload: any) {
-    }
-}
 export class SetArraySkipPageWaterSources implements Action {
     readonly type = HouseHoldTypes.SetArraySkipPageWaterSources;
 
@@ -354,12 +290,7 @@ export class SetNextPageDirection implements Action {
     constructor(public payload: Array<boolean>) {
     }
 }
-export class SetHeadFamily implements Action {
-    readonly type = HouseHoldTypes.SetHeadFamily;
 
-    constructor(public payload: boolean) {
-    }
-}
 export class SetArrayIsCheck implements Action {
     readonly type = HouseHoldTypes.SetArrayIsCheck;
 
@@ -414,27 +345,18 @@ export type HouseHoldActionsType =
     | SetIsFactorial
     | SetIsCommercial
     | SetFactorialCategory
-    | SetWaterSources
     | SetCommercialServiceType
     | SetResidentialGardeningUse
-    | SetAgronomyPlantDoing
     | SetRubberTreeSelectPlant
     | SetPerennialPlantSelectPlant
     | SetRicePlantSelectPlant
     | SetAgronomyPlantSelectPlant
     | SetCommercialServiceType
     | SetRiceDoing
-    | SetCheckboxDoingAgiculturePage
     | SetAgiSelectRice
     | SetAgiSelectAgronomy
     | SetAgiSelectRubber
     | SetAgiSelectPerennial
-    | SetAgiSelectHerbPlant
-    | SetAgiSelectFlowerCrop
-    | SetAgiSelectMushroomPlant
-    | SetAgiSelectAnimalFarm
-    | SetAgiSelectAquaticAnimals
-    | SetArraySkipPage
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
     | SetCheckWaterPlumbing
@@ -449,7 +371,6 @@ export type HouseHoldActionsType =
     | SetWaterSourcesFactory
     | SetWaterSourcesCommercial
     | SetNextPageDirection
-    | SetHeadFamily
     | SetArrayIsCheck
     | SetSelectorIndex
     | LoadUnitByIdBuilding

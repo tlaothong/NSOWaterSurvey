@@ -1,4 +1,4 @@
-import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getSelectorIndex, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -6,7 +6,7 @@ import { GroundWaterUsageComponent } from '../../components/ground-water-usage/g
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterRiver } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetNextPageDirection, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
@@ -24,12 +24,8 @@ export class GroundWaterPage {
   private submitRequested: boolean;
   public f: FormGroup;
   public G: boolean = true;
-
   private formDataUnit$ = this.store.select(getDataOfUnit)
   private formData$: any;
-
-  private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
-  private itRiver: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -154,7 +150,7 @@ export class GroundWaterPage {
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     this.formData$.waterUsage.groundWater = this.f.value
-    if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false)&&(this.f.get('publicGroundWater').value.doing == false))) {
+    if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false) && (this.f.get('publicGroundWater').value.doing == false))) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
@@ -204,7 +200,7 @@ export class GroundWaterPage {
     });
   }
 
- 
+
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
