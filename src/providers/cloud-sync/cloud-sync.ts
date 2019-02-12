@@ -12,12 +12,12 @@ export class CloudSyncProvider {
     console.log('Create CloudSyncProvider Provider');
   }
 
-  public loadHousHoldSampleTestData(data: any): Observable<any> {
+  public setHouseHold(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);
   }
 
-  public getDataOfUnit(id: string): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net//api/Demo/GetdataOfUnit/' + id);
+  public loadHouseHoldSampleTestData(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetdataOfUnit/' + id);
   }
 
   public loadCommunitySampleTestData(): Observable<any> {
@@ -86,11 +86,11 @@ export class CloudSyncProvider {
   }
 
   public loadCommunity(id: string): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllCommunityByIdEA/'+ id);
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllCommunityByIdEA/' + id);
   }
 
   public loadCommunityForEdit(id: string): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/'+ id);
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/' + id);
   }
 
 }

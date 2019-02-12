@@ -1,3 +1,4 @@
+import { LoadHouseHoldSample } from './../../states/household/household.actions';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -7,7 +8,6 @@ import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveD
 import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
 import { getDataBuilding } from '../../states/logging';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadDataOfUnit, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { getDataOfUnit } from '../../states/household';
 
 /*
@@ -43,7 +43,7 @@ export class SwithStateProvider {
 
   updateHouseholdState(id: string) {
     // TODO: Recive id of Household -> call API to find Household by id -> input data in parameter
-    this.storeHouse.dispatch(new LoadDataOfUnit(id));
+    this.storeHouse.dispatch(new LoadHouseHoldSample(id));
     this.getDataOfUnit$.subscribe(data => {
       if (data != null) {
         this.storeHouse.dispatch(new LoadHouseHoldSample(data));

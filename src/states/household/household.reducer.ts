@@ -39,8 +39,6 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
-
-
 }
 
 const initialState: HouseHoldState = {
@@ -82,7 +80,6 @@ const initialState: HouseHoldState = {
     backToRoot: null,
     back: null,
     dataOfUnit: null,
-
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -90,11 +87,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
         case HouseHoldTypes.LoadListSuccess:
             return {
                 ...state,
-            };
-        case HouseHoldTypes.LoadHouseHoldSampleSuccess:
-            return {
-                ...state,
-                houseHoldSample: action.payload,
             };
         case HouseHoldTypes.SetSelectG1234:
             return {
@@ -300,7 +292,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 back: action.payload,
             };
-        case HouseHoldTypes.LoadDataOfUnitSuccess:
+        case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
 
             return {
@@ -308,7 +300,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 dataOfUnit: action.payload,
                 selectG1234: s.selectG1234,
                 // residentialGardeningUse: s.residentialGardeningUse,
-                // waterSourcesResidential: s.waterSourcesResidential,
+                waterSourcesResidential: s.waterSourcesResidential,
                 arraySkipPageAgiculture: s.agi,
                 // ricePlantSelectPlant:s. ถามพี่อ้น
                 // rubberTreeSelectPlant:       ถามพี่อ้น
@@ -373,7 +365,7 @@ function resetStatesForModel(model: any): any {
         selectG1234: objG12345,
         // residentialGardeningUse: model.residence && model.residence.gardeningUse,
         agi: objAgri,
-        // waterSourcesResidential: waterSource,
+        waterSourcesResidential: waterSource,
         // ricePlantSelectPlant:model. ถามพี่อ้น
         // rubberTreeSelectPlant:       ถามพี่อ้น
         // SetPerennialPlantSelectPlant ถามพี่อ้น
