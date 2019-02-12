@@ -307,19 +307,28 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 dataOfUnit: action.payload,
                 selectG1234: s.selectG1234,
-                // residentialGardeningUse: s.residentialGardeningUse,
-                // waterSourcesResidential: s.waterSourcesResidential,
+                residentialGardeningUse: s.residentialGardeningUse,
+                waterSourcesResidential: s.waterSourcesResidential,
+                waterSourcesRice: s.waterSourcesRice,
+                waterSourcesAgiculture: s.waterSourcesAgiculture,
+                waterSourcesFactory: s.waterSourcesFactory,
+                waterSourcesCommercial: s.waterSourcesCommercial,
                 arraySkipPageAgiculture: s.agi,
                 // ricePlantSelectPlant:s. ถามพี่อ้น
                 // rubberTreeSelectPlant:       ถามพี่อ้น
                 // SetPerennialPlantSelectPlant ถามพี่อ้น
                 //  watersource หน้าต่างๆ
-                // riceDoing: s.riceDoing,
-                // agiSelectRice: s.agiSelectRice,
-                // agiSelectRubber: s.agiSelectRubber,
-                // agiSelectPerennial: s.agiSelectPerennial,
-                // factorialCategory: s.factorialCategory,
-                // commercialServiceType: s.commercialServiceType,
+                riceDoing: s.riceDoing,
+                agiSelectRice: s.agiSelectRice,
+                agiSelectRubber: s.agiSelectRubber,
+                agiSelectPerennial: s.agiSelectPerennial,
+                factorialCategory: s.factorialCategory,
+                commercialServiceType: s.commercialServiceType,
+                checkWaterPlumbing: s.checkWaterPlumbing,
+                checkWaterRiver: s.checkWaterRiver,
+                checkWaterIrrigation: s.checkWaterIrrigation,
+                checkWaterRain: s.checkWaterRain,
+                checkWaterBuying: s.checkWaterBuying,
             };
         default:
             return state;
@@ -328,6 +337,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
 
 function resetStatesForModel(model: any): any {
     let objG12345 = {};
+    let garden: any;
     if (model) {
         objG12345 = {
             isHouseHold: model.isHouseHold,
@@ -335,6 +345,7 @@ function resetStatesForModel(model: any): any {
             isFactorial: model.isFactorial,
             isCommercial: model.isCommercial,
         }
+
     }
 
     let objAgri = {};
@@ -352,8 +363,10 @@ function resetStatesForModel(model: any): any {
             animalFarm: ag.animalFarm && ag.animalFarm.doing,
             aquaticAnimals: ag.aquaticAnimals && ag.aquaticAnimals.doing,
         };
+        if (model.residence && model.residence.gardeningUse) {
+            garden = model.residence.gardeningUse;
+        }
     };
-
 
     let waterSource = {
         plumbing: true,
@@ -371,26 +384,29 @@ function resetStatesForModel(model: any): any {
     return {
 
         selectG1234: objG12345,
-        // residentialGardeningUse: model.residence && model.residence.gardeningUse,
+        residentialGardeningUse: model && model.residence.gardeningUse,
         agi: objAgri,
-        // waterSourcesResidential: waterSource,
+        waterSourcesResidential: waterSource,
         // ricePlantSelectPlant:model. ถามพี่อ้น
         // rubberTreeSelectPlant:       ถามพี่อ้น
         // SetPerennialPlantSelectPlant ถามพี่อ้น
 
         //  watersource หน้าต่างๆ
-        // waterSourcesRice: waterSource,
-        // riceDoing: ag && ag.ricePlant.doing,
-        // agiSelectRice: ag && ag.ricePlant.doing,
-        // agiSelectRubber: ag && ag.rubberTree.doing,
-        // agiSelectPerennial: ag && ag.perennialPlant.doing,
-        // factorialCategory: model.factory && model.factory.category,
-        // commercialServiceType: model.commerce && model.commerce.serviceType,
-        // checkWaterPlumbing: waterSource.plumbing,
-        // checkWaterRiver:  waterSource.river,
-        // checkWaterIrrigation: waterSource.irrigation,
-        // checkWaterRain:  waterSource.rain,
-        // checkWaterBuying:  waterSource.buying,
+        waterSourcesRice: waterSource,
+        waterSourcesAgiculture: waterSource,
+        waterSourcesFactory: waterSource,
+        waterSourcesCommercial: waterSource,
+        riceDoing: model && model.agriculture.ricePlant.doing,
+        agiSelectRice: model && model.agriculture.ricePlant.doing,
+        agiSelectRubber: model && model.agriculture.rubberTree.doing,
+        agiSelectPerennial: model && model.agriculture.perennialPlant.doing,
+        factorialCategory: model && model.factory.category,
+        commercialServiceType: model && model.commerce.serviceType,
+        checkWaterPlumbing: waterSource.plumbing,
+        checkWaterRiver: waterSource.river,
+        checkWaterIrrigation: waterSource.irrigation,
+        checkWaterRain: waterSource.rain,
+        checkWaterBuying: waterSource.buying,
     };
 }
 

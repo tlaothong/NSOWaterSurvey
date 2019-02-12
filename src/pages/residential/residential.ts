@@ -1,4 +1,4 @@
-import { getArrayIsCheck, getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { getArrayIsCheck, getNextPageDirection, getDataOfUnit, getResidentialGardeningUse } from './../../states/household/index';
 import { SetWaterSourcesResidential, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -44,6 +44,8 @@ export class ResidentialPage {
         console.log(this.residentialFrm.value);
       }
     });
+  // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
+
   }
 
   public handleSubmit() {
@@ -56,6 +58,7 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.irrigation').value),
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
+    
     this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
 
     console.log("gardeningUse", this.residentialFrm.get('gardeningUse').value);
