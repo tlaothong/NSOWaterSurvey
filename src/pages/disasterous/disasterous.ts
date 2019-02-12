@@ -25,7 +25,7 @@ export class DisasterousPage {
   private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
-      '_id': [null],
+      '_id': null,
       'flooded': [null, Validators.required],
       'yearsDisasterous': this.fb.array([
         TableDisasterousComponent.CreateFormGroup(this.fb),
@@ -41,7 +41,7 @@ export class DisasterousPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.Disasterous.setValue(data)
+        this.Disasterous.patchValue(data)
       }
     })
   }
