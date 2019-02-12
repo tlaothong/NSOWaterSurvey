@@ -15,7 +15,7 @@ import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/ho
 export class UserPage {
   public userInfo: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getDataOfUnit)
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
   private formData: any;
   private factorialCategory$ = this.store.select(getFactorialCategory);
   public facCategory: string;
@@ -39,8 +39,7 @@ export class UserPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.formData = data;
-        this.userInfo.setValue(data.closing)
+        this.userInfo.setValue(data)
       }
     })
     this.factorialCategory$.subscribe(data => this.facCategory = data);
@@ -53,9 +52,9 @@ export class UserPage {
     this.submitRequested = true;
     this.formData.closing = this.userInfo.value
     // if (this.userInfo.valid) {
-    this.arrayIsCheckMethod();
-    this.store.dispatch(new LoadHouseHoldSample(this.formData));
-    this.navCtrl.popTo("CheckListPage");
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new LoadHouseHoldSample(this.userInfo));
+      this.navCtrl.popTo("CheckListPage");
     // }
   }
 

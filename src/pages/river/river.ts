@@ -24,7 +24,7 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
   
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -71,9 +71,12 @@ export class RiverPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
-        this.formData$ = data;
-        this.f.setValue(data.waterUsage.river)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+        this.formData$.subscribe(data =>{
+          if(data != null){
+            this.f.setValue(data)
+          }
+        })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -130,20 +133,16 @@ export class RiverPage {
     }
   }
 
-  ionViewDidEnter() {
-  }
-
   public handleSubmit() {
     this.submitRequested = true; 
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    this.formData$.waterUsage.river = this.f.value
-    if (this.f.valid || (this.f.get('hasPump').value == false)) {
+    // if (this.f.valid || (this.f.get('hasPump').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.setRoot("CheckListPage" );
-    }
+    // }
   }
 
   countNumberPage() {

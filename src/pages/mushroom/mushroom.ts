@@ -18,11 +18,11 @@ export class MushroomPage {
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData$: any;
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
 
-  private formDataUnit$ = this.store.select(getDataOfUnit)
-  private formData$: any;
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
@@ -39,9 +39,12 @@ export class MushroomPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
-        this.formData$ = data
-        this.f.patchValue(data.agriculture.mushroomPlant)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.patchValue(data)
+          }
+        });
       }
     })
   }
@@ -49,12 +52,11 @@ export class MushroomPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
-    this.formData$.agriculture.mushroomPlant = this.f.value
-    if (this.f.valid || (this.f.get('doing').value == false)) {
+    // if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
-    }
+    // }
   }
 
   countNumberPage() {

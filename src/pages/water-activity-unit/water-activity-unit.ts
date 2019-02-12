@@ -1,4 +1,4 @@
-import { getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { getNextPageDirection, getDataOfUnit, getArraySkipPage } from './../../states/household/index';
 import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -19,7 +19,9 @@ export class WaterActivityUnitPage {
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   public f: FormGroup;
   private submitRequested: boolean;
-  private formDataRecieve$ = this.store.select(getDataOfUnit);
+  private formDataRecieve$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getArraySkipPage).pipe(map(s => s));
+  private it: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = UnitButtonComponent.CreateFormGroup(fb);
   }
@@ -41,14 +43,14 @@ export class WaterActivityUnitPage {
     this.submitRequested = true;
     this.arrayNextPageMedthod();
     console.log(this.f.value);
-
-    this.store.dispatch(new LoadHouseHoldSample(this.f.value));
-    let objRes: any = {
-      isHouseHold: this.f.get('isHouseHold').value,
-      isAgriculture: this.f.get('isAgriculture').value,
-      isFactorial: this.f.get('isFactorial').value,
-      isCommercial: this.f.get('isCommercial').value,
-
+    
+    // this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+    let objRes :any = {
+      isHouseHold : this.f.get('isHouseHold').value,
+      isAgriculture : this.f.get('isAgriculture').value,
+      isFactorial : this.f.get('isFactorial').value,
+      isCommercial : this.f.get('isCommercial').value,
+      
     }
     this.store.dispatch(new SetSelectG1234(objRes));
 

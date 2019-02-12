@@ -20,8 +20,7 @@ export class DisasterousPage {
 
   private submitRequested: boolean;
   public Disasterous: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit)
-  private formData: any;
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
   private frontNum: any;
   private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -42,8 +41,7 @@ export class DisasterousPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.formData = data
-        this.Disasterous.patchValue(data.disaster)
+        this.Disasterous.setValue(data)
       }
     })
   }
@@ -62,11 +60,10 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.formData.disaster = this.Disasterous.value
     // if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
-    this.arrayIsCheckMethod();
-    this.store.dispatch(new LoadHouseHoldSample(this.formData));
-    this.navCtrl.popTo("CheckListPage");
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new LoadHouseHoldSample(this.Disasterous));
+      this.navCtrl.popTo("CheckListPage");
     // }
   }
 

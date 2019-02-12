@@ -20,8 +20,7 @@ export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getDataOfUnit).pipe(map(s => s.residence));
-  private formData$ = this.store.select(getDataOfUnit)
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
   private frontNum: any;
   private backNum: any;
   public data: any
@@ -38,10 +37,7 @@ export class ResidentialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.residentialFrm.setValue(data.residence)
-        this.data = data
-        console.log(data);
-        console.log(this.residentialFrm.value);
+        this.residentialFrm.setValue(data)
       }
     });
   // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
@@ -65,15 +61,10 @@ export class ResidentialPage {
     console.log("waterRes", this.residentialFrm.get('waterSources').value);
     // this.store.dispatch(new SetNextPageDirection(1));
     // this.checkNextPageWaterSounces();
-    console.log(this.residentialFrm);
-    console.log(this.residentialFrm.valid);
-    this.data.residence = this.residentialFrm.value
     if (this.residentialFrm.valid) {
-      console.log("5555555555");
-
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
-      this.store.dispatch(new LoadHouseHoldSample(this.data));
+      // this.store.dispatch(new LoadHouseHoldSample(this.residentialFrm));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
     }

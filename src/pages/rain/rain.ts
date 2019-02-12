@@ -22,7 +22,7 @@ export class RainPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -66,9 +66,12 @@ export class RainPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
-        this.formData$ = data;
-        this.RainFrm.patchValue(data.waterUsage.rain)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
+        this.formData$.subscribe(data =>{
+          if(data != null){
+            this.RainFrm.patchValue(data)
+          }
+        })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -122,13 +125,12 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.formData$.waterUsage.rain = this.RainFrm.value
     // if (this.RainFrm.valid) {
-    // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-    this.arrayIsCheckMethod();
-    this.store.dispatch(new LoadHouseHoldSample(this.formData$));
-    this.navCtrl.popTo("CheckListPage");
-    // }
+      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new LoadHouseHoldSample(this.RainFrm));
+      this.navCtrl.popTo("CheckListPage");
+      // }
     // }
   }
 
