@@ -5,8 +5,9 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit, getBack, getArrayIsCheck } from '../../states/household';
-import { LoadDataOfUnit, SetArrayIsCheck } from '../../states/household/household.actions';
+import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { map } from 'rxjs/operators';
+import { Guid } from "guid-typescript";
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -39,11 +40,12 @@ export class UnitButtonComponent {
   public fgcm: FormArray;
 
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
-
   constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+
+
   }
 
   ngOnInit() {
@@ -55,13 +57,16 @@ export class UnitButtonComponent {
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
         console.log(data[Number(this.unitNo) - 1]);
-        console.log(this.FormItem.value);
         this.FormItem.patchValue(data[Number(this.unitNo) - 1]);
+        console.log(this.FormItem.value);
         this.setAccess();
       }
     });
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
+    this.FormItem.get('_id').setValue(Guid.create().toString());
+    console.log(this.FormItem.value);
+
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
@@ -707,7 +712,9 @@ export class UnitButtonComponent {
   }
 
   sendIdUnit() {
-    this.store.dispatch(new LoadDataOfUnit(this.FormItem.get('_id').value));
+    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.get('_id').value));
+    let f = this.store.select(getDataOfUnit);
+    f.subscribe(data => console.log("fffff", data));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {

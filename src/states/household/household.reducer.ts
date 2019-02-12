@@ -39,8 +39,6 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
-
-
 }
 
 const initialState: HouseHoldState = {
@@ -82,7 +80,6 @@ const initialState: HouseHoldState = {
     backToRoot: null,
     back: null,
     dataOfUnit: null,
-
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -90,11 +87,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
         case HouseHoldTypes.LoadListSuccess:
             return {
                 ...state,
-            };
-        case HouseHoldTypes.LoadHouseHoldSampleSuccess:
-            return {
-                ...state,
-                houseHoldSample: action.payload,
             };
         case HouseHoldTypes.SetSelectG1234:
             return {
@@ -300,7 +292,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 back: action.payload,
             };
-        case HouseHoldTypes.LoadDataOfUnitSuccess:
+        case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
 
             return {

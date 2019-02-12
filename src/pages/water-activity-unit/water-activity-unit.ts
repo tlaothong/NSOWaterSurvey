@@ -1,5 +1,5 @@
-import { getNextPageDirection, getDataOfUnit, getArraySkipPage } from './../../states/household/index';
-import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, LoadDataOfUnit, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
+import { getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -20,8 +20,6 @@ export class WaterActivityUnitPage {
   public f: FormGroup;
   private submitRequested: boolean;
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
-  private formData$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private it: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = UnitButtonComponent.CreateFormGroup(fb);
   }

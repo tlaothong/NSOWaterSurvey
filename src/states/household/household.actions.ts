@@ -45,10 +45,8 @@ export enum HouseHoldTypes {
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
     SetBack = "[HH] Set Back",
-    LoadDataOfUnit = "[HH] Load Data Of Unit",
-    LoadDataOfUnitSuccess = "[HH] Load Data Of Unit Success",
-
-  
+    SetHouseHold = "[HH] Set House Hold",
+    SetHouseHoldSuccess = "[HH] Set House Hold Success",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -68,7 +66,7 @@ export class LoadHouseHoldListSuccess implements Action {
 export class LoadHouseHoldSample implements Action {
     readonly type = HouseHoldTypes.LoadHouseHoldSample;
 
-    constructor(public payload: any) {
+    constructor(public payload: string) {
     }
 }
 
@@ -322,17 +320,17 @@ export class SetBack implements Action {
     constructor(public payload: any) {
     }
 }
-export class LoadDataOfUnit implements Action {
-    readonly type = HouseHoldTypes.LoadDataOfUnit;
-    constructor(public payload: string) {
-    }
-}
-export class LoadDataOfUnitSuccess implements Action {
-    readonly type = HouseHoldTypes.LoadDataOfUnitSuccess;
+
+export class SetHouseHold implements Action {
+    readonly type = HouseHoldTypes.SetHouseHold;
     constructor(public payload: any) {
     }
 }
-
+export class SetHouseHoldSuccess implements Action {
+    readonly type = HouseHoldTypes.SetHouseHoldSuccess;
+    constructor(public payload: any) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -377,7 +375,7 @@ export type HouseHoldActionsType =
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
     | SetBack
-    | LoadDataOfUnit
-    | LoadDataOfUnitSuccess
+    | SetHouseHold
+    | SetHouseHoldSuccess
 
     ;
