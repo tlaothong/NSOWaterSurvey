@@ -11,8 +11,13 @@ export const getHouseHoldUnitList = createSelector(
 
 export const getHouseHoldSample = createSelector(
     getHouseHoldFeatureState,
-    state => state.houseHoldSample,
+    state => state.dataOfUnit,
 );
+
+// export const getHouseHoldSample = createSelector(
+//     getHouseHoldFeatureState,
+//     state => state.houseHoldSample,
+// );
 
 export const getSelectG1234 = createSelector(
     getHouseHoldFeatureState,
@@ -175,9 +180,6 @@ export const getBack = createSelector(
     state => state.back,
 );
 
-export const getDataOfUnit = createSelector(
-    getHouseHoldFeatureState,
-    state => state.dataOfUnit,
-);
+
 
 

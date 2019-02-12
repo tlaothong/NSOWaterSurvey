@@ -4,7 +4,7 @@ import { ModalController, NavController, AlertController, NavParams } from 'ioni
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getUnitByIdBuilding, getDataOfUnit, getBack, getArrayIsCheck } from '../../states/household';
+import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
 import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
@@ -713,7 +713,7 @@ export class UnitButtonComponent {
 
   sendIdUnit() {
     this.store.dispatch(new LoadHouseHoldSample(this.FormItem.get('_id').value));
-    let f = this.store.select(getDataOfUnit);
+    let f = this.store.select(getHouseHoldSample);
     f.subscribe(data => console.log("fffff", data));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;

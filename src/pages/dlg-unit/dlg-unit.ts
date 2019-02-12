@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
 import { LoadHouseHoldSample} from '../../states/household/household.actions';
-import { getHouseHoldSample, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 // import { Guid } from "guid-typescript";
 @IonicPage()

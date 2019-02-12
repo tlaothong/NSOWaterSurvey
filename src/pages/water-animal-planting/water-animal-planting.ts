@@ -5,7 +5,7 @@ import { FishFarmingComponent } from '../../components/fish-farming/fish-farming
 import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';

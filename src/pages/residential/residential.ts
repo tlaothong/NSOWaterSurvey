@@ -1,4 +1,4 @@
-import { getArrayIsCheck, getNextPageDirection, getDataOfUnit, getResidentialGardeningUse } from './../../states/household/index';
+import { getArrayIsCheck, getNextPageDirection, getResidentialGardeningUse } from './../../states/household/index';
 import { SetWaterSourcesResidential, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';

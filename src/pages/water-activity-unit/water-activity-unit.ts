@@ -1,4 +1,4 @@
-import { getNextPageDirection, getDataOfUnit } from './../../states/household/index';
+import { getNextPageDirection } from './../../states/household/index';
 import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';

@@ -8,7 +8,6 @@ import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveD
 import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
 import { getDataBuilding } from '../../states/logging';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getDataOfUnit } from '../../states/household';
 
 /*
   Generated class for the SwithStateProvider provider.
@@ -23,7 +22,7 @@ export class SwithStateProvider {
   public Household: any;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  private getDataOfUnit$ = this.store.select(getDataOfUnit);
+  // private getDataOfUnit$ = this.store.select(getDataOfUnit);
 
   constructor(private store: Store<BuildingState>, public storeLog: Store<LoggingState>, public storeHouse: Store<HouseHoldState>) {
     console.log('Hello SwithStateProvider Provider');
@@ -41,14 +40,14 @@ export class SwithStateProvider {
     });
   }
 
-  updateHouseholdState(id: string) {
-    // TODO: Recive id of Household -> call API to find Household by id -> input data in parameter
-    this.storeHouse.dispatch(new LoadHouseHoldSample(id));
-    this.getDataOfUnit$.subscribe(data => {
-      if (data != null) {
-        this.storeHouse.dispatch(new LoadHouseHoldSample(data));
-      }
-    });
+  // updateHouseholdState(id: string) {
+  //   // TODO: Recive id of Household -> call API to find Household by id -> input data in parameter
+  //   this.storeHouse.dispatch(new LoadHouseHoldSample(id));
+  //   this.getDataOfUnit$.subscribe(data => {
+  //     if (data != null) {
+  //       this.storeHouse.dispatch(new LoadHouseHoldSample(data));
+  //     }
+  //   });
     //Waterativity
     // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
     // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
@@ -133,5 +132,5 @@ export class SwithStateProvider {
     // this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
 
     //
-  }
+  // }
 }
