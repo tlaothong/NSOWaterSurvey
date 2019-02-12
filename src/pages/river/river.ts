@@ -6,7 +6,7 @@ import { WaterActivity6Component } from '../../components/water-activity6/water-
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck,  getNextPageDirection, getDataOfUnit } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
 
@@ -19,14 +19,14 @@ export class RiverPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  public G:boolean = false;
+  public G: boolean = false;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
   private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
-  
+
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -72,8 +72,8 @@ export class RiverPage {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
         this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
-        this.formData$.subscribe(data =>{
-          if(data != null){
+        this.formData$.subscribe(data => {
+          if (data != null) {
             this.f.setValue(data)
           }
         })
@@ -134,14 +134,14 @@ export class RiverPage {
   }
 
   public handleSubmit() {
-    this.submitRequested = true; 
+    this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     // if (this.f.valid || (this.f.get('hasPump').value == false)) {
-      this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
-      this.navCtrl.setRoot("CheckListPage" );
+    this.arrayIsCheckMethod();
+    // this.store.dispatch(new LoadHouseHoldSample(this.f));
+    this.navCtrl.setRoot("CheckListPage");
     // }
   }
 
@@ -158,7 +158,7 @@ export class RiverPage {
       }
 
     });
-    console.log("back",this.backNum);
+    console.log("back", this.backNum);
 
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
@@ -166,11 +166,11 @@ export class RiverPage {
 
       if (data != null) {
         arrayIsCheck = data
-         this.frontNum = arrayIsCheck.length;
+        this.frontNum = arrayIsCheck.length;
       }
 
     });
-    console.log("frontNum",this.frontNum);
+    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -182,12 +182,12 @@ export class RiverPage {
         arrayIsCheck = data;
         if (arrayIsCheck.every(it => it != 15)) {
           arrayIsCheck.push(15);
-            }
+        }
         console.log(arrayIsCheck);
       }
     });
   }
-  
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.touched || this.submitRequested);
