@@ -41,14 +41,14 @@ export class WaterActivityUnitPage {
     this.submitRequested = true;
     this.arrayNextPageMedthod();
     console.log(this.f.value);
-    
+
     // this.store.dispatch(new LoadHouseHoldSample(this.f.value));
-    let objRes :any = {
-      isHouseHold : this.f.get('isHouseHold').value,
-      isAgriculture : this.f.get('isAgriculture').value,
-      isFactorial : this.f.get('isFactorial').value,
-      isCommercial : this.f.get('isCommercial').value,
-      
+    let objRes: any = {
+      isHouseHold: this.f.get('isHouseHold').value,
+      isAgriculture: this.f.get('isAgriculture').value,
+      isFactorial: this.f.get('isFactorial').value,
+      isCommercial: this.f.get('isCommercial').value,
+
     }
     this.store.dispatch(new SetSelectG1234(objRes));
 
