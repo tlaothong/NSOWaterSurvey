@@ -26,7 +26,7 @@ export class IrrigationPage {
 
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
 
   private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
@@ -80,9 +80,12 @@ export class IrrigationPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
-        this.formData$ = data
-        this.f.setValue(data.waterUsage.irrigation)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
+        this.formData$.subscribe(data =>{
+          if(data != null){
+            this.f.setValue(data)
+          }
+        })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -144,10 +147,9 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    this.formData$.waterUsage.irrigation = this.f.value
     if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
     }
   }

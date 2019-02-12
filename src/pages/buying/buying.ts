@@ -19,7 +19,7 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
 
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -55,9 +55,12 @@ export class BuyingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
-        this.formData$ = data;
-        this.BuyingForm.patchValue(data.waterUsage.buying)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
+        this.formData$.subscribe(data => {
+          if(data != null){
+            this.BuyingForm.patchValue(data)
+          }
+        })
       }
     })
     this.formData$.subscribe(data => this.BuyingForm.setValue(data));
@@ -70,10 +73,9 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.formData$.waterUsage.buying = this.BuyingForm.value
     // if (this.BuyingForm.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new LoadHouseHoldSample(this.BuyingForm));
       this.navCtrl.pop();
     // }
   }

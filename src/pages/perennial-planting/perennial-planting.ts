@@ -17,8 +17,8 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getDataOfUnit)
-  private formData: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData$: any;
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private itAgi: any;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
@@ -42,9 +42,12 @@ export class PerennialPlantingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
-        this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
-        this.formData = data;
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.PerennialPlantingFrm.patchValue(data)
+          }
+        });
       }
     })
   }
@@ -64,12 +67,11 @@ export class PerennialPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectPerennial(true));
-    this.formData.agriculture.perennialPlant == this.PerennialPlantingFrm.value; 
-    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
+    // if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData));
+      // this.store.dispatch(new LoadHouseHoldSample(this.PerennialPlantingFrm));
       this.navCtrl.popTo("CheckListPage");
-    }
+    // }
   }
 
   countNumberPage() {

@@ -19,7 +19,7 @@ export class WaterActivityUnitPage {
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   public f: FormGroup;
   private submitRequested: boolean;
-  private formDataRecieve$ = this.store.select(getDataOfUnit);
+  private formDataRecieve$ = this.store.select(getHouseHoldSample);
   private formData$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private it: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -45,7 +45,7 @@ export class WaterActivityUnitPage {
     this.arrayNextPageMedthod();
     console.log(this.f.value);
     
-    this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+    // this.store.dispatch(new LoadHouseHoldSample(this.f.value));
     let objRes :any = {
       isHouseHold : this.f.get('isHouseHold').value,
       isAgriculture : this.f.get('isAgriculture').value,

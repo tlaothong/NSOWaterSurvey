@@ -30,7 +30,7 @@ export class DryCropPlantingPage {
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture))
   private formData$: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -45,9 +45,12 @@ export class DryCropPlantingPage {
   ionViewDidLoad() {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
-        this.formData$ = data;
-        this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
+        this.formData$.subscribe(data => {
+          if(data != null){
+            this.agronomyPlant.patchValue(data);
+          }
+        })
       }
     })
     this.countNumberPage();
@@ -68,14 +71,12 @@ export class DryCropPlantingPage {
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
     // this.store.dispatch(new SetNextPageDirection(4));
-    this.formData$.agriculture.agronomyPlant = this.agronomyPlant.value
-    if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
+    // if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));      
-
+      // this.store.dispatch(new LoadHouseHoldSample(this.agronomyPlant));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
-    }
+    // }
   }
 
   countNumberPage() {

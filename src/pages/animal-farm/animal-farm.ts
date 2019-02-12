@@ -27,10 +27,11 @@ export class AnimalFarmPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$: any;
   private frontNum: any;
   private backNum: any;
+  
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
@@ -56,26 +57,26 @@ export class AnimalFarmPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
-        this.formData$ = data
-        this.f.setValue(data.agriculture.animalFarm)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
+        this.formData$.subscribe(data => {
+          if(data != null){
+            this.f.patchValue(data)
+          }
+        })
       }
     })
   }
-
 
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
-    console.log("valid", this.f.valid);
-    this.formData$.agriculture.animalFarm = this.f.value
-    if (this.f.valid || (this.f.get('doing').value == false)) {
+    // if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
-    }
+    // }
   }
 
   countNumberPage() {

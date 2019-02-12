@@ -23,7 +23,7 @@ export class PoolPage {
   private submitRequested: boolean;
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private itG1_G4: any;
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
 
   private formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
@@ -77,9 +77,12 @@ export class PoolPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
-        this.formData$ = data;
-        this.f.setValue(data.waterUsage.pool)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
+        this.formData$.subscribe(data =>{
+          if(data != null){
+            this.f.setValue(data)
+          }
+        })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -128,10 +131,9 @@ export class PoolPage {
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    this.formData$.waterUsage.pool = this.f.value
     // if (this.f.valid) {
     this.arrayIsCheckMethod();
-    this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+    // this.store.dispatch(new LoadHouseHoldSample(this.f));
     this.navCtrl.popTo("CheckListPage");
     // }
   }

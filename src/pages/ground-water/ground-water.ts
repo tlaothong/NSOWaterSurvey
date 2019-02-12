@@ -25,7 +25,7 @@ export class GroundWaterPage {
   public f: FormGroup;
   public G: boolean = true;
 
-  private formDataUnit$ = this.store.select(getDataOfUnit)
+  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$: any;
 
   private formCheckRiver$ = this.store.select(getCheckWaterRiver).pipe(map(s => s));
@@ -81,9 +81,12 @@ export class GroundWaterPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
-        this.formData$ = data;
-        this.f.setValue(data.waterUsage.groundWater)
+        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
+        this.formData$.subscribe(data => {
+          if (data != null) {
+            this.f.patchValue(data)
+          }
+        })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -153,12 +156,11 @@ export class GroundWaterPage {
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    this.formData$.waterUsage.groundWater = this.f.value
-    if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false)&&(this.f.get('publicGroundWater').value.doing == false))) {
+    // if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false) && (this.f.get('publicGroundWater').value.doing == false))) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
-    }
+    // }
   }
 
   countNumberPage() {
@@ -204,7 +206,7 @@ export class GroundWaterPage {
     });
   }
 
- 
+
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

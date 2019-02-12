@@ -23,7 +23,7 @@ export class PopulationPage {
   public whatever: any;
   private formData: any;
   private i:any
-  private formData$ = this.store.select(getDataOfUnit)
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;
@@ -47,8 +47,7 @@ export class PopulationPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.population)
-        this.formData = data
+        this.f.setValue(data)
       }
     });
     this.getIdHomes$.subscribe(data => this.str = data);
@@ -62,10 +61,9 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
-    this.formData.population = this.f.value
     // if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData));     
+      // this.store.dispatch(new LoadHouseHoldSample(this.f));     
       this.navCtrl.setRoot("UnitPage");
     // }
   }

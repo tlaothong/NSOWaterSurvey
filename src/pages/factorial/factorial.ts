@@ -21,7 +21,7 @@ export class FactorialPage {
   private itPlumbing: any;
   private submitRequested: boolean;
   FactoryForm: FormGroup;
-  private formData$ = this.store.select(getDataOfUnit)
+  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory))
   private formData: any
   private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
   private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
@@ -45,8 +45,7 @@ export class FactorialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.FactoryForm.setValue(data.factory);
-        this.formData = data;
+        this.FactoryForm.setValue(data);
       }
     });
   }
@@ -58,13 +57,12 @@ export class FactorialPage {
     this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
-    this.formData.factory = this.FactoryForm.value
-    if (this.FactoryForm.valid) {
+    // if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new LoadHouseHoldSample(this.formData));
+      // this.store.dispatch(new LoadHouseHoldSample(this.FactoryForm));
       this.navCtrl.popTo("CheckListPage");
       // this.checkNextPage();
-    }
+    // }
   }
 
   countNumberPage() {
