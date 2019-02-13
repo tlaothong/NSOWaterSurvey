@@ -47,6 +47,39 @@ export class PumpComponent implements ISubmitRequestable {
     });
   }
 
+  public checkValid(): boolean {
+    if (this.FormItem.get('pumpAuto').value != null) {
+      if (this.FormItem.get('pumpAuto').value == true) {
+        console.log(this.FormItem.get('pumpAuto').value);
+        return true;
+      }
+      if (this.FormItem.get('pumpAuto').value == false) {
+        if ((this.FormItem.get('hoursPerPump').value != null)
+          && (this.FormItem.get('numberOfPumpsPerYear') != null)
+          && (this.FormItem.get('hasPumpRate').value != null)) {
+          if ((this.FormItem.get('hasPumpRate').value == true)
+            && (this.FormItem.get('pumpRate').value != null)) {
+            return true;
+          }
+          if ((this.FormItem.get('hasPumpRate').value == false)
+            && (this.FormItem.get('energySource').value > 0)
+            && (this.FormItem.get('pumpType').value != null)
+            && (this.FormItem.get('horsePower').value != null)
+            && (this.FormItem.get('suctionPipeSize').value != null)
+            && (this.FormItem.get('pipelineSize').value != null)) {
+            return true;
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      }
+    } else {
+      return false
+    }
+  }
+
   public showModalArea() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
