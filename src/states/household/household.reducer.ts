@@ -297,7 +297,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
 
             return {
                 ...state,
-                dataOfUnit: action.payload,
+                houseHoldSample: action.payload,
                 selectG1234: s.selectG1234,
                 residentialGardeningUse: s.residentialGardeningUse,
                 waterSourcesResidential: s.waterSourcesResidential,

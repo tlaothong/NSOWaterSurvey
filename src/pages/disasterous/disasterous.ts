@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -62,7 +62,7 @@ export class DisasterousPage {
     this.tableDisasterous.forEach(it => it.submitRequest());
     if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.Disasterous));
+      // this.store.dispatch(new SetHouseHold(this.Disasterous.value));
       this.navCtrl.popTo("CheckListPage");
     }
   }

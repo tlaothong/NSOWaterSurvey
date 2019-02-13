@@ -1,4 +1,4 @@
-import { SetWaterSourcesCommercial,  SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetWaterSourcesCommercial,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -99,7 +99,7 @@ export class CommercialPage {
     this.dispatchWaterSource();
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.popTo("CheckListPage");
     }
   }

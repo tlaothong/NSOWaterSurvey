@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { subDistrictData } from '../../models/SubDistrictData';
@@ -111,6 +111,8 @@ export class PlumbingPage {
         this.formData$.subscribe(data =>{
           if(data != null){
             this.f.patchValue(data)
+            console.log(this.f.value);
+            
           }
         })
       }
@@ -139,7 +141,6 @@ export class PlumbingPage {
     this.changeValueActivity();
     this.getIdHomes$.subscribe(data => this.getIdHomes = data);
     this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == this.getIdHomes);
-    //1 103004 1000165
 
     this.MWA = this.subDistrict.MWA;
     this.PWA = this.subDistrict.PWA;
@@ -173,14 +174,15 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    console.log(this.f.get('mwa').value);
+    console.log(this.f.valid);
+    console.log(this.f.value);
     if (this.f.valid
       || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
       || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
       || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.popTo("CheckListPage");
       // }
     }

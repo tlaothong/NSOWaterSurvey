@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample} from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SetHouseHold} from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 // import { Guid } from "guid-typescript";
@@ -87,7 +87,7 @@ export class DlgUnitPage {
     // this.FormItem.get('_id').setValue(String(Guid.create()))
     // console.log(this.FormItem.get('_id').value);
     
-    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
+    this.store.dispatch(new SetHouseHold(this.FormItem.value));
     // if (this.FormItem.get('_id').value != null) {
     //   this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
     // }

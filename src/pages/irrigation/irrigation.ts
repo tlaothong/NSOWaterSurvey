@@ -8,7 +8,7 @@ import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsComm
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -142,7 +142,7 @@ export class IrrigationPage {
     this.waterProblem4.forEach(it => it.submitRequest());
     if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.popTo("CheckListPage");
     }
   }

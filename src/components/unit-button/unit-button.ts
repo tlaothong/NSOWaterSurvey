@@ -64,7 +64,7 @@ export class UnitButtonComponent {
     });
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
-    this.FormItem.get('_id').setValue(Guid.create().toString());
+    // this.FormItem.get('_id').setValue(Guid.create().toString());
     console.log(this.FormItem.value);
 
     if (this.FormItem.get('subUnit.accessCount').value > 0) {

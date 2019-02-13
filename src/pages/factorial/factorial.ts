@@ -1,4 +1,4 @@
-import { SetWaterSourcesFactory,  SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetWaterSourcesFactory,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -55,7 +55,7 @@ export class FactorialPage {
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.FactoryForm));
+      // this.store.dispatch(new SetHouseHold(this.FactoryForm.value));
       this.navCtrl.popTo("CheckListPage");
     }
   }

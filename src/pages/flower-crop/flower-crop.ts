@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial,  getArrayIsCheck,  getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import {  SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import {  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -110,7 +110,7 @@ export class FlowerCropPage {
     selectedMap.forEach(v => selected.push(v));
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.flowerCropFrm));
+      // this.store.dispatch(new SetHouseHold(this.flowerCropFrm.value));
       this.navCtrl.popTo("CheckListPage");
     }
   }

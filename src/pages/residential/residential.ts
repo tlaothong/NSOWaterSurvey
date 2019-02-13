@@ -1,5 +1,5 @@
 import { getArrayIsCheck, getNextPageDirection, getResidentialGardeningUse } from './../../states/household/index';
-import { SetWaterSourcesResidential, SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetWaterSourcesResidential, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -64,7 +64,7 @@ export class ResidentialPage {
     if (this.residentialFrm.valid) {
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
-      // this.store.dispatch(new LoadHouseHoldSample(this.residentialFrm));
+      // this.store.dispatch(new SetHouseHold(this.residentialFrm.value));
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -1,5 +1,5 @@
 import { getNextPageDirection } from './../../states/household/index';
-import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack } from './../../states/household/household.actions';
+import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack, LoadHouseHoldSampleSuccess, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -42,7 +42,7 @@ export class WaterActivityUnitPage {
     this.arrayNextPageMedthod();
     console.log(this.f.value);
 
-    // this.store.dispatch(new LoadHouseHoldSample(this.f.value));
+    // this.store.dispatch(new SetHouseHold(this.f.value));
     let objRes: any = {
       isHouseHold: this.f.get('isHouseHold').value,
       isAgriculture: this.f.get('isAgriculture').value,
