@@ -306,14 +306,14 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 waterSourcesFactory: s.waterSourcesFactory,
                 waterSourcesCommercial: s.waterSourcesCommercial,
                 arraySkipPageAgiculture: s.agi,
-                // ricePlantSelectPlant:s. ถามพี่อ้น
-                // rubberTreeSelectPlant:       ถามพี่อ้น
-                // SetPerennialPlantSelectPlant ถามพี่อ้น
-                //  watersource หน้าต่างๆ
                 riceDoing: s.riceDoing,
                 agiSelectRice: s.agiSelectRice,
                 agiSelectRubber: s.agiSelectRubber,
                 agiSelectPerennial: s.agiSelectPerennial,
+                ricePlantSelectPlant: s.ricePlantSelectPlant,
+                agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
+                rubberTreeSelectPlant: s.rubberTreeSelectPlant,
+                perennialPlantSelectPlant: s.perennialPlantSelectPlant,
                 factorialCategory: s.factorialCategory,
                 commercialServiceType: s.commercialServiceType,
                 checkWaterPlumbing: s.checkWaterPlumbing,
@@ -343,6 +343,14 @@ function resetStatesForModel(model: any): any {
     let objAgri = {};
 
     let ag = model && model.agriculture;
+    let riceDoing = ag && ag.ricePlant.doing;
+    let rubberDoing = ag && ag.rubberTree.doing;
+    let listRice
+    let listAgronomy
+    let listRubber
+    let listPerennial
+
+
     if (ag) {
         objAgri = {
             ricePlant: ag.ricePlant && ag.ricePlant.doing,
@@ -357,6 +365,20 @@ function resetStatesForModel(model: any): any {
         };
         if (model.residence && model.residence.gardeningUse) {
             garden = model.residence.gardeningUse;
+        }
+
+        riceDoing = ag && ag.ricePlant.doing;
+        rubberDoing = ag && ag.rubberTree.doing;
+        listAgronomy = ag.agronomyPlant && ag.agronomyPlant.fields.plantings;
+        listPerennial = ag.perennialPlant && ag.perennialPlant.fields.plantings;
+
+        if (riceDoing) {
+            listRice = ag.ricePlant.fields.plantings;
+
+        }
+
+        if (rubberDoing) {
+            listRubber = ag.rubberTree.fields.plantings;
         }
     };
 
@@ -373,17 +395,17 @@ function resetStatesForModel(model: any): any {
         other: "water",
     }
 
+
     return {
 
         selectG1234: objG12345,
         residentialGardeningUse: model && model.residence.gardeningUse,
         agi: objAgri,
         waterSourcesResidential: waterSource,
-        // ricePlantSelectPlant:model. ถามพี่อ้น
-        // rubberTreeSelectPlant:       ถามพี่อ้น
-        // SetPerennialPlantSelectPlant ถามพี่อ้น
-
-        //  watersource หน้าต่างๆ
+        ricePlantSelectPlant: listRice,
+        agronomyPlantSelectPlant: listAgronomy,
+        rubberTreeSelectPlant: listRubber,
+        perennialPlantSelectPlant: listPerennial,
         waterSourcesRice: waterSource,
         waterSourcesAgiculture: waterSource,
         waterSourcesFactory: waterSource,
