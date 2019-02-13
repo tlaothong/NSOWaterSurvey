@@ -1,6 +1,6 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
@@ -42,6 +42,8 @@ export class DisasterousPage {
     this.formData$.subscribe(data => {
       if (data != null) {
         this.Disasterous.patchValue(data)
+        console.log(this.Disasterous.value);
+
       }
     })
   }
@@ -60,7 +62,9 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
+    if (this.Disasterous.valid
+      || this.Disasterous.get('flooded').value == false
+      || this.tableDisasterous.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.Disasterous.value));
       this.navCtrl.popTo("CheckListPage");

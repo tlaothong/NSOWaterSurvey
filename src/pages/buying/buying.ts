@@ -70,7 +70,9 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    if (this.BuyingForm.valid) {
+    if (this.BuyingForm.valid 
+      || (this.tableBuying.some(it => it.FormItem.valid))
+      || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.BuyingForm.value));
       this.navCtrl.pop();

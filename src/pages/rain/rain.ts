@@ -125,7 +125,9 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    if (this.RainFrm.valid) {
+    if (!this.waterActivity5.find(it => it.resultSum != 100) && this.rainStorage.some(it => it.FormItem.valid)) {
+      console.log(this.RainFrm.get('waterActivities').valid );
+      
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.RainFrm.value));

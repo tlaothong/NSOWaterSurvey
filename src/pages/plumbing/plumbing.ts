@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getNextPageDirection} from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -108,11 +108,10 @@ export class PlumbingPage {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
         this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
-        this.formData$.subscribe(data =>{
-          if(data != null){
+        this.formData$.subscribe(data => {
+          if (data != null) {
             this.f.patchValue(data)
             console.log(this.f.value);
-            
           }
         })
       }
@@ -174,17 +173,58 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    console.log(this.f.valid);
     console.log(this.f.value);
-    if (this.f.valid
-      || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
-      || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
-      || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
-      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+
+
+    // if (this.f.valid
+    //   || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
+    //   || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
+    //   || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
+    //   // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
+    //   this.arrayIsCheckMethod();
+    //   // this.store.dispatch(new SetHouseHold(this.f.value));
+    //   this.navCtrl.popTo("CheckListPage");
+    //   // }
+    // }
+
+    if (this.f.valid || (this.isCheckValid('mwa') && this.isCheckValid('pwa') && this.isCheckValid('other'))) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.popTo("CheckListPage");
-      // }
+      // console.log("ผ่านแล้วจ้า");
+    }
+  }
+
+  isCheckValid(name: string): boolean {
+    let ctrl = this.f.get(name);
+    let isCheck = true;
+    let isCheckProblem = true;
+    let isCheckQuantity = true;
+    let isCheckNotRunning = true;
+    let hundred = !this.waterActivity5.find(it => it.resultSum != 100);
+    if (ctrl.value.doing) {
+      isCheck = (ctrl.value.qualityProblem.hasProblem != null)
+        && (ctrl.value.plumbingUsage.waterQuantity > 0)
+        && (this.f.get('hasWaterNotRunning').value != null);
+      if (ctrl.value.qualityProblem.hasProblem) {
+        isCheckProblem = this.f.get(name + '.qualityProblem.problem').valid;
+      }
+      switch (ctrl.value.plumbingUsage.waterQuantity) {
+        case "1":
+          isCheckQuantity = (ctrl.value.plumbingUsage.cubicMeterPerMonth != null)
+          break;
+        case "2":
+          isCheckQuantity = (ctrl.value.plumbingUsage.waterBill != null)
+          break;
+        default:
+          break;
+      }
+      if (this.f.get('hasWaterNotRunning').value) {
+        isCheckNotRunning = this.f.get('waterNotRunningCount').valid
+      }
+      return isCheck && isCheckProblem && isCheckQuantity && isCheckNotRunning && hundred;
+    }
+    else {
+      return isCheck;
     }
   }
 

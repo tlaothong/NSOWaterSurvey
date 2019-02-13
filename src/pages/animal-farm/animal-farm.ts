@@ -28,7 +28,7 @@ export class AnimalFarmPage {
   
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
-      "doing": [null, Validators.required],
+      'doing': [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'buffalo': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'pig': TableCheckItemCountComponent.CreateFormGroup(this.fb),
