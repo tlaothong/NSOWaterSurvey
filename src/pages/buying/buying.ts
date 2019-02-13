@@ -7,7 +7,7 @@ import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, g
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -70,11 +70,13 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    // if (this.BuyingForm.valid) {
+    if (this.BuyingForm.valid 
+      || (this.tableBuying.some(it => it.FormItem.valid))
+      || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.BuyingForm));
+      // this.store.dispatch(new SetHouseHold(this.BuyingForm.value));
       this.navCtrl.pop();
-    // }
+    }
   }
 
   countNumberPage() {

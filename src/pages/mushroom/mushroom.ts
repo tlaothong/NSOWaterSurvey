@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -52,11 +52,11 @@ export class MushroomPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
-    // if (this.f.valid || (this.f.get('doing').value == false)) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

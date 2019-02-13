@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 
 @IonicPage()
@@ -64,9 +64,8 @@ export class DryCropPlantingPage {
     this.store.dispatch(new SetAgiSelectAgronomy(true));
     // if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.agronomyPlant));
+      // this.store.dispatch(new SetHouseHold(this.agronomyPlant.value));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     // }
   }
 

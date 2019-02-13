@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection } from '../../states/household';
@@ -71,12 +71,11 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    this.formData$.agriculture.aquaticAnimals = this.f.value
-    // if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
+    if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.setRoot("CheckListPage",);
-    // }
+    }
   }
 
   countNumberPage() {

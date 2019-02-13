@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -50,11 +50,11 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    // if (this.userInfo.valid) {
+    if (this.userInfo.valid) {
     this.arrayIsCheckMethod();
-    // this.store.dispatch(new LoadHouseHoldSample(this.userInfo));
+    // this.store.dispatch(new SetHouseHold(this.userInfo.value));
     this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

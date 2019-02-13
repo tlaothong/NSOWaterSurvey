@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -121,11 +121,11 @@ export class PoolPage {
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    // if (this.f.valid) {
+    if (this.f.valid) {
     this.arrayIsCheckMethod();
-    // this.store.dispatch(new LoadHouseHoldSample(this.f));
+    // this.store.dispatch(new SetHouseHold(this.f.value));
     this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

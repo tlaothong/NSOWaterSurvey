@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
@@ -55,11 +55,11 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
-    // if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
+    if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.rubbertree));
+      // this.store.dispatch(new SetHouseHold(this.rubbertree.value));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

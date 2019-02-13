@@ -4,11 +4,11 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -59,7 +59,7 @@ export class IrrigationPage {
       'cubicMeterPerMonth': [null, Validators.required],
       'hasPump': [null, Validators.required],
       'pumpCount': [null, Validators.required],
-      "pumps": this.fb.array([]),
+      'pumps': this.fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': fb.group({
         "hasProblem": [null, Validators.required],
@@ -74,8 +74,8 @@ export class IrrigationPage {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
         this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
-        this.formData$.subscribe(data =>{
-          if(data != null){
+        this.formData$.subscribe(data => {
+          if (data != null) {
             this.f.setValue(data)
           }
         })
@@ -140,11 +140,44 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
+    // if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
+    //   // this.store.dispatch(new SetHouseHold(this.f.value));
+    // }
+    if (this.checkValid()) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
     }
+  }
+
+  checkValid(): boolean {
+    let activity = !this.waterActivity6.find(it => it.totalSum != 100)
+    let cubic: boolean;
+    let problem: boolean;
+    let pump: boolean;
+    let pumps = true;
+    if (this.f.get('hasCubicMeterPerMonth').value == true) {
+      cubic = (this.f.get('cubicMeterPerMonth').value != null)
+      pump = true
+    }
+    if (this.f.get('hasCubicMeterPerMonth').value == false) {
+      if (this.f.get('hasPump').value == false) {
+        cubic = true;
+        pump = true;
+      }
+      if (this.f.get('hasPump').value == true) {
+        if (this.f.get('pumpCount').value > 0) {
+          cubic = true;
+          pump = true;
+          pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid()
+        }
+      }
+    }
+    if (!this.f.get('qualityProblem.hasProblem').value) {
+      problem = true;
+    } else {
+      problem = this.f.get('qualityProblem.problem').valid
+    }
+    return activity && cubic && problem && pump && pumps
   }
 
   countNumberPage() {

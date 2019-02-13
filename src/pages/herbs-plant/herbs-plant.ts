@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -87,11 +87,11 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    // if (this.f.valid || (this.f.get('doing').value == false)) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.formData$));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

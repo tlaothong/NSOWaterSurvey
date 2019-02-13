@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
@@ -61,11 +61,11 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
-    // if (this.f.valid && this.isCheckHaveHeadfamily()) {
+    if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new LoadHouseHoldSample(this.f));     
+      // this.store.dispatch(new SetHouseHold(this.f.value));     
       this.navCtrl.setRoot("UnitPage");
-    // }
+    }
   }
 
   countNumberPage() {

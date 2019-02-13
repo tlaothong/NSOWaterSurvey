@@ -14,12 +14,12 @@ export class DlgTableBuyingPage {
   public text: string;
   public size: number;
   public volumn: string;
-  public getIsHouseHold: string;
-  public getIsAgriculture: string;
-  public getIsFactorial: string;
-  public getIsCommercial: string;
+  public getIsHouseHold: any;
+  public getIsAgriculture: any;
+  public getIsFactorial: any;
+  public getIsCommercial: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
@@ -31,6 +31,11 @@ export class DlgTableBuyingPage {
     this.FormItem = TableBuyingComponent.CreateFormGruop(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
+    console.log(this.getIsHouseHold);
+
+
+    
+
   }
 
   public closeDialog() {
@@ -43,6 +48,20 @@ export class DlgTableBuyingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgTableBuyingPage');
+    if (this.getIsHouseHold == 'false') {
+      this.FormItem.get('drink').setValue(0);
+    }
+    if(this.getIsAgriculture == 'false'){
+      this.FormItem.get('agriculture').setValue(0);
+    }
+    if(this.getIsFactorial == 'false'){
+
+      this.FormItem.get('factory').setValue(0);
+    }
+    if(this.getIsCommercial == 'false'){
+      this.FormItem.get('service').setValue(0);
+    }
+    console.log(this.FormItem.value);
     if (this.FormItem.get('size').invalid) {
       this.FormItem.get('size').setValue(this.size);
     }
