@@ -112,7 +112,6 @@ export class FlowerCropPage {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.flowerCropFrm));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     }
   }
 

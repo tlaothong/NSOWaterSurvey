@@ -61,11 +61,11 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
-    // if (this.f.valid && this.isCheckHaveHeadfamily()) {
+    if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.f));     
       this.navCtrl.setRoot("UnitPage");
-    // }
+    }
   }
 
   countNumberPage() {

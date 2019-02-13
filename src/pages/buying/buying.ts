@@ -70,11 +70,11 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    // if (this.BuyingForm.valid) {
+    if (this.BuyingForm.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.BuyingForm));
       this.navCtrl.pop();
-    // }
+    }
   }
 
   countNumberPage() {

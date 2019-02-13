@@ -63,12 +63,11 @@ export class DryCropPlantingPage {
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
     // this.store.dispatch(new SetNextPageDirection(4));
-    // if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
+    if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.agronomyPlant));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
-    // }
+    }
   }
 
   countNumberPage() {

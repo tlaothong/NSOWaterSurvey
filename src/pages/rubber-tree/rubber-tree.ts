@@ -55,11 +55,11 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
-    // if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
+    if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.rubbertree));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

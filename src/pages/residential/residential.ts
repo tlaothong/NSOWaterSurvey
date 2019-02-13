@@ -66,7 +66,6 @@ export class ResidentialPage {
       this.dispatchWaterSource();
       // this.store.dispatch(new LoadHouseHoldSample(this.residentialFrm));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
     }
   }
 

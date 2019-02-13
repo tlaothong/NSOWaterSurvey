@@ -138,11 +138,11 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    // if (this.f.valid || (this.f.get('hasPump').value == false)) {
+    if (this.f.valid || (this.f.get('hasPump').value == false)) {
     this.arrayIsCheckMethod();
     // this.store.dispatch(new LoadHouseHoldSample(this.f));
     this.navCtrl.setRoot("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

@@ -72,11 +72,11 @@ export class WaterAnimalPlantingPage {
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
     this.formData$.agriculture.aquaticAnimals = this.f.value
-    // if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
+    if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.setRoot("CheckListPage",);
-    // }
+    }
   }
 
   countNumberPage() {

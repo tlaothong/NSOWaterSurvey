@@ -52,11 +52,11 @@ export class MushroomPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
-    // if (this.f.valid || (this.f.get('doing').value == false)) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

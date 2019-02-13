@@ -87,11 +87,11 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    // if (this.f.valid || (this.f.get('doing').value == false)) {
+    if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.formData$));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

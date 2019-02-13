@@ -97,11 +97,11 @@ export class CommercialPage {
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log("waterCom", this.f.get('waterSources').value);
     this.dispatchWaterSource();
-    // if (this.f.valid) {
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.f));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

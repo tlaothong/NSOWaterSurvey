@@ -60,11 +60,11 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    // if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
+    if (this.Disasterous.valid || this.Disasterous.get('flooded').value == false) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.Disasterous));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {

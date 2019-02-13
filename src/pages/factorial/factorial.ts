@@ -53,12 +53,11 @@ export class FactorialPage {
     this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
-    // if (this.FactoryForm.valid) {
+    if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new LoadHouseHoldSample(this.FactoryForm));
       this.navCtrl.popTo("CheckListPage");
-      // this.checkNextPage();
-    // }
+    }
   }
 
   countNumberPage() {

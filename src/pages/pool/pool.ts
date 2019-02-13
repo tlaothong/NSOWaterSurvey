@@ -121,11 +121,11 @@ export class PoolPage {
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    // if (this.f.valid) {
+    if (this.f.valid) {
     this.arrayIsCheckMethod();
     // this.store.dispatch(new LoadHouseHoldSample(this.f));
     this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {
