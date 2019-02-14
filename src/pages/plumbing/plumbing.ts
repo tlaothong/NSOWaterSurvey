@@ -169,7 +169,7 @@ export class PlumbingPage {
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
     this.formData.waterUsage.plumbing = this.f.value;
-    if (this.f.valid || (this.isCheckValid('mwa') && this.isCheckValid('pwa') && this.isCheckValid('other'))) {
+    if (this.isCheckValid('mwa') && this.isCheckValid('pwa') && this.isCheckValid('other')) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
@@ -207,7 +207,7 @@ export class PlumbingPage {
       return isCheck && isCheckProblem && isCheckQuantity && isCheckNotRunning && hundred;
     }
     else {
-      return isCheck;
+      return this.f.get(name + '.doing').valid;
     }
   }
 
