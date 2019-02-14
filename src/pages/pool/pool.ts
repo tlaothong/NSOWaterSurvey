@@ -20,8 +20,9 @@ export class PoolPage {
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData$: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -67,12 +68,13 @@ export class PoolPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
-        this.formData$.subscribe(data =>{
-          if(data != null){
-            this.f.setValue(data)
-          }
-        })
+        this.f.setValue(data.waterUsage.pool);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
+        // this.formData$.subscribe(data =>{
+        //   if(data != null){
+        //   }
+        // })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -119,11 +121,10 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    console.log("valid", this.f.valid);
-    console.log("this.f", this.f.value);
+    this.formData.waterUsage.pool = this.f.value
     if (this.f.valid) {
     this.arrayIsCheckMethod();
-    // this.store.dispatch(new SetHouseHold(this.f.value));
+    this.store.dispatch(new SetHouseHold(this.formData));
     this.navCtrl.popTo("CheckListPage");
     }
   }

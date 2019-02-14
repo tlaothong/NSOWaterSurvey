@@ -20,10 +20,11 @@ export class ResidentialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
+  private formData$ = this.store.select(getHouseHoldSample);
   private frontNum: any;
   private backNum: any;
-  public data: any
+  public dataRes: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
@@ -37,9 +38,11 @@ export class ResidentialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.residentialFrm.setValue(data)
+        this.residentialFrm.setValue(data.residence)
+        this.dataRes = data;
       }
     });
+
   // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
 
   }
@@ -56,15 +59,11 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.buying').value)]));
     
     this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
-
-    console.log("gardeningUse", this.residentialFrm.get('gardeningUse').value);
-    console.log("waterRes", this.residentialFrm.get('waterSources').value);
-    // this.store.dispatch(new SetNextPageDirection(1));
-    // this.checkNextPageWaterSounces();
+    this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid) {
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
-      // this.store.dispatch(new SetHouseHold(this.residentialFrm.value));
+      this.store.dispatch(new SetHouseHold(this.dataRes));
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -15,7 +15,8 @@ import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../state
 export class UserPage {
   public userInfo: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
+  private formData$ = this.store.select(getHouseHoldSample);
   private formData: any;
   private factorialCategory$ = this.store.select(getFactorialCategory);
   public facCategory: string;
@@ -39,7 +40,8 @@ export class UserPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.userInfo.setValue(data)
+        this.userInfo.setValue(data.closing)
+        this.formData = data;
       }
     })
     this.factorialCategory$.subscribe(data => this.facCategory = data);
@@ -50,9 +52,10 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.formData.closing = this.userInfo.value
     if (this.userInfo.valid) {
     this.arrayIsCheckMethod();
-    // this.store.dispatch(new SetHouseHold(this.userInfo.value));
+    this.store.dispatch(new SetHouseHold(this.formData));
     this.navCtrl.popTo("CheckListPage");
     }
   }
