@@ -23,7 +23,8 @@ export class RicePage {
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   public DataList = EX_RICH_LIST;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private data: any
   formData$: any;
 
@@ -40,12 +41,13 @@ export class RicePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        });
+        this.f.setValue(data.agriculture.ricePlant);
+        this.data = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // });
       }
     })
   }
@@ -56,9 +58,10 @@ export class RicePage {
     this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
+    this.data.agriculture.ricePlant = this.f.value;
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.store.dispatch(new SetHouseHold(this.data));
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -106,7 +109,7 @@ export class RicePage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

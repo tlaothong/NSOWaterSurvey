@@ -24,8 +24,9 @@ export class IrrigationPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData$: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -73,12 +74,13 @@ export class IrrigationPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.setValue(data)
-          }
-        })
+        this.f.setValue(data.waterUsage.irrigation)
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -140,11 +142,10 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    // if (this.f.valid || ((this.f.get('hasCubicMeterPerMonth').value == false) && (this.f.get('hasPump').value == false))) {
-    //   // this.store.dispatch(new SetHouseHold(this.f.value));
-    // }
+    this.formData.waterUsage.irrigation = this.f.value
     if (this.checkValid()) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -225,7 +226,7 @@ export class IrrigationPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupPumpCountChanges() {

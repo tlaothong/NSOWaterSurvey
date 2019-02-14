@@ -17,8 +17,9 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formData$: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData: any;
   private frontNum: any;
   private backNum: any;
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
@@ -36,12 +37,13 @@ export class PerennialPlantingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.PerennialPlantingFrm.patchValue(data)
-          }
-        });
+        this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // });
       }
     })
   }
@@ -61,9 +63,10 @@ export class PerennialPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectPerennial(true));
+    this.formData.agriculture.perennialPlant = this.PerennialPlantingFrm.value;
     if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.PerennialPlantingFrm.value));
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -113,7 +116,7 @@ export class PerennialPlantingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.PerennialPlantingFrm.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

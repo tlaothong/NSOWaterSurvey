@@ -20,7 +20,9 @@ export class DisasterousPage {
 
   private submitRequested: boolean;
   public Disasterous: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
+  private formData$ = this.store.select(getHouseHoldSample);
+  public dataDis: any;
   private frontNum: any;
   private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -41,9 +43,8 @@ export class DisasterousPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.Disasterous.patchValue(data)
-        console.log(this.Disasterous.value);
-
+        this.Disasterous.patchValue(data.disaster)
+        this.dataDis = data;
       }
     })
   }
@@ -62,11 +63,12 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
+    this.dataDis.disaster = this.Disasterous.value
     if (this.Disasterous.valid
       || this.Disasterous.get('flooded').value == false
       || this.tableDisasterous.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.Disasterous.value));
+      this.store.dispatch(new SetHouseHold(this.dataDis));
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -120,6 +122,6 @@ export class DisasterousPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }

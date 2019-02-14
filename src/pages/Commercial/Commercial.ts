@@ -1,4 +1,4 @@
-import { SetWaterSourcesCommercial,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesCommercial, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -26,7 +26,9 @@ export class CommercialPage {
   private submitRequested: boolean;
   public otherBuildingType: any;
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
+  private formData$ = this.store.select(getHouseHoldSample);
+  public dataCom: any;
   private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
   private backNum: any;
@@ -74,7 +76,8 @@ export class CommercialPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.f.setValue(data.commerce)
+        this.dataCom = data;
       }
     });
     this.getBuildingType$.subscribe(data => {
@@ -95,17 +98,16 @@ export class CommercialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
-    console.log("waterCom", this.f.get('waterSources').value);
     this.dispatchWaterSource();
+    this.dataCom.commerce = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.store.dispatch(new SetHouseHold(this.dataCom));
       this.navCtrl.popTo("CheckListPage");
     }
   }
 
   countNumberPage() {
-    console.log("onSubmit ");
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let arrayNextPage: any[];
     arrayNextPage$.subscribe(data => {
@@ -117,8 +119,6 @@ export class CommercialPage {
       }
 
     });
-    console.log("back", this.backNum);
-
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: any[];
     arrayIsCheck$.subscribe(data => {
@@ -129,7 +129,6 @@ export class CommercialPage {
       }
 
     });
-    console.log("frontNum", this.frontNum);
   }
 
   arrayIsCheckMethod() {
@@ -142,8 +141,6 @@ export class CommercialPage {
         if (arrayIsCheck.every(it => it != 12)) {
           arrayIsCheck.push(12);
         }
-
-        console.log(arrayIsCheck);
       }
     });
   }
@@ -158,6 +155,6 @@ export class CommercialPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }

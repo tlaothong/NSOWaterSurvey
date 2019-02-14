@@ -152,7 +152,7 @@ export class AgriculturePage {
       ctrl = this.f;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

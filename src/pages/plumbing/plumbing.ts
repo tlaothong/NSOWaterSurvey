@@ -26,8 +26,9 @@ export class PlumbingPage {
   public f: FormGroup;
   private submitRequested: boolean;
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData$: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -107,13 +108,13 @@ export class PlumbingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.patchValue(data)
-            console.log(this.f.value);
-          }
-        })
+        this.f.patchValue(data.waterUsage.plumbing);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
       }
     })
 
@@ -143,12 +144,6 @@ export class PlumbingPage {
 
     this.MWA = this.subDistrict.MWA;
     this.PWA = this.subDistrict.PWA;
-    console.log("Id", this.getIdHomes);
-    // console.log("activityResidential", this.activityResidential);
-    // console.log("activityWateringRes", this.activityWateringRes);
-    // console.log("activityAgiculture", this.activityAgiculture);
-    // console.log("activityFactory", this.activityFactory);
-    // console.log("activityCommercial", this.activityCommercial);
   }
 
   changeValueActivity() {
@@ -173,22 +168,10 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    console.log(this.f.value);
-
-
-    // if (this.f.valid
-    //   || ((this.f.get('mwa').value.doing == false) && (!this.f.get('pwa').value.doing) && (this.f.get('other').value.doing == false))
-    //   || ((!this.f.get('mwa').value.doing) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))
-    //   || ((this.f.get('mwa').value.doing == false) && (this.f.get('pwa').value.doing == false) && (this.f.get('other').value.doing == false))) {
-    //   // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-    //   this.arrayIsCheckMethod();
-    //   // this.store.dispatch(new SetHouseHold(this.f.value));
-    //   this.navCtrl.popTo("CheckListPage");
-    //   // }
-    // }
-
+    this.formData.waterUsage.plumbing = this.f.value;
     if (this.f.valid || (this.isCheckValid('mwa') && this.isCheckValid('pwa') && this.isCheckValid('other'))) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
     }
@@ -273,7 +256,7 @@ export class PlumbingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }
