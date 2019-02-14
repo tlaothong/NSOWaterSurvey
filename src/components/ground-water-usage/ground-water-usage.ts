@@ -13,20 +13,20 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   @Input('no') public text: string;
   @Input() public FormItem: FormGroup;
-  @Input('G') public G:boolean;
+  @Input('G') public G: boolean;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
   @Input('commerce') public commerceUse: boolean;
   @Input('factory') public factoryUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
-  @Input('activeRes') public activeRes:any;
-  @Input('activeWateringRes') public activeWateringRes:any;
-  @Input('activRice') public activRice:any;
-  @Input('activeAgi') public activeAgi:any;
-  @Input('activeFac') public activeFac:any;
-  @Input('activeCom') public activeCom:any;
-  @ViewChildren(PumpComponent) private pump: PumpComponent[];
+  @Input('activeRes') public activeRes: any;
+  @Input('activeWateringRes') public activeWateringRes: any;
+  @Input('activRice') public activRice: any;
+  @Input('activeAgi') public activeAgi: any;
+  @Input('activeFac') public activeFac: any;
+  @Input('activeCom') public activeCom: any;
+  @ViewChildren(PumpComponent) public pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
   private submitRequested: boolean;
@@ -57,7 +57,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     return fg;
   }
 
-  setDefult(){
+  setDefult() {
     this.FormItem.get('hasPump').setValue(null);
     this.FormItem.get('pumpCount').setValue(null);
   }
