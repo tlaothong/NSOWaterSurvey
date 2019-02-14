@@ -116,7 +116,7 @@ export class PerennialPlantingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.PerennialPlantingFrm.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

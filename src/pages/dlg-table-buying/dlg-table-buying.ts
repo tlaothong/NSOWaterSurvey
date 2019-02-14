@@ -69,7 +69,7 @@ export class DlgTableBuyingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched);
+    return ctrl.invalid && (ctrl.dirty);
   }
 
 }
