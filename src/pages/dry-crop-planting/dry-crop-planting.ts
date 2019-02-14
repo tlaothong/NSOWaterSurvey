@@ -62,11 +62,11 @@ export class DryCropPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectAgronomy(true));
-    // if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
+    if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.agronomyPlant.value));
       this.navCtrl.popTo("CheckListPage");
-    // }
+    }
   }
 
   countNumberPage() {
@@ -118,7 +118,7 @@ export class DryCropPlantingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.agronomyPlant.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

@@ -34,7 +34,7 @@ export class FieldRiceHarvestComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public isCheck(month: number, from: string): boolean {

@@ -181,7 +181,7 @@ export class RainPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.RainFrm.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   submitRequest() {
