@@ -25,8 +25,9 @@ export class GroundWaterPage {
   public f: FormGroup;
   public G: boolean = true;
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData$: any;
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -78,12 +79,13 @@ export class GroundWaterPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
-        this.formData$.subscribe(data => {
-          if (data != null) {
-            this.f.patchValue(data)
-          }
-        })
+        this.f.patchValue(data.waterUsage.groundWater);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -111,12 +113,6 @@ export class GroundWaterPage {
       this.activityCommercial = (data != null) ? data.underGround : null;
     });
     this.changeValueActivity();
-    console.log("activityResidential", this.activityResidential);
-    console.log("activityWateringRes", this.activityWateringRes);
-    console.log("activityRice", this.activityRice);
-    console.log("activityAgiculture", this.activityAgiculture);
-    console.log("activityFactory", this.activityFactory);
-    console.log("activityCommercial", this.activityCommercial);
   }
 
   check(): boolean {
@@ -151,11 +147,10 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
-    console.log("valid", this.f.valid);
-    console.log("this.f", this.f.value);
+    this.formData.waterUsage.groundWater = this.f.value
     if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false) && (this.f.get('publicGroundWater').value.doing == false))) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }

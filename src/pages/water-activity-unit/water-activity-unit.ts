@@ -42,7 +42,6 @@ export class WaterActivityUnitPage {
     this.arrayNextPageMedthod();
     console.log(this.f.value);
 
-    // this.store.dispatch(new SetHouseHold(this.f.value));
     let objRes: any = {
       isHouseHold: this.f.get('isHouseHold').value,
       isAgriculture: this.f.get('isAgriculture').value,
@@ -70,8 +69,13 @@ export class WaterActivityUnitPage {
     this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
     this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
     // this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
-
-    this.navCtrl.push("CheckListPage");
+    if ((this.f.get('isHouseHold').value != null)
+      && (this.f.get('isAgriculture').value != null)
+      && (this.f.get('isFactorial').value != null)
+      && (this.f.get('isCommercial').value != null)) {
+      this.store.dispatch(new SetHouseHold(this.f.value));
+      this.navCtrl.push("CheckListPage");
+    }
 
     // this.checkNextPage();
 

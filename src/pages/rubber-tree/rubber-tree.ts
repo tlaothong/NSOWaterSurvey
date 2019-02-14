@@ -20,8 +20,9 @@ export class RubberTreePage {
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
   public rubbertree: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formData$: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData: any;
   public DataList = EX_RUBBER_LIST;
   private frontNum: any;
   private backNum: any;
@@ -40,12 +41,13 @@ export class RubberTreePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
-        this.formData$.subscribe(data =>{
-          if(data != null){
-            this.rubbertree.setValue(data)
-          }
-        })
+        this.rubbertree.setValue(data.agriculture.rubberTree)
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
+        // this.formData$.subscribe(data =>{
+        //   if(data != null){
+        //   }
+        // })
       }
     })
   }
@@ -55,9 +57,10 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     this.store.dispatch(new SetAgiSelectRubber(true));
+    this.formData.agriculture.rubberTree = this.rubbertree.value;
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.rubbertree.value));
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }

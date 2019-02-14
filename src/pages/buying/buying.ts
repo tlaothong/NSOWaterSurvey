@@ -19,8 +19,9 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData$: any;
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData: any;
   private getIsHouseHold$ = this.store.select(getIsHouseHold);
   public getIsHouseHold: boolean;
   private getIsAgriculture$ = this.store.select(getIsAgriculture);
@@ -52,15 +53,15 @@ export class BuyingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
-        this.formData$.subscribe(data => {
-          if(data != null){
-            this.BuyingForm.patchValue(data)
-          }
-        })
+        this.BuyingForm.patchValue(data.waterUsage.buying);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.buying));
+        // this.formData$.subscribe(data => {
+        //   if(data != null){
+        //   }
+        // })
       }
     })
-    // this.formData$.subscribe(data => this.BuyingForm.setValue(data));
     this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);
     this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
@@ -70,11 +71,12 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.formData.waterUsage.buying = this.BuyingForm.value;
     if (this.BuyingForm.valid 
       || (this.tableBuying.some(it => it.FormItem.valid))
       || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.BuyingForm.value));
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.pop();
     }
   }
