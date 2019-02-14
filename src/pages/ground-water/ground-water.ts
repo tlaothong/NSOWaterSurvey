@@ -140,7 +140,6 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
-<<<<<<< HEAD
     // console.log("valid", this.f.valid);
     // console.log("this.f", this.f.value);
     // if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false) && (this.f.get('publicGroundWater').value.doing == false))) {
@@ -207,13 +206,6 @@ export class GroundWaterPage {
       console.log("isCheckPump");
       console.log(isCheckPump);
       // return isCheckValid && isCheckgroundWater && isCheckPump;
-=======
-    this.formData.waterUsage.groundWater = this.f.value
-    if (this.f.valid || ((this.f.get('privateGroundWater').value.doing == false) && (this.f.get('publicGroundWater').value.doing == false))) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
-      this.navCtrl.popTo("CheckListPage");
->>>>>>> aaeba4735d9dcdcc5376053ce0c55501b9b772d6
     }
     else {
       return true;
