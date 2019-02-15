@@ -121,12 +121,6 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-
-    // this.poolArea.forEach(it => {
-    //   isCheckPoolSizes = it.checkValid();
-    // });
-    // let isCheckPoolSizes = checkPoolSizes.checkValid();
-
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
     if (this.checkValid()) {
