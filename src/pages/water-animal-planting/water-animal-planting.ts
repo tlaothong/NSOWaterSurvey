@@ -85,12 +85,16 @@ export class WaterAnimalPlantingPage {
 
   checkValid(): boolean {
     let fish = false;
+    let croc = false;
     if (this.f.get('isFish').value || this.f.get('isShrimp').value || this.f.get('isCrab').value || this.f.get('isReddish').value) {
       fish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
     }
+    if(this.f.get('isCrocodile').value || this.f.get('isSnappingTurtle').value || this.f.get('isTurtle').value){
+      croc = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    }
     if ((fish)
       || (this.frogFarming.some(it => it.FormItem.valid))
-      || (this.crocodileFarming.some(it => it.FormItem.valid))) {
+      || (croc)) {
       return true
     }
   }
