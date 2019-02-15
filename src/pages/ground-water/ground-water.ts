@@ -81,11 +81,6 @@ export class GroundWaterPage {
       if (data != null) {
         this.f.patchValue(data.waterUsage.groundWater);
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.groundWater));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -140,8 +135,10 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
+    this.formData.waterUsage.groundWater = this.f.value;
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }
