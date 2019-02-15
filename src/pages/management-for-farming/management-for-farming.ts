@@ -5,7 +5,11 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getCommunitySample } from '../../states/community';
+import { getCommunitySample, getSetCommunity } from '../../states/community';
+import { SetNextPageDirection } from '../../states/household/household.actions';
+import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
+import { SetCommunity } from '../../states/community/community.actions';
+import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
 
 @IonicPage()
 @Component({
@@ -15,40 +19,82 @@ import { getCommunitySample } from '../../states/community';
 export class ManagementForFarmingPage {
 
   @ViewChildren(DetailManagementForFarmingComponent) private detailManagementForFarming: DetailManagementForFarmingComponent[];
+  // @ViewChildren(CommunityWaterManagementPage) private communityWaterManagement: CommunityWaterManagementPage;
 
   public managementforfarming: FormGroup;
   private submitRequested: boolean;
 
-  private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
+  // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
 
+  // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
+  // private dataCommunuty$ = this.store.select(getSetCommunity);
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  private DataStoreWorkEaOneRecord: any;
+
+  private getSetCommunity$ = this.store.select(getSetCommunity);
+  public getSetCommunity: FormGroup;
+
+  private formData: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
-    this.managementforfarming = this.fb.group({
+    this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
+    this.setupprojectcountChanges();
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
       'doing': [null, Validators.required],
       'projectCount': [null, Validators.required],
       'details': fb.array([]),
     });
-    this.setupprojectcountChanges();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ManagementForFarmingPage');
+    this.formData = this.navParams.get('formData');
+    console.log("ก่อนส่ง: ", this.formData);
+
+    if (this.formData.communityProject) {
+      this.managementforfarming.setValue(this.formData.communityProject)
+    }
+
+    // this.getSetCommunity = this.fb.group({
+    //   '_id': [null],
+    //   'ea': [null],
+    //   'management': [null],
+    //   'communityProject': [null],
+    // })
+    // this.getSetCommunity$.subscribe(data => {
+    //   if (data != null) {
+    //     this.getSetCommunity.setValue(data);
+    //     console.log("ก่อนส่ง: ", this.getSetCommunity.value);
+    //     let communityProject = this.getSetCommunity.get('communityProject').value;
+    //     if (communityProject) {
+    //       this.managementforfarming.setValue(communityProject)
+    //     }
+    //   }
+    // });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
+
+    // this.getSetCommunity.get('communityProject').setValue(this.managementforfarming.value);
+    this.formData.communityProject = this.managementforfarming.value;
+    this.store.dispatch(new SetCommunity(this.formData));
+    console.log("หลังส่ง: ", this.formData);
+    this.navCtrl.popToRoot();
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.managementforfarming.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagementForFarmingPage');
-    this.formData$.subscribe(data => this.managementforfarming.setValue(data));
-  }
 
   private setupprojectcountChanges() {
     const componentFormArray: string = "details";
     const componentCount: string = "projectCount";
-
     var onComponentCountChanges = () => {
       var fieldFlowerCrop = (this.managementforfarming.get(componentFormArray) as FormArray).controls || [];
       var fieldCount = this.managementforfarming.get(componentCount).value || 0;
@@ -69,10 +115,7 @@ export class ManagementForFarmingPage {
       }
       this.managementforfarming.setControl(componentFormArray, field);
     };
-
     this.managementforfarming.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
     onComponentCountChanges();
   }
-
 }

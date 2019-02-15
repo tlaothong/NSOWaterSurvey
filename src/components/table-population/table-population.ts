@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ModalController } from 'ionic-angular';
-import { DlgPopulationPage } from '../../pages/dlg-population/dlg-population';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'table-population',
@@ -11,14 +10,14 @@ export class TablePopulationComponent {
 
   @Input('no') public personNo: string;
   @Input() public FormItem: FormGroup;
-
+  @Input() public FormArray: FormArray;
+  @Input('ProName') public proName: string;
+  // @Input('nameTitle') public nameTitle: FormGroup;
   private submitRequested: boolean;
 
-  constructor(public modalCtrl: ModalController, public fb: FormBuilder) {
-    console.log('Hello TablePopulationComponent Component');
+  constructor(public modalCtrl: ModalController, public fb: FormBuilder, public navParams: NavParams) {
     this.FormItem = TablePopulationComponent.CreateFormGroup(fb);
   }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
@@ -29,19 +28,25 @@ export class TablePopulationComponent {
       'relationship': [null, Validators.required],
       'sex': [null, Validators.required],
       'age': [null, Validators.required],
+      'birthDate': [null, Validators.required],
+      'birthMonth': [null, Validators.required],
+      'birthYear': [null, Validators.required],
       'nationality': [null, Validators.required],
       'registration': [null, Validators.required],
       'otherProvince': [null],
     });
     return fg
+
   }
 
   presentModal() {
     const modal = this.modalCtrl.create("DlgPopulationPage",
-    {
-      FormItem: this.FormItem,
-      iTitle: this.personNo
-    });
+      {
+        FormItem: this.FormItem,
+        FormArray: this.FormArray,
+        iTitle: this.personNo,
+        proName: this.proName
+      });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
@@ -50,13 +55,14 @@ export class TablePopulationComponent {
     });
     modal.present();
   }
-  
+
   submitRequest() {
     this.submitRequested = true;
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
+
 }

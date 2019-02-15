@@ -1,13 +1,12 @@
 import { UnitButtonComponent } from './../../components/unit-button/unit-button';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getRecieveDataFromBuilding } from '../../states/building';
+import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
-import { map } from 'rxjs/operators';
+import { LoadUnitByIdBuilding } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -17,33 +16,28 @@ import { map } from 'rxjs/operators';
 export class UnitPage {
 
   public f: FormGroup;
-  private submitRequested: boolean;
-
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
+  private dataHomeBuilding$ = this.store.select(setHomeBuilding);
+  public id_BD: string;
+  public units: any;
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
-      'unitCount': [3, Validators.required],
+      'unitCount': [null],
       'units': this.fb.array([]),
     });
-
-    this.setupUnitsCountChanges();
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
-    this.unitButton.forEach(it => it.ionViewDidLoad());
-  }
-  ionViewDidEnter() {
-    console.log("enter");
-  }
-
-  public handleSubmit() {
-    this.submitRequested = true;
-    this.unitButton.forEach(it => it.submitRequest());
+    console.log(this.f.get('unitCount').value);
+    this.setupUnitsCountChanges();
+    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
+    this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
+    console.log(this.f.get('units').value);
+    
   }
 
   private setupUnitsCountChanges() {
@@ -76,41 +70,4 @@ export class UnitPage {
     onComponentCountChanges();
   }
 
-  // public static CreateFormGroup(fb: FormBuilder): FormGroup {
-  //   return fb.group({
-  //     'subUnit': fb.group({
-  //       'roomNumber': [null, Validators.required],
-  //       'access': [null, Validators.required],
-  //       'hasPlumbing': [null, Validators.required],
-  //       'hasPlumbingMeter': [false, Validators.required],
-  //       'isPlumbingMeterXWA': [false, Validators.required],
-  //       'hasGroundWater': [null, Validators.required],
-  //       'hasGroundWaterMeter': [false, Validators.required],
-  //     }),
-  //     'isHouseHold': [null, Validators.required],
-  //     'isAgriculture': [null, Validators.required],
-  //     'isFactorial': [null, Validators.required],
-  //     'isCommercial': [null, Validators.required],
-  //     'comments': fb.group({
-  //       'at': [null],
-  //       'text': [null],
-  //     })
-  //   });
-  // }
-
-  // Unit() {
-  //   const modal = this.modalCtrl.create("DlgUnitPage", { f: this.f });
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       var fg = <FormGroup>data;
-  //       this.f.setValue(fg.value);
-  //     }
-  //   });
-  //   modal.present();
-  // }
-
-  // public isValid(name: string): boolean {
-  //   var ctrl = this.f.get(name);
-  //   return ctrl.value == null && (ctrl.touched || this.submitRequested);
-  // }
 }

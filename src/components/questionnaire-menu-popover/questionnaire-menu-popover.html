@@ -1,15 +1,14 @@
 <ion-list>
   <ion-list-header>
-    อาคารสว่างพานิชย์ 202<br />
-    ถ.กลางเมือง<br />
-    ตำบลในเมือง<br />
-    อำเภอเมืองขอนแก่น
+    {{dataWorkEARow?.properties.pro_name}}<br />
+    {{dataWorkEARow?.properties.dis_name}}<br />
+    {{dataWorkEARow?.properties.tam_name}}<br />
   </ion-list-header>
 
   <div no-lines>
     <ion-item>
       <h3>
-        EA: 44001011099<b>264</b>
+        EA: {{dataWorkEARow?._id}}
       </h3>
       หน่วยตัวอย่าง ลำดับที่ 1
     </ion-item>

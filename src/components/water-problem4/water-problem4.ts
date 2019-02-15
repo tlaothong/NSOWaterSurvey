@@ -1,12 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
-/**
- * Generated class for the WaterProblem4Component component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'water-problem4',
   templateUrl: 'water-problem4.html'
@@ -15,15 +9,13 @@ export class WaterProblem4Component {
 
   @Input("headline") public text: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(private fb: FormBuilder) {
-    console.log('Hello WaterProblem4Component Component');
     this.text = 'Hello World';
     this.text = '1';
     this.FormItem = this.fb.group({
-      'hasProblem': [null,Validators.required],
+      'hasProblem': [null, Validators.required],
       'problem': WaterProblem4Component.CreateFormGroup(this.fb)
     });
   }
@@ -36,9 +28,9 @@ export class WaterProblem4Component {
       'filmOfOil': [false, Validators.required],
       'fogWater': [false, Validators.required],
       'hardWater': [false, Validators.required],
-    } ,{
-      validator: WaterProblem4Component.checkAnyOrOther()
-    });
+    }, {
+        validator: WaterProblem4Component.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
@@ -49,9 +41,9 @@ export class WaterProblem4Component {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -60,12 +52,24 @@ export class WaterProblem4Component {
       const smell = c.get('smell');
       const filmOfOil = c.get('filmOfOil');
       const fogWater = c.get('fogWater');
-      
 
       if (!saltWater.value && !smell.value && !filmOfOil.value && !fogWater.value) {
         return { 'anycheck': true };
-      } 
+      }
       return null;
     }
+  }
+
+  // changeValueHasProblem() {
+  //   this.FormItem.get('hasProblem').patchValue(false)
+  // }
+
+  setCheckboxFalse() {
+    this.FormItem.get('problem.saltWater').setValue(false);
+    this.FormItem.get('problem.smell').setValue(false);
+    this.FormItem.get('problem.filmOfOil').setValue(false);
+    this.FormItem.get('problem.fogWater').setValue(false);
+    this.FormItem.get('problem.turbidWater').setValue(false);
+    this.FormItem.get('problem.hardWater').setValue(false);
   }
 }

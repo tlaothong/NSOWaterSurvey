@@ -21,4 +21,5 @@ import { ComponentsModule } from '../../components/components.module';
     ]),
   ],
 })
+
 export class CommunityTestPageModule {}

@@ -5,8 +5,9 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant } from '../../states/household';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -15,42 +16,68 @@ import { map } from 'rxjs/operators';
 })
 export class FlowerCropPage {
 
-  
+
   @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
   private submitRequested: boolean;
-  flowerCropFrm: FormGroup;
-  shownData: string[];
-
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+  public flowerCropFrm: FormGroup;
+  public shownData: string[];
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
   private GetPlantRubber$ = this.store.select(getRubberTreeSelectPlant);
-  listDryCropData: any = [];
-  listPerenialData: any = [];
-  listRiceData: any = [];
-  listRubberData: any = [];
-  listSumData: any = [];
-
+  private getAgiSelectRice$ = this.store.select(getAgiSelectRice);
+  private getAgiSelectAgronomy$ = this.store.select(getAgiSelectAgronomy);
+  private getAgiSelectRubber$ = this.store.select(getAgiSelectRubber);
+  private getAgiSelectPerennial$ = this.store.select(getAgiSelectPerennial);
+  public listDryCropData: any = [];
+  public listPerenialData: any = [];
+  public listRiceData: any = [];
+  public listRubberData: any = [];
+  public listSumData: any = [];
+  public getAgiSelectRice: boolean;
+  public getAgiSelectAgronomy: boolean;
+  public getAgiSelectRubber: boolean;
+  public getAgiSelectPerennial: boolean;
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
       'fields': fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
-      "_id": [null],
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
-    this.formData$.subscribe(data => this.flowerCropFrm.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
+        // this.formData$.subscribe(data => {
+        //   if(data != null){
+        //   }
+        // })
+      }
+    })
     this.GetPlantRice$.subscribe(data => this.listRiceData = data);
     this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
     this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
     this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
+    this.getAgiSelectRice$.subscribe(data => this.getAgiSelectRice = data);
+    this.getAgiSelectAgronomy$.subscribe(data => this.getAgiSelectAgronomy = data);
+    this.getAgiSelectRubber$.subscribe(data => this.getAgiSelectRubber = data);
+    this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
+    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
+
     this.listSumData = sum;
     console.log('listSumData');
     console.log(this.listSumData);
@@ -62,10 +89,6 @@ export class FlowerCropPage {
 
     modal.onDidDismiss(data => {
       if (data) {
-        // this.FormItem = data;
-        // var fg = <FormGroup>data;
-        // this.FormItem.setValue(fg.value);
-
         var adata = data as Array<string>;
         this.shownData = adata.map(it => it.split(".")[1]);
       }
@@ -87,11 +110,60 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
+    this.formData.agriculture.flowerCrop = this.flowerCropFrm.value;
+    if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.popTo("CheckListPage");
+    }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(7));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 7)) {
+          arrayIsCheck.push(7);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.flowerCropFrm.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

@@ -1,9 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ModalController, Form, NavController, AlertController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { ModalController, NavController, AlertController, NavParams } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
+import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { map } from 'rxjs/operators';
+// import { Guid } from "guid-typescript";
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -23,7 +27,6 @@ export class UnitButtonComponent {
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s));
 
   public access: number;
   public comment = '';
@@ -36,11 +39,43 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
-
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+  private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
+  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
+
+
+  }
+
+  ngOnInit() {
+    this.GetUnitByIdBuilding$.subscribe(data => {
+      if (data[Number(this.unitNo) - 1] != undefined) {
+
+        let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
+        this.FormItem.get('subUnit.accessCount').setValue(count);
+        this.setupAccessCountChanges();
+        this.setupAccessCountChangesForComments();
+        console.log(data[Number(this.unitNo) - 1]);
+        this.FormItem.patchValue(data[Number(this.unitNo) - 1]);
+        console.log(this.FormItem.value);
+        this.setAccess();
+      }
+    });
+    this.setupAccessCountChanges();
+    this.setupAccessCountChangesForComments();
+    // this.FormItem.get('_id').setValue(Guid.create().toString());
+    console.log(this.FormItem.value);
+
+    if (this.FormItem.get('subUnit.accessCount').value > 0) {
+      this.setAccess();
+    }
+
+    // this.num = this.navParams.get('num');
+    // if (this.num == 1) {
+    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+    // }
+
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -50,53 +85,663 @@ export class UnitButtonComponent {
       'buildingId': [null, Validators.required],
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
-        'accessCount': [0],
-        'accesses': fb.array([{
-          'access': [null],
-        }, {
-          'access': [null],
-        }, {
-          'access': [null],
-        }]),
-        'hasPlumbing': [null, Validators.required],
+        'accessCount': [0, Validators.required],
+        'accesses': fb.array([0]),
+        'hasPlumbing': [false, Validators.required],
         'hasPlumbingMeter': [false, Validators.required],
         'isPlumbingMeterXWA': [false, Validators.required],
-        'hasGroundWater': [null, Validators.required],
+        'hasGroundWater': [false, Validators.required],
         'hasGroundWaterMeter': [false, Validators.required],
       }),
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
-      'comments': fb.array([{
-        'at': [null],
-        'text': [''],
-      }, {
-        'at': [null],
-        'text': [''],
-      }, {
-        'at': [null],
-        'text': [''],
-      }]),
-      'residence': [null, Validators.required],
-      'agriculture': [null, Validators.required],
-      'factory': [null, Validators.required],
-      'commerce': [null, Validators.required],
-      'waterUsage': [null, Validators.required],
-      'disaster': [null, Validators.required],
-      'closing': [null, Validators.required],
-      'recCtrl': [null, Validators.required],
+      'comments': fb.array([]),
+      'residence': fb.group({
+        'memberCount': [null],
+        'workingAge': [null],
+        'waterSources': fb.group({
+          'plumbing': [false],
+          'underGround': [false],
+          'pool': [false],
+          'river': [false],
+          'irrigation': [false],
+          'rain': [false],
+          'rainingAsIs': [false],
+          'buying': [false],
+          'hasOther': [false],
+          'other': [null],
+        }),
+        'gardeningUse': [null]
+      }),
+      'agriculture': fb.group({
+        'ricePlant': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'agronomyPlant': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'rubberTree': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'perennialPlant': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'herbsPlant': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'flowerCrop': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'mushroomPlant': fb.group({
+          'doing': [false],
+          'fieldCount': [0],
+          'fields': fb.array([]),
+        }),
+        'animalFarm': fb.group({
+          'doing': [false],
+          'cow': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'buffalo': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'pig': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'goat': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'sheep': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'chicken': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'duck': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'goose': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'silkWool': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'other': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'waterSources': fb.group({
+            'plumbing': [false],
+            'underGround': [false],
+            'pool': [false],
+            'river': [false],
+            'irrigation': [false],
+            'rain': [false],
+            'rainingAsIs': [false],
+            'buying': [false],
+            'hasOther': [false],
+            'other': [null],
+          }),
+        }),
+        'aquaticAnimals': fb.group({
+          'doing': [false],
+          'isFish': [false],
+          'fish': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'gardenGroove': [false],
+            'stew': [false],
+            'riceField': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isShrimp': [false],
+          'shrimp': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'gardenGroove': [false],
+            'stew': [false],
+            'riceField': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isFrog': [false],
+          'frog': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'stew': [false],
+            'other': [null],
+            'hasOther': [false],
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isCrocodile': [false],
+          'crocodile': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isSnappingTurtle': [false],
+          'snappingTurtle': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isCrab': [false],
+          'crab': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'gardenGroove': [false],
+            'stew': [false],
+            'riceField': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isShellFish': [false],
+          'shellFish': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'gardenGroove': [false],
+            'stew': [false],
+            'riceField': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isTurtle': [false],
+          'turtle': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+          'isReddish': [false],
+          'reddish': fb.group({
+            'doing': [null],
+            'depression': [false],
+            'gardenGroove': [false],
+            'stew': [false],
+            'riceField': [false],
+            'hasOther': [false],
+            'other': [null],
+            'fieldCount': [0],
+            'fieldsAreSameSize': [null],
+            'fields': fb.array([]),
+            'animalsCount': [null],
+            'waterSources': fb.group({
+              'plumbing': [false],
+              'underGround': [false],
+              'pool': [false],
+              'river': [false],
+              'irrigation': [false],
+              'rain': [false],
+              'rainingAsIs': [false],
+              'buying': [false],
+              'hasOther': [false],
+              'other': [null],
+            }),
+          }),
+        })
+      }),
+      'factory': fb.group({
+        'name': [null],
+        'category': [null],
+        'workersCount': [null],
+        'heavyMachine': [null],
+        'waterSources': fb.group({
+          'plumbing': [false],
+          'underGround': [false],
+          'pool': [false],
+          'river': [false],
+          'irrigation': [false],
+          'rain': [false],
+          'rainingAsIs': [false],
+          'buying': [false],
+          'hasOther': [false],
+          'other': [null],
+        }),
+        'hasWasteWaterFromProduction': [null],
+        'hasWasteWaterTreatment': [null],
+        'wasteWaterReuse': [null]
+      }),
+      'commerce': fb.group({
+        'name': [null],
+        'serviceType': [null],
+        'buildingCode': [0],
+        'questionForAcademy': fb.group({
+          'preSchool': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'kindergarten': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'primarySchool': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'highSchool': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'vocational': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'higherEducation': fb.group({
+            'hasItem': [false],
+            'itemCount': [null]
+          }),
+          'personnelCount': [null]
+        }),
+        'hotelsAndResorts': fb.group({
+          'roomCount': [null],
+          'personnelCount': [null]
+        }),
+        'hospital': fb.group({
+          'bedCount': [null],
+          'personnelCount': [null]
+        }),
+        'building': fb.group({
+          'roomCount': [null],
+          'occupiedRoomCount': [null],
+          'personnelCount': [null]
+        }),
+        'religious': fb.group({
+          'peopleCount': [null]
+        }),
+        'otherBuilding': fb.group({
+          'personnelCount': [null]
+        }),
+        'waterSources': fb.group({
+          'plumbing': [false],
+          'underGround': [false],
+          'pool': [false],
+          'river': [false],
+          'irrigation': [false],
+          'rain': [false],
+          'rainingAsIs': [false],
+          'buying': [false],
+          'hasOther': [false],
+          'other': [null],
+        }),
+      }),
+      'waterUsage': fb.group({
+        "plumbing": fb.group({
+          'mwa': fb.group({
+            'doing': [null],
+            'qualityProblem': fb.group({
+              'hasProblem': [null],
+              'problem': fb.group({
+                'turbidWater': [false],
+                'saltWater': [false],
+                'smell': [false],
+                'filmOfOil': [false],
+                'fogWater': [false],
+                'hardWater': [false],
+              })
+            }),
+            'plumbingUsage': fb.group({
+              'waterQuantity': [0],
+              'cubicMeterPerMonth': [null],
+              'waterBill': [null]
+            })
+          }),
+          'pwa': fb.group({
+            'doing': [null],
+            'qualityProblem': fb.group({
+              'hasProblem': [null],
+              'problem': fb.group({
+                'turbidWater': [false],
+                'saltWater': [false],
+                'smell': [false],
+                'filmOfOil': [false],
+                'fogWater': [false],
+                'hardWater': [false],
+              })
+            }),
+            'plumbingUsage': fb.group({
+              'waterQuantity': [0],
+              'cubicMeterPerMonth': [null],
+              'waterBill': [null],
+            })
+          }),
+          'other': fb.group({
+            'doing': [null],
+            'qualityProblem': fb.group({
+              'hasProblem': [null],
+              'problem': fb.group({
+                'turbidWater': [false],
+                'saltWater': [false],
+                'smell': [false],
+                'filmOfOil': [false],
+                'fogWater': [false],
+                'hardWater': [false],
+              })
+            }),
+            'plumbingUsage': fb.group({
+              'waterQuantity': [0],
+              'cubicMeterPerMonth': [null],
+              'waterBill': [null],
+            })
+          }),
+          'waterActivityMWA': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'waterActivityPWA': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'waterActivityOther': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'hasWaterNotRunning': [null],
+          'waterNotRunningCount': [null]
+        }),
+        'groundWater': fb.group({
+          'privateGroundWater': fb.group({
+            'doing': [null],
+            'allCount': [0],
+            'waterResourceCount': [0],
+            'waterResources': fb.array([])
+          }),
+          'publicGroundWater': fb.group({
+            'doing': [null],
+            'waterResourceCount': [0],
+            'waterResources': fb.array([])
+          })
+        }),
+        'river': fb.group({
+          'hasPump': [null],
+          'pumpCount': [0],
+          'pumps': fb.array([]),
+          'waterActivities': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'qualityProblem': fb.group({
+            'hasProblem': [null],
+            'problem': fb.group({
+              'turbidWater': [false],
+              'saltWater': [false],
+              'smell': [false],
+              'filmOfOil': [false],
+              'fogWater': [false],
+              'hardWater': [false],
+            })
+          })
+        }),
+        'pool': fb.group({
+          'doing': [null],
+          'waterResourceCount': [0],
+          'waterResources': fb.array([]),
+          'poolCount': [0],
+          'hasSameSize': [null],
+          'poolSizes': fb.array([]),
+        }),
+        'irrigation': fb.group({
+          'hasCubicMeterPerMonth': [null],
+          'cubicMeterPerMonth': [null],
+          'hasPump': [null],
+          'pumpCount': [0],
+          'pumps': fb.array([]),
+          'waterActivities': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+          'qualityProblem': fb.group({
+            'hasProblem': [null],
+            'problem': fb.group({
+              'turbidWater': [false],
+              'saltWater': [false],
+              'smell': [false],
+              'filmOfOil': [false],
+              'fogWater': [false],
+              'hardWater': [false],
+            })
+          })
+        }),
+        'rain': fb.group({
+          'rainContainers': fb.array([]),
+          'waterActivities': fb.group({
+            'drink': [0],
+            'plant': [0],
+            'farm': [0],
+            'agriculture': [0],
+            'product': [0],
+            'service': [0]
+          }),
+        }),
+        'buying': fb.group({
+          'package': fb.array([]),
+        })
+      }),
+      'disaster': fb.group({
+        'flooded': [null],
+        'yearsDisasterous': fb.array([]),
+        '_id': [null]
+      }),
+      'closing': fb.group({
+        'informer': [null],
+        'factorialCategoryCode': [0],
+        'serviceTypeCode': [0]
+      }),
+      'recCtrl': fb.group({
+        'createdDateTime': [Date],
+        'lastModified': [Date],
+        'deletedDateTime': [null],
+        'lastUpload': [null],
+        'lastDownload': [null],
+        'logs': fb.array([])
+      }),
+      'population': fb.group({
+        'personCount': [0],
+        'persons': fb.array([])
+      }),
+    });
+  }
+
+  sendIdUnit() {
+    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.get('_id').value));
+    let f = this.store.select(getHouseHoldSample);
+    f.subscribe(data => console.log("fffff", data));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 8)) {
+          arrayIsCheck.splice(0, arrayIsCheck.length);
+        }
+        console.log(arrayIsCheck);
+      }
     });
   }
 
   public showModalSetting() {
-    this.FormItem.get('subUnit.accessCount').setValue(this.index);
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
         this.setAccess();
+        let access = this.FormItem.get('subUnit.accesses') as FormArray;
+        let lastIndex = access.length - 1;
+        if (access.at(lastIndex).value == 1) {
+          this.sendIdUnit();
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          // this.navCtrl.push('WaterActivityUnitPage')
+        }
       }
     });
     modal.present();
@@ -104,15 +749,34 @@ export class UnitButtonComponent {
 
   public showModal() {
     if (this.access == 1) {
-      this.goWaterActivityUnitPage();
+      this.sendIdUnit();
+      this.navCtrl.push('WaterActivityUnitPage');
     }
-    else if (this.class != "complete" && this.class != "completeCm") {
+    else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
+
+      let count = this.FormItem.get('subUnit.accessCount').value + 1;
+      this.FormItem.get('subUnit.accessCount').setValue(count);
+      this.setupAccessCountChanges();
+      this.setupAccessCountChangesForComments();
+
       const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
       modal.onDidDismiss(data => {
         if (data) {
           var fg = <FormGroup>data;
           this.FormItem.setValue(fg.value);
           this.setAccess();
+          let access = this.FormItem.get('subUnit.accesses') as FormArray;
+          let lastIndex = access.length - 1;
+          if (access.at(lastIndex).value == 1) {
+            this.sendIdUnit();
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            // this.navCtrl.push('WaterActivityUnitPage')
+          }
+        }
+        else {
+          this.FormItem.get('subUnit.accessCount').setValue(count - 1);
+          this.setupAccessCountChanges();
+          this.setupAccessCountChangesForComments();
         }
       });
       modal.present();
@@ -123,47 +787,29 @@ export class UnitButtonComponent {
     this.submitRequested = true;
   }
 
-  goWaterActivityUnitPage() {
-    this.navCtrl.push('WaterActivityUnitPage');
-  }
-
-  ionViewDidEnter() {
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');
-    // this.formData$.subscribe(data => this.FormItem.setValue(data));
-    // this.DlgUnitPage.forEach(it => it.ionViewDidLoad());
-    // console.log('dasdsadsad');
-    // console.log(this.FormItem);
-
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  }
-
-  public static CreateAccess(fb: FormBuilder): FormGroup {
-    return fb.group({
-      'access': [null, Validators.required],
-    });
-  }
-
-  public static CreateComment(fb: FormBuilder): FormGroup {
-    return fb.group({
-      'at': [null],
-      'text': [''],
-    });
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setAccess() {
     this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
     this.fgcm = this.FormItem.get('comments') as FormArray;
     this.index = this.FormItem.get('subUnit.accessCount').value - 1;
-    this.access = this.fgac.at(this.index).value.access[0];
-    this.comment = this.fgcm.at(this.index).value.text[0];
-    this.allComment += (this.fgcm.at(this.index).value.text[0]) ? 'ครั้งที่ ' + (this.index + 1) + ' : ' + this.fgcm.at(this.index).value.text[0] + '<br>' : '';
+    this.index = (this.index < 0) ? 0 : this.index;
+    this.access = this.fgac.at(this.index).value;
+    this.comment = this.fgcm.at(this.index).value.text;
+
+    let text = '';
+    for (let i = 0; i < this.index + 1; i++) {
+      text += (this.fgcm.at(i).value.text != '') ? 'ครั้งที่ ' + (i + 1) + ' : ' + this.fgcm.at(i).value.text + '<br>' : '';
+    }
+    this.allComment = text;
+
     this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
     this.checkAccess();
   }
@@ -188,6 +834,8 @@ export class UnitButtonComponent {
         }
         break;
       case 4:
+        this.class = (this.allComment == '') ? "empty" : "emptyCm";
+        break;
       case 5:
         this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
@@ -203,5 +851,73 @@ export class UnitButtonComponent {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  public static CreateComment(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'at': [null],
+      'text': [''],
+    });
+  }
+
+  private setupAccessCountChanges() {
+    const componentFormArray: string = "subUnit.accesses";
+    const componentCount: string = "subUnit.accessCount";
+
+    var onComponentCountChanges = () => {
+      var accesses = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.FormItem.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < accesses.length) {
+          const fld = accesses[i];
+          ctrl = fld;
+        } else {
+          ctrl = new FormControl();
+        }
+
+        farr.push(ctrl);
+      }
+      let fgrp = this.FormItem.get('subUnit') as FormGroup;
+      fgrp.setControl('accesses', farr);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupAccessCountChangesForComments() {
+    const componentFormArray: string = "comments";
+    const componentCount: string = "subUnit.accessCount";
+
+    var onComponentCountChanges = () => {
+      var comments = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.FormItem.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < comments.length) {
+          const fld = comments[i];
+          ctrl = fld;
+        } else {
+          ctrl = UnitButtonComponent.CreateComment(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      this.FormItem.setControl(componentFormArray, farr);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 }

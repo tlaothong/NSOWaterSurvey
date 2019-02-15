@@ -5,6 +5,7 @@
       <ion-label>
         {{text}}
       </ion-label>
+
     </ion-item>
     <ion-item *ngIf="isValid('anycheck')">
       <span class="invalid-msg">
@@ -25,15 +26,15 @@
     </ion-item>
     <ion-item>
       <ion-label>
-        3. น้ำจากสระน้ำ
+        3. น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ
       </ion-label>
-      <ion-checkbox value="false" formControlName="pool"></ion-checkbox>
+      <ion-checkbox value="false" formControlName="river"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        4. น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ
+        4. น้ำจากสระน้ำส่วนบุคคล
       </ion-label>
-      <ion-checkbox value="false" formControlName="river"></ion-checkbox>
+      <ion-checkbox value="false" formControlName="pool"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
@@ -66,7 +67,7 @@
       <ion-checkbox value="false" formControlName="hasOther"></ion-checkbox>
     </ion-item>
 
-    <ion-item *ngIf="FormItem.get('hasOther').value || false">
+    <ion-item *ngIf="FormItem.get('hasOther').value == true">
       <ion-label>
         โปรดระบุ
       </ion-label>

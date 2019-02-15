@@ -3,12 +3,6 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 
-/**
- * Generated class for the DetailWaterManagementComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'detail-water-management',
   templateUrl: 'detail-water-management.html'
@@ -20,10 +14,10 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
 
   @Input('no') public fieldNo: string;
   private submitRequested: boolean;
+
   constructor(public fb: FormBuilder) {
     console.log('Hello DetailWaterManagementComponent Component');
     this.FormItem = DetailWaterManagementComponent.CreateFormGroup(fb);
-
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -36,16 +30,14 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       'useForOther': [false, Validators.required],
       'other': [null, Validators.required],
       'projectArea': PoolAreaComponent.CreateFormGroup(fb),
-    },{
-      validator: DetailWaterManagementComponent.checkAnyOrOther()
-    });
-   
+    }, {
+        validator: DetailWaterManagementComponent.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
-
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -56,7 +48,6 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       const useForService = c.get('useForService');
       const useForOther = c.get('useForOther');
       const other = c.get('other');
-
 
       if (!useForPlumbing.value && !useForFactory.value && !useForFarming.value && !useForOther.value && !useForService.value) {
         return { 'anycheck': true };
@@ -72,11 +63,11 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
 
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

@@ -8,55 +8,64 @@ import { NavController, PopoverController, ModalController } from 'ionic-angular
 export class HomePage {
 
   pages: Array<{ title: string, component: any }>;
-
+  // private getNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+  private i: number;
+  private checkDoing: boolean ;
   constructor(public navCtrl: NavController, public popoverCtrl: PopoverController,
     public modalCtrl: ModalController) {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
-      { title: 'Zero', component: "ZeroPage" },
+      // { title: 'Zero', component: "ZeroPage" },
+      { title: 'Login Test', component: "LoggingTestPage" },
       { title: 'Building Test', component: "BuildingTestPage" },
       { title: 'HouseHold Test', component: "HouseHoldTestPage" },
       { title: 'Community Test', component: "CommunityTestPage" },
       { title: 'Homesสำรวจน้ำ', component: "HomesPage" },
       { title: 'ระบบการจัดเก็บข้อมูลในครัวเรือน ครัวเรือนเกษตร สถานประกอบการ และพื้นที่ย่อย', component: "FirstpagePage" },
-      { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
-      { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
-      { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
-      { title: 'Menu', component: "MenudetailPage" },
-      { title: 'รับงาน', component: "GetworkPage" },
-      { title: 'เลือก EA', component: "SelectEaPage" },
-      { title: 'ส่งงาน', component: "SendPage" },
-      { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
-      { title: 'Unit', component: "UnitPage" },
-      { title: 'ตอนที่ 1', component: "BuildingInformation1Page" },
+      // { title: 'เปิดใช้งาน Tablet', component: "ScanqrPage" },
+      // { title: 'ยืนยันการเปลี่ยนรหัสผ่าน', component: "FirstloginPage" },
+      // { title: 'เข้าสู่ระบบ Tablet', component: "LoginPage" },
+      // { title: 'ยืนยันการเปิดใช้งาน Tablet', component: "ConfirmloginPage" },
+      // { title: 'Menu', component: "MenudetailPage" },
+      // { title: 'รับงาน', component: "GetworkPage" },
+      // { title: 'เลือก EA', component: "SelectEaPage" },
+      // { title: 'ส่งงาน', component: "SendPage" }, //14
+      { title: 'ตอนที่ 1', component: "BuildingInformation1Page" }, //16
       { title: 'ตอนที่ 2', component: "BuidlingInformation2Page" },
-      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" },
-      { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage" },
-      { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },
+      { title: 'Unit', component: "UnitPage" },
+      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage" }, //18
+      { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", },
+      { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage" },//20
       { title: 'ตอนที่ 2.2 พืชไร่ ', component: "DryCropPlantingPage" },
-      { title: 'ตอนที่ 2.3 ยางพารา', component: "RubberTreePage" },
+      { title: 'ตอนที่ 2.3 ยางพารา', component: "RubberTreePage" }, //22
       { title: 'ตอนที่ 2.4 พืชยืนต้น ไม้ผล สวนป่า', component: "PerennialPlantingPage" },
-      { title: 'ตอนที่ 2.5 พืชผัก สมุนไพร', component: "HerbsPlantPage" },
+      { title: 'ตอนที่ 2.5 พืชผัก สมุนไพร', component: "HerbsPlantPage" },//24
       { title: 'ตอนที่ 2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้ ', component: "FlowerCropPage" },
-      { title: 'ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด', component: "MushroomPage" },
+      { title: 'ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด', component: "MushroomPage" }, //26
       { title: 'ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร', component: "AnimalFarmPage" },
-      { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage" },
+      { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage" },//28
       { title: 'ตอนที่ 3 การผลิตสินค้า ', component: "FactorialPage" },
-      { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage" },
+      { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage" },//30
       { title: '5.1 น้้ำประปา ', component: "PlumbingPage" },
-      { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage" },
+      { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage" },//32
       { title: '5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ', component: "RiverPage" },
-      { title: '5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง ', component: "PoolPage" },
+      { title: '5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง ', component: "PoolPage" },//34
       { title: '5.5 น้ำจากชลประทาน', component: "IrrigationPage" },
-      { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage" },
+      { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage" },//36
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage" },
-      { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
+      { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },//38
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
-      { title: 'Disaster', component: "DisasterPage" },
+      { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },//40
+      // { title: 'Disaster', component: "DisasterPage", value: 23 },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
-      { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
+      { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },//42
+      { title: 'หน้าเลือก activity', component: "WaterActivityUnitPage" },
     ];
+  }
+
+  public ionViewDidEnter() {
+   
   }
 
   public openPage(page) {
@@ -64,10 +73,10 @@ export class HomePage {
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
   }
-  Unit(){
+
+  Unit() {
 
     const modal = this.modalCtrl.create("DlgUnitPage");
     modal.present();
   }
-
 }

@@ -1,26 +1,31 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController, ViewController } from 'ionic-angular';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { Store } from '@ngrx/store';
+import { getStoreWorkEaOneRecord } from '../../states/logging';
 
-/**
- * Generated class for the QuestionnaireMenuPopoverComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'questionnaire-menu-popover',
   templateUrl: 'questionnaire-menu-popover.html'
 })
 export class QuestionnaireMenuPopoverComponent {
 
-  text: string;
+  public dataWorkEARow: any;
   private navCtrl: NavController;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController) {
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>) {
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
-    this.text = 'Hello World';
 
     this.navCtrl = navParams.get('nav');
+  }
+
+  ionViewDidLoad() {
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.dataWorkEARow = data
+      }
+    });
   }
 
   public goHome() {

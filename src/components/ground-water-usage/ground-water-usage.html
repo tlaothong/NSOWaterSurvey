@@ -1,6 +1,6 @@
 <div [formGroup]="FormItem">
-  <ion-card>
 
+  <ion-card>
     <ion-card-content>
 
       <ion-item>
@@ -16,7 +16,7 @@
       </ion-item>
 
       <div formGroupName="usageType">
-        <ion-row radio-group formControlName="groundWaterQuantity" [class.invalid]="isValid('usageType.groundWaterQuantity')">
+        <ion-row radio-group formControlName="groundWaterQuantity" [class.invalid]="isValid('usageType.groundWaterQuantity')" (ionChange)="setDefult()">
           <ion-item *ngIf="isValid('usageType.groundWaterQuantity')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -79,67 +79,80 @@
         </div>
       </div>
 
-      <ion-item>
-        <ion-label>
-          2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
-        </ion-label>
-      </ion-item>
-
-      <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
-        <ion-item *ngIf="isValid('hasPump')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item>
-        <ion-item col-6>
-          <ion-radio [value]="true" item-left></ion-radio>
+      <div *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 3">
+        <ion-item>
           <ion-label>
-            ใช้
+            2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
           </ion-label>
         </ion-item>
-        <ion-item col-6>
-          <ion-radio [value]="false" item-left></ion-radio>
-          <ion-label>
-            ไม่ใช้
-          </ion-label>
-        </ion-item>
-      </ion-row>
 
-      <div [ngSwitch]="FormItem.get('hasPump').value">
-        <div *ngSwitchCase="true">
-          <ion-item>
-            <ion-label>
-              3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
-            </ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="pumpCount" [class.invalid]="isValid('pumpCount')"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="isValid('pumpCount')">
+        <ion-row radio-group formControlName="hasPump" [class.invalid]="isValid('hasPump')">
+          <ion-item *ngIf="isValid('hasPump')">
             <span class="invalid-msg">
-              กรุณากรอกข้อมูล
+              กรุณาเลือก
             </span>
           </ion-item>
+          <ion-item col-6>
+            <ion-radio [value]="true" item-left></ion-radio>
+            <ion-label>
+              ใช้
+            </ion-label>
+          </ion-item>
+          <ion-item col-6>
+            <ion-radio [value]="false" item-left></ion-radio>
+            <ion-label>
+              ไม่ใช้
+            </ion-label>
+          </ion-item>
+        </ion-row>
+
+
+        <div [ngSwitch]="FormItem.get('hasPump').value">
+          <div *ngSwitchCase="true">
+            <ion-item>
+              <ion-label>
+                3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="pumpCount" [class.invalid]="isValid('pumpCount')"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isValid('pumpCount')">
+              <span class="invalid-msg">
+                กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+          </div>
         </div>
-
       </div>
-
-
     </ion-card-content>
   </ion-card>
 
   <div *ngIf="FormItem.get('hasPump').value && FormItem.get('pumpCount').value > 0">
     <div *ngFor="let p of FormItem.get('pumps').controls; let i = index">
-      <pump [no]="i + 1" [FormItem]="p"></pump>
+      <pump [no]="i + 1" [FormItem]="p" [G]="true"></pump>
     </div>
   </div>
 
+  <div *ngIf="residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'">
+    <ion-card>
+      <ion-card-content>
+        <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="5) ใช้น้ำจากบ่อนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"
+          [FormItem]="FormItem.get('waterActivities')"
+          activeRes="{{activeRes}}"
+          activeWateringRes="{{activeWateringRes}}"
+          activRice="{{activRice}}"
+          activeAgi="{{activeAgi}}"
+          activeFac="{{activeFac}}"
+          activeCom="{{activeCom}}"></water-activity6>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
   <ion-card>
-    <ion-card-content>
-      <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" headline="5) ใช้น้ำจากบ่อนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร" [FormItem]="FormItem.get('waterActivities')"></water-activity6>
-      <water-problem6 headline="6) มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="FormItem.get('qualityProblem')"></water-problem6>
-    </ion-card-content>
+    <water-problem6 headline="6) มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="FormItem.get('qualityProblem')"></water-problem6>
   </ion-card>
 
 </div>

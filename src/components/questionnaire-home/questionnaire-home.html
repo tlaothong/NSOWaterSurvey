@@ -1,16 +1,16 @@
 <ion-list>
   <ion-list-header>
-    ตะวันออกเฉียงเหนือ<br />
-    ขอนแก่น <br />
-    เมืองของแก่น <br />
-    ในเมือง <br />
-    1 018
+    {{ data.properties.pro_name }} <br />
+    {{ data.properties.dis_name }} <br />
+    {{ data.properties.tam_name }} <br />
+    {{ str }}
+    {{ data.properties.ea_code_14 }}
   </ion-list-header>
 
   <div no-lines>
     <ion-item>
       <h3>
-        EA: 44001011099<b>264</b>
+        EA: {{data._id}}
       </h3>
     </ion-item>
   </div>

@@ -1,14 +1,15 @@
 <ion-header>
 
-  <questionnaire-menu title="พืชยืนต้น ไม้ผล สวนป่า "></questionnaire-menu>
+  <back-to-root title="พืชยืนต้น ไม้ผล สวนป่า "></back-to-root>
 
 </ion-header>
 
 <ion-content padding>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="PerennialPlantingFrm">
 
-
     <h3>ตอนที่ 2.4 พืชยืนต้น ไม้ผล สวนป่า</h3>
+
     <ion-card>
       <ion-card-content>
         <dl>
@@ -27,7 +28,6 @@
         </dl>
 
       </ion-card-content>
-
     </ion-card>
 
     <ion-card>
@@ -80,14 +80,14 @@
       </ion-card-content>
     </ion-card>
 
-
     <div *ngIf="PerennialPlantingFrm.get('fieldCount').value > 0 && PerennialPlantingFrm.get('doing').value">
       <div *ngFor="let p of PerennialPlantingFrm.get('fields').controls;let i = index">
         <field-perenial-planting [no]="i+1" [FormItem]="p"></field-perenial-planting>
       </div>
     </div>
+    
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
-    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>

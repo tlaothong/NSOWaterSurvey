@@ -1,68 +1,84 @@
 <ion-header>
 
-  <questionnaire-menu title="น้ำที่ซื้อมาใช้"></questionnaire-menu>
+  <back-to-root title="น้ำที่ซื้อมาใช้"></back-to-root>
 
 </ion-header>
 
 <ion-content padding>
 
   <h3>5.7 น้ำที่ซื้อมาใช้</h3>
-  <ion-card>
-    <ion-card-content>
+  <form (ngSubmit)="handleSubmit()">
 
-      <ion-item>
-        <ion-label>
-          5.7.1 น้ำที่ซื้อมาใช้ มีบรรจุภัณฑ์ชนิดใดบ้าง มีขนาดบรรจุเท่าใด
-          <br> และโดยเฉลี่ยต่อเดือนแล้ว ซื้อมาเพื่อใช้ในแต่ละกิจกรรม
-          <br> เป็นจำนวนเท่าไร
-        </ion-label>
-      </ion-item>
+    <ion-card>
+      <ion-card-content>
 
-      <ion-row text-center align-items-center>
-        <ion-col col-5>
-          <ion-row>
-            <ion-col col-7>
-              <br><b>ชนิด</b>
-            </ion-col>
-            <ion-col>
-              <b>ขนาด</b><br><b>บรรจุภัณฑ์</b>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-        <ion-col col-7>
-          <ion-row>
-            <ion-col>
-              <ion-label>
-                <b>จำนวนที่ซื้อต่อเดือน</b>
-              </ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              เพื่ออุปโภค<br>บริโภค
-            </ion-col>
-            <ion-col>
-              เพื่อทำ<br>การเกษตร
-            </ion-col>
-            <ion-col>
-              เพื่อผลิต<br>สินค้า
-            </ion-col>
-            <ion-col>
-              เพื่อการ<br>บริการ
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label>
+            5.7.1 น้ำที่ซื้อมาใช้ มีบรรจุภัณฑ์ชนิดใดบ้าง มีขนาดบรรจุเท่าใด
+            <br> และโดยเฉลี่ยต่อเดือนแล้ว ซื้อมาเพื่อใช้ในแต่ละกิจกรรม
+            <br> เป็นจำนวนเท่าไร
+          </ion-label>
+        </ion-item>
 
-      <table-buying headline="1. ขวด" size="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(0)"></table-buying>
-      <table-buying headline="2. ถัง" [FormItem]="BuyingForm.get('package').at(1)"></table-buying>
-      <table-buying headline="3. แทงค์" [FormItem]="BuyingForm.get('package').at(2)"></table-buying>
-      <table-buying headline="4. รถ" [FormItem]="BuyingForm.get('package').at(3)"></table-buying>
-      <table-buying-other [FormItem]="BuyingForm.get('package').at(4)"></table-buying-other>
+        <ion-row text-center align-items-center>
+          <ion-col col-5>
+            <ion-row>
+              <ion-col col-7>
+                <br><b>ชนิด</b>
+              </ion-col>
+              <ion-col>
+                <b>ขนาด</b><br><b>บรรจุภัณฑ์</b>
+              </ion-col>
+            </ion-row>
+          </ion-col>
 
-    </ion-card-content>
-  </ion-card>
+          <ion-col col-7>
+            <ion-row>
+              <ion-col>
+                <ion-label>
+                  <b>จำนวนที่ซื้อต่อเดือน</b>
+                </ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col *ngIf="getIsHouseHold == true">
+                เพื่ออุปโภค<br>บริโภค
+              </ion-col>
+              <ion-col *ngIf="getIsAgriculture == true">
+                เพื่อทำ<br>การเกษตร
+              </ion-col>
+              <ion-col *ngIf="getIsFactorial == true">
+                เพื่อผลิต<br>สินค้า
+              </ion-col>
+              <ion-col *ngIf="getIsCommercial == true">
+                เพื่อการ<br>บริการ
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
 
-  <form-buttons-bar></form-buttons-bar>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="1. ขวด" size="350" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(0)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="2. ขวด" size="500" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(1)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="3. ขวด" size="750" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(2)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="4. ขวด" size="1000" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(3)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="5. ขวด" size="1500" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(4)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="6. ถัง" [FormItem]="BuyingForm.get('package').at(5)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="7. แทงค์" [FormItem]="BuyingForm.get('package').at(6)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" headline="8. รถ" [FormItem]="BuyingForm.get('package').at(7)"></table-buying>
+        <table-buying-other getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
+          getIsCommercial="{{getIsCommercial}}" [FormItem]="BuyingForm.get('package').at(8)"></table-buying-other>
 
+      </ion-card-content>
+    </ion-card>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
+
+  </form>
 </ion-content>

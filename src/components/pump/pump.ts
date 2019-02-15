@@ -2,28 +2,34 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-/**
- * Generated class for the PoolComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { surfacePumpTypeData } from '../../models/SurfacePumpTypeData';
+import { PumpDataProvider } from '../../providers/pump-data/pump-data';
+import { surfaceWattHpData } from '../../models/SurfaceWattHpData';
+import { surfaceSuctionPipeData } from '../../models/SurfaceSuctionPipeData';
+import { groundWaterPumpTypeData } from '../../models/GroundPumpTypeData';
+import { groundWaterSuctionPipeData } from '../../models/GroundSuctionPipeData';
+import { groundWaterWattHpData } from '../../models/GroundWattHpData';
+
 @Component({
   selector: 'pump',
   templateUrl: 'pump.html'
 })
+
 export class PumpComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
-  @Input('no') text: string;
-
+  @Input('G') public G: boolean;
+  @Input('no') public text: string;
   private submitRequested: boolean;
+  public surfacePumpTypeData = surfacePumpTypeData;
+  public pumpTypes: any;
+  public wattHpData: any;
+  public suctionPipeData: any;
+  public pipeLineData: any;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController,
     public navParams: NavParams, public fb: FormBuilder) {
-
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
-
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -39,6 +45,38 @@ export class PumpComponent implements ISubmitRequestable {
       'suctionPipeSize': [null, Validators.required],
       'pipelineSize': [null, Validators.required]
     });
+  }
+
+  public checkValid(): boolean {
+    if (this.FormItem.get('pumpAuto').value != null) {
+      if (this.FormItem.get('pumpAuto').value == true) {
+        return true;
+      }
+      if (this.FormItem.get('pumpAuto').value == false) {
+        if ((this.FormItem.get('hoursPerPump').value != null)
+          && (this.FormItem.get('numberOfPumpsPerYear') != null)
+          && (this.FormItem.get('hasPumpRate').value != null)) {
+          if ((this.FormItem.get('hasPumpRate').value == true)
+            && (this.FormItem.get('pumpRate').value != null)) {
+            return true;
+          }
+          if ((this.FormItem.get('hasPumpRate').value == false)
+            && (this.FormItem.get('energySource').value > 0)
+            && (this.FormItem.get('pumpType').value != null)
+            && (this.FormItem.get('horsePower').value != null)
+            && (this.FormItem.get('suctionPipeSize').value != null)
+            && (this.FormItem.get('pipelineSize').value != null)) {
+            return true;
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      }
+    } else {
+      return false
+    }
   }
 
   public showModalArea() {
@@ -58,8 +96,60 @@ export class PumpComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
+  onChange(code: any) {
+    if (this.G == true) {
+      this.pumpTypes = PumpDataProvider.getGroundWaterPumpTypeData(code);
+    }
+    else {
+      this.pumpTypes = PumpDataProvider.getSurfacePumpTypeData(code);
+    }
 
+  }
+
+  onChange1(name: string) {
+    if (this.G == true) {
+      let code = groundWaterPumpTypeData.find(it => it.name == name);
+      this.wattHpData = PumpDataProvider.getGroundWaterWattHpData(code.codePumpType);
+    }
+    else {
+      let code = surfacePumpTypeData.find(it => it.name == name);
+      this.wattHpData = PumpDataProvider.getSurfaceWattHpData(code.codePumpType);
+    }
+    console.log(this.wattHpData)
+  }
+
+  onChange2(name: string) {
+    if (this.G == true) {
+      let code = groundWaterWattHpData.find(it => it.name == name);
+      this.suctionPipeData = PumpDataProvider.getGroundWaterSuctionPipeData(code.codeWattHp);
+    }
+    else {
+      let code = surfaceWattHpData.find(it => it.name == name);
+      this.suctionPipeData = PumpDataProvider.getSurfaceSuctionPipeData(code.codeWattHp);
+    }
+    console.log(this.suctionPipeData)
+  }
+
+  onChange3(name: string) {
+    if (this.G == true) {
+      let code = groundWaterSuctionPipeData.find(it => it.name == name);
+      this.pipeLineData = PumpDataProvider.getGroundWaterPipeLineData(code.codeSuction);
+    }
+    else {
+      let code = surfaceSuctionPipeData.find(it => it.name == name);
+      this.pipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
+    }
+    console.log(this.pipeLineData);
+  }
+
+  picture() {
+    let profileModal = this.modalCtrl.create("DlgPumpPicturePage", {
+      checkg: this.G,
+      val: this.FormItem.get('energySource').value
+    });
+    profileModal.present();
+  }
 }

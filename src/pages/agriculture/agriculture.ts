@@ -1,6 +1,11 @@
+import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetArraySkipPageAgiculture, SetSelectorIndex, } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { map } from 'rxjs/operators';
+import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getHouseHoldSample } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -8,25 +13,47 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
   templateUrl: 'agriculture.html',
 })
 export class AgriculturePage {
-
   private submitRequested: boolean;
   public f: FormGroup;
-
-  constructor(public navCtrl: NavController, public fb: FormBuilder, public navParams: NavParams) {
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
+  private frontNum: any;
+  private backNum: any;
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
-      "ricePlant": [false, Validators.required],
-      'agronomyPlant': [false, Validators.required],
-      'rubberTree': [false, Validators.required],
-      'perennialPlant': [false, Validators.required],
-      'herbsPlant': [false, Validators.required],
-      'flowerCrop': [false, Validators.required],
-      'mushroomPlant': [false, Validators.required],
-      'animalFarm': [false, Validators.required],
-      'aquaticAnimals': [false, Validators.required],
+      "ricePlant": this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'agronomyPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'rubberTree': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'perennialPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'herbsPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'flowerCrop': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'mushroomPlant': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'animalFarm': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
+      'aquaticAnimals': this.fb.group({
+        'doing': [false, Validators.required],
+      }),
     }, {
         validator: AgriculturePage.checkAnyOrOther()
       });
   }
+
+
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
@@ -51,20 +78,81 @@ export class AgriculturePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AgriculturePage');
+    this.countNumberPage();
+    this.formDatAgiculture$.subscribe(data => {
+      if (data != null) {
+        console.log("data agi", data);
+
+        this.f.patchValue(data)
+      }
+    });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     console.log(this.submitRequested);
+
+
+    if (!this.isValid('anycheck')) {
+      this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+
+      this.arrayIsCheckMethod();
+      this.navCtrl.popTo("CheckListPage");
+    }
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(1));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+
+        if (arrayIsCheck.every(it => it != 1)) {
+          arrayIsCheck.push(1);
+        }
+
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     if (name == 'anycheck') {
       ctrl = this.f;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

@@ -1,13 +1,9 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>เลือก EA</ion-title>
-  </ion-navbar>
-
+  <back-to-root-login title="เลือก EA"></back-to-root-login>
 </ion-header>
 
-
 <ion-content padding>
+
   <ion-row text-center align-items-center>
     <ion-col col-2>
       <b>จังหวัด</b>
@@ -31,34 +27,30 @@
     </ion-col>
   </ion-row>
   <hr>
-  <ion-row text-center align-items-center>
+
+  <ion-row *ngFor="let item of dataEa" text-center align-items-center>
     <ion-col col-2>
-      นครศรีธรรมราช
+      {{ item.properties.pro_name }}
     </ion-col>
     <ion-col col-2>
-      จตุรพักตรพิมาน
+      {{ item.properties.dis_name }}
     </ion-col>
     <ion-col col-2>
-      ตำบลควนหนองหงษ์
+      {{ item.properties.tam_name }}
     </ion-col>
     <ion-col col-2>
-      ในเขตเทศบาล
+      {{ item.properties.ea_type }}
     </ion-col>
     <ion-col col-2>
-      เทศบาลตำบลสำราญราษฎร์
+      {{ item.properties.muni_name }}
     </ion-col>
     <ion-col col-1>
-      018
+      {{ item.properties.ea_code_14 }}
     </ion-col>
     <ion-col col-1>
-      <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage()">
+      <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
         เลือก
       </button>
     </ion-col>
   </ion-row>
-
-  <div padding text-center>
-    <button ion-button text-center (click)="goBack()">ย้อนกลับ</button>
-  </div>
-
 </ion-content>

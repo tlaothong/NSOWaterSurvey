@@ -1,13 +1,14 @@
-import { SetRubberTreeSelectPlant } from './../../states/household/household.actions';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
+import { getHouseHoldSample, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample } from '../../states/household';
-import { map } from 'rxjs/operators';
+import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -16,46 +17,104 @@ import { map } from 'rxjs/operators';
 })
 export class RubberTreePage {
 
-  private submitRequested: boolean;
-  public rubbertree: FormGroup;
-  // TODO
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
-  DataList = EX_RUBBER_LIST;
+  public rubbertree: FormGroup;
+  private submitRequested: boolean;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData: any;
+  public DataList = EX_RUBBER_LIST;
+  private frontNum: any;
+  private backNum: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
-
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
       'fields': fb.array([]),
-      "_id": [null],
     });
 
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RubberTreePage');
-    //TODO
-    this.formData$.subscribe(data => this.rubbertree.setValue(data));
-  }
-
-  ionViewDidEnter() {
-
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.rubbertree.setValue(data.agriculture.rubberTree)
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
+        // this.formData$.subscribe(data =>{
+        //   if(data != null){
+        //   }
+        // })
+      }
+    })
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-    console.log("TTTTTTTTTTTTT");
-    console.log(this.DataList);
-
+    this.store.dispatch(new SetAgiSelectRubber(true));
+    this.formData.agriculture.rubberTree = this.rubbertree.value;
+    if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.popTo("CheckListPage");
+    }
   }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(4));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data;
+
+        if (arrayIsCheck.every(it => it != 4)) {
+          arrayIsCheck.push(4);
+        }
+
+        console.log(arrayIsCheck);
+      }
+    });
+  }
+
 
   public isValid(name: string): boolean {
     var ctrl = this.rubbertree.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

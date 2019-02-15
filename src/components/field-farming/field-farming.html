@@ -1,5 +1,7 @@
 <ion-card [formGroup]="FormItem">
+
   <ion-card-content>
+
     <ion-item>
       <ion-label>
         <b>แปลงที่ {{ fieldNo }}</b>
@@ -11,7 +13,6 @@
         1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
       </ion-label>
     </ion-item>
-
     <location [FormItem]="FormItem.get('location')"></location>
 
     <ion-item>
@@ -19,9 +20,7 @@
         2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
       </ion-label>
     </ion-item>
-    <!-- do -->
     <field-area [FormItem]="FormItem.get('area')"></field-area>
-
 
     <ion-item>
       <ion-label>
@@ -31,10 +30,9 @@
     <ion-item>
       <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plantingCount" [class.invalid]="isValid('plantingCount')"></ion-input>
     </ion-item>
-
     <ion-item *ngIf="isValid('plantingCount')">
       <span class="invalid-msg">
-        กรุณากรอกข้อมูล
+        กรอกพื้นที่ทำนา ไม่เกิน 4 ครั้ง
       </span>
     </ion-item>
 
@@ -77,7 +75,14 @@
             ทำเท่ากันทุกแปลง
           </ion-label>
         </ion-item>
-        <field-area [FormItem]="FormItem.get('areaUsed').at(0)"></field-area>
+        <ion-item *ngIf="isCheckArea(FormItem.get('areaUsed').at(0))">
+          <span class="invalid-msg">
+            กรุณาตรวจสอบขนาดพื้นที่จากข้อ 2
+          </span>
+        </ion-item>
+        <div [class.invalid]="isCheckArea(FormItem.get('areaUsed').at(0))">
+          <field-area [FormItem]="FormItem.get('areaUsed').at(0)"></field-area>
+        </div>
       </div>
       <div *ngSwitchCase="3">
         <ion-item>
@@ -86,24 +91,32 @@
           </ion-label>
         </ion-item>
         <div *ngFor="let far of FormItem.get('areaUsed').controls; let i = index">
-          <field-area headline="ครั้งที่ {{ i + 1 }} " [FormItem]="far"></field-area>
+          <ion-item *ngIf="isCheckArea(far)">
+            <span class="invalid-msg">
+              กรุณาตรวจสอบขนาดพื้นที่จากข้อ 2
+            </span>
+          </ion-item>
+          <div [class.invalid]="isCheckArea(far)">
+            <field-area headline="ครั้งที่ {{ i + 1 }} " [FormItem]="far"></field-area>
+          </div>
         </div>
       </div>
     </div>
 
     <div *ngIf="FormItem.get('plantingCount').value > 0">
       <div *ngFor="let har of FormItem.get('harvests').controls; let i = index">
-        <!-- do -->
-        <field-rice-harvest [FormItem]="har" [i]="i + 1"></field-rice-harvest>
+        <div *ngIf="i<4">
+          <field-rice-harvest [FormItem]="har" [i]="i + 1" [FormArray]="FormItem.get('harvests')"></field-rice-harvest>
+        </div>
       </div>
     </div>
-
 
     <ion-item>
       <ion-label>
         8) นาแปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
       </ion-label>
     </ion-item>
+
     <ion-row radio-group formControlName="irrigationField" [class.invalid]="isValid('irrigationField')">
       <ion-item *ngIf="isValid('irrigationField')">
         <span class="invalid-msg">
@@ -124,7 +137,6 @@
       </ion-item>
     </ion-row>
 
-    <!-- do -->
     <water-sources8-a headline="9) นาแปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)" [FormItem]="FormItem.get('waterSources')"></water-sources8-a>
 
   </ion-card-content>

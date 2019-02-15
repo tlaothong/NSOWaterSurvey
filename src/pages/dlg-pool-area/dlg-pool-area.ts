@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 
 @IonicPage()
 @Component({
@@ -15,6 +16,9 @@ export class DlgPoolAreaPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem').get('rectangle');
     this.text = navParams.get("headline");
+    // this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
+    //const datain = navParams.get('FormItem') as FormGroup;
+    // this.FormItem.setValue(datain.value);
   }
 
   public closeDialog() {
@@ -31,7 +35,7 @@ export class DlgPoolAreaPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && ctrl.touched;
+    return ctrl.invalid && ctrl.dirty;
   }
 
 }

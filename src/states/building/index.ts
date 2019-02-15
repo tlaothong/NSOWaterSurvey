@@ -8,12 +8,27 @@ export const getBuildingSample = createSelector(
     getBuildingFeatureState,
     state => state.buildingSample,
 );
+
 export const getRecieveDataFromBuilding = createSelector(
     getBuildingFeatureState,
     state => state.recieveDataFromBuilding,
 );
+
 export const getSendBuildingType = createSelector(
     getBuildingFeatureState,
     state => state.sendBuildingType,
 );
+
+export const setHomeBuilding = createSelector(
+    getBuildingFeatureState,
+    state => state.setDataBuilding,
+);
+
+export const getOtherBuildingType = createSelector(
+    getBuildingFeatureState,
+    state => state.otherBuildingType,
+);
+
+
+
 

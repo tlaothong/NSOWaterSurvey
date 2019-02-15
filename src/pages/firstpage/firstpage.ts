@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the FirstpagePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Store } from '@ngrx/store';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetIsCheckShow } from '../../states/logging/logging.actions';
 
 @IonicPage()
 @Component({
@@ -15,17 +11,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FirstpagePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private store: Store<LoggingState>, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstpagePage');
   }
+
   goScanqrPage() {
-    this.navCtrl.push("ScanqrPage")
-  }
-  goLoginPage() {
-    this.navCtrl.push("LoginPage")
+    this.store.dispatch(new SetIsCheckShow(true));
+    this.navCtrl.pop();
   }
 
+  goLoginPage() {
+    this.store.dispatch(new SetIsCheckShow(false));
+    this.navCtrl.pop();
+  }
+
+  
 }

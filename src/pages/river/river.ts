@@ -6,8 +6,9 @@ import { WaterActivity6Component } from '../../components/water-activity6/water-
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -17,19 +18,42 @@ import { map } from 'rxjs/operators';
 export class RiverPage {
 
   private submitRequested: boolean;
-  f: FormGroup;
+  public f: FormGroup;
+  public G: boolean = false;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
-
   private riceDoing$ = this.store.select(getRiceDoing);
   public riceDoing: boolean;
-
+  private commerceUse$ = this.store.select(getIsCommercial);
+  public commerceUse: boolean;
+  private factoryUse$ = this.store.select(getIsFactorial);
+  public factoryUse: boolean;
+  private residenceUse$ = this.store.select(getIsHouseHold);
+  public residenceUse: boolean;
+  private agricultureUse$ = this.store.select(getIsAgriculture);
+  public agricultureUse: boolean;
+  private activityResidential$ = this.store.select(getWaterSourcesResidential);
+  private activityResidential: any;
+  private activityWateringRes$ = this.store.select(getWateringResidential);
+  private activityWateringRes: any;
+  private activityRice$ = this.store.select(getWaterSourcesRice);
+  private activityRice: any;
+  private activityAgiculture$ = this.store.select(getWaterSourcesAgiculture);
+  private activityAgiculture: any;
+  private activityFactory$ = this.store.select(getWaterSourcesFactory);
+  private activityFactory: any;
+  private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
+  private activityCommercial: any;
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       "hasPump": [null, Validators.required],
@@ -37,7 +61,7 @@ export class RiverPage {
       "pumps": this.fb.array([]),
       "waterActivities": WaterActivity6Component.CreateFormGroup(fb),
       "qualityProblem": this.fb.group({
-        "hasProblem": [null, Validators.required],
+        "hasProblem": [null],
         "problem": WaterProblem4Component.CreateFormGroup(this.fb)
       })
     });
@@ -45,13 +69,70 @@ export class RiverPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data.waterUsage.river);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
+      }
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
+    this.commerceUse$.subscribe(data => this.commerceUse = data);
+    this.factoryUse$.subscribe(data => this.factoryUse = data);
+    this.residenceUse$.subscribe(data => this.residenceUse = data);
+    this.agricultureUse$.subscribe(data => this.agricultureUse = data);
+    this.activityResidential$.subscribe(data => {
+      this.activityResidential = (data != null) ? data.river : null;
+    });
+    this.activityWateringRes$.subscribe(data => {
+      this.activityWateringRes = (data != null) ? data : null;
+    });
+    this.activityRice$.subscribe(data => {
+      this.activityRice = (data != null) ? data.river : null;
+    });
+    this.activityAgiculture$.subscribe(data => {
+      this.activityAgiculture = (data != null) ? data : null;
+    });
+    this.activityFactory$.subscribe(data => {
+      this.activityFactory = (data != null) ? data.river : null;
+    });
+    this.activityCommercial$.subscribe(data => {
+      this.activityCommercial = (data != null) ? data.river : null;
+    });
+    this.changeValueActivity();
+    console.log("activityResidential", this.activityResidential);
+    console.log("activityWateringRes", this.activityWateringRes);
+    console.log("activityRice", this.activityRice);
+    console.log("activityAgiculture", this.activityAgiculture);
+    console.log("activityFactory", this.activityFactory);
+    console.log("activityCommercial", this.activityCommercial);
   }
 
-  ionViewDidEnter() {
-
+  changeValueActivity() {
+    if (this.activityResidential == false) {
+      this.activityResidential = null;
+    }
+    if (this.activityWateringRes == false) {
+      this.activityWateringRes = null;
+    }
+    if (this.activityRice == false) {
+      this.activityRice = null;
+    }
+    if (this.activityAgiculture == false) {
+      this.activityAgiculture = null;
+    }
+    if (this.activityFactory == false) {
+      this.activityFactory = null;
+    }
+    if (this.activityCommercial == false) {
+      this.activityCommercial = null;
+    }
   }
 
   public handleSubmit() {
@@ -59,11 +140,80 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.formData.waterUsage.river = this.f.value;
+    if (this.checkValid()) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.setRoot("CheckListPage");
+    }
+  }
+
+  checkValid(): boolean {
+    let pumps = true;
+    let activity = !this.waterActivity6.find(it => it.totalSum != 100);
+    let problem: boolean;
+    if ((this.f.get('hasPump').value != null) && (this.f.get('hasPump').value == true)) {
+      if (this.f.get('pumpCount').value > 0) {
+        pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid();
+      }
+    }
+    if ((this.f.get('hasPump').value != null) && (this.f.get('hasPump').value == false)) {
+      pumps = true;
+    }
+    if (!this.f.get('qualityProblem.hasProblem').value) {
+      problem = true;
+    } else {
+      problem = this.f.get('qualityProblem.problem').valid;
+    }
+    return pumps && activity && problem;
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(15));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 15)) {
+          arrayIsCheck.push(15);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupPumpCountChanges() {

@@ -1,5 +1,7 @@
 <ion-header>
-  <questionnaire-menu title="พืชผัก สมุนไพร "></questionnaire-menu>
+
+  <back-to-root title="พืชผัก สมุนไพร "></back-to-root>
+
 </ion-header>
 
 <ion-content padding>
@@ -72,11 +74,12 @@
 
     <div *ngIf="f.get('doing').value && f.get('fieldCount').value > 0">
       <div *ngFor="let far of f.get('fields').controls; let i = index">
-        <field-herbs-plant [no]="i + 1" [forwardListPlant]="listSumData" [FormItem]="far"></field-herbs-plant>
+        <field-herbs-plant [no]="i + 1" [forwardListPlant]="listSumData" [FormItem]="far" agiselectrice="{{getAgiSelectRice}}"
+          agiselectagronomy="{{getAgiSelectAgronomy}}" agiselectrubber="{{getAgiSelectRubber}}" agiselectperennial="{{getAgiSelectPerennial}}"></field-herbs-plant>
       </div>
     </div>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 </ion-content>

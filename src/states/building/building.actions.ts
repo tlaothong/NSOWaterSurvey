@@ -8,21 +8,22 @@ export enum BuildingTypes {
     LoadSuccess = "[BLD] Load Success",
     SetSendDataBuilding = "[BLD] Send Data Building",
     SetSendBuildingType = "[BLD] Send Building Type",
-    SetRecieveDataFromBuilding= "[BLD] Recieve Data From Building"
+    SetRecieveDataFromBuilding = "[BLD] Recieve Data From Building",
+    SetHomeBuilding = "[BLD] Set HomeBuilding",
+    SetHomeBuildingSuccess = "[BLD] Set HomeBuilding Success",
+    SetOtherBuildingType = "[BLD] Set Other Building Type"
 }
-
-
 
 export class LoadBuildingList implements Action {
     readonly type = BuildingTypes.LoadList;
-    
+
     constructor() {
     }
 }
 
 export class LoadBuildingListSuccess implements Action {
     readonly type = BuildingTypes.LoadListSuccess;
-    
+
     constructor() {
     }
 }
@@ -54,7 +55,31 @@ export class SetSendBuildingType implements Action {
     }
 }
 
+export class SetSendDataBuilding implements Action {
+    readonly type = BuildingTypes.SetSendDataBuilding;
 
+    constructor(public payload: any) {
+    }
+}
+export class SetHomeBuilding implements Action {
+    readonly type = BuildingTypes.SetHomeBuilding;
+
+    constructor(public payload: any) {
+    }
+}
+export class SetHomeBuildingSuccess implements Action {
+    readonly type = BuildingTypes.SetHomeBuildingSuccess;
+
+    constructor(public payload: any) {
+    }
+}
+
+export class SetOtherBuildingType implements Action {
+    readonly type = BuildingTypes.SetOtherBuildingType;
+
+    constructor(public payload: any) {
+    }
+}
 
 export type BuildingActionsType =
     LoadBuildingList
@@ -64,4 +89,8 @@ export type BuildingActionsType =
     | SetSendDataBuilding
     | SetSendBuildingType
     | SetRecieveDataFromBuilding
+    | SetHomeBuilding
+    | SetHomeBuildingSuccess
+    | SetOtherBuildingType
+   
     ;

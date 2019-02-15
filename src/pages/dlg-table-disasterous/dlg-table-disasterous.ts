@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 
 @IonicPage()
 @Component({
@@ -12,11 +13,12 @@ export class DlgTableDisasterousPage {
   public FormItem: FormGroup;
   public text: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
-    this.FormItem = navParams.get('FormItem');
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder ) {
+    this.FormItem = TableDisasterousComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
     this.text = navParams.get("headline");
   }
-
 
   public closeDialog() {
     this.viewCtrl.dismiss();
@@ -31,6 +33,6 @@ export class DlgTableDisasterousPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched);
+    return ctrl.invalid && (ctrl.dirty);
   }
 }

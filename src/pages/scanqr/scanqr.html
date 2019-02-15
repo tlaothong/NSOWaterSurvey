@@ -1,12 +1,9 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>เปิดใช้งาน Tablet</ion-title>
-  </ion-navbar>
-
+  <back-to-root-login title="เปิดใช้งาน Tablet"></back-to-root-login>
 </ion-header>
 
 <ion-content padding>
+
   <ion-item text-center>
     <ion-label>สแกน QR Code เพื่อยืนยันตัวตน</ion-label>
   </ion-item>
@@ -16,8 +13,7 @@
   </ion-item>
 
   <ion-row padding>
-    <button ion-button full color="secondary">กดเพื่อเริ่มสแกน</button>
-    <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
+    <button ion-button full color="secondary" (click)="goFirstLogin()">กดเพื่อเริ่มสแกน</button>
   </ion-row>
 
 </ion-content>

@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChildren } from '@angular/core';
+import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getBuildingSample, getSendBuildingType } from '../../states/building';
-import { SetRecieveDataFromBuilding } from '../../states/building/building.actions';
-import { map } from 'rxjs/operators';
-import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadHouseHoldSample } from '../../states/household/household.actions';
+import { getBuildingSample, getSendBuildingType, setHomeBuilding } from '../../states/building';
+import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
+import { map, delay } from 'rxjs/operators';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { BuildingInformation1Page } from '../building-information1/building-information1';
 
 @IonicPage()
 @Component({
@@ -17,76 +17,56 @@ import { LoadHouseHoldSample } from '../../states/household/household.actions';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
+  public isBuilding:boolean;
 
-  private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+  // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+  // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
-  private getBuildingType$ = this.store.select(getSendBuildingType)
+  private getBuildingType$ = this.store.select(getSendBuildingType);
+  private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,private storeHouse: Store<HouseHoldState>, private store: Store<BuildingState>) {
-    this.f = this.fb.group({
-      'ea': [null],
-      'ordering': [null],
-      'road': [null],
-      'alley': [null],
-      'name': [null],
-      'houseNo': [null],
-      'latitude': [null],
-      'longitude': [null],
-      'buildingType': [null],
-      'other': [null],
-      'access': [null],
-      'vacancyCount': [null],
-      'abandonedCount': [null],
-      'comments': fb.array([
-        {
-          'at': [null],
-          'text': [null],
-        }
-      ]),
-      'recCtrl': fb.group({
-        'createdDateTime': [null],
-        'lastModified': [null],
-        'deletedDateTime': [null],
-        'lastUpload': [null],
-        'lastDownload': [null],
-        'logs': fb.array([{
-          'at': [null],
-          'operationCode': [null],
-        }]),
-      }),
-      //
-      'vacantRoomCount': [null, Validators.required],
-      'unitCount': [null, Validators.required],
-      'unitAccess': [null, Validators.required],
-      'occupiedRoomCount': [null, Validators.required],
-      'waterQuantity': this.fb.group({
-        'waterQuantity': [null, Validators.required],
-        'cubicMeterPerMonth': [null, Validators.required],
-        'waterBill': [null, Validators.required]
-      }),
-      'floorCount': [null, Validators.required],
-      '_id': [null],
+  @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
+    this.f = BuildingInformation1Page.CreateFormGroup(fb);
+    this.dataHomeBuilding$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data);
+        console.log(this.f.value);
+      }
     });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BuidlingInformation2Page');
-    this.formData$.subscribe(data => this.f.setValue(data));
-    this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
-    console.log("dadadad");
-    console.log(this.f.get('buildingType').value);
+    // this.formDataFromBuilding1$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.setValue(data)
+        this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+    //   }
+    // });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-    console.log('unitCount');
-    console.log(this.f.get('unitCount').value);
 
+    this.store.dispatch(new SetHomeBuilding(this.f.value));
+    console.log("data ยิง API", this.f.value);
+    console.log("f.valid", this.f.valid);
+
+    if (this.f.valid) {
+      
+      if (this.f.get('unitCount').value == 1) { 
+        this.navCtrl.push("HouseHoldTestPage", { num: 1 });
+      }
+      else {
+        this.navCtrl.push("HouseHoldTestPage"), { num: null };
+      }
+    }
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }

@@ -1,9 +1,8 @@
 <ion-header>
 
-    <questionnaire-menu title="การค้าและการบริการ"></questionnaire-menu>
+    <back-to-root title="การค้าและการบริการ"></back-to-root>
 
 </ion-header>
-
 
 <ion-content padding>
 
@@ -51,7 +50,7 @@
                     <ion-label>
                         เลือกประเภท
                     </ion-label>
-                  
+
                     <ion-select formControlName="buildingCode" disabled="true">
                         <ion-option [value]="1">
                             1.บ้านเดี่ยว
@@ -101,24 +100,29 @@
                         <ion-option [value]="16">
                             16.อื่นๆ
                         </ion-option>
-                    </ion-select>                   
+                    </ion-select>
                 </ion-item>
-
+                <ion-item text-right *ngIf="f.get('buildingCode').value == 16">
+                    {{ otherBuildingType }}
+                </ion-item>
             </ion-card-content>
         </ion-card>
 
+
         <ion-card *ngIf="f.get('buildingCode').value == 11 || f.get('buildingCode').value == 12">
-            <ion-card-header>
-                4.4 (1) สถานศึกษา/โรงเรียน/สถาบันการศึกษา
-            </ion-card-header>
             <ion-card-content>
                 <div formGroupName="questionForAcademy">
-                    <ion-list>
+                    <ion-item>
+                        <ion-label>
+                            4.4 (1) สถานศึกษา/โรงเรียน/สถาบันการศึกษา
+                        </ion-label>
+                    </ion-item>
+                    <ion-item>
                         <ion-label>
                             1) โรงเรียน/สถาบันการศึกษาแห่งนี้เปิดสอนนักเรียน/นักศึกษา ระดับใดบ้าง<br>
                             2) มีจำนวนนักเรียน/นักศึกษากี่คน
                         </ion-label>
-                    </ion-list>
+                    </ion-item>
                     <ion-list>
                         <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('questionForAcademy.preSchool')"></table-check-item-count>
                         <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'" [FormItem]="f.get('questionForAcademy.kindergarten')"></table-check-item-count>
@@ -132,7 +136,7 @@
                             3) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน<br> (รวมครู, นักวิชาการ, พนักงาน, ภารโรง, ฯลฯ)
                         </ion-label>
                     </ion-item>
-                
+
                     <ion-item>
                         <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="personnelCount"
                             [class.invalid]="isValid('questionForAcademy.personnelCount')"></ion-input>
@@ -334,9 +338,8 @@
             </ion-card-content>
         </ion-card>
 
-
         <water-sources8-b headline="4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง" [FormItem]="f.get('waterSources')"></water-sources8-b>
+        <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
-        <form-buttons-bar></form-buttons-bar>
     </form>
 </ion-content>

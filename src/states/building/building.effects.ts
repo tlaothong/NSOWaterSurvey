@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess } from "./building.actions";
+import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess } from "./building.actions";
 import { mergeMap, map } from "rxjs/operators";
 import { Action } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -22,8 +22,17 @@ export class BuildingEffects {
     public loadBuildingSample$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.Load),
         mergeMap(action => this.cloudSync.loadBuildingSampleTestData().pipe(
-                map(data => new LoadBuildingSampleSuccess(data)),
-            )
+            map(data => new LoadBuildingSampleSuccess(data)),
+        )
+        ),
+    );
+
+    @Effect()
+    public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(BuildingTypes.SetHomeBuilding),
+        mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
+            map(data => new SetHomeBuildingSuccess(data)),
+        )
         ),
     );
 }

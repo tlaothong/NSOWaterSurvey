@@ -1,16 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-/**
- * Generated class for the WaterActivity6Component component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'water-activity6',
   templateUrl: 'water-activity6.html'
-
 })
 export class WaterActivity6Component {
   private submitRequested: boolean;
@@ -19,31 +12,47 @@ export class WaterActivity6Component {
   @Input() public FormItem: FormGroup;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
+  @Input('commerce') public commerceUse: boolean;
+  @Input('factory') public factoryUse: boolean;
+  @Input('residence') public residenceUse: boolean;
+  @Input('agriculture') public agricultureUse: boolean;
+  @Input('activeRes') public activeRes:any;
+  @Input('activeWateringRes') public activeWateringRes:any;
+  @Input('activRice') public activRice:any;
+  @Input('activeAgi') public activeAgi:any;
+  @Input('activeFac') public activeFac:any;
+  @Input('activeCom') public activeCom:any;
+
+  public waterActivitiesWhichToUse: any;
+  public totalSum: number
 
   constructor(private fb: FormBuilder) {
-    console.log('Hello WaterActivity6Component Component');
-    this.text = 'Hello World';
     this.FormItem = WaterActivity6Component.CreateFormGroup(fb);
+    this.totalSum = 0;
   }
 
   submitRequest() {
     this.submitRequested = true;
-    console.log(this.gardeningUse);
+  }
+
+  onChangeValue() {
+    this.totalSum = 0
+    this.totalSum = Number(this.FormItem.get('plant').value) + Number(this.FormItem.get('service').value) + Number(this.FormItem.get('product').value) + Number(this.FormItem.get('drink').value) + Number(this.FormItem.get('agriculture').value) + Number(this.FormItem.get('farm').value);
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': [null, Validators.required],
-      'plant': [null, Validators.required],
-      'farm': [null, Validators.required],
-      'agriculture': [null, Validators.required],
-      'product': [null, Validators.required],
-      'service': [null, Validators.required]
+      'drink': [0],
+      'plant': [0],
+      'farm': [0],
+      'agriculture': [0],
+      'product': [0],
+      'service': [0]
     });
   }
 

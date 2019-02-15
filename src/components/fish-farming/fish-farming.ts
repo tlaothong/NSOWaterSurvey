@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationE
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'fish-farming',
@@ -10,56 +13,64 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 })
 export class FishFarmingComponent implements ISubmitRequestable {
 
-  [x: string]: any;
-
   @Input() public FormItem: FormGroup;
-  @Input('headline') text: string;
-  @Input('type') type: string;
-
+  @Input('headline') public text: string;
+  @Input('type') public type: string;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
-
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder) {
-
-    console.log('Hello FishFarmingComponent Component');
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
     this.type = 'กก.';
-
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-
-      "doing": [null, Validators.required],
-      "depression": [false, Validators.required],
-      "gardenGroove": [false, Validators.required],
-      "stew": [false, Validators.required],
-      "riceField": [false, Validators.required],
+      'doing': null,
+      'depression': [false, Validators.required],
+      'gardenGroove': [false, Validators.required],
+      'stew': [false, Validators.required],
+      'riceField': [false, Validators.required],
       'hasOther': [false, Validators.required],
-      "other": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
-      "fieldsAreSameSize": [null, Validators.required],
-      "fields": fb.array([]),
-      "animalsCount": [null, Validators.required],
+      'other': [null, Validators],
+      'fieldCount': [null, Validators.required],
+      'fieldsAreSameSize': [null, Validators.required],
+      'fields': fb.array([]),
+      'animalsCount': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-
     }, {
         validator: FishFarmingComponent.checkAnyOrOther()
       });
 
     FishFarmingComponent.setupPoolCountChanges(fb, fg);
     return fg;
+  }
 
+  public checkFishValid(): boolean {
+    let area = false;
+    if ((this.FormItem.get('depression').value
+      || this.FormItem.get('gardenGroove').value
+      || this.FormItem.get('stew').value
+      || this.FormItem.get('riceField').value
+      || this.FormItem.get('hasOther').value)
+      && ((this.FormItem.get('fieldCount').value != null)
+        && (this.FormItem.get('fieldsAreSameSize').value != null))) {
+      area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+    }
+    if ((this.FormItem.get('fieldCount').value != null)
+      && (area)
+      && (this.FormItem.get('animalsCount').value != null)
+      && this.FormItem.get('waterSources').valid) {
+      return true;
+    }
   }
 
   submitRequest() {
-
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    
+    this.dispatchWaterSource();
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -71,7 +82,6 @@ export class FishFarmingComponent implements ISubmitRequestable {
       const hasOther = c.get('hasOther');
       const other = c.get('other');
 
-
       if (!depression.value && !gardenGroove.value && !stew.value && !hasOther.value && !riceField.value) {
         return { 'anycheck': true };
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
@@ -81,15 +91,24 @@ export class FishFarmingComponent implements ISubmitRequestable {
     }
   }
 
+  private dispatchWaterSource() {
+    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    console.log("dispatch fish can work");
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private static setupPoolCountChanges(fb: FormBuilder, fg: FormGroup) {
@@ -121,4 +140,5 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
     onComponentCountChanges();
   }
+
 }

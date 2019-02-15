@@ -1,4 +1,4 @@
-  <ion-row text-center align-items-center  (click)="goBuildingInfo()">
+  <ion-row text-center align-items-cente>
     <ion-col col-1>
       <ion-icon disabled="false" name="pause"></ion-icon>
     </ion-col>
@@ -6,10 +6,10 @@
       1
     </ion-col>
     <ion-col col-2>
-      124
+      {{FormItem.get('houseNo').value}}
     </ion-col>
     <ion-col col-3>
-      บ้านซอ
+      {{FormItem.get('name').value}}
     </ion-col>
     <ion-col col-2>
       0
@@ -18,7 +18,7 @@
       12
     </ion-col>
     <ion-col col-1>
-      <button ion-button type="button" color="danger">
+      <button ion-button type="button" color="danger" (click)="DeleteBuilding(FormItem.get('_id').value)">
         ลบ
       </button>
     </ion-col>

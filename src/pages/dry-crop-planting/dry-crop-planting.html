@@ -1,10 +1,11 @@
 <ion-header>
 
-  <questionnaire-menu title="พืชไร่"></questionnaire-menu>
+  <back-to-root title="พืชไร่"></back-to-root>
 
 </ion-header>
 
 <ion-content padding>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant">
     <h3>ตอนที่ 2.2 พืชไร่</h3>
     <ion-card>
@@ -15,11 +16,10 @@
           </dd>
           <dt>
             เช่น กก ข้าวโพดเลี้ยงสัตว์(ถ้าเป็นข้าวโพดรับประทานให้ไปกรอกในตอนที่ 2.5) ข้าวฟ่าง งา ถั่วทุกชนิด ทานตะวัน
-            นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง ลูกเดือย สาคู แห้ว อ้อย สัปปะรด แตงโม กาแฟ เป็นต้น
+            นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง ลูกเดือย สาคู แห้ว อ้อย <br>สัปปะรด แตงโม กาแฟ เป็นต้น
           </dt>
         </dl>
       </ion-card-content>
-
     </ion-card>
 
     <ion-card>
@@ -77,7 +77,7 @@
       </div>
     </div>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 

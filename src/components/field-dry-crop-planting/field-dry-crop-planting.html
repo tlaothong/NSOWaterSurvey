@@ -1,8 +1,11 @@
 <ion-card [formGroup]="FormItem">
+
   <ion-card-header>
     <b>แปลงที่ {{text}}</b>
   </ion-card-header>
+
   <ion-card-content>
+
     <ion-list>
       <ion-item>
         <ion-label>
@@ -12,15 +15,12 @@
       <location [FormItem]="FormItem.get('location')"></location>
     </ion-list>
 
-
     <ion-item>
       <ion-label>
         2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
       </ion-label>
     </ion-item>
-
     <field-area [FormItem]="FormItem.get('area')"></field-area>
-
 
     <ion-item>
       <ion-label>
@@ -47,20 +47,15 @@
       </ion-item>
     </ion-row>
 
-    <div>
-      <ion-item>
-        <ion-label>
-          4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด<br>(ระบุได้ไม่เกิน 5 ชนิด)
-        </ion-label>
-      </ion-item>
-      <!-- <ion-item *ngIf="isValid('plantings')">
-          <span class="invalid-msg">
-            กรุณาเลือก
-          </span>
-        </ion-item> -->
-      <modal-plant Title="พืชไร่" [InputList]="DataList" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
-    </div>
+    <ion-item>
+      <ion-label>
+        4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชไร่ชนิดใด<br>(ระบุได้ไม่เกิน 5 ชนิด)
+      </ion-label>
+    </ion-item>
+    <modal-plant Title="พืชไร่" [InputList]="DataList" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
 
     <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="5)ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+
   </ion-card-content>
+
 </ion-card>

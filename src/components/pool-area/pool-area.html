@@ -1,6 +1,6 @@
 <ion-card [formGroup]="FormItem">
-  <ion-card-content>
 
+  <ion-card-content>
     <ion-item>
       <ion-label>
         {{ text }} {{ no }}
@@ -41,8 +41,8 @@
             <ion-item *ngIf="isValid('rectangle.width')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
-
           </ion-col>
+
           <ion-col col-6>
             <ion-item>
               <ion-label>ความยาว (เมตร)</ion-label>
@@ -52,8 +52,8 @@
             <ion-item *ngIf="isValid('rectangle.length')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
-
           </ion-col>
+
         </ion-row>
       </div>
 
@@ -68,7 +68,6 @@
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
         </ion-item>
       </div>
-
 
     </div>
 

@@ -1,11 +1,13 @@
 <ion-header>
 
-  <questionnaire-menu title="ยางพารา "></questionnaire-menu>
+  <back-to-root title="ยางพารา "></back-to-root>
 
 </ion-header>
 
 <ion-content padding>
+
   <h3>ตอนที่ 2.3 ยางพารา</h3>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="rubbertree">
 
     <ion-card>
@@ -13,7 +15,7 @@
 
         <ion-item>
           <ion-label>
-            2.3.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกยางพาราหรือไม่
+            2.3.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกยางพารา <br>หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
@@ -43,10 +45,9 @@
           <ion-item>
             <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
           </ion-item>
-
           <ion-item *ngIf="isValid('fieldCount')">
             <span class="invalid-msg">
-              รุณากรอกข้อมูล
+              กรุณากรอกข้อมูล
             </span>
           </ion-item>
         </div>
@@ -54,16 +55,13 @@
       </ion-card-content>
     </ion-card>
 
-
     <div *ngIf="rubbertree.get('fieldCount').value > 0 && rubbertree.get('doing').value">
       <div *ngFor="let rubber of rubbertree.get('fields').controls;let i = index">
         <field-rebbertree [no]="i+1" [FormItem]="rubber"></field-rebbertree>
       </div>
     </div>
 
-
-
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 </ion-content>

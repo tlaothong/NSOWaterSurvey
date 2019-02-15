@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="การทำการเกษตร"></questionnaire-menu>
+  <back-to-root title="การทำการเกษตร"></back-to-root>
 
 </ion-header>
 
@@ -24,57 +24,76 @@
               กรุณาเลือก
             </span>
           </ion-item>
-          <ion-item>
-            <ion-checkbox formControlName="ricePlant"></ion-checkbox>
-            <ion-label>1.ข้าว</ion-label>
-          </ion-item>
+          <div formGroupName="ricePlant">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>1.ข้าว</ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="agronomyPlant"></ion-checkbox>
-            <ion-label>2.พืชไร่</ion-label>
-          </ion-item>
+          <div formGroupName="agronomyPlant">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>2.พืชไร่</ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="rubberTree"></ion-checkbox>
-            <ion-label>3.ยางพารา</ion-label>
-          </ion-item>
+          <div formGroupName="rubberTree">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>3.ยางพารา</ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="perennialPlant"></ion-checkbox>
-            <ion-label>4.พืชยืนต้น ไม้ผล สวนป่า </ion-label>
-          </ion-item>
+          <div formGroupName="perennialPlant">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>4.พืชยืนต้น ไม้ผล สวนป่า </ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="herbsPlant"></ion-checkbox>
-            <ion-label>5.พืชผัก สมุนไพร</ion-label>
-          </ion-item>
+          <div formGroupName="herbsPlant">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>5.พืชผัก สมุนไพร</ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="flowerCrop"></ion-checkbox>
-            <ion-label>6.ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </ion-label>
-          </ion-item>
+          <div formGroupName="flowerCrop">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>6.ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="mushroomPlant"></ion-checkbox>
-            <ion-label>7. เพาะเชื้อและปลูกเห็ด </ion-label>
-          </ion-item>
+          <div formGroupName="mushroomPlant">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>7. เพาะเชื้อและปลูกเห็ด </ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="animalFarm"></ion-checkbox>
-            <ion-label>8.การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร</ion-label>
-          </ion-item>
+          <div formGroupName="animalFarm">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>8.การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร</ion-label>
+            </ion-item>
+          </div>
 
-          <ion-item>
-            <ion-checkbox formControlName="aquaticAnimals"></ion-checkbox>
-            <ion-label>9. การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด </ion-label>
-          </ion-item>
+          <div formGroupName="aquaticAnimals">
+            <ion-item>
+              <ion-checkbox formControlName="doing"></ion-checkbox>
+              <ion-label>9. การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด </ion-label>
+            </ion-item>
+          </div>
 
         </div>
 
       </ion-card-content>
     </ion-card>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
+
   </form>
 
 </ion-content>

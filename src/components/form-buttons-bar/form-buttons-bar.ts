@@ -1,22 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SetSelectorIndex, SetBackToRoot, SetBack } from '../../states/household/household.actions';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { Store } from '@ngrx/store';
+import { NavController } from 'ionic-angular';
 
-/**
- * Generated class for the FormButtonsBarComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'form-buttons-bar',
   templateUrl: 'form-buttons-bar.html'
 })
 export class FormButtonsBarComponent {
 
-  text: string;
+  public text: string;
+  @Input("checkEnd") public checkEnd: boolean;
+  @Input("isBuilding") public isBuilding: boolean;
+  @Input("frontNum") public frontNum: any;
+  @Input("backNum") public backNum: any;
 
-  constructor() {
-    console.log('Hello FormButtonsBarComponent Component');
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
   }
 
+  ionViewDidEnter() {
+    console.log(this.isBuilding);
+  }
+
+  backToHome() {
+    if (this.isBuilding == true) {
+      this.navCtrl.popTo("HomesPage");
+    } else {
+      this.store.dispatch(new SetSelectorIndex(-1));
+      this.store.dispatch(new SetBackToRoot(true));
+      this.navCtrl.popTo("CheckListPage");
+    }
+  }
+
+  previouPage() {
+    if (this.isBuilding == true) {
+      this.navCtrl.popTo("HomesPage");
+    } else {
+      this.store.dispatch(new SetBack(true));
+      this.navCtrl.popTo("CheckListPage");
+    }
+  }
 }

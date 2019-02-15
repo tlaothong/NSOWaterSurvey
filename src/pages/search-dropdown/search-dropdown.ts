@@ -2,8 +2,6 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavParams, Content, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
 
 @IonicPage()
 @Component({
@@ -11,15 +9,15 @@ import { HouseHoldState } from '../../states/household/household.reducer';
   templateUrl: 'search-dropdown.html',
 })
 export class SearchDropdownPage {
-  type: string;
-  limit: number;
-  treeDisplay = '';
-  searchDisplay: Array<any>;
-  searchTerm: string;
-  listData: Array<any>;
-  searchListData: Array<any>;
+  public type: string;
+  public limit: number;
+  public treeDisplay = '';
+  public searchDisplay: Array<any>;
+  public searchTerm: string;
+  public listData: Array<any>;
+  public searchListData: Array<any>;
   @ViewChild(Content) content: Content;
-  constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController, private store: Store<HouseHoldState>) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.limit = navParams.get('limit');
     this.treeDisplay = navParams.get('title');
     this.listData = navParams.get('selected');
@@ -44,7 +42,7 @@ export class SearchDropdownPage {
   close() {
     this.viewCtrl.dismiss(this.listData);
   }
-  
+
   select(id, name) {
     if (this.listData.filter(data => data.code == id).length < 1) {
       if (this.listData.length < this.limit)
@@ -89,8 +87,4 @@ export class SearchDropdownPage {
     }
     return input;
   }
-
-
-
-
 }

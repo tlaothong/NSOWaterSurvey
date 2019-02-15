@@ -5,45 +5,54 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant } from '../../states/household/household.actions';
-import { getHouseHoldSample } from '../../states/household';
+import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 
 @IonicPage()
 @Component({
   selector: 'page-dry-crop-planting',
   templateUrl: 'dry-crop-planting.html',
 })
-export class DryCropPlantingPage {
 
+export class DryCropPlantingPage {
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
+  private frontNum: any;
+  private backNum: any;
 
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
   shownData: string[];
-  // TODO
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
       "fields": this.fb.array([]),
-      "_id": [null],
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DryCropPlantingPage');
-    // TODO
-    this.formData$.subscribe(data => this.agronomyPlant.setValue(data));
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
+        // this.formData$.subscribe(data => {
+        //   if(data != null){
+        //   }
+        // })
+      }
+    })
+    this.countNumberPage();
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
-    console.log(this.agronomyPlant.value);
-
     let fields = this.agronomyPlant.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
@@ -54,14 +63,65 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
-    console.log("TTTTTTTTTTTTT");
-    console.log(selected);
+    this.store.dispatch(new SetAgiSelectAgronomy(true));
+    this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
+    if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.popTo("CheckListPage");
+    }
+  }
 
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(3));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data;
+
+        if (arrayIsCheck.every(it => it != 3)) {
+          arrayIsCheck.push(3);
+        }
+
+        console.log(arrayIsCheck);
+      }
+
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.agronomyPlant.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {
@@ -77,6 +137,7 @@ export class DryCropPlantingPage {
 
       for (let i = 0; i < fieldCount; i++) {
         var ctrl = null;
+
         if (i < fieldDryCrop.length) {
           const fld = fieldDryCrop[i];
           ctrl = fld;

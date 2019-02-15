@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 
 @IonicPage()
 @Component({
@@ -14,35 +15,54 @@ export class DlgTableCheckItemCountPage {
   public unit: string;
   submitRequested: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
-    this.FormItem = navParams.get('FormItem');
+  constructor(public navCtrl: NavController, private fb: FormBuilder, public navParams: NavParams, private viewCtrl: ViewController) {
+    this.FormItem = TableCheckItemCountComponent.CreateFormGroup(this.fb);
+    const datain = navParams.get('FormItem') as FormGroup;
+    this.FormItem.setValue(datain.value);
+
     this.text = navParams.get("iTitle");
     this.unit = navParams.get("unit");
-   
   }
 
   public closeDialog() {
+
     this.viewCtrl.dismiss();
   }
 
   public okDialog() {
-    this.viewCtrl.dismiss(this.FormItem);
+    // this.navCtrl.pop();
+    if (this.FormItem.get('hasItem').value == false && this.FormItem.get('itemCount').value != null) 
+    {
+      this.FormItem.get('itemCount').setValue(null);
+      this.viewCtrl.dismiss(this.FormItem);
+    }
+    else
+    {
+      this.viewCtrl.dismiss(this.FormItem);
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgTableCheckItemCountPage');
   }
 
-  
-
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
+    }
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
+  public isDisabled() {
 
+    if (this.FormItem.get('hasItem').value == true) {
+      return (
+        (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == null) ||
+        (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == 0)
+      );
+    }
+  }
 }
+

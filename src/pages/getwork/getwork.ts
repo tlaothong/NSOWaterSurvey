@@ -14,8 +14,9 @@ export class GetworkPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad GetworkPage');
   }
+  
   goConfirmDownLoadPage() {
-    this.navCtrl.push("HomesPage")
+    this.navCtrl.pop();
   }
   
   goBack() {

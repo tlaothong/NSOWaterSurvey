@@ -3,13 +3,10 @@ import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationE
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
-/**
- * Generated class for the CrocodileFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'crocodile-farming',
   templateUrl: 'crocodile-farming.html'
@@ -18,7 +15,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
-  @Input('no') no: string;
+  @Input('no') public no: string;
 
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
 
@@ -26,35 +23,22 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     console.log('Hello CrocodileFarmingComponent Component');
     this.text = 'Hello World';
-
-    // this.FormItem = CrocodileFarmingComponent.CreateFormGroup(fb);
   }
-
-
-  // ngAfterViewInit(): void {
-  //   this.setupFieldCountChanges()
-
-  // }
-
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      "doing": [null, Validators.required],
-      "depression": [false, Validators.required],
-      "hasOther": [false, Validators.required],
-      "other": ['', Validators.required],
-      "fieldCount": [null, Validators.required],
-      "fieldsAreSameSize": [null, Validators.required],
-
-      "fields": fb.array([]),
-
-      "animalsCount": [null, Validators.required],
+      'doing': null,
+      'depression': [false, Validators.required],
+      'hasOther': [false, Validators.required],
+      'other': [null, Validators],
+      'fieldCount': [null, Validators.required],
+      'fieldsAreSameSize': [null, Validators.required],
+      'fields': fb.array([]),
+      'animalsCount': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-
-
     }, {
         validator: CrocodileFarmingComponent.checkAnyOrOther()
       }
@@ -63,20 +47,43 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     return fg;
   }
 
+  checkCrocValid() {
+    let area = false;
+    if ((this.FormItem.get('depression').value
+      || this.FormItem.get('hasOther').value)
+      && ((this.FormItem.get('fieldCount').value != null)
+        && (this.FormItem.get('fieldsAreSameSize').value != null))) {
+      area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+    }
+    if ((this.FormItem.get('fieldCount').value != null)
+      && (area)
+      && (this.FormItem.get('animalsCount').value != null)
+      && this.FormItem.get('waterSources').valid) {
+      return true;
+    }
+  }
+
   submitRequest() {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    this.dispatchWaterSource();
+  }
 
+  private dispatchWaterSource() {
+    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    console.log("dispatch crocodile can work");
   }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const depression = c.get('depression');
       const hasOther = c.get('hasOther');
-
       const other = c.get('other');
-
 
       if (!depression.value && !hasOther.value) {
         return { 'anycheck': true };
@@ -87,20 +94,18 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     }
   }
 
-
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
 
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
-
 
   private static setupFieldCountChanges(fb: FormBuilder, fg: FormGroup) {
 
@@ -132,12 +137,4 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
     onComponentCountChanges();
   }
-
-
-
-
-
-
-
-
 }

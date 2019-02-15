@@ -1,48 +1,58 @@
-import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 
-/**
- * Generated class for the WaterActivity5Component component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'water-activity5',
   templateUrl: 'water-activity5.html'
 })
 export class WaterActivity5Component {
+
   private submitRequested: boolean;
-  @Input('headline') public text: string;
+
   @Input() public FormItem: FormGroup;
+  @Input('tag') public tag: string;
   @Input('use') public gardeningUse: boolean;
+  @Input('factory') public factoryUse: boolean;
+  @Input('headline') public text: string;
+  @Input('commerce') public commerceUse: boolean;
+  @Input('residence') public residenceUse: boolean;
+  @Input('agriculture') public agricultureUse: boolean;
+  @Input('activeRes') public activeRes: any;
+  @Input('activeWateringRes') public activeWateringRes: any;
+  @Input('activeAgi') public activeAgi: any;
+  @Input('activeFac') public activeFac: any;
+  @Input('activeCom') public activeCom: any;
+
+  public resultSum: number;
 
   constructor(private fb: FormBuilder) {
-    console.log('Hello WaterActivity5Component Component');
-    this.text = 'Hello World';
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
   }
-  
-  public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  }
-  
+
+
   submitRequest() {
     this.submitRequested = true;
-    console.log(this.gardeningUse);
   }
+
+  onChangeValue() {
+    this.resultSum = 0
+    this.resultSum = Number(this.FormItem.get('plant').value) + Number(this.FormItem.get('service').value) + Number(this.FormItem.get('product').value) + Number(this.FormItem.get('drink').value) + Number(this.FormItem.get('agriculture').value);
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': [null, Validators.required],
-      'plant': [null, Validators.required],
-      'farm': [null, Validators.required],
-      'agriculture': [null, Validators.required],
-      'product': [null, Validators.required],
-      'service': [null, Validators.required]
+      'drink': 0,
+      'plant': 0,
+      'farm': 0,
+      'agriculture': 0,
+      'product': 0,
+      'service': 0
     });
   }
-
-
 
 }

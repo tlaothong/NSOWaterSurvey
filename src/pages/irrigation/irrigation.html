@@ -1,15 +1,11 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      น้ำจากชลประทาน
-    </ion-title>
-  </ion-navbar>
+
+  <back-to-root title="น้ำจากชลประทาน"></back-to-root>
+
 </ion-header>
 
 <ion-content padding>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
 
     <h3>5.5 น้ำจากชลประทาน</h3>
@@ -61,6 +57,8 @@
           </div>
         </div>
 
+        <div [ngSwitch]="f.get('hasCubicMeterPerMonth').value">
+            <div *ngSwitchCase="false">
         <ion-item>
           <ion-label>
             5.5.2 ใช้เครื่องสูบน้ำเพื่อสูบน้ำมาใช้หรือไม่
@@ -86,12 +84,14 @@
             </ion-label>
           </ion-item>
         </ion-row>
+        </div>
+        </div>
 
         <div [ngSwitch]="f.get('hasPump').value">
           <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
-                5.5.3 ใช้เครื่องสูบน้ำกี่ครื่อง
+                5.5.3 ใช้เครื่องสูบน้ำกี่เครื่อง
               </ion-label>
             </ion-item>
             <ion-item>
@@ -110,18 +110,26 @@
 
     <div *ngIf="f.get('hasPump').value && f.get('pumpCount').value > 0">
       <div *ngFor="let pump of f.get('pumps').controls; let i = index">
-        <pump [no]="i + 1" [FormItem]="pump"></pump>
+        <pump [no]="i + 1" [FormItem]="pump" [G]="false"></pump>
       </div>
     </div>
 
-    <ion-card>
+    <ion-card *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
       <ion-card-content>
-        <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" [headline]="'5) ใช้น้ำจากชลประทาน เพื่อทำกิจกรรม ใดบ้างคิดเป็นสัดส่วนเท่าไร'" [FormItem]="f.get('waterActivities')"></water-activity6>
+        <water-activity6 doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [headline]="'5) ใช้น้ำจากชลประทาน เพื่อทำกิจกรรม ใดบ้างคิดเป็นสัดส่วนเท่าไร'"
+          [FormItem]="f.get('waterActivities')"
+          activeRes="{{activityResidential}}"
+          activeWateringRes="{{activityWateringRes}}"
+          activRice="{{activityRice}}"
+          activeAgi="{{activityAgiculture}}"
+          activeFac="{{activityFactory}}"
+          activeCom="{{activityCommercial}}"></water-activity6>
         <water-problem4 [headline]="'6) มีปัญหาคุณภาพน้ำ หรือไม่'" [FormItem]="f.get('qualityProblem')"></water-problem4>
       </ion-card-content>
     </ion-card>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 </ion-content>

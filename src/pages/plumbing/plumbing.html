@@ -1,15 +1,17 @@
 <ion-header>
 
-  <questionnaire-menu title="น้ำประปา "></questionnaire-menu>
+  <back-to-root title="น้ำประปา "></back-to-root>
 
 </ion-header>
 
 <ion-content padding>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+
     <h3>5.1 น้ำประปา</h3>
     <h5>5.1.1 น้ำประปาที่ใช้มาจากแหล่งใด </h5>
 
-    <div formGroupName="mwa">
+    <div formGroupName="mwa" >
       <ion-card>
         <ion-card-header>
           1. น้ำประปานครหลวง
@@ -45,9 +47,9 @@
                   1.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
                 <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('mwa.plumbingUsage')">
+                  <ion-item *ngIf="isValid('mwa.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
@@ -82,7 +84,6 @@
                 </ion-row>
 
                 <div [ngSwitch]="f.get('mwa.plumbingUsage.waterQuantity').value">
-
                   <div *ngSwitchCase="1">
                     <ion-item>
                       <ion-label>
@@ -125,7 +126,7 @@
       </ion-card>
     </div>
 
-    <div formGroupName="pwa">
+    <div formGroupName="pwa" *ngIf="PWA == true">
       <ion-card>
         <ion-card-header>
           2. น้ำประปาส่วนภูมิภาค
@@ -161,9 +162,9 @@
                   2.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('pwa.plumbingUsage')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('pwa.plumbingUsage.waterQuantity')">
                 <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('pwa.plumbingUsage')">
+                  <ion-item *ngIf="isValid('pwa.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
@@ -198,7 +199,6 @@
                 </ion-row>
 
                 <div [ngSwitch]="f.get('pwa.plumbingUsage.waterQuantity').value">
-
                   <div *ngSwitchCase="1">
                     <ion-item>
                       <ion-label>
@@ -277,9 +277,9 @@
                   3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage" [class.invalid]="isValid('mwa.plumbingUsage')">
-                <ion-row radio-group formControlName="waterQuantity">
-                  <ion-item *ngIf="isValid('other.plumbingUsage')">
+              <div formGroupName="plumbingUsage">
+                <ion-row radio-group formControlName="waterQuantity" [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
+                  <ion-item *ngIf="isValid('other.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
                     </span>
@@ -314,7 +314,6 @@
                 </ion-row>
 
                 <div [ngSwitch]="f.get('other.plumbingUsage.waterQuantity').value">
-
                   <div *ngSwitchCase="1">
                     <ion-item>
                       <ion-label>
@@ -357,41 +356,48 @@
       </ion-card>
     </div>
 
-    <div *ngIf="f.get('mwa.doing').value == 1 || f.get('pwa.doing').value == 1 || f.get('other.doing').value == 1">
-      <h5>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h5>
-    </div>
-
-    <div [ngSwitch]="f.get('mwa.doing').value">
-
-      <div *ngSwitchCase="true">
-        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
-        <ion-card>
-          <ion-card-content>
-            <water-activity5 use="{{gardeningUse}}" headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityMWA')"></water-activity5>
-          </ion-card-content>
-        </ion-card>
+    <div *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true">
+      <div *ngIf="f.get('mwa.doing').value == 1 || f.get('pwa.doing').value == 1 || f.get('other.doing').value == 1">
+        <h5>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h5>
       </div>
-    </div>
 
-    <div [ngSwitch]="f.get('pwa.doing').value">
-      <div *ngSwitchCase="true">
-        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
-        <ion-card>
-          <ion-card-content>
-            <water-activity5 use="{{gardeningUse}}" headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)" [FormItem]="f.get('waterActivityPWA')"></water-activity5>
-          </ion-card-content>
-        </ion-card>
+      <div [ngSwitch]="f.get('mwa.doing').value">
+        <div *ngSwitchCase="true">
+          <ion-card>
+            <ion-card-content>
+              <water-activity5 tag="mwa" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+                residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="น้ำประปานครหลวง สัดส่วนที่ใช้(%)"
+                [FormItem]="f.get('waterActivityMWA')" activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+                activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}"></water-activity5>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </div>
-    </div>
 
-    <div [ngSwitch]="f.get('other.doing').value">
-      <div *ngSwitchCase="true">
-        <!-- <h4>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h4> -->
-        <ion-card>
-          <ion-card-content>
-            <water-activity5 use="{{gardeningUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)" [FormItem]="f.get('waterActivityOther')"></water-activity5>
-          </ion-card-content>
-        </ion-card>
+      <div [ngSwitch]="f.get('pwa.doing').value">
+        <div *ngSwitchCase="true">
+          <ion-card>
+            <ion-card-content>
+              <water-activity5 tag="pwa" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+                residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline=" น้ำประปาส่วนภูมิภาค สัดส่วนที่ใช้(%)"
+                [FormItem]="f.get('waterActivityPWA')" activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+                activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}"></water-activity5>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+
+      <div [ngSwitch]="f.get('other.doing').value">
+        <div *ngSwitchCase="true">
+          <ion-card>
+            <ion-card-content>
+              <water-activity5 tag="other" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
+                residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="น้ำประปาอื่น ๆ สัดส่วนที่ใช้ (%)"
+                [FormItem]="f.get('waterActivityOther')" activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+                activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}"></water-activity5>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </div>
     </div>
 
@@ -399,6 +405,7 @@
       <h5>5.1.3 ในรอบ 12 เดือนที่ผ่านมา มีเหตุการณ์ที่น้ำประปา <b><u>ไม่ไหล</u></b> ติดต่อกันเกิน 3 วันหรือไม่</h5>
       <ion-card>
         <ion-card-content>
+
           <ion-row radio-group formControlName="hasWaterNotRunning" [class.invalid]="isValid('hasWaterNotRunning')">
             <ion-item *ngIf="isValid('hasWaterNotRunning')">
               <span class="invalid-msg">
@@ -418,6 +425,7 @@
               </ion-label>
             </ion-item>
           </ion-row>
+
           <div [ngSwitch]="f.get('hasWaterNotRunning').value">
             <div *ngSwitchCase="true">
               <ion-item>
@@ -436,11 +444,12 @@
               </ion-item>
             </div>
           </div>
+
         </ion-card-content>
       </ion-card>
     </div>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 

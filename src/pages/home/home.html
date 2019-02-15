@@ -1,5 +1,7 @@
 <ion-header>
-  <questionnaire-menu title="Home Page"></questionnaire-menu>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
 
 </ion-header>
 
@@ -8,11 +10,11 @@
 
   <ion-list>
     <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-      {{p.title}}
+        {{p.title}}                               
+      <!-- <ion-icon  color="secondary" ios="ios-checkbox" md="md-checkbox" checked="isChecked"></ion-icon> -->
     </button>
   </ion-list>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
-
 
 </ion-content>

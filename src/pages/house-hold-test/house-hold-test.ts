@@ -12,9 +12,8 @@ import { LoadHouseHoldSample } from '../../states/household/household.actions';
 export class HouseHoldTestPage {
 
   pages: Array<{ title: string, component: any }>;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private store: Store<HouseHoldState>) {
+  private num: number = null;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
 
     this.pages = [
       { title: 'Unit Page', component: "UnitPage" },
@@ -34,19 +33,26 @@ export class HouseHoldTestPage {
       { title: '5.1 น้้ำประปา ', component: "PlumbingPage" },
       { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage" },
       { title: '5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ', component: "RiverPage" },
-      { title: '5.4 น้ำจากสระน้ำ/หนองน้ำ/บึง ', component: "PoolPage" },
+      { title: '5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง ', component: "PoolPage" },
       { title: '5.5 น้ำจากชลประทาน', component: "IrrigationPage" },
       { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage" },
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage" },
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
+      { title: 'CheckList Page', component: "CheckListPage" },
     ];
-  }
 
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad HouseHoldTestPage');
-    this.store.dispatch(new LoadHouseHoldSample());
+    // this.store.dispatch(new LoadHouseHoldSample());
+    this.num = this.navParams.get('num');
+    if (this.num == 1) {
+      this.navCtrl.push('UnitPage', { num: 1 });
+    }
+    else this.navCtrl.push("UnitPage", { num: null });
   }
 
   public openPage(page) {

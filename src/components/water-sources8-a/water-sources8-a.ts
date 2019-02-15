@@ -2,12 +2,6 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 
-/**
- * Generated class for the WaterSources8AComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'water-sources8-a',
   templateUrl: 'water-sources8-a.html'
@@ -16,24 +10,16 @@ export class WaterSources8AComponent implements ISubmitRequestable {
 
   @Input('headline') public text: string;
   @Input() public FormItem: FormGroup;
-
   private submitRequested: boolean;
 
   constructor(private fb: FormBuilder) {
-    console.log('Hello WaterSources8AComponent Component');
     this.text = '';
-
-    // TODO: Remove this
-    // this.FormItem = this.fb.group({
-    //   'hasOther': false,
-    //   'other': null
-    // });
     this.FormItem = WaterSources8AComponent.CreateFormGroup(fb);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'plumbing' : [false,Validators.required],
+      'plumbing': [false, Validators.required],
       'underGround': [false, Validators.required],
       'pool': [false, Validators.required],
       'river': [false, Validators.required],
@@ -41,11 +27,11 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': ['', Validators.required],
-      'hasOther' : [false,Validators.required]
+      'other': [''],
+      'hasOther': [false, Validators.required]
     }, {
-      validator: WaterSources8AComponent.checkAnyOrOther()
-    });
+        validator: WaterSources8AComponent.checkAnyOrOther()
+      });
   }
 
   public isValid(name: string): boolean {
@@ -53,12 +39,12 @@ export class WaterSources8AComponent implements ISubmitRequestable {
 
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   submitRequest() {
@@ -80,7 +66,7 @@ export class WaterSources8AComponent implements ISubmitRequestable {
       if (!underGround.value && !pool.value && !river.value && !hasOther.value && !irrigation.value
         && !rain.value && !buying.value && !rainingAsIs.value) {
         return { 'anycheck': true };
-      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+      } else if (hasOther.value == true && (!other.value || other.value == '')) {
         return { 'other': true };
       }
       return null;

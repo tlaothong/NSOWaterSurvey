@@ -6,19 +6,16 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FieldRiceHarvestComponent } from '../field-rice-harvest/field-rice-harvest';
 import { LocationComponent } from '../location/location';
 import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWaterSourcesRice } from '../../states/household/household.actions';
 
-/**
- * Generated class for the FieldFarmingComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'field-farming',
   templateUrl: 'field-farming.html'
 })
-export class FieldFarmingComponent implements ISubmitRequestable {
 
+export class FieldFarmingComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input('no') public fieldNo: string;
 
@@ -28,9 +25,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   @ViewChildren(WaterSources8AComponent) private waterSources8A: WaterSources8AComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder) {
-    console.log('Hello FieldFarmingComponent Component');
-
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
   }
 
@@ -56,13 +51,36 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.riceHarvests.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources8A.forEach(it => it.submitRequest());
+    this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
+    console.log("waterRice",this.FormItem.get('waterSources').value);
+    this.dispatchWaterSource();
+  }
+
+  private dispatchWaterSource() {
+      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    console.log("dispatch rice can work");
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
+  public isCheckArea(far: FormGroup): boolean {
+    let area = Number(this.FormItem.get('area.rai').value) * 400
+      + Number(this.FormItem.get('area.ngan').value) * 100
+      + Number(this.FormItem.get('area.sqWa').value);
+      
+    let areaUsed = Number(far.get('rai').value) * 400
+      + Number(far.get('ngan').value) * 100
+      + Number(far.get('sqWa').value);
+
+    return areaUsed > area;
+  }
 
   private static setupPlantingAreaChanges(fb: FormBuilder, fg: FormGroup) {
     const areaUsed: string = "areaUsed";

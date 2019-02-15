@@ -5,10 +5,14 @@ import { DetailWaterManagementComponent } from '../../components/detail-water-ma
 import { DetailOrgWaterSupplyComponent } from '../../components/detail-org-water-supply/detail-org-water-supply';
 import { NaturalDisasterComponent } from '../../components/natural-disaster/natural-disaster';
 import { DisasterWarningMethodsComponent } from '../../components/disaster-warning-methods/disaster-warning-methods';
-import { getCommunitySample } from '../../states/community';
 import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { SetCommunity } from '../../states/community/community.actions';
+import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { getCommunitySample } from '../../states/community';
+import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
 
 @IonicPage()
 @Component({
@@ -16,18 +20,30 @@ import { map } from 'rxjs/operators';
   templateUrl: 'community-water-management.html',
 })
 export class CommunityWaterManagementPage {
+
   @ViewChildren(NaturalDisasterComponent) private naturalDisaster: NaturalDisasterComponent[];
   @ViewChildren(DisasterWarningMethodsComponent) private disasterWarningMethods: DisasterWarningMethodsComponent[];
   @ViewChildren(DetailWaterManagementComponent) private detailWaterManagement: DetailWaterManagementComponent[];
   @ViewChildren(DetailOrgWaterSupplyComponent) private detailOrgWaterSupply: DetailOrgWaterSupplyComponent[];
+  // @ViewChildren(ManagementForFarmingPage) private managementForFarming: ManagementForFarmingPage;
 
-  public CommunityWaterManagement: FormGroup
+  public CommunityWaterManagement: FormGroup;
   private submitRequested: boolean;
 
-  private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.management));
+  // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.management));
+  private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s));
+  private formDataCom: FormGroup;
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  private DataStoreWorkEaOneRecord: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<CommunityState>) {
-    this.CommunityWaterManagement = this.fb.group({
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
+    this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
+    this.setupPublicWaterCountChanges();
+    this.setupWaterServiceCountChanges();
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
       'hasPublicWater': [null, Validators.required],
       'publicWaterCount': [null, Validators.required],
       'details': fb.array([]),
@@ -43,13 +59,31 @@ export class CommunityWaterManagementPage {
       'hasDisasterWarning': [null, Validators.required],
       'disasterWarningMethods': DisasterWarningMethodsComponent.CreateFormGroup(fb),
     });
-    this.setupPublicWaterCountChanges();
-    this.setupWaterServiceCountChanges();
-
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.CommunityWaterManagement.setValue(data));
+    this.formDataCom = this.fb.group({
+      '_id': [null],
+      'ea': [null],
+      'management': [null],
+      'communityProject': [null],
+    })
+    this.formDataCom$.subscribe(data => {
+      if (data != null) {
+        this.formDataCom.setValue(data);
+        this.CommunityWaterManagement.setValue(data.management);
+      }
+    });
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.DataStoreWorkEaOneRecord = data;
+      }
+    });
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.CommunityWaterManagement.setValue(data)
+    //   }
+    // });
   }
 
   private setupPublicWaterCountChanges() {
@@ -82,7 +116,6 @@ export class CommunityWaterManagementPage {
     onComponentCountChanges();
   }
 
-
   private setupWaterServiceCountChanges() {
     const waterservicecomponentFormArray: string = "waterServices";
     const waterservicecomponentCount: string = "waterServiceCount";
@@ -113,7 +146,6 @@ export class CommunityWaterManagementPage {
     onWaterServiceComponentCountChanges();
   }
 
-
   public handleSubmit() {
     this.submitRequested = true;
     this.detailWaterManagement.forEach(it => it.submitRequest());
@@ -121,30 +153,16 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
 
-  }
+    this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
+    this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
+    // this.store.dispatch(new SetCommunity(this.formDataCom.value));
 
+    this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
+  }
 
   public isValid(name: string): boolean {
     var ctrl = this.CommunityWaterManagement.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  // public isValid(name: string): boolean {
-  //   var ctrl = this.CommunityWaterManagement.get(name);
-  //   if (name == 'anycheck') {
-  //     ctrl = this.CommunityWaterManagement;
-  //     return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-  //   }
-  //   //  validate checkbox กรณีที่ใช้ในหน้า page หลักจะใช้ไม่เหมือนแบบ component
-  //   else if (name == 'disasterWarningMethods') {
-  //     return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-  //   }
-  //   //  validate checkbox โดยมี other ด้านในกรณีที่ใช้ในหน้า page หลักใช้ไม่เหมือนแบบ component
-  //   else if (name == 'other') {
-  //     let ctrl2 = this.CommunityWaterManagement.get('disasterWarningMethods');
-  //     ctrl = this.CommunityWaterManagement.get('disasterWarningMethods.other');
-  //     return ctrl2.errors && ctrl2.errors.other && (ctrl.touched || this.submitRequested);
-  //   }
-  //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  // }
 }

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Login Sample Test</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h3>สำมะโนน้ำฯ</h3>
+
+  <ion-list *ngIf="isCheckShow == true ">
+    <button menuClose ion-item *ngFor="let p of pagesFirstLogin" (click)="openPage(p)">
+      {{p.title}}
+    </button>
+  </ion-list>
+
+  <ion-list *ngIf="isCheckShow  == false">
+    <button menuClose ion-item *ngFor="let p of pagesLogin" (click)="openPage(p)">
+      {{p.title}}
+    </button>
+  </ion-list>
+
+</ion-content>
