@@ -5,7 +5,7 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
@@ -121,12 +121,45 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    this.formData.waterUsage.pool = this.f.value
-    if (this.f.valid) {
-    this.arrayIsCheckMethod();
-    this.store.dispatch(new SetHouseHold(this.formData));
-    this.navCtrl.popTo("CheckListPage");
+
+    // this.poolArea.forEach(it => {
+    //   isCheckPoolSizes = it.checkValid();
+    // });
+    // let isCheckPoolSizes = checkPoolSizes.checkValid();
+
+    console.log("valid", this.f.valid);
+    console.log("this.f", this.f.value);
+    if (this.checkValid()) {
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.navCtrl.popTo("CheckListPage");
     }
+  }
+
+  checkValid(): boolean {
+    let doing = false;
+    let sameSize = false;
+    let waterResourceCount = false;
+    let usage = false;
+    let area = false;
+
+    if (this.f.get('doing').value == true) {
+      doing = true;
+      if (this.f.get('poolCount').value >= 0
+        && this.f.get('hasSameSize').value != null) {
+        sameSize = true;
+      }
+      if (this.f.get('waterResourceCount').value > 0
+        && this.f.get('waterResourceCount').value <= this.f.get('poolCount').value) {
+        waterResourceCount = true;
+        usage = this.poolUsage.find(it => it.checkValid() == it.checkValid()).checkValid();
+        area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+      }
+    }
+    else {
+      return true;
+    }
+    return doing && sameSize && waterResourceCount && area && usage;
   }
 
   countNumberPage() {
