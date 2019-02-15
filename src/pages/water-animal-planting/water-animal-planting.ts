@@ -85,7 +85,7 @@ export class WaterAnimalPlantingPage {
 
   checkValid(): boolean {
     let fish = false;
-    if (this.f.get('isFish').value || this.f.get('shrimp').value || this.f.get('crab').value || this.f.get('reddish').value) {
+    if (this.f.get('isFish').value || this.f.get('isShrimp').value || this.f.get('isCrab').value || this.f.get('isReddish').value) {
       fish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
     }
     if ((fish)
