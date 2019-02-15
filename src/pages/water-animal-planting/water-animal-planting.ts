@@ -73,12 +73,11 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    // this.formData.agriculture.aquaticAnimals = this.f.value;
+    this.formData.agriculture.aquaticAnimals = this.f.value;
     if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
-      // this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.navCtrl.setRoot("CheckListPage");
-      console.log("555555555555555555");
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.setRoot("CheckListPage");
 
     }
   }
