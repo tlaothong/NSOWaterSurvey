@@ -140,100 +140,34 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
-    if (this.isCheck('privateGroundWater') && this.isCheck('publicGroundWater')) {
+    if (this.isCheck()) {
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
     }
   }
 
-  isCheck(name: string): boolean {
-    let isCheckValid = true;
-    let isValidAllCount = true;
-    let isValidGroundWater = false;
-    let isValidPump = false;
-    let isValidPumpAuto = false;
-    let isValidWaterAct = false;
-    let isValidProblem = false;
-    let groundWater = (name == 'privateGroundWater') ? this.groundWaterUsage : this.groundWaterUsagePublic;
-    if (this.f.get(name + '.doing').value) {
-
-      isValidAllCount = (name == 'privateGroundWater') ? this.f.get(name + '.allCount').valid : true;
-
-      isCheckValid = this.f.get(name + '.waterResourceCount').valid
-        && !groundWater.some(it => {
-          if (name == 'privateGroundWater') {
-            isValidGroundWater = it.FormItem.get('usageType.groundWaterQuantity').invalid;
-            switch (it.FormItem.get('usageType.groundWaterQuantity').value) {
-              case 1:
-                isValidGroundWater = it.FormItem.get('usageType.usageCubicMeters').invalid;
-                break;
-              case 2:
-                isValidGroundWater = it.FormItem.get('usageType.waterBill').invalid;
-                break;
-              case 3:
-                isValidGroundWater = it.FormItem.get('hasPump').invalid;
-                break;
-              default:
-                break;
-            }
-          }
-          else {
-            isValidGroundWater = it.FormItem.get('hasCubicMeterPerMonth').invalid;
-            if (it.FormItem.get('hasCubicMeterPerMonth').value) {
-              isValidGroundWater = it.FormItem.get('cubicMeterPerMonth').invalid;
-            }
-            else {
-              isValidGroundWater = it.FormItem.get('hasPump').invalid;
-            }
-          }
-          if (it.FormItem.get('hasPump').value) {
-            isValidPumpAuto = it.pump.some(i => {
-              let isCheckInPumpAuto = false;
-              if (!i.FormItem.get('pumpAuto').value) {
-                isCheckInPumpAuto = i.FormItem.get('hoursPerPump').invalid
-                  || i.FormItem.get('numberOfPumpsPerYear').invalid
-                  || i.FormItem.get('hasPumpRate').invalid;
-                if (i.FormItem.get('hasPumpRate').value) {
-                  isCheckInPumpAuto = i.FormItem.get('pumpRate').invalid;
-                }
-                else {
-                  isCheckInPumpAuto = i.FormItem.get('energySource').invalid
-                    || i.FormItem.get('pumpType').invalid
-                    || i.FormItem.get('horsePower').invalid
-                    || i.FormItem.get('suctionPipeSize').invalid
-                    || i.FormItem.get('pipelineSize').invalid;
-                }
-              }
-              return i.FormItem.get('pumpAuto').invalid || isCheckInPumpAuto
-            })
-            isValidPump = it.FormItem.get('pumpCount').invalid || isValidPumpAuto;
-          }
-          if (it.gardeningUse
-            || it.riceDoing
-            || it.commerceUse
-            || it.factoryUse
-            || it.residenceUse
-            || it.agricultureUse) {
-            isValidWaterAct = it.waterActivity6.some(it => it.totalSum != 100);
-          }
-          isValidProblem = it.FormItem.get('qualityProblem.hasProblem').invalid
-          if (it.FormItem.get('qualityProblem.hasProblem').value) {
-            isValidProblem = it.FormItem.get('qualityProblem.problem').invalid
-          }
-          return isValidGroundWater
-            || isValidPump
-            || isValidWaterAct
-            || isValidProblem;
-        });
-
-      return isCheckValid && isValidAllCount;
-    }
-    else {
-      return this.f.get(name + '.doing').valid;
-    }
+  public isCheck(): boolean {
+    return this.isCheckPrivate() && this.isCheckPublic();
   }
 
-  check(): boolean {
+  public isCheckPrivate(): boolean {
+    let ischeckGroundWater = this.groundWaterUsage.find(it => !it.checkValid()) ? false : true;
+    return (this.f.get('privateGroundWater.doing').value) ?
+      (this.f.get('privateGroundWater.allCount').valid
+        && this.f.get('privateGroundWater.waterResourceCount').valid
+        && ischeckGroundWater)
+      : this.f.get('privateGroundWater.doing').valid;
+  }
+
+  public isCheckPublic(): boolean {
+    let ischeckGroundWater = this.groundWaterUsagePublic.find(it => !it.checkValid()) ? false : true;
+    return (this.f.get('publicGroundWater.doing').value) ?
+      (this.f.get('publicGroundWater.waterResourceCount').valid
+        && ischeckGroundWater)
+      : this.f.get('publicGroundWater.doing').valid;
+  }
+
+  public check(): boolean {
     if (Number(this.f.get('privateGroundWater.waterResourceCount').value) > Number(this.f.get('privateGroundWater.allCount').value)) {
       return this.checked = true
     }
