@@ -52,6 +52,39 @@ export class PoolAreaComponent implements ISubmitRequestable {
       return true;
     }
   }
+  // checkValid() {
+  //   let value = this.FormItem.get('shape').value;
+  //   let check: boolean;
+  //   console.log("entrane checkValid");
+
+  //   switch (value) {
+
+  //     case '1':
+  //       this.FormItem.get('diameter').patchValue('0');
+  //       this.FormItem.get('rectangle.width').patchValue('0');
+  //       this.FormItem.get('rectangle.length').patchValue('0');
+
+  //       check = true;
+  //       break;
+  //     case '2':
+  //       this.FormItem.get('area').patchValue('0');
+  //       this.FormItem.get('rectangle.width').patchValue('0');
+  //       this.FormItem.get('rectangle.length').patchValue('0');
+  //       check = true;
+  //       break;
+
+  //     case '3':
+  //       this.FormItem.get('area').patchValue('0');
+  //       this.FormItem.get('diameter').patchValue('0');
+  //       check = true;
+  //       break;
+
+  //     default:
+  //       break;
+  //   }
+
+  //   return check;
+  // }
 
   public showModal() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });

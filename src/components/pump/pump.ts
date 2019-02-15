@@ -50,7 +50,6 @@ export class PumpComponent implements ISubmitRequestable {
   public checkValid(): boolean {
     if (this.FormItem.get('pumpAuto').value != null) {
       if (this.FormItem.get('pumpAuto').value == true) {
-        console.log(this.FormItem.get('pumpAuto').value);
         return true;
       }
       if (this.FormItem.get('pumpAuto').value == false) {
