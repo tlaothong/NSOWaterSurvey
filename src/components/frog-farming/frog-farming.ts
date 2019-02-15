@@ -23,12 +23,12 @@ export class FrogFarmingComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      "doing": [null, Validators.required],
-      "depression": [false, Validators.required],
-      "stew": [false, Validators.required],
-      "other": [null, Validators.required],
+      'doing': null,
+      'depression': [false, Validators.required],
+      'stew': [false, Validators.required],
+      'other': [null, Validators],
       'hasOther': [false, Validators.required],
-      "animalsCount": [null, Validators.required],
+      'animalsCount': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: FrogFarmingComponent.checkAnyOrOther()
@@ -42,21 +42,11 @@ export class FrogFarmingComponent {
   }
 
   private dispatchWaterSource() {
-    if (this.FormItem.get('waterSources.plumbing').value) {
       this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-    }
-    if (this.FormItem.get('waterSources.river').value) {
       this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-    }
-    if (this.FormItem.get('waterSources.irrigation').value) {
       this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-    }
-    if (this.FormItem.get('waterSources.rain').value) {
       this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-    }
-    if (this.FormItem.get('waterSources.buying').value) {
       this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    }
     console.log("dispatch crocodile can work");
   }
 
@@ -64,11 +54,11 @@ export class FrogFarmingComponent {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {

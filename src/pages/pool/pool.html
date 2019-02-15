@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="น้ำจากสระน้ำ/หนองน้ำ/บึง "></questionnaire-menu>
+  <back-to-root title="น้ำจากสระน้ำ/หนองน้ำ/บึง "></back-to-root>
 
 </ion-header>
 
@@ -106,7 +106,7 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('waterResourceCount') || f.get('waterResourceCount').value > f.get('poolCount').value"></ion-input>
+              <ion-input (ionChange)="check()" type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('waterResourceCount') || (checked)"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('waterResourceCount')">
               <span class="invalid-msg">
@@ -133,7 +133,7 @@
       </div>
     </div>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 </ion-content>

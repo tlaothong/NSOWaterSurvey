@@ -14,7 +14,7 @@
     </ion-item>
     <ion-col col-6>
       <ion-item text-center (click)="pictureShow('../assets/imgs/stainless1.jpg')">
-        <img width="80px" height="80px" object-fit: cover src="../assets/imgs/stainless1.jpg" >
+        <img width="80px" height="80px" object-fit: cover src="../assets/imgs/stainless1.jpg">
       </ion-item>
       <div text-center>
         <label>100-1000 ลิตร</label>
@@ -218,6 +218,8 @@
     </ion-col>
   </ion-row>
 
-  <button ion-button block color="light" (click)="closeDialog()">ย้อนกลับ</button>
-
 </ion-content>
+
+<ion-footer>
+  <button ion-button block color="light" (click)="closeDialog()">ย้อนกลับ</button>
+</ion-footer>

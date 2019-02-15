@@ -40,13 +40,14 @@ export class HouseHoldTestPage {
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },
+      { title: 'CheckList Page', component: "CheckListPage" },
     ];
 
   }
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad HouseHoldTestPage');
-    this.store.dispatch(new LoadHouseHoldSample());
+    // this.store.dispatch(new LoadHouseHoldSample());
     this.num = this.navParams.get('num');
     if (this.num == 1) {
       this.navCtrl.push('UnitPage', { num: 1 });

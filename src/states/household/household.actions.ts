@@ -1,12 +1,12 @@
 import { Action } from '@ngrx/store';
 
 export enum HouseHoldTypes {
-    Load = "[HH] Load",
+    LoadHouseHoldSample = "[HH] Load",
+    LoadHouseHoldSampleSuccess = "[HH] Load Success",
     StateName = "HouseHold",
     LoadList = "[HH] Load List",
-    LoadSuccess = "[HH] Load Success",
     SetRiceDoing = "[HH] Set Rice Donig",
-    SetWaterSource = "[HH] Set WaterSource",
+    SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsHouseHold = "[HH] Set IsHouseHold",
     SetIsCommercial = "[HH] Set IsCommercial",
@@ -14,7 +14,6 @@ export enum HouseHoldTypes {
     SetIsAgriculture = "[HH] Set IsAgriculture",
     LoadUserByQrCode = "[HH] Load User By QrCode",
     SetFactorialCategory = "[HH] Set Factorial Category",
-    SetAgronomyPlantDoing = "[HH] Set AgronomyPlant Doing",
     SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
     LoadUserByQrCodeSuccess = "[HH] Load User By QrCode Success",
     SetCommercialServiceType = "[HH] Set Commercial ServiceType",
@@ -26,13 +25,6 @@ export enum HouseHoldTypes {
     SetAgiSelectAgronomy = "[HH] Set Agiculture Select Agronomy",
     SetAgiSelectRubber = "[HH] Set Agiculture Select Rubber",
     SetAgiSelectPerennial = "[HH] Set Agiculture Select Perennial",
-    SetAgiSelectHerbPlant = "[HH] Set Agiculture Select HerbPlant",
-    SetAgiSelectFlowerCrop = "[HH] Set Agiculture Select FlowerCrop ",
-    SetAgiSelectMushroomPlant = "[HH] Set Agiculture Select MushroomPlant",
-    SetAgiSelectAnimalFarm = "[HH] Set Agiculture Select AnimalFarm",
-    SetAgiSelectAquaticAnimals = "[HH] Set Agiculture Select AquaticAnimals",
-    SetOtherBuildingType = "[HH] Set Other BuildingType",
-    SetArraySkipPage = "[HH] Set Array Skip Pages",
     SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
     SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
     SetCheckWaterPlumbing = "[HH] Set Check Water Plumbing",
@@ -47,7 +39,14 @@ export enum HouseHoldTypes {
     SetWaterSourcesFactory = "[HH] Set WaterSources Factory",
     SetWaterSourcesCommercial = "[HH] Set WaterSources Commercial",
     SetNextPageDirection = "[HH] Set Next Page Direction",
-    SetHeadFamily = "[HH] Set Head Family"
+    SetArrayIsCheck = "[HH] Set Array IsCheck",
+    SetSelectorIndex = "[HH] Set Selector Index",
+    LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
+    LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
+    SetBackToRoot = "[HH] Set Back To Root",
+    SetBack = "[HH] Set Back",
+    SetHouseHold = "[HH] Set House Hold",
+    SetHouseHoldSuccess = "[HH] Set House Hold Success",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -65,18 +64,32 @@ export class LoadHouseHoldListSuccess implements Action {
 }
 
 export class LoadHouseHoldSample implements Action {
-    readonly type = HouseHoldTypes.Load;
+    readonly type = HouseHoldTypes.LoadHouseHoldSample;
 
-    constructor() {
+    constructor(public payload: string) {
     }
 }
 
 export class LoadHouseHoldSampleSuccess implements Action {
-    readonly type = HouseHoldTypes.LoadSuccess;
+    readonly type = HouseHoldTypes.LoadHouseHoldSampleSuccess;
 
     constructor(public payload: any) {
     }
 }
+
+export class SetSelectG1234 implements Action {
+    readonly type = HouseHoldTypes.SetSelectG1234;
+
+    constructor(public payload: any) {
+    }
+}
+
+// export interface IG1234 {
+//     g1: boolean;
+//     g2: boolean;
+//     g3: boolean;
+//     g4: boolean;
+// }
 
 export class SetIsHouseHold implements Action {
     readonly type = HouseHoldTypes.SetIsHouseHold;
@@ -113,26 +126,6 @@ export class SetFactorialCategory implements Action {
     }
 }
 
-export class SetWaterSources implements Action {
-    readonly type = HouseHoldTypes.SetWaterSource;
-
-    constructor(public payload: any[]) {
-    }
-}
-
-export class SetAgronomyPlantDoing implements Action {
-    readonly type = HouseHoldTypes.SetAgronomyPlantDoing;
-
-    constructor(public payload: any) {
-    }
-}
-
-export class SetOtherBuildingType implements Action {
-    readonly type = HouseHoldTypes.SetOtherBuildingType;
-
-    constructor(public payload: any) {
-    }
-}
 
 export class SetCommercialServiceType implements Action {
     readonly type = HouseHoldTypes.SetCommercialServiceType;
@@ -161,7 +154,6 @@ export class SetPerennialPlantSelectPlant implements Action {
     constructor(public payload: any[]) {
     }
 }
-
 
 export class SetRicePlantSelectPlant implements Action {
     readonly type = HouseHoldTypes.SetRicePlantSelectPlant;
@@ -211,43 +203,7 @@ export class SetAgiSelectPerennial implements Action {
     constructor(public payload: any) {
     }
 }
-export class SetAgiSelectHerbPlant implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectHerbPlant;
 
-    constructor(public payload: any) {
-    }
-}
-
-export class SetAgiSelectFlowerCrop implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectFlowerCrop;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetAgiSelectMushroomPlant implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectMushroomPlant;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetAgiSelectAnimalFarm implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectAnimalFarm;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetAgiSelectAquaticAnimals implements Action {
-    readonly type = HouseHoldTypes.SetAgiSelectAquaticAnimals;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetArraySkipPage implements Action {
-    readonly type = HouseHoldTypes.SetArraySkipPage;
-
-    constructor(public payload: any) {
-    }
-}
 export class SetArraySkipPageWaterSources implements Action {
     readonly type = HouseHoldTypes.SetArraySkipPageWaterSources;
 
@@ -329,16 +285,50 @@ export class SetWaterSourcesCommercial implements Action {
 export class SetNextPageDirection implements Action {
     readonly type = HouseHoldTypes.SetNextPageDirection;
 
-    constructor(public payload: any) {
-        // if (payload == null ) {
-        //     payload = 0 ;
-        // }
+    constructor(public payload: Array<boolean>) {
     }
 }
-export class SetHeadFamily implements Action {
-    readonly type = HouseHoldTypes.SetHeadFamily;
 
-    constructor(public payload: boolean) {
+export class SetArrayIsCheck implements Action {
+    readonly type = HouseHoldTypes.SetArrayIsCheck;
+
+    constructor(public payload: Array<number>) {
+    }
+}
+export class SetSelectorIndex implements Action {
+    readonly type = HouseHoldTypes.SetSelectorIndex;
+    constructor(public payload: any) {
+    }
+}
+export class LoadUnitByIdBuilding implements Action {
+    readonly type = HouseHoldTypes.LoadUnitByIdBuilding;
+    constructor(public payload: string) {
+    }
+}
+export class LoadUnitByIdBuildingSuccess implements Action {
+    readonly type = HouseHoldTypes.LoadUnitByIdBuildingSuccess;
+    constructor(public payload: any) {
+    }
+}
+export class SetBackToRoot implements Action {
+    readonly type = HouseHoldTypes.SetBackToRoot;
+    constructor(public payload: any) {
+    }
+}
+export class SetBack implements Action {
+    readonly type = HouseHoldTypes.SetBack;
+    constructor(public payload: any) {
+    }
+}
+
+export class SetHouseHold implements Action {
+    readonly type = HouseHoldTypes.SetHouseHold;
+    constructor(public payload: any) {
+    }
+}
+export class SetHouseHoldSuccess implements Action {
+    readonly type = HouseHoldTypes.SetHouseHoldSuccess;
+    constructor(public payload: any) {
     }
 }
 
@@ -347,15 +337,14 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
+    | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
     | SetIsFactorial
     | SetIsCommercial
     | SetFactorialCategory
-    | SetWaterSources
     | SetCommercialServiceType
     | SetResidentialGardeningUse
-    | SetAgronomyPlantDoing
     | SetRubberTreeSelectPlant
     | SetPerennialPlantSelectPlant
     | SetRicePlantSelectPlant
@@ -366,13 +355,6 @@ export type HouseHoldActionsType =
     | SetAgiSelectAgronomy
     | SetAgiSelectRubber
     | SetAgiSelectPerennial
-    | SetAgiSelectHerbPlant
-    | SetAgiSelectFlowerCrop
-    | SetAgiSelectMushroomPlant
-    | SetAgiSelectAnimalFarm
-    | SetAgiSelectAquaticAnimals
-    | SetOtherBuildingType
-    | SetArraySkipPage
     | SetArraySkipPageWaterSources
     | SetArraySkipPageAgiculture
     | SetCheckWaterPlumbing
@@ -387,5 +369,13 @@ export type HouseHoldActionsType =
     | SetWaterSourcesFactory
     | SetWaterSourcesCommercial
     | SetNextPageDirection
-    | SetHeadFamily
+    | SetArrayIsCheck
+    | SetSelectorIndex
+    | LoadUnitByIdBuilding
+    | LoadUnitByIdBuildingSuccess
+    | SetBackToRoot
+    | SetBack
+    | SetHouseHold
+    | SetHouseHoldSuccess
+
     ;

@@ -1,13 +1,13 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
-import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
-import { getWorkEAbyIdEA, getCountHomeBuilding, getHomeBuilding } from '../../states/logging';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { map } from 'rxjs/operators';
-import { ItemInHomeComponent } from '../../components/item-in-home/item-in-home';
-import { LoadHomeBuilding, LoadCountOfHomeBuilding } from '../../states/logging/logging.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit } from '../../states/logging/logging.actions';
+import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
+import { SwithStateProvider } from '../../providers/swith-state/swith-state';
+
 
 
 @IonicPage()
@@ -16,104 +16,100 @@ import { LoadHomeBuilding, LoadCountOfHomeBuilding } from '../../states/logging/
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  @ViewChildren(ItemInHomeComponent) private itemHome: ItemInHomeComponent[];
-  f: FormGroup;
+  data: any;
   formItem: FormGroup;
   office: string = "building";
-  private formDataWorkEA$ = this.store.select(getWorkEAbyIdEA).pipe(map(s => s));
-  private formDataHomeBuilding$ = this.store.select(getHomeBuilding).pipe(map(s => s));
-  private formDataCountHomeBuilding$ = this.store.select(getCountHomeBuilding).pipe(map(s => s));
-  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>) {
-    this.f = this.fb.group({
-      '_id': [null],
-      'idUser': [null],
-      'zone': [null],
-      'province': [null],
-      'district': [null],
-      'subDistrict': [null],
-      'region': fb.group({
-        'insideMunicipality': [null],
-        'outsideMunicipality': [null]
-      }),
-      'enumerationCode': [null],
-      'villageNo': [null],
-      'communityName': [null],
-      'irrigatedArea': [null]
-    });
+  public dataEa: any;
+  public dataWorkEARow: any;
+  public str: string;
+  public comunity: any;
+  public num: string = "1";
 
-    this.formItem = fb.group({
-      'countHomeBuilding': [null],
-      'homeBuilding': this.fb.array([]),
-    });
+ 
+  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  private dataBuilding$ = this.store.select(getHomeBuilding);
+  private dataCommunity$ = this.store.select(getLoadCommunity);
+  private dataCommunity: any;
+
+  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
+
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, { nav: this.navCtrl });
+    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, {
+      data: this.dataWorkEARow,
+      str: this.str
+    });
     popover.present({
       ev: myEvent
     });
   }
 
+  // setFilteredItems(name) {
+  //   this.dataEa = this.dataEa.filter((data) => {
+  //     let temp = '';
+  //     return temp.toLowerCase().indexOf(name.toLowerCase()) > -1;
+  //   });
+  // }
+
   ionViewDidEnter() {
-    this.store.dispatch(new LoadHomeBuilding());
-    this.store.dispatch(new LoadCountOfHomeBuilding());
-
-    this.formDataCountHomeBuilding$.subscribe(
-      data => {
-        this.formItem.get('countHomeBuilding').setValue(data);
-        if (data != null) {
-          this.setupHomeBuilding();
-          this.formDataHomeBuilding$.subscribe(data => {
-            if (data != null) {
-              this.formItem.get('homeBuilding').patchValue(data)
-            }
-          });
-        }
-      }
-    );
-  }
-
-  ionViewDidLoad() {
-    this.formDataWorkEA$.subscribe(data => {
+    
+    
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
-        this.f.patchValue(data);
+        this.dataWorkEARow = data
+        console.log(this.dataWorkEARow);
+
+        this.str = data._id.substring(1, 7);
+        this.store.dispatch(new SetIdEaWorkHomes(this.str));
+      }
+    });
+    this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
+    this.store.dispatch(new LoadCommunity(this.dataWorkEARow._id));
+    this.dataBuilding$.subscribe(data => {
+      if (data != null) {
+        this.dataEa = data
+        console.log(this.dataEa);
+        
+      }
+    });
+
+    this.dataCommunity$.subscribe(data => {
+      if (data != null) {
+        this.dataCommunity = data
       }
     });
 
   }
 
-  goBuildingInfo() {
-    this.navCtrl.push("BuildingTestPage")
+  changeNum(num: string) {
+    this.num = num;
   }
 
-  private setupHomeBuilding() {
-    const componentFormArray: string = "homeBuilding";
-    const componentCount: string = "countHomeBuilding";
+  goBuildingInfo() {
+    if (this.num == '1') {
+      this.swith.updateBuildingState(null);
+      this.navCtrl.push("BuildingTestPage", { id: this.dataWorkEARow._id })
+    } else if (this.num == '2') {
+      this.store.dispatch(new LoadCommunityForEdit(null));
+      this.navCtrl.push("CommunityTestPage", { id: null })
+    }
+  }
 
+  goEditBuildingInfo(id: any) {
+    if (this.num == '1') {
+      this.swith.updateBuildingState(id);
+      this.navCtrl.push("BuildingTestPage")
+    } else if (this.num == '2') {
+      this.store.dispatch(new LoadCommunityForEdit(id));
+      this.navCtrl.push("CommunityTestPage")
+    }
 
-    var onComponentCountChanges = () => {
-      var Ea = (this.formItem.get(componentFormArray) as FormArray).controls || [];
-      var EaCount = this.formItem.get(componentCount).value || 0;
-      var farr = this.fb.array([]);
+  }
 
-      EaCount = Math.max(0, EaCount);
-
-      for (let i = 0; i < EaCount; i++) {
-        var ctrl = null;
-        if (i < Ea.length) {
-          const fld = Ea[i];
-          ctrl = fld;
-        } else {
-          ctrl = ItemInHomeComponent.CreateFormGroup(this.fb);
-        }
-
-        farr.push(ctrl);
-      }
-      this.formItem.setControl(componentFormArray, farr);
-    };
-
-    this.formItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-    onComponentCountChanges();
+  DeleteBuilding(id: string) {
+    this.store.dispatch(new DeleteHomeBuilding(id));
+    this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 }

@@ -3,6 +3,7 @@ import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
 export interface HouseHoldState {
     units: any,
     houseHoldSample: any,
+    selectG1234: any,
     isHouseHold: boolean,
     isAgriculture: boolean,
     isFactorial: boolean,
@@ -10,20 +11,6 @@ export interface HouseHoldState {
     factorialCategory: string,
     residentialGardeningUse: any,
     commercialServiceType: any,
-    agricultureRicePlant: any,
-    agricultureAgronomyPlant: any,
-    agricultureRubberTree: any,
-    agriculturePerennialPlant: any,
-    agricultureHerbsPlant: any,
-    agricultureFlowerCrop: any,
-    agricultureMushroomPlant: any,
-    agricultureAnimalFarm: any,
-    agricultureAquaticAnimals: any,
-    ricePlantDoing: any,
-    agronomyPlantDoing: any,
-    rubberTreeDoing: any,
-    perennialPlantDoing: any,
-    waterSources: any[],
     rubberTreeSelectPlant: any[],
     perennialPlantSelectPlant: any[],
     ricePlantSelectPlant: any[],
@@ -33,13 +20,6 @@ export interface HouseHoldState {
     agiSelectAgronomy: any,
     agiSelectRubber: any,
     agiSelectPerennial: any,
-    agiSelectHerbsPlant: any,
-    agiSelectFlowerCrop: any,
-    agiSelectMushroomPlant: any,
-    agiSelectAnimalFarm: any,
-    agiSelectAquaticAnimals: any,
-    otherBuildingType: any,
-    arraySkipPage: any,
     arraySkipPageAgiculture: any,
     checkWaterPlumbing: any,
     checkWaterRiver: any,
@@ -52,15 +32,19 @@ export interface HouseHoldState {
     waterSourcesAgiculture: any,
     waterSourcesFactory: any,
     waterSourcesCommercial: any,
-    nextPageDirection: any,
-    checkHeadfamily: boolean,
-
-
+    nextPageDirection: Array<boolean>,
+    arrayIsCheck: Array<number>,
+    selectorIndex: any,
+    unitByIdBuilding: any,
+    backToRoot: any,
+    back: any,
+    dataOfUnit: any,
 }
 
 const initialState: HouseHoldState = {
     units: [],
     houseHoldSample: null,
+    selectG1234: null,
     isHouseHold: null,
     isAgriculture: null,
     isFactorial: null,
@@ -68,20 +52,6 @@ const initialState: HouseHoldState = {
     factorialCategory: null,
     residentialGardeningUse: null,
     commercialServiceType: null,
-    agricultureRicePlant: null,
-    agricultureAgronomyPlant: null,
-    agricultureRubberTree: null,
-    agriculturePerennialPlant: null,
-    agricultureHerbsPlant: null,
-    agricultureFlowerCrop: null,
-    agricultureMushroomPlant: null,
-    agricultureAnimalFarm: null,
-    agricultureAquaticAnimals: null,
-    ricePlantDoing: null,
-    agronomyPlantDoing: [],
-    rubberTreeDoing: null,
-    perennialPlantDoing: null,
-    waterSources: [],
     rubberTreeSelectPlant: [],
     perennialPlantSelectPlant: [],
     ricePlantSelectPlant: [],
@@ -91,13 +61,6 @@ const initialState: HouseHoldState = {
     agiSelectAgronomy: null,
     agiSelectRubber: null,
     agiSelectPerennial: null,
-    agiSelectHerbsPlant: null,
-    agiSelectFlowerCrop: null,
-    agiSelectMushroomPlant: null,
-    agiSelectAnimalFarm: null,
-    agiSelectAquaticAnimals: null,
-    otherBuildingType: null,
-    arraySkipPage: null,
     arraySkipPageAgiculture: null,
     checkWaterPlumbing: null,
     checkWaterRiver: null,
@@ -110,9 +73,13 @@ const initialState: HouseHoldState = {
     waterSourcesAgiculture: null,
     waterSourcesFactory: null,
     waterSourcesCommercial: null,
-    nextPageDirection: null,
-
-    checkHeadfamily: null,
+    nextPageDirection: Array<boolean>(),
+    arrayIsCheck: Array<number>(),
+    selectorIndex: null,
+    unitByIdBuilding: [],
+    backToRoot: null,
+    back: null,
+    dataOfUnit: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -121,10 +88,14 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
             };
-        case HouseHoldTypes.LoadSuccess:
+        case HouseHoldTypes.SetSelectG1234:
             return {
                 ...state,
-                houseHoldSample: action.payload,
+                selectG1234: action.payload,
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    selectG1234: action.payload
+                }),
             };
         case HouseHoldTypes.SetIsHouseHold:
             return {
@@ -156,26 +127,12 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 commercialServiceType: action.payload,
             };
-        case HouseHoldTypes.SetOtherBuildingType:
-            return {
-                ...state,
-                otherBuildingType: action.payload,
-            };
         case HouseHoldTypes.SetResidentialGardeningUse:
             return {
                 ...state,
                 residentialGardeningUse: action.payload,
             };
-        case HouseHoldTypes.SetWaterSource:
-            return {
-                ...state,
-                waterSources: action.payload,
-            };
-        case HouseHoldTypes.SetAgronomyPlantDoing:
-            return {
-                ...state,
-                agronomyPlantDoing: action.payload,
-            };
+
         case HouseHoldTypes.SetRicePlantSelectPlant:
             return {
                 ...state,
@@ -221,66 +178,59 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 agiSelectPerennial: action.payload,
             };
-        case HouseHoldTypes.SetAgiSelectHerbPlant:
-            return {
-                ...state,
-                agiSelectHerbsPlant: action.payload,
-            };
-        case HouseHoldTypes.SetAgiSelectFlowerCrop:
-            return {
-                ...state,
-                agiSelectFlowerCrop: action.payload,
-            };
-        case HouseHoldTypes.SetAgiSelectMushroomPlant:
-            return {
-                ...state,
-                agiSelectMushroomPlant: action.payload,
-            };
-        case HouseHoldTypes.SetAgiSelectAnimalFarm:
-            return {
-                ...state,
-                agiSelectAnimalFarm: action.payload,
-            };
-        case HouseHoldTypes.SetAgiSelectAquaticAnimals:
-            return {
-                ...state,
-                agiSelectAquaticAnimals: action.payload,
-            };
-        case HouseHoldTypes.SetArraySkipPage:
-            return {
-                ...state,
-                arraySkipPage: action.payload,
-            };
-
         case HouseHoldTypes.SetArraySkipPageAgiculture:
             return {
                 ...state,
                 arraySkipPageAgiculture: action.payload,
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    arraySkipPageAgiculture: action.payload,
+                }),
             };
         case HouseHoldTypes.SetCheckWaterPlumbing:
             return {
                 ...state,
-                checkWaterPlumbing: action.payload,
+                checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
+                }),
             };
         case HouseHoldTypes.SetCheckWaterRiver:
             return {
                 ...state,
-                checkWaterRiver: action.payload,
+                checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
+                }),
             };
         case HouseHoldTypes.SetCheckWaterIrrigation:
             return {
                 ...state,
-                checkWaterIrrigation: action.payload,
+                checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
+                }),
             };
         case HouseHoldTypes.SetCheckWaterRain:
             return {
                 ...state,
-                checkWaterRain: action.payload,
+                checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
+                }),
             };
         case HouseHoldTypes.SetCheckWaterBuying:
             return {
                 ...state,
-                checkWaterBuying: action.payload,
+                checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
+                nextPageDirection: listPagesToCheck({
+                    ...state,
+                    checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
+                }),
             };
         case HouseHoldTypes.SetWateringResidential:
             return {
@@ -311,19 +261,207 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 waterSourcesCommercial: action.payload,
-            }; 
+            };
         case HouseHoldTypes.SetNextPageDirection:
             return {
                 ...state,
                 nextPageDirection: action.payload,
-            }; 
-            
-        case HouseHoldTypes.SetHeadFamily:
+            };
+        case HouseHoldTypes.SetArrayIsCheck:
             return {
                 ...state,
-                checkHeadfamily: action.payload,
+                arrayIsCheck: action.payload,
+            };
+        case HouseHoldTypes.SetSelectorIndex:
+            return {
+                ...state,
+                selectorIndex: action.payload,
+            };
+        case HouseHoldTypes.LoadUnitByIdBuildingSuccess:
+            return {
+                ...state,
+                unitByIdBuilding: action.payload,
+            };
+        case HouseHoldTypes.SetBackToRoot:
+            return {
+                ...state,
+                backToRoot: action.payload,
+            };
+        case HouseHoldTypes.SetBack:
+            return {
+                ...state,
+                back: action.payload,
+            };
+        case HouseHoldTypes.LoadHouseHoldSampleSuccess:
+            let s = resetStatesForModel(action.payload);
+
+            return {
+                ...state,
+                houseHoldSample: action.payload,
+                selectG1234: s.selectG1234,
+                residentialGardeningUse: s.residentialGardeningUse,
+                waterSourcesResidential: s.waterSourcesResidential,
+                waterSourcesRice: s.waterSourcesRice,
+                waterSourcesAgiculture: s.waterSourcesAgiculture,
+                waterSourcesFactory: s.waterSourcesFactory,
+                waterSourcesCommercial: s.waterSourcesCommercial,
+                arraySkipPageAgiculture: s.agi,
+                riceDoing: s.riceDoing,
+                agiSelectRice: s.agiSelectRice,
+                agiSelectRubber: s.agiSelectRubber,
+                agiSelectPerennial: s.agiSelectPerennial,
+                ricePlantSelectPlant: s.ricePlantSelectPlant,
+                agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
+                rubberTreeSelectPlant: s.rubberTreeSelectPlant,
+                perennialPlantSelectPlant: s.perennialPlantSelectPlant,
+                factorialCategory: s.factorialCategory,
+                commercialServiceType: s.commercialServiceType,
+                checkWaterPlumbing: s.checkWaterPlumbing,
+                checkWaterRiver: s.checkWaterRiver,
+                checkWaterIrrigation: s.checkWaterIrrigation,
+                checkWaterRain: s.checkWaterRain,
+                checkWaterBuying: s.checkWaterBuying,
             };
         default:
             return state;
     }
+}
+
+function resetStatesForModel(model: any): any {
+    let objG12345 = {};
+    let garden: any;
+    if (model) {
+        objG12345 = {
+            isHouseHold: model.isHouseHold,
+            isAgriculture: model.isAgriculture,
+            isFactorial: model.isFactorial,
+            isCommercial: model.isCommercial,
+        }
+
+    }
+
+    let objAgri = {};
+
+    let ag = model && model.agriculture;
+    let riceDoing = ag && ag.ricePlant.doing;
+    let rubberDoing = ag && ag.rubberTree.doing;
+    let listRice
+    let listAgronomy
+    let listRubber
+    let listPerennial
+
+
+    if (ag) {
+        objAgri = {
+            ricePlant: ag.ricePlant && ag.ricePlant.doing,
+            agronomyPlant: ag.agronomyPlant && ag.agronomyPlant.doing,
+            rubberTree: ag.rubberTree && ag.rubberTree.doing,
+            perennialPlant: ag.perennialPlant && ag.perennialPlant.doing,
+            herbsPlant: ag.herbsPlant && ag.herbsPlant.doing,
+            flowerCrop: ag.flowerCrop && ag.flowerCrop.doing,
+            mushroomPlant: ag.mushroomPlant && ag.mushroomPlant.doing,
+            animalFarm: ag.animalFarm && ag.animalFarm.doing,
+            aquaticAnimals: ag.aquaticAnimals && ag.aquaticAnimals.doing,
+        };
+        if (model.residence && model.residence.gardeningUse) {
+            garden = model.residence.gardeningUse;
+        }
+
+        riceDoing = ag && ag.ricePlant.doing;
+        rubberDoing = ag && ag.rubberTree.doing;
+        listAgronomy = ag.agronomyPlant && ag.agronomyPlant.fields.plantings;
+        listPerennial = ag.perennialPlant && ag.perennialPlant.fields.plantings;
+
+        if (riceDoing) {
+            listRice = ag.ricePlant.fields.plantings;
+
+        }
+
+        if (rubberDoing) {
+            listRubber = ag.rubberTree.fields.plantings;
+        }
+    };
+
+    let waterSource = {
+        plumbing: true,
+        underGround: true,
+        river: true,
+        pool: true,
+        irrigation: true,
+        rain: true,
+        buying: true,
+        rainingAsIs: true,
+        hasOther: true,
+        other: "water",
+    }
+
+
+    return {
+
+        selectG1234: objG12345,
+        residentialGardeningUse: model && model.residence.gardeningUse,
+        agi: objAgri,
+        waterSourcesResidential: waterSource,
+        ricePlantSelectPlant: listRice,
+        agronomyPlantSelectPlant: listAgronomy,
+        rubberTreeSelectPlant: listRubber,
+        perennialPlantSelectPlant: listPerennial,
+        waterSourcesRice: waterSource,
+        waterSourcesAgiculture: waterSource,
+        waterSourcesFactory: waterSource,
+        waterSourcesCommercial: waterSource,
+        riceDoing: model && model.agriculture.ricePlant.doing,
+        agiSelectRice: model && model.agriculture.ricePlant.doing,
+        agiSelectRubber: model && model.agriculture.rubberTree.doing,
+        agiSelectPerennial: model && model.agriculture.perennialPlant.doing,
+        factorialCategory: model && model.factory.category,
+        commercialServiceType: model && model.commerce.serviceType,
+        checkWaterPlumbing: waterSource.plumbing,
+        checkWaterRiver: waterSource.river,
+        checkWaterIrrigation: waterSource.irrigation,
+        checkWaterRain: waterSource.rain,
+        checkWaterBuying: waterSource.buying,
+    };
+}
+
+function listPagesToCheck(state: HouseHoldState): Array<boolean> {
+    console.log(JSON.stringify(state.selectG1234));
+    let arr: Array<boolean> = state.nextPageDirection;
+    arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
+    arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
+    arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
+    arr[11] = (state.selectG1234 && state.selectG1234.isFactorial) ? true : false;
+    arr[12] = (state.selectG1234 && state.selectG1234.isCommercial) ? true : false;
+    for (let i = 2; i <= 10; i++) {
+        arr[i] = arr[1]
+    }
+    if (state.arraySkipPageAgiculture) {
+        arr[2] = (state.arraySkipPageAgiculture.ricePlant && state.arraySkipPageAgiculture.ricePlant.doing) ? true : false;
+        arr[3] = (state.arraySkipPageAgiculture.agronomyPlant && state.arraySkipPageAgiculture.agronomyPlant.doing) ? true : false;
+        arr[4] = (state.arraySkipPageAgiculture.rubberTree && state.arraySkipPageAgiculture.rubberTree.doing) ? true : false;
+        arr[5] = (state.arraySkipPageAgiculture.perennialPlant && state.arraySkipPageAgiculture.perennialPlant.doing) ? true : false;
+        arr[6] = (state.arraySkipPageAgiculture.herbsPlant && state.arraySkipPageAgiculture.herbsPlant.doing) ? true : false;
+        arr[7] = (state.arraySkipPageAgiculture.flowerCrop && state.arraySkipPageAgiculture.flowerCrop.doing) ? true : false;
+        arr[8] = (state.arraySkipPageAgiculture.mushroomPlant && state.arraySkipPageAgiculture.mushroomPlant.doing) ? true : false;
+        arr[9] = (state.arraySkipPageAgiculture.animalFarm && state.arraySkipPageAgiculture.animalFarm.doing) ? true : false;
+        arr[10] = (state.arraySkipPageAgiculture.aquaticAnimals && state.arraySkipPageAgiculture.aquaticAnimals.doing) ? true : false;
+    }
+    console.log(JSON.stringify(state.checkWaterPlumbing));
+    console.log(JSON.stringify(state.checkWaterRiver));
+    console.log(JSON.stringify(state.checkWaterIrrigation));
+    console.log(JSON.stringify(state.checkWaterRain));
+    console.log(JSON.stringify(state.checkWaterBuying));
+
+    arr[13] = (state.checkWaterPlumbing) ? true : false;
+    arr[15] = (state.checkWaterRiver) ? true : false;
+    arr[17] = (state.checkWaterIrrigation) ? true : false;
+    arr[18] = (state.checkWaterRain) ? true : false;
+    arr[19] = (state.checkWaterBuying) ? true : false;
+
+
+    return arr;
+}
+
+function isCheckWater(checkWater: boolean, payload: boolean): boolean {
+    return checkWater ? true : payload;
 }

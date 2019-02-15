@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getWaterSource, getArraySkipPageAgiculture, getCheckWaterPlumbing, getArraySkipPage } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetPerennialPlantSelectPlant, SetWaterSources, SetAgiSelectPerennial, SetNextPageDirection } from '../../states/household/household.actions';
+import { SetPerennialPlantSelectPlant, SetAgiSelectPerennial, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -17,14 +17,11 @@ export class PerennialPlantingPage {
 
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
-  private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
-  private itAgi: any;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
-
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData: any;
+  private frontNum: any;
+  private backNum: any;
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
@@ -37,7 +34,18 @@ export class PerennialPlantingPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.PerennialPlantingFrm.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // });
+      }
+    })
   }
 
   public handleSubmit() {
@@ -55,66 +63,60 @@ export class PerennialPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
     this.store.dispatch(new SetAgiSelectPerennial(true));
-    this.store.dispatch(new SetNextPageDirection(6));
-    if (this.PerennialPlantingFrm.valid) {
-      this.navCtrl.popToRoot();
-      // this.checkNextPage();
+    this.formData.agriculture.perennialPlant = this.PerennialPlantingFrm.value;
+    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
       if (data != null) {
-        this.itG1_G4 = data;
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
-      console.log("itG1_G4: ", this.itG1_G4);
+
     });
-    this.formDatAgiculture$.subscribe(data => {
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
       if (data != null) {
-        this.itAgi = data;
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
       }
-      console.log("it: ", this.itAgi);
+
     });
-    if (this.itAgi.herbsPlant) {
-      this.navCtrl.push("HerbsPlantPage")
-    }
-    else if (this.itAgi.flowerCrop) {
-      this.navCtrl.push("FlowerCropPage")
-    }
-    else if (this.itAgi.mushroomPlant) {
-      this.navCtrl.push("MushroomPage")
-    }
-    else if (this.itAgi.animalFarm) {
-      this.navCtrl.push("AnimalFarmPage")
-    }
-    else if (this.itAgi.aquaticAnimals) {
-      this.navCtrl.push("WaterAnimalPlantingPage")
-    }
-    else if (this.itG1_G4.isFactorial) {
-      this.navCtrl.push("FactorialPage")
-    }
-    else if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage")
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(5));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 5)) {
+          arrayIsCheck.push(5);
         }
-        console.log("itPlumbing: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
+        console.log(arrayIsCheck);
       }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.PerennialPlantingFrm.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupFieldCountChanges() {

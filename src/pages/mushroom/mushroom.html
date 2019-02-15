@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="เพาะเชื้อและปลูกเห็ด "></questionnaire-menu>
+  <back-to-root title="เพาะเชื้อและปลูกเห็ด "></back-to-root>
   
 </ion-header>
 
@@ -15,7 +15,7 @@
 
         <ion-item>
           <ion-label>
-            2.7.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้<b>เพาะเชื้อและปลูกเห็ด</b><br> หรือไม่
+            2.7.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้<b>เพาะเชื้อ <br>และปลูกเห็ด</b> หรือไม่
           </ion-label>
         </ion-item>
 
@@ -66,8 +66,9 @@
         <field-mushroom [no]="i + 1" [FormItem]="far"></field-mushroom>
       </div>
     </div>
+    
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
-    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>

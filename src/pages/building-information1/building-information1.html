@@ -36,7 +36,7 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            ชื่อหมู่บ้าน/คอนโด/อาคาร/สำนักงาน/สถานประกอบการ/สถาบัน ฯลฯ
+            ชื่อหมู่บ้าน/คอนโด/อาคาร/สำนักงาน/สถานประกอบการ/<br>สถาบัน ฯลฯ
           </ion-label>
         </ion-item>
         <ion-item>
@@ -85,7 +85,7 @@
           <ion-col>
             <ion-item>
               <ion-label>
-                ลองกิจูด
+                ลองจิจูด
               </ion-label>
             </ion-item>
             <ion-item>
@@ -159,7 +159,7 @@
             การเข้าพบ 1/3
           </span>
         </ion-item>
-        <ion-item *ngIf="isValid('buildingType')">
+        <ion-item *ngIf="isValid('access')">
           <span class="invalid-msg">กรุณาเลือก</span>
         </ion-item>
         <ion-item [class.invalid]="isValid('access')">
@@ -223,7 +223,7 @@
       </ion-card-content>
     </ion-card>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar [isBuilding]="true"></form-buttons-bar>
   </form>
 
 

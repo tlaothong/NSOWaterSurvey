@@ -6,9 +6,9 @@ import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import {
     LoggingTypes, LoadUserDataSuccess, SetUserPasswordSuccess, SetUserPassword,
-    LoadUserDataByQRCode, LoadDataWorkEA, LoadDataWorkEASuccess, LoadCountOfWorksSuccess,
-    LoadWorkByIdEASuccess, LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
-    SetHomeBuildingSuccess, LoadUserDataById,
+    LoadUserDataByQRCode, LoadCountOfWorksSuccess,
+    LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
+    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId, LoadHomeBuilding, DeleteHomeBuildingSuccess, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess, SetLogin, SetLoginSuccess, LoadCommunity, LoadCommunitySuccess, LoadCommunityForEdit, LoadCommunityForEditSuccess,
 } from "./logging.actions";
 
 @Injectable()
@@ -27,7 +27,7 @@ export class LoggingEffects {
     @Effect()
     public LoadUserDataById: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadUserDataById),
-        mergeMap(action => this.cloudSync.loadUserFromId((<LoadUserDataById>action).id).pipe(
+        mergeMap(action => this.cloudSync.loadUserFromId((<LoadUserDataById>action).payload).pipe(
             map(data => new LoadUserDataSuccess(data))
         ))
     );
@@ -41,33 +41,25 @@ export class LoggingEffects {
     );
 
     @Effect()
-    public LoadDataWorkEA: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.LoadDataWorkEA),
-        mergeMap(action => this.cloudSync.loadAllWorkEA((<LoadDataWorkEA>action).payload).pipe(
-            map(data => new LoadDataWorkEASuccess(data))
+    public LoadDataWorkEAByUserId: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadDataWorkEAByUserId),
+        mergeMap(action => this.cloudSync.loadAllWorkEA((<LoadDataWorkEAByUserId>action).payload).pipe(
+            map(data => new LoadDataWorkEAByUserIdSuccess(data))
         ))
     );
 
     @Effect()
     public LoadCountOfWorks: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadCountOfWorks),
-        mergeMap(action => this.cloudSync.loadCountOfWorkEA((<LoadDataWorkEA>action).payload).pipe(
+        mergeMap(action => this.cloudSync.loadCountOfWorkEA((<LoadDataWorkEAByUserId>action).payload).pipe(
             map(data => new LoadCountOfWorksSuccess(data))
         ))
     );
 
     @Effect()
-    public LoadWorkByIdEA: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.LoadWorkByIdEA),
-        mergeMap(action => this.cloudSync.loadWorkEAbyIdEA((<LoadDataWorkEA>action).payload).pipe(
-            map(data => new LoadWorkByIdEASuccess(data))
-        ))
-    );
-
-    @Effect()
-    public LoadHomeBuilding$: Observable<Action> = this.action$.pipe(
+    public LoadHomeBuilding: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.LoadHomeBuilding),
-        mergeMap(action => this.cloudSync.loadHomeBuilding().pipe(
+        mergeMap(action => this.cloudSync.loadHomeBuilding((<LoadHomeBuilding>action).payload).pipe(
             map(data => new LoadHomeBuildingSuccess(data)))
         ),
     );
@@ -81,11 +73,56 @@ export class LoggingEffects {
     );
 
     @Effect()
-    public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
+    public SetHomeBuilding: Observable<Action> = this.action$.pipe(
         ofType(LoggingTypes.SetHomeBuilding),
         mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
-            map(data => new SetHomeBuildingSuccess()),
+            map(data => new SetHomeBuildingSuccess())),
+        ),
+    );
+
+    @Effect()
+    public DeleteHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.DeleteHomeBuilding),
+        mergeMap(action => this.cloudSync.deleteHomeBuilding((<DeleteHomeBuilding>action).payload).pipe(
+                map(data => new DeleteHomeBuildingSuccess()),
+            )
+        ),
+    );
+
+    @Effect()
+    public LoadDataBuildingForEdit: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadDataBuildingForEdit),
+        mergeMap(action => this.cloudSync.getDataBuilding((<LoadDataBuildingForEdit>action).payload).pipe(
+                map(data => new LoadDataBuildingForEditSuccess(data)),
+            )
+        ),
+    );
+
+    @Effect()
+    public SetLogin: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.SetLogin),
+        mergeMap(action => this.cloudSync.getLogin((<SetLogin>action).payload).pipe(
+                map(data => new SetLoginSuccess(data)),
+            )
+        ),
+    );
+
+    @Effect()
+    public LoadCommunity$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadCommunity),
+        mergeMap(action => this.cloudSync.loadCommunity((<LoadCommunity>action).payload).pipe(
+            map(data => new LoadCommunitySuccess(data)),
         )
         ),
     );
+
+    @Effect()
+    public LoadCommunityForEdit$: Observable<Action> = this.action$.pipe(
+        ofType(LoggingTypes.LoadCommunityForEdit),
+        mergeMap(action => this.cloudSync.loadCommunityForEdit((<LoadCommunityForEdit>action).payload).pipe(
+            map(data => new LoadCommunityForEditSuccess(data)),
+        )
+        ),
+    );
+
 }

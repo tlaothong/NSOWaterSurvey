@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="พืชยืนต้น ไม้ผล สวนป่า "></questionnaire-menu>
+  <back-to-root title="พืชยืนต้น ไม้ผล สวนป่า "></back-to-root>
 
 </ion-header>
 
@@ -85,8 +85,9 @@
         <field-perenial-planting [no]="i+1" [FormItem]="p"></field-perenial-planting>
       </div>
     </div>
+    
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
-    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>

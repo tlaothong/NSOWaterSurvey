@@ -13,22 +13,22 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   @Input('no') public text: string;
   @Input() public FormItem: FormGroup;
-  @Input('G') public G:boolean;
+  @Input('G') public G: boolean;
   @Input('usee') public gardeningUse: boolean;
   @Input('doing') public riceDoing: boolean;
   @Input('commerce') public commerceUse: boolean;
   @Input('factory') public factoryUse: boolean;
   @Input('residence') public residenceUse: boolean;
   @Input('agriculture') public agricultureUse: boolean;
-  @Input('activeRes') public activeRes:any;
-  @Input('activeWateringRes') public activeWateringRes:any;
-  @Input('activRice') public activRice:any;
-  @Input('activeAgi') public activeAgi:any;
-  @Input('activeFac') public activeFac:any;
-  @Input('activeCom') public activeCom:any;
-  @ViewChildren(PumpComponent) private pump: PumpComponent[];
-  @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
-  @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
+  @Input('activeRes') public activeRes: any;
+  @Input('activeWateringRes') public activeWateringRes: any;
+  @Input('activRice') public activRice: any;
+  @Input('activeAgi') public activeAgi: any;
+  @Input('activeFac') public activeFac: any;
+  @Input('activeCom') public activeCom: any;
+  @ViewChildren(PumpComponent) public pump: PumpComponent[];
+  @ViewChildren(WaterActivity6Component) public waterActivity6: WaterActivity6Component[];
+  @ViewChildren(WaterProblem6Component) public waterProblem6: WaterProblem6Component[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
@@ -57,7 +57,37 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     return fg;
   }
 
-  setDefult(){
+  public checkValid(): boolean {
+    return this.isCheckUsageType() && this.isCheckValidwaterAct() && this.isCheckProblem();
+  }
+
+  public isCheckUsageType(): boolean {
+    switch (this.FormItem.get('usageType.groundWaterQuantity').value) {
+      case 1: return this.FormItem.get('usageType.usageCubicMeters').valid;
+      case 2: return this.FormItem.get('usageType.waterBill').valid;
+      case 3: return this.isCheckPump()
+      default: return this.FormItem.get('usageType.groundWaterQuantity').valid;
+    }
+  }
+
+  public isCheckPump(): boolean {
+    let isCheckPump = this.pump.find(it => !it.checkValid()) ? false : true;
+    return (this.FormItem.get('hasPump').value) ?
+      (this.FormItem.get('pumpCount').valid && isCheckPump) : this.FormItem.get('hasPump').valid;
+  }
+
+  public isCheckValidwaterAct(): boolean {
+    let isCheckWaterAct = this.waterActivity6.find(it => it.totalSum != 100) ? false : true;
+    return (this.gardeningUse || this.riceDoing || this.commerceUse || this.factoryUse || this.residenceUse || this.agricultureUse) ?
+      isCheckWaterAct : true;
+  }
+
+  public isCheckProblem(): boolean {
+    return (this.FormItem.get('qualityProblem.hasProblem').value) ?
+      this.FormItem.get('qualityProblem.problem').valid : this.FormItem.get('qualityProblem.hasProblem').valid;
+  }
+
+  setDefult() {
     this.FormItem.get('hasPump').setValue(null);
     this.FormItem.get('pumpCount').setValue(null);
   }
@@ -71,7 +101,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private static setupPumpCountChanges(fb: FormBuilder, fg: FormGroup) {

@@ -41,17 +41,17 @@ export class WaterActivity5Component {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': [0],
-      'plant': [0],
-      'farm': [0],
-      'agriculture': [0],
-      'product': [0],
-      'service': [0]
+      'drink': 0,
+      'plant': 0,
+      'farm': 0,
+      'agriculture': 0,
+      'product': 0,
+      'service': 0
     });
   }
 

@@ -2,13 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getBuildingSample } from '../../states/building';
-import { map } from 'rxjs/operators';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SetHomeBuilding } from '../../states/building/building.actions';
-import { SetOtherBuildingType } from '../../states/household/household.actions';
+import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { BuidlingInformation2Page } from '../buidling-information2/buidling-information2';
+import { getDataBuilding } from '../../states/logging';
 
 @IonicPage()
 @Component({
@@ -19,10 +16,12 @@ export class BuildingInformation1Page {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+  public isBuilding:boolean;
 
+  private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
+    this.f.controls['ea'].setValue(navParams.get('id'));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -39,36 +38,41 @@ export class BuildingInformation1Page {
       'other': [null],
       // 'buildingAccessCount': [0],
       'access': [null, Validators.required],
-      'vacancyCount': [null, Validators.required],
-      'abandonedCount': [null, Validators.required],
+      'vacancyCount': [0, Validators.required],
+      'abandonedCount': [0, Validators.required],
       'comments': fb.array([
-        {
-          "at": [null, Validators.required],
-          "text": [null, Validators.required]
-        }
+        // {
+        //   "at": null,
+        //   "text": null
+        // }
       ]),
-      'recCtrl': [null, Validators.required],
-      'vacantRoomCount': [null, Validators.required],
+      'recCtrl': [null],
+      'vacantRoomCount': [null],
       'unitCount': [0, Validators.required],
       'unitAccess': [0, Validators.required],
-      'occupiedRoomCount': [null, Validators.required],
+      'occupiedRoomCount': [null],
       'waterQuantity': fb.group({
-        'waterQuantity': [null, Validators.required],
-        'cubicMeterPerMonth': [null, Validators.required],
-        'waterBill': [null, Validators.required],
+        "waterQuantity": [1],
+        "cubicMeterPerMonth": [0],
+        "waterBill": [0]
       }),
-      'floorCount': [null, Validators.required],
-      '_id': [null, Validators.required],
+      'floorCount': [null],
+      '_id': [null],
     });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
-    this.formData$.subscribe(data => {
+    this.dataBuilding$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data)
+        this.f.setValue(data);
       }
     });
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.setValue(data)
+    //   }
+    // });
   }
 
   public handleSubmit() {
@@ -77,6 +81,7 @@ export class BuildingInformation1Page {
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
 
     console.log(this.f.value);
+    console.log(this.f.get('access').value);
     this.store.dispatch(new SetHomeBuilding(this.f.value));
 
     if (this.f.valid && this.f.get('access').value == 1) {
@@ -89,6 +94,6 @@ export class BuildingInformation1Page {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }

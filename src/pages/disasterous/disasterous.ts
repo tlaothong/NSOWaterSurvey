@@ -1,12 +1,12 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample } from '../../states/household';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -20,11 +20,14 @@ export class DisasterousPage {
 
   private submitRequested: boolean;
   public Disasterous: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
-
+  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.disaster));
+  private formData$ = this.store.select(getHouseHoldSample);
+  public dataDis: any;
+  private frontNum: any;
+  private backNum: any;
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
-      '_id': [null],
+      '_id': null,
       'flooded': [null, Validators.required],
       'yearsDisasterous': this.fb.array([
         TableDisasterousComponent.CreateFormGroup(this.fb),
@@ -37,7 +40,13 @@ export class DisasterousPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.Disasterous.setValue(data));
+    this.countNumberPage();
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.Disasterous.patchValue(data.disaster)
+        this.dataDis = data;
+      }
+    })
   }
 
   public showModal() {
@@ -45,20 +54,66 @@ export class DisasterousPage {
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
-        this.Disasterous.setValue(fg.value);
+        this.Disasterous.patchValue(fg.value);
       }
     });
     modal.present();
   }
-  
+
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(21));
-    if (this.Disasterous.valid) {
-      this.navCtrl.popToRoot();
-      // this.navCtrl.push("UserPage");
+    this.dataDis.disaster = this.Disasterous.value
+    if (this.Disasterous.valid
+      || this.Disasterous.get('flooded').value == false
+      || this.tableDisasterous.some(it => it.FormItem.valid)) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.dataDis));
+      this.navCtrl.popTo("CheckListPage");
     }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(20));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 20)) {
+          arrayIsCheck.push(20);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   submitRequest() {
@@ -67,6 +122,6 @@ export class DisasterousPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }

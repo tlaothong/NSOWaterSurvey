@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้"></questionnaire-menu>
+  <back-to-root title="ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้"></back-to-root>
 
 </ion-header>
 
@@ -32,7 +32,7 @@
       <ion-card-content>
         <ion-item>
           <ion-label>
-            2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูก<b>ไม้ดอก ไม้ประดับ <br>เพาะพันธุ์ไม้</b> หรือไม่
+            2.6.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูก<b>ไม้ดอก <br>ไม้ประดับ เพาะพันธุ์ไม้</b> หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <form-buttons-bar></form-buttons-bar>
-  </form>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
+  </form>
 </ion-content>

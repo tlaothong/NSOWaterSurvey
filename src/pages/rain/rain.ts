@@ -7,9 +7,9 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -22,11 +22,9 @@ export class RainPage {
   @ViewChildren(WaterActivity5Component) private waterActivity5: WaterActivity5Component[];
   RainFrm: FormGroup;
   private submitRequested: boolean;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-  private itBuying: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private commerceUse$ = this.store.select(getIsCommercial);
@@ -47,7 +45,8 @@ export class RainPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([
@@ -65,7 +64,18 @@ export class RainPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.RainFrm.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.RainFrm.patchValue(data.waterUsage.rain);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
+        // this.formData$.subscribe(data =>{
+        //   if(data != null){
+        //   }
+        // })
+      }
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
@@ -117,44 +127,64 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(19));
-    if (this.RainFrm.valid) {
+    this.formData.waterUsage.rain = this.RainFrm.value;
+    if (!this.waterActivity5.find(it => it.resultSum != 100) && this.rainStorage.some(it => it.FormItem.valid)) {
+      console.log(this.RainFrm.get('waterActivities').valid );
+      
       // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-      this.navCtrl.popToRoot();
-      // this.checkNextPage();
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.popTo("CheckListPage");
       // }
     }
   }
 
-  private checkNextPage() {
-    this.formCheckBuying$.subscribe(data => {
-      if (data != null) {
-        this.itBuying = data;
-      }
-      console.log("itBuying: ", this.itBuying);
-    });
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
 
-    if (this.itBuying) {
-      this.navCtrl.push("BuyingPage")
-    }
-    else {
-      this.formDataG1_G4$.subscribe(data => {
-        if (data != null) {
-          this.itG1_G4 = data;
-        }
-        console.log("itG1_G4: ", this.itG1_G4);
-      });
-      if (this.itG1_G4.isHouseHold) {
-        this.navCtrl.push("DisasterousPage")
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
-      else
-        this.navCtrl.push("UserPage")
-    }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(18));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 18)) {
+          arrayIsCheck.push(18);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.RainFrm.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   submitRequest() {

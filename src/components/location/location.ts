@@ -36,7 +36,7 @@ export class LocationComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested)
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested)
   }
 
   submitRequest() {
@@ -55,5 +55,4 @@ export class LocationComponent implements ISubmitRequestable {
     this.subDistrict = LocationDataProvider.getSubdistric(code.codeDistrict);
   }
 
-  
 }

@@ -1,12 +1,12 @@
 <ion-header>
 
-  <questionnaire-menu title="Population "></questionnaire-menu>
+  <back-to-root title="Population" [Pop]="true"></back-to-root>
 
 </ion-header>
 
 <ion-content padding>
 
-  <h3>แบบสอบถามสำมะโนประชากรและเคหะ พ.ศ. 2563</h3>
+  <h3>แบบข้อมูลประชากร</h3>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
     <ion-card>
@@ -30,28 +30,35 @@
               <ion-col col-2>
                 <b>ลำดับที่</b>
               </ion-col>
-              <ion-col col-4>
+              <ion-col col-3>
                 <b>คำนำหน้าชื่อ</b>
               </ion-col>
               <ion-col col-3>
                 <b>ชื่อตัว</b>
               </ion-col>
-              <ion-col col-3>
+              <ion-col col-4>
                 <b>ชื่อสกุล</b>
               </ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
 
-        <div *ngIf="f.get('personCount').value > 0">
+        <div *ngIf="f.get('personCount').value > 0" [class.invalid]="!isCheckHaveHeadfamily()">
           <div *ngFor="let far of f.get('persons').controls; let i = index">
-            <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')"></table-population>
+            <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')" [ProName]="proName">
+            </table-population>
           </div>
+          <ion-item *ngIf="!isCheckHaveHeadfamily()">
+            <span class="invalid-msg" item-right>
+              ครัวเรือนนี้ยังไม่มีหัวหน้าครัวเรือน
+            </span>
+          </ion-item>
         </div>
+
       </ion-card-content>
     </ion-card>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar [checkEnd]="false" frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 </ion-content>

@@ -6,9 +6,9 @@ import { WaterActivity6Component } from '../../components/water-activity6/water-
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,11 +19,15 @@ export class RiverPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
+  public G: boolean = false;
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
+
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -48,7 +52,8 @@ export class RiverPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       "hasPump": [null, Validators.required],
@@ -56,7 +61,7 @@ export class RiverPage {
       "pumps": this.fb.array([]),
       "waterActivities": WaterActivity6Component.CreateFormGroup(fb),
       "qualityProblem": this.fb.group({
-        "hasProblem": [null, Validators.required],
+        "hasProblem": [null],
         "problem": WaterProblem4Component.CreateFormGroup(this.fb)
       })
     });
@@ -64,7 +69,18 @@ export class RiverPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data.waterUsage.river);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
+      }
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -119,24 +135,85 @@ export class RiverPage {
     }
   }
 
-  ionViewDidEnter() {
-  }
-
   public handleSubmit() {
-    this.submitRequested = true; 
+    this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(16));
-    if (this.f.valid) {
-      this.navCtrl.popToRoot();
-      // this.navCtrl.push("PoolPage");
+    this.formData.waterUsage.river = this.f.value;
+    if (this.checkValid()) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.setRoot("CheckListPage");
     }
+  }
+
+  checkValid(): boolean {
+    let pumps = true;
+    let activity = !this.waterActivity6.find(it => it.totalSum != 100);
+    let problem: boolean;
+    if ((this.f.get('hasPump').value != null) && (this.f.get('hasPump').value == true)) {
+      if (this.f.get('pumpCount').value > 0) {
+        pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid();
+      }
+    }
+    if ((this.f.get('hasPump').value != null) && (this.f.get('hasPump').value == false)) {
+      pumps = true;
+    }
+    if (!this.f.get('qualityProblem.hasProblem').value) {
+      problem = true;
+    } else {
+      problem = this.f.get('qualityProblem.problem').valid;
+    }
+    return pumps && activity && problem;
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(15));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 15)) {
+          arrayIsCheck.push(15);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupPumpCountChanges() {

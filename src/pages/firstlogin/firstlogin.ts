@@ -27,17 +27,19 @@ export class FirstloginPage {
       'password': [null],
       'name': [null],
       'email': [null],
+      'idEA': [null]
     });
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data)
+      }
+    });
   }
 
-  goBack() {
-    this.navCtrl.pop();
-    this.navCtrl.push("LoginPage");
-  }
+
 
   goConfirmloginPage(confirmPassword: any) {
     let _idqr = this.f.get('_idqr').value;
@@ -53,8 +55,7 @@ export class FirstloginPage {
         _idqr,
         password
       }));
-      this.navCtrl.push("ConfirmloginPage")
-      
+      this.navCtrl.pop();
     } else {
       alert.present()
     }

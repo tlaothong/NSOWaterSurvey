@@ -47,6 +47,38 @@ export class PumpComponent implements ISubmitRequestable {
     });
   }
 
+  public checkValid(): boolean {
+    if (this.FormItem.get('pumpAuto').value != null) {
+      if (this.FormItem.get('pumpAuto').value == true) {
+        return true;
+      }
+      if (this.FormItem.get('pumpAuto').value == false) {
+        if ((this.FormItem.get('hoursPerPump').value != null)
+          && (this.FormItem.get('numberOfPumpsPerYear') != null)
+          && (this.FormItem.get('hasPumpRate').value != null)) {
+          if ((this.FormItem.get('hasPumpRate').value == true)
+            && (this.FormItem.get('pumpRate').value != null)) {
+            return true;
+          }
+          if ((this.FormItem.get('hasPumpRate').value == false)
+            && (this.FormItem.get('energySource').value > 0)
+            && (this.FormItem.get('pumpType').value != null)
+            && (this.FormItem.get('horsePower').value != null)
+            && (this.FormItem.get('suctionPipeSize').value != null)
+            && (this.FormItem.get('pipelineSize').value != null)) {
+            return true;
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      }
+    } else {
+      return false
+    }
+  }
+
   public showModalArea() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
     modal.onDidDismiss(data => {
@@ -64,7 +96,7 @@ export class PumpComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   onChange(code: any) {
@@ -107,9 +139,17 @@ export class PumpComponent implements ISubmitRequestable {
       this.pipeLineData = PumpDataProvider.getGroundWaterPipeLineData(code.codeSuction);
     }
     else {
-      let code = surfaceSuctionPipeData.find(it=>it.name == name);
+      let code = surfaceSuctionPipeData.find(it => it.name == name);
       this.pipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
-      }
+    }
     console.log(this.pipeLineData);
+  }
+
+  picture() {
+    let profileModal = this.modalCtrl.create("DlgPumpPicturePage", {
+      checkg: this.G,
+      val: this.FormItem.get('energySource').value
+    });
+    profileModal.present();
   }
 }

@@ -26,7 +26,7 @@ export class WaterSources8BComponent {
       'rain': [false, Validators.required],
       'buying': [false, Validators.required],
       'rainingAsIs': [false, Validators.required],
-      'other': ['', Validators.required],
+      'other': [''],
       'hasOther': [false, Validators.required]
     }, {
         validator: WaterSources8BComponent.checkAnyOrOther()
@@ -37,11 +37,11 @@ export class WaterSources8BComponent {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   submitRequest() {

@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { CommunityTypes, LoadCommunityListSuccess, LoadCommunitySampleSuccess } from "./community.actions";
+import { CommunityTypes, LoadCommunityListSuccess, LoadCommunitySampleSuccess, SetCommunity, SetCommunitySuccess } from "./community.actions";
 import { mergeMap, map } from "rxjs/operators";
 import { Action } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -20,4 +20,17 @@ export class CommunityEffects {
             )
         ),
     );
+
+    @Effect()
+    public SetCommunity$: Observable<Action> = this.action$.pipe(
+        ofType(CommunityTypes.SetCommunity),
+        mergeMap(action => this.cloudSync.setCommunity((<SetCommunity>action).payload).pipe(
+                map(data => new SetCommunitySuccess(data)),
+            )
+        ),
+    );
+
+    
+
+  
 }

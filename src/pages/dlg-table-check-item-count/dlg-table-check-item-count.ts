@@ -50,9 +50,9 @@ export class DlgTableCheckItemCountPage {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public isDisabled() {

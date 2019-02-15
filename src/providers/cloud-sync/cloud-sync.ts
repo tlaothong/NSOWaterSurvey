@@ -12,8 +12,12 @@ export class CloudSyncProvider {
     console.log('Create CloudSyncProvider Provider');
   }
 
-  public loadHousHoldSampleTestData(): Observable<any> {
-    return this.http.get('https://nsovars.azurewebsites.net/api/survey');
+  public setHouseHold(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);
+  }
+
+  public loadHouseHoldSampleTestData(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetdataOfUnit/' + id);
   }
 
   public loadCommunitySampleTestData(): Observable<any> {
@@ -30,7 +34,7 @@ export class CloudSyncProvider {
 
   public loadUserFromId(idUser: string): Observable<any> {
     console.log(idUser + ", LOADING USER...");
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByID/user?IdUser=' + idUser);
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUserByID/' + idUser);
   }
 
   public setNewUserPassword(data: any): Observable<any> {
@@ -38,7 +42,7 @@ export class CloudSyncProvider {
   }
 
   public loadAllWorkEA(obj: any): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllWorkByIDUser/' + obj.idUser);
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllWorkByUserID/' + obj.idUser);
   }
 
   public loadCountOfWorkEA(obj: any): Observable<any> {
@@ -49,18 +53,44 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetWorkByIdEA/' + idEA);
   }
 
-  public loadHomeBuilding(): Observable<any> {
-    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllBuilding');
+  public loadHomeBuilding(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetBuildingByIdEA/' + id);
   }
 
   public loadCountHomeBuilding(): Observable<any> {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCountBuilding');
   }
+
   public setHomeBuilding(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateBuilding', data);
   }
+
   public deleteHomeBuilding(id: any): Observable<any> {
-    return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/'+ id);
+    return this.http.delete('http://nsovars.azurewebsites.net/api/Demo/RemoveBuilding/' + id);
+  }
+
+  public getDataBuilding(id: any): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetBuilding/' + id);
+  }
+
+  public getUnitByIdBuilding(Id_BD: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetUnitByIdBuilding/' + Id_BD);
+  }
+
+  public getLogin(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/GetLogin', data);
+  }
+
+  public setCommunity(data: any): Observable<any> {
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateCommunity', data);
+  }
+
+  public loadCommunity(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetAllCommunityByIdEA/' + id);
+  }
+
+  public loadCommunityForEdit(id: string): Observable<any> {
+    return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/' + id);
   }
 
 }

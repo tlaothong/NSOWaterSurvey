@@ -77,7 +77,7 @@
       <div [ngSwitch]="FormItem.get('hasPumpRate').value">
         <div *ngSwitchCase="true">
           <ion-item>
-            <ion-input tyep="number" placeholder="กรอกข้อมูล" formControlName="pumpRate" [class.invalid]="isValid('pumpRate')"></ion-input>
+            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="pumpRate" [class.invalid]="isValid('pumpRate')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('pumpRate')">
             <span class="invalid-msg">กรุณากรอกข้อมูล</span>
@@ -112,6 +112,12 @@
             <ion-label>รถไถเดินตาม</ion-label>
             <ion-radio [value]="4" item-left></ion-radio>
           </ion-item>
+        </ion-row>
+
+        <ion-row>
+          <ion-label ion-button block (click)="picture()">
+            ดูรูปตัวอย่าง
+          </ion-label>
         </ion-row>
 
         <ion-item>

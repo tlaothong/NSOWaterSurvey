@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="ยางพารา "></questionnaire-menu>
+  <back-to-root title="ยางพารา "></back-to-root>
 
 </ion-header>
 
@@ -15,7 +15,7 @@
 
         <ion-item>
           <ion-label>
-            2.3.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกยางพาราหรือไม่
+            2.3.1 ในรอบ 12 เดือนที่ผ่านมาครัวเรือนนี้ได้ปลูกยางพารา <br>หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="doing" [class.invalid]="isValid('doing')">
@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <form-buttons-bar></form-buttons-bar>
+    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
   </form>
 </ion-content>

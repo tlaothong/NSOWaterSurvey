@@ -27,17 +27,17 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      "doing": [null, Validators.required],
-      "depression": [false, Validators.required],
-      "gardenGroove": [false, Validators.required],
-      "stew": [false, Validators.required],
-      "riceField": [false, Validators.required],
+      'doing': null,
+      'depression': [false, Validators.required],
+      'gardenGroove': [false, Validators.required],
+      'stew': [false, Validators.required],
+      'riceField': [false, Validators.required],
       'hasOther': [false, Validators.required],
-      "other": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
-      "fieldsAreSameSize": [null, Validators.required],
-      "fields": fb.array([]),
-      "animalsCount": [null, Validators.required],
+      'other': [null, Validators],
+      'fieldCount': [null, Validators.required],
+      'fieldsAreSameSize': [null, Validators.required],
+      'fields': fb.array([]),
+      'animalsCount': [null, Validators.required],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: FishFarmingComponent.checkAnyOrOther()
@@ -47,13 +47,30 @@ export class FishFarmingComponent implements ISubmitRequestable {
     return fg;
   }
 
-  submitRequest() {
+  public checkFishValid(): boolean {
+    let area = false;
+    if ((this.FormItem.get('depression').value
+      || this.FormItem.get('gardenGroove').value
+      || this.FormItem.get('stew').value
+      || this.FormItem.get('riceField').value
+      || this.FormItem.get('hasOther').value)
+      && ((this.FormItem.get('fieldCount').value != null)
+        && (this.FormItem.get('fieldsAreSameSize').value != null))) {
+      area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+    }
+    if ((this.FormItem.get('fieldCount').value != null)
+      && (area)
+      && (this.FormItem.get('animalsCount').value != null)
+      && this.FormItem.get('waterSources').valid) {
+      return true;
+    }
+  }
 
+  submitRequest() {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.dispatchWaterSource();
-
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -75,21 +92,11 @@ export class FishFarmingComponent implements ISubmitRequestable {
   }
 
   private dispatchWaterSource() {
-    if (this.FormItem.get('waterSources.plumbing').value) {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-    }
-    if (this.FormItem.get('waterSources.river').value) {
-      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-    }
-    if (this.FormItem.get('waterSources.irrigation').value) {
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-    }
-    if (this.FormItem.get('waterSources.rain').value) {
-      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-    }
-    if (this.FormItem.get('waterSources.buying').value) {
-      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    }
+    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
     console.log("dispatch fish can work");
   }
 
@@ -97,11 +104,11 @@ export class FishFarmingComponent implements ISubmitRequestable {
     var ctrl = this.FormItem.get(name);
     if (name == 'anycheck') {
       ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
-      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.touched || this.submitRequested);
+      return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private static setupPoolCountChanges(fb: FormBuilder, fg: FormGroup) {

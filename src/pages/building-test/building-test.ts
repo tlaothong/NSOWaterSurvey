@@ -15,17 +15,19 @@ export class BuildingTestPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BuildingState>) {
     this.pages = [
-      {title: 'Home', component: "HomesPage"},
-      {title: 'Building Info Page 1', component: "BuildingInformation1Page"},
-      {title: 'Building Info Page 2', component: "BuidlingInformation2Page"}
+      { title: 'Homes', component: "HomesPage" },
+      { title: 'Building Info Page 1', component: "BuildingInformation1Page" },
+      { title: 'Building Info Page 2', component: "BuidlingInformation2Page" }
     ];
 
     this.store.dispatch(new LoadBuildingSample);
   }
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad BuildingTestPage');
-    this.navCtrl.push('BuildingInformation1Page');
+
+    this.navCtrl.push('BuildingInformation1Page', { id: this.navParams.get('id') });
   }
 
   public openPage(page) {

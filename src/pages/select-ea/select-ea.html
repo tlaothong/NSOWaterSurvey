@@ -1,9 +1,5 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>เลือก EA</ion-title>
-  </ion-navbar>
-
+  <back-to-root-login title="เลือก EA"></back-to-root-login>
 </ion-header>
 
 <ion-content padding>
@@ -32,17 +28,29 @@
   </ion-row>
   <hr>
 
-  <!-- <ea></ea>
-  <ea></ea> -->
-
-  <div *ngIf="f.get('EaCount').value > 0">
-    <div *ngFor="let ea of f.get('Ea').controls; let i = index">
-      <ea [FormItem]="ea"></ea>
-    </div>
-  </div>
-
-  <div padding text-center>
-    <button ion-button text-center (click)="goBack()">ย้อนกลับ</button>
-  </div>
-
+  <ion-row *ngFor="let item of dataEa" text-center align-items-center>
+    <ion-col col-2>
+      {{ item.properties.pro_name }}
+    </ion-col>
+    <ion-col col-2>
+      {{ item.properties.dis_name }}
+    </ion-col>
+    <ion-col col-2>
+      {{ item.properties.tam_name }}
+    </ion-col>
+    <ion-col col-2>
+      {{ item.properties.ea_type }}
+    </ion-col>
+    <ion-col col-2>
+      {{ item.properties.muni_name }}
+    </ion-col>
+    <ion-col col-1>
+      {{ item.properties.ea_code_14 }}
+    </ion-col>
+    <ion-col col-1>
+      <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
+        เลือก
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-content>

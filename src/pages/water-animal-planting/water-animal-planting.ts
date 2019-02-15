@@ -2,10 +2,10 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetWaterSources, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetNextPageDirection } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getWaterSource, getArraySkipPage, getCheckWaterPlumbing } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -20,14 +20,13 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FishFarmingComponent) private fishFarming: FishFarmingComponent[];
   @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formCheckPlumbing$ = this.store.select(getCheckWaterPlumbing).pipe(map(s => s));
-  private itPlumbing: any;
   public f: FormGroup;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData: any;
   private submitRequested: boolean;
-
+  private frontNum: any;
+  private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       "doing": [null, Validators.required],
@@ -55,7 +54,18 @@ export class WaterAnimalPlantingPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.agriculture.aquaticAnimals)
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
+      }
+    })
   }
 
   public handleSubmit() {
@@ -63,49 +73,123 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(11));
-    if (!this.isValid('anycheck')) {
-      this.navCtrl.popToRoot();
-      // this.checkNextPage();
+    this.formData.agriculture.aquaticAnimals = this.f.value;
+    if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.setRoot("CheckListPage");
     }
   }
 
-  private checkNextPage() {
-    this.formDataG1_G4$.subscribe(data => {
+  checkValid(): boolean {
+    let fish = false;
+    let shrimp = false;
+    let frog = false;
+    let crocodile = false;
+    let snappingTurtle = false;
+    let crab = false;
+    let shellFish = false;
+    let turtle = false;
+    let reddish = false;
+
+    if (this.f.get('isFish').value) {
+      fish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      fish = true;
+    }
+    if (this.f.get('isShrimp').value) {
+      shrimp = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      shrimp = true;
+    }
+    if (this.f.get('isFrog').value) {
+      frog = this.f.get('frog').valid
+    } else {
+      frog = true;
+    }
+    if (this.f.get('isCrocodile').value) {
+      crocodile = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    } else {
+      crocodile = true;
+    }
+    if (this.f.get('isSnappingTurtle').value) {
+      snappingTurtle = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    } else {
+      snappingTurtle = true;
+    }
+    if (this.f.get('isCrab').value) {
+      crab = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      crab = true;
+    }
+    if (this.f.get('isShellFish').value) {
+      shellFish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      shellFish = true;
+    }
+    if (this.f.get('isTurtle').value) {
+      turtle = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    } else {
+      turtle = true;
+    }
+    if (this.f.get('isReddish').value) {
+      reddish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      reddish = true;
+    }
+    return fish && shrimp && frog && crocodile && snappingTurtle && crab && shellFish && turtle && reddish;
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
       if (data != null) {
-        this.itG1_G4 = data;
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
       }
-      console.log("it: ", this.itG1_G4)
+
     });
-    if (this.itG1_G4.isFactorial) {
-      this.navCtrl.push("FactorialPage");
-    }
-    else if (this.itG1_G4.isCommercial) {
-      this.navCtrl.push("CommercialPage");
-    }
-    else {
-      this.formCheckPlumbing$.subscribe(data => {
-        if (data != null) {
-          this.itPlumbing = data;
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(10));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 10)) {
+          arrayIsCheck.push(10);
         }
-        console.log("itPlumbing: ", this.itPlumbing);
-      });
-      if (this.itPlumbing) {
-        this.navCtrl.push("PlumbingPage")
+        console.log(arrayIsCheck);
       }
-      else {
-        this.navCtrl.push("GroundWaterPage")
-      }
-    }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     if (name == 'anycheck') {
       ctrl = this.f;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     }
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {

@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,7 +8,10 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { LoggingState } from '../../states/logging/logging.reducer';
+import { getIdEsWorkHomes } from '../../states/logging';
+import { subDistrictData } from '../../models/SubDistrictData';
 
 @IonicPage()
 @Component({
@@ -22,7 +25,10 @@ export class PlumbingPage {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  private formDataPlumbing$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -44,9 +50,15 @@ export class PlumbingPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
+  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  private getIdHomes: any;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  public subDistrict: any;
+  public MWA: boolean;
+  public PWA: boolean;
+  private frontNum: any;
+  private backNum: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
@@ -93,7 +105,19 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
-    this.formDataPlumbing$.subscribe(data => this.f.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.waterUsage.plumbing);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
+      }
+    })
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
@@ -115,11 +139,11 @@ export class PlumbingPage {
       this.activityCommercial = (data != null) ? data.plumbing : null;
     });
     this.changeValueActivity();
-    console.log("activityResidential", this.activityResidential);
-    console.log("activityWateringRes", this.activityWateringRes);
-    console.log("activityAgiculture", this.activityAgiculture);
-    console.log("activityFactory", this.activityFactory);
-    console.log("activityCommercial", this.activityCommercial);
+    this.getIdHomes$.subscribe(data => this.getIdHomes = data);
+    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == this.getIdHomes);
+
+    this.MWA = this.subDistrict.MWA;
+    this.PWA = this.subDistrict.PWA;
   }
 
   changeValueActivity() {
@@ -144,18 +168,95 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetNextPageDirection(14));
-    if (this.f.valid) {
-      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
-        this.navCtrl.popToRoot();
-        // this.navCtrl.push("GroundWaterPage");
-      // }
+    this.formData.waterUsage.plumbing = this.f.value;
+    if (this.isCheckValid('mwa') && this.isCheckValid('pwa') && this.isCheckValid('other')) {
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.popTo("CheckListPage");
+      // console.log("ผ่านแล้วจ้า");
     }
+  }
+
+  isCheckValid(name: string): boolean {
+    let ctrl = this.f.get(name);
+    let isCheck = true;
+    let isCheckProblem = true;
+    let isCheckQuantity = true;
+    let isCheckNotRunning = true;
+    let hundred = !this.waterActivity5.find(it => it.resultSum != 100);
+    if (ctrl.value.doing) {
+      isCheck = (ctrl.value.qualityProblem.hasProblem != null)
+        && (ctrl.value.plumbingUsage.waterQuantity > 0)
+        && (this.f.get('hasWaterNotRunning').value != null);
+      if (ctrl.value.qualityProblem.hasProblem) {
+        isCheckProblem = this.f.get(name + '.qualityProblem.problem').valid;
+      }
+      switch (ctrl.value.plumbingUsage.waterQuantity) {
+        case "1":
+          isCheckQuantity = (ctrl.value.plumbingUsage.cubicMeterPerMonth != null)
+          break;
+        case "2":
+          isCheckQuantity = (ctrl.value.plumbingUsage.waterBill != null)
+          break;
+        default:
+          break;
+      }
+      if (this.f.get('hasWaterNotRunning').value) {
+        isCheckNotRunning = this.f.get('waterNotRunningCount').valid
+      }
+      return isCheck && isCheckProblem && isCheckQuantity && isCheckNotRunning && hundred;
+    }
+    else {
+      return this.f.get(name + '.doing').valid;
+    }
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(13));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 13)) {
+          arrayIsCheck.push(13);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

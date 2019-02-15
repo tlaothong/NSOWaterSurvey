@@ -1,16 +1,16 @@
 <ion-list>
   <ion-list-header>
-    ตะวันออกเฉียงเหนือ<br />
-    {{fg.get('province').value}} <br />
-    {{fg.get('district').value}} <br />
-    {{fg.get('subDistrict').value}} <br />
-    {{fg.get('_id').value}}
+    {{ data.properties.pro_name }} <br />
+    {{ data.properties.dis_name }} <br />
+    {{ data.properties.tam_name }} <br />
+    {{ str }}
+    {{ data.properties.ea_code_14 }}
   </ion-list-header>
 
   <div no-lines>
     <ion-item>
       <h3>
-        EA: 44001011099<b>264</b>
+        EA: {{data._id}}
       </h3>
     </ion-item>
   </div>

@@ -5,9 +5,9 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getCheckWaterIrrigation, getCheckWaterRain, getCheckWaterBuying, getArraySkipPage, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetNextPageDirection } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -19,17 +19,10 @@ export class PoolPage {
   public f: FormGroup;
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
-
   private submitRequested: boolean;
-  private formDataG1_G4$ = this.store.select(getArraySkipPage).pipe(map(s => s));
-  private itG1_G4: any;
-  private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
-  private formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
-  private itIrrigation: any;
-  private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
-  private itRain: any;
-  private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-  private itBuying: any;
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
+  private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -54,11 +47,14 @@ export class PoolPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
+  private frontNum: any;
+  private backNum: any;
+  public checked: boolean
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'poolCount': [null, Validators.required],
+      'poolCount': [null, [Validators.required, Validators.min(1)]],
       'hasSameSize': [null, Validators.required],
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators.required],
@@ -69,7 +65,18 @@ export class PoolPage {
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => this.f.setValue(data));
+    this.countNumberPage();
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data.waterUsage.pool);
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
+        // this.formData$.subscribe(data =>{
+        //   if(data != null){
+        //   }
+        // })
+      }
+    })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -103,17 +110,93 @@ export class PoolPage {
     console.log("activityCommercial", this.activityCommercial);
   }
 
+  check(): boolean {
+    if (Number(this.f.get('waterResourceCount').value) > Number(this.f.get('poolCount').value)) {
+      return this.checked = true
+    }
+    return this.checked = false
+  }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    this.store.dispatch(new SetNextPageDirection(17));
-    // if (this.f.valid) {
-      this.navCtrl.popToRoot();
-      // this.checkNextPage();
-    // }
+    if (this.checkValid()) {
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.navCtrl.popTo("CheckListPage");
+    }
+  }
+
+  checkValid(): boolean {
+    let doing = false;
+    let sameSize = false;
+    let waterResourceCount = false;
+    let usage = false;
+    let area = false;
+
+    if (this.f.get('doing').value == true) {
+      doing = true;
+      if (this.f.get('poolCount').value >= 0
+        && this.f.get('hasSameSize').value != null) {
+        sameSize = true;
+      }
+      if (this.f.get('waterResourceCount').value > 0
+        && this.f.get('waterResourceCount').value <= this.f.get('poolCount').value) {
+        waterResourceCount = true;
+        usage = this.poolUsage.find(it => it.checkValid() == it.checkValid()).checkValid();
+        area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+      }
+    }
+    else {
+      return true;
+    }
+    return doing && sameSize && waterResourceCount && area && usage;
+  }
+
+  countNumberPage() {
+    console.log("onSubmit ");
+    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    let arrayNextPage: any[];
+    arrayNextPage$.subscribe(data => {
+
+      if (data != null) {
+        arrayNextPage = data;
+        let arrLength = arrayNextPage.filter((it) => it == true);
+        this.backNum = arrLength.length;
+      }
+
+    });
+    console.log("back", this.backNum);
+
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: any[];
+    arrayIsCheck$.subscribe(data => {
+
+      if (data != null) {
+        arrayIsCheck = data
+        this.frontNum = arrayIsCheck.length;
+      }
+
+    });
+    console.log("frontNum", this.frontNum);
+  }
+
+  arrayIsCheckMethod() {
+    this.store.dispatch(new SetSelectorIndex(16));
+    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    let arrayIsCheck: Array<number>;
+    arrayIsCheck$.subscribe(data => {
+      if (data != null) {
+        arrayIsCheck = data;
+        if (arrayIsCheck.every(it => it != 16)) {
+          arrayIsCheck.push(16);
+        }
+        console.log(arrayIsCheck);
+      }
+    });
   }
 
   changeValueActivity() {
@@ -136,59 +219,10 @@ export class PoolPage {
       this.activityCommercial = null;
     }
   }
-  // formCheckIrrigation$ = this.store.select(getCheckWaterIrrigation).pipe(map(s => s));
-  // private itIrrigation: any;
-  // private formCheckRain$ = this.store.select(getCheckWaterRain).pipe(map(s => s));
-  // private itRain: any;
-  // private formCheckBuying$ = this.store.select(getCheckWaterBuying).pipe(map(s => s));
-  // private itBuying: any;
-  private checkNextPage() {
-    this.formCheckIrrigation$.subscribe(data => {
-      if (data != null) {
-        this.itIrrigation = data;
-      }
-      console.log("itIrrigation: ", this.itIrrigation);
-    });
-    this.formCheckRain$.subscribe(data => {
-      if (data != null) {
-        this.itRain = data;
-      }
-      console.log("itRain: ", this.itRain);
-    });
-    this.formCheckBuying$.subscribe(data => {
-      if (data != null) {
-        this.itBuying = data;
-      }
-      console.log("itBuying: ", this.itBuying);
-    });
-
-    if (this.itIrrigation) {
-      this.navCtrl.push("IrrigationPage")
-    }
-    else if (this.itRain) {
-      this.navCtrl.push("RainPage")
-    }
-    else if (this.itBuying) {
-      this.navCtrl.push("BuyingPage")
-    }
-    else {
-      this.formDataG1_G4$.subscribe(data => {
-        if (data != null) {
-          this.itG1_G4 = data;
-        }
-        console.log("itG1_G4: ", this.itG1_G4);
-      });
-      if (this.itG1_G4.isHouseHold) {
-        this.navCtrl.push("DisasterousPage")
-      }
-      else
-        this.navCtrl.push("UserPage")
-    }
-  }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupPoolCountChanges() {

@@ -14,6 +14,16 @@ export const getHouseHoldSample = createSelector(
     state => state.houseHoldSample,
 );
 
+// export const getHouseHoldSample = createSelector(
+//     getHouseHoldFeatureState,
+//     state => state.houseHoldSample,
+// );
+
+export const getSelectG1234 = createSelector(
+    getHouseHoldFeatureState,
+    state => state.selectG1234,
+);
+
 export const getIsHouseHold = createSelector(
     getHouseHoldFeatureState,
     state => state.isHouseHold,
@@ -39,29 +49,15 @@ export const getFactorialCategory = createSelector(
     state => state.factorialCategory,
 );
 
-export const getWaterSource = createSelector(
-    getHouseHoldFeatureState,
-    state => state.waterSources,
-);
 
 export const getCommercialServiceType = createSelector(
     getHouseHoldFeatureState,
     state => state.commercialServiceType,
 );
 
-export const getOtherBuildingType = createSelector(
-    getHouseHoldFeatureState,
-    state => state.otherBuildingType,
-);
-
 export const getResidentialGardeningUse = createSelector(
     getHouseHoldFeatureState,
     state => state.residentialGardeningUse,
-);
-
-export const getAgronomyPlantDoing = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agronomyPlantDoing,
 );
 
 export const getRubberTreeSelectPlant = createSelector(
@@ -107,31 +103,6 @@ export const getAgiSelectRubber = createSelector(
 export const getAgiSelectPerennial = createSelector(
     getHouseHoldFeatureState,
     state => state.agiSelectPerennial,
-);
-
-export const getAgiSelectHerbPlant = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectHerbsPlant,
-);
-export const getAgiSelectFlowerCrop = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectFlowerCrop,
-);
-export const getAgiSelectMushroomPlant = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectMushroomPlant,
-);
-export const getAgiSelectAnimalFarm = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectAnimalFarm,
-);
-export const getAgiSelectAquaticAnimals = createSelector(
-    getHouseHoldFeatureState,
-    state => state.agiSelectAquaticAnimals,
-);
-export const getArraySkipPage = createSelector(
-    getHouseHoldFeatureState,
-    state => state.arraySkipPage,
 );
 export const getArraySkipPageAgiculture = createSelector(
     getHouseHoldFeatureState,
@@ -181,12 +152,34 @@ export const getWaterSourcesCommercial = createSelector(
     getHouseHoldFeatureState,
     state => state.waterSourcesCommercial,
 );
-
 export const getNextPageDirection = createSelector(
     getHouseHoldFeatureState,
     state => state.nextPageDirection,
 );
-export const getCheckHeadFamily = createSelector(
+export const getArrayIsCheck = createSelector(
     getHouseHoldFeatureState,
-    state => state.checkHeadfamily,
+    state => state.arrayIsCheck,
 );
+export const getSelectorIndex = createSelector(
+    getHouseHoldFeatureState,
+    state => state.selectorIndex,
+);
+
+export const getUnitByIdBuilding = createSelector(
+    getHouseHoldFeatureState,
+    state => state.unitByIdBuilding,
+);
+
+export const getBackToRoot = createSelector(
+    getHouseHoldFeatureState,
+    state => state.backToRoot,
+);
+
+export const getBack = createSelector(
+    getHouseHoldFeatureState,
+    state => state.back,
+);
+
+
+
+

@@ -38,6 +38,54 @@ export class PoolAreaComponent implements ISubmitRequestable {
     });
   }
 
+  public checkPoolValid():boolean{
+    if((this.FormItem.get('shape').value == 2) 
+    && (this.FormItem.get('rectangle.width').value != null)
+    && (this.FormItem.get('rectangle.length').value != null)
+    && (this.FormItem.get('depth').value != null)){
+      return true;
+    }else if((this.FormItem.get('shape').value == 3)
+    && (this.FormItem.get('diameter').value != null)
+    && (this.FormItem.get('depth').value != null)){
+      return true;
+    }else if((this.FormItem.get('shape').value == 1) && (this.FormItem.get('depth').value != null)){
+      return true;
+    }
+  }
+  // checkValid() {
+  //   let value = this.FormItem.get('shape').value;
+  //   let check: boolean;
+  //   console.log("entrane checkValid");
+
+  //   switch (value) {
+
+  //     case '1':
+  //       this.FormItem.get('diameter').patchValue('0');
+  //       this.FormItem.get('rectangle.width').patchValue('0');
+  //       this.FormItem.get('rectangle.length').patchValue('0');
+
+  //       check = true;
+  //       break;
+  //     case '2':
+  //       this.FormItem.get('area').patchValue('0');
+  //       this.FormItem.get('rectangle.width').patchValue('0');
+  //       this.FormItem.get('rectangle.length').patchValue('0');
+  //       check = true;
+  //       break;
+
+  //     case '3':
+  //       this.FormItem.get('area').patchValue('0');
+  //       this.FormItem.get('diameter').patchValue('0');
+  //       check = true;
+  //       break;
+
+  //     default:
+  //       break;
+  //   }
+
+  //   return check;
+  // }
+
   public showModal() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });
     modal.onDidDismiss(data => {
@@ -56,7 +104,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
 }

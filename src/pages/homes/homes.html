@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -11,7 +11,7 @@
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -19,8 +19,11 @@
   <ion-row>
     <ion-item>
       <ion-label>
-        ตะวันออกเฉียงเหนือ {{f.get('province').value}} {{f.get('district').value}} {{f.get('subDistrict').value}}
-        {{f.get('_id').value}}
+        {{ dataWorkEARow?.properties.pro_name }}
+        {{ dataWorkEARow?.properties.dis_name }}
+        {{ dataWorkEARow?.properties.tam_name }}
+        {{ str }}
+        {{ dataWorkEARow?.properties.ea_code_14 }}
       </ion-label>
     </ion-item>
 
@@ -48,7 +51,7 @@
 
   <ion-row align-items-center>
     <ion-col>
-      <button ion-button block type="button" (click)="goBuildingInfo()">
+      <button ion-button block type="button" (click)="goBuildingInfo(dataWorkEARow?._id)">
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
@@ -61,13 +64,13 @@
 
   <div>
     <ion-segment [(ngModel)]="office">
-      <ion-segment-button value="building">
+      <ion-segment-button value="building" (click)="changeNum('1')">
         สน.1 ข้อมูลอาคาร
       </ion-segment-button>
-      <ion-segment-button value="areayoi">
+      <ion-segment-button value="areayoi" (click)="changeNum('2')">
         สน.2 พื้นที่ย่อย
       </ion-segment-button>
-      <ion-segment-button value="fsedit">
+      <ion-segment-button value="fsedit" (click)="changeNum('3')">
         FS ให้แก้ไข
       </ion-segment-button>
     </ion-segment>
@@ -78,6 +81,7 @@
 
       <ion-row align-items-center>
         <ion-col col-11>
+          <!-- <ion-searchbar (ionChange)="setFilteredItems($event)"></ion-searchbar> -->
           <ion-searchbar></ion-searchbar>
         </ion-col>
         <ion-col col-1>
@@ -136,10 +140,36 @@
         <ion-col col-1></ion-col>
       </ion-row>
       <hr>
-      <div *ngIf="formItem.get('countHomeBuilding').value > 0">
-        <div *ngFor="let homebuilding of formItem.get('homeBuilding').controls; let i = index">
-          <item-in-home [FormItem]="homebuilding"></item-in-home>
-        </div>
+
+
+      <div *ngFor="let item of dataEa;let i = index;">
+        <ion-row text-center align-items-center>
+          <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
+            <ion-icon disabled="false" name="done-all" *ngIf="item.access == 4"></ion-icon>
+            <ion-icon disabled="false" name="pause" *ngIf="(item.access == 1) || (item.unitCount != item.unitAccess)"></ion-icon>
+            <ion-icon disabled="false" name="refresh" *ngIf="(item.access == 2) || (item.access == 3)"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+            {{item.houseNo}}
+          </ion-col>
+          <ion-col col-3 (click)="goEditBuildingInfo(item._id)">
+            {{item.name}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+            {{item.unitAccess}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+            {{item.unitCount}}
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger" (click)="DeleteBuilding(item._id)">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
       </div>
     </div>
 
@@ -185,30 +215,31 @@
           ชื่อหมู่บ้าน
         </ion-col>
         <ion-col col-1>
-
         </ion-col>
       </ion-row>
 
       <hr>
-      <ion-row text-center align-items-center>
-        <ion-col col-1>
-          <ion-icon disabled="false" name="pause"></ion-icon>
-        </ion-col>
-        <ion-col col-1>
-          1
-        </ion-col>
-        <ion-col col-2>
-          -
-        </ion-col>
-        <ion-col col-7>
-          -
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="danger">
-            ลบ
-          </button>
-        </ion-col>
-      </ion-row>
+      <div *ngFor="let itemCom of dataCommunity;let i=index">
+        <ion-row text-center align-items-center>
+          <ion-col col-1>
+            <ion-icon disabled="false" name="pause"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id)">
+           {{dataWorkEARow.properties.moo}}
+          </ion-col>
+          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
+            -
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
 
     <div *ngSwitchCase="'fsedit'">
