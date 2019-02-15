@@ -54,13 +54,14 @@ export class FishFarmingComponent implements ISubmitRequestable {
       || this.FormItem.get('stew').value
       || this.FormItem.get('riceField').value
       || this.FormItem.get('hasOther').value)
-      && (this.FormItem.get('fieldCount').value != null
-        && this.FormItem.get('fieldsAreSameSize').value != null)) {
+      && ((this.FormItem.get('fieldCount').value != null)
+        && (this.FormItem.get('fieldsAreSameSize').value != null))) {
       area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
     }
     if ((this.FormItem.get('fieldCount').value != null)
       && (area)
-      && this.FormItem.get('animalsCount').value != null) {
+      && (this.FormItem.get('animalsCount').value != null)
+      && this.FormItem.get('waterSources').valid) {
       return true;
     }
   }

@@ -41,12 +41,14 @@ export class PoolAreaComponent implements ISubmitRequestable {
   public checkPoolValid():boolean{
     if((this.FormItem.get('shape').value == 2) 
     && (this.FormItem.get('rectangle.width').value != null)
-    && (this.FormItem.get('rectangle.length').value != null)){
+    && (this.FormItem.get('rectangle.length').value != null)
+    && (this.FormItem.get('depth').value != null)){
       return true;
     }else if((this.FormItem.get('shape').value == 3)
-    && (this.FormItem.get('diameter').value != null)){
+    && (this.FormItem.get('diameter').value != null)
+    && (this.FormItem.get('depth').value != null)){
       return true;
-    }else if(this.FormItem.get('shape').value == 1){
+    }else if((this.FormItem.get('shape').value == 1) && (this.FormItem.get('depth').value != null)){
       return true;
     }
   }

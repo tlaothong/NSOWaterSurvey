@@ -73,29 +73,73 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    this.formData.agriculture.aquaticAnimals = this.f.value;
+    // this.formData.agriculture.aquaticAnimals = this.f.value;
     if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
-      this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
-      this.navCtrl.setRoot("CheckListPage");
-
+      // this.arrayIsCheckMethod();
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.navCtrl.setRoot("CheckListPage");
+      console.log("5555555555555");
     }
+    console.log(this.f.value);
   }
 
   checkValid(): boolean {
     let fish = false;
-    let croc = false;
-    if (this.f.get('isFish').value || this.f.get('isShrimp').value || this.f.get('isCrab').value || this.f.get('isReddish').value) {
+    let shrimp = false;
+    let frog = false;
+    let crocodile = false;
+    let snappingTurtle = false;
+    let crab = false;
+    let shellFish = false;
+    let turtle = false;
+    let reddish = false;
+
+    if (this.f.get('isFish').value) {
       fish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      fish = true;
     }
-    if(this.f.get('isCrocodile').value || this.f.get('isSnappingTurtle').value || this.f.get('isTurtle').value){
-      croc = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    if (this.f.get('isShrimp').value) {
+      shrimp = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      shrimp = true;
     }
-    if ((fish)
-      || (this.frogFarming.some(it => it.FormItem.valid))
-      || (croc)) {
-      return true
+    if (this.f.get('isFrog').value) {
+      frog = this.f.get('frog').valid
+    } else {
+      frog = true;
     }
+    if (this.f.get('isCrocodile').value) {
+      crocodile = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    } else {
+      crocodile = true;
+    }
+    if (this.f.get('isSnappingTurtle').value) {
+      snappingTurtle = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    } else {
+      snappingTurtle = true;
+    }
+    if (this.f.get('isCrab').value) {
+      crab = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      crab = true;
+    }
+    if (this.f.get('isShellFish').value) {
+      shellFish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      shellFish = true;
+    }
+    if (this.f.get('isTurtle').value) {
+      turtle = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    } else {
+      turtle = true;
+    }
+    if (this.f.get('isReddish').value) {
+      reddish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    } else {
+      reddish = true;
+    }
+    return fish && shrimp && frog && crocodile && snappingTurtle && crab && shellFish && turtle && reddish;
   }
 
   countNumberPage() {
