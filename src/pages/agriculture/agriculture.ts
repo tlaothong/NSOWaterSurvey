@@ -150,7 +150,7 @@ export class AgriculturePage {
     var ctrl = this.f.get(name);
     if (name == 'anycheck') {
       ctrl = this.f;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
+      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
