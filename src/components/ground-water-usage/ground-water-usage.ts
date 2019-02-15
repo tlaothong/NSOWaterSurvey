@@ -27,8 +27,8 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   @Input('activeFac') public activeFac: any;
   @Input('activeCom') public activeCom: any;
   @ViewChildren(PumpComponent) public pump: PumpComponent[];
-  @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
-  @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
+  @ViewChildren(WaterActivity6Component) public waterActivity6: WaterActivity6Component[];
+  @ViewChildren(WaterProblem6Component) public waterProblem6: WaterProblem6Component[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {

@@ -7,7 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
 import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { map } from 'rxjs/operators';
-import { Guid } from "guid-typescript";
+// import { Guid } from "guid-typescript";
 
 /**
  * Generated class for the UnitButtonComponent component.
