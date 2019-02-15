@@ -32,7 +32,7 @@ export class WaterProblem6Component {
       });
   }
 
-  submitRequest() {
+  public submitRequest() {
     this.submitRequested = true;
   }
 
