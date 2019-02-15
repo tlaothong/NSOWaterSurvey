@@ -38,6 +38,19 @@ export class PoolAreaComponent implements ISubmitRequestable {
     });
   }
 
+  public checkPoolValid():boolean{
+    if((this.FormItem.get('shape').value == 2) 
+    && (this.FormItem.get('rectangle.width').value != null)
+    && (this.FormItem.get('rectangle.length').value != null)){
+      return true;
+    }else if((this.FormItem.get('shape').value == 3)
+    && (this.FormItem.get('diameter').value != null)){
+      return true;
+    }else if(this.FormItem.get('shape').value == 1){
+      return true;
+    }
+  }
+
   public showModal() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });
     modal.onDidDismiss(data => {

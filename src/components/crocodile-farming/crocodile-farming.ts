@@ -30,10 +30,10 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'doing': [null, Validators.required],
+      'doing': null,
       'depression': [false, Validators.required],
       'hasOther': [false, Validators.required],
-      'other': ['', Validators.required],
+      'other': [null, Validators],
       'fieldCount': [null, Validators.required],
       'fieldsAreSameSize': [null, Validators.required],
       'fields': fb.array([]),
@@ -47,6 +47,21 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     return fg;
   }
 
+  checkCrocValid() {
+    let area = false;
+    if ((this.FormItem.get('depression').value
+      || this.FormItem.get('hasOther').value)
+      && (this.FormItem.get('fieldCount').value != null
+        && this.FormItem.get('fieldsAreSameSize').value != null)) {
+      area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+    }
+    if ((this.FormItem.get('fieldCount').value != null)
+      && (area)
+      && this.FormItem.get('animalsCount').value != null) {
+      return true;
+    }
+  }
+
   submitRequest() {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
@@ -55,11 +70,11 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   }
 
   private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
     console.log("dispatch crocodile can work");
   }
 

@@ -5,7 +5,7 @@ import { FishFarmingComponent } from '../../components/fish-farming/fish-farming
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -21,8 +21,9 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
   public f: FormGroup;
-  private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formData$: any;
+  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData: any;
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
@@ -56,12 +57,13 @@ export class WaterAnimalPlantingPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
-        this.formData$.subscribe(data =>{
-          if(data != null){
-            this.f.setValue(data)
-          }
-        })
+        this.f.patchValue(data.agriculture.aquaticAnimals)
+        this.formData = data;
+        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
+        // this.formData$.subscribe(data => {
+        //   if (data != null) {
+        //   }
+        // })
       }
     })
   }
@@ -71,10 +73,28 @@ export class WaterAnimalPlantingPage {
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
-    if (!this.isValid('anycheck') || (this.f.get('doing').value == false)) {
+    this.formData.agriculture.aquaticAnimals = this.f.value;
+    if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.f.value));
-      this.navCtrl.setRoot("CheckListPage",);
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.setRoot("CheckListPage");
+
+    }
+  }
+
+  checkValid(): boolean {
+    let fish = false;
+    let croc = false;
+    if (this.f.get('isFish').value || this.f.get('isShrimp').value || this.f.get('isCrab').value || this.f.get('isReddish').value) {
+      fish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+    }
+    if(this.f.get('isCrocodile').value || this.f.get('isSnappingTurtle').value || this.f.get('isTurtle').value){
+      croc = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+    }
+    if ((fish)
+      || (this.frogFarming.some(it => it.FormItem.valid))
+      || (croc)) {
+      return true
     }
   }
 
