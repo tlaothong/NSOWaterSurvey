@@ -5,7 +5,7 @@ import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 
@@ -68,8 +68,8 @@ export class PoolPage {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
         this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
-        this.formData$.subscribe(data =>{
-          if(data != null){
+        this.formData$.subscribe(data => {
+          if (data != null) {
             this.f.setValue(data)
           }
         })
@@ -119,15 +119,34 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
+
+    if (this.f.get('hasSameSize').value == null) {
+      let doing = this.f.get('doing').value
+      this.f.get('hasSameSize').setValue(doing);
+    }
+    let isCheckWaterActivity: boolean;
+    let isCheckPoolSizes: boolean;
+    this.poolUsage.forEach(it => {
+      isCheckWaterActivity = it.checkValid();
+    });
+
+    let usage = this.poolUsage.find(it => it.checkValid() == it.checkValid()).checkValid();
+    let area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+    // this.poolArea.forEach(it => {
+    //   isCheckPoolSizes = it.checkValid();
+    // });
+    // let isCheckPoolSizes = checkPoolSizes.checkValid();
+
     console.log("valid", this.f.valid);
     console.log("this.f", this.f.value);
-    if (this.f.valid) {
-    this.arrayIsCheckMethod();
-    // this.store.dispatch(new SetHouseHold(this.f.value));
-    this.navCtrl.popTo("CheckListPage");
+    if (this.f.valid && area && usage) {
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 
+  
   countNumberPage() {
     console.log("onSubmit ");
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
@@ -194,7 +213,7 @@ export class PoolPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupPoolCountChanges() {

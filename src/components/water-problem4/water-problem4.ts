@@ -15,7 +15,7 @@ export class WaterProblem4Component {
     this.text = 'Hello World';
     this.text = '1';
     this.FormItem = this.fb.group({
-      'hasProblem': [null,Validators.required],
+      'hasProblem': [null, Validators.required],
       'problem': WaterProblem4Component.CreateFormGroup(this.fb)
     });
   }
@@ -28,9 +28,9 @@ export class WaterProblem4Component {
       'filmOfOil': [false, Validators.required],
       'fogWater': [false, Validators.required],
       'hardWater': [false, Validators.required],
-    } ,{
-      validator: WaterProblem4Component.checkAnyOrOther()
-    });
+    }, {
+        validator: WaterProblem4Component.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
@@ -42,8 +42,8 @@ export class WaterProblem4Component {
     if (name == 'anycheck') {
       ctrl = this.FormItem;
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-    } 
-    return ctrl.invalid && (ctrl.touched || this.submitRequested);
+    }
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -52,20 +52,24 @@ export class WaterProblem4Component {
       const smell = c.get('smell');
       const filmOfOil = c.get('filmOfOil');
       const fogWater = c.get('fogWater');
-      
+
       if (!saltWater.value && !smell.value && !filmOfOil.value && !fogWater.value) {
         return { 'anycheck': true };
-      } 
+      }
       return null;
     }
   }
-  
-  setCheckboxFalse(){
-   this.FormItem.get('problem.saltWater').setValue(false);
-   this.FormItem.get('problem.smell').setValue(false);
-   this.FormItem.get('problem.filmOfOil').setValue(false);
-   this.FormItem.get('problem.fogWater').setValue(false);
-   this.FormItem.get('problem.turbidWater').setValue(false);
-   this.FormItem.get('problem.hardWater').setValue(false);
+
+  // changeValueHasProblem() {
+  //   this.FormItem.get('hasProblem').patchValue(false)
+  // }
+
+  setCheckboxFalse() {
+    this.FormItem.get('problem.saltWater').setValue(false);
+    this.FormItem.get('problem.smell').setValue(false);
+    this.FormItem.get('problem.filmOfOil').setValue(false);
+    this.FormItem.get('problem.fogWater').setValue(false);
+    this.FormItem.get('problem.turbidWater').setValue(false);
+    this.FormItem.get('problem.hardWater').setValue(false);
   }
 }
