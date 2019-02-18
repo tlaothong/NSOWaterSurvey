@@ -83,7 +83,15 @@ export class AgriculturePage {
       if (data != null) {
         console.log("data agi", data);
 
-        this.f.patchValue(data)
+        this.f.get('ricePlant.doing').setValue(data.ricePlant);
+        this.f.get('agronomyPlant.doing').setValue(data.agronomyPlant);
+        this.f.get('rubberTree.doing').setValue(data.rubberTree);
+        this.f.get('perennialPlant.doing').setValue(data.perennialPlant);
+        this.f.get('herbsPlant.doing').setValue(data.herbsPlant);
+        this.f.get('flowerCrop.doing').setValue(data.flowerCrop);
+        this.f.get('mushroomPlant.doing').setValue(data.mushroomPlant);
+        this.f.get('animalFarm.doing').setValue(data.animalFarm);
+        this.f.get('aquaticAnimals.doing').setValue(data.aquaticAnimals);
       }
     });
   }
