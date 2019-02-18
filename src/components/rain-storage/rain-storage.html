@@ -1,5 +1,5 @@
 <ion-row style="align-items: center" (click)="presentModal()" [formGroup]="FormItem">
-  <ion-col col-6>
+  <ion-col col-7>
     <ion-item *ngIf="text != ''">
       <ion-label>
         {{ no }} {{ text }}
@@ -13,7 +13,7 @@
     </ion-item>
   </ion-col>
 
-  <ion-col col-4>
+  <ion-col col-3>
     <ion-input type="text" disabled="true" formControlName="size"></ion-input>
   </ion-col>
 

@@ -57,6 +57,36 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     return fg;
   }
 
+  public checkValid(): boolean {
+    return this.isCheckUsageType() && this.isCheckValidwaterAct() && this.isCheckProblem();
+  }
+
+  public isCheckUsageType(): boolean {
+    switch (this.FormItem.get('usageType.groundWaterQuantity').value) {
+      case 1: return this.FormItem.get('usageType.usageCubicMeters').valid;
+      case 2: return this.FormItem.get('usageType.waterBill').valid;
+      case 3: return this.isCheckPump()
+      default: return this.FormItem.get('usageType.groundWaterQuantity').valid;
+    }
+  }
+
+  public isCheckPump(): boolean {
+    let isCheckPump = this.pump.find(it => !it.checkValid()) ? false : true;
+    return (this.FormItem.get('hasPump').value) ?
+      (this.FormItem.get('pumpCount').valid && isCheckPump) : this.FormItem.get('hasPump').valid;
+  }
+
+  public isCheckValidwaterAct(): boolean {
+    let isCheckWaterAct = this.waterActivity6.find(it => it.totalSum != 100) ? false : true;
+    return (this.gardeningUse || this.riceDoing || this.commerceUse || this.factoryUse || this.residenceUse || this.agricultureUse) ?
+      isCheckWaterAct : true;
+  }
+
+  public isCheckProblem(): boolean {
+    return (this.FormItem.get('qualityProblem.hasProblem').value) ?
+      this.FormItem.get('qualityProblem.problem').valid : this.FormItem.get('qualityProblem.hasProblem').valid;
+  }
+
   setDefult() {
     this.FormItem.get('hasPump').setValue(null);
     this.FormItem.get('pumpCount').setValue(null);

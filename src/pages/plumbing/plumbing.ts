@@ -169,7 +169,7 @@ export class PlumbingPage {
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
     this.formData.waterUsage.plumbing = this.f.value;
-    if (this.isCheckValid('mwa') && this.isCheckValid('pwa') && this.isCheckValid('other')) {
+    if ((!this.MWA || this.isCheckValid('mwa')) && (!this.PWA || this.isCheckValid('pwa')) && this.isCheckValid('other')) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");

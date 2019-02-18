@@ -51,13 +51,14 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     let area = false;
     if ((this.FormItem.get('depression').value
       || this.FormItem.get('hasOther').value)
-      && (this.FormItem.get('fieldCount').value != null
-        && this.FormItem.get('fieldsAreSameSize').value != null)) {
+      && ((this.FormItem.get('fieldCount').value != null)
+        && (this.FormItem.get('fieldsAreSameSize').value != null))) {
       area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
     }
     if ((this.FormItem.get('fieldCount').value != null)
       && (area)
-      && this.FormItem.get('animalsCount').value != null) {
+      && (this.FormItem.get('animalsCount').value != null)
+      && this.FormItem.get('waterSources').valid) {
       return true;
     }
   }
