@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
 import { Store } from '@ngrx/store';
@@ -53,13 +53,15 @@ export class PoolPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
-      'doing': [null, Validators.required],
-      'poolCount': [null, [Validators.required, Validators.min(1)]],
-      'hasSameSize': [null, Validators.required],
+      'doing': [null, Validators],
+      'poolCount': [null, Validators],
+      'hasSameSize': [null, Validators],
       'poolSizes': this.fb.array([]),
-      'waterResourceCount': [null, Validators.required],
+      'waterResourceCount': [null, Validators],
       'waterResources': this.fb.array([]),
-    });
+    }, {
+        validator: PoolPage.checkAnyOrOther()
+      });
     this.setupPoolCountChanges();
     this.setupPoolCountUsageChanges();
   }
@@ -70,11 +72,6 @@ export class PoolPage {
       if (data != null) {
         this.f.patchValue(data.waterUsage.pool);
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
-        // this.formData$.subscribe(data =>{
-        //   if(data != null){
-        //   }
-        // })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -121,15 +118,60 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    console.log("valid", this.f.valid);
+    console.log("valid", this.f.get('poolSizes').valid);
+    console.log("valid", this.f.get('waterResources').valid);
     console.log("this.f", this.f.value);
-    if (this.checkValid()) {
+    this.formData.waterUsage.pool = this.f.value
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.f.value));
+      this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const poolCount = c.get('poolCount');
+      const hasSameSize = c.get('hasSameSize');
+      const waterResourceCount = c.get('waterResourceCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if ((doing.value == true) && ((poolCount.value == null) || (poolCount.value < 1))) {
+        return { 'poolCount': true };
+      }
+      if ((doing.value == true) && (hasSameSize.value == null)) {
+        return { 'hasSameSize': true };
+      }
+      if ((doing.value == true) && ((waterResourceCount.value == null) || (waterResourceCount.value < 1))) {
+        return { 'waterResourceCount': true };
+      }
+      return null;
+    }
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    if (name == 'doing') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'poolCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.poolCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hasSameSize') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.hasSameSize && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'waterResourceCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.waterResourceCount && (ctrl.dirty || this.submitRequested);
+    }
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
   checkValid(): boolean {
     let doing = false;
     let sameSize = false;
@@ -220,10 +262,7 @@ export class PoolPage {
     }
   }
 
-  public isValid(name: string): boolean {
-    var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  }
+
 
   private setupPoolCountChanges() {
     const componentFormArray: string = "poolSizes";

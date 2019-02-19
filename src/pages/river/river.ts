@@ -139,13 +139,11 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
-    // this.formData.waterUsage.river = this.f.value;
+    this.formData.waterUsage.river = this.f.value;
     if (this.f.valid && !this.waterActivity6.find(it => it.totalSum != 100)) {
-      console.log("5555555555555555");
-
-      // this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.navCtrl.setRoot("CheckListPage");
+      this.arrayIsCheckMethod();
+      this.store.dispatch(new SetHouseHold(this.formData));
+      this.navCtrl.setRoot("CheckListPage");
     }
   }
 
