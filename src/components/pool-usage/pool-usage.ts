@@ -44,10 +44,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
       'pumpCount': [null, Validators.required],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
-      'qualityProblem': fb.group({
-        "hasProblem": [null, Validators.required],
-        "problem": WaterProblem4Component.CreateFormGroup(fb)
-      })
+      'qualityProblem': WaterProblem4Component.CreateFormGroup(fb)
     });
     PoolUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
@@ -81,7 +78,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
         if (this.FormItem.get('pumpCount').value > 0) {
           cubic = true;
           pump = true;
-          pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid()
+          pumps = this.FormItem.get('pumps').valid
         }
       }
     }
