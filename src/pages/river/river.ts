@@ -72,7 +72,7 @@ export class RiverPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.waterUsage.river);
+        this.f.patchValue(data.waterUsage.river);
         this.formData = data;
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
         // this.formData$.subscribe(data => {

@@ -68,7 +68,7 @@ export class PoolPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.waterUsage.pool);
+        this.f.patchValue(data.waterUsage.pool);
         this.formData = data;
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.pool));
         // this.formData$.subscribe(data =>{

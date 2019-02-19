@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
@@ -56,17 +56,16 @@ export class IrrigationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.f = this.fb.group({
-      'hasCubicMeterPerMonth': [null, Validators.required],
-      'cubicMeterPerMonth': [null, Validators.required],
-      'hasPump': [null, Validators.required],
-      'pumpCount': [null, Validators.required],
+      'hasCubicMeterPerMonth': [null, Validators],
+      'cubicMeterPerMonth': [null, Validators],
+      'hasPump': [null, Validators],
+      'pumpCount': [null, Validators],
       'pumps': this.fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
-      'qualityProblem': fb.group({
-        "hasProblem": [null, Validators.required],
-        "problem": WaterProblem4Component.CreateFormGroup(fb)
-      })
-    });
+      'qualityProblem': WaterProblem4Component.CreateFormGroup(fb)
+    }, {
+        validator: IrrigationPage.checkAnyOrOther()
+      });
     this.setupPumpCountChanges()
   }
 
@@ -74,13 +73,8 @@ export class IrrigationPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.waterUsage.irrigation)
+        this.f.patchValue(data.waterUsage.irrigation)
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.irrigation));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // })
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -143,42 +137,65 @@ export class IrrigationPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.formData.waterUsage.irrigation = this.f.value
-    if (this.checkValid()) {
+    if (this.f.valid && !this.waterActivity6.find(it => it.totalSum != 100)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
     }
   }
 
-  checkValid(): boolean {
-    let activity = !this.waterActivity6.find(it => it.totalSum != 100)
-    let cubic: boolean;
-    let problem: boolean;
-    let pump: boolean;
-    let pumps = true;
-    if (this.f.get('hasCubicMeterPerMonth').value == true) {
-      cubic = (this.f.get('cubicMeterPerMonth').value != null)
-      pump = true
-    }
-    if (this.f.get('hasCubicMeterPerMonth').value == false) {
-      if (this.f.get('hasPump').value == false) {
-        cubic = true;
-        pump = true;
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const hasCubicMeterPerMonth = c.get('hasCubicMeterPerMonth');
+      const cubicMeterPerMonth = c.get('cubicMeterPerMonth');
+      const hasPump = c.get('hasPump');
+      const pumpCount = c.get('pumpCount');
+      const hasProblem = c.get('qualityProblem.hasProblem');
+
+      if (hasCubicMeterPerMonth.value == null) {
+        return { 'hasCubicMeterPerMonth': true };
       }
-      if (this.f.get('hasPump').value == true) {
-        if (this.f.get('pumpCount').value > 0) {
-          cubic = true;
-          pump = true;
-          pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid()
-        }
+      if ((hasCubicMeterPerMonth.value == true)
+        && ((cubicMeterPerMonth.value == null)
+          || (cubicMeterPerMonth.value.trim() == ''))) {
+        return { 'cubicMeterPerMonth': true };
       }
+      if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {
+        return { 'hasPump': true };
+      }
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+        return { 'pumpCount': true };
+      }
+      if (hasProblem.value == null) {
+        return { 'hasProblem': true };
+      }
+      return null;
     }
-    if (!this.f.get('qualityProblem.hasProblem').value) {
-      problem = true;
-    } else {
-      problem = this.f.get('qualityProblem.problem').valid
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    if (name == 'hasCubicMeterPerMonth') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.hasCubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
     }
-    return activity && cubic && problem && pump && pumps
+    if (name == 'cubicMeterPerMonth') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.cubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hasPump') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.hasPump && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'pumpCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.pumpCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hasProblem') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.hasProblem && (ctrl.dirty || this.submitRequested);
+    }
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   countNumberPage() {
@@ -224,10 +241,7 @@ export class IrrigationPage {
     });
   }
 
-  public isValid(name: string): boolean {
-    var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  }
+
 
   private setupPumpCountChanges() {
     const componentFormArray: string = "pumps";

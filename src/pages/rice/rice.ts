@@ -41,8 +41,10 @@ export class RicePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.agriculture.ricePlant);
+        this.f.patchValue(data.agriculture.ricePlant);
         this.data = data;
+        console.log(data.agriculture.ricePlant);
+        
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
         // this.formData$.subscribe(data => {
         //   if (data != null) {

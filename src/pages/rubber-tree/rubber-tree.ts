@@ -41,7 +41,7 @@ export class RubberTreePage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.rubbertree.setValue(data.agriculture.rubberTree)
+        this.rubbertree.patchValue(data.agriculture.rubberTree)
         this.formData = data;
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
         // this.formData$.subscribe(data =>{
