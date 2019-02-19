@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { surfacePumpTypeData } from '../../models/SurfacePumpTypeData';
@@ -34,49 +34,20 @@ export class PumpComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'pumpAuto': [null, Validators.required],
-      'hoursPerPump': [null, Validators.required],
-      'numberOfPumpsPerYear': [null, Validators.required],
-      'hasPumpRate': [null, Validators.required],
-      'pumpRate': [null, Validators.required],
-      'energySource': [null, Validators.required],
-      'pumpType': [null, Validators.required],
-      'horsePower': [null, Validators.required],
-      'suctionPipeSize': [null, Validators.required],
-      'pipelineSize': [null, Validators.required]
-    });
-  }
-
-  public checkValid(): boolean {
-    if (this.FormItem.get('pumpAuto').value != null) {
-      if (this.FormItem.get('pumpAuto').value == true) {
-        return true;
-      }
-      if (this.FormItem.get('pumpAuto').value == false) {
-        if ((this.FormItem.get('hoursPerPump').value != null)
-          && (this.FormItem.get('numberOfPumpsPerYear') != null)
-          && (this.FormItem.get('hasPumpRate').value != null)) {
-          if ((this.FormItem.get('hasPumpRate').value == true)
-            && (this.FormItem.get('pumpRate').value != null)) {
-            return true;
-          }
-          if ((this.FormItem.get('hasPumpRate').value == false)
-            && (this.FormItem.get('energySource').value > 0)
-            && (this.FormItem.get('pumpType').value != null)
-            && (this.FormItem.get('horsePower').value != null)
-            && (this.FormItem.get('suctionPipeSize').value != null)
-            && (this.FormItem.get('pipelineSize').value != null)) {
-            return true;
-          } else {
-            return false
-          }
-        } else {
-          return false
-        }
-      }
-    } else {
-      return false
-    }
+      'pumpAuto': [null, Validators],
+      'hoursPerPump': [null, Validators],
+      'numberOfPumpsPerYear': [null, Validators],
+      'hasPumpRate': [null, Validators],
+      'pumpRate': [null, Validators],
+      'energySource': [null, Validators],
+      'pumpType': [null, Validators],
+      'horsePower': [null, Validators],
+      'suctionPipeSize': [null, Validators],
+      'pipelineSize': [null, Validators]
+    },
+      {
+        validator: PumpComponent.checkAnyOrOther()
+      });
   }
 
   public showModalArea() {
@@ -94,8 +65,117 @@ export class PumpComponent implements ISubmitRequestable {
     this.submitRequested = true;
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const pumpAuto = c.get('pumpAuto');
+      const hoursPerPump = c.get('hoursPerPump');
+      const numberOfPumpsPerYear = c.get('numberOfPumpsPerYear');
+      const hasPumpRate = c.get('hasPumpRate');
+      const pumpRate = c.get('pumpRate');
+      const energySource = c.get('energySource');
+      const pumpType = c.get('pumpType');
+      const horsePower = c.get('horsePower');
+      const suctionPipeSize = c.get('suctionPipeSize');
+      const pipelineSize = c.get('pipelineSize');
+
+      if (pumpAuto.value == null) {
+        return { 'pumpAuto': true };
+      }
+      if ((pumpAuto.value == false)
+        && ((hoursPerPump.value == null)
+          || (hoursPerPump.value.trim() == ''))) {
+        return { 'hoursPerPump': true, };
+      }
+      if ((pumpAuto.value == false)
+        && ((numberOfPumpsPerYear.value == null)
+          || (numberOfPumpsPerYear.value.trim() == ''))) {
+        return { 'numberOfPumpsPerYear': true, };
+      }
+      if ((pumpAuto.value == false)
+        && (hasPumpRate.value == null)) {
+        return { 'hasPumpRate': true, }
+      }
+      if ((hasPumpRate.value == true)
+        && ((pumpRate.value == null)
+          || (pumpRate.value.trim() == ''))) {
+        return { 'pumpRate': true, }
+      }
+      if ((hasPumpRate.value == false)
+        && (energySource.value < 1)) {
+        return { 'energySource': true, }
+      }
+      if ((hasPumpRate.value == false)
+        && (energySource.value > 0)
+        && (pumpType.value == null)) {
+        return { 'pumpType': true, }
+      }
+      if ((hasPumpRate.value == false)
+        && (energySource.value > 0)
+        && (pumpType.value != null)
+        && (horsePower.value == null)) {
+        return { 'horsePower': true, }
+      }
+      if ((hasPumpRate.value == false)
+        && (energySource.value > 0)
+        && (pumpType.value != null)
+        && (horsePower.value != null)
+        && (suctionPipeSize.value == null)) {
+        return { 'suctionPipeSize': true, }
+      }
+      if ((hasPumpRate.value == false)
+        && (energySource.value > 0)
+        && (pumpType.value != null)
+        && (horsePower.value != null)
+        && (suctionPipeSize.value != null)
+        && (pipelineSize.value == null)) {
+        return { 'pipelineSize': true, }
+      }
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'pumpAuto') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.pumpAuto && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hoursPerPump') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.hoursPerPump && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'numberOfPumpsPerYear') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.numberOfPumpsPerYear && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hasPumpRate') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.hasPumpRate && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'pumpRate') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.pumpRate && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'energySource') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.energySource && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'pumpType') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.pumpType && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'horsePower') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.horsePower && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'suctionPipeSize') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.suctionPipeSize && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'pipelineSize') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.pipelineSize && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

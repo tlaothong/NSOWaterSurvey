@@ -24,7 +24,6 @@ export class AnimalFarmPage {
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   public dataAni:any;
-  private formData$: any;
   private frontNum: any;
   private backNum: any;
   

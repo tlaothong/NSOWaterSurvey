@@ -128,14 +128,13 @@ export class RainPage {
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
     this.formData.waterUsage.rain = this.RainFrm.value;
+    console.log(this.RainFrm.get('rainContainers').statusChanges);
+    // this.RainFrm.get('waterActivities').valid == false;
+    console.log(this.RainFrm.get('waterActivities').valid );
     if (!this.waterActivity5.find(it => it.resultSum != 100) && this.rainStorage.some(it => it.FormItem.valid)) {
-      console.log(this.RainFrm.get('waterActivities').valid );
-      
-      // if (!this.waterActivity5.find(it => it.resultSum != 100)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
-      // }
     }
   }
 
