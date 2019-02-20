@@ -237,8 +237,6 @@ export class PoolPage {
     }
   }
 
-
-
   private setupPoolCountChanges() {
     const componentFormArray: string = "poolSizes";
     const componentCount: string = "poolCount";

@@ -51,23 +51,23 @@ export class PoolAreaComponent implements ISubmitRequestable {
       if (shape.value < 1) {
         return { 'shape': true };
       }
-      if ((shape.value == 1) && ((depth.value == null) || (depth.value.trim() == ''))) {
+      if ((shape.value == 1) && ((depth.value == null) || (depth.value < 1))) {
         return { 'depth': true };
       }
-      if ((shape.value == 2) && ((depth.value == null) || (depth.value.trim() == ''))) {
-        return { 'depth': true };
-      }
-      if ((shape.value == 3) && ((depth.value == null) || (depth.value.trim() == ''))) {
-        return { 'depth': true };
-      }
-      if ((shape.value == 2) && ((width.value == null) || (width.value.trim() == ''))) {
+      if ((shape.value == 2) && ((width.value == null) || (width.value < 1))) {
         return { 'width': true };
       }
-      if ((shape.value == 2) && ((length.value == null) || (length.value.trim() == ''))) {
+      if ((shape.value == 2) && ((length.value == null) || (length.value < 1))) {
         return { 'length': true };
       }
-      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value.trim() == ''))) {
+      if ((shape.value == 2) && ((depth.value == null) || (depth.value < 1))) {
+        return { 'depth': true };
+      }
+      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value < 1))) {
         return { 'diameter': true };
+      }
+      if ((shape.value == 3) && ((depth.value == null) || (depth.value < 1))) {
+        return { 'depth': true };
       }
       return null;
     }
