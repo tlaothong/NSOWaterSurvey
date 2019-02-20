@@ -41,7 +41,7 @@
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-input formControlName="cubicMeterPerMonth" placeholder="กรอกข้อมูล" [class.invalid]="isValid('cubicMeterPerMonth')"></ion-input>
+            <ion-input type="number" formControlName="cubicMeterPerMonth" placeholder="กรอกข้อมูล" [class.invalid]="isValid('cubicMeterPerMonth')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('cubicMeterPerMonth')">
             <span class="invalid-msg">
