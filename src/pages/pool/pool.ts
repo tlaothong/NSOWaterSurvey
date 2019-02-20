@@ -172,31 +172,6 @@ export class PoolPage {
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
-  checkValid(): boolean {
-    let doing = false;
-    let sameSize = false;
-    let waterResourceCount = false;
-    let usage = false;
-    let area = false;
-
-    if (this.f.get('doing').value == true) {
-      doing = true;
-      if (this.f.get('poolCount').value >= 0
-        && this.f.get('hasSameSize').value != null) {
-        sameSize = true;
-      }
-      if (this.f.get('waterResourceCount').value > 0
-        && this.f.get('waterResourceCount').value <= this.f.get('poolCount').value) {
-        waterResourceCount = true;
-        usage = this.poolUsage.find(it => it.checkValid() == it.checkValid()).checkValid();
-        area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
-      }
-    }
-    else {
-      return true;
-    }
-    return doing && sameSize && waterResourceCount && area && usage;
-  }
 
   countNumberPage() {
     console.log("onSubmit ");
