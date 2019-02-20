@@ -7,7 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
 import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { map } from 'rxjs/operators';
-// import { Guid } from "guid-typescript";
+import { Guid } from "guid-typescript";
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -64,7 +64,7 @@ export class UnitButtonComponent {
     });
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
-    // this.FormItem.get('_id').setValue(Guid.create().toString());
+    this.FormItem.get('_id').setValue(Guid.create().toString());
     console.log(this.FormItem.value);
 
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
@@ -740,7 +740,7 @@ export class UnitButtonComponent {
         if (access.at(lastIndex).value == 1) {
           this.sendIdUnit();
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
-          // this.navCtrl.push('WaterActivityUnitPage')
+          this.navCtrl.push('WaterActivityUnitPage')
         }
       }
     });
@@ -750,7 +750,7 @@ export class UnitButtonComponent {
   public showModal() {
     if (this.access == 1) {
       this.sendIdUnit();
-      this.navCtrl.push('WaterActivityUnitPage');
+      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
 
@@ -770,7 +770,7 @@ export class UnitButtonComponent {
           if (access.at(lastIndex).value == 1) {
             this.sendIdUnit();
             this.navCtrl.setRoot(this.navCtrl.getActive().component);
-            // this.navCtrl.push('WaterActivityUnitPage')
+            this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
           }
         }
         else {
