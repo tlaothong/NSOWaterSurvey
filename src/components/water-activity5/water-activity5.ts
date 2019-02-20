@@ -27,6 +27,7 @@ export class WaterActivity5Component {
 
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
+    this.onChangeValue();
   }
 
 

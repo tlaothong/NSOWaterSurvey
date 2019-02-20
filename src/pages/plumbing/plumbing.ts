@@ -109,12 +109,7 @@ export class PlumbingPage {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
         this.f.patchValue(data.waterUsage.plumbing);
-        this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.plumbing));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // })
+        this.formData = data;        
       }
     })
 

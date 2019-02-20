@@ -241,8 +241,6 @@ export class IrrigationPage {
     });
   }
 
-
-
   private setupPumpCountChanges() {
     const componentFormArray: string = "pumps";
     const componentCount: string = "pumpCount";

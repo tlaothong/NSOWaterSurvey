@@ -42,7 +42,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
       'hasCubicMeterPerMonth': [null, Validators],
       'cubicMeterPerMonth': [null, Validators],
       'hasPump': [null, Validators],
-      'pumpCount': [null, Validators],
+      'pumpCount': [0, Validators],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': WaterProblem4Component.CreateFormGroup(fb)
@@ -110,7 +110,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
       if(hasCubicMeterPerMonth.value == null){
         return { 'hasCubicMeterPerMonth': true };
       }
-      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value.trim() == ''))) {
+      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value < 1))) {
         return { 'cubicMeterPerMonth': true };
       }
       if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {

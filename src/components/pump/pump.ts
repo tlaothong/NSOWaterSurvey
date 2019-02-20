@@ -39,7 +39,7 @@ export class PumpComponent implements ISubmitRequestable {
       'numberOfPumpsPerYear': [null, Validators],
       'hasPumpRate': [null, Validators],
       'pumpRate': [null, Validators],
-      'energySource': [null, Validators],
+      'energySource': [0, Validators],
       'pumpType': [null, Validators],
       'horsePower': [null, Validators],
       'suctionPipeSize': [null, Validators],

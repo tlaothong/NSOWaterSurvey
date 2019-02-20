@@ -28,7 +28,8 @@ export class WaterActivity6Component {
 
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity6Component.CreateFormGroup(fb);
-    this.totalSum = 0;
+    // this.totalSum = 0;
+    this.onChangeValue();
   }
 
   submitRequest() {
