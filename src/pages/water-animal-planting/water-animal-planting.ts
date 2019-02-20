@@ -29,25 +29,25 @@ export class WaterAnimalPlantingPage {
   private backNum: any;
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
-      "doing": [null, Validators.required],
-      "isFish": [false, Validators.required],
-      "fish": FishFarmingComponent.CreateFormGroup(fb),
-      "isShrimp": [false, Validators.required],
-      "shrimp": FishFarmingComponent.CreateFormGroup(fb),
-      "isFrog": [false, Validators.required],
-      "frog": FrogFarmingComponent.CreateFormGroup(fb),
-      "isCrocodile": [false, Validators.required],
-      "crocodile": CrocodileFarmingComponent.CreateFormGroup(fb),
-      "isSnappingTurtle": [false, Validators.required],
-      "snappingTurtle": CrocodileFarmingComponent.CreateFormGroup(fb),
-      "isCrab": [false, Validators.required],
-      "crab": FishFarmingComponent.CreateFormGroup(fb),
-      "isShellFish": [false, Validators.required],
-      "shellFish": FishFarmingComponent.CreateFormGroup(fb),
-      "isTurtle": [false, Validators.required],
-      "turtle": CrocodileFarmingComponent.CreateFormGroup(fb),
-      "isReddish": [false, Validators.required],
-      "reddish": FishFarmingComponent.CreateFormGroup(fb),
+      'doing': [null, Validators.required],
+      'isFish': [false, Validators.required],
+      'fish': FishFarmingComponent.CreateFormGroup(fb),
+      'isShrimp': [false, Validators.required],
+      'shrimp': FishFarmingComponent.CreateFormGroup(fb),
+      'isFrog': [false, Validators.required],
+      'frog': FrogFarmingComponent.CreateFormGroup(fb),
+      'isCrocodile': [false, Validators.required],
+      'crocodile': CrocodileFarmingComponent.CreateFormGroup(fb),
+      'isSnappingTurtle': [false, Validators.required],
+      'snappingTurtle': CrocodileFarmingComponent.CreateFormGroup(fb),
+      'isCrab': [false, Validators.required],
+      'crab': FishFarmingComponent.CreateFormGroup(fb),
+      'isShellFish': [false, Validators.required],
+      'shellFish': FishFarmingComponent.CreateFormGroup(fb),
+      'isTurtle': [false, Validators.required],
+      'turtle': CrocodileFarmingComponent.CreateFormGroup(fb),
+      'isReddish': [false, Validators.required],
+      'reddish': FishFarmingComponent.CreateFormGroup(fb),
     }, {
         validator: WaterAnimalPlantingPage.checkAnyOrOther()
       });
@@ -59,11 +59,6 @@ export class WaterAnimalPlantingPage {
       if (data != null) {
         this.f.patchValue(data.agriculture.aquaticAnimals)
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.aquaticAnimals));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // })
       }
     })
   }
@@ -72,7 +67,7 @@ export class WaterAnimalPlantingPage {
     this.submitRequested = true;
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
-    this.crocodileFarming.forEach(it => it.submitRequest());
+    this.crocodileFarming.forEach(it => it.submitRequest());    
     this.formData.agriculture.aquaticAnimals = this.f.value;
     if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
       this.arrayIsCheckMethod();
@@ -93,12 +88,12 @@ export class WaterAnimalPlantingPage {
     let reddish = false;
 
     if (this.f.get('isFish').value) {
-      fish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+      fish = this.f.get('fish').valid;
     } else {
       fish = true;
     }
     if (this.f.get('isShrimp').value) {
-      shrimp = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+      shrimp = this.f.get('shrimp').valid;
     } else {
       shrimp = true;
     }
@@ -108,32 +103,32 @@ export class WaterAnimalPlantingPage {
       frog = true;
     }
     if (this.f.get('isCrocodile').value) {
-      crocodile = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+      crocodile = this.f.get('crocodile').valid;
     } else {
       crocodile = true;
     }
     if (this.f.get('isSnappingTurtle').value) {
-      snappingTurtle = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+      snappingTurtle = this.f.get('snappingTurtle').valid;
     } else {
       snappingTurtle = true;
     }
     if (this.f.get('isCrab').value) {
-      crab = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+      crab = this.f.get('crab').valid;
     } else {
       crab = true;
     }
     if (this.f.get('isShellFish').value) {
-      shellFish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+      shellFish = this.f.get('shellFish').valid;
     } else {
       shellFish = true;
     }
     if (this.f.get('isTurtle').value) {
-      turtle = this.crocodileFarming.find(it => it.checkCrocValid() == it.checkCrocValid()).checkCrocValid();
+      turtle = this.f.get('turtle').valid;
     } else {
       turtle = true;
     }
     if (this.f.get('isReddish').value) {
-      reddish = this.fishFarming.find(it => it.checkFishValid() == it.checkFishValid()).checkFishValid();
+      reddish = this.f.get('reddish').valid;
     } else {
       reddish = true;
     }
