@@ -68,7 +68,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
       if (!depression.value && !gardenGroove.value && !stew.value && !hasOther.value && !riceField.value) {
         return { 'anycheck': true };
-      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+      } else if ((hasOther.value == true) && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
       if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldCount.value < 1)) {
@@ -77,7 +77,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
       if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldsAreSameSize.value == null)) {
         return { 'fieldsAreSameSize': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (animalsCount.value == null)) {
+      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && ((animalsCount.value == null) || (animalsCount.value < 1))) {
         return { 'animalsCount': true };
       }
       return null;

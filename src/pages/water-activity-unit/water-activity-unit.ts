@@ -76,9 +76,9 @@ export class WaterActivityUnitPage {
       && (this.f.get('isFactorial').value != null)
       && (this.f.get('isCommercial').value != null)) {
       this.store.dispatch(new SetHouseHold(this.f.value));
-      this.navCtrl.push("CheckListPage");
+      this.navCtrl.push("CheckListPage",{id:this.f.value._id});
     }
-
+    
     // this.checkNextPage();
 
   }
