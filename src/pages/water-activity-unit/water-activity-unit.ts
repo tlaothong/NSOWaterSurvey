@@ -22,19 +22,21 @@ export class WaterActivityUnitPage {
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = UnitButtonComponent.CreateFormGroup(fb);
+    this.f = navParams.get('FormItem');
   }
 
   ionViewDidLoad() {
+    console.log("test");
     console.log(this.f.value);
-    this.formDataRecieve$.subscribe(data => {
-      if (data != null) {
-        this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
-        this.setupAccessCountChanges();
-        this.setupAccessCountChangesForComments();
-        this.f.patchValue(data);
-        console.log(this.f.value);
-      }
-    });
+    // this.formDataRecieve$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
+    //     this.setupAccessCountChanges();
+    //     this.setupAccessCountChangesForComments();
+    //     this.f.patchValue(data);
+    //     console.log(this.f.value);
+    //   }
+    // });
   }
 
   public handleSubmit() {
