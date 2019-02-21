@@ -66,8 +66,8 @@
 
     <ion-card *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
       <ion-card-content>
-        <water-activity6 usee="{{gardeningUse}}" doing="{{riceDoing}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" headline="5.3.3 ใช้น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ "
+        <water-activity6 
+          headline="5.3.3 ใช้น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ "
           headline2="เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร " [FormItem]="f.get('waterActivities')"
           activeRes="{{activityResidential}}"
           activeWateringRes="{{activityWateringRes}}"

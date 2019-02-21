@@ -140,6 +140,8 @@ export class GroundWaterPage {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");
+      // console.log("ผ่านแล้วจ้า");
+      
     }
   }
 

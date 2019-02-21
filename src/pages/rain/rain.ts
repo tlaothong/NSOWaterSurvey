@@ -131,7 +131,7 @@ export class RainPage {
     console.log(this.RainFrm.get('rainContainers').statusChanges);
     // this.RainFrm.get('waterActivities').valid == false;
     console.log(this.RainFrm.get('waterActivities').valid );
-    if (!this.waterActivity5.find(it => it.resultSum != 100) && this.rainStorage.some(it => it.FormItem.valid)) {
+    if (!this.waterActivity5.find(it => it.checkValid()) && this.rainStorage.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");

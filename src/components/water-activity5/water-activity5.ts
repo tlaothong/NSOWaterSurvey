@@ -11,12 +11,7 @@ export class WaterActivity5Component {
 
   @Input() public FormItem: FormGroup;
   @Input('tag') public tag: string;
-  @Input('use') public gardeningUse: boolean;
-  @Input('factory') public factoryUse: boolean;
   @Input('headline') public text: string;
-  @Input('commerce') public commerceUse: boolean;
-  @Input('residence') public residenceUse: boolean;
-  @Input('agriculture') public agricultureUse: boolean;
   @Input('activeRes') public activeRes: any;
   @Input('activeWateringRes') public activeWateringRes: any;
   @Input('activeAgi') public activeAgi: any;
@@ -24,24 +19,31 @@ export class WaterActivity5Component {
   @Input('activeCom') public activeCom: any;
 
   public resultSum: number;
-
+  public isCheck: boolean;
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity5Component.CreateFormGroup(fb);
-    this.onChangeValue();
   }
-
 
   submitRequest() {
     this.submitRequested = true;
   }
 
+  ngOnInit() {
+    this.onChangeValue();
+
+  }
+
+  ngDoCheck() {
+    this.isCheck = this.checkValid();
+  }
+
   onChangeValue() {
-    this.resultSum = 0
     this.resultSum = Number(this.FormItem.get('plant').value) + Number(this.FormItem.get('service').value) + Number(this.FormItem.get('product').value) + Number(this.FormItem.get('drink').value) + Number(this.FormItem.get('agriculture').value);
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -56,4 +58,19 @@ export class WaterActivity5Component {
     });
   }
 
+  checkValid(): boolean {
+    let isDrink = true;
+    let isPlant = true;
+    let isAgriculture = true;
+    let isProduct = true;
+    let isService = true;
+
+    isDrink = (this.FormItem.get('drink').value < 1 && this.activeRes) ? false : true;
+    isPlant = (this.FormItem.get('plant').value < 1 && this.activeWateringRes) ? false : true;
+    isAgriculture = (this.FormItem.get('agriculture').value < 1 && this.activeAgi) ? false : true;
+    isProduct = (this.FormItem.get('product').value < 1 && this.activeFac) ? false : true;
+    isProduct = (this.FormItem.get('service').value < 1 && this.activeCom) ? false : true;
+
+    return this.resultSum == 100 && isDrink && isPlant && isAgriculture && isProduct && isService
+  }
 }
