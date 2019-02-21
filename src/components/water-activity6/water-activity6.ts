@@ -25,6 +25,7 @@ export class WaterActivity6Component {
 
   public waterActivitiesWhichToUse: any;
   public totalSum: number
+  public isCheck: boolean;
 
   constructor(private fb: FormBuilder) {
     this.FormItem = WaterActivity6Component.CreateFormGroup(fb);
@@ -37,6 +38,10 @@ export class WaterActivity6Component {
 
   ngOnInit() {
     this.onChangeValue();
+  }
+
+  ngDoCheck() {
+    this.isCheck = this.checkValid();
   }
 
   onChangeValue() {
