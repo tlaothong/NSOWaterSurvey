@@ -11,12 +11,7 @@ export class WaterActivity5Component {
 
   @Input() public FormItem: FormGroup;
   @Input('tag') public tag: string;
-  @Input('use') public gardeningUse: boolean;
-  @Input('factory') public factoryUse: boolean;
   @Input('headline') public text: string;
-  @Input('commerce') public commerceUse: boolean;
-  @Input('residence') public residenceUse: boolean;
-  @Input('agriculture') public agricultureUse: boolean;
   @Input('activeRes') public activeRes: any;
   @Input('activeWateringRes') public activeWateringRes: any;
   @Input('activeAgi') public activeAgi: any;

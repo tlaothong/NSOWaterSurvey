@@ -137,7 +137,7 @@ export class IrrigationPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.formData.waterUsage.irrigation = this.f.value
-    if (this.f.valid && !this.waterActivity6.find(it => it.totalSum != 100)) {
+    if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.popTo("CheckListPage");

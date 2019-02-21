@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="RainFrm" (ngSubmit)="handleSubmit()" >
+  <form [formGroup]="RainFrm" (ngSubmit)="handleSubmit()">
 
     <h3>5.6 การกักเก็บน้ำฝน</h3>
 
@@ -43,30 +43,34 @@
           </ion-col>
         </ion-row>
 
-        <rain-storage no="1." headline="แท้งค์น้ำ สแตนเลส" [FormItem]="RainFrm.get('rainContainers').at(0)"></rain-storage>
-        <rain-storage no="2." headline="แท้งค์น้ำ โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(1)"></rain-storage>
-        <rain-storage no="3." headline="แท้งค์น้ำ ไฟเบอร์กลาส" [FormItem]="RainFrm.get('rainContainers').at(2)"></rain-storage>
-        <rain-storage no="4." headline="แท้งค์น้ำ ปูน/ซีเมนต์" [FormItem]="RainFrm.get('rainContainers').at(3)"></rain-storage>
-        <rain-storage no="5." headline="โอ่ง ปูน/ดินเผา" [FormItem]="RainFrm.get('rainContainers').at(4)"></rain-storage>
-        <rain-storage no="6." headline="ถัง โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(5)"></rain-storage>
+        <rain-storage no="1." headline="แท้งค์น้ำ สแตนเลส" [FormItem]="RainFrm.get('rainContainers').at(0)">
+        </rain-storage>
+        <rain-storage no="2." headline="แท้งค์น้ำ โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(1)">
+        </rain-storage>
+        <rain-storage no="3." headline="แท้งค์น้ำ ไฟเบอร์กลาส" [FormItem]="RainFrm.get('rainContainers').at(2)">
+        </rain-storage>
+        <rain-storage no="4." headline="แท้งค์น้ำ ปูน/ซีเมนต์" [FormItem]="RainFrm.get('rainContainers').at(3)">
+        </rain-storage>
+        <rain-storage no="5." headline="โอ่ง ปูน/ดินเผา" [FormItem]="RainFrm.get('rainContainers').at(4)">
+        </rain-storage>
+        <rain-storage no="6." headline="ถัง โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(5)">
+        </rain-storage>
         <rain-storage no="7." [FormItem]="RainFrm.get('rainContainers').at(6)"></rain-storage>
         <rain-storage no="8." [FormItem]="RainFrm.get('rainContainers').at(7)"></rain-storage>
 
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true">
+    <div
+      *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true">
       <h4>5.6.2 น้ำฝนที่กักเก็บไว้นั้นใช้ในกิจกรรมใดบ้าง คิดเป็นสัดส่วนเท่าไร </h4>
 
       <ion-card>
         <ion-card-content>
-          <water-activity5 use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}" residence="{{residenceUse}}"
-            agriculture="{{agricultureUse}}" headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)" [FormItem]="RainFrm.get('waterActivities')"
-            activeRes="{{activityResidential}}"
-            activeWateringRes="{{activityWateringRes}}"
-            activeAgi="{{activityAgiculture}}"
-            activeFac="{{activityFactory}}"
-            activeCom="{{activityCommercial}}"></water-activity5>
+          <water-activity5 headline=" กิจกรรมการใช้น้ำ สัดส่วนที่ใช้(%)" [FormItem]="RainFrm.get('waterActivities')"
+            activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+            activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}">
+          </water-activity5>
         </ion-card-content>
       </ion-card>
     </div>

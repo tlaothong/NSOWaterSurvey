@@ -78,7 +78,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   public isCheckValidwaterAct(): boolean {
     // let isCheckWaterAct = !this.waterActivity6.some(it => it.isCheck == false);
-    let isCheckWaterAct = this.waterActivity6.find(it => it.checkValid()) ? false : true;
+    let isCheckWaterAct = this.waterActivity6.find(it => it.totalSum != 100) ? false : true;
     return (this.gardeningUse || this.riceDoing || this.commerceUse || this.factoryUse || this.residenceUse || this.agricultureUse) ?
       isCheckWaterAct : true;
   }

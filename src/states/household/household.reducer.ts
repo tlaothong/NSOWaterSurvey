@@ -300,6 +300,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 houseHoldSample: action.payload,
                 selectG1234: s.selectG1234,
                 residentialGardeningUse: s.residentialGardeningUse,
+                wateringResidential: s.wateringResidential,
                 waterSourcesResidential: s.waterSourcesResidential,
                 waterSourcesRice: s.waterSourcesRice,
                 waterSourcesAgiculture: s.waterSourcesAgiculture,
@@ -399,6 +400,7 @@ function resetStatesForModel(model: any): any {
     return {
 
         selectG1234: objG12345,
+        wateringResidential: model && model.residence.gardeningUse,
         residentialGardeningUse: model && model.residence.gardeningUse,
         agi: objAgri,
         waterSourcesResidential: waterSource,

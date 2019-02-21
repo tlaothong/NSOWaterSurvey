@@ -50,7 +50,6 @@ export class ResidentialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetResidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
     // (this.residentialFrm.get('waterSources.underGround').value),
     // (this.residentialFrm.get('waterSources.river').value),
     // (this.residentialFrm.get('waterSources.pool').value),
@@ -58,7 +57,6 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
     
-    this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
     this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid) {
       this.arrayIsCheckMethod();
@@ -117,6 +115,9 @@ export class ResidentialPage {
     this.store.dispatch(new SetCheckWaterRain(this.residentialFrm.get('waterSources.rain').value));
     this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
     this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
+     this.store.dispatch(new SetResidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
+    this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
+
   }
 
   public isValid(name: string): boolean {

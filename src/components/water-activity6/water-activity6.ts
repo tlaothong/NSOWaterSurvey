@@ -10,12 +10,6 @@ export class WaterActivity6Component {
   @Input('headline') public text: string;
   @Input('headline2') public text2: string;
   @Input() public FormItem: FormGroup;
-  @Input('usee') public gardeningUse: boolean;
-  @Input('doing') public riceDoing: boolean;
-  @Input('commerce') public commerceUse: boolean;
-  @Input('factory') public factoryUse: boolean;
-  @Input('residence') public residenceUse: boolean;
-  @Input('agriculture') public agricultureUse: boolean;
   @Input('activeRes') public activeRes: any;
   @Input('activeWateringRes') public activeWateringRes: any;
   @Input('activRice') public activRice: any;
