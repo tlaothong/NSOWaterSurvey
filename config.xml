@@ -88,4 +88,10 @@
         <variable name="UPDATE_METHOD" value="auto" />
     </plugin>
     <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-sqlite-storage" spec="3.1.0" />
+    <plugin name="cordova-plugin-qrscanner" spec="2.6.0" />
+    <plugin name="cordova-plugin-geolocation" spec="4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate the buildings and units during survey." />
+    </plugin>
+    <plugin name="cordova-plugin-secure-storage" spec="3.0.1" />
 </widget>
