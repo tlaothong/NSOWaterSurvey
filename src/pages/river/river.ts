@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
@@ -56,15 +56,14 @@ export class RiverPage {
   private backNum: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
-      "hasPump": [null, Validators.required],
-      "pumpCount": [null, Validators.required],
-      "pumps": this.fb.array([]),
-      "waterActivities": WaterActivity6Component.CreateFormGroup(fb),
-      "qualityProblem": this.fb.group({
-        "hasProblem": [null],
-        "problem": WaterProblem4Component.CreateFormGroup(this.fb)
-      })
-    });
+      'hasPump': [null, Validators],
+      'pumpCount': [null, Validators],
+      'pumps': this.fb.array([]),
+      'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
+      'qualityProblem': WaterProblem4Component.CreateFormGroup(this.fb)
+    }, {
+        validator: RiverPage.checkAnyOrOther()
+      });
     this.setupPumpCountChanges()
   }
 
@@ -72,7 +71,7 @@ export class RiverPage {
     this.countNumberPage();
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.waterUsage.river);
+        this.f.patchValue(data.waterUsage.river);
         this.formData = data;
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
         // this.formData$.subscribe(data => {
@@ -141,31 +140,39 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.formData.waterUsage.river = this.f.value;
-    if (this.checkValid()) {
+    if (this.f.valid && !this.waterActivity6.find(it => it.totalSum != 100)) {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.formData));
       this.navCtrl.setRoot("CheckListPage");
     }
   }
 
-  checkValid(): boolean {
-    let pumps = true;
-    let activity = !this.waterActivity6.find(it => it.totalSum != 100);
-    let problem: boolean;
-    if ((this.f.get('hasPump').value != null) && (this.f.get('hasPump').value == true)) {
-      if (this.f.get('pumpCount').value > 0) {
-        pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid();
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    if (name == 'hasPump') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.hasPump && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'pumpCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.pumpCount && (ctrl.dirty || this.submitRequested);
+    }
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const hasPump = c.get('hasPump');
+      const pumpCount = c.get('pumpCount');
+
+      if (hasPump.value == null) {
+        return { 'hasPump': true };
       }
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+        return { 'pumpCount': true };
+      }
+      return null;
     }
-    if ((this.f.get('hasPump').value != null) && (this.f.get('hasPump').value == false)) {
-      pumps = true;
-    }
-    if (!this.f.get('qualityProblem.hasProblem').value) {
-      problem = true;
-    } else {
-      problem = this.f.get('qualityProblem.problem').valid;
-    }
-    return pumps && activity && problem;
   }
 
   countNumberPage() {
@@ -209,11 +216,6 @@ export class RiverPage {
         console.log(arrayIsCheck);
       }
     });
-  }
-
-  public isValid(name: string): boolean {
-    var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   private setupPumpCountChanges() {

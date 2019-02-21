@@ -53,7 +53,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       || this.FormItem.get('hasOther').value)
       && ((this.FormItem.get('fieldCount').value != null)
         && (this.FormItem.get('fieldsAreSameSize').value != null))) {
-      area = this.poolArea.find(it => it.checkPoolValid() == it.checkPoolValid()).checkPoolValid();
+      area = this.FormItem.get('poolArea').valid;
     }
     if ((this.FormItem.get('fieldCount').value != null)
       && (area)
@@ -84,11 +84,23 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       const depression = c.get('depression');
       const hasOther = c.get('hasOther');
       const other = c.get('other');
+      const fieldCount = c.get('fieldCount');
+      const fieldsAreSameSize = c.get('fieldsAreSameSize');
+      const animalsCount = c.get('animalsCount');
 
       if (!depression.value && !hasOther.value) {
         return { 'anycheck': true };
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
+      }
+      if ((depression.value || hasOther.value) && (fieldCount.value < 1)) {
+        return { 'fieldCount': true };
+      }
+      if ((depression.value || hasOther.value) && (fieldsAreSameSize.value == null)) {
+        return { 'fieldsAreSameSize': true };
+      }
+      if ((depression.value || hasOther.value) && (animalsCount.value == null)) {
+        return { 'animalsCount': true };
       }
       return null;
     }
@@ -103,7 +115,18 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     } else if (name == 'other') {
       return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
     }
-
+    if (name == 'fieldCount') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldsAreSameSize') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.fieldsAreSameSize && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'animalsCount') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.animalsCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

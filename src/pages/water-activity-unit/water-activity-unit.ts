@@ -22,19 +22,21 @@ export class WaterActivityUnitPage {
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = UnitButtonComponent.CreateFormGroup(fb);
+    this.f = navParams.get('FormItem');
   }
 
   ionViewDidLoad() {
+    console.log("test");
     console.log(this.f.value);
-    this.formDataRecieve$.subscribe(data => {
-      if (data != null) {
-        this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
-        this.setupAccessCountChanges();
-        this.setupAccessCountChangesForComments();
-        this.f.patchValue(data);
-        console.log(this.f.value);
-      }
-    });
+    // this.formDataRecieve$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
+    //     this.setupAccessCountChanges();
+    //     this.setupAccessCountChangesForComments();
+    //     this.f.patchValue(data);
+    //     console.log(this.f.value);
+    //   }
+    // });
   }
 
   public handleSubmit() {
@@ -74,9 +76,9 @@ export class WaterActivityUnitPage {
       && (this.f.get('isFactorial').value != null)
       && (this.f.get('isCommercial').value != null)) {
       this.store.dispatch(new SetHouseHold(this.f.value));
-      this.navCtrl.push("CheckListPage");
+      this.navCtrl.push("CheckListPage",{id:this.f.value._id});
     }
-
+    
     // this.checkNextPage();
 
   }

@@ -14,20 +14,20 @@ export class WaterProblem4Component {
   constructor(private fb: FormBuilder) {
     this.text = 'Hello World';
     this.text = '1';
-    this.FormItem = this.fb.group({
-      'hasProblem': [null, Validators.required],
-      'problem': WaterProblem4Component.CreateFormGroup(this.fb)
-    });
+    this.FormItem = WaterProblem4Component.CreateFormGroup(this.fb);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'turbidWater': [false, Validators.required],
-      'saltWater': [false, Validators.required],
-      'smell': [false, Validators.required],
-      'filmOfOil': [false, Validators.required],
-      'fogWater': [false, Validators.required],
-      'hardWater': [false, Validators.required],
+      'hasProblem': [null, Validators],
+      'problem': fb.group({
+        'turbidWater': [false, Validators],
+        'saltWater': [false, Validators],
+        'smell': [false, Validators],
+        'filmOfOil': [false, Validators],
+        'fogWater': [false, Validators],
+        'hardWater': [false, Validators],
+      })
     }, {
         validator: WaterProblem4Component.checkAnyOrOther()
       });
@@ -39,30 +39,34 @@ export class WaterProblem4Component {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'hasProblem') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.hasProblem && (ctrl.dirty || this.submitRequested);
+    }
     if (name == 'anycheck') {
-      ctrl = this.FormItem;
-      return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
-    } 
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.anycheck && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
-      const saltWater = c.get('saltWater');
-      const smell = c.get('smell');
-      const filmOfOil = c.get('filmOfOil');
-      const fogWater = c.get('fogWater');
+      const hasProblem = c.get('hasProblem');
+      const saltWater = c.get('problem.saltWater');
+      const smell = c.get('problem.smell');
+      const filmOfOil = c.get('problem.filmOfOil');
+      const fogWater = c.get('problem.fogWater');
 
-      if (!saltWater.value && !smell.value && !filmOfOil.value && !fogWater.value) {
+      if (hasProblem.value == null) {
+        return { 'hasProblem': true };
+      }
+      if ((hasProblem.value == true) && (!saltWater.value && !smell.value && !filmOfOil.value && !fogWater.value)) {
         return { 'anycheck': true };
       }
       return null;
     }
   }
-
-  // changeValueHasProblem() {
-  //   this.FormItem.get('hasProblem').patchValue(false)
-  // }
 
   setCheckboxFalse() {
     this.FormItem.get('problem.saltWater').setValue(false);
