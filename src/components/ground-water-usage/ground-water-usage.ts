@@ -71,7 +71,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   }
 
   public isCheckPump(): boolean {
-    let isCheckPump = this.pump.find(it => !it.checkValid()) ? false : true;
+    let isCheckPump = this.FormItem.get('pumps').valid
     return (this.FormItem.get('hasPump').value) ?
       (this.FormItem.get('pumpCount').valid && isCheckPump) : this.FormItem.get('hasPump').valid;
   }

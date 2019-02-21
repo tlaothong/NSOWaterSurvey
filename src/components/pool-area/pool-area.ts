@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { ModalController } from 'ionic-angular';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
@@ -27,64 +27,76 @@ export class PoolAreaComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'shape': [null, Validators.required],
+      'shape': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'depth': [null, Validators.required],
+      'depth': [null, Validators],
       'rectangle': fb.group({
-        'width': [null, Validators.required],
-        'length': [null, Validators.required],
+        'width': [null, Validators],
+        'length': [null, Validators],
       }),
-      'diameter': [null, Validators.required]
-    });
+      'diameter': [null, Validators]
+    }, {
+        validator: PoolAreaComponent.checkAnyOrOther()
+      });
   }
 
-  public checkPoolValid():boolean{
-    if((this.FormItem.get('shape').value == 2) 
-    && (this.FormItem.get('rectangle.width').value != null)
-    && (this.FormItem.get('rectangle.length').value != null)
-    && (this.FormItem.get('depth').value != null)){
-      return true;
-    }else if((this.FormItem.get('shape').value == 3)
-    && (this.FormItem.get('diameter').value != null)
-    && (this.FormItem.get('depth').value != null)){
-      return true;
-    }else if((this.FormItem.get('shape').value == 1) && (this.FormItem.get('depth').value != null)){
-      return true;
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const shape = c.get('shape');
+      const depth = c.get('depth');
+      const width = c.get('rectangle.width');
+      const length = c.get('rectangle.length');
+      const diameter = c.get('diameter');
+
+      if (shape.value < 1) {
+        return { 'shape': true };
+      }
+      if ((shape.value == 1) && ((depth.value == null) || (depth.value < 1))) {
+        return { 'depth': true };
+      }
+      if ((shape.value == 2) && ((width.value == null) || (width.value < 1))) {
+        return { 'width': true };
+      }
+      if ((shape.value == 2) && ((length.value == null) || (length.value < 1))) {
+        return { 'length': true };
+      }
+      if ((shape.value == 2) && ((depth.value == null) || (depth.value < 1))) {
+        return { 'depth': true };
+      }
+      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value < 1))) {
+        return { 'diameter': true };
+      }
+      if ((shape.value == 3) && ((depth.value == null) || (depth.value < 1))) {
+        return { 'depth': true };
+      }
+      return null;
     }
   }
-  // checkValid() {
-  //   let value = this.FormItem.get('shape').value;
-  //   let check: boolean;
-  //   console.log("entrane checkValid");
 
-  //   switch (value) {
-
-  //     case '1':
-  //       this.FormItem.get('diameter').patchValue('0');
-  //       this.FormItem.get('rectangle.width').patchValue('0');
-  //       this.FormItem.get('rectangle.length').patchValue('0');
-
-  //       check = true;
-  //       break;
-  //     case '2':
-  //       this.FormItem.get('area').patchValue('0');
-  //       this.FormItem.get('rectangle.width').patchValue('0');
-  //       this.FormItem.get('rectangle.length').patchValue('0');
-  //       check = true;
-  //       break;
-
-  //     case '3':
-  //       this.FormItem.get('area').patchValue('0');
-  //       this.FormItem.get('diameter').patchValue('0');
-  //       check = true;
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-
-  //   return check;
-  // }
+  public isValid(name: string): boolean {
+    var ctrl = this.FormItem.get(name);
+    if (name == 'shape') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.shape && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'depth') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.depth && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'width') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.width && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'length') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.length && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'diameter') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.diameter && (ctrl.dirty || this.submitRequested);
+    }
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
 
   public showModal() {
     const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });
@@ -102,9 +114,6 @@ export class PoolAreaComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
   }
 
-  public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  }
+
 
 }

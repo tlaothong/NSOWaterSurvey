@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
@@ -34,21 +34,21 @@ export class PoolUsageComponent implements ISubmitRequestable {
 
   constructor(public fb: FormBuilder) {
     this.text = '1';
+    this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb)
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'hasCubicMeterPerMonth': [null, Validators.required],
-      'cubicMeterPerMonth': [null, Validators.required],
-      'hasPump': [null, Validators.required],
-      'pumpCount': [null, Validators.required],
+      'hasCubicMeterPerMonth': [null, Validators],
+      'cubicMeterPerMonth': [null, Validators],
+      'hasPump': [null, Validators],
+      'pumpCount': [0, Validators],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
-      'qualityProblem': fb.group({
-        "hasProblem": [null, Validators.required],
-        "problem": WaterProblem4Component.CreateFormGroup(fb)
-      })
-    });
+      'qualityProblem': WaterProblem4Component.CreateFormGroup(fb)
+    }, {
+        validator: PoolUsageComponent.checkAnyOrOther()
+      });
     PoolUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
   }
@@ -81,11 +81,11 @@ export class PoolUsageComponent implements ISubmitRequestable {
         if (this.FormItem.get('pumpCount').value > 0) {
           cubic = true;
           pump = true;
-          pumps = this.pump.find(it => it.checkValid() == it.checkValid()).checkValid()
+          pumps = this.FormItem.get('pumps').valid
         }
       }
     }
-    
+
     if (this.FormItem.get('hasCubicMeterPerMonth').value == false && this.FormItem.get('hasPump').value == false) {
       // if (!("residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'")) {
       console.log("entrane condition");
@@ -100,8 +100,47 @@ export class PoolUsageComponent implements ISubmitRequestable {
     return activity && cubic && problem && pump && pumps
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const hasCubicMeterPerMonth = c.get('hasCubicMeterPerMonth');
+      const cubicMeterPerMonth = c.get('cubicMeterPerMonth');
+      const hasPump = c.get('hasPump');
+      const pumpCount = c.get('pumpCount');
+
+      if(hasCubicMeterPerMonth.value == null){
+        return { 'hasCubicMeterPerMonth': true };
+      }
+      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value < 1))) {
+        return { 'cubicMeterPerMonth': true };
+      }
+      if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {
+        return { 'hasPump': true };
+      }
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+        return { 'pumpCount': true };
+      }
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'hasCubicMeterPerMonth') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.hasCubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'cubicMeterPerMonth') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.cubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hasPump') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.hasPump && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'pumpCount') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.pumpCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

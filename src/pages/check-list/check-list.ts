@@ -5,7 +5,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot,  SetBack } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot,  SetBack, LoadHouseHoldSample } from '../../states/household/household.actions';
 
 
 /**
@@ -56,6 +56,7 @@ export class CheckListPage {
   }
 
   ionViewDidEnter() {
+    this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     console.log('ionViewDidEnter CheckListPage');
 
     this.arrayIsCheckMethod();

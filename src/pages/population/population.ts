@@ -49,7 +49,7 @@ export class PopulationPage {
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.f.setValue(data.population)
+        this.f.patchValue(data.population)
         this.dataPop = data;
       }
     });
