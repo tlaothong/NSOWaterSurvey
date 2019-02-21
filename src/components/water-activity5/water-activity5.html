@@ -20,7 +20,7 @@
     </ion-item>
   </div>
 
-  <div *ngIf="activeWateringRes" >
+  <div *ngIf="activeWateringRes">
     <ion-item>
       <ion-label col-8>
         เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
@@ -40,8 +40,8 @@
       <ion-label col-8>
         เพื่อทำเกษตร
       </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="agriculture" [class.invalid]="isValid('agriculture')"
-        (ionChange)="onChangeValue()"></ion-input>
+      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="agriculture"
+        [class.invalid]="isValid('agriculture')" (ionChange)="onChangeValue()"></ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('agriculture')" text-right>
       <span class="invalid-msg">
@@ -93,6 +93,31 @@
   <ion-item *ngIf="resultSum < 100" text-right>
     <span class="invalid-msg">
       ยังขาดอีก {{100 - resultSum}} %
+    </span>
+  </ion-item>
+  <ion-item *ngIf="FormItem.get('drink').value < 1 &&  activeRes " text-right>
+    <span class="invalid-msg">
+      กิจกรรมเพื่ออุปโภคบริโภค ต้องมากกว่า 0
+    </span>
+  </ion-item>
+  <ion-item *ngIf="FormItem.get('plant').value < 1  && activeWateringRes" text-right>
+    <span class="invalid-msg">
+      กิจกรรมเพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย ต้องมากกว่า 0
+    </span>
+  </ion-item>
+  <ion-item *ngIf="FormItem.get('agriculture').value < 1 && activeAgi " text-right>
+    <span class="invalid-msg">
+      กิจกรรมเพื่อทำเกษตร ต้องมากกว่า 0
+    </span>
+  </ion-item>
+  <ion-item *ngIf="FormItem.get('product').value < 1  && activeFac" text-right>
+    <span class="invalid-msg">
+      กิจกรรมเพื่อผลิตสินค้า ต้องมากกว่า 0
+    </span>
+  </ion-item>
+  <ion-item *ngIf="FormItem.get('service').value < 1 && activeCom" text-right>
+    <span class="invalid-msg">
+      กิจกรรมเพื่อการบริการ ต้องมากกว่า 0
     </span>
   </ion-item>
 </div>

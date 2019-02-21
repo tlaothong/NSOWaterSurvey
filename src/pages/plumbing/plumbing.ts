@@ -109,7 +109,7 @@ export class PlumbingPage {
     this.formDataUnit$.subscribe(data => {
       if (data != null) {
         this.f.patchValue(data.waterUsage.plumbing);
-        this.formData = data;        
+        this.formData = data;
       }
     })
 
@@ -178,7 +178,9 @@ export class PlumbingPage {
     let isCheckProblem = true;
     let isCheckQuantity = true;
     let isCheckNotRunning = true;
-    let hundred = !this.waterActivity5.find(it => it.resultSum != 100);
+    let hundred = !this.waterActivity5.some(it => it.isCheck == false);
+    console.log("isCheckValidComponent", hundred);
+
     if (ctrl.value.doing) {
       isCheck = (ctrl.value.qualityProblem.hasProblem != null)
         && (ctrl.value.plumbingUsage.waterQuantity > 0)
