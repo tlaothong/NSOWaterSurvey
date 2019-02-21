@@ -61,7 +61,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
   }
 
   checkValid(): boolean {
-    let activity = (!this.waterActivity6.find(it => it.totalSum != 100))
+    let activity = (!this.waterActivity6.find(it => it.checkValid()))
     let cubic: boolean;
     let problem: boolean;
     let pump: boolean;
