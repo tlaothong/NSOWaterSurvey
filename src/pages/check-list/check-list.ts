@@ -28,6 +28,7 @@ export class CheckListPage {
   // private indexBack: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
+    this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false },
@@ -56,7 +57,6 @@ export class CheckListPage {
   }
 
   ionViewDidEnter() {
-    this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     console.log('ionViewDidEnter CheckListPage');
 
     this.arrayIsCheckMethod();

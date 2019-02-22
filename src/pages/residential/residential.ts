@@ -25,6 +25,7 @@ export class ResidentialPage {
   private frontNum: any;
   private backNum: any;
   public dataRes: any
+  public checked: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
@@ -47,6 +48,13 @@ export class ResidentialPage {
 
   }
 
+  check(): boolean {
+    if (Number(this.residentialFrm.get('workingAge').value) > Number(this.residentialFrm.get('memberCount').value)) {
+      return this.checked = true
+    }
+    return this.checked = false
+  }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
@@ -58,7 +66,7 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.buying').value)]));
     
     this.dataRes.residence = this.residentialFrm.value
-    if (this.residentialFrm.valid) {
+    if (this.residentialFrm.valid && !(this.check())) {
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
       this.store.dispatch(new SetHouseHold(this.dataRes));
