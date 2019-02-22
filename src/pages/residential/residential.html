@@ -33,12 +33,17 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="workingAge"
-            [class.invalid]="isValid('workingAge')"></ion-input>
+          <ion-input (ionChange)="check()" class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="workingAge"
+            [class.invalid]="isValid('workingAge') || (checked)"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('workingAge')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
+          </span>
+        </ion-item>
+        <ion-item *ngIf="residentialFrm.get('workingAge').value > residentialFrm.get('memberCount').value">
+          <span class="invalid-msg">
+            กรุณาเช็คจำนวน จากข้อ 1.1
           </span>
         </ion-item>
       </ion-card-content>

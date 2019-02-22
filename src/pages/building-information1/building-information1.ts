@@ -36,15 +36,10 @@ export class BuildingInformation1Page {
       'longitude': [null, Validators.required],
       'buildingType': [null, Validators.required],
       'other': [null],
-      // 'buildingAccessCount': [0],
       'access': [null, Validators.required],
       'vacancyCount': [0, Validators.required],
       'abandonedCount': [0, Validators.required],
       'comments': fb.array([
-        // {
-        //   "at": null,
-        //   "text": null
-        // }
       ]),
       'recCtrl': [null],
       'vacantRoomCount': [null],
@@ -68,11 +63,11 @@ export class BuildingInformation1Page {
         this.f.setValue(data);
       }
     });
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data)
-    //   }
-    // });
+  }
+
+  addLocation(){
+    this.f.get('latitude').setValue('16.4742897')
+    this.f.get('longitude').setValue('102.82330869999998')
   }
 
   public handleSubmit() {

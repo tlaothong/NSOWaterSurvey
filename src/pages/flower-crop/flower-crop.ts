@@ -67,16 +67,52 @@ export class FlowerCropPage {
         // })
       }
     })
-    this.GetPlantRice$.subscribe(data => this.listRiceData = data);
-    this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
-    this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
-    this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
+    this.GetPlantRice$.subscribe(data => {
+      if (data != null) {
+        this.listRiceData = data
+      }
+
+    });
+    this.GetPlantDrycrop$.subscribe(data => {
+      if (data != null) {
+        this.listDryCropData = data
+      }
+    }
+    );
+    this.GetPlantRubber$.subscribe(data => {
+      if (data != null) {
+        this.listRubberData = data
+      }
+    });
+    this.GetPlantPerennial$.subscribe(data => {
+      if (data != null) {
+        this.listPerenialData = data
+      }
+    });
+    this.getAgiSelectRice$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectRice = data
+      }
+    });
+    this.getAgiSelectAgronomy$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectAgronomy = data
+      }
+    });
+    this.getAgiSelectRubber$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectRubber = data
+      }
+    });
+    this.getAgiSelectPerennial$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectPerennial = data
+      }
+    });
+    console.log(this.listRiceData, this.listPerenialData, this.listRubberData, this.listDryCropData);
+
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
-    this.getAgiSelectRice$.subscribe(data => this.getAgiSelectRice = data);
-    this.getAgiSelectAgronomy$.subscribe(data => this.getAgiSelectAgronomy = data);
-    this.getAgiSelectRubber$.subscribe(data => this.getAgiSelectRubber = data);
-    this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
-    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
+    this.listSumData = sum;    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
 
     this.listSumData = sum;
     console.log('listSumData');

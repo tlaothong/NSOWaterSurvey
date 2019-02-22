@@ -48,13 +48,13 @@ export class BuidlingInformation2Page {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-
-    this.store.dispatch(new SetHomeBuilding(this.f.value));
+    
     console.log("data ยิง API", this.f.value);
     console.log("f.valid", this.f.valid);
-
-    if (this.f.valid) {
+    
+    if (this.f.valid && (this.f.get('unitCount').value > 0)) {
+      this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
+      this.store.dispatch(new SetHomeBuilding(this.f.value));
       
       if (this.f.get('unitCount').value == 1) { 
         this.navCtrl.push("HouseHoldTestPage", { num: 1 });
