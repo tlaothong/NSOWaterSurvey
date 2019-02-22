@@ -317,11 +317,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 perennialPlantSelectPlant: s.perennialPlantSelectPlant,
                 factorialCategory: s.factorialCategory,
                 commercialServiceType: s.commercialServiceType,
-                checkWaterPlumbing: s.checkWaterPlumbing,
-                checkWaterRiver: s.checkWaterRiver,
-                checkWaterIrrigation: s.checkWaterIrrigation,
-                checkWaterRain: s.checkWaterRain,
-                checkWaterBuying: s.checkWaterBuying,
+                // checkWaterPlumbing: s.checkWaterPlumbing,
+                // checkWaterRiver: s.checkWaterRiver,
+                // checkWaterIrrigation: s.checkWaterIrrigation,
+                // checkWaterRain: s.checkWaterRain,
+                // checkWaterBuying: s.checkWaterBuying,
             };
         default:
             return state;
@@ -418,11 +418,11 @@ function resetStatesForModel(model: any): any {
         agiSelectPerennial: model && model.agriculture.perennialPlant.doing,
         factorialCategory: model && model.factory.category,
         commercialServiceType: model && model.commerce.serviceType,
-        checkWaterPlumbing: waterSource.plumbing,
-        checkWaterRiver: waterSource.river,
-        checkWaterIrrigation: waterSource.irrigation,
-        checkWaterRain: waterSource.rain,
-        checkWaterBuying: waterSource.buying,
+        // checkWaterPlumbing: waterSource.plumbing,
+        // checkWaterRiver: waterSource.river,
+        // checkWaterIrrigation: waterSource.irrigation,
+        // checkWaterRain: waterSource.rain,
+        // checkWaterBuying: waterSource.buying,
     };
 }
 
