@@ -28,15 +28,15 @@ export class WaterActivityUnitPage {
   ionViewDidLoad() {
     console.log("test");
     console.log(this.f.value);
-    // this.formDataRecieve$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
-    //     this.setupAccessCountChanges();
-    //     this.setupAccessCountChangesForComments();
-    //     this.f.patchValue(data);
-    //     console.log(this.f.value);
-    //   }
-    // });
+    this.formDataRecieve$.subscribe(data => {
+      if (data != null) {
+        this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
+        this.setupAccessCountChanges();
+        this.setupAccessCountChangesForComments();
+        this.f.patchValue(data);
+        console.log(this.f.value);
+      }
+    });
   }
 
   public handleSubmit() {

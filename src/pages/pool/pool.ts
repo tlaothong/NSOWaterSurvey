@@ -118,9 +118,14 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    console.log("valid", this.f.get('poolSizes').valid);
-    console.log("valid", this.f.get('waterResources').valid);
-    console.log("this.f", this.f.value);
+
+    if (this.f.get('hasSameSize').value) {
+      let val = this.f.get('poolSizes').value
+      for (let index = 1; index < val.length; index++) {
+        val[index] = val[0]
+      }
+      this.f.get('poolSizes').setValue(val)      
+    }
     this.formData.waterUsage.pool = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();

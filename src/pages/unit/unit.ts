@@ -7,6 +7,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { LoadUnitByIdBuilding } from '../../states/household/household.actions';
+import { Guid } from 'guid-typescript';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class UnitPage {
   private dataHomeBuilding$ = this.store.select(setHomeBuilding);
   public id_BD: string;
   public units: any;
+  public FormItem: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
@@ -37,7 +39,17 @@ export class UnitPage {
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
     console.log(this.f.get('units').value);
-    
+
+    // if (this.f.get('unitCount').value == 1) {
+    //   let fr = this.f.get('units') as FormArray;
+    //   console.log(fr.at(0).value);
+    //   if (fr.at(0).get('_id').invalid) {
+    //     fr.at(0).get('_id').setValue(Guid.create().toString());
+    //     fr.at(0).get('buildingId').setValue(this.id_BD);
+    //   }
+    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: fr.at(0) });
+    // }
+
   }
 
   private setupUnitsCountChanges() {

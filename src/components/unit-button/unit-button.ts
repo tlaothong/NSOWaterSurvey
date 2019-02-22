@@ -8,6 +8,7 @@ import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } fro
 import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/household.actions';
 import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
+import { setHomeBuilding } from '../../states/building';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -23,8 +24,10 @@ export class UnitButtonComponent {
 
   @Input() forwardFormData$: any;
   @Input("headline") public text: string;
+  @Input("unitCount") public unitCount: number;
   @Input('no') public unitNo: string;
   @Input() public FormItem: FormGroup;
+  id_BD: any;
 
   private submitRequested: boolean;
 
@@ -40,42 +43,40 @@ export class UnitButtonComponent {
   public fgcm: FormArray;
 
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
+  private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
+
   constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
+    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
-
-
   }
 
   ngOnInit() {
     this.GetUnitByIdBuilding$.subscribe(data => {
       if (data[Number(this.unitNo) - 1] != undefined) {
-
         let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
         this.FormItem.get('subUnit.accessCount').setValue(count);
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
-        console.log(data[Number(this.unitNo) - 1]);
         this.FormItem.patchValue(data[Number(this.unitNo) - 1]);
         console.log(this.FormItem.value);
-        this.setAccess();
+        if (this.unitCount > 1) {
+          this.setAccess();
+        }
       }
     });
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
     this.FormItem.get('_id').setValue(Guid.create().toString());
     console.log(this.FormItem.value);
-
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
     }
-
-    // this.num = this.navParams.get('num');
-    // if (this.num == 1) {
-    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
-    // }
-
+    if (this.unitCount == 1) {
+      this.FormItem.controls['buildingId'].setValue(this.id_BD);
+      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+    }
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
