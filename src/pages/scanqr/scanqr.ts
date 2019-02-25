@@ -51,10 +51,18 @@ export class ScanqrPage {
         });
         
       } else if (status.denied) {
+        const alert = this.alertCtrl.create({
+          title: "1111111111",
+        });
+        alert.present();
         // camera permission was permanently denied
         // you must use QRScanner.openSettings() method to guide the user to the settings page
         // then they can grant the permission from there
       } else {
+        const alert = this.alertCtrl.create({
+          title: "222222222222",
+        });
+        alert.present();
         // permission was denied, but not permanently. You can ask for permission again at a later time.
       }
     })
