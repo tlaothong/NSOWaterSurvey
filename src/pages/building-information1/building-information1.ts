@@ -6,6 +6,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getDataBuilding } from '../../states/logging';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -16,12 +17,16 @@ export class BuildingInformation1Page {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  public isBuilding:boolean;
+  public isBuilding: boolean;
+
+  public lat: any;
+  public long: any;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
+    this.loadMap()
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -65,9 +70,30 @@ export class BuildingInformation1Page {
     });
   }
 
-  addLocation(){
-    this.f.get('latitude').setValue('16.4742897')
-    this.f.get('longitude').setValue('102.82330869999998')
+  loadMap() {
+    let options = { enableHighAccuracy: true };
+    this.geolocation.getCurrentPosition(options).then((loacation) => {
+      console.log(loacation);
+      this.long = loacation.coords.longitude
+      this.lat = loacation.coords.latitude;
+    }, (err) => {
+
+      // const alert = this.alertCtrl.create({
+      //   title: err,
+      //   buttons: [{
+      //     text: 'ยืนยัน',
+      //     handler: () => {
+
+      //     }
+      //   }]
+      // });
+      // alert.present();
+    });
+  }
+
+  addLocation() {
+    this.f.get('latitude').setValue(this.lat);
+    this.f.get('longitude').setValue(this.long);
   }
 
   public handleSubmit() {

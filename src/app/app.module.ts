@@ -2,6 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { QRScanner } from '@ionic-native/qr-scanner';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -47,6 +49,8 @@ import { SwithStateProvider } from '../providers/swith-state/swith-state';
   providers: [
     StatusBar,
     SplashScreen,
+    QRScanner,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CloudSyncProvider,
     PumpDataProvider,
