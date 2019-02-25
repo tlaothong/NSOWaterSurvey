@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -23,10 +23,9 @@ export class BuildingInformation1Page {
   public long: any;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
-    this.loadMap()
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -42,19 +41,19 @@ export class BuildingInformation1Page {
       'buildingType': [null, Validators.required],
       'other': [null],
       'access': [null, Validators.required],
-      'vacancyCount': [0, Validators.required],
-      'abandonedCount': [0, Validators.required],
+      'vacancyCount': null,
+      'abandonedCount': null,
       'comments': fb.array([
       ]),
       'recCtrl': [null],
       'vacantRoomCount': [null],
-      'unitCount': [0, Validators.required],
-      'unitAccess': [0, Validators.required],
+      'unitCount': 0,
+      'unitAccess': null,
       'occupiedRoomCount': [null],
       'waterQuantity': fb.group({
-        "waterQuantity": [1],
-        "cubicMeterPerMonth": [0],
-        "waterBill": [0]
+        "waterQuantity": null,
+        "cubicMeterPerMonth": null,
+        "waterBill": null,
       }),
       'floorCount': [null],
       '_id': [null],
@@ -63,6 +62,7 @@ export class BuildingInformation1Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
+    this.loadMap()
     this.dataBuilding$.subscribe(data => {
       if (data != null) {
         this.f.setValue(data);
@@ -74,26 +74,25 @@ export class BuildingInformation1Page {
     let options = { enableHighAccuracy: true };
     this.geolocation.getCurrentPosition(options).then((loacation) => {
       console.log(loacation);
-      this.long = loacation.coords.longitude
-      this.lat = loacation.coords.latitude;
-    }, (err) => {
-
-      // const alert = this.alertCtrl.create({
-      //   title: err,
-      //   buttons: [{
-      //     text: 'ยืนยัน',
-      //     handler: () => {
-
-      //     }
-      //   }]
-      // });
-      // alert.present();
+      this.long = loacation.coords.longitude,
+      this.lat = loacation.coords.latitude
     });
   }
 
   addLocation() {
-    this.f.get('latitude').setValue(this.lat);
-    this.f.get('longitude').setValue(this.long);
+    console.log(this.lat, this.long);
+    
+    if ((this.lat || this.long) == null) {
+      const alert = this.alertCtrl.create({
+        title: "กรุณารอสักครู่",
+
+      });
+      alert.present();
+      this.loadMap()
+    } else {
+      this.f.get('latitude').setValue(this.lat);
+      this.f.get('longitude').setValue(this.long);
+    }
   }
 
   public handleSubmit() {

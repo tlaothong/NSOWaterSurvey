@@ -157,7 +157,7 @@ export class IrrigationPage {
       }
       if ((hasCubicMeterPerMonth.value == true)
         && ((cubicMeterPerMonth.value == null)
-          || (cubicMeterPerMonth.value.trim() == ''))) {
+          || (cubicMeterPerMonth.value < 1))) {
         return { 'cubicMeterPerMonth': true };
       }
       if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {
