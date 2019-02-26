@@ -24,15 +24,14 @@ export class HomesPage {
   public str: string;
   public comunity: any;
   public num: string = "1";
-
- 
+  public listFilter: any;
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.store.select(getHomeBuilding);
   private dataCommunity$ = this.store.select(getLoadCommunity);
   private dataCommunity: any;
 
   constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
-
+    this.initializeItems();
   }
 
   public showQuickMenu(myEvent) {
@@ -53,8 +52,8 @@ export class HomesPage {
   // }
 
   ionViewDidEnter() {
-    
-    
+
+
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.dataWorkEARow = data
@@ -69,8 +68,8 @@ export class HomesPage {
     this.dataBuilding$.subscribe(data => {
       if (data != null) {
         this.dataEa = data
-        console.log(this.dataEa);
-        
+        this.listFilter = this.dataEa;
+        console.log(this.dataEa)
       }
     });
 
@@ -111,5 +110,23 @@ export class HomesPage {
     this.store.dispatch(new DeleteHomeBuilding(id));
     this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  initializeItems() {
+    this.listFilter = this.dataEa;
+  }
+
+  searchItem(ev) {
+    this.initializeItems();
+    // // set val to the value of the ev target
+    var val = ev.target.value;
+    // // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.listFilter = this.dataEa.filter((item) => {
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1
+          || item.houseNo.toLowerCase().indexOf(val.toLowerCase()) > -1
+        );
+      });
+    }
   }
 }
