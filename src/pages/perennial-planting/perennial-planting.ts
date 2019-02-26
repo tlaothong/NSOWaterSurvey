@@ -36,22 +36,10 @@ export class PerennialPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
-    //     this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // });
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.PerennialPlantingFrm.patchValue(val.agriculture.perennialPlant)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
+        this.formData = data;
       }
     })
   }

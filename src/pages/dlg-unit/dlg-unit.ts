@@ -90,7 +90,7 @@ export class DlgUnitPage {
     // console.log(this.FormItem.get('_id').value);
     
     this.store.dispatch(new SetHouseHold(this.FormItem.value));
-    this.storage.set('unit', this.FormItem.value)
+    // this.storage.set('unit', this.FormItem.value)
 
     // if (this.FormItem.get('_id').value != null) {
     //   this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);

@@ -41,19 +41,12 @@ export class FactorialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FactorialPage');
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.FactoryForm.setValue(data.factory);
-    //     this.formData = data;
-    //   }
-    // });
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.FactoryForm.setValue(val.factory)
-        console.log(val);
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.FactoryForm.setValue(data.factory);
+        this.formData = data;
       }
-    })
+    });
   }
 
   public handleSubmit() {

@@ -66,19 +66,13 @@ export class RainPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.RainFrm.patchValue(data.waterUsage.rain);
-    //     this.formData = data;
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.RainFrm.patchValue(val.waterUsage.rain)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.RainFrm.patchValue(data.waterUsage.rain);
+        this.formData = data;
       }
     })
+ 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
@@ -132,6 +126,8 @@ export class RainPage {
     this.waterActivity5.forEach(it => it.submitRequest());
     console.log(this.RainFrm.value);
     this.formData.waterUsage.rain = this.RainFrm.value;
+    console.log(this.formData);
+    
     if (!this.waterActivity5.some(it => it.isCheck == false) && this.rainStorage.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));

@@ -28,24 +28,12 @@ export class WaterActivityUnitPage {
 
   ionViewDidLoad() {
     console.log("test");
-    console.log(this.f.value);
-    this.storage.get('unit').then((val)=>{
-      if(val != null){
-        console.log(val);
-        
-        // this.f.get('subUnit.accessCount').setValue(val.subUnit.accessCount)
-        this.setupAccessCountChanges();
-        this.setupAccessCountChangesForComments();
-        this.f.patchValue(val);
-      }
-    })
     this.formDataRecieve$.subscribe(data => {
       if (data != null) {
         this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
         this.f.patchValue(data);
-        console.log(this.f.value);
       }
     });
   }
@@ -77,7 +65,9 @@ export class WaterActivityUnitPage {
       && (this.f.get('isAgriculture').value != null)
       && (this.f.get('isFactorial').value != null)
       && (this.f.get('isCommercial').value != null)) {
-      this.store.dispatch(new SetHouseHold(this.f.value));
+      // this.store.dispatch(new SetHouseHold(this.f.value));
+      console.log(this.f.value);
+      
       this.storage.set('unit', this.f.value)
       this.navCtrl.push("CheckListPage",{id:this.f.value._id});
     }

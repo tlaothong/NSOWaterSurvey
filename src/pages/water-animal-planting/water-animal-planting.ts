@@ -56,17 +56,10 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.agriculture.aquaticAnimals)
-    //     this.formData = data;
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.f.patchValue(val.agriculture.aquaticAnimals)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.agriculture.aquaticAnimals)
+        this.formData = data;
       }
     })
   }

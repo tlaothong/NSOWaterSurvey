@@ -57,12 +57,6 @@ export class AnimalFarmPage {
         this.dataAni = data;
       }
     })
-    this.storage.get('unit').then((val) => {
-      if (val != null) {
-        this.f.patchValue(val.agriculture.animalFarm)
-        this.dataAni = val;
-      }
-    })
   }
 
   public handleSubmit() {
@@ -73,7 +67,7 @@ export class AnimalFarmPage {
     this.dataAni.agriculture.animalFarm = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataAni));
+      // this.store.dispatch(new SetHouseHold(this.dataAni));
       this.storage.set('unit', this.dataAni)
       this.navCtrl.popTo("CheckListPage");
     }

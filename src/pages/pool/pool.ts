@@ -69,19 +69,13 @@ export class PoolPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.pool);
-    //     this.formData = data;
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.f.patchValue(val.waterUsage.pool)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.waterUsage.pool);
+        this.formData = data;
       }
     })
+   
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);

@@ -40,24 +40,10 @@ export class RicePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.agriculture.ricePlant);
-    //     this.data = data;
-    //     console.log(data.agriculture.ricePlant);
-
-    // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //   }
-    // });
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if (val != null) {
-        this.data = val;
-        this.f.patchValue(val.agriculture.ricePlant);
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.agriculture.ricePlant);
+        this.data = data;
       }
     })
   }

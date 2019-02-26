@@ -38,19 +38,16 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.residentialFrm.setValue(data.residence)
-    //     this.dataRes = data;
-    //   }
-    // });
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.dataRes = val;
-        this.residentialFrm.setValue(val.residence)
-        console.log(val);
+    console.log(this.formData$ );
+    
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.residentialFrm.setValue(data.residence)
+        this.dataRes = data;
+        console.log(data);
+        
       }
-    })
+    });
 
     // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
 

@@ -37,24 +37,13 @@ export class DryCropPlantingPage {
   }
 
   ionViewDidLoad() {
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
-    //     this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
-        // this.formData$.subscribe(data => {
-        //   if(data != null){
-        //   }
-        // })
-    //   }
-    // })
-    this.countNumberPage();
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.agronomyPlant.patchValue(val.agriculture.agronomyPlant)
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
+        this.formData = data;
       }
     })
+    this.countNumberPage();
   }
 
   public handleSubmit() {

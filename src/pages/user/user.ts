@@ -39,19 +39,13 @@ export class UserPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.userInfo.setValue(data.closing)
-    //     this.formData = data;
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.userInfo.setValue(val.closing)
-        console.log(val);
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.userInfo.setValue(data.closing)
+        this.formData = data;
       }
     })
+   
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);

@@ -57,22 +57,10 @@ export class FlowerCropPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
-    //     this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
-        // this.formData$.subscribe(data => {
-        //   if(data != null){
-        //   }
-        // })
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.flowerCropFrm.patchValue(val.agriculture.flowerCrop)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
+        this.formData = data;
       }
     })
     this.GetPlantRice$.subscribe(data => {

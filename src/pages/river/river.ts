@@ -70,17 +70,12 @@ export class RiverPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.river);
-    //     this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // })
-    //   }
-    // })
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.waterUsage.river);
+        this.formData = data;
+      }
+    })
     this.storage.get('unit').then((val) => {
       if(val != null){
         this.formData = val;

@@ -42,16 +42,10 @@ export class DisasterousPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-      // if (data != null) {
-      //   this.Disasterous.patchValue(data.disaster)
-      //   this.dataDis = data;
-      // }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.Disasterous.setValue(val.disaster)
-        this.dataDis = val;
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.Disasterous.patchValue(data.disaster)
+        this.dataDis = data;
       }
     })
   }

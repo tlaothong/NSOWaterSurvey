@@ -75,18 +75,13 @@ export class CommercialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data.commerce)
-    //     this.dataCom = data;
-    //   }
-    // });
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.f.setValue(val.commerce)
-        this.dataCom = val;
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.f.setValue(data.commerce)
+        this.dataCom = data;
       }
-    })
+    });
+    
     this.getBuildingType$.subscribe(data => {
       if (data != null) {
         this.f.get('buildingCode').setValue(data)

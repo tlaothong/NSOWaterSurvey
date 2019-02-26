@@ -39,22 +39,10 @@ export class MushroomPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MushroomPage');
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.agriculture.mushroomPlant)
-    //     this.formData = data
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // });
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.f.patchValue(val.agriculture.mushroomPlant)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.agriculture.mushroomPlant)
+        this.formData = data
       }
     })
   }

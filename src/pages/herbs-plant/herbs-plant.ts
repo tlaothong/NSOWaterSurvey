@@ -57,22 +57,13 @@ export class HerbsPlantPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.agriculture.herbsPlant);
-    //     this.formData = data
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
-        // this.formData$.subscribe(data =>{
-        // })
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.f.patchValue(val.agriculture.herbsPlant)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.agriculture.herbsPlant);
+        this.formData = data
       }
     })
+
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
         this.listRiceData = data

@@ -107,17 +107,10 @@ export class PlumbingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.plumbing);
-    //     this.formData = data;
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.f.patchValue(val.waterUsage.plumbing)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.f.patchValue(data.waterUsage.plumbing);
+        this.formData = data;
       }
     })
 

@@ -52,16 +52,10 @@ export class BuyingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.BuyingForm.patchValue(data.waterUsage.buying);
-    //     this.formData = data;
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if (val != null) {
-        this.BuyingForm.patchValue(val.waterUsage.buying);
-        this.formData = val;
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.BuyingForm.patchValue(data.waterUsage.buying);
+        this.formData = data;
       }
     })
     this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);

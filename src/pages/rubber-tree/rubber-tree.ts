@@ -40,22 +40,10 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.rubbertree.patchValue(data.agriculture.rubberTree)
-    //     this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
-        // this.formData$.subscribe(data =>{
-        //   if(data != null){
-        //   }
-        // })
-    //   }
-    // })
-    this.storage.get('unit').then((val) => {
-      if(val != null){
-        this.formData = val;
-        this.rubbertree.patchValue(val.agriculture.rubberTree)
-        console.log(val);
+    this.formDataUnit$.subscribe(data => {
+      if (data != null) {
+        this.rubbertree.patchValue(data.agriculture.rubberTree)
+        this.formData = data;
       }
     })
   }

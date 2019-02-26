@@ -42,7 +42,7 @@ export class BuildingInformation1Page {
       'buildingType': [null, Validators.required],
       'other': [null],
       'accessCount': 0,
-      'access': [null, Validators.required],
+      'access': null,
       'vacancyCount': null,
       'abandonedCount': null,
       'comments': fb.array([
@@ -78,6 +78,9 @@ export class BuildingInformation1Page {
       console.log(loacation);
       this.long = loacation.coords.longitude,
       this.lat = loacation.coords.latitude
+    },err =>{
+      console.log(err);    
+
     });
   }
 
