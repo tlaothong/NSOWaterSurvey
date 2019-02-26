@@ -9,6 +9,7 @@ import { SetIsHouseHold, SetIsAgriculture, SetIsFactorial, SetIsCommercial } fro
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -20,7 +21,7 @@ export class WaterActivityUnitPage {
   public f: FormGroup;
   private submitRequested: boolean;
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = UnitButtonComponent.CreateFormGroup(fb);
     this.f = navParams.get('FormItem');
   }
@@ -28,6 +29,16 @@ export class WaterActivityUnitPage {
   ionViewDidLoad() {
     console.log("test");
     console.log(this.f.value);
+    this.storage.get('unit').then((val)=>{
+      if(val != null){
+        console.log(val);
+        
+        // this.f.get('subUnit.accessCount').setValue(val.subUnit.accessCount)
+        this.setupAccessCountChanges();
+        this.setupAccessCountChangesForComments();
+        this.f.patchValue(val);
+      }
+    })
     this.formDataRecieve$.subscribe(data => {
       if (data != null) {
         this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
@@ -42,25 +53,16 @@ export class WaterActivityUnitPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.arrayNextPageMedthod();
-    console.log(this.f.value);
-
     let objRes: any = {
       isHouseHold: this.f.get('isHouseHold').value,
       isAgriculture: this.f.get('isAgriculture').value,
       isFactorial: this.f.get('isFactorial').value,
       isCommercial: this.f.get('isCommercial').value,
-
     }
     this.store.dispatch(new SetSelectG1234(objRes));
-
-
-
-
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let pilot: any
     arrayNextPage$.subscribe(data => {
-      console.log("pilot: ", data);
-
       if (data != null) {
         pilot = data
       }
@@ -76,6 +78,7 @@ export class WaterActivityUnitPage {
       && (this.f.get('isFactorial').value != null)
       && (this.f.get('isCommercial').value != null)) {
       this.store.dispatch(new SetHouseHold(this.f.value));
+      this.storage.set('unit', this.f.value)
       this.navCtrl.push("CheckListPage",{id:this.f.value._id});
     }
     

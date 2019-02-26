@@ -8,6 +8,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,7 @@ export class RicePage {
   private data: any
   formData$: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -39,17 +40,24 @@ export class RicePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.agriculture.ricePlant);
-        this.data = data;
-        console.log(data.agriculture.ricePlant);
-        
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // });
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.agriculture.ricePlant);
+    //     this.data = data;
+    //     console.log(data.agriculture.ricePlant);
+
+    // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.ricePlant));
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //   }
+    // });
+    //   }
+    // })
+    this.storage.get('unit').then((val) => {
+      if (val != null) {
+        this.data = val;
+        this.f.patchValue(val.agriculture.ricePlant);
+        console.log(val);
       }
     })
   }
@@ -63,7 +71,8 @@ export class RicePage {
     this.data.agriculture.ricePlant = this.f.value;
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.data));
+      // this.store.dispatch(new SetHouseHold(this.data));
+      this.storage.set('unit', this.data)
       this.navCtrl.popTo("CheckListPage");
     }
   }

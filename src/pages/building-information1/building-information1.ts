@@ -7,6 +7,7 @@ import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType } from '../.
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class BuildingInformation1Page {
   public long: any;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
   }
@@ -40,6 +41,7 @@ export class BuildingInformation1Page {
       'longitude': [null, Validators.required],
       'buildingType': [null, Validators.required],
       'other': [null],
+      'accessCount': 0,
       'access': [null, Validators.required],
       'vacancyCount': null,
       'abandonedCount': null,
@@ -48,10 +50,10 @@ export class BuildingInformation1Page {
       'recCtrl': [null],
       'vacantRoomCount': [null],
       'unitCount': 0,
-      'unitAccess': null,
+      'unitAccess': 0,
       'occupiedRoomCount': [null],
       'waterQuantity': fb.group({
-        "waterQuantity": null,
+        "waterQuantity": 0,
         "cubicMeterPerMonth": null,
         "waterBill": null,
       }),
@@ -102,10 +104,11 @@ export class BuildingInformation1Page {
 
     console.log(this.f.value);
     console.log(this.f.get('access').value);
-    this.store.dispatch(new SetHomeBuilding(this.f.value));
-
+    
     if (this.f.valid && this.f.get('access').value == 1) {
+      this.store.dispatch(new SetHomeBuilding(this.f.value));
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
+      // this.storage.set('key',this.f.value)
     }
     if (this.f.valid && (this.f.get('access').value == 2 || this.f.get('access').value == 3 || this.f.get('access').value == 4)) {
       this.navCtrl.push("HomesPage", { f: this.f });

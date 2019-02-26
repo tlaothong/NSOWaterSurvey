@@ -9,6 +9,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,7 @@ export class ResidentialPage {
   private backNum: any;
   public dataRes: any
   public checked: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
       'workingAge': [null, Validators.required],
@@ -37,14 +38,21 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.residentialFrm.setValue(data.residence)
-        this.dataRes = data;
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.residentialFrm.setValue(data.residence)
+    //     this.dataRes = data;
+    //   }
+    // });
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.dataRes = val;
+        this.residentialFrm.setValue(val.residence)
+        console.log(val);
       }
-    });
+    })
 
-  // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
+    // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
 
   }
 
@@ -64,12 +72,13 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.irrigation').value),
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
-    
+
     this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid && !(this.check())) {
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
-      this.store.dispatch(new SetHouseHold(this.dataRes));
+      // this.store.dispatch(new SetHouseHold(this.dataRes));
+      this.storage.set('unit', this.dataRes)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -123,7 +132,7 @@ export class ResidentialPage {
     this.store.dispatch(new SetCheckWaterRain(this.residentialFrm.get('waterSources.rain').value));
     this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
     this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
-     this.store.dispatch(new SetResidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
+    this.store.dispatch(new SetResidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
     this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
 
   }

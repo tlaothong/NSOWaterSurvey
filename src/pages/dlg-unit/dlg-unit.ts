@@ -7,6 +7,8 @@ import { setHomeBuilding } from '../../states/building';
 import { LoadHouseHoldSample, SetHouseHold} from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
+import { Storage } from '@ionic/storage';
+
 // import { Guid } from "guid-typescript";
 @IonicPage()
 @Component({
@@ -29,7 +31,7 @@ export class DlgUnitPage {
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
-  constructor(private swithHouseHold: SwithStateProvider, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+  constructor(private swithHouseHold: SwithStateProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.FormItem.controls['buildingId'].setValue(this.id_BD);
@@ -88,6 +90,8 @@ export class DlgUnitPage {
     // console.log(this.FormItem.get('_id').value);
     
     this.store.dispatch(new SetHouseHold(this.FormItem.value));
+    this.storage.set('unit', this.FormItem.value)
+
     // if (this.FormItem.get('_id').value != null) {
     //   this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
     // }

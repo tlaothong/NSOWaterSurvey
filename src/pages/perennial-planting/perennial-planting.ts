@@ -7,6 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetPerennialPlantSelectPlant, SetAgiSelectPerennial, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,7 @@ export class PerennialPlantingPage {
   private backNum: any;
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.PerennialPlantingFrm = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
@@ -35,15 +36,22 @@ export class PerennialPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
-        this.formData = data;
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
+    //     this.formData = data;
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.perennialPlant));
         // this.formData$.subscribe(data => {
         //   if (data != null) {
         //   }
         // });
+    //   }
+    // })
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.formData = val;
+        this.PerennialPlantingFrm.patchValue(val.agriculture.perennialPlant)
+        console.log(val);
       }
     })
   }
@@ -66,7 +74,8 @@ export class PerennialPlantingPage {
     this.formData.agriculture.perennialPlant = this.PerennialPlantingFrm.value;
     if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -8,6 +8,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetFactorialCategory, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,7 @@ export class FactorialPage {
   private formData: any
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage,    public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],
@@ -40,12 +41,19 @@ export class FactorialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FactorialPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.FactoryForm.setValue(data.factory);
-        this.formData = data;
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.FactoryForm.setValue(data.factory);
+    //     this.formData = data;
+    //   }
+    // });
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.formData = val;
+        this.FactoryForm.setValue(val.factory)
+        console.log(val);
       }
-    });
+    })
   }
 
   public handleSubmit() {
@@ -58,7 +66,8 @@ export class FactorialPage {
     this.formData.factory = this.FactoryForm.value
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

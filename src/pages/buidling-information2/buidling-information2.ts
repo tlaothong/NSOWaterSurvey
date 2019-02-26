@@ -8,6 +8,7 @@ import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/buildi
 import { map, delay } from 'rxjs/operators';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ import { BuildingInformation1Page } from '../building-information1/building-info
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-  public isBuilding:boolean;
+  public isBuilding: boolean;
 
   // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
   // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
@@ -27,7 +28,7 @@ export class BuidlingInformation2Page {
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
@@ -50,49 +51,54 @@ export class BuidlingInformation2Page {
       'buildingType': null,
       'other': null,
       'access': null,
+      'accessCount': 0,
       'vacancyCount': null,
       'abandonedCount': null,
       'comments': fb.array([
       ]),
-      'recCtrl': [null,Validators],
+      'recCtrl': [null, Validators],
       'vacantRoomCount': [null],
-      'unitCount': [0,Validators],
-      'unitAccess': [null,Validators],
-      'occupiedRoomCount': [null,Validators],
+      'unitCount': [0, Validators],
+      'unitAccess': [null, Validators],
+      'occupiedRoomCount': [null, Validators],
       'waterQuantity': fb.group({
-        'waterQuantity': [null,Validators],
-        'cubicMeterPerMonth': [null,Validators],
-        'waterBill': [null,Validators],
+        'waterQuantity': [null, Validators],
+        'cubicMeterPerMonth': [null, Validators],
+        'waterBill': [null, Validators],
       }),
-      'floorCount': [null,Validators],
+      'floorCount': [null, Validators],
       '_id': [null],
-    },{
-      validator:BuidlingInformation2Page.checkAnyOrOther()
-    });
+    }, {
+        validator: BuidlingInformation2Page.checkAnyOrOther()
+      });
   }
 
   ionViewDidLoad() {
+    // this.storage.get('key').then((val) => {
+    //   console.log("do this", val);
+
+    // })
     // this.formDataFromBuilding1$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data)
-        this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+    this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
     //   }
     // });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-    
+
     console.log("data ยิง API", this.f.value);
     console.log("f.valid", this.f.valid);
-    
+
     if (this.f.valid && (this.f.get('unitCount').value > 0)) {
       console.log("pass");
-      
+
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
       this.store.dispatch(new SetHomeBuilding(this.f.value));
-      
-      if (this.f.get('unitCount').value == 1) { 
+
+      if (this.f.get('unitCount').value == 1) {
         this.navCtrl.push("HouseHoldTestPage", { num: 1 });
       }
       else {
@@ -113,10 +119,10 @@ export class BuidlingInformation2Page {
       const waterBill = c.get('waterQuantity.waterBill');
       const floorCount = c.get('floorCount');
 
-      if(((buildingType.value == 4) || (buildingType.value == 5)) && (unitCount.value < 1)){
+      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitCount.value < 1)) {
         return { 'unitCount': true };
       }
-      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitAccess.value < 1) ) {
+      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitAccess.value < 1)) {
         return { 'unitAccess': true };
       }
       if ((unitAccess.value == 1) && (floorCount.value == null)) {

@@ -10,6 +10,7 @@ import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../state
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -37,7 +38,7 @@ export class PopulationPage {
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
@@ -47,12 +48,19 @@ export class PopulationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.population)
-        this.dataPop = data;
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.population)
+    //     this.dataPop = data;
+    //   }
+    // });
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.dataPop = val;
+        this.f.patchValue(val.population)
+        console.log(val);
       }
-    });
+    })
     this.getIdHomes$.subscribe(data => this.str = data);
 
     this.getIdHomes = this.str.substring(0, 2); //10
@@ -67,7 +75,10 @@ export class PopulationPage {
     this.dataPop.population = this.f.value
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataPop));     
+      // this.store.dispatch(new SetHouseHold(this.dataPop)); 
+      console.log(this.dataPop);
+        
+      this.storage.set('unit', this.dataPop)  
       this.navCtrl.setRoot("UnitPage");
     }
   }

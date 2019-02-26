@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,7 @@ export class MushroomPage {
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
 
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController,private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -38,15 +39,22 @@ export class MushroomPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MushroomPage');
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.agriculture.mushroomPlant)
-        this.formData = data
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.agriculture.mushroomPlant)
+    //     this.formData = data
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.mushroomPlant));
         // this.formData$.subscribe(data => {
         //   if (data != null) {
         //   }
         // });
+    //   }
+    // })
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.formData = val;
+        this.f.patchValue(val.agriculture.mushroomPlant)
+        console.log(val);
       }
     })
   }
@@ -57,7 +65,8 @@ export class MushroomPage {
     this.formData.agriculture.mushroomPlant = this.f.value;
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

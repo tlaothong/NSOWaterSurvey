@@ -7,6 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,7 @@ export class DryCropPlantingPage {
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   private formData: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
@@ -36,18 +37,24 @@ export class DryCropPlantingPage {
   }
 
   ionViewDidLoad() {
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
-        this.formData = data;
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
+    //     this.formData = data;
         // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.agronomyPlant));
         // this.formData$.subscribe(data => {
         //   if(data != null){
         //   }
         // })
+    //   }
+    // })
+    this.countNumberPage();
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.formData = val;
+        this.agronomyPlant.patchValue(val.agriculture.agronomyPlant)
       }
     })
-    this.countNumberPage();
   }
 
   public handleSubmit() {
@@ -67,7 +74,8 @@ export class DryCropPlantingPage {
     this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
     if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

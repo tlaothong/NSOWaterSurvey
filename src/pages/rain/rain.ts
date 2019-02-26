@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -47,7 +48,7 @@ export class RainPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public modalCtrl: ModalController,private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([
         RainStorageComponent.CreateFormGroup(this.fb),
@@ -65,10 +66,17 @@ export class RainPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.RainFrm.patchValue(data.waterUsage.rain);
-        this.formData = data;
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.RainFrm.patchValue(data.waterUsage.rain);
+    //     this.formData = data;
+    //   }
+    // })
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.formData = val;
+        this.RainFrm.patchValue(val.waterUsage.rain)
+        console.log(val);
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -126,7 +134,8 @@ export class RainPage {
     this.formData.waterUsage.rain = this.RainFrm.value;
     if (!this.waterActivity5.some(it => it.isCheck == false) && this.rainStorage.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }
