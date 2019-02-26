@@ -49,6 +49,7 @@ export class BuidlingInformation2Page {
       'longitude': null,
       'buildingType': null,
       'other': null,
+      'accessCount': null,
       'access': null,
       'vacancyCount': null,
       'abandonedCount': null,
