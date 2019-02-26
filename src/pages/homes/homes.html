@@ -82,7 +82,7 @@
       <ion-row align-items-center>
         <ion-col col-11>
           <!-- <ion-searchbar (ionChange)="setFilteredItems($event)"></ion-searchbar> -->
-          <ion-searchbar></ion-searchbar>
+          <ion-searchbar (ionInput)="searchItem($event)"></ion-searchbar>
         </ion-col>
         <ion-col col-1>
           <button ion-button type="button" color="light">
@@ -142,7 +142,7 @@
       <hr>
 
 
-      <div *ngFor="let item of dataEa;let i = index;">
+      <div *ngFor="let item of listFilter;let i = index;">
         <ion-row text-center align-items-center>
           <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
             <ion-icon disabled="false" name="done-all" *ngIf="item.access == 4"></ion-icon>
