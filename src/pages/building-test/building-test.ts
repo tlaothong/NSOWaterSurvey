@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BuildingState } from '../../states/building/building.reducer';
 import { Store } from '@ngrx/store';
-import { LoadBuildingSample } from '../../states/building/building.actions';
+import { LoadBuildingSample, SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
 
 @IonicPage()
 @Component({
@@ -19,15 +19,25 @@ export class BuildingTestPage {
       { title: 'Building Info Page 1', component: "BuildingInformation1Page" },
       { title: 'Building Info Page 2', component: "BuidlingInformation2Page" }
     ];
-
     this.store.dispatch(new LoadBuildingSample);
   }
 
   ionViewDidLoad() {
-
     console.log('ionViewDidLoad BuildingTestPage');
-
-    this.navCtrl.push('BuildingInformation1Page', { id: this.navParams.get('id') });
+    let item = this.navParams.get('item');
+    let status = item ? item.status : 'refresh';
+    switch (status) {
+      case 'refresh':
+        this.navCtrl.push('BuildingInformation1Page', { id: this.navParams.get('id') });
+        break;
+      case 'pause':
+        this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
+        this.store.dispatch(new SetHomeBuilding(item));
+        this.navCtrl.push("HouseHoldTestPage");
+        break;
+      default:
+        break;
+    }
   }
 
   public openPage(page) {

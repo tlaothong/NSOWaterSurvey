@@ -44,15 +44,11 @@ export class HouseHoldTestPage {
     ];
 
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad HouseHoldTestPage');
     // this.store.dispatch(new LoadHouseHoldSample());
-    this.num = this.navParams.get('num');
-    if (this.num == 1) {
-      this.navCtrl.push('UnitPage', { num: 1 });
-    }
-    else this.navCtrl.push("UnitPage", { num: null });
+    this.navCtrl.push('UnitPage');
   }
 
   public openPage(page) {
