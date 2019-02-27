@@ -38,7 +38,7 @@ export class UnitButtonComponent {
   public allComment = '';
 
   public index: number;
-  public class = "play";
+  public status = "play";
   public roomNumber = '';
 
   public fgac: FormArray;
@@ -103,6 +103,7 @@ export class UnitButtonComponent {
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
       'comments': fb.array([]),
+      'status': [null],
       'residence': fb.group({
         'memberCount': [null],
         'workingAge': [null],
@@ -796,7 +797,7 @@ export class UnitButtonComponent {
       this.sendIdUnit();
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
-    else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
+    else if (this.status == "play" || this.status == "return" || this.status == "returnCm") {
 
       let count = this.FormItem.get('subUnit.accessCount').value + 1;
       this.FormItem.get('subUnit.accessCount').setValue(count);
@@ -855,37 +856,38 @@ export class UnitButtonComponent {
     this.allComment = text;
 
     this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
-    this.checkAccess();
+    this.updateStatus();
   }
 
-  private checkAccess() {
+  private updateStatus() {
     switch (this.access) {
       case 1:
         if (this.FormItem.valid) {
-          this.class = (this.allComment == '') ? "complete" : "completeCm";
+          this.status = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
-          this.class = (this.allComment == '') ? "pause" : "pauseCm";
+          this.status = (this.allComment == '') ? "pause" : "pauseCm";
         }
         break;
       case 2:
       case 3:
         if (this.index < 2) {
-          this.class = (this.allComment == '') ? "return" : "returnCm";
+          this.status = (this.allComment == '') ? "return" : "returnCm";
         }
         else {
-          this.class = (this.allComment == '') ? "complete" : "completeCm";
+          this.status = (this.allComment == '') ? "complete" : "completeCm";
         }
         break;
       case 4:
-        this.class = (this.allComment == '') ? "empty" : "emptyCm";
+        this.status = (this.allComment == '') ? "empty" : "emptyCm";
         break;
       case 5:
-        this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
+        this.status = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
       default:
         break;
     }
+    this.FormItem.get('status').setValue(this.status);
   }
 
   showComment() {
