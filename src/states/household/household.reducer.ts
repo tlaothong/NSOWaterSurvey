@@ -294,7 +294,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
-
+            console.log("JSON State",JSON.stringify(s));
             return {
                 ...state,
                 houseHoldSample: action.payload,
@@ -322,6 +322,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 checkWaterIrrigation: s.checkWaterIrrigation,
                 checkWaterRain: s.checkWaterRain,
                 checkWaterBuying: s.checkWaterBuying,
+                
             };
         default:
             return state;
