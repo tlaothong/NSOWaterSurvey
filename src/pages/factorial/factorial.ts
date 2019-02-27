@@ -45,6 +45,8 @@ export class FactorialPage {
       if (data != null) {
         this.FactoryForm.setValue(data.factory);
         this.formData = data;
+        console.log(data);
+        
       }
     });
   }

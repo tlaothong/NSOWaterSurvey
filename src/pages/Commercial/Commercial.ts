@@ -79,6 +79,8 @@ export class CommercialPage {
       if (data != null) {
         this.f.setValue(data.commerce)
         this.dataCom = data;
+        console.log(data);
+        
       }
     });
     
