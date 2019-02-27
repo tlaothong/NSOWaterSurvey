@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getBuildingSample, getSendBuildingType, setHomeBuilding } from '../../states/building';
@@ -32,8 +32,9 @@ export class BuidlingInformation2Page {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
+        this.f.get('accessCount').setValue(data.accessCount);
+        this.setupCountChanges();
         this.f.setValue(data);
-        console.log(this.f.value);
       }
     });
   }
@@ -51,8 +52,7 @@ export class BuidlingInformation2Page {
       'buildingType': null,
       'other': null,
       'accessCount': null,
-      'access': null,
-      'accessCount': 0,
+      'access': fb.array([]),
       'vacancyCount': null,
       'abandonedCount': null,
       'comments': fb.array([
@@ -186,5 +186,70 @@ export class BuidlingInformation2Page {
       return ctrls.errors && ctrls.errors.waterBill && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
+  private setupCountChanges() {
+    this.setupAccessCountChanges();
+    this.setupAccessCountChangesForComments();
+  }
+
+  private setupAccessCountChanges() {
+    const componentFormArray: string = "access";
+    const componentCount: string = "accessCount";
+
+    var onComponentCountChanges = () => {
+      var accesses = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < accesses.length) {
+          const fld = accesses[i];
+          ctrl = fld;
+        } else {
+          ctrl = new FormControl();
+        }
+
+        farr.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, farr);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupAccessCountChangesForComments() {
+    const componentFormArray: string = "comments";
+    const componentCount: string = "accessCount";
+
+    var onComponentCountChanges = () => {
+      var comments = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < comments.length) {
+          const fld = comments[i];
+          ctrl = fld;
+        } else {
+          ctrl = BuildingInformation1Page.CreateComment(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      this.f.setControl(componentFormArray, farr);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
   }
 }
