@@ -69,6 +69,7 @@ export class BuidlingInformation2Page {
       }),
       'floorCount': [null, Validators],
       '_id': [null],
+      'status': [null],
     }, {
         validator: BuidlingInformation2Page.checkAnyOrOther()
       });

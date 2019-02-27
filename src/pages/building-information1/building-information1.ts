@@ -25,10 +25,10 @@ export class BuildingInformation1Page {
 
   public index: number;
   public access: number;
-  public comment: string;
+  public comment: string = '';
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
   }
@@ -62,6 +62,7 @@ export class BuildingInformation1Page {
       }),
       'floorCount': [null],
       '_id': [null],
+      'status': [null],
     });
   }
 
@@ -84,9 +85,9 @@ export class BuildingInformation1Page {
     this.geolocation.getCurrentPosition(options).then((loacation) => {
       console.log(loacation);
       this.long = loacation.coords.longitude,
-      this.lat = loacation.coords.latitude
-    },err =>{
-      console.log(err);    
+        this.lat = loacation.coords.latitude
+    }, err => {
+      console.log(err);
 
     });
   }
@@ -109,10 +110,11 @@ export class BuildingInformation1Page {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.updateStatus();
     if (this.f.valid && this.access == 1) {
       this.dispatch();
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
-      // this.storage.set('key',this.f.value)
+      this.storage.set('key', this.f.value)
     }
     if (this.f.valid && (this.access == 2 || this.access == 3 || this.access == 4)) {
       this.dispatch();
@@ -130,7 +132,23 @@ export class BuildingInformation1Page {
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     this.store.dispatch(new SetHomeBuilding(this.f.value));
+  }
 
+  public updateStatus() {
+    switch (this.access) {
+      case 1:
+        this.f.get('status').setValue('pause')
+        break;
+      case 2:
+      case 3:
+        (this.index < 2) ? this.f.get('status').setValue('refresh') : this.f.get('status').setValue('done-all')
+        break;
+      case 4:
+        this.f.get('status').setValue('done-all')
+        break;
+      default:
+        break;
+    }
   }
 
   public isValid(name: string): boolean {
@@ -144,8 +162,8 @@ export class BuildingInformation1Page {
 
   public static CreateComment(fb: FormBuilder): FormGroup {
     return fb.group({
-      'at': null,
-      'text': null,
+      'at': [null],
+      'text': [null],
     });
   }
 
