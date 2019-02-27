@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
 import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class RubberTreePage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
@@ -43,11 +44,6 @@ export class RubberTreePage {
       if (data != null) {
         this.rubbertree.patchValue(data.agriculture.rubberTree)
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.rubberTree));
-        // this.formData$.subscribe(data =>{
-        //   if(data != null){
-        //   }
-        // })
       }
     })
   }
@@ -60,7 +56,8 @@ export class RubberTreePage {
     this.formData.agriculture.rubberTree = this.rubbertree.value;
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

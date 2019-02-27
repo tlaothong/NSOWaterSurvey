@@ -9,6 +9,7 @@ import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../..
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class WaterAnimalPlantingPage {
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController,private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'isFish': [false, Validators.required],
@@ -71,7 +72,8 @@ export class WaterAnimalPlantingPage {
     this.formData.agriculture.aquaticAnimals = this.f.value;
     if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.setRoot("CheckListPage");
     }
   }

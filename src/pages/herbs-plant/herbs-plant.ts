@@ -7,6 +7,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getAgronomyPlantSelectPlant, getPerennialPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -44,7 +45,7 @@ export class HerbsPlantPage {
   private backNum: any;
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -60,11 +61,9 @@ export class HerbsPlantPage {
       if (data != null) {
         this.f.patchValue(data.agriculture.herbsPlant);
         this.formData = data
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.herbsPlant));
-        // this.formData$.subscribe(data =>{
-        // })
       }
     })
+
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
         this.listRiceData = data
@@ -128,7 +127,8 @@ export class HerbsPlantPage {
     this.formData.agriculture.herbsPlant = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

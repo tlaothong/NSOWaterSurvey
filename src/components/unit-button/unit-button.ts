@@ -9,6 +9,7 @@ import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/hou
 import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -30,6 +31,7 @@ export class UnitButtonComponent {
   id_BD: any;
 
   private submitRequested: boolean;
+  public dataS: any;
 
   public access: number;
   public comment = '';
@@ -44,8 +46,10 @@ export class UnitButtonComponent {
 
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
   private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
+  private formData$ = this.store.select(getHouseHoldSample);
 
-  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+
+  constructor(private modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.text = '';
@@ -673,7 +677,40 @@ export class UnitButtonComponent {
           })
         }),
         'rain': fb.group({
-          'rainContainers': fb.array([]),
+          'rainContainers': fb.array([{
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          },
+          ]),
           'waterActivities': fb.group({
             'drink': [0],
             'plant': [0],
@@ -714,6 +751,12 @@ export class UnitButtonComponent {
 
   sendIdUnit() {
     this.store.dispatch(new LoadHouseHoldSample(this.FormItem.get('_id').value));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.dataS = data;
+      }
+    });
+    this.storage.set('unit', this.dataS)
     let f = this.store.select(getHouseHoldSample);
     f.subscribe(data => console.log("fffff", data));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));

@@ -7,6 +7,7 @@ import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType } from '../.
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class BuildingInformation1Page {
   public comment: string;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.controls['ea'].setValue(navParams.get('id'));
   }
@@ -54,7 +55,11 @@ export class BuildingInformation1Page {
       'unitCount': 0,
       'unitAccess': 0,
       'occupiedRoomCount': [null],
-      'waterQuantity': [null],
+      'waterQuantity': fb.group({
+        "waterQuantity": 0,
+        "cubicMeterPerMonth": null,
+        "waterBill": null,
+      }),
       'floorCount': [null],
       '_id': [null],
     });
@@ -79,7 +84,10 @@ export class BuildingInformation1Page {
     this.geolocation.getCurrentPosition(options).then((loacation) => {
       console.log(loacation);
       this.long = loacation.coords.longitude,
-        this.lat = loacation.coords.latitude
+      this.lat = loacation.coords.latitude
+    },err =>{
+      console.log(err);    
+
     });
   }
 
@@ -104,6 +112,7 @@ export class BuildingInformation1Page {
     if (this.f.valid && this.access == 1) {
       this.dispatch();
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
+      // this.storage.set('key',this.f.value)
     }
     if (this.f.valid && (this.access == 2 || this.access == 3 || this.access == 4)) {
       this.dispatch();

@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getSendBuildingType, getOtherBuildingType } from '../../states/building';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class CommercialPage {
   private backNum: any;
   private otherBuildingType$ = this.storeBuild.select(getOtherBuildingType);
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private storage: Storage, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
@@ -80,6 +81,7 @@ export class CommercialPage {
         this.dataCom = data;
       }
     });
+    
     this.getBuildingType$.subscribe(data => {
       if (data != null) {
         this.f.get('buildingCode').setValue(data)
@@ -102,7 +104,8 @@ export class CommercialPage {
     this.dataCom.commerce = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataCom));
+      // this.store.dispatch(new SetHouseHold(this.dataCom));
+      this.storage.set('unit', this.dataCom)
       this.navCtrl.popTo("CheckListPage");
     }
   }
