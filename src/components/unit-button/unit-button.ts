@@ -9,6 +9,7 @@ import { SetArrayIsCheck, LoadHouseHoldSample } from '../../states/household/hou
 import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -30,13 +31,14 @@ export class UnitButtonComponent {
   id_BD: any;
 
   private submitRequested: boolean;
+  public dataS: any;
 
   public access: number;
   public comment = '';
   public allComment = '';
 
   public index: number;
-  public class = "play";
+  public status = "play";
   public roomNumber = '';
 
   public fgac: FormArray;
@@ -44,8 +46,10 @@ export class UnitButtonComponent {
 
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
   private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
+  private formData$ = this.store.select(getHouseHoldSample);
 
-  constructor(private modalCtrl: ModalController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+
+  constructor(private modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.text = '';
@@ -99,6 +103,7 @@ export class UnitButtonComponent {
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
       'comments': fb.array([]),
+      'status': [null],
       'residence': fb.group({
         'memberCount': [null],
         'workingAge': [null],
@@ -673,7 +678,39 @@ export class UnitButtonComponent {
           })
         }),
         'rain': fb.group({
-          'rainContainers': fb.array([]),
+          'rainContainers': fb.array([{
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }, {
+            'category': [null],
+            'size': [null],
+            'count': [null],
+          }]),
           'waterActivities': fb.group({
             'drink': [0],
             'plant': [0],
@@ -684,12 +721,105 @@ export class UnitButtonComponent {
           }),
         }),
         'buying': fb.group({
-          'package': fb.array([]),
+          'package': fb.array([{
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }, {
+            'name': null,
+            'size': null,
+            'drink': null,
+            'agriculture': null,
+            'factory': null,
+            'service': null,
+          }]),
         })
       }),
       'disaster': fb.group({
         'flooded': [null],
-        'yearsDisasterous': fb.array([]),
+        'yearsDisasterous': fb.array([{
+          'count': null,
+          'avgDay': null,
+          'avgHour': null,
+          'waterHeightCm': null,
+          'year': null,
+        }, {
+          'count': null,
+          'avgDay': null,
+          'avgHour': null,
+          'waterHeightCm': null,
+          'year': null,
+        }, {
+          'count': null,
+          'avgDay': null,
+          'avgHour': null,
+          'waterHeightCm': null,
+          'year': null,
+        }, {
+          'count': null,
+          'avgDay': null,
+          'avgHour': null,
+          'waterHeightCm': null,
+          'year': null,
+        }, {
+          'count': null,
+          'avgDay': null,
+          'avgHour': null,
+          'waterHeightCm': null,
+          'year': null,
+        }]),
         '_id': [null]
       }),
       'closing': fb.group({
@@ -714,6 +844,12 @@ export class UnitButtonComponent {
 
   sendIdUnit() {
     this.store.dispatch(new LoadHouseHoldSample(this.FormItem.get('_id').value));
+    this.formData$.subscribe(data => {
+      if (data != null) {
+        this.dataS = data;
+      }
+    });
+    this.storage.set('unit', this.dataS)
     let f = this.store.select(getHouseHoldSample);
     f.subscribe(data => console.log("fffff", data));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
@@ -753,7 +889,7 @@ export class UnitButtonComponent {
       this.sendIdUnit();
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
-    else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
+    else if (this.status == "play" || this.status == "return" || this.status == "returnCm") {
 
       let count = this.FormItem.get('subUnit.accessCount').value + 1;
       this.FormItem.get('subUnit.accessCount').setValue(count);
@@ -812,37 +948,38 @@ export class UnitButtonComponent {
     this.allComment = text;
 
     this.roomNumber = this.FormItem.get('subUnit.roomNumber').value;
-    this.checkAccess();
+    this.updateStatus();
   }
 
-  private checkAccess() {
+  private updateStatus() {
     switch (this.access) {
       case 1:
         if (this.FormItem.valid) {
-          this.class = (this.allComment == '') ? "complete" : "completeCm";
+          this.status = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
-          this.class = (this.allComment == '') ? "pause" : "pauseCm";
+          this.status = (this.allComment == '') ? "pause" : "pauseCm";
         }
         break;
       case 2:
       case 3:
         if (this.index < 2) {
-          this.class = (this.allComment == '') ? "return" : "returnCm";
+          this.status = (this.allComment == '') ? "return" : "returnCm";
         }
         else {
-          this.class = (this.allComment == '') ? "complete" : "completeCm";
+          this.status = (this.allComment == '') ? "complete" : "completeCm";
         }
         break;
       case 4:
-        this.class = (this.allComment == '') ? "empty" : "emptyCm";
+        this.status = (this.allComment == '') ? "empty" : "emptyCm";
         break;
       case 5:
-        this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
+        this.status = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
       default:
         break;
     }
+    this.FormItem.get('status').setValue(this.status);
   }
 
   showComment() {

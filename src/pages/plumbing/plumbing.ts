@@ -12,6 +12,7 @@ import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../state
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { subDistrictData } from '../../models/SubDistrictData';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -58,7 +59,7 @@ export class PlumbingPage {
   public PWA: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
@@ -166,7 +167,8 @@ export class PlumbingPage {
     this.formData.waterUsage.plumbing = this.f.value;
     if ((!this.MWA || this.isCheckValid('mwa')) && (!this.PWA || this.isCheckValid('pwa')) && this.isCheckValid('other')) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      this.storage.set('unit', this.formData)
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
     }

@@ -5,7 +5,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot,  SetBack, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SetHouseHold, SetHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 
 /**
@@ -27,8 +28,12 @@ export class CheckListPage {
   private arrayNextPage: any[];
   // private indexBack: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
-    this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
+    // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
+    this.storage.get('unit').then((val) => {
+      console.log(val);
+      this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
+    })
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false },
