@@ -144,25 +144,22 @@
 
       <div *ngFor="let item of listFilter;let i = index;">
         <ion-row text-center align-items-center>
-          <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
             <ion-icon disabled="false" name="{{item.status}}"></ion-icon>
-            <!-- <ion-icon disabled="false" name="done-all" *ngIf="item.access == 4"></ion-icon>
-            <ion-icon disabled="false" name="pause" *ngIf="(item.access == 1) || (item.unitCount != item.unitAccess)"></ion-icon>
-            <ion-icon disabled="false" name="refresh" *ngIf="(item.access == 2) || (item.access == 3)"></ion-icon> -->
           </ion-col>
-          <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
             {{i+1}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
             {{item.houseNo}}
           </ion-col>
-          <ion-col col-3 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-3 (click)="goEditBuildingInfo(item)">
             {{item.name}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
             {{item.unitAccess}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
             {{item.unitCount}}
           </ion-col>
           <ion-col col-1>
