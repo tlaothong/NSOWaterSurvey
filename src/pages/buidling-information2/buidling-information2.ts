@@ -59,6 +59,7 @@ export class BuidlingInformation2Page {
       ]),
       'recCtrl': [null, Validators],
       'vacantRoomCount': [null],
+      'unitCountComplete': 0,
       'unitCount': [0, Validators],
       'unitAccess': [null, Validators],
       'occupiedRoomCount': [null, Validators],

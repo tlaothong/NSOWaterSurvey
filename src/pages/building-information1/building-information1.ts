@@ -52,6 +52,7 @@ export class BuildingInformation1Page {
       'comments': fb.array([]),
       'recCtrl': [null],
       'vacantRoomCount': [null],
+      'unitCountComplete': 0,
       'unitCount': 0,
       'unitAccess': 0,
       'occupiedRoomCount': [null],
