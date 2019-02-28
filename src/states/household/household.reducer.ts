@@ -294,18 +294,18 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
-
+            console.log("JSON State", JSON.stringify(s));
             return {
                 ...state,
                 houseHoldSample: action.payload,
                 selectG1234: s.selectG1234,
                 residentialGardeningUse: s.residentialGardeningUse,
-                // wateringResidential: s.wateringResidential,
-                // waterSourcesResidential: s.waterSourcesResidential,
-                // waterSourcesRice: s.waterSourcesRice,
-                // waterSourcesAgiculture: s.waterSourcesAgiculture,
-                // waterSourcesFactory: s.waterSourcesFactory,
-                // waterSourcesCommercial: s.waterSourcesCommercial,
+                wateringResidential: s.wateringResidential,
+                waterSourcesResidential: s.waterSourcesResidential,
+                waterSourcesRice: s.waterSourcesRice,
+                waterSourcesAgiculture: s.waterSourcesAgiculture,
+                waterSourcesFactory: s.waterSourcesFactory,
+                waterSourcesCommercial: s.waterSourcesCommercial,
                 arraySkipPageAgiculture: s.agi,
                 riceDoing: s.riceDoing,
                 agiSelectRice: s.agiSelectRice,
@@ -317,11 +317,12 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 perennialPlantSelectPlant: s.perennialPlantSelectPlant,
                 factorialCategory: s.factorialCategory,
                 commercialServiceType: s.commercialServiceType,
-                // checkWaterPlumbing: s.checkWaterPlumbing,
-                // checkWaterRiver: s.checkWaterRiver,
-                // checkWaterIrrigation: s.checkWaterIrrigation,
-                // checkWaterRain: s.checkWaterRain,
-                // checkWaterBuying: s.checkWaterBuying,
+                checkWaterPlumbing: s.checkWaterPlumbing,
+                checkWaterRiver: s.checkWaterRiver,
+                checkWaterIrrigation: s.checkWaterIrrigation,
+                checkWaterRain: s.checkWaterRain,
+                checkWaterBuying: s.checkWaterBuying,
+
             };
         default:
             return state;
@@ -383,51 +384,375 @@ function resetStatesForModel(model: any): any {
         }
     };
 
-    let waterSource = {
-        plumbing: true,
-        underGround: true,
-        river: true,
-        pool: true,
-        irrigation: true,
-        rain: true,
-        buying: true,
-        rainingAsIs: true,
-        hasOther: true,
-        other: "water",
-    }
+    let wS = [];
+
+    let waterRice = findWaterSourceRice(ag.ricePlant);
+    wS.push(waterRice);
+    let waterDry = findWaterSourceDry(ag.agronomyPlant);
+    wS.push(waterDry);
+    let waterRubber = findWaterSourceRubber(ag.rubberTree);
+    wS.push(waterRubber);
+    let waterPenrenial = findWaterSourcePenrenial(ag.perennialPlant);
+    wS.push(waterPenrenial);
+    let waterHerb = findWaterSourceHerb(ag.herbsPlant);
+    wS.push(waterHerb);
+    let waterFlower = findWaterSourceFlower(ag.flowerCrop);
+    wS.push(waterFlower);
+    let waterMushroom = findWaterSourceMushroom(ag.mushroomPlant);
+    wS.push(waterMushroom);
+    let waterRes = model && model.residence.waterSources;
+    wS.push(waterRes);
+    let waterFac = model && model.factory.waterSources;
+    wS.push(waterFac);
+    let waterCom = model && model.commerce.waterSources;
+    wS.push(waterCom);
+    let waterAnimalFarm = ag && ag.animalFarm.waterSources;
+    wS.push(waterAnimalFarm);
+    let waterAquatic = findWaterSourceAquticAnimals(ag.aquaticAnimals);
+    wS.push(waterAquatic);
+
+
+
+    let checkPlumbing = wS.some(it => it.plumbing == true);
+    let checkRiver = wS.some(it => it.river == true);
+    let checkIrrigation = wS.some(it => it.irrigation == true);
+    let checkRain = wS.some(it => it.rain == true);
+    let checkBuying = wS.some(it => it.buying == true);
 
 
     return {
 
         selectG1234: objG12345,
-        // wateringResidential: model && model.residence.gardeningUse,
         residentialGardeningUse: model && model.residence.gardeningUse,
         agi: objAgri,
-        // waterSourcesResidential: waterSource,
         ricePlantSelectPlant: listRice,
         agronomyPlantSelectPlant: listAgronomy,
         rubberTreeSelectPlant: listRubber,
         perennialPlantSelectPlant: listPerennial,
-        // waterSourcesRice: waterSource,
-        // waterSourcesAgiculture: waterSource,
-        // waterSourcesFactory: waterSource,
-        // waterSourcesCommercial: waterSource,
+        wateringResidential: model && model.residence.gardeningUse,
+        waterSourcesResidential: waterRes,
+        waterSourcesRice: waterRice,
+        waterSourcesAgiculture: model && model.isAgriculture,
+        waterSourcesFactory: waterFac,
+        waterSourcesCommercial: waterCom,
         riceDoing: model && model.agriculture.ricePlant.doing,
         agiSelectRice: model && model.agriculture.ricePlant.doing,
         agiSelectRubber: model && model.agriculture.rubberTree.doing,
         agiSelectPerennial: model && model.agriculture.perennialPlant.doing,
         factorialCategory: model && model.factory.category,
         commercialServiceType: model && model.commerce.serviceType,
-        // checkWaterPlumbing: waterSource.plumbing,
-        // checkWaterRiver: waterSource.river,
-        // checkWaterIrrigation: waterSource.irrigation,
-        // checkWaterRain: waterSource.rain,
-        // checkWaterBuying: waterSource.buying,
+        checkWaterPlumbing: checkPlumbing,
+        checkWaterRiver: checkRiver,
+        checkWaterIrrigation: checkIrrigation,
+        checkWaterRain: checkRain,
+        checkWaterBuying: checkBuying,
     };
 }
 
+function findWaterSourceRice(water) {
+    let fields = water && water.fields;
+    let waterSourceRice = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourceRice = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourceRice
+}
+
+function findWaterSourceDry(water) {
+    let fields = water && water.fields;
+    let waterSourceDry = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourceDry = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourceDry
+}
+
+function findWaterSourceRubber(water) {
+    let fields = water && water.fields;
+    let waterSourceRubber = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourceRubber = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourceRubber
+}
+
+function findWaterSourcePenrenial(water) {
+    let fields = water && water.fields;
+    let waterSourcePenrenial = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourcePenrenial = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourcePenrenial
+}
+
+function findWaterSourceHerb(water) {
+    let fields = water && water.fields;
+    let waterSourceHerb = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourceHerb = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourceHerb
+}
+
+function findWaterSourceFlower(water) {
+    let fields = water && water.fields;
+    let waterSourceFlower = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourceFlower = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourceFlower
+}
+
+function findWaterSourceMushroom(water) {
+    let fields = water && water.fields;
+    let waterSourceMushroom = {
+        plumbing: false,
+        underGround: false,
+        river: false,
+        pool: false,
+        irrigation: false,
+        rain: false,
+        buying: false,
+        rainingAsIs: false,
+        hasOther: false,
+        other: "water",
+    };
+    fields.forEach(f => {
+        if (f && f.waterSources) {
+            waterSourceMushroom = {
+                plumbing: f.waterSources.some(p => p.plumbing == true),
+                underGround: f.waterSources.some(p => p.underGround == true),
+                river: f.waterSources.some(p => p.river == true),
+                pool: f.waterSources.some(p => p.pool == true),
+                irrigation: f.waterSources.some(p => p.irrigation == true),
+                rain: f.waterSources.some(p => p.rain == true),
+                buying: f.waterSources.some(p => p.buying == true),
+                rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+                hasOther: f.waterSources.some(p => p.hasOther == true),
+                other: "water",
+            };
+        }
+    });
+    return waterSourceMushroom
+}
+
+// function findWaterSourceAnimalFarm(water) {
+//     let fields = water && water.fields;
+//     let waterSourceAnimalFarm = {
+//         plumbing: false,
+//         underGround: false,
+//         river: false,
+//         pool: false,
+//         irrigation: false,
+//         rain: false,
+//         buying: false,
+//         rainingAsIs: false,
+//         hasOther: false,
+//         other: "water",
+//     };
+//     fields.forEach(f => {
+//         if (f && f.waterSources) {
+//             waterSourceAnimalFarm = {
+//                 plumbing: f.waterSources.some(p => p.plumbing == true),
+//                 underGround: f.waterSources.some(p => p.underGround == true),
+//                 river: f.waterSources.some(p => p.river == true),
+//                 pool: f.waterSources.some(p => p.pool == true),
+//                 irrigation: f.waterSources.some(p => p.irrigation == true),
+//                 rain: f.waterSources.some(p => p.rain == true),
+//                 buying: f.waterSources.some(p => p.buying == true),
+//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
+//                 hasOther: f.waterSources.some(p => p.hasOther == true),
+//                 other: "water",
+//             };
+//         }
+//     });
+//     return waterSourceAnimalFarm
+// }
+
+function findWaterSourceAquticAnimals(water) {
+    let fish = water && water.fish;
+    let shrimp = water && water.shrimp;
+    let frog = water && water.frog;
+    let crocodile = water && water.crocodile;
+    let snappingTurtle = water && water.snappingTurtle;
+    let crab = water && water.crab;
+    let shellFish = water && water.shellFish;
+    let turtle = water && water.turtle;
+    let reddish = water && water.reddish;
+
+
+    let arrAquatic = [];
+    arrAquatic.push(fish.waterSources)
+    arrAquatic.push(shrimp.waterSources)
+    arrAquatic.push(frog.waterSources)
+    arrAquatic.push(crocodile.waterSources)
+    arrAquatic.push(snappingTurtle.waterSources)
+    arrAquatic.push(crab.waterSources)
+    arrAquatic.push(shellFish.waterSources)
+    arrAquatic.push(turtle.waterSources)
+    arrAquatic.push(reddish.waterSources)
+
+    let waterSourceAqutic = {
+        plumbing: arrAquatic.some(it => it.plumbing == true),
+        underGround: arrAquatic.some(it => it.underGround == true),
+        river: arrAquatic.some(it => it.river == true),
+        pool: arrAquatic.some(it => it.pool == true),
+        irrigation: arrAquatic.some(it => it.irrigation == true),
+        rain: arrAquatic.some(it => it.rain == true),
+        buying: arrAquatic.some(it => it.buying == true),
+        rainingAsIs: arrAquatic.some(it => it.rainingAsIs == true),
+        hasOther: arrAquatic.some(it => it.hasOther == true),
+        other: "water",
+    };
+
+    return waterSourceAqutic
+}
+
 function listPagesToCheck(state: HouseHoldState): Array<boolean> {
-    console.log(JSON.stringify(state.selectG1234));
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
@@ -437,6 +762,7 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     for (let i = 2; i <= 10; i++) {
         arr[i] = arr[1]
     }
+    
     if (state.arraySkipPageAgiculture) {
         arr[2] = (state.arraySkipPageAgiculture.ricePlant && state.arraySkipPageAgiculture.ricePlant.doing) ? true : false;
         arr[3] = (state.arraySkipPageAgiculture.agronomyPlant && state.arraySkipPageAgiculture.agronomyPlant.doing) ? true : false;
@@ -448,19 +774,15 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
         arr[9] = (state.arraySkipPageAgiculture.animalFarm && state.arraySkipPageAgiculture.animalFarm.doing) ? true : false;
         arr[10] = (state.arraySkipPageAgiculture.aquaticAnimals && state.arraySkipPageAgiculture.aquaticAnimals.doing) ? true : false;
     }
-    console.log(JSON.stringify(state.checkWaterPlumbing));
-    console.log(JSON.stringify(state.checkWaterRiver));
-    console.log(JSON.stringify(state.checkWaterIrrigation));
-    console.log(JSON.stringify(state.checkWaterRain));
-    console.log(JSON.stringify(state.checkWaterBuying));
-
+    
     arr[13] = (state.checkWaterPlumbing) ? true : false;
     arr[15] = (state.checkWaterRiver) ? true : false;
     arr[17] = (state.checkWaterIrrigation) ? true : false;
     arr[18] = (state.checkWaterRain) ? true : false;
     arr[19] = (state.checkWaterBuying) ? true : false;
-
-
+    
+    
+    console.log(JSON.stringify(arr));
     return arr;
 }
 
