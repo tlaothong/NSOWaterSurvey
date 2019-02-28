@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { ModalController, NavController, AlertController, NavParams } from 'ionic-angular';
+import { ModalController, NavController, AlertController, NavParams, FabButton } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -678,39 +678,16 @@ export class UnitButtonComponent {
           })
         }),
         'rain': fb.group({
-          'rainContainers': fb.array([{
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }, {
-            'category': [null],
-            'size': [null],
-            'count': [null],
-          }]),
+          'rainContainers': fb.array([
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+          ]),
           'waterActivities': fb.group({
             'drink': [0],
             'plant': [0],
@@ -840,6 +817,14 @@ export class UnitButtonComponent {
         'persons': fb.array([])
       }),
     });
+  }
+
+  public static createRainContainersForm(fb: FormBuilder) {
+    return fb.group({
+      'category': [null],
+      'size': [null],
+      'count': [null],
+    })
   }
 
   sendIdUnit() {

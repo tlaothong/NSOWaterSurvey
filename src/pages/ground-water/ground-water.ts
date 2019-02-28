@@ -68,7 +68,7 @@ export class GroundWaterPage {
       'publicGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
-        'waterResources': this.fb.array([])
+        'waterResources': this.fb.array([]) 
       })
     });
 
@@ -140,8 +140,9 @@ export class GroundWaterPage {
     this.formData.waterUsage.groundWater = this.f.value;
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
+      
       // this.store.dispatch(new SetHouseHold(this.formData));
-      this.storage.set('unit', this.formData)
+      this.storage.set('unit', this.formData);
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
       

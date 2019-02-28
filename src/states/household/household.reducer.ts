@@ -294,7 +294,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
-            console.log("JSON State",JSON.stringify(s));
+            console.log("JSON State", JSON.stringify(s));
             return {
                 ...state,
                 houseHoldSample: action.payload,
@@ -322,7 +322,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 checkWaterIrrigation: s.checkWaterIrrigation,
                 checkWaterRain: s.checkWaterRain,
                 checkWaterBuying: s.checkWaterBuying,
-                
+
             };
         default:
             return state;
@@ -408,6 +408,9 @@ function resetStatesForModel(model: any): any {
     wS.push(waterCom);
     let waterAnimalFarm = ag && ag.animalFarm.waterSources;
     wS.push(waterAnimalFarm);
+    let waterAquatic = findWaterSourceAquticAnimals(ag.aquaticAnimals);
+    wS.push(waterAquatic);
+
 
 
     let checkPlumbing = wS.some(it => it.plumbing == true);
@@ -416,7 +419,6 @@ function resetStatesForModel(model: any): any {
     let checkRain = wS.some(it => it.rain == true);
     let checkBuying = wS.some(it => it.buying == true);
 
-    // let waterAquatic = findWaterSourceAquticAnimals(ag.aquaticAnimals);
 
     return {
 
@@ -711,179 +713,46 @@ function findWaterSourceMushroom(water) {
 //     return waterSourceAnimalFarm
 // }
 
-// function findWaterSourceAquticAnimals(water) {
-//     let fish = water && water.fish;
-//     let shrimp = water && water.fish;
-//     let frog = water && water.frog;
-//     let crocodile = water && water.crocodile;
-//     let snappingTurtle = water && water.crocodile;
-//     let crab = water && water.fish;
-//     let shellFish = water && water.fish;
-//     let turtle = water && water.crocodile;
-//     let reddish = water && water.fish;
+function findWaterSourceAquticAnimals(water) {
+    let fish = water && water.fish;
+    let shrimp = water && water.shrimp;
+    let frog = water && water.frog;
+    let crocodile = water && water.crocodile;
+    let snappingTurtle = water && water.snappingTurtle;
+    let crab = water && water.crab;
+    let shellFish = water && water.shellFish;
+    let turtle = water && water.turtle;
+    let reddish = water && water.reddish;
 
-//     let waterSourceAqutic = {
-//         plumbing: false,
-//         underGround: false,
-//         river: false,
-//         pool: false,
-//         irrigation: false,
-//         rain: false,
-//         buying: false,
-//         rainingAsIs: false,
-//         hasOther: false,
-//         other: "water",
-//     };
-//     fish.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     shrimp.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     frog.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     crocodile.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     snappingTurtle.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     crab.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     shellFish.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     turtle.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     reddish.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAqutic = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
 
-//     return waterSourceAqutic
-// }
+    let arrAquatic = [];
+    arrAquatic.push(fish.waterSources)
+    arrAquatic.push(shrimp.waterSources)
+    arrAquatic.push(frog.waterSources)
+    arrAquatic.push(crocodile.waterSources)
+    arrAquatic.push(snappingTurtle.waterSources)
+    arrAquatic.push(crab.waterSources)
+    arrAquatic.push(shellFish.waterSources)
+    arrAquatic.push(turtle.waterSources)
+    arrAquatic.push(reddish.waterSources)
+
+    let waterSourceAqutic = {
+        plumbing: arrAquatic.some(it => it.plumbing == true),
+        underGround: arrAquatic.some(it => it.underGround == true),
+        river: arrAquatic.some(it => it.river == true),
+        pool: arrAquatic.some(it => it.pool == true),
+        irrigation: arrAquatic.some(it => it.irrigation == true),
+        rain: arrAquatic.some(it => it.rain == true),
+        buying: arrAquatic.some(it => it.buying == true),
+        rainingAsIs: arrAquatic.some(it => it.rainingAsIs == true),
+        hasOther: arrAquatic.some(it => it.hasOther == true),
+        other: "water",
+    };
+
+    return waterSourceAqutic
+}
 
 function listPagesToCheck(state: HouseHoldState): Array<boolean> {
-    console.log(JSON.stringify(state.selectG1234));
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
@@ -893,7 +762,7 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     for (let i = 2; i <= 10; i++) {
         arr[i] = arr[1]
     }
-
+    
     if (state.arraySkipPageAgiculture) {
         arr[2] = (state.arraySkipPageAgiculture.ricePlant && state.arraySkipPageAgiculture.ricePlant.doing) ? true : false;
         arr[3] = (state.arraySkipPageAgiculture.agronomyPlant && state.arraySkipPageAgiculture.agronomyPlant.doing) ? true : false;
@@ -905,14 +774,15 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
         arr[9] = (state.arraySkipPageAgiculture.animalFarm && state.arraySkipPageAgiculture.animalFarm.doing) ? true : false;
         arr[10] = (state.arraySkipPageAgiculture.aquaticAnimals && state.arraySkipPageAgiculture.aquaticAnimals.doing) ? true : false;
     }
-
+    
     arr[13] = (state.checkWaterPlumbing) ? true : false;
     arr[15] = (state.checkWaterRiver) ? true : false;
     arr[17] = (state.checkWaterIrrigation) ? true : false;
     arr[18] = (state.checkWaterRain) ? true : false;
     arr[19] = (state.checkWaterBuying) ? true : false;
-
-
+    
+    
+    console.log(JSON.stringify(arr));
     return arr;
 }
 
