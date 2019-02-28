@@ -10,6 +10,7 @@ import { getHouseHoldSample } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class ResidentialPage {
   private backNum: any;
   public dataRes: any
   public checked: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.required],
       'workingAge': [null, Validators.required],
@@ -38,14 +39,14 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    console.log(this.formData$ );
-    
+    console.log(this.formData$);
+
     this.formData$.subscribe(data => {
       if (data != null) {
         this.residentialFrm.setValue(data.residence)
         this.dataRes = data;
         console.log(data);
-        
+
       }
     });
 
@@ -75,7 +76,10 @@ export class ResidentialPage {
       this.arrayIsCheckMethod();
       this.dispatchWaterSource();
       // this.store.dispatch(new SetHouseHold(this.dataRes));
-      this.storage.set('unit', this.dataRes)
+      // this.storage.set('unit', this.dataRes)
+      let id = this.dataRes._id
+      this.storage.set(id, this.dataRes.value)
+      this.local.updateListUnit(id,this.dataRes.value)
       this.navCtrl.popTo("CheckListPage");
     }
   }

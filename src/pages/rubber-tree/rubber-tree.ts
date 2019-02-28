@@ -10,6 +10,7 @@ import { FieldRebbertreeComponent } from '../../components/field-rebbertree/fiel
 import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,7 @@ export class RubberTreePage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,  public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
@@ -57,7 +58,10 @@ export class RubberTreePage {
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
-      this.storage.set('unit', this.formData)
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData.value)
+      this.local.updateListUnit(id,this.formData.value)
       this.navCtrl.popTo("CheckListPage");
     }
   }

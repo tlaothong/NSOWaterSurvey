@@ -9,6 +9,7 @@ import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelec
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -44,7 +45,7 @@ export class FlowerCropPage {
   public getAgiSelectPerennial: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -146,7 +147,10 @@ export class FlowerCropPage {
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
-      this.storage.set('unit', this.formData)
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData.value)
+      this.local.updateListUnit(id,this.formData.value)
       this.navCtrl.popTo("CheckListPage");
     }
   }

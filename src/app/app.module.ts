@@ -23,6 +23,7 @@ import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
 import { PumpDataProvider } from '../providers/pump-data/pump-data';
 import { LocationDataProvider } from '../providers/location-data/location-data';
 import { SwithStateProvider } from '../providers/swith-state/swith-state';
+import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { SwithStateProvider } from '../providers/swith-state/swith-state';
     PumpDataProvider,
     LocationDataProvider,
     SwithStateProvider,
+    LocalStorageProvider,
   ]
 })
 export class AppModule { }

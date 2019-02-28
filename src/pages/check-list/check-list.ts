@@ -30,7 +30,7 @@ export class CheckListPage {
 
   constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
-    this.storage.get('unit').then((val) => {
+    this.storage.get(this.navParams.get('id')).then((val) => {
       console.log(val);
       this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
     })

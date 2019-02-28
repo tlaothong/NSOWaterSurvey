@@ -9,6 +9,7 @@ import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../..
 import { map } from 'rxjs/operators';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,7 @@ export class AnimalFarmPage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -68,7 +69,10 @@ export class AnimalFarmPage {
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataAni));
-      this.storage.set('unit', this.dataAni)
+      // this.storage.set('unit', this.dataAni)
+      let id = this.dataAni._id
+      this.storage.set(id, this.f.value)
+      this.local.updateListUnit(id, this.f.value)
       this.navCtrl.popTo("CheckListPage");
     }
   }
