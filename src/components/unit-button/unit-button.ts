@@ -937,41 +937,33 @@ export class UnitButtonComponent {
   }
 
   private updateStatus() {
-    let status: string;
     switch (this.access) {
       case 1:
         if (this.FormItem.valid) {
-          status = "complete";
           this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
-          status = "pause";
           this.class = (this.allComment == '') ? "pause" : "pauseCm";
         }
         break;
       case 2:
       case 3:
         if (this.index < 2) {
-          status = "return";
           this.class = (this.allComment == '') ? "return" : "returnCm";
         }
         else {
-          status = "complete";
           this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         break;
       case 4:
-        status = "complete";
         this.class = (this.allComment == '') ? "empty" : "emptyCm";
         break;
       case 5:
-        status = "complete";
         this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
       default:
         break;
     }
-    this.FormItem.get('status').setValue(status);
   }
 
   showComment() {

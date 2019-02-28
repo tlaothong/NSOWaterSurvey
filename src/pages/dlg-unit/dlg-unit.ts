@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SetHouseHold} from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';
@@ -71,6 +71,26 @@ export class DlgUnitPage {
     this.FormItem.get('subUnit.accessCount').setValue(this.count);
     this.fgac.at(this.index).setValue(this.access);
     this.fgcm.at(this.index).setValue({ 'at': new Date(), 'text': this.comment, });
+    this.updateStatus();
+  }
+
+  public updateStatus() {
+    let status: string;
+    switch (this.access) {
+      case 1:
+        status = "pause";
+        break;
+      case 2:
+      case 3:
+        status = (this.index < 2) ? "return" : "complete";
+        break;
+      default:
+        status = "complete";
+        break;
+    }
+    console.log(status);
+
+    this.FormItem.get('status').setValue(status);
   }
 
   public setEnvironment() {
@@ -88,7 +108,8 @@ export class DlgUnitPage {
     // this.store.dispatch(new SetUnit(this.FormItem.value));
     // this.FormItem.get('_id').setValue(String(Guid.create()))
     // console.log(this.FormItem.get('_id').value);
-    
+    console.log("beforeAdd: ", this.FormItem.value);
+
     this.store.dispatch(new SetHouseHold(this.FormItem.value));
     // this.storage.set('unit', this.FormItem.value)
 
