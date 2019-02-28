@@ -40,7 +40,7 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
       'hasCubicMeterPerMonth': [null, Validators.required],
       'cubicMeterPerMonth': [null, Validators.required],
       'hasPump': [null, Validators.required],
-      'pumpCount': [null, Validators.required],
+      'pumpCount': [0, Validators.required],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': fb.group({
@@ -81,8 +81,8 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
   }
 
   setDefult() {
-    this.FormItem.get('hasPump').setValue(null);
-    this.FormItem.get('pumpCount').setValue(null);
+    // this.FormItem.get('hasPump').setValue(null);
+    // this.FormItem.get('pumpCount').setValue(null);
   }
 
   submitRequest() {

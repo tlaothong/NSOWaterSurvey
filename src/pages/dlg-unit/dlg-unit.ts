@@ -72,6 +72,26 @@ export class DlgUnitPage {
     this.FormItem.get('subUnit.accessCount').setValue(this.count);
     this.fgac.at(this.index).setValue(this.access);
     this.fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment, });
+    this.updateStatus();
+  }
+
+  public updateStatus() {
+    let status: string;
+    switch (this.access) {
+      case 1:
+        status = "pause";
+        break;
+      case 2:
+      case 3:
+        status = (this.index < 2) ? "return" : "complete";
+        break;
+      default:
+        status = "complete";
+        break;
+    }
+    console.log(status);
+
+    this.FormItem.get('status').setValue(status);
   }
 
   public setEnvironment() {

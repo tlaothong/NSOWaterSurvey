@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { ModalController, NavController, AlertController, NavParams } from 'ionic-angular';
+import { ModalController, NavController, AlertController, NavParams, FabButton } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -38,7 +38,7 @@ export class UnitButtonComponent {
   public allComment = '';
 
   public index: number;
-  public status = "play";
+  public class = "play";
   public roomNumber = '';
 
   public fgac: FormArray;
@@ -681,39 +681,16 @@ export class UnitButtonComponent {
           })
         }),
         'rain': fb.group({
-          'rainContainers': fb.array([{
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }, {
-            'category': null,
-            'size': null,
-            'count': null,
-          }]),
+          'rainContainers': fb.array([
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+            UnitButtonComponent.createRainContainersForm(fb),
+          ]),
           'waterActivities': fb.group({
             'drink': 0,
             'plant': 0,
@@ -845,6 +822,14 @@ export class UnitButtonComponent {
     });
   }
 
+  public static createRainContainersForm(fb: FormBuilder) {
+    return fb.group({
+      'category': [null],
+      'size': [null],
+      'count': [null],
+    })
+  }
+
   sendIdUnit() {
     let id = this.FormItem.get('_id').value
     console.log(id);
@@ -904,7 +889,7 @@ export class UnitButtonComponent {
       this.sendIdUnit();
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
-    else if (this.status == "play" || this.status == "return" || this.status == "returnCm") {
+    else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
 
       let count = this.FormItem.get('subUnit.accessCount').value + 1;
       this.FormItem.get('subUnit.accessCount').setValue(count);
@@ -970,31 +955,30 @@ export class UnitButtonComponent {
     switch (this.access) {
       case 1:
         if (this.FormItem.valid) {
-          this.status = (this.allComment == '') ? "complete" : "completeCm";
+          this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
-          this.status = (this.allComment == '') ? "pause" : "pauseCm";
+          this.class = (this.allComment == '') ? "pause" : "pauseCm";
         }
         break;
       case 2:
       case 3:
         if (this.index < 2) {
-          this.status = (this.allComment == '') ? "return" : "returnCm";
+          this.class = (this.allComment == '') ? "return" : "returnCm";
         }
         else {
-          this.status = (this.allComment == '') ? "complete" : "completeCm";
+          this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         break;
       case 4:
-        this.status = (this.allComment == '') ? "empty" : "emptyCm";
+        this.class = (this.allComment == '') ? "empty" : "emptyCm";
         break;
       case 5:
-        this.status = (this.allComment == '') ? "abandoned" : "abandonedCm";
+        this.class = (this.allComment == '') ? "abandoned" : "abandonedCm";
         break;
       default:
         break;
     }
-    this.FormItem.get('status').setValue(this.status);
   }
 
   showComment() {

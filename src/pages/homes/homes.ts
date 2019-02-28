@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,8 @@ import { LoggingState } from '../../states/logging/logging.reducer';
 import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit } from '../../states/logging/logging.actions';
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
+import { BuildingState } from '../../states/building/building.reducer';
+import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
 
 
 
@@ -30,7 +32,7 @@ export class HomesPage {
   private dataCommunity$ = this.store.select(getLoadCommunity);
   private dataCommunity: any;
 
-  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider) {
+  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
   }
 
@@ -95,12 +97,13 @@ export class HomesPage {
     }
   }
 
-  goEditBuildingInfo(id: any) {
-    if (this.num == '1') {
-      this.swith.updateBuildingState(id);
-      this.navCtrl.push("BuildingTestPage")
-    } else if (this.num == '2') {
-      this.store.dispatch(new LoadCommunityForEdit(id));
+  goEditBuildingInfo(item: any) {
+    if (this.num == '1' && item.status != 'done-all') {
+      this.swith.updateBuildingState(item._id);
+      this.navCtrl.push("BuildingTestPage", { item: item });
+    }
+    else if (this.num == '2') {
+      this.store.dispatch(new LoadCommunityForEdit(item._id));
       this.navCtrl.push("CommunityTestPage")
     }
 

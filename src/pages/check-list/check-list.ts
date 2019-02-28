@@ -109,6 +109,8 @@ export class CheckListPage {
       if (data != null) {
         this.arrayNextPage = data
         this.skipPageMedthod();
+        console.log("boolean arr", this.arrayNextPage);
+        
       }
     });
   }

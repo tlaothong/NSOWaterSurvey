@@ -59,6 +59,7 @@ export class BuidlingInformation2Page {
       ]),
       'recCtrl': [null, Validators],
       'vacantRoomCount': [null],
+      'unitCountComplete': 0,
       'unitCount': [0, Validators],
       'unitAccess': [null, Validators],
       'occupiedRoomCount': [null, Validators],
@@ -100,12 +101,7 @@ export class BuidlingInformation2Page {
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
       this.store.dispatch(new SetHomeBuilding(this.f.value));
 
-      if (this.f.get('unitCount').value == 1) {
-        this.navCtrl.push("HouseHoldTestPage", { num: 1 });
-      }
-      else {
-        this.navCtrl.push("HouseHoldTestPage"), { num: null };
-      }
+      this.navCtrl.push("HouseHoldTestPage");
     }
   }
 
