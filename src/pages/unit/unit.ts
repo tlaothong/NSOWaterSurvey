@@ -42,11 +42,11 @@ export class UnitPage {
 
     this.storage.get('listUnits').then((val) => {
       console.log(val);
-      if(val == null){
-        this.storage.set('listUnits',new Array[0])
-      }else{
+      // if(val == null){
+        // this.storage.set('listUnits',new Array[0])
+      // }else{
         this.store.dispatch(new LoadUnitByIdBuildingSuccess(val))
-      }
+      // }
     })
     console.log(this.f.get('units').value);
 

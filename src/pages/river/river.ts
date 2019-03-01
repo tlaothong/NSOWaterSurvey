@@ -149,8 +149,8 @@ export class RiverPage {
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
-      this.storage.set(id, this.formData.value)
-      this.local.updateListUnit(id,this.formData.value)
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(id,this.formData)
       this.navCtrl.setRoot("CheckListPage");
     }
   }

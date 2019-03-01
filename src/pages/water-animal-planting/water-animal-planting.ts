@@ -75,9 +75,13 @@ export class WaterAnimalPlantingPage {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
+      console.log(this.formData);
+      
       let id = this.formData._id
-      this.storage.set(id, this.formData.value)
-      this.local.updateListUnit(id,this.formData.value)
+      console.log(id);
+      
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(id,this.formData)
       this.navCtrl.setRoot("CheckListPage");
     }
   }

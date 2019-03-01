@@ -32,7 +32,7 @@ export class DlgUnitPage {
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
-  constructor(private swithHouseHold: SwithStateProvider,public local:LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+  constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     this.FormItem.controls['buildingId'].setValue(this.id_BD);
@@ -116,19 +116,27 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    this.local.updateListUnit(id, this.FormItem.value)
-    // this.storage.get('listUnits').then((val) => {
-    //   list = val
-    //   console.log(list);
-    //   if (list != []) {
-    //     fin = list.find(it => it._id == id)
-    //     if (fin == null) {
-    //       list.push(this.FormItem.value);
-    //       this.storage.set('listUnits', list)
-    //     }
-    //   }
-    // })
+    this.storage.get('listUnits').then((val) => {
+      list = val //[]
+      console.log(list);
+      if (list != null) {
+        fin = list.find(it => it._id == id)
+        if (fin == null) {
+          list.push(this.FormItem.value);
+          this.storage.set('listUnits', list)
+        }else{
+          let index = list.findIndex(it => it._id == id)
+          list.splice(index, 1);
+          list.push(this.FormItem.value);
+          this.storage.set('listUnits', list)
+        }
+      } else {
+        list = []
+        list.push(this.FormItem.value);
+
+        this.storage.set('listUnits', list)
+      }
+    })
     console.log(this.FormItem.value);
-    // this.storage.set('unit', this.FormItem.value)
   }
 }

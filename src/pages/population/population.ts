@@ -73,9 +73,9 @@ export class PopulationPage {
       this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
       // this.storage.set('unit', this.dataPop)  
-      let id = this.formData._id
-      this.storage.set(id, this.formData.value)
-      this.local.updateListUnit(id,this.formData.value)
+      let id = this.dataPop._id
+      this.storage.set(id, this.dataPop)
+      this.local.updateListUnit(id,this.dataPop)
       this.navCtrl.setRoot("UnitPage");
     }
   }

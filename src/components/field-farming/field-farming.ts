@@ -53,7 +53,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.waterSources8A.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
     console.log("waterRice",this.FormItem.get('waterSources').value);
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
   }
 
   private dispatchWaterSource() {

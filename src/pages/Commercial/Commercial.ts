@@ -103,7 +103,7 @@ export class CommercialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
     this.dataCom.commerce = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();

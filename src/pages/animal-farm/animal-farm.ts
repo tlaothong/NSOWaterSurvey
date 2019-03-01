@@ -64,15 +64,15 @@ export class AnimalFarmPage {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
     this.dataAni.agriculture.animalFarm = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataAni));
       // this.storage.set('unit', this.dataAni)
       let id = this.dataAni._id
-      this.storage.set(id, this.f.value)
-      this.local.updateListUnit(id, this.f.value)
+      this.storage.set(id, this.dataAni)
+      this.local.updateListUnit(id, this.dataAni)
       this.navCtrl.popTo("CheckListPage");
     }
   }

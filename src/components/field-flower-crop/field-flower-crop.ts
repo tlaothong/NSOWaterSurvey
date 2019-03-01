@@ -55,7 +55,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSource9.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
   }
 
   private dispatchWaterSource() {

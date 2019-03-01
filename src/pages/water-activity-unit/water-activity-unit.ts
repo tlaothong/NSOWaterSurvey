@@ -48,7 +48,7 @@ export class WaterActivityUnitPage {
       isFactorial: this.f.get('isFactorial').value,
       isCommercial: this.f.get('isCommercial').value,
     }
-    this.store.dispatch(new SetSelectG1234(objRes));
+    // this.store.dispatch(new SetSelectG1234(objRes));
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let pilot: any
     arrayNextPage$.subscribe(data => {
@@ -57,10 +57,10 @@ export class WaterActivityUnitPage {
       }
     });
 
-    this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
-    this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
-    this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
-    this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
+    // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
+    // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
+    // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
+    // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
     // this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
     if ((this.f.get('isHouseHold').value != null)
       && (this.f.get('isAgriculture').value != null)

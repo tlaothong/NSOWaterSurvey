@@ -44,7 +44,7 @@ export class FieldRebbertreeComponent implements ISubmitRequestable {
     this.locationT.forEach(it => it.submitRequest());
     this.fieldArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
   }
 
   private dispatchWaterSource() {

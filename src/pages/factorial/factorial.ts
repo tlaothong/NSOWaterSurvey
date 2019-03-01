@@ -56,7 +56,7 @@ export class FactorialPage {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
     this.formData.factory = this.FactoryForm.value
@@ -65,8 +65,8 @@ export class FactorialPage {
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
-      this.storage.set(id, this.formData.value)
-      this.local.updateListUnit(id, this.formData.value)
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(id, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

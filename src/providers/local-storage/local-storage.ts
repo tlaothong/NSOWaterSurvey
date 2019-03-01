@@ -19,9 +19,13 @@ export class LocalStorageProvider {
     this.storage.get('listUnits').then((val) => {
       let list = val
       console.log(list);
-      if (list != []) {
+      if (list != null) {
         let fin = list.find(it => it._id == id)
+        console.log(fin);
+        
         let index = list.findIndex(d => d._id == id)
+        console.log(index);
+        
         if (fin == null) {
           list.push(data);
         } else {

@@ -74,12 +74,13 @@ export class ResidentialPage {
     this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid && !(this.check())) {
       this.arrayIsCheckMethod();
-      this.dispatchWaterSource();
+      // this.dispatchWaterSource();
       // this.store.dispatch(new SetHouseHold(this.dataRes));
       // this.storage.set('unit', this.dataRes)
       let id = this.dataRes._id
-      this.storage.set(id, this.dataRes.value)
-      this.local.updateListUnit(id,this.dataRes.value)
+      this.storage.set(id, this.dataRes)
+      console.log("set",this.dataRes);
+      this.local.updateListUnit(id,this.dataRes)
       this.navCtrl.popTo("CheckListPage");
     }
   }
