@@ -9,6 +9,8 @@ import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadComm
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
+import { Storage } from '@ionic/storage';
+import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 
 
 
@@ -32,7 +34,7 @@ export class HomesPage {
   private dataCommunity$ = this.store.select(getLoadCommunity);
   private dataCommunity: any;
 
-  constructor(private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
+  constructor(private fb: FormBuilder, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
   }
 
@@ -54,8 +56,7 @@ export class HomesPage {
   // }
 
   ionViewDidEnter() {
-
-
+    this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.dataWorkEARow = data
@@ -65,15 +66,25 @@ export class HomesPage {
         this.store.dispatch(new SetIdEaWorkHomes(this.str));
       }
     });
-    this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
+    // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
     this.store.dispatch(new LoadCommunity(this.dataWorkEARow._id));
-    this.dataBuilding$.subscribe(data => {
+    // this.dataBuilding$.subscribe(data => {
+    //   if (data != null) {
+    //     this.dataEa = data
+    //     this.listFilter = this.dataEa;
+    //     console.log(this.dataEa)
+    //   }
+    // });
+
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
         this.dataEa = data
         this.listFilter = this.dataEa;
         console.log(this.dataEa)
       }
     });
+
+
 
     this.dataCommunity$.subscribe(data => {
       if (data != null) {
@@ -100,7 +111,9 @@ export class HomesPage {
   goEditBuildingInfo(item: any) {
     if (this.num == '1' && item.status != 'done-all') {
       this.swith.updateBuildingState(item._id);
-      this.navCtrl.push("BuildingTestPage", { item: item });
+      this.storage.get(item._id).then((val) => {
+        this.navCtrl.push("BuildingTestPage", { item: val });
+      })
     }
     else if (this.num == '2') {
       this.store.dispatch(new LoadCommunityForEdit(item._id));
@@ -110,8 +123,24 @@ export class HomesPage {
   }
 
   DeleteBuilding(id: string) {
-    this.store.dispatch(new DeleteHomeBuilding(id));
-    this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
+    // this.store.dispatch(new DeleteHomeBuilding(id));
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        let list = data
+        let index = list.findIndex(it => it._id == id)
+        list.splice(index, 1)
+        this.storage.set(this.dataWorkEARow._id, list)
+      }
+    });
+    this.storage.remove(id);
+    // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.listFilter = this.dataEa;
+        console.log(this.dataEa)
+      }
+    });
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 

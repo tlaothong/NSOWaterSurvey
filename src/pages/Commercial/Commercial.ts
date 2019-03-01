@@ -111,7 +111,7 @@ export class CommercialPage {
       // this.storage.set('unit', this.dataCom)
       let id = this.dataCom._id
       this.storage.set(id, this.dataCom)
-      this.local.updateListUnit(id, this.dataCom)
+      this.local.updateListUnit(this.dataCom.buildingId, this.dataCom)
       this.navCtrl.popTo("CheckListPage");
     }
   }

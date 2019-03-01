@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getBuildingSample, getSendBuildingType, setHomeBuilding } from '../../states/building';
-import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
+import { SetRecieveDataFromBuilding, SetHomeBuilding, SetHomeBuildingSuccess } from '../../states/building/building.actions';
 import { map, delay } from 'rxjs/operators';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
@@ -99,7 +99,30 @@ export class BuidlingInformation2Page {
       console.log("pass");
 
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-      this.store.dispatch(new SetHomeBuilding(this.f.value));
+      // this.store.dispatch(new SetHomeBuilding(this.f.value));
+      this.storage.set(this.f.get('_id').value, this.f.value);
+      this.storage.get(this.f.get('ea').value).then((data) => {
+        let listBD = data
+        let idBD = this.f.get('_id').value;
+        if (listBD != null) {
+          let fin = listBD.find(it => it._id == idBD)
+          if (fin == null) {
+            listBD.push(this.f.value)
+            this.storage.set(this.f.get('ea').value, listBD)
+          }else{
+            let index = listBD.findIndex(it => it._id == idBD)
+            listBD.splice(index, 1);
+            listBD.push(this.f.value);
+            this.storage.set(this.f.get('ea').value, listBD)
+          }
+        }else{
+          listBD = []
+          listBD.push(this.f.value)
+          this.storage.set(this.f.get('ea').value, listBD)
+        }
+      })
+      this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
+
 
       this.navCtrl.push("HouseHoldTestPage");
     }

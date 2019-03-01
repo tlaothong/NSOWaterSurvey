@@ -62,7 +62,7 @@ export class RicePage {
       // this.storage.set('unit', this.data)
       let id = this.data._id
       this.storage.set(id, this.data)
-      this.local.updateListUnit(id,this.data)
+      this.local.updateListUnit(this.data.buildingId,this.data)
       this.navCtrl.popTo("CheckListPage");
     }
   }

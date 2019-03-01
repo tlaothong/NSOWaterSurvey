@@ -39,13 +39,19 @@ export class UnitPage {
     this.setupUnitsCountChanges();
     this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
     // this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
-
-    this.storage.get('listUnits').then((val) => {
+    let key = this.id_BD.substring(0, 35)
+    this.storage.get(key).then((val) => {
       console.log(val);
+      this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
+
+
+
+
+
       // if(val == null){
-        // this.storage.set('listUnits',new Array[0])
+      // this.storage.set('listUnits',new Array[0])
       // }else{
-        this.store.dispatch(new LoadUnitByIdBuildingSuccess(val))
+
       // }
     })
     console.log(this.f.get('units').value);

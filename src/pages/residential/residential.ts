@@ -80,7 +80,7 @@ export class ResidentialPage {
       let id = this.dataRes._id
       this.storage.set(id, this.dataRes)
       console.log("set",this.dataRes);
-      this.local.updateListUnit(id,this.dataRes)
+      this.local.updateListUnit(this.dataRes.buildingId,this.dataRes)
       this.navCtrl.popTo("CheckListPage");
     }
   }

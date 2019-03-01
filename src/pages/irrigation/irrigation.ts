@@ -146,7 +146,7 @@ export class IrrigationPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(id,this.formData)
+      this.local.updateListUnit(this.formData.buildingId,this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

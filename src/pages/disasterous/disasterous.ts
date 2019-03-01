@@ -74,7 +74,7 @@ export class DisasterousPage {
       // this.storage.set('unit', this.dataDis)
       let id = this.dataDis._id
       this.storage.set(id, this.dataDis)
-      this.local.updateListUnit(id,this.dataDis)
+      this.local.updateListUnit(this.dataDis.buildingId,this.dataDis)
       this.navCtrl.popTo("CheckListPage");
     }
   }

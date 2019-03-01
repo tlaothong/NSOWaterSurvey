@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveDataFromBuilding } from '../../states/building/building.actions';
-import { LoadDataBuildingForEdit } from '../../states/logging/logging.actions';
+import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveDataFromBuilding, SetHomeBuildingSuccess } from '../../states/building/building.actions';
+import { LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess } from '../../states/logging/logging.actions';
 import { getDataBuilding } from '../../states/logging';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the SwithStateProvider provider.
@@ -24,17 +25,24 @@ export class SwithStateProvider {
   private dataBuilding$ = this.store.select(getDataBuilding);
   // private getDataOfUnit$ = this.store.select(getDataOfUnit);
 
-  constructor(private store: Store<BuildingState>, public storeLog: Store<LoggingState>, public storeHouse: Store<HouseHoldState>) {
+  constructor(private store: Store<BuildingState>, private storage: Storage, public storeLog: Store<LoggingState>, public storeHouse: Store<HouseHoldState>) {
     console.log('Hello SwithStateProvider Provider');
   }
 
   public updateBuildingState(id: any) {
-    this.storeLog.dispatch(new LoadDataBuildingForEdit(id));
+    console.log(id);
+    
+    // this.storeLog.dispatch(new LoadDataBuildingForEdit(id));//null
+    this.storage.get(id).then((val)=>{
+      console.log(val);
+      
+      this.storeLog.dispatch(new LoadDataBuildingForEditSuccess(val));
+    })
     this.dataBuilding$.subscribe(data => {
       if (data != null) {
         this.store.dispatch(new SetSendBuildingType(data.buildingType));
         this.store.dispatch(new SetOtherBuildingType(data.other));
-        this.store.dispatch(new SetHomeBuilding(data));
+        this.store.dispatch(new SetHomeBuildingSuccess(data));
         this.store.dispatch(new SetRecieveDataFromBuilding(data.unitCount));
       }
     });
