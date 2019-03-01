@@ -506,7 +506,7 @@ function resetStatesForModel(model: any): any {
 
 function findWaterSourceRice(water) {
     console.log("findWaterSourceRice");
-
+//
     let fields = water && water.fields as Array<any>;
     let waterSourceRice = {}
     if (fields != null) {
