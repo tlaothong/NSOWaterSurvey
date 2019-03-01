@@ -70,7 +70,7 @@ export class WaterActivityUnitPage {
       console.log(this.f.value);
       let id = this.f.get('_id').value
       this.storage.set(id, this.f.value)
-      this.local.updateListUnit(id, this.f.value);
+      this.local.updateListUnit(this.f.get('buildingId').value, this.f.value);
       this.navCtrl.push("CheckListPage", { id: this.f.value._id });
     }
 

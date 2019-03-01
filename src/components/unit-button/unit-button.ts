@@ -835,11 +835,9 @@ export class UnitButtonComponent {
     console.log(id);
     this.storage.get(id).then((val) => {
       console.log(val);
-      
       if(val != null){
         this.dataS = val;
         console.log(val);
-        
         this.store.dispatch(new LoadHouseHoldSampleSuccess(this.dataS));
       }
     })

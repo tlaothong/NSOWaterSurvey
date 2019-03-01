@@ -72,7 +72,7 @@ export class AnimalFarmPage {
       // this.storage.set('unit', this.dataAni)
       let id = this.dataAni._id
       this.storage.set(id, this.dataAni)
-      this.local.updateListUnit(id, this.dataAni)
+      this.local.updateListUnit(this.dataAni.buildingId, this.dataAni)
       this.navCtrl.popTo("CheckListPage");
     }
   }

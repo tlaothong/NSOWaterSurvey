@@ -116,25 +116,25 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    this.storage.get('listUnits').then((val) => {
+    let key = this.id_BD.substring(0,35)    
+    this.storage.get(key).then((val) => {
       list = val //[]
       console.log(list);
       if (list != null) {
         fin = list.find(it => it._id == id)
         if (fin == null) {
           list.push(this.FormItem.value);
-          this.storage.set('listUnits', list)
-        }else{
+          this.storage.set(key, list)
+        } else {
           let index = list.findIndex(it => it._id == id)
           list.splice(index, 1);
           list.push(this.FormItem.value);
-          this.storage.set('listUnits', list)
+          this.storage.set(key, list)
         }
       } else {
         list = []
         list.push(this.FormItem.value);
-
-        this.storage.set('listUnits', list)
+        this.storage.set(key, list)
       }
     })
     console.log(this.FormItem.value);

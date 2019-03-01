@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BuildingState } from '../../states/building/building.reducer';
 import { Store } from '@ngrx/store';
-import { LoadBuildingSample, SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
+import { LoadBuildingSample, SetRecieveDataFromBuilding, SetHomeBuilding, SetHomeBuildingSuccess } from '../../states/building/building.actions';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,7 @@ export class BuildingTestPage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BuildingState>) {
     this.pages = [
       { title: 'Homes', component: "HomesPage" },
       { title: 'Building Info Page 1', component: "BuildingInformation1Page" },
@@ -26,18 +27,25 @@ export class BuildingTestPage {
     console.log('ionViewDidLoad BuildingTestPage');
     let item = this.navParams.get('item');
     let status = item ? item.status : 'refresh';
-    switch (status) {
-      case 'refresh':
-        this.navCtrl.push('BuildingInformation1Page', { id: this.navParams.get('id') });
-        break;
-      case 'pause':
-        this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
-        this.store.dispatch(new SetHomeBuilding(item));
-        this.navCtrl.push("HouseHoldTestPage");
-        break;
-      default:
-        break;
+    if (item != undefined) {
+      switch (status) {
+        case 'refresh':
+          this.navCtrl.push('BuildingInformation1Page', { ea: this.navParams.get('id'), id: item._id });
+          break;
+        case 'pause':
+          this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
+          // this.store.dispatch(new SetHomeBuilding(item));
+          // this.storage.set(item._id, item)
+          this.store.dispatch(new SetHomeBuildingSuccess(item));
+          this.navCtrl.push("HouseHoldTestPage");
+          break;
+        default:
+          break;
+      }
+    } else {
+      this.navCtrl.push('BuildingInformation1Page', { ea: this.navParams.get('id') });
     }
+
   }
 
   public openPage(page) {

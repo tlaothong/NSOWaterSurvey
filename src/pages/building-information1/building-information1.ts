@@ -3,11 +3,12 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType } from '../../states/building/building.actions';
+import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetHomeBuildingSuccess } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
+import { Guid } from 'guid-typescript';
 
 @IonicPage()
 @Component({
@@ -30,7 +31,8 @@ export class BuildingInformation1Page {
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
-    this.f.controls['ea'].setValue(navParams.get('id'));
+    this.f.controls['ea'].setValue(navParams.get('ea'));
+    this.f.controls['_id'].setValue(navParams.get('id'));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -70,9 +72,21 @@ export class BuildingInformation1Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuildingInformation1Page');
     this.loadMap()
-    this.dataBuilding$.subscribe(data => {
+    // this.dataBuilding$.subscribe(data => {
+    //   if (data != null) {
+    //     console.log(data);
+    //     this.f.get('accessCount').setValue(data.accessCount);
+    //     this.setupCountChanges();
+    //     this.f.setValue(data);
+    //   }
+    // });
+    let id = this.f.get('_id').value;
+    console.log(id);
+    
+    this.storage.get(id).then((data) => {
       if (data != null) {
         console.log(data);
+        
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
         this.f.setValue(data);
@@ -115,7 +129,7 @@ export class BuildingInformation1Page {
     if (this.f.valid && this.access == 1) {
       this.dispatch();
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
-      this.storage.set('key', this.f.value)
+      // this.storage.set('key', this.f.value)
     }
     if (this.f.valid && (this.access == 2 || this.access == 3 || this.access == 4)) {
       this.dispatch();
@@ -124,15 +138,47 @@ export class BuildingInformation1Page {
   }
 
   public dispatch() {
+    let idBD = this.f.get('_id').value
+    let listBD: any;
     let fgac = this.f.get('access') as FormArray;
     let fgcm = this.f.get('comments') as FormArray;
     fgac.at(this.index).setValue(this.access);
-    fgcm.at(this.index).setValue({ 'at': new Date(), 'text': this.comment });
+    fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment });
 
     console.log(this.f.value);
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
-    this.store.dispatch(new SetHomeBuilding(this.f.value));
+    // this.store.dispatch(new SetHomeBuilding(this.f.value));
+    
+    if (idBD == null) {
+      this.f.get('_id').setValue(Guid.create().toString());
+      idBD = this.f.get('_id').value
+    }
+    console.log(idBD);
+    
+    this.storage.set(idBD,this.f.value)
+    this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
+
+
+    this.storage.get(this.f.get('ea').value).then((data) => {
+      listBD = data
+      if (listBD != null) {
+        let fin = listBD.find(it => it._id == idBD)
+        if (fin == null) {
+          listBD.push(this.f.value)
+          this.storage.set(this.f.get('ea').value, listBD)
+        }else{
+          let index = listBD.findIndex(it => it._id == idBD)
+          listBD.splice(index, 1);
+          listBD.push(this.f.value);
+          this.storage.set(this.f.get('ea').value, listBD)
+        }
+      }else{
+        listBD = []
+        listBD.push(this.f.value)
+        this.storage.set(this.f.get('ea').value, listBD)
+      }
+    })
   }
 
   public updateStatus() {

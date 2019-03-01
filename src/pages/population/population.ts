@@ -75,7 +75,7 @@ export class PopulationPage {
       // this.storage.set('unit', this.dataPop)  
       let id = this.dataPop._id
       this.storage.set(id, this.dataPop)
-      this.local.updateListUnit(id,this.dataPop)
+      this.local.updateListUnit(this.dataPop.buildingId,this.dataPop)
       this.navCtrl.setRoot("UnitPage");
     }
   }

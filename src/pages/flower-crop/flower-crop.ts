@@ -150,7 +150,7 @@ export class FlowerCropPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(id,this.formData)
+      this.local.updateListUnit(this.formData.buildingIds,this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

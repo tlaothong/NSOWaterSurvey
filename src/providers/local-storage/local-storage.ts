@@ -16,23 +16,23 @@ export class LocalStorageProvider {
   }
 
   updateListUnit(id: string, data: any) {
-    this.storage.get('listUnits').then((val) => {
+    this.storage.get('s' + id).then((val) => {
       let list = val
       console.log(list);
       if (list != null) {
-        let fin = list.find(it => it._id == id)
+        let fin = list.find(it => it._id == data._id)
         console.log(fin);
-        
-        let index = list.findIndex(d => d._id == id)
+
+        let index = list.findIndex(d => d._id == data._id)
         console.log(index);
-        
+
         if (fin == null) {
           list.push(data);
         } else {
           list.splice(index, 1);
           list.push(data)
         }
-        this.storage.set('listUnits', list)
+        this.storage.set(id, list)
       }
     })
   }
