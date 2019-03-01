@@ -141,7 +141,6 @@ export class GroundWaterPage {
     this.formData.waterUsage.groundWater = this.f.value;
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
-      
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
       let id = this.formData._id

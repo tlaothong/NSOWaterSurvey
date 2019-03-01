@@ -850,19 +850,19 @@ export class UnitButtonComponent {
     // });
 
     // this.storage.set(id, this.dataS)
-    let f = this.store.select(getHouseHoldSample);
-    f.subscribe(data => console.log("fffff", data));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 8)) {
-          arrayIsCheck.splice(0, arrayIsCheck.length);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let f = this.store.select(getHouseHoldSample);
+    // f.subscribe(data => console.log("fffff", data));
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 8)) {
+    //       arrayIsCheck.splice(0, arrayIsCheck.length);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public showModalSetting() {

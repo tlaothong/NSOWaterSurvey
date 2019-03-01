@@ -151,7 +151,7 @@ export class RiverPage {
       let id = this.formData._id
       this.storage.set(id, this.formData)
       this.local.updateListUnit(id,this.formData)
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 

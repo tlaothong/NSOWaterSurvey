@@ -56,11 +56,11 @@ export class CheckListPage {
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage", isCheck: false },
     ];
   }
-  
+
   ionViewDidEnter() {
     console.log('ionViewDidEnter CheckListPage');
     this.storage.get(this.navParams.get('id')).then((val) => {
-      console.log("get",val);
+      console.log("get", val);
       this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
       this.arrayIsCheckMethod();
       this.arrayNextPageMethod();
@@ -82,6 +82,8 @@ export class CheckListPage {
       if (this.arrayNextPage[i]) {
         console.log("goNextPage");
         this.store.dispatch(new SetSelectorIndex(i));
+        console.log("i", i);
+
         this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
         break;
       }
@@ -103,13 +105,14 @@ export class CheckListPage {
   arrayNextPageMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     selectorIndex$.subscribe(data => this.index = data);
+    console.log("index select", this.index)
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     arrayNextPage$.subscribe(data => {
       if (data != null) {
         this.arrayNextPage = data
         this.skipPageMedthod();
         console.log("boolean arr", this.arrayNextPage);
-        
+
       }
     });
   }
