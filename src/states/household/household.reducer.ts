@@ -294,7 +294,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
-            console.log("JSON State", JSON.stringify(s));
             return {
                 ...state,
                 houseHoldSample: action.payload,
@@ -743,7 +742,6 @@ function findWaterSourceAquticAnimals(water) {
 
 function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     let arr: Array<boolean> = state.nextPageDirection;
-    console.log("JSON State", JSON.stringify("state.selectG1234", state.selectG1234));
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
@@ -754,15 +752,15 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     }
 
     if (state.arraySkipPageAgiculture) {
-        arr[2] = (state.arraySkipPageAgiculture.ricePlant && state.arraySkipPageAgiculture.ricePlant.doing) ? true : false;
-        arr[3] = (state.arraySkipPageAgiculture.agronomyPlant && state.arraySkipPageAgiculture.agronomyPlant.doing) ? true : false;
-        arr[4] = (state.arraySkipPageAgiculture.rubberTree && state.arraySkipPageAgiculture.rubberTree.doing) ? true : false;
-        arr[5] = (state.arraySkipPageAgiculture.perennialPlant && state.arraySkipPageAgiculture.perennialPlant.doing) ? true : false;
-        arr[6] = (state.arraySkipPageAgiculture.herbsPlant && state.arraySkipPageAgiculture.herbsPlant.doing) ? true : false;
-        arr[7] = (state.arraySkipPageAgiculture.flowerCrop && state.arraySkipPageAgiculture.flowerCrop.doing) ? true : false;
-        arr[8] = (state.arraySkipPageAgiculture.mushroomPlant && state.arraySkipPageAgiculture.mushroomPlant.doing) ? true : false;
-        arr[9] = (state.arraySkipPageAgiculture.animalFarm && state.arraySkipPageAgiculture.animalFarm.doing) ? true : false;
-        arr[10] = (state.arraySkipPageAgiculture.aquaticAnimals && state.arraySkipPageAgiculture.aquaticAnimals.doing) ? true : false;
+        arr[2] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.ricePlant) ? true : false;
+        arr[3] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.agronomyPlant) ? true : false;
+        arr[4] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.rubberTree) ? true : false;
+        arr[5] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.perennialPlant) ? true : false;
+        arr[6] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.herbsPlant) ? true : false;
+        arr[7] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.flowerCrop) ? true : false;
+        arr[8] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.mushroomPlant) ? true : false;
+        arr[9] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.animalFarm) ? true : false;
+        arr[10] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.aquaticAnimals) ? true : false;
     }
 
     arr[13] = (state.checkWaterPlumbing) ? true : false;
@@ -771,8 +769,6 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     arr[18] = (state.checkWaterRain) ? true : false;
     arr[19] = (state.checkWaterBuying) ? true : false;
 
-
-    console.log(JSON.stringify(arr));
     return arr;
 }
 

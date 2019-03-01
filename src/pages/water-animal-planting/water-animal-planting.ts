@@ -82,7 +82,7 @@ export class WaterAnimalPlantingPage {
       
       this.storage.set(id, this.formData)
       this.local.updateListUnit(id,this.formData)
-      this.navCtrl.setRoot("CheckListPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 

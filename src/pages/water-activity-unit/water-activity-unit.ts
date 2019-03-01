@@ -27,8 +27,8 @@ export class WaterActivityUnitPage {
     this.f = navParams.get('FormItem');
   }
 
-  ionViewDidLoad() {
-    console.log("test");
+  ionViewDidEnter() {
+    console.log("WaterActivityUnitPage");
     this.formDataRecieve$.subscribe(data => {
       if (data != null) {
         this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
