@@ -51,7 +51,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
   }
 
   public static checkAnyOrOther(): ValidatorFn {

@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class BuyingPage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.BuyingForm = this.fb.group({
       'package': this.fb.array([
         TableBuyingComponent.CreateFormGruop(this.fb),
@@ -73,7 +74,10 @@ export class BuyingPage {
       || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
-      this.storage.set('unit', this.formData)
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(id,this.formData)  
       this.navCtrl.pop();
     }
   }

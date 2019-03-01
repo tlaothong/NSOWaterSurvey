@@ -11,6 +11,7 @@ import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -38,7 +39,7 @@ export class PopulationPage {
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
@@ -71,8 +72,10 @@ export class PopulationPage {
       this.arrayIsCheckMethod();
       this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
-        
-      this.storage.set('unit', this.dataPop)  
+      // this.storage.set('unit', this.dataPop)  
+      let id = this.dataPop._id
+      this.storage.set(id, this.dataPop)
+      this.local.updateListUnit(id,this.dataPop)
       this.navCtrl.setRoot("UnitPage");
     }
   }

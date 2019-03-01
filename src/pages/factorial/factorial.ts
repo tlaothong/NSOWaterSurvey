@@ -9,6 +9,7 @@ import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection } from '../.
 import { map } from 'rxjs/operators';
 import { SetFactorialCategory, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,7 @@ export class FactorialPage {
   private formData: any
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage,    public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],
@@ -55,14 +56,17 @@ export class FactorialPage {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
     this.formData.factory = this.FactoryForm.value
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
-      this.storage.set('unit', this.formData)
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(id, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -30,10 +30,6 @@ export class CheckListPage {
 
   constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
-    this.storage.get('unit').then((val) => {
-      console.log(val);
-      this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
-    })
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false },
@@ -60,12 +56,15 @@ export class CheckListPage {
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage", isCheck: false },
     ];
   }
-
+  
   ionViewDidEnter() {
     console.log('ionViewDidEnter CheckListPage');
-
-    this.arrayIsCheckMethod();
-    this.arrayNextPageMethod();
+    this.storage.get(this.navParams.get('id')).then((val) => {
+      console.log("get",val);
+      this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
+      this.arrayIsCheckMethod();
+      this.arrayNextPageMethod();
+    })
   }
 
   skipPageMedthod() {

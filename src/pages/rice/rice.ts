@@ -9,6 +9,7 @@ import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../..
 import { map } from 'rxjs/operators';
 import { EX_RICH_LIST } from '../../models/tree';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -29,7 +30,7 @@ export class RicePage {
   private data: any
   formData$: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider,  public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -58,7 +59,10 @@ export class RicePage {
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.data));
-      this.storage.set('unit', this.data)
+      // this.storage.set('unit', this.data)
+      let id = this.data._id
+      this.storage.set(id, this.data)
+      this.local.updateListUnit(id,this.data)
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getHouseHoldSample } from '../../states/household';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -15,11 +16,13 @@ import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getH
 export class AgriculturePage {
   private submitRequested: boolean;
   public f: FormGroup;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData$ = this.store.select(getHouseHoldSample);
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
+  public id: any;
+
+  constructor(public navCtrl: NavController, private storage: Storage, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": this.fb.group({
         'doing': [false, Validators.required],
@@ -92,6 +95,7 @@ export class AgriculturePage {
         this.f.get('mushroomPlant.doing').setValue(data.mushroomPlant);
         this.f.get('animalFarm.doing').setValue(data.animalFarm);
         this.f.get('aquaticAnimals.doing').setValue(data.aquaticAnimals);
+
       }
     });
   }
@@ -102,8 +106,23 @@ export class AgriculturePage {
 
 
     if (!this.isValid('anycheck')) {
-      this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+      // this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+      this.formData$.subscribe(data => {
+        if (data != null) {
+          data.agriculture.ricePlant = this.f.get('ricePlant.doing').value;
+          data.agriculture.agronomyPlant = this.f.get('agronomyPlant.doing').value;
+          data.agriculture.rubberTree = this.f.get('rubberTree.doing').value;
+          data.agriculture.perennialPlant = this.f.get('perennialPlant.doing').value;
+          data.agriculture.herbsPlant = this.f.get('herbsPlant.doing').value;
+          data.agriculture.flowerCrop = this.f.get('flowerCrop.doing').value;
+          data.agriculture.mushroomPlant = this.f.get('mushroomPlant.doing').value;
+          data.agriculture.animalFarm = this.f.get('animalFarm.doing').value;
+          data.agriculture.aquaticAnimals = this.f.get('aquaticAnimals.doing').value;
+          console.log("plant", data);
+          this.storage.set(data._id,data)
 
+        }
+      });
       this.arrayIsCheckMethod();
       this.navCtrl.popTo("CheckListPage");
     }

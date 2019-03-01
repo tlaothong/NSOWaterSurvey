@@ -7,6 +7,7 @@ import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, get
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -29,7 +30,7 @@ export class UserPage {
   public commercialServiceUse: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
       "factorialCategoryCode": [null, Validators.required],
@@ -58,7 +59,10 @@ export class UserPage {
     if (this.userInfo.valid) {
     this.arrayIsCheckMethod();
     // this.store.dispatch(new SetHouseHold(this.formData));
-    this.storage.set('unit', this.formData)
+    // this.storage.set('unit', this.formData)
+    let id = this.formData._id
+    this.storage.set(id, this.formData)
+    this.local.updateListUnit(id,this.formData)
     this.navCtrl.popTo("CheckListPage");
     }
   }
