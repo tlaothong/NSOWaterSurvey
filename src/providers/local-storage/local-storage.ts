@@ -16,7 +16,8 @@ export class LocalStorageProvider {
   }
 
   updateListUnit(id: string, data: any) {
-    this.storage.get('s' + id).then((val) => {
+    let key = id.substring(0,35)   
+    this.storage.get(key).then((val) => {
       let list = val
       console.log(list);
       if (list != null) {
