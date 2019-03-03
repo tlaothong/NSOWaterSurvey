@@ -37,35 +37,15 @@ export class UnitPage {
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     console.log(this.f.get('unitCount').value);
     this.setupUnitsCountChanges();
-    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
-    // this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
-    let key = this.id_BD.substring(0, 35)
-    this.storage.get(key).then((val) => {
-      console.log(val);
-      this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-
-
-
-
-
-      // if(val == null){
-      // this.storage.set('listUnits',new Array[0])
-      // }else{
-
-      // }
-    })
+    this.dataHomeBuilding$.subscribe(data => {
+      this.id_BD = data._id
+      let key = "BL" + this.id_BD
+      this.storage.get(key).then((val) => {
+        console.log(val);
+        this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
+      })
+    });
     console.log(this.f.get('units').value);
-
-    // if (this.f.get('unitCount').value == 1) {
-    //   let fr = this.f.get('units') as FormArray;
-    //   console.log(fr.at(0).value);
-    //   if (fr.at(0).get('_id').invalid) {
-    //     fr.at(0).get('_id').setValue(Guid.create().toString());
-    //     fr.at(0).get('buildingId').setValue(this.id_BD);
-    //   }
-    //   this.navCtrl.push('WaterActivityUnitPage', { FormItem: fr.at(0) });
-    // }
-
   }
 
   private setupUnitsCountChanges() {

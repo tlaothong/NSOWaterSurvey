@@ -32,6 +32,8 @@ export class BuidlingInformation2Page {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
+        console.log(data);
+        
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
         this.f.setValue(data);
@@ -122,8 +124,6 @@ export class BuidlingInformation2Page {
         }
       })
       this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-
-
       this.navCtrl.push("HouseHoldTestPage");
     }
   }

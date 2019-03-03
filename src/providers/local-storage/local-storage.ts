@@ -16,7 +16,9 @@ export class LocalStorageProvider {
   }
 
   updateListUnit(id: string, data: any) {
-    let key = id.substring(0,35)   
+    let key = "BL" + id
+    console.log(key);
+
     this.storage.get(key).then((val) => {
       let list = val
       console.log(list);
@@ -33,7 +35,7 @@ export class LocalStorageProvider {
           list.splice(index, 1);
           list.push(data)
         }
-        this.storage.set(id, list)
+        this.storage.set(key, list)
       }
     })
   }

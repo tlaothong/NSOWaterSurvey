@@ -34,8 +34,10 @@ export class DlgUnitPage {
 
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
-    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
-    this.FormItem.controls['buildingId'].setValue(this.id_BD);
+    this.dataHomeBuilding$.subscribe(data => {
+      this.id_BD = data._id
+      this.FormItem.controls['buildingId'].setValue(this.id_BD);
+    });
     this.setEnvironment();
   }
 
@@ -116,7 +118,9 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    let key = this.id_BD.substring(0,35)    
+    let key = "BL" + this.id_BD
+    console.log(this.id_BD);
+
     this.storage.get(key).then((val) => {
       list = val //[]
       console.log(list);

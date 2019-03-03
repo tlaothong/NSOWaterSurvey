@@ -27,6 +27,8 @@ export class BuildingTestPage {
     console.log('ionViewDidLoad BuildingTestPage');
     let item = this.navParams.get('item');
     let status = item ? item.status : 'refresh';
+    console.log(item);
+    
     if (item != undefined) {
       switch (status) {
         case 'refresh':

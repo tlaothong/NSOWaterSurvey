@@ -28,7 +28,7 @@ export class SelectEaPage {
     // });
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.formDataEa$.subscribe(data => {
       if (data != null) {
         this.dataEa = data
