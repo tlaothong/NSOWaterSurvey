@@ -111,7 +111,11 @@ export class HomesPage {
   goEditBuildingInfo(item: any) {
     if (this.num == '1' && item.status != 'done-all') {
       this.swith.updateBuildingState(item._id);
+      console.log(item);
+      
       this.storage.get(item._id).then((val) => {
+        console.log(val);
+        
         this.navCtrl.push("BuildingTestPage", { item: val });
       })
     }
