@@ -10,6 +10,8 @@ import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -47,7 +49,7 @@ export class RainPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public modalCtrl: ModalController,private storage: Storage, public local: LocalStorageProvider, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([
         RainStorageComponent.CreateFormGroup(this.fb),
@@ -69,13 +71,9 @@ export class RainPage {
       if (data != null) {
         this.RainFrm.patchValue(data.waterUsage.rain);
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.rain));
-        // this.formData$.subscribe(data =>{
-        //   if(data != null){
-        //   }
-        // })
       }
     })
+ 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
@@ -83,7 +81,7 @@ export class RainPage {
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
     console.log('ionViewDidLoad RainPage');
     this.activityResidential$.subscribe(data => {
-      this.activityResidential = (data != null) ? data.river : null;
+      this.activityResidential = (data != null) ? data.rain : null;
     });
     this.activityWateringRes$.subscribe(data => {
       this.activityWateringRes = (data != null) ? data : null;
@@ -92,10 +90,10 @@ export class RainPage {
       this.activityAgiculture = (data != null) ? data : null;
     });
     this.activityFactory$.subscribe(data => {
-      this.activityFactory = (data != null) ? data.river : null;
+      this.activityFactory = (data != null) ? data.rain : null;
     });
     this.activityCommercial$.subscribe(data => {
-      this.activityCommercial = (data != null) ? data.river : null;
+      this.activityCommercial = (data != null) ? data.rain : null;
     });
     this.changeValueActivity();
     console.log("activityResidential", this.activityResidential);
@@ -127,13 +125,17 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
+    console.log(this.RainFrm.value);
     this.formData.waterUsage.rain = this.RainFrm.value;
-    console.log(this.RainFrm.get('rainContainers').statusChanges);
-    // this.RainFrm.get('waterActivities').valid == false;
-    console.log(this.RainFrm.get('waterActivities').valid );
-    if (!this.waterActivity5.find(it => it.checkValid()) && this.rainStorage.some(it => it.FormItem.valid)) {
+    console.log(this.formData);
+    
+    if (!this.waterActivity5.some(it => it.isCheck == false) && this.rainStorage.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(this.formData.buildingId,this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

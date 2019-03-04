@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -53,7 +55,7 @@ export class IrrigationPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.f = this.fb.group({
       'hasCubicMeterPerMonth': [null, Validators],
@@ -77,6 +79,7 @@ export class IrrigationPage {
         this.formData = data;
       }
     })
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -139,7 +142,11 @@ export class IrrigationPage {
     this.formData.waterUsage.irrigation = this.f.value
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(this.formData.buildingId,this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -157,7 +164,7 @@ export class IrrigationPage {
       }
       if ((hasCubicMeterPerMonth.value == true)
         && ((cubicMeterPerMonth.value == null)
-          || (cubicMeterPerMonth.value.trim() == ''))) {
+          || (cubicMeterPerMonth.value < 1))) {
         return { 'cubicMeterPerMonth': true };
       }
       if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {

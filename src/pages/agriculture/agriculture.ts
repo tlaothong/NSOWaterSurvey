@@ -1,4 +1,4 @@
-import { SetAgiSelectRice, SetAgiSelectAgronomy, SetAgiSelectRubber, SetAgiSelectPerennial, SetArraySkipPageAgiculture, SetSelectorIndex, } from './../../states/household/household.actions';
+import { SetArraySkipPageAgiculture, SetSelectorIndex, } from './../../states/household/household.actions';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
 import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getHouseHoldSample } from '../../states/household';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -15,11 +17,13 @@ import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getH
 export class AgriculturePage {
   private submitRequested: boolean;
   public f: FormGroup;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
+  private formData$ = this.store.select(getHouseHoldSample);
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
+  public id: any;
+
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": this.fb.group({
         'doing': [false, Validators.required],
@@ -92,6 +96,7 @@ export class AgriculturePage {
         this.f.get('mushroomPlant.doing').setValue(data.mushroomPlant);
         this.f.get('animalFarm.doing').setValue(data.animalFarm);
         this.f.get('aquaticAnimals.doing').setValue(data.aquaticAnimals);
+
       }
     });
   }
@@ -102,10 +107,25 @@ export class AgriculturePage {
 
 
     if (!this.isValid('anycheck')) {
-      this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
-
+      // this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
+      this.formData$.subscribe(data => {
+        if (data != null) {
+          data.agriculture.ricePlant.doing = this.f.get('ricePlant.doing').value;
+          data.agriculture.agronomyPlant.doing = this.f.get('agronomyPlant.doing').value;
+          data.agriculture.rubberTree.doing = this.f.get('rubberTree.doing').value;
+          data.agriculture.perennialPlant.doing = this.f.get('perennialPlant.doing').value;
+          data.agriculture.herbsPlant.doing = this.f.get('herbsPlant.doing').value;
+          data.agriculture.flowerCrop.doing = this.f.get('flowerCrop.doing').value;
+          data.agriculture.mushroomPlant.doing = this.f.get('mushroomPlant.doing').value;
+          data.agriculture.animalFarm.doing = this.f.get('animalFarm.doing').value;
+          data.agriculture.aquaticAnimals.doing = this.f.get('aquaticAnimals.doing').value;
+          console.log("plant", data);
+          this.storage.set(data._id, data)
+          this.local.updateListUnit(data._id, data)
+        }
+      });
       this.arrayIsCheckMethod();
-      this.navCtrl.popTo("CheckListPage");
+      this.navCtrl.pop();
     }
   }
 

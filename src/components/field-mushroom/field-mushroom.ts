@@ -35,7 +35,7 @@ export class FieldMushroomComponent {
     this.submitRequested = true;
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
   }
 
   private dispatchWaterSource() {

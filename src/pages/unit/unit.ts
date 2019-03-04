@@ -6,7 +6,9 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuilding } from '../../states/household/household.actions';
+import { LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
+import { Guid } from 'guid-typescript';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -21,8 +23,9 @@ export class UnitPage {
   private dataHomeBuilding$ = this.store.select(setHomeBuilding);
   public id_BD: string;
   public units: any;
+  public FormItem: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
@@ -34,10 +37,15 @@ export class UnitPage {
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     console.log(this.f.get('unitCount').value);
     this.setupUnitsCountChanges();
-    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
-    this.store.dispatch(new LoadUnitByIdBuilding(this.id_BD));
+    this.dataHomeBuilding$.subscribe(data => {
+      this.id_BD = data._id
+      let key = "BL" + this.id_BD
+      this.storage.get(key).then((val) => {
+        console.log(val);
+        this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
+      })
+    });
     console.log(this.f.get('units').value);
-    
   }
 
   private setupUnitsCountChanges() {

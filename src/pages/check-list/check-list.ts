@@ -5,7 +5,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot,  SetBack, LoadHouseHoldSample } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SetHouseHold, SetHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
 
 
 /**
@@ -27,7 +28,8 @@ export class CheckListPage {
   private arrayNextPage: any[];
   // private indexBack: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
+    // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false },
@@ -56,11 +58,13 @@ export class CheckListPage {
   }
 
   ionViewDidEnter() {
-    this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     console.log('ionViewDidEnter CheckListPage');
-
-    this.arrayIsCheckMethod();
-    this.arrayNextPageMethod();
+    this.storage.get(this.navParams.get('id')).then((val) => {
+      console.log("get", val);
+      this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
+      this.arrayIsCheckMethod();
+      this.arrayNextPageMethod();
+    })
   }
 
   skipPageMedthod() {
@@ -78,6 +82,8 @@ export class CheckListPage {
       if (this.arrayNextPage[i]) {
         console.log("goNextPage");
         this.store.dispatch(new SetSelectorIndex(i));
+        console.log("i", i);
+
         this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
         break;
       }
@@ -99,11 +105,14 @@ export class CheckListPage {
   arrayNextPageMethod() {
     let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
     selectorIndex$.subscribe(data => this.index = data);
+    console.log("index select", this.index)
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     arrayNextPage$.subscribe(data => {
       if (data != null) {
         this.arrayNextPage = data
         this.skipPageMedthod();
+        console.log("boolean arr", this.arrayNextPage);
+
       }
     });
   }

@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -25,7 +27,7 @@ export class DisasterousPage {
   public dataDis: any;
   private frontNum: any;
   private backNum: any;
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(private modalCtrl: ModalController,public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -68,7 +70,11 @@ export class DisasterousPage {
       || this.Disasterous.get('flooded').value == false
       || this.tableDisasterous.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataDis));
+      // this.store.dispatch(new SetHouseHold(this.dataDis));
+      // this.storage.set('unit', this.dataDis)
+      let id = this.dataDis._id
+      this.storage.set(id, this.dataDis)
+      this.local.updateListUnit(this.dataDis.buildingId,this.dataDis)
       this.navCtrl.popTo("CheckListPage");
     }
   }

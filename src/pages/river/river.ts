@@ -9,6 +9,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -54,7 +56,7 @@ export class RiverPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
@@ -73,11 +75,13 @@ export class RiverPage {
       if (data != null) {
         this.f.patchValue(data.waterUsage.river);
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage.river));
-        // this.formData$.subscribe(data => {
-        //   if (data != null) {
-        //   }
-        // })
+      }
+    })
+    this.storage.get('unit').then((val) => {
+      if(val != null){
+        this.formData = val;
+        this.f.patchValue(val.waterUsage.river);
+        console.log(val);
       }
     })
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
@@ -142,8 +146,14 @@ export class RiverPage {
     this.formData.waterUsage.river = this.f.value;
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
-      this.navCtrl.setRoot("CheckListPage");
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.navCtrl.popTo("CheckListPage");
+      
+      
     }
   }
 

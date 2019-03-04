@@ -7,7 +7,9 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -23,11 +25,11 @@ export class AnimalFarmPage {
   public f: FormGroup;
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formDataUnit$ = this.store.select(getHouseHoldSample);
-  public dataAni:any;
+  public dataAni: any;
   private frontNum: any;
   private backNum: any;
-  
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
+
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -54,12 +56,6 @@ export class AnimalFarmPage {
       if (data != null) {
         this.f.patchValue(data.agriculture.animalFarm)
         this.dataAni = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.animalFarm));
-        // this.formData$.subscribe(data => {
-        //   if(data != null){
-        //     this.f.patchValue(data)
-        //   }
-        // })
       }
     })
   }
@@ -68,11 +64,15 @@ export class AnimalFarmPage {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
     this.dataAni.agriculture.animalFarm = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataAni));
+      // this.store.dispatch(new SetHouseHold(this.dataAni));
+      // this.storage.set('unit', this.dataAni)
+      let id = this.dataAni._id
+      this.storage.set(id, this.dataAni)
+      this.local.updateListUnit(this.dataAni.buildingId, this.dataAni)
       this.navCtrl.popTo("CheckListPage");
     }
   }

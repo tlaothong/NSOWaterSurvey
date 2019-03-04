@@ -9,6 +9,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -56,7 +58,7 @@ export class GroundWaterPage {
   private backNum: any;
   public checked: boolean;
 
-  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
@@ -67,7 +69,7 @@ export class GroundWaterPage {
       'publicGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
-        'waterResources': this.fb.array([])
+        'waterResources': this.fb.array([]) 
       })
     });
 
@@ -83,6 +85,7 @@ export class GroundWaterPage {
         this.formData = data;
       }
     })
+  
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -138,7 +141,11 @@ export class GroundWaterPage {
     this.formData.waterUsage.groundWater = this.f.value;
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(this.formData.buildingId,this.formData)
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
       

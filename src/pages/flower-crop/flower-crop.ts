@@ -8,6 +8,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -43,7 +45,7 @@ export class FlowerCropPage {
   public getAgiSelectPerennial: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
@@ -60,23 +62,54 @@ export class FlowerCropPage {
       if (data != null) {
         this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
         this.formData = data;
-        // this.formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture.flowerCrop));
-        // this.formData$.subscribe(data => {
-        //   if(data != null){
-        //   }
-        // })
       }
     })
-    this.GetPlantRice$.subscribe(data => this.listRiceData = data);
-    this.GetPlantDrycrop$.subscribe(data => this.listDryCropData = data);
-    this.GetPlantRubber$.subscribe(data => this.listRubberData = data);
-    this.GetPlantPerennial$.subscribe(data => this.listPerenialData = data);
+    this.GetPlantRice$.subscribe(data => {
+      if (data != null) {
+        this.listRiceData = data
+      }
+
+    });
+    this.GetPlantDrycrop$.subscribe(data => {
+      if (data != null) {
+        this.listDryCropData = data
+      }
+    }
+    );
+    this.GetPlantRubber$.subscribe(data => {
+      if (data != null) {
+        this.listRubberData = data
+      }
+    });
+    this.GetPlantPerennial$.subscribe(data => {
+      if (data != null) {
+        this.listPerenialData = data
+      }
+    });
+    this.getAgiSelectRice$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectRice = data
+      }
+    });
+    this.getAgiSelectAgronomy$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectAgronomy = data
+      }
+    });
+    this.getAgiSelectRubber$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectRubber = data
+      }
+    });
+    this.getAgiSelectPerennial$.subscribe(data => {
+      if (data != null) {
+        this.getAgiSelectPerennial = data
+      }
+    });
+    console.log(this.listRiceData, this.listPerenialData, this.listRubberData, this.listDryCropData);
+
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
-    this.getAgiSelectRice$.subscribe(data => this.getAgiSelectRice = data);
-    this.getAgiSelectAgronomy$.subscribe(data => this.getAgiSelectAgronomy = data);
-    this.getAgiSelectRubber$.subscribe(data => this.getAgiSelectRubber = data);
-    this.getAgiSelectPerennial$.subscribe(data => this.getAgiSelectPerennial = data);
-    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
+    this.listSumData = sum;    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
 
     this.listSumData = sum;
     console.log('listSumData');
@@ -113,7 +146,11 @@ export class FlowerCropPage {
     this.formData.agriculture.flowerCrop = this.flowerCropFrm.value;
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(this.formData.buildingIds,this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

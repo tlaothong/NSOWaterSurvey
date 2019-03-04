@@ -82,7 +82,7 @@
       <ion-row align-items-center>
         <ion-col col-11>
           <!-- <ion-searchbar (ionChange)="setFilteredItems($event)"></ion-searchbar> -->
-          <ion-searchbar></ion-searchbar>
+          <ion-searchbar (ionInput)="searchItem($event)"></ion-searchbar>
         </ion-col>
         <ion-col col-1>
           <button ion-button type="button" color="light">
@@ -142,26 +142,24 @@
       <hr>
 
 
-      <div *ngFor="let item of dataEa;let i = index;">
+      <div *ngFor="let item of listFilter;let i = index;">
         <ion-row text-center align-items-center>
-          <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
-            <ion-icon disabled="false" name="done-all" *ngIf="item.access == 4"></ion-icon>
-            <ion-icon disabled="false" name="pause" *ngIf="(item.access == 1) || (item.unitCount != item.unitAccess)"></ion-icon>
-            <ion-icon disabled="false" name="refresh" *ngIf="(item.access == 2) || (item.access == 3)"></ion-icon>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            <ion-icon disabled="false" name="{{item.status}}"></ion-icon>
           </ion-col>
-          <ion-col col-1 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
             {{i+1}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
             {{item.houseNo}}
           </ion-col>
-          <ion-col col-3 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-3 (click)="goEditBuildingInfo(item)">
             {{item.name}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
-            {{item.unitAccess}}
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.unitCountComplete}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
             {{item.unitCount}}
           </ion-col>
           <ion-col col-1>
@@ -228,7 +226,7 @@
             {{i+1}}
           </ion-col>
           <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id)">
-           {{dataWorkEARow.properties.moo}}
+            {{dataWorkEARow.properties.moo}}
           </ion-col>
           <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
             -

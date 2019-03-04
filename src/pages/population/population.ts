@@ -10,6 +10,8 @@ import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../state
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -37,7 +39,7 @@ export class PopulationPage {
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
@@ -53,6 +55,7 @@ export class PopulationPage {
         this.dataPop = data;
       }
     });
+
     this.getIdHomes$.subscribe(data => this.str = data);
 
     this.getIdHomes = this.str.substring(0, 2); //10
@@ -67,7 +70,12 @@ export class PopulationPage {
     this.dataPop.population = this.f.value
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataPop));     
+      this.store.dispatch(new SetHouseHold(this.dataPop)); 
+      console.log(this.dataPop);
+      // this.storage.set('unit', this.dataPop)  
+      let id = this.dataPop._id
+      this.storage.set(id, this.dataPop)
+      this.local.updateListUnit(this.dataPop.buildingId,this.dataPop)
       this.navCtrl.setRoot("UnitPage");
     }
   }

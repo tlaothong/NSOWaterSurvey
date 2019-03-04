@@ -8,6 +8,8 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
 @IonicPage()
 @Component({
@@ -51,7 +53,7 @@ export class PoolPage {
   private backNum: any;
   public checked: boolean
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators],
       'poolCount': [null, Validators],
@@ -74,6 +76,7 @@ export class PoolPage {
         this.formData = data;
       }
     })
+   
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -118,13 +121,22 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
-    console.log("valid", this.f.get('poolSizes').valid);
-    console.log("valid", this.f.get('waterResources').valid);
-    console.log("this.f", this.f.value);
+
+    if (this.f.get('hasSameSize').value) {
+      let val = this.f.get('poolSizes').value
+      for (let index = 1; index < val.length; index++) {
+        val[index] = val[0]
+      }
+      this.f.get('poolSizes').setValue(val)      
+    }
     this.formData.waterUsage.pool = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.formData));
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      this.storage.set(id, this.formData)
+      this.local.updateListUnit(this.formData.buildingId,this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -4,9 +4,12 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SetHouseHold} from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
+import { Storage } from '@ionic/storage';
+import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+
 // import { Guid } from "guid-typescript";
 @IonicPage()
 @Component({
@@ -29,10 +32,12 @@ export class DlgUnitPage {
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
-  constructor(private swithHouseHold: SwithStateProvider, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+  constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
-    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
-    this.FormItem.controls['buildingId'].setValue(this.id_BD);
+    this.dataHomeBuilding$.subscribe(data => {
+      this.id_BD = data._id
+      this.FormItem.controls['buildingId'].setValue(this.id_BD);
+    });
     this.setEnvironment();
   }
 
@@ -68,7 +73,27 @@ export class DlgUnitPage {
   public setAccesses() {
     this.FormItem.get('subUnit.accessCount').setValue(this.count);
     this.fgac.at(this.index).setValue(this.access);
-    this.fgcm.at(this.index).setValue({ 'at': new Date(), 'text': this.comment, });
+    this.fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment, });
+    this.updateStatus();
+  }
+
+  public updateStatus() {
+    let status: string;
+    switch (this.access) {
+      case 1:
+        status = "pause";
+        break;
+      case 2:
+      case 3:
+        status = (this.index < 2) ? "return" : "complete";
+        break;
+      default:
+        status = "complete";
+        break;
+    }
+    console.log(status);
+
+    this.FormItem.get('status').setValue(status);
   }
 
   public setEnvironment() {
@@ -86,10 +111,36 @@ export class DlgUnitPage {
     // this.store.dispatch(new SetUnit(this.FormItem.value));
     // this.FormItem.get('_id').setValue(String(Guid.create()))
     // console.log(this.FormItem.get('_id').value);
-    
-    this.store.dispatch(new SetHouseHold(this.FormItem.value));
-    // if (this.FormItem.get('_id').value != null) {
-    //   this.swithHouseHold.updateHouseholdState(this.FormItem.get('_id').value);
-    // }
+
+    // this.store.dispatch(new SetHouseHold(this.FormItem.value));
+    let fin: any
+    let list: any[]
+    let id = this.FormItem.get('_id').value
+    this.storage.set(id, this.FormItem.value)
+    this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
+    let key = "BL" + this.id_BD
+    console.log(this.id_BD);
+
+    this.storage.get(key).then((val) => {
+      list = val //[]
+      console.log(list);
+      if (list != null) {
+        fin = list.find(it => it._id == id)
+        if (fin == null) {
+          list.push(this.FormItem.value);
+          this.storage.set(key, list)
+        } else {
+          let index = list.findIndex(it => it._id == id)
+          list.splice(index, 1);
+          list.push(this.FormItem.value);
+          this.storage.set(key, list)
+        }
+      } else {
+        list = []
+        list.push(this.FormItem.value);
+        this.storage.set(key, list)
+      }
+    })
+    console.log(this.FormItem.value);
   }
 }

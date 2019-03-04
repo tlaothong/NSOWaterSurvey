@@ -2,6 +2,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { QRScanner } from '@ionic-native/qr-scanner';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -20,6 +23,7 @@ import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
 import { PumpDataProvider } from '../providers/pump-data/pump-data';
 import { LocationDataProvider } from '../providers/location-data/location-data';
 import { SwithStateProvider } from '../providers/swith-state/swith-state';
+import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 
 
 @NgModule({
@@ -32,6 +36,7 @@ import { SwithStateProvider } from '../providers/swith-state/swith-state';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     ComponentsModule,
+    IonicStorageModule.forRoot(),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
@@ -47,11 +52,14 @@ import { SwithStateProvider } from '../providers/swith-state/swith-state';
   providers: [
     StatusBar,
     SplashScreen,
+    QRScanner,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CloudSyncProvider,
     PumpDataProvider,
     LocationDataProvider,
     SwithStateProvider,
+    LocalStorageProvider,
   ]
 })
 export class AppModule { }

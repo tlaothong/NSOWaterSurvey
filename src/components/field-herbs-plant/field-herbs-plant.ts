@@ -54,7 +54,7 @@ export class FieldHerbsPlantComponent {
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
-    this.dispatchWaterSource();
+    // this.dispatchWaterSource();
   }
 
   private dispatchWaterSource() {
