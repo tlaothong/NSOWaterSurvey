@@ -113,16 +113,62 @@ export class DlgUnitPage {
     // console.log(this.FormItem.get('_id').value);
 
     // this.store.dispatch(new SetHouseHold(this.FormItem.value));
-    let fin: any
-    let list: any[]
+
     let id = this.FormItem.get('_id').value
+    // this.storage.get(id).then((val) => {
+    //   let data = val
+      
+    //   if (data == null) {
+    //     if (this.FormItem.get('status').value == "complete") {
+    //       this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
+    //         let building = val
+    //         console.log(building);
+    //         building.UnitCountComplete++;
+    //         if (building.UnitCountComplete == building.UnitCount) {
+    //           building.Status = "done-all";
+    //         }
+    //         this.storage.set(building._id, building)
+    //         this.storage.get(building.ea).then((val) => {
+    //           let list = val
+    //           let index = list.findIndex(it => it._id == building._id)
+    //           list.splice(index, 1);
+    //           list.push(building);
+    //           this.storage.set(building.ea, list)
+    //         })
+    //       })
+    //     }
+    //   }
+    //   else {
+    //     this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
+    //       let building = val
+    //       if (data.Status != this.FormItem.get('Status').value && (data.Status == "complete" || this.FormItem.get('Status').value == "complete")) {
+    //         building.UnitCountComplete += (this.FormItem.get('Status').value == "complete") ? 1 : -1;
+    //         if (building.UnitCountComplete == building.UnitCount) {
+    //           building.Status = "done-all";
+    //         }
+    //         this.storage.get(building.ea).then((val) => {
+    //           let list = val
+    //           let index = list.findIndex(it => it._id == building._id)
+    //           list.splice(index, 1);
+    //           list.push(building);
+    //           this.storage.set(building.ea, list)
+    //         })
+
+    //       }
+    //     })
+    //   }
+    // })
+
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
+
+
     let key = "BL" + this.id_BD
     console.log(this.id_BD);
-
+    let fin: any
+    let list: any[]
     this.storage.get(key).then((val) => {
-      list = val //[]
+      list = val
       console.log(list);
       if (list != null) {
         fin = list.find(it => it._id == id)

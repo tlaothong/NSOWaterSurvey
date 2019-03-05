@@ -10,6 +10,7 @@ import { SetNextPageDirection } from '../../states/household/household.actions';
 import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
 import { SetCommunity } from '../../states/community/community.actions';
 import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -35,7 +36,7 @@ export class ManagementForFarmingPage {
   public getSetCommunity: FormGroup;
 
   private formData: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
     this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
     this.setupprojectcountChanges();
   }
@@ -81,7 +82,31 @@ export class ManagementForFarmingPage {
 
     // this.getSetCommunity.get('communityProject').setValue(this.managementforfarming.value);
     this.formData.communityProject = this.managementforfarming.value;
-    this.store.dispatch(new SetCommunity(this.formData));
+    // this.store.dispatch(new SetCommunity(this.formData));
+    let key = this.formData._id
+    this.storage.set(key, this.formData)
+
+
+    let keyEA = "CL" + this.formData.ea
+    this.storage.get(keyEA).then((data) => {
+      let listBD = data
+      if (listBD != null) {
+        let fin = listBD.find(it => it._id == key)
+        if (fin == null) {
+          listBD.push(this.formData)
+          this.storage.set(keyEA, listBD)
+        } else {
+          let index = listBD.findIndex(it => it._id == key)
+          listBD.splice(index, 1);
+          listBD.push(this.formData);
+          this.storage.set(keyEA, listBD)
+        }
+      } else {
+        listBD = []
+        listBD.push(this.formData)
+        this.storage.set(keyEA, listBD)
+      }
+    })
     console.log("หลังส่ง: ", this.formData);
     this.navCtrl.popToRoot();
   }
