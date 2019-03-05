@@ -51,7 +51,11 @@ export class UnitButtonComponent {
 
   constructor(private modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
     console.log('Hello UnitButtonComponent Component');
-    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
+    this.dataHomeBuilding$.subscribe(data => {
+      if (data != null) {
+        this.id_BD = data._id
+      }
+    });
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
   }
@@ -75,7 +79,7 @@ export class UnitButtonComponent {
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
     this.FormItem.get('_id').setValue(Guid.create().toString());
-    
+
     console.log(this.FormItem.value);
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
@@ -835,7 +839,7 @@ export class UnitButtonComponent {
     console.log(id);
     this.storage.get(id).then((val) => {
       console.log(val);
-      if(val != null){
+      if (val != null) {
         this.dataS = val;
         console.log(val);
         this.store.dispatch(new LoadHouseHoldSampleSuccess(this.dataS));

@@ -29,24 +29,24 @@ export class SwithStateProvider {
     console.log('Hello SwithStateProvider Provider');
   }
 
-  public updateBuildingState(id: any) {
-    console.log(id);
+  // public updateBuildingState(id: any) {
+  //   console.log(id);
     
-    // this.storeLog.dispatch(new LoadDataBuildingForEdit(id));//null
-    this.storage.get(id).then((val)=>{
-      console.log(val);
+  //   // this.storeLog.dispatch(new LoadDataBuildingForEdit(id));//null
+  //   this.storage.get(id).then((val)=>{
+  //     console.log(val);
       
-      this.storeLog.dispatch(new LoadDataBuildingForEditSuccess(val));
-    })
-    this.dataBuilding$.subscribe(data => {
-      if (data != null) {
-        this.store.dispatch(new SetSendBuildingType(data.buildingType));
-        this.store.dispatch(new SetOtherBuildingType(data.other));
-        this.store.dispatch(new SetHomeBuildingSuccess(data));
-        this.store.dispatch(new SetRecieveDataFromBuilding(data.unitCount));
-      }
-    });
-  }
+  //     this.storeLog.dispatch(new LoadDataBuildingForEditSuccess(val));
+  //   })
+  //   this.dataBuilding$.subscribe(data => {
+  //     if (data != null) {
+  //       this.store.dispatch(new SetSendBuildingType(data.buildingType));
+  //       this.store.dispatch(new SetOtherBuildingType(data.other));
+  //       this.store.dispatch(new SetHomeBuildingSuccess(data));
+  //       this.store.dispatch(new SetRecieveDataFromBuilding(data.unitCount));
+  //     }
+  //   });
+  // }
 
   // updateHouseholdState(id: string) {
   //   // TODO: Recive id of Household -> call API to find Household by id -> input data in parameter

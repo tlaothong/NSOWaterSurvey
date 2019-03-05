@@ -8,7 +8,7 @@ export interface BuildingState {
     sendBuildingType: any,
     recieveDataFromBuilding: any,
     setDataBuilding: any,
-    otherBuildingType:any,
+    otherBuildingType: any,
 
 
 }
@@ -20,7 +20,7 @@ const initialState: BuildingState = {
     sendBuildingType: null,
     recieveDataFromBuilding: null,
     setDataBuilding: null,
-    otherBuildingType:null,
+    otherBuildingType: null,
 
 
 };
@@ -52,11 +52,19 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 ...state,
                 sendBuildingType: action.payload,
             };
+        //------bigest---------
         case BuildingTypes.SetHomeBuildingSuccess:
+            let b = switchStateBuilding(action.payload);
+            console.log(JSON.stringify(action.payload));
+            
             return {
                 ...state,
                 setDataBuilding: action.payload,
+                sendBuildingType: b.sendBuildingType,
+                otherBuildingType: b.otherBuildingType,
+                recieveDataFromBuilding: b.recieveDataFromBuilding
             };
+        //--------------------
         case BuildingTypes.SetOtherBuildingType:
             return {
                 ...state,
@@ -66,4 +74,20 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
         default:
             return state;
     }
+
+}
+function switchStateBuilding(model: any): any {
+    let buildingType
+    let other
+    let unitCount
+    if (model != null) {
+        buildingType = model.buildingType;
+        other = model.other;
+        unitCount = model.unitCount;
+    }
+    return {
+        sendBuildingType: buildingType,
+        otherBuildingType: other,
+        recieveDataFromBuilding: unitCount,
+    };
 }

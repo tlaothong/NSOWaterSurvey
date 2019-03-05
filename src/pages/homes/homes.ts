@@ -1,3 +1,4 @@
+import { SetHomeBuildingSuccess } from './../../states/building/building.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
@@ -100,7 +101,7 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.swith.updateBuildingState(null);
+      this.store.dispatch(new SetHomeBuildingSuccess(null));      
       this.navCtrl.push("BuildingTestPage", { id: this.dataWorkEARow._id })
     } else if (this.num == '2') {
       this.store.dispatch(new LoadCommunityForEdit(null));
@@ -110,12 +111,12 @@ export class HomesPage {
 
   goEditBuildingInfo(item: any) {
     if (this.num == '1' && item.status != 'done-all') {
-      this.swith.updateBuildingState(item._id);
+      //this.swith.updateBuildingState(item._id);
       console.log(item);
       
       this.storage.get(item._id).then((val) => {
         console.log(val);
-        
+        this.store.dispatch(new SetHomeBuildingSuccess(val));
         this.navCtrl.push("BuildingTestPage", { item: val });
       })
     }
