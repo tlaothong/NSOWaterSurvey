@@ -11,6 +11,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
+import { shiftInitState } from '@angular/core/src/view';
 
 
 
@@ -23,7 +24,9 @@ export class HomesPage {
   data: any;
   formItem: FormGroup;
   office: string = "building";
+  x: number = 0;
   public dataEa: any;
+  public datap: any[];
   public dataWorkEARow: any;
   public str: string;
   public comunity: any;
@@ -93,6 +96,35 @@ export class HomesPage {
     });
 
   }
+  filterRefresh(){
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.datap = this.dataEa.filter(it => it.status=="refresh")
+        console.log(this.datap);  
+        this.listFilter = this.datap;
+      }
+    });
+  }
+  filterPause() {
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.datap = this.dataEa.filter(it => it.status=="pause")
+        console.log(this.datap);  
+        this.listFilter = this.datap;
+      }
+    });
+  }
+  totalData(){
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.listFilter = this.dataEa;
+        console.log(this.dataEa)
+      }
+    });
+  }
 
   changeNum(num: string) {
     this.num = num;
@@ -112,10 +144,10 @@ export class HomesPage {
     if (this.num == '1' && item.status != 'done-all') {
       this.swith.updateBuildingState(item._id);
       console.log(item);
-      
+
       this.storage.get(item._id).then((val) => {
         console.log(val);
-        
+
         this.navCtrl.push("BuildingTestPage", { item: val });
       })
     }
