@@ -113,7 +113,7 @@ export class RicePage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  private setupFieldCountChanges() {
+  public setupFieldCountChanges() {
     const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 
