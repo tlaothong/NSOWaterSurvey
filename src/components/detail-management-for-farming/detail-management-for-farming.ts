@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FieldFarmingComponent } from '../field-farming/field-farming';
@@ -21,13 +21,15 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'name': [null, Validators.required],
+      'name': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'memberCount': [null, Validators.required],
-      'avgSurfaceWaterUse': [null, Validators.required],
-      'groundWaterCount': [null, Validators.required],
-      'avgGroundWaterUse': [null, Validators.required],
-    });
+      'memberCount': [null, Validators],
+      'avgSurfaceWaterUse': [null, Validators],
+      'groundWaterCount': [null, Validators],
+      'avgGroundWaterUse': [null, Validators],
+    }, {
+        validator: DetailManagementForFarmingComponent.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
@@ -37,7 +39,54 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'name') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.name && (ctrl.dirty || this.submitRequested);
+    } 
+    if (name == 'memberCount') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.memberCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'avgSurfaceWaterUse') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.avgSurfaceWaterUse && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'groundWaterCount') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.groundWaterCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'avgGroundWaterUse') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.avgGroundWaterUse && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const name = c.get('name');
+      const memberCount = c.get('memberCount');
+      const avgSurfaceWaterUse = c.get('avgSurfaceWaterUse');
+      const groundWaterCount = c.get('groundWaterCount');
+      const avgGroundWaterUse = c.get('avgGroundWaterUse');
+
+      if (name.value == null) {
+        return { 'name': true };
+      }
+      if (memberCount.value == null) {
+        return { 'memberCount': true };
+      }
+      if (avgSurfaceWaterUse.value == null) {
+        return { 'avgSurfaceWaterUse': true };
+      }
+      if (groundWaterCount.value == null) {
+        return { 'groundWaterCount': true };
+      }
+      if (avgGroundWaterUse.value == null) {
+        return { 'avgGroundWaterUse': true };
+      }
+      return null;
+    }
   }
 
 }

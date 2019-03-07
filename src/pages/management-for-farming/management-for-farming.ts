@@ -1,7 +1,7 @@
 import { CommunityState } from './../../states/community/community.reducer';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -43,9 +43,11 @@ export class ManagementForFarmingPage {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'doing': [null, Validators.required],
-      'projectCount': [null, Validators.required],
+      'doing': [null, Validators],
+      'projectCount': [0, Validators],
       'details': fb.array([]),
+    },{
+      validator:ManagementForFarmingPage.checkAnyOrOther()
     });
   }
 
@@ -58,61 +60,71 @@ export class ManagementForFarmingPage {
       this.managementforfarming.setValue(this.formData.communityProject)
     }
 
-    // this.getSetCommunity = this.fb.group({
-    //   '_id': [null],
-    //   'ea': [null],
-    //   'management': [null],
-    //   'communityProject': [null],
-    // })
-    // this.getSetCommunity$.subscribe(data => {
-    //   if (data != null) {
-    //     this.getSetCommunity.setValue(data);
-    //     console.log("ก่อนส่ง: ", this.getSetCommunity.value);
-    //     let communityProject = this.getSetCommunity.get('communityProject').value;
-    //     if (communityProject) {
-    //       this.managementforfarming.setValue(communityProject)
-    //     }
-    //   }
-    // });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
 
-    // this.getSetCommunity.get('communityProject').setValue(this.managementforfarming.value);
-    this.formData.communityProject = this.managementforfarming.value;
-    // this.store.dispatch(new SetCommunity(this.formData));
-    let key = this.formData._id
-    this.storage.set(key, this.formData)
+    // this.formData.communityProject = this.managementforfarming.value;
+    if (this.managementforfarming.valid) {
+      console.log("ewfew");
+      
+  // let key = this.formData._id
+    // this.storage.set(key, this.formData)
 
+    // let keyEA = "CL" + this.formData.ea
+    // this.storage.get(keyEA).then((data) => {
+    //   let listBD = data
+    //   if (listBD != null) {
+    //     let fin = listBD.find(it => it._id == key)
+    //     if (fin == null) {
+    //       listBD.push(this.formData)
+    //       this.storage.set(keyEA, listBD)
+    //     } else {
+    //       let index = listBD.findIndex(it => it._id == key)
+    //       listBD.splice(index, 1);
+    //       listBD.push(this.formData);
+    //       this.storage.set(keyEA, listBD)
+    //     }
+    //   } else {
+    //     listBD = []
+    //     listBD.push(this.formData)
+    //     this.storage.set(keyEA, listBD)
+    //   }
+    // })
+    // console.log("หลังส่ง: ", this.formData);
+    // this.navCtrl.popToRoot();
+    }
+  
+  }
 
-    let keyEA = "CL" + this.formData.ea
-    this.storage.get(keyEA).then((data) => {
-      let listBD = data
-      if (listBD != null) {
-        let fin = listBD.find(it => it._id == key)
-        if (fin == null) {
-          listBD.push(this.formData)
-          this.storage.set(keyEA, listBD)
-        } else {
-          let index = listBD.findIndex(it => it._id == key)
-          listBD.splice(index, 1);
-          listBD.push(this.formData);
-          this.storage.set(keyEA, listBD)
-        }
-      } else {
-        listBD = []
-        listBD.push(this.formData)
-        this.storage.set(keyEA, listBD)
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const projectCount = c.get('projectCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
       }
-    })
-    console.log("หลังส่ง: ", this.formData);
-    this.navCtrl.popToRoot();
+      if (doing.value != null && doing.value == true && projectCount.value < 1) {
+        return { 'projectCount': true };
+      }
+
+      return null;
+    }
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.managementforfarming.get(name);
+    if (name == 'doing') {
+      let ctrls = this.managementforfarming;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'projectCount') {
+      let ctrls = this.managementforfarming;
+      return ctrls.errors && ctrls.errors.projectCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
