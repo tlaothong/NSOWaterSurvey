@@ -43,6 +43,7 @@ export class MyApp {
   }
 
   goGetworkPage() {
+    this.nav.pop();
     this.nav.push("GetworkPage")
   }
 
