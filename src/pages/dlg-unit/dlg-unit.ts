@@ -118,8 +118,32 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    let key = "BL" + this.id_BD
+    let key = "BL" + this.id_BD //List Household
     console.log(this.id_BD);
+
+
+    if (this.FormItem.get('status').value == "complete") {
+      //get Building data
+      this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
+        if (val != null) {
+          let building = val;
+          building.UnitCountComplete++;
+          if (building.UnitCountComplete == building.UnitCount) {
+            building.Status = "done-all";
+          }
+          this.storage.set(this.FormItem.get('buildingId').value, building);
+          this.storage.get(building.ea).then((val) => {
+            let BDlist = val
+            let index = BDlist.findIndex(it => it._id == building._id)
+            BDlist.splice(index, 1);
+            BDlist.push(building)
+            this.storage.set(building.ea, BDlist)
+          })
+        }
+      });
+
+    }
+
 
     this.storage.get(key).then((val) => {
       list = val //[]
