@@ -13,6 +13,8 @@ import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/l
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getCommunitySample } from '../../states/community';
 import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
+import { Guid } from 'guid-typescript';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -36,7 +38,7 @@ export class CommunityWaterManagementPage {
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private DataStoreWorkEaOneRecord: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
     this.setupPublicWaterCountChanges();
     this.setupWaterServiceCountChanges();
@@ -65,7 +67,7 @@ export class CommunityWaterManagementPage {
     this.formDataCom = this.fb.group({
       '_id': [null],
       'ea': [null],
-      'management': [null],
+      'management': null,
       'communityProject': [null],
     })
     this.formDataCom$.subscribe(data => {
@@ -79,6 +81,7 @@ export class CommunityWaterManagementPage {
         this.DataStoreWorkEaOneRecord = data;
       }
     });
+    
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.CommunityWaterManagement.setValue(data)
@@ -152,10 +155,45 @@ export class CommunityWaterManagementPage {
     this.detailOrgWaterSupply.forEach(it => it.submitRequest());
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
+    if (this.formDataCom.get('_id').value == null) {
+      this.formDataCom.get('_id').setValue(Guid.create().toString());
+    }
 
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
     this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
     // this.store.dispatch(new SetCommunity(this.formDataCom.value));
+
+    let key = this.formDataCom.get('_id').value
+    this.storage.set(key, this.formDataCom.value)
+
+    console.log(this.formDataCom.value);
+    
+    let keyEA = "CL" + this.formDataCom.get('ea').value
+    this.storage.get(keyEA).then((data) => {
+      console.log(data);
+      
+      let listBD = data
+      if (listBD != null) {
+        let fin = listBD.find(it => it._id == key)
+        if (fin == null) {
+          console.log("1");
+          
+          listBD.push(this.formDataCom.value)
+          this.storage.set(keyEA, listBD)
+        } else {
+          console.log("2");
+          let index = listBD.findIndex(it => it._id == key)
+          listBD.splice(index, 1);
+          listBD.push(this.formDataCom.value);
+          this.storage.set(keyEA, listBD)
+        }
+      } else {
+        console.log("3");
+        listBD = []
+        listBD.push(this.formDataCom.value)
+        this.storage.set(keyEA, listBD)
+      }
+    })
 
     this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
   }
