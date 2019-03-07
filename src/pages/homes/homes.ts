@@ -5,7 +5,7 @@ import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit } from '../../states/logging/logging.actions';
+import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit, LoadCommunityForEditSuccess } from '../../states/logging/logging.actions';
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -52,13 +52,6 @@ export class HomesPage {
     });
   }
 
-  // setFilteredItems(name) {
-  //   this.dataEa = this.dataEa.filter((data) => {
-  //     let temp = '';
-  //     return temp.toLowerCase().indexOf(name.toLowerCase()) > -1;
-  //   });
-  // }
-
   ionViewDidEnter() {
     this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
@@ -70,15 +63,6 @@ export class HomesPage {
         this.store.dispatch(new SetIdEaWorkHomes(this.str));
       }
     });
-    // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
-    this.store.dispatch(new LoadCommunity(this.dataWorkEARow._id));
-    // this.dataBuilding$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataEa = data
-    //     this.listFilter = this.dataEa;
-    //     console.log(this.dataEa)
-    //   }
-    // });
 
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
@@ -88,15 +72,14 @@ export class HomesPage {
       }
     });
 
-
-
-    this.dataCommunity$.subscribe(data => {
-      if (data != null) {
-        this.dataCommunity = data
+    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+      if (val != null) {
+        this.dataCommunity = val
+        console.log(this.dataCommunity);
       }
-    });
-
+    })
   }
+
   filterRefresh(){
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
@@ -107,6 +90,7 @@ export class HomesPage {
       }
     });
   }
+  
   filterPause() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
@@ -136,7 +120,7 @@ export class HomesPage {
       this.store.dispatch(new SetHomeBuildingSuccess(null));      
       this.navCtrl.push("BuildingTestPage", { id: this.dataWorkEARow._id })
     } else if (this.num == '2') {
-      this.store.dispatch(new LoadCommunityForEdit(null));
+      this.store.dispatch(new LoadCommunityForEditSuccess(null));
       this.navCtrl.push("CommunityTestPage", { id: null })
     }
   }
@@ -149,12 +133,17 @@ export class HomesPage {
       this.storage.get(item._id).then((val) => {
         console.log(val);
         this.store.dispatch(new SetHomeBuildingSuccess(val));
-
         this.navCtrl.push("BuildingTestPage", { item: val });
       })
     }
     else if (this.num == '2') {
-      this.store.dispatch(new LoadCommunityForEdit(item._id));
+
+      console.log(item);
+
+      this.storage.get(item).then((val) => {
+        console.log(val);
+        this.store.dispatch(new LoadCommunityForEditSuccess(val));
+      });
       this.navCtrl.push("CommunityTestPage")
     }
 
@@ -179,6 +168,26 @@ export class HomesPage {
         console.log(this.dataEa)
       }
     });
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  deleteCommu(id: string) {
+    console.log(id);
+    console.log("CL" + this.dataWorkEARow._id);
+    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+      if (val != null) {
+        let list = val
+        let index = list.findIndex(it => it._id == id)
+        list.splice(index, 1)
+        this.storage.set("CL" + this.dataWorkEARow._id, list)
+      }
+    });
+    this.storage.remove(id);
+    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+      if (val != null) {
+        this.dataCommunity = val
+      }
+    })
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 

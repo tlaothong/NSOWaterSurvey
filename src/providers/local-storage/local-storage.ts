@@ -15,7 +15,7 @@ export class LocalStorageProvider {
     console.log('Hello LocalStorageProvider Provider');
   }
 
-  updateListUnit(id: string, data: any) {
+  updateListUnit(id: string, data: any) { //id building, unit form
     let key = "BL" + id
     this.storage.get(key).then((val) => {
       let list = val
