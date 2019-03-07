@@ -22,13 +22,13 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'name': [null, Validators.required],
-      'useForPlumbing': [false, Validators.required],
-      'useForFactory': [false, Validators.required],
-      'useForFarming': [false, Validators.required],
-      'useForService': [false, Validators.required],
-      'useForOther': [false, Validators.required],
-      'other': [null, Validators.required],
+      'name': [null, Validators],
+      'useForPlumbing': [false, Validators],
+      'useForFactory': [false, Validators],
+      'useForFarming': [false, Validators],
+      'useForService': [false, Validators],
+      'useForOther': [false, Validators],
+      'other': [null, Validators],
       'projectArea': PoolAreaComponent.CreateFormGroup(fb),
     }, {
         validator: DetailWaterManagementComponent.checkAnyOrOther()
@@ -48,12 +48,17 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       const useForService = c.get('useForService');
       const useForOther = c.get('useForOther');
       const other = c.get('other');
+      const name = c.get('name');
 
+      if (name.value == null) {
+        return { 'name': true };
+      }
       if (!useForPlumbing.value && !useForFactory.value && !useForFarming.value && !useForOther.value && !useForService.value) {
         return { 'anycheck': true };
       } else if (useForOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
+      
       return null;
     }
   }
@@ -66,6 +71,10 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       return ctrl.errors && ctrl.errors.anycheck && (ctrl.dirty || this.submitRequested);
     } else if (name == 'other') {
       return this.FormItem.errors && this.FormItem.errors.other && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'name') {
+      let ctrls = this.FormItem
+      return ctrls.errors && ctrls.errors.name && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
