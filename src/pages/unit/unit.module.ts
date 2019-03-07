@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HouseHoldEffects } from '../../states/household/household.effects';
 import { HouseHoldTypes } from '../../states/household/household.actions';
-import { reducer } from '../../states/logging/logging.reducer';
+import { reducer } from '../../states/household/household.reducer';
 
 @NgModule({
   declarations: [
