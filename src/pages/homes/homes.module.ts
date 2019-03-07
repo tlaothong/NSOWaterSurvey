@@ -4,9 +4,9 @@ import { HomesPage } from './homes';
 import { ComponentsModule } from '../../components/components.module';
 import { StoreModule } from '@ngrx/store';
 import { BuildingTypes } from '../../states/building/building.actions';
-import { reducer } from '../../states/logging/logging.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { BuildingEffects } from '../../states/building/building.effects';
+import { reducer } from '../../states/building/building.reducer';
 
 @NgModule({
   declarations: [

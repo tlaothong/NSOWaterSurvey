@@ -86,6 +86,9 @@ export class BuidlingInformation2Page {
     // this.formDataFromBuilding1$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data)
+    this.getBuildingType$.subscribe(data => console.log(data));
+    console.log(this.f.value);
+    
     this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
     //   }
     // });
@@ -102,8 +105,11 @@ export class BuidlingInformation2Page {
 
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
       // this.store.dispatch(new SetHomeBuilding(this.f.value));
+
       this.storage.set(this.f.get('_id').value, this.f.value);
       this.storage.get(this.f.get('ea').value).then((data) => {
+        console.log("test: ", data);
+
         let listBD = data
         let idBD = this.f.get('_id').value;
         if (listBD != null) {
@@ -122,7 +128,11 @@ export class BuidlingInformation2Page {
           listBD.push(this.f.value)
           this.storage.set(this.f.get('ea').value, listBD)
         }
+        console.log(listBD);
+
       })
+      console.log(this.f.value);
+
       this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
       this.navCtrl.push("UnitPage");
     }

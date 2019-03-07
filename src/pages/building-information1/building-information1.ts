@@ -31,8 +31,8 @@ export class BuildingInformation1Page {
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
-    this.f.controls['ea'].setValue(navParams.get('ea'));
-    this.f.controls['_id'].setValue(navParams.get('id'));
+    this.f.get('ea').setValue(navParams.get('ea'));
+    this.f.get('_id').setValue(navParams.get('id'));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -157,11 +157,11 @@ export class BuildingInformation1Page {
       this.f.get('_id').setValue(Guid.create().toString());
       idBD = this.f.get('_id').value
     }
-    console.log(idBD);
 
-    this.storage.set(idBD, this.f.value)
     this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
+    this.storage.set(idBD, this.f.value);
 
+    console.log("SetHomeBuildingSuccess: ", this.f.value);
 
     this.storage.get(this.f.get('ea').value).then((data) => {
       listBD = data

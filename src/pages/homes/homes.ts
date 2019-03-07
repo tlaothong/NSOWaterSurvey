@@ -116,8 +116,8 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.store.dispatch(new SetHomeBuildingSuccess(null));
-      this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id })
+      this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
+      this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id, id: null })
     } else if (this.num == '2') {
       this.store.dispatch(new LoadCommunityForEditSuccess(null));
       this.navCtrl.push("CommunityTestPage", { id: null })
@@ -129,14 +129,14 @@ export class HomesPage {
       //this.swith.updateBuildingState(item._id);
       this.storage.get(item._id).then((val) => {
         console.log(val);
-        this.store.dispatch(new SetHomeBuildingSuccess(val));
-        switch (item.status) {
+        this.storeBuild.dispatch(new SetHomeBuildingSuccess(val));
+        switch (val.status) {
           case 'refresh':
-            this.navCtrl.push('BuildingInformation1Page', { id: item._id });
+            this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
             break;
           case 'pause':
-            this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
-            this.navCtrl.push("HouseHoldTestPage");
+            // this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
+            this.navCtrl.push("UnitPage");
             break;
           default:
             break;
