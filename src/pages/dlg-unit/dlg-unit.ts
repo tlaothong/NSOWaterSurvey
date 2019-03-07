@@ -117,8 +117,8 @@ export class DlgUnitPage {
       this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
         if (val != null) {
           let building = val;
-          building.UnitCountComplete++;
-          if (building.UnitCountComplete == building.UnitCount) {
+          building.unitCountComplete++;
+          if (building.unitCountComplete == building.UnitCount) {
             building.Status = "done-all";
           }
           this.storage.set(this.FormItem.get('buildingId').value, building);
