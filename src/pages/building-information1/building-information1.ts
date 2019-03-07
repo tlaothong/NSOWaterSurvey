@@ -81,15 +81,12 @@ export class BuildingInformation1Page {
     //   }
     // });
     let id = this.f.get('_id').value;
-    console.log(id);
-    
     this.storage.get(id).then((data) => {
       if (data != null) {
-        console.log(data);
-        
+        this.f.setValue(data);
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
-        this.f.setValue(data);
+        
       }
     });
     this.setupCountChanges();
@@ -98,7 +95,6 @@ export class BuildingInformation1Page {
   loadMap() {
     let options = { enableHighAccuracy: true };
     this.geolocation.getCurrentPosition(options).then((loacation) => {
-      console.log(loacation);
       this.long = loacation.coords.longitude,
         this.lat = loacation.coords.latitude
     }, err => {
@@ -109,11 +105,9 @@ export class BuildingInformation1Page {
 
   addLocation() {
     console.log(this.lat, this.long);
-
     if ((this.lat || this.long) == null) {
       const alert = this.alertCtrl.create({
         title: "กรุณารอสักครู่",
-
       });
       alert.present();
       this.loadMap()
@@ -145,21 +139,15 @@ export class BuildingInformation1Page {
     fgac.at(this.index).setValue(this.access);
     fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment });
 
-    console.log(this.f.value);
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
-    
     if (idBD == null) {
       this.f.get('_id').setValue(Guid.create().toString());
       idBD = this.f.get('_id').value
     }
-    console.log(idBD);
-    
     this.storage.set(idBD,this.f.value)
     this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-
-
     this.storage.get(this.f.get('ea').value).then((data) => {
       listBD = data
       if (listBD != null) {

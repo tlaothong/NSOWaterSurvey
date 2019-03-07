@@ -46,8 +46,8 @@ export class LocalStorageProvider {
         let find = val
         if (find.Status != dataHousehold.Status && (find.Status == "complete" || dataHousehold.Status == "complete"))
         {
-          building.UnitCountComplete += (dataHousehold.Status == "complete") ? 1 : -1;
-          if (building.UnitCountComplete == building.UnitCount)
+          building.unitCountComplete += (dataHousehold.Status == "complete") ? 1 : -1;
+          if (building.unitCountComplete == building.UnitCount)
           {
             building.Status = "done-all";
           }
