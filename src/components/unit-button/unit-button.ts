@@ -10,7 +10,20 @@ import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
-
+import { FieldFarmingComponent } from '../field-farming/field-farming';
+import { FieldDryCropPlantingComponent } from '../field-dry-crop-planting/field-dry-crop-planting';
+import { FieldMushroomComponent } from '../field-mushroom/field-mushroom';
+import { FieldFlowerCropComponent } from '../field-flower-crop/field-flower-crop';
+import { FieldHerbsPlantComponent } from '../field-herbs-plant/field-herbs-plant';
+import { FieldPerenialPlantingComponent } from '../field-perenial-planting/field-perenial-planting';
+import { FieldRebbertreeComponent } from '../field-rebbertree/field-rebbertree';
+import { FishFarmingComponent } from '../fish-farming/fish-farming';
+import { FrogFarmingComponent } from '../frog-farming/frog-farming';
+import { CrocodileFarmingComponent } from '../crocodile-farming/crocodile-farming';
+import { GroundWaterUsageComponent } from '../ground-water-usage/ground-water-usage';
+import { PumpComponent } from '../pump/pump';
+import { PoolUsageComponent } from '../pool-usage/pool-usage';
+import { PoolAreaComponent } from '../pool-area/pool-area';
 /**
  * Generated class for the UnitButtonComponent component.
  *
@@ -49,7 +62,10 @@ export class UnitButtonComponent {
   private formData$ = this.store.select(getHouseHoldSample);
 
 
-  constructor(private modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+  constructor(private modalCtrl: ModalController, private storage: Storage,
+    public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController,
+    private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder
+  ) {
     console.log('Hello UnitButtonComponent Component');
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
@@ -62,6 +78,9 @@ export class UnitButtonComponent {
 
   ngOnInit() {
     this.GetUnitByIdBuilding$.subscribe(data => {
+      console.log("dataxxxxxx");
+      console.log(data);
+      
       if (data != null) {
         if (data[Number(this.unitNo) - 1] != undefined) {
           let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
@@ -845,26 +864,6 @@ export class UnitButtonComponent {
         this.store.dispatch(new LoadHouseHoldSampleSuccess(this.dataS));
       }
     })
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataS = data;
-    //   }
-    // });
-
-    // this.storage.set(id, this.dataS)
-    // let f = this.store.select(getHouseHoldSample);
-    // f.subscribe(data => console.log("fffff", data));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 8)) {
-    //       arrayIsCheck.splice(0, arrayIsCheck.length);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public showModalSetting() {
@@ -889,6 +888,8 @@ export class UnitButtonComponent {
   public showModal() {
     if (this.access == 1) {
       this.sendIdUnit();
+      console.log(this.FormItem);
+
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
@@ -1059,4 +1060,643 @@ export class UnitButtonComponent {
 
     onComponentCountChanges();
   }
+
+  // private setupAgricultureRicePlantFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.ricePlant.fields";
+  //   const componentCount: string = "agriculture.ricePlant.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.ricePlant.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAgricultureDryCropFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.agronomyPlant.fields";
+  //   const componentCount: string = "agriculture.agronomyPlant.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.agronomyPlant.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAgricultureRebberTreeFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.rubberTree.fields";
+  //   const componentCount: string = "agriculture.rubberTree.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.rubberTree.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldRebbertreeComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAgriculturePerenialFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.perenial.fields";
+  //   const componentCount: string = "agriculture.perenial.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.perenial.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldPerenialPlantingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAgricultureHerbsFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.herbs.fields";
+  //   const componentCount: string = "agriculture.herbs.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.herbs.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAgricultureFlowerCropFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.flowerCrop.fields";
+  //   const componentCount: string = "agriculture.flowerCrop.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.flowerCrop.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldFlowerCropComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAgricultureMushroomFieldCountChanges() {
+  //   const componentFormArray: string = "agriculture.mushroom.fields";
+  //   const componentCount: string = "agriculture.mushroom.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('agriculture').value.mushroom.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FieldMushroomComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticFishCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.fish.fields";
+  //   const componentCount: string = "aquaticAnimals.fish.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.fish.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FishFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticShrimpCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.shrimp.fields";
+  //   const componentCount: string = "aquaticAnimals.shrimp.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.shrimp.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FishFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticFrogCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.frog.fields";
+  //   const componentCount: string = "aquaticAnimals.frog.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.frog.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FrogFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticCrocodileCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.crocodile.fields";
+  //   const componentCount: string = "aquaticAnimals.crocodile.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.crocodile.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = CrocodileFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticSnappingTurtleCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.snappingTurtle.fields";
+  //   const componentCount: string = "aquaticAnimals.snappingTurtle.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.snappingTurtle.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = CrocodileFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticCrabCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.crab.fields";
+  //   const componentCount: string = "aquaticAnimals.crab.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.crab.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FishFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticShellFishCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.shellFish.fields";
+  //   const componentCount: string = "aquaticAnimals.shellFish.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.shellFish.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FishFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticTurtleCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.turtle.fields";
+  //   const componentCount: string = "aquaticAnimals.turtle.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.turtle.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = CrocodileFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupAquaticReddishCountChanges() {
+  //   const componentFormArray: string = "aquaticAnimals.reddish.fields";
+  //   const componentCount: string = "aquaticAnimals.reddish.fieldCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('aquaticAnimals').value.reddish.fieldCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = FishFarmingComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupGroundWaterPrivateCountChanges() {
+  //   const componentFormArray: string = "waterUsage.groundWater.privateGroundWater.waterResources";
+  //   const componentCount: string = "waterUsage.groundWater.privateGroundWater.waterResourceCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('waterUsage').value.groundWater.privateGroundWater.waterResourceCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = GroundWaterUsageComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupGroundWaterPublicCountChanges() {
+  //   const componentFormArray: string = "waterUsage.groundWater.publicGroundWater.waterResources";
+  //   const componentCount: string = "waterUsage.groundWater.publicGroundWater.waterResourceCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('waterUsage').value.groundWater.publicGroundWater.waterResourceCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = GroundWaterUsageComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupRiverCountChanges() {
+  //   const componentFormArray: string = "waterUsage.river.pumps";
+  //   const componentCount: string = "waterUsage.river.pumpCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('waterUsage').value.river.pumpCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = PumpComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupPoolWaterSoureCountChanges() {
+  //   const componentFormArray: string = "waterUsage.pool.waterResources";
+  //   const componentCount: string = "waterUsage.pool.waterResourceCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('waterUsage').value.pool.waterResourceCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = PoolUsageComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupPoolSizeCountChanges() {
+  //   const componentFormArray: string = "waterUsage.pool.poolSizes";
+  //   const componentCount: string = "waterUsage.pool.poolCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('waterUsage').value.pool.poolCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = PoolAreaComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
+  // private setupIrrigationCountChanges() {
+  //   const componentFormArray: string = "waterUsage.irrigation.pumps";
+  //   const componentCount: string = "waterUsage.irrigation.pumpCount";
+
+  //   var onComponentCountChanges = () => {
+  //     var fields = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+  //     var fieldCount = this.FormItem.get('waterUsage').value.irrigation.pumps.waterResourceCount || 0;
+  //     var farr = this.fb.array([]);
+
+  //     fieldCount = Math.max(0, fieldCount);
+
+  //     for (let i = 0; i < fieldCount; i++) {
+  //       var ctrl = null;
+  //       if (i < fields.length) {
+  //         const fld = fields[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = PumpComponent.CreateFormGroup(this.fb);
+  //       }
+  //       farr.push(ctrl);
+  //     }
+  //     this.FormItem.setControl(componentFormArray, farr);
+  //   };
+
+  //   this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+  //   onComponentCountChanges();
+  // }
+
 }

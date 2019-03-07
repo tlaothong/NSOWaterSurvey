@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SetHouseHoldSuccess } from '../../states/household/household.actions';
 
 /*
   Generated class for the LocalStorageProvider provider.
@@ -11,12 +14,14 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class LocalStorageProvider {
 
-  constructor(public http: HttpClient, private storage: Storage) {
+  constructor(public http: HttpClient, private storage: Storage, private store: Store<HouseHoldState>) {
     console.log('Hello LocalStorageProvider Provider');
   }
 
   updateListUnit(id: string, data: any) { //id building, unit form
     let key = "BL" + id
+    console.log(key);
+    this.store.dispatch(new SetHouseHoldSuccess(data));
     this.storage.get(key).then((val) => {
       let list = val
       console.log(list);
@@ -34,6 +39,7 @@ export class LocalStorageProvider {
           list.push(data)
         }
         this.storage.set(key, list)
+
       }
     })
     this.updateStatusBuilding(id,data)
