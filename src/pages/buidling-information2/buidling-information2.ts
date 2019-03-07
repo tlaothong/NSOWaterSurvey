@@ -33,7 +33,7 @@ export class BuidlingInformation2Page {
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
         console.log(data);
-        
+
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
         this.f.setValue(data);
@@ -98,7 +98,7 @@ export class BuidlingInformation2Page {
     console.log("f.valid", this.f.valid);
 
     if (this.f.valid && (this.f.get('unitCount').value > 0)) {
-      console.log("pass");
+      console.log("unitCount: " + this.f.get('unitCount').value);
 
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
       // this.store.dispatch(new SetHomeBuilding(this.f.value));
@@ -111,20 +111,20 @@ export class BuidlingInformation2Page {
           if (fin == null) {
             listBD.push(this.f.value)
             this.storage.set(this.f.get('ea').value, listBD)
-          }else{
+          } else {
             let index = listBD.findIndex(it => it._id == idBD)
             listBD.splice(index, 1);
             listBD.push(this.f.value);
             this.storage.set(this.f.get('ea').value, listBD)
           }
-        }else{
+        } else {
           listBD = []
           listBD.push(this.f.value)
           this.storage.set(this.f.get('ea').value, listBD)
         }
       })
       this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-      this.navCtrl.push("HouseHoldTestPage");
+      this.navCtrl.push("UnitPage");
     }
   }
 

@@ -97,12 +97,12 @@ export class HomesPage {
     });
 
   }
-  filterRefresh(){
+  filterRefresh() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
         this.dataEa = data
-        this.datap = this.dataEa.filter(it => it.status=="refresh")
-        console.log(this.datap);  
+        this.datap = this.dataEa.filter(it => it.status == "refresh")
+        console.log(this.datap);
         this.listFilter = this.datap;
       }
     });
@@ -111,13 +111,13 @@ export class HomesPage {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
         this.dataEa = data
-        this.datap = this.dataEa.filter(it => it.status=="pause")
-        console.log(this.datap);  
+        this.datap = this.dataEa.filter(it => it.status == "pause")
+        console.log(this.datap);
         this.listFilter = this.datap;
       }
     });
   }
-  totalData(){
+  totalData() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
         this.dataEa = data
@@ -133,8 +133,8 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.store.dispatch(new SetHomeBuildingSuccess(null));      
-      this.navCtrl.push("BuildingTestPage", { id: this.dataWorkEARow._id })
+      this.store.dispatch(new SetHomeBuildingSuccess(null));
+      this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id })
     } else if (this.num == '2') {
       this.store.dispatch(new LoadCommunityForEdit(null));
       this.navCtrl.push("CommunityTestPage", { id: null })
@@ -144,13 +144,20 @@ export class HomesPage {
   goEditBuildingInfo(item: any) {
     if (this.num == '1' && item.status != 'done-all') {
       //this.swith.updateBuildingState(item._id);
-      console.log(item);
-
       this.storage.get(item._id).then((val) => {
         console.log(val);
         this.store.dispatch(new SetHomeBuildingSuccess(val));
-
-        this.navCtrl.push("BuildingTestPage", { item: val });
+        switch (item.status) {
+          case 'refresh':
+            this.navCtrl.push('BuildingInformation1Page', { id: item._id });
+            break;
+          case 'pause':
+            this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
+            this.navCtrl.push("HouseHoldTestPage");
+            break;
+          default:
+            break;
+        }
       })
     }
     else if (this.num == '2') {
