@@ -24,24 +24,46 @@ export class WaterActivityUnitPage {
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
   public dataHouseHold: any;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>) {
-    this.f = UnitButtonComponent.CreateFormGroup(fb);
-    this.f = navParams.get('FormItem');
+    // this.f = UnitButtonComponent.CreateFormGroup(fb);
+    // this.f = navParams.get('FormItem');
     console.log(this.f);
+    this.f = fb.group({
+      'subUnit': fb.group({
+        'roomNumber': [null],
+        'accessCount': [0],
+        'accesses': fb.array([0]),
+        'hasPlumbing': [false],
+        'hasPlumbingMeter': [false],
+        'isPlumbingMeterXWA': [false],
+        'hasGroundWater': [false],
+        'hasGroundWaterMeter': [false],
+      }),
+      'isHouseHold': [null, Validators.required],
+      'isAgriculture': [null, Validators.required],
+      'isFactorial': [null, Validators.required],
+      'isCommercial': [null, Validators.required],
+      'comments': fb.array([]),
 
+    });
   }
 
   ionViewDidEnter() {
     console.log("WaterActivityUnitPage");
     this.formDataRecieve$.subscribe(data => {
       if (data != null) {
-        this.f.get('subUnit.accessCount').setValue(data.subUnit.accessCount)
         this.dataHouseHold = data;
+        console.log(this.dataHouseHold);
+        
+        this.f.get('subUnit').setValue(this.dataHouseHold.subUnit)
+        this.f.get('subUnit.accessCount').setValue(this.dataHouseHold.subUnit.accessCount)
+        this.setupAccessCountChanges();
+        this.setupAccessCountChangesForComments();
+        this.f.get('comments').setValue(this.dataHouseHold.comments)
+
         this.f.get('isHouseHold').setValue(this.dataHouseHold.isHouseHold)
         this.f.get('isAgriculture').setValue(this.dataHouseHold.isAgriculture)
         this.f.get('isFactorial').setValue(this.dataHouseHold.isFactorial)
         this.f.get('isCommercial').setValue(this.dataHouseHold.isCommercial)
-        this.setupAccessCountChanges();
-        this.setupAccessCountChangesForComments();
         // this.f.patchValue(data);
         console.log(this.f.value);
         console.log("this.dataHouseHold.isAgriculture");
@@ -79,6 +101,10 @@ export class WaterActivityUnitPage {
     this.dataHouseHold.isAgriculture = this.f.get('isAgriculture').value;
     this.dataHouseHold.isFactorial = this.f.get('isFactorial').value;
     this.dataHouseHold.isCommercial = this.f.get('isCommercial').value;
+    this.dataHouseHold.subUnit = this.f.get('subUnit').value;
+    this.dataHouseHold.subUnit.accessCount = this.f.get('subUnit.accessCount').value;
+    this.dataHouseHold.comments = this.f.get('comments').value;
+
     if ((this.f.get('isHouseHold').value != null)
       && (this.f.get('isAgriculture').value != null)
       && (this.f.get('isFactorial').value != null)

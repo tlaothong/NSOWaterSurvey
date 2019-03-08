@@ -39,7 +39,7 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
-    numberRoom:string,
+    numberRoom: string,
 }
 
 const initialState: HouseHoldState = {
@@ -301,6 +301,9 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
+
+            console.log(JSON.stringify(s));
+            
             return {
                 ...state,
                 houseHoldSample: action.payload,
@@ -332,6 +335,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 checkWaterIrrigation: s.checkWaterIrrigation,
                 checkWaterRain: s.checkWaterRain,
                 checkWaterBuying: s.checkWaterBuying,
+                numberRoom:s.numberRoom,
                 nextPageDirection: listPagesToCheck({
                     ...state,
                     houseHoldSample: action.payload,
@@ -363,6 +367,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                     checkWaterIrrigation: s.checkWaterIrrigation,
                     checkWaterRain: s.checkWaterRain,
                     checkWaterBuying: s.checkWaterBuying,
+                    numberRoom:s.numberRoom,
                 }),
             };
         default:
@@ -373,6 +378,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
 function resetStatesForModel(model: any): any {
     let objG12345 = {};
     let garden: any;
+    let numberRoomUnit: any;
     if (model) {
         objG12345 = {
             isHouseHold: model.isHouseHold,
@@ -381,6 +387,7 @@ function resetStatesForModel(model: any): any {
             isCommercial: model.isCommercial,
         }
 
+        numberRoomUnit = model.subUnit.roomNumber;
     }
 
     let objAgri = {};
@@ -486,6 +493,7 @@ function resetStatesForModel(model: any): any {
         isCommercial: model && model.isCommercial,
         residentialGardeningUse: model && model.residence.gardeningUse,
         agi: objAgri,
+        numberRoom: numberRoomUnit,
         ricePlantSelectPlant: listRice,
         agronomyPlantSelectPlant: listAgronomy,
         rubberTreeSelectPlant: listRubber,
@@ -512,7 +520,7 @@ function resetStatesForModel(model: any): any {
 
 function findWaterSourceRice(water) {
     console.log("findWaterSourceRice");
-//
+    //
     let fields = water && water.fields as Array<any>;
     let waterSourceRice = {}
     if (fields != null) {

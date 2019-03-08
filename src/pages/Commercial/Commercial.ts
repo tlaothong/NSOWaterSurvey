@@ -81,8 +81,8 @@ export class CommercialPage {
       if (data != null) {
         if(data == "-"){
           this.numberRoom = true
-          console.log(this.numberRoom);
         }
+        console.log(this.numberRoom);
       }
     });
     this.countNumberPage();
