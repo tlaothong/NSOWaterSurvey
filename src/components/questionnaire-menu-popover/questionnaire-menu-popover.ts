@@ -29,7 +29,7 @@ export class QuestionnaireMenuPopoverComponent {
   }
 
   public goHome() {
-    this.navCtrl.popToRoot();
+    this.navCtrl.setRoot("HomesPage")
     this.viewCtrl.dismiss();
   }
 

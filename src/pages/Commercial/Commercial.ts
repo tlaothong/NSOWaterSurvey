@@ -6,7 +6,7 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getNumberRoom } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetCommercialServiceType, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -30,6 +30,8 @@ export class CommercialPage {
 
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formData$ = this.store.select(getHouseHoldSample);
+  private numberRoom$ = this.store.select(getNumberRoom);
+  private numberRoom:boolean = false;
   public dataCom: any;
   private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
@@ -75,6 +77,14 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
+    this.numberRoom$.subscribe(data => {
+      if (data != null) {
+        if(data == "-"){
+          this.numberRoom = true
+        }
+        console.log(this.numberRoom);
+      }
+    });
     this.countNumberPage();
     this.formData$.subscribe(data => {
       if (data != null) {

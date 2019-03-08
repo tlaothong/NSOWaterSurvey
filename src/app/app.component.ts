@@ -22,7 +22,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
-      { title: 'Home', component: HomePage },
+      // { title: 'Home', component: HomePage },
     ];
 
   }
