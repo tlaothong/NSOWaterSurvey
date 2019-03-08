@@ -180,6 +180,11 @@ export const getBack = createSelector(
     state => state.back,
 );
 
+export const getNumberRoom = createSelector(
+    getHouseHoldFeatureState,
+    state => state.numberRoom,
+);
+
 
 
 

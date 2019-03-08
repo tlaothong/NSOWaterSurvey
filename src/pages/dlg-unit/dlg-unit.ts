@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';
@@ -58,6 +58,9 @@ export class DlgUnitPage {
 
   public okDialog() {
     this.submitRequested = true;
+    console.log(this.FormItem.get('subUnit.roomNumber').value);
+    
+    this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
     if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
       this.setAccesses();
       this.AddUnit();

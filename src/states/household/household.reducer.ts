@@ -39,6 +39,7 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
+    numberRoom:string,
 }
 
 const initialState: HouseHoldState = {
@@ -80,6 +81,7 @@ const initialState: HouseHoldState = {
     backToRoot: null,
     back: null,
     dataOfUnit: null,
+    numberRoom: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -291,6 +293,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 back: action.payload,
+            };
+        case HouseHoldTypes.SetNumberRoom:
+            return {
+                ...state,
+                numberRoom: action.payload,
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);

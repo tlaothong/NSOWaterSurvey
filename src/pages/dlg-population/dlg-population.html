@@ -32,7 +32,8 @@
       <div *ngSwitchCase="6">
         <ion-item>
           <ion-label>โปรดระบุ</ion-label>
-          <ion-input [class.invalid]="FormItem.get('otherTitle').value == null" formControlName="otherTitle"></ion-input>
+          <ion-input [class.invalid]="FormItem.get('otherTitle').value == null" formControlName="otherTitle">
+          </ion-input>
         </ion-item>
         <ion-item *ngIf="FormItem.get('otherTitle').value == null">
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
@@ -44,7 +45,8 @@
       <ion-label>2) ชื่อตัว</ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="firstName" [class.invalid]="isValid('firstName')"></ion-input>
+      <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="firstName"
+        [class.invalid]="isValid('firstName')"></ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('firstName')">
       <span class="invalid-msg">กรุณากรอกข้อมูล</span>
@@ -54,7 +56,8 @@
       <ion-label>3) ชื่อสกุล</ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="lastName" [class.invalid]="isValid('lastName')"></ion-input>
+      <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="lastName" [class.invalid]="isValid('lastName')">
+      </ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('lastName')">
       <span class="invalid-msg">กรุณากรอกข้อมูล</span>
@@ -93,7 +96,8 @@
     <ion-item *ngIf="isValid('sex')">
       <span class="invalid-msg">กรุณาเลือก</span>
     </ion-item>
-    <ion-item *ngIf="((FormItem.get('nameTitle').value == 1 || FormItem.get('nameTitle').value == 4 ) && (FormItem.get('sex').value == 2 && (FormItem.get('sex').value != null)))
+    <ion-item
+      *ngIf="((FormItem.get('nameTitle').value == 1 || FormItem.get('nameTitle').value == 4 ) && (FormItem.get('sex').value == 2 && (FormItem.get('sex').value != null)))
     || (FormItem.get('nameTitle').value == 2 || FormItem.get('nameTitle').value == 3 || FormItem.get('nameTitle').value == 5 ) && (FormItem.get('sex').value == 1 && (FormItem.get('sex').value != null))">
       <span class="invalid-msg">
         เพศที่เลือกไม่สอดคล้องกับ "คำนำหน้าชื่อ" ในข้อ1
@@ -120,6 +124,7 @@
       <ion-item [class.invalid]="isValid('birthDate')">
         <ion-label>วันที่</ion-label>
         <ion-select interface="action-sheet" formControlName="birthDate" (ionChange)="CalculateAge()">
+          <ion-option [value]="99"> ไม่ทราบวันที่เกิด </ion-option>
           <ion-option [value]="01"> 1 </ion-option>
           <ion-option [value]="02"> 2 </ion-option>
           <ion-option [value]="03"> 3 </ion-option>
@@ -151,13 +156,13 @@
           <ion-option [value]="29"> 29 </ion-option>
           <ion-option [value]="30"> 30 </ion-option>
           <ion-option [value]="31"> 31 </ion-option>
-          <ion-option [value]="99"> ไม่ทราบวันที่เกิด </ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item [class.invalid]="isValid('birthMonth')">
         <ion-label>เดือน</ion-label>
         <ion-select interface="action-sheet" formControlName="birthMonth" (ionChange)="CalculateAge()">
+          <ion-option [value]="99">ไม่ทราบเดือนเกิด</ion-option>
           <ion-option [value]="01">มกราคม, เดือนยี่ หรือเดือน 2</ion-option>
           <ion-option [value]="02">กุมภาพันธ์, เดือน 3</ion-option>
           <ion-option [value]="03">มีนาคม, เดือน 4</ion-option>
@@ -170,13 +175,13 @@
           <ion-option [value]="10">ตุลาคม, เดือน 11</ion-option>
           <ion-option [value]="11">พฤศจิกายน, เดือน 12</ion-option>
           <ion-option [value]="12">ธันวาคม, เดือนอ้าย หรือเดือน 1</ion-option>
-          <ion-option [value]="99">ไม่ทราบเดือนเกิด</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item [class.invalid]="isValid('birthYear')">
         <ion-label>ปีเกิด</ion-label>
         <ion-select interface="action-sheet" formControlName="birthYear" (ionChange)="CalculateAge()">
+          <ion-option [value]="999"> ไม่ทราบ </ion-option>
           <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
           <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
           <ion-option [value]="560"> พ.ศ. 2560 </ion-option>
@@ -298,7 +303,6 @@
           <ion-option [value]="444"> พ.ศ. 2444 </ion-option>
           <ion-option [value]="443"> พ.ศ. 2443 </ion-option>
           <ion-option [value]="442"> พ.ศ. 2442 </ion-option>
-          <ion-option [value]="999"> ไม่ทราบ </ion-option>
         </ion-select>
       </ion-item>
     </div>
@@ -315,19 +319,22 @@
     <ion-item *ngIf="isValid('age')">
       <span class="invalid-msg">กรุณาเลือก</span>
     </ion-item>
-    <ion-item *ngIf="(FormItem.get('relationship').value == 7) && (FormItem.get('age').value < 13 && FormItem.get('age').value != null)">
+    <ion-item
+      *ngIf="(FormItem.get('relationship').value == 7) && (FormItem.get('age').value < 13 && FormItem.get('age').value != null)">
       <span class="invalid-msg">
         กรุณาตรวจสอบอายุของพ่อ แม่ พ่อแม่ของคู่สมรส
       </span>
     </ion-item>
 
-    <ion-item *ngIf="(FormItem.get('relationship').value == 1) && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
+    <ion-item
+      *ngIf="(FormItem.get('relationship').value == 1) && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
       <ion-icon md="md-warning"></ion-icon>
       <span class="invalid-msg">
         หัวหน้าครัวเรือนต้องมีอายุ 13 ปีขึ้นไป
       </span>
     </ion-item>
-    <ion-item *ngIf="FormItem.get('relationship').value == 2 && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
+    <ion-item
+      *ngIf="FormItem.get('relationship').value == 2 && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
       <ion-icon md="md-warning"></ion-icon>
       <span class="invalid-msg">
         กรุณาตรวจสอบอายุของภรรยาหรือสามี
@@ -337,6 +344,7 @@
     <ion-item [class.invalid]="isValid('age')">
       <ion-label>อายุ</ion-label>
       <ion-select interface="action-sheet" formControlName="age">
+        <ion-option [value]="999"> ไม่ทราบ </ion-option>
         <ion-option [value]="000"> อายุต่ำกว่า 1 ปี </ion-option>
         <ion-option [value]="001"> อายุ 1 ปี </ion-option>
         <ion-option [value]="002"> อายุ 2 ปี </ion-option>
@@ -458,7 +466,6 @@
         <ion-option [value]="118"> อายุ 118 ปี </ion-option>
         <ion-option [value]="119"> อายุ 119 ปี </ion-option>
         <ion-option [value]="120"> อายุ 120 ปี </ion-option>
-        <ion-option [value]="999"> ไม่ทราบ </ion-option>
       </ion-select>
     </ion-item>
 
@@ -502,7 +509,8 @@
       <ion-item *ngIf="FormItem.get('otherProvince').value == proName">
         <span class="invalid-msg">จังหวัดที่เลือก ต้องไม่ใช่จังหวัดทีทำการสำรวจ</span>
       </ion-item>
-      <ion-item [class.invalid]="FormItem.get('otherProvince').value == null || FormItem.get('otherProvince').value == proName">
+      <ion-item
+        [class.invalid]="FormItem.get('otherProvince').value == null || FormItem.get('otherProvince').value == proName">
         <ion-label>ระบุจังหวัดอื่น
         </ion-label>
         <ion-select interface="action-sheet" formControlName="otherProvince">
