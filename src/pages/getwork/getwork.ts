@@ -25,7 +25,15 @@ export class GetworkPage {
   async presentAlert() {
     const alert = await this.alertController.create({
       title: 'Alert for Diamond',
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'OK',
+          handler: data => {
+            this.navCtrl.setRoot("SelectEaPage");
+          }
+        }
+
+      ]
     });
     await alert.present();
   }
