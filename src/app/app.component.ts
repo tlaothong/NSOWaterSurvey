@@ -43,15 +43,15 @@ export class MyApp {
   }
 
   goGetworkPage() {
-    this.nav.pop();
-    this.nav.push("GetworkPage")
+    // this.nav.pop();
+    this.nav.setRoot("GetworkPage")
   }
 
   goSelectEaPage() {
-    this.nav.push("SelectEaPage")
+    this.nav.setRoot("SelectEaPage")
   }
 
   goSendPage() {
-    this.nav.push("SendPage")
+    this.nav.setRoot("SendPage")
   }
 }
