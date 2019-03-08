@@ -63,6 +63,8 @@ export class HomesPage {
         console.log(this.statusEa);
 
         this.str = data._id.substring(1, 7);
+        console.log(this.str);
+        
         this.store.dispatch(new SetIdEaWorkHomes(this.str));
       }
     });

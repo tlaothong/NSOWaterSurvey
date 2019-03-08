@@ -48,14 +48,21 @@ export class LocalStorageProvider {
   updateStatusBuilding(idBuilding: string, dataHousehold: any) {
     this.storage.get(idBuilding).then((val) => {
       let building = val
+      console.log(building);
+      
       this.storage.get(dataHousehold._id).then((val)=>{
         let find = val
-        if (find.Status != dataHousehold.Status && (find.Status == "complete" || dataHousehold.Status == "complete"))
+        console.log(find);
+        
+        if (find.status != dataHousehold.status && (find.status == "complete" || dataHousehold.status == "complete"))
         {
-          building.unitCountComplete += (dataHousehold.Status == "complete") ? 1 : -1;
-          if (building.unitCountComplete == building.UnitCount)
+          console.log("1111111");
+          
+          building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
+          console.log(building.unitCountComplete);
+          if (building.unitCountComplete == building.unitCount)
           {
-            building.Status = "done-all";
+            building.status = "done-all";
           }
           this.storage.set(idBuilding, building)
           this.storage.get(building.ea).then((val)=>{
@@ -66,6 +73,7 @@ export class LocalStorageProvider {
             this.storage.set(building.ea,BDlist)
           })
         }
+        this.storage.set(dataHousehold._id,dataHousehold)
       })
     })
   }
