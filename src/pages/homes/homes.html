@@ -3,9 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+<<<<<<< HEAD
     <ion-title>
       หน้าหลัก
     </ion-title>
+=======
+    <ion-title>Homes</ion-title>
+>>>>>>> dia
     <ion-buttons end>
       <button ion-button icon-only (click)="showQuickMenu($event)">
         <ion-icon name="more"></ion-icon>
@@ -229,10 +233,10 @@
             {{dataWorkEARow.properties.moo}}
           </ion-col>
           <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
-           {{dataWorkEARow.properties.muni_name}}
+            {{dataWorkEARow.properties.muni_name}}
           </ion-col>
           <ion-col col-1>
-            <button ion-button type="button" color="danger"  (click)="deleteCommu(itemCom._id)">
+            <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom._id)">
               ลบ
             </button>
           </ion-col>
