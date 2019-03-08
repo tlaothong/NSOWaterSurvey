@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { LoadUserDataById, SetLogin } from '../../states/logging/logging.actions';
-import { getUserData, getLogin } from '../../states/logging';
+import { LoadUserDataById, SetLogin, LoadDataWorkEAByUserId, LoadCountOfWorks } from '../../states/logging/logging.actions';
+import { getUserData, getLogin, getDataWorkEA } from '../../states/logging';
 import { map } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -12,13 +13,16 @@ import { map } from 'rxjs/operators';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
+  private formDataUser$ = this.store.select(getUserData);
+  
   formData$ = this.store.select(getUserData).pipe(map(s => s));
   private getDataLogin$ = this.store.select(getLogin);
   private getDataLogin: any;
   private userData: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private alertCtrl: AlertController) {
+  public dataEa: any;
+  public userObj: any;
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<LoggingState>, private alertCtrl: AlertController) {
     this.userData = null;
   }
 
@@ -39,6 +43,14 @@ export class LoginPage {
         console.log(this.getDataLogin);
         if (this.getDataLogin == true) {
           this.store.dispatch(new LoadUserDataById(event.idUser._value));
+          this.formDataUser$.subscribe(data => {
+            if (data != null) {
+              this.userObj = data
+              console.log(this.userObj);
+              this.storage.set('UserInfo',this.userObj);
+            }
+
+          });
           this.navCtrl.push("GetworkPage");
         }
         else {

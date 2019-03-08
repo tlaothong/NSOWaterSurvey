@@ -14,17 +14,19 @@ import { Storage } from '@ionic/storage';
 })
 export class GetworkPage {
 
-  private formDataUser$ = this.store.select(getUserData);
+
   private formDataEa$ = this.store.select(getDataWorkEA);
   public dataEa: any;
-  public userObj: any;
+  public userInfo: any;
+  public eaList:any[];
+  public isWork: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private storage: Storage, public alertController: AlertController) {
 
   }
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      title: 'Alert for Diamond',
+      title: 'โหลดงานสำเร็จแล้ว',
       buttons: [
         {
           text: 'OK',
@@ -40,27 +42,36 @@ export class GetworkPage {
 
   ionViewDidEnter() {
     console.log('ionViewDidLoad GetworkPage');
+    this.storage.get('UserInfo').then((val) => {
+      this.userInfo = val;
+      this.eaList = this.userInfo.eaList;
+      console.log(this.userInfo);
+      
+      this.storage.get(val.idUser).then((val) => {
+        if (val != null) {
+          this.isWork = true;
+          this.presentAlert();
+        }
+      });
 
-    this.formDataUser$.subscribe(data => {
-      if (data != null) {
-        this.userObj = data
-        console.log(this.userObj);
-        this.store.dispatch(new LoadDataWorkEAByUserId(this.userObj));
-        this.store.dispatch(new LoadCountOfWorks(this.userObj));
-        this.formDataEa$.subscribe(data => {
-          if (data != null) {
-            this.dataEa = data
-            console.log(this.dataEa);
-            this.storage.set(this.userObj.idUser, this.dataEa);
-          }
-        });
-      }
-      this.presentAlert();
     });
+
   }
 
   goConfirmDownLoadPage() {
-    this.navCtrl.setRoot("SelectEaPage");
+    this.store.dispatch(new LoadDataWorkEAByUserId(this.userInfo));
+    this.store.dispatch(new LoadCountOfWorks(this.userInfo));
+    this.formDataEa$.subscribe(data => {
+      console.log(data);
+      
+      if (data != null) {
+        this.dataEa = data
+        console.log(this.dataEa);
+        this.storage.set(this.userInfo.idUser, this.dataEa);
+        this.navCtrl.setRoot("SelectEaPage");
+      }
+    });
+   
   }
 
   goBack() {

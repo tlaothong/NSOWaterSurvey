@@ -31,24 +31,24 @@
     </ion-row>
  
     <!-- รอ blind ข้อมูล -->
-    <ion-row *ngFor="let item of dataEa" text-center align-items-center>
+    <ion-row *ngFor="let item of eaList" text-center align-items-center>
         <ion-col col-2>
-          {{ item.properties.pro_name }}
+          {{ item.province }}
         </ion-col>
         <ion-col col-2>
-          {{ item.properties.dis_name }}
+          {{ item.district }}
         </ion-col>
         <ion-col col-2>
-          {{ item.properties.tam_name }}
+          {{ item.subDistrict }}
         </ion-col>
         <ion-col col-2>
-          {{ item.properties.ea_type }}
+          {{ item.zone }}
         </ion-col>
         <ion-col col-2>
-          {{ item.properties.muni_name }}
+          {{ item.communityName }}
         </ion-col>
         <ion-col col-1>
-          {{ item.properties.ea_code_14 }}
+          {{ item._id }}
         </ion-col>
         <!-- <ion-col col-1>
           <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
@@ -58,7 +58,7 @@
       </ion-row>
 
   <ion-row padding>
-    <button ion-button full color="secondary" (click)="goConfirmDownLoadPage()" >ดาวน์โหลด</button>
+    <button ion-button full color="secondary" (click)="goConfirmDownLoadPage()" [disabled]="isWork">ดาวน์โหลด</button>
     <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
   </ion-row>
 
