@@ -136,11 +136,17 @@ export class PlumbingPage {
       this.activityCommercial = (data != null) ? data.plumbing : null;
     });
     this.changeValueActivity();
-    this.getIdHomes$.subscribe(data => this.getIdHomes = data);
-    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == this.getIdHomes);
+    this.getIdHomes$.subscribe(data => {
+      this.getIdHomes = data
+      console.log(this.getIdHomes);
+      
+      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
+      console.log(this.subDistrict);
+      
+      this.MWA = this.subDistrict.MWA;
+      this.PWA = this.subDistrict.PWA;
+    })
 
-    this.MWA = this.subDistrict.MWA;
-    this.PWA = this.subDistrict.PWA;
   }
 
   changeValueActivity() {

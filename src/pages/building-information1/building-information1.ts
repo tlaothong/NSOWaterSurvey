@@ -82,6 +82,8 @@ export class BuildingInformation1Page {
     // });
     let id = this.f.get('_id').value;
     this.storage.get(id).then((data) => {
+      console.log(data);
+      
       if (data != null) {
         this.f.setValue(data);
         this.f.get('accessCount').setValue(data.accessCount);
