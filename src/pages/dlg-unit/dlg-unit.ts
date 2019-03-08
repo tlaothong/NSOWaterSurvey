@@ -59,7 +59,6 @@ export class DlgUnitPage {
   public okDialog() {
     this.submitRequested = true;
     console.log(this.FormItem.get('subUnit.roomNumber').value);
-    
     this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
     if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
       this.setAccesses();
