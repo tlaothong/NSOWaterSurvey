@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Alert, AlertController } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
 import { getUserData, getDataWorkEA } from '../../states/logging';
@@ -18,7 +18,16 @@ export class GetworkPage {
   private formDataEa$ = this.store.select(getDataWorkEA);
   public dataEa: any;
   public userObj: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private storage: Storage, public alertController: AlertController) {
+
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      title: 'Alert for Diamond',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   ionViewDidEnter() {
@@ -38,7 +47,7 @@ export class GetworkPage {
           }
         });
       }
-
+      this.presentAlert();
     });
   }
 
@@ -49,5 +58,7 @@ export class GetworkPage {
   goBack() {
     this.navCtrl.pop();
   }
+
+
 
 }
