@@ -17,15 +17,15 @@ export class MenudetailPage {
   }
 
   goGetworkPage() {
-    this.navCtrl.push("GetworkPage")
+    this.navCtrl.setRoot("GetworkPage")
   }
 
   goSelectEaPage() {
-    this.navCtrl.push("SelectEaPage")
+    this.navCtrl.setRoot("SelectEaPage")
   }
   
   goSendPage() {
-    this.navCtrl.push("SendPage")
+    this.navCtrl.setRoot("SendPage")
   }
 
 }

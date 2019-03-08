@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-navbar >
+  <ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Homes</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="showQuickMenu($event)">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-navbar>
- 
-   
-  
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -227,10 +227,10 @@
             {{dataWorkEARow.properties.moo}}
           </ion-col>
           <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
-           {{dataWorkEARow.properties.muni_name}}
+            {{dataWorkEARow.properties.muni_name}}
           </ion-col>
           <ion-col col-1>
-            <button ion-button type="button" color="danger"  (click)="deleteCommu(itemCom._id)">
+            <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom._id)">
               ลบ
             </button>
           </ion-col>

@@ -43,9 +43,7 @@ export class GetworkPage {
   }
 
   goConfirmDownLoadPage() {
-
-    this.navCtrl.pop();
-    this.navCtrl.push("SelectEaPage");
+    this.navCtrl.setRoot("SelectEaPage");
   }
 
   goBack() {
