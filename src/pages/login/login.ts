@@ -39,7 +39,7 @@ export class LoginPage {
         console.log(this.getDataLogin);
         if (this.getDataLogin == true) {
           this.store.dispatch(new LoadUserDataById(event.idUser._value));
-          this.navCtrl.push("SelectEaPage");
+          this.navCtrl.push("GetworkPage");
         }
         else {
           notFoundUser.present();

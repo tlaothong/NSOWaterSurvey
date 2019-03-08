@@ -48,7 +48,7 @@ export class SelectEaPage {
 
       if (data != null) {
         this.storage.get(data.idUser).then((val) => {
-          console.log(val);
+          console.log(val);          
 
           if (val != null) {
             this.dataEa = val
