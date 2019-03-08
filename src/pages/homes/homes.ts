@@ -37,6 +37,7 @@ export class HomesPage {
   private dataBuilding$ = this.store.select(getHomeBuilding);
   private dataCommunity$ = this.store.select(getLoadCommunity);
   private dataCommunity: any;
+  public statusEa:any;
 
   constructor(private fb: FormBuilder, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
@@ -57,7 +58,9 @@ export class HomesPage {
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.dataWorkEARow = data
+        this.statusEa = data.properties.ea_type;
         console.log(this.dataWorkEARow);
+        console.log(this.statusEa);
 
         this.str = data._id.substring(1, 7);
         this.store.dispatch(new SetIdEaWorkHomes(this.str));

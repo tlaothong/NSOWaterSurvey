@@ -28,20 +28,18 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>
-        สถานะของ EA:
-      </ion-label>
-      <ion-select interface="action-sheet">
-        <ion-option value="1">
+      <ion-label>สถานะของ EA:</ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="statusEa" disabled="true">
+        <ion-option [value]="1">
           กำลังสำรวจ
         </ion-option>
-        <ion-option value="2">
+        <ion-option [value]="2">
           สำรวจครบแล้ว
         </ion-option>
-        <ion-option value="3">
+        <ion-option [value]="3">
           ตรวจสอบแล้ว
         </ion-option>
-        <ion-option value="4">
+        <ion-option [value]="4">
           อนุมัติแล้ว
         </ion-option>
       </ion-select>
@@ -125,7 +123,8 @@
         <ion-col col-4>
           <ion-row align-items-center>
             <ion-label>
-              ครัวเรือน/สถานประกอบการ
+              ครัวเรือน<br>สถานประกอบการ
+              
             </ion-label>
           </ion-row>
           <ion-row>
@@ -254,7 +253,7 @@
         <ion-col col-4>
           <ion-row align-items-center>
             <ion-label>
-              ครัวเรือน/สถานประกอบการ
+              ครัวเรือน<br>สถานประกอบการ
             </ion-label>
           </ion-row>
           <ion-row>

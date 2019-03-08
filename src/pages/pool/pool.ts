@@ -53,11 +53,11 @@ export class PoolPage {
   private backNum: any;
   public checked: boolean
 
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators],
       'poolCount': [null, Validators],
-      'hasSameSize': [null, Validators],
+      'hasSameSize': [true, Validators],
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators],
       'waterResources': this.fb.array([]),
@@ -76,7 +76,7 @@ export class PoolPage {
         this.formData = data;
       }
     })
-   
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -117,6 +117,19 @@ export class PoolPage {
     return this.checked = false
   }
 
+  public checkvalid(): boolean {
+    if ((this.activityResidential == true
+      || this.activityWateringRes == true
+      || this.activityRice == true
+      || this.activityAgiculture == true
+      || this.activityFactory == true
+      || this.activityCommercial == true)
+      && (this.f.get('waterResourceCount').value < 1)) {
+        return false;
+    }
+    return true;
+  }
+
   public handleSubmit() {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
@@ -127,16 +140,16 @@ export class PoolPage {
       for (let index = 1; index < val.length; index++) {
         val[index] = val[0]
       }
-      this.f.get('poolSizes').setValue(val)      
+      this.f.get('poolSizes').setValue(val)
     }
     this.formData.waterUsage.pool = this.f.value
-    if (this.f.valid) {
+    if (this.f.valid || this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -147,7 +160,7 @@ export class PoolPage {
       const poolCount = c.get('poolCount');
       const hasSameSize = c.get('hasSameSize');
       const waterResourceCount = c.get('waterResourceCount');
-
+ 
       if (doing.value == null) {
         return { 'doing': true };
       }
@@ -157,7 +170,7 @@ export class PoolPage {
       if ((doing.value == true) && (hasSameSize.value == null)) {
         return { 'hasSameSize': true };
       }
-      if ((doing.value == true) && ((waterResourceCount.value == null) || (waterResourceCount.value < 1))) {
+      if ((doing.value == true) && ((waterResourceCount.value == null) || (waterResourceCount.value == 0))) {
         return { 'waterResourceCount': true };
       }
       return null;
