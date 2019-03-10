@@ -42,38 +42,36 @@ export class LocalStorageProvider {
 
       }
     })
-    this.updateStatusBuilding(id,data)
+    this.updateStatusBuilding(id, data)
   }
 
   updateStatusBuilding(idBuilding: string, dataHousehold: any) {
     this.storage.get(idBuilding).then((val) => {
       let building = val
       console.log(building);
-      
-      this.storage.get(dataHousehold._id).then((val)=>{
+
+      this.storage.get(dataHousehold._id).then((val) => {
         let find = val
         console.log(find);
-        
-        if (find.status != dataHousehold.status && (find.status == "complete" || dataHousehold.status == "complete"))
-        {
+
+        if (find.status != dataHousehold.status && (find.status == "complete" || dataHousehold.status == "complete")) {
           console.log("1111111");
-          
+
           building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
           console.log(building.unitCountComplete);
-          if (building.unitCountComplete == building.unitCount)
-          {
+          if (building.unitCountComplete == building.unitCount) {
             building.status = "done-all";
           }
           this.storage.set(idBuilding, building)
-          this.storage.get(building.ea).then((val)=>{
+          this.storage.get(building.ea).then((val) => {
             let BDlist = val
             let index = BDlist.findIndex(it => it._id == building._id)
-            BDlist.splice(index,1);
+            BDlist.splice(index, 1);
             BDlist.push(building)
-            this.storage.set(building.ea,BDlist)
+            this.storage.set(building.ea, BDlist)
           })
         }
-        this.storage.set(dataHousehold._id,dataHousehold)
+        this.storage.set(dataHousehold._id, dataHousehold)
       })
     })
   }
