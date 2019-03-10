@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Homes
+      หน้าหลัก
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="showQuickMenu($event)">
@@ -28,20 +28,18 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>
-        สถานะของ EA:
-      </ion-label>
-      <ion-select interface="action-sheet">
-        <ion-option value="1">
+      <ion-label>สถานะของ EA:</ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="statusEa" disabled="true">
+        <ion-option [value]="1">
           กำลังสำรวจ
         </ion-option>
-        <ion-option value="2">
+        <ion-option [value]="2">
           สำรวจครบแล้ว
         </ion-option>
-        <ion-option value="3">
+        <ion-option [value]="3">
           ตรวจสอบแล้ว
         </ion-option>
-        <ion-option value="4">
+        <ion-option [value]="4">
           อนุมัติแล้ว
         </ion-option>
       </ion-select>
@@ -51,7 +49,7 @@
 
   <ion-row align-items-center>
     <ion-col>
-      <button ion-button block type="button" (click)="goBuildingInfo(dataWorkEARow?._id)">
+      <button ion-button block type="button" (click)="goBuildingInfo()">
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
@@ -96,17 +94,17 @@
           <ion-icon name="md-create"></ion-icon>
           ข้อมูลล่าสุด
         </ion-segment-button>
-        <ion-segment-button value="all">
+        <ion-segment-button value="all" (click)="totalData()">
           <ion-icon name="folder"></ion-icon>
           ข้อมูลทั้งหมด
         </ion-segment-button>
 
-        <ion-segment-button value="pause">
+        <ion-segment-button value="pause" (click)="filterPause()">
           <ion-icon name="md-pause"></ion-icon>
           หยุดชั่วคราว
         </ion-segment-button>
 
-        <ion-segment-button value="return">
+        <ion-segment-button value="return" (click)="filterRefresh()">
           <ion-icon name="md-eye"></ion-icon>
           สำรวจครั้งที่ 2,3
         </ion-segment-button>
@@ -125,7 +123,8 @@
         <ion-col col-4>
           <ion-row align-items-center>
             <ion-label>
-              ครัวเรือน/สถานประกอบการ
+              ครัวเรือน<br>สถานประกอบการ
+              
             </ion-label>
           </ion-row>
           <ion-row>
@@ -229,10 +228,10 @@
             {{dataWorkEARow.properties.moo}}
           </ion-col>
           <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
-            -
+            {{dataWorkEARow.properties.muni_name}}
           </ion-col>
           <ion-col col-1>
-            <button ion-button type="button" color="danger">
+            <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom._id)">
               ลบ
             </button>
           </ion-col>
@@ -254,7 +253,7 @@
         <ion-col col-4>
           <ion-row align-items-center>
             <ion-label>
-              ครัวเรือน/สถานประกอบการ
+              ครัวเรือน<br>สถานประกอบการ
             </ion-label>
           </ion-row>
           <ion-row>

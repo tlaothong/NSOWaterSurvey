@@ -52,8 +52,8 @@ export class RubberTreePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-    this.store.dispatch(new SetAgiSelectRubber(true));
+    // this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
+    // this.store.dispatch(new SetAgiSelectRubber(true));
     this.formData.agriculture.rubberTree = this.rubbertree.value;
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();

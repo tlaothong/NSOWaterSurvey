@@ -25,6 +25,10 @@ export class DlgRainStoragePage {
   }
 
   public okDialog() {
+    if(this.text == null){
+     this.FormItem.get('category').setValue(this.text);
+    }
+      
     this.viewCtrl.dismiss(this.FormItem);
   }
 

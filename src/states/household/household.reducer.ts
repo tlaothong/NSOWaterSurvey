@@ -1,4 +1,5 @@
 import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
+import { EX_RICH_LIST, EX_RUBBER_LIST } from "../../models/tree";
 
 export interface HouseHoldState {
     units: any,
@@ -39,6 +40,7 @@ export interface HouseHoldState {
     backToRoot: any,
     back: any,
     dataOfUnit: any,
+    numberRoom: string,
 }
 
 const initialState: HouseHoldState = {
@@ -80,6 +82,7 @@ const initialState: HouseHoldState = {
     backToRoot: null,
     back: null,
     dataOfUnit: null,
+    numberRoom: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -292,8 +295,16 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 back: action.payload,
             };
+        case HouseHoldTypes.SetNumberRoom:
+            return {
+                ...state,
+                numberRoom: action.payload,
+            };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
+            console.log("Payload", JSON.stringify(action.payload));
+            console.log(JSON.stringify(s));
+
             return {
                 ...state,
                 houseHoldSample: action.payload,
@@ -325,6 +336,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 checkWaterIrrigation: s.checkWaterIrrigation,
                 checkWaterRain: s.checkWaterRain,
                 checkWaterBuying: s.checkWaterBuying,
+                numberRoom: s.numberRoom,
                 nextPageDirection: listPagesToCheck({
                     ...state,
                     houseHoldSample: action.payload,
@@ -356,6 +368,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                     checkWaterIrrigation: s.checkWaterIrrigation,
                     checkWaterRain: s.checkWaterRain,
                     checkWaterBuying: s.checkWaterBuying,
+                    numberRoom: s.numberRoom,
                 }),
             };
         default:
@@ -366,6 +379,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
 function resetStatesForModel(model: any): any {
     let objG12345 = {};
     let garden: any;
+    let numberRoomUnit: any;
     if (model) {
         objG12345 = {
             isHouseHold: model.isHouseHold,
@@ -374,6 +388,7 @@ function resetStatesForModel(model: any): any {
             isCommercial: model.isCommercial,
         }
 
+        numberRoomUnit = model.subUnit.roomNumber;
     }
 
     let objAgri = {};
@@ -382,8 +397,8 @@ function resetStatesForModel(model: any): any {
     let riceDoing = ag && ag.ricePlant.doing;
     let rubberDoing = ag && ag.rubberTree.doing;
     let listRice
-    let listAgronomy
-    let listRubber
+    let listAgronomy = []
+    let listRubber = []
     let listPerennial
 
 
@@ -405,16 +420,16 @@ function resetStatesForModel(model: any): any {
 
         riceDoing = ag && ag.ricePlant.doing;
         rubberDoing = ag && ag.rubberTree.doing;
-        listAgronomy = ag.agronomyPlant && ag.agronomyPlant.fields && ag.agronomyPlant.fields.plantings;
-        listPerennial = ag.perennialPlant && ag.agronomyPlant.fields && ag.perennialPlant.fields.plantings;
+        listAgronomy = findListAgronomy(ag && ag.agronomyPlant);
+        listPerennial = findListPerennial(ag && ag.perennialPlant);
 
         if (riceDoing) {
-            listRice = ag.ricePlant.fields.plantings;
+            listRice = EX_RICH_LIST;
 
         }
 
         if (rubberDoing) {
-            listRubber = ag.rubberTree.fields.plantings;
+            listRubber = EX_RUBBER_LIST;
         }
     };
 
@@ -479,6 +494,7 @@ function resetStatesForModel(model: any): any {
         isCommercial: model && model.isCommercial,
         residentialGardeningUse: model && model.residence.gardeningUse,
         agi: objAgri,
+        numberRoom: numberRoomUnit,
         ricePlantSelectPlant: listRice,
         agronomyPlantSelectPlant: listAgronomy,
         rubberTreeSelectPlant: listRubber,
@@ -503,9 +519,38 @@ function resetStatesForModel(model: any): any {
     };
 }
 
+function findListAgronomy(list) {
+    let fields = list && list.fields as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+        if (f.plantings && f.plantings.plants) {
+            f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+        }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
+    console.log(selected);
+    return selected;
+}
+
+function findListPerennial(list) {
+    let fields = list && list.fields as Array<any>;
+    let selectedMap = new Map<string, any>();
+    fields.forEach(f => {
+        if (f.plantings && f.plantings.plants) {
+            f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+        }
+    });
+    let selected = [];
+    selectedMap.forEach(v => selected.push(v));
+    console.log(selected);
+    return selected;
+}
+
+
 function findWaterSourceRice(water) {
     console.log("findWaterSourceRice");
-//
+    //
     let fields = water && water.fields as Array<any>;
     let waterSourceRice = {}
     if (fields != null) {
@@ -751,7 +796,7 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
         arr[i] = arr[1]
     }
 
-    if (state.arraySkipPageAgiculture) {
+    if (state.selectG1234.isAgriculture && state.arraySkipPageAgiculture) {
         arr[2] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.ricePlant) ? true : false;
         arr[3] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.agronomyPlant) ? true : false;
         arr[4] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.rubberTree) ? true : false;
@@ -761,6 +806,16 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
         arr[8] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.mushroomPlant) ? true : false;
         arr[9] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.animalFarm) ? true : false;
         arr[10] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.aquaticAnimals) ? true : false;
+    } else {
+        arr[2] = false;
+        arr[3] = false;
+        arr[4] = false;
+        arr[5] = false;
+        arr[6] = false;
+        arr[7] = false;
+        arr[8] = false;
+        arr[9] = false;
+        arr[10] = false;
     }
 
     arr[13] = (state.checkWaterPlumbing) ? true : false;

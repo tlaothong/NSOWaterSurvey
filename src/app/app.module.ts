@@ -36,7 +36,9 @@ import { LocalStorageProvider } from '../providers/local-storage/local-storage';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     ComponentsModule,
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      // name: 'User',
+    }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({

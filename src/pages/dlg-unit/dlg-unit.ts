@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';
@@ -58,6 +58,8 @@ export class DlgUnitPage {
 
   public okDialog() {
     this.submitRequested = true;
+    console.log(this.FormItem.get('subUnit.roomNumber').value);
+    this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
     if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
       this.setAccesses();
       this.AddUnit();
@@ -108,21 +110,35 @@ export class DlgUnitPage {
   }
 
   AddUnit() {
-    // this.store.dispatch(new SetUnit(this.FormItem.value));
-    // this.FormItem.get('_id').setValue(String(Guid.create()))
-    // console.log(this.FormItem.get('_id').value);
-
-    // this.store.dispatch(new SetHouseHold(this.FormItem.value));
-    let fin: any
-    let list: any[]
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    let key = "BL" + this.id_BD
+    let key = "BL" + this.id_BD 
     console.log(this.id_BD);
+    if (this.FormItem.get('status').value == "complete") {
+      this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
+        if (val != null) {
+          let building = val;
+          building.unitCountComplete++;
+          if (building.unitCountComplete == building.UnitCount) {
+            building.Status = "done-all";
+          }
+          this.storage.set(this.FormItem.get('buildingId').value, building);
+          this.storage.get(building.ea).then((val) => {
+            let BDlist = val
+            let index = BDlist.findIndex(it => it._id == building._id)
+            BDlist.splice(index, 1);
+            BDlist.push(building)
+            this.storage.set(building.ea, BDlist)
+          })
+        }
+      });
+    }
 
+    let fin: any
+    let list: any[]
     this.storage.get(key).then((val) => {
-      list = val //[]
+      list = val
       console.log(list);
       if (list != null) {
         fin = list.find(it => it._id == id)

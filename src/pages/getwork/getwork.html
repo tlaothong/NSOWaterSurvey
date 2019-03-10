@@ -7,8 +7,58 @@
     <ion-label>กดปุ่ม <b>ดาวน์โหลด</b> เพื่อรับข้อมูลงานสำรวจที่ท่านได้รับมอบหมายดังต่อไปนี้</ion-label>
   </ion-item>
 
+  <ion-row text-center align-items-center>
+      <ion-col col-2>
+        <b>จังหวัด</b>
+      </ion-col>
+      <ion-col col-2>
+        <b>อำเภอ</b>
+      </ion-col>
+      <ion-col col-2>
+        <b>ตำบล</b>
+      </ion-col>
+      <ion-col col-2>
+        <b>เขตการปกครอง</b>
+      </ion-col>
+      <ion-col col-2>
+        <b>เทศบาล</b>
+      </ion-col>
+      <ion-col col-1>
+        <b>EA</b>
+      </ion-col>
+      <ion-col col-1>
+      </ion-col>
+    </ion-row>
+ 
+    <!-- รอ blind ข้อมูล -->
+    <ion-row *ngFor="let item of eaList" text-center align-items-center>
+        <ion-col col-2>
+          {{ item.province }}
+        </ion-col>
+        <ion-col col-2>
+          {{ item.district }}
+        </ion-col>
+        <ion-col col-2>
+          {{ item.subDistrict }}
+        </ion-col>
+        <ion-col col-2>
+          {{ item.zone }}
+        </ion-col>
+        <ion-col col-2>
+          {{ item.communityName }}
+        </ion-col>
+        <ion-col col-1>
+          {{ item._id }}
+        </ion-col>
+        <!-- <ion-col col-1>
+          <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
+            เลือก
+          </button>
+        </ion-col> -->
+      </ion-row>
+
   <ion-row padding>
-    <button ion-button full color="secondary" (click)="goConfirmDownLoadPage()">ดาวน์โหลด</button>
+    <button ion-button full color="secondary" (click)="goConfirmDownLoadPage()" [disabled]="isWork">ดาวน์โหลด</button>
     <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
   </ion-row>
 

@@ -1,16 +1,18 @@
+import { SetHomeBuildingSuccess } from './../../states/building/building.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit } from '../../states/logging/logging.actions';
+import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit, LoadCommunityForEditSuccess } from '../../states/logging/logging.actions';
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
+import { shiftInitState } from '@angular/core/src/view';
 
 
 
@@ -23,7 +25,9 @@ export class HomesPage {
   data: any;
   formItem: FormGroup;
   office: string = "building";
+  x: number = 0;
   public dataEa: any;
+  public datap: any[];
   public dataWorkEARow: any;
   public str: string;
   public comunity: any;
@@ -33,6 +37,7 @@ export class HomesPage {
   private dataBuilding$ = this.store.select(getHomeBuilding);
   private dataCommunity$ = this.store.select(getLoadCommunity);
   private dataCommunity: any;
+  public statusEa: any;
 
   constructor(private fb: FormBuilder, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
@@ -48,33 +53,21 @@ export class HomesPage {
     });
   }
 
-  // setFilteredItems(name) {
-  //   this.dataEa = this.dataEa.filter((data) => {
-  //     let temp = '';
-  //     return temp.toLowerCase().indexOf(name.toLowerCase()) > -1;
-  //   });
-  // }
-
   ionViewDidEnter() {
     this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.dataWorkEARow = data
+        this.statusEa = data.properties.ea_type;
         console.log(this.dataWorkEARow);
+        console.log(this.statusEa);
 
         this.str = data._id.substring(1, 7);
+        console.log(this.str);
+
         this.store.dispatch(new SetIdEaWorkHomes(this.str));
       }
     });
-    // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
-    this.store.dispatch(new LoadCommunity(this.dataWorkEARow._id));
-    // this.dataBuilding$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataEa = data
-    //     this.listFilter = this.dataEa;
-    //     console.log(this.dataEa)
-    //   }
-    // });
 
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
@@ -84,14 +77,42 @@ export class HomesPage {
       }
     });
 
-
-
-    this.dataCommunity$.subscribe(data => {
+    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+      if (val != null) {
+        this.dataCommunity = val
+        console.log(this.dataCommunity);
+      }
+    })
+  }
+  filterRefresh() {
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
-        this.dataCommunity = data
+        this.dataEa = data
+        this.datap = this.dataEa.filter(it => it.status == "refresh")
+        console.log(this.datap);
+        this.listFilter = this.datap;
       }
     });
+  }
 
+  filterPause() {
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.datap = this.dataEa.filter(it => it.status == "pause")
+        console.log(this.datap);
+        this.listFilter = this.datap;
+      }
+    });
+  }
+  totalData() {
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.listFilter = this.dataEa;
+        console.log(this.dataEa)
+      }
+    });
   }
 
   changeNum(num: string) {
@@ -100,27 +121,41 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.swith.updateBuildingState(null);
-      this.navCtrl.push("BuildingTestPage", { id: this.dataWorkEARow._id })
+      this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
+      this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id, id: null })
     } else if (this.num == '2') {
-      this.store.dispatch(new LoadCommunityForEdit(null));
+      this.store.dispatch(new LoadCommunityForEditSuccess(null));
       this.navCtrl.push("CommunityTestPage", { id: null })
     }
   }
 
   goEditBuildingInfo(item: any) {
     if (this.num == '1' && item.status != 'done-all') {
-      this.swith.updateBuildingState(item._id);
-      console.log(item);
-      
+      //this.swith.updateBuildingState(item._id);
       this.storage.get(item._id).then((val) => {
         console.log(val);
-        
-        this.navCtrl.push("BuildingTestPage", { item: val });
+        this.storeBuild.dispatch(new SetHomeBuildingSuccess(val));
+        switch (val.status) {
+          case 'refresh':
+            this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
+            break;
+          case 'pause':
+            // this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
+            this.navCtrl.push("UnitPage");
+            break;
+          default:
+            break;
+        }
       })
     }
     else if (this.num == '2') {
-      this.store.dispatch(new LoadCommunityForEdit(item._id));
+
+      console.log(item);
+
+      this.storage.get(item).then((val) => {
+        console.log(val);
+        this.store.dispatch(new LoadCommunityForEditSuccess(val));
+      });
       this.navCtrl.push("CommunityTestPage")
     }
 
@@ -134,6 +169,9 @@ export class HomesPage {
         let index = list.findIndex(it => it._id == id)
         list.splice(index, 1)
         this.storage.set(this.dataWorkEARow._id, list)
+        if (data == []) {
+          this.storage.remove(this.dataWorkEARow._id);
+        }
       }
     });
     this.storage.remove(id);
@@ -145,6 +183,29 @@ export class HomesPage {
         console.log(this.dataEa)
       }
     });
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  deleteCommu(id: string) {
+    console.log(id);
+    console.log("CL" + this.dataWorkEARow._id);
+    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+      if (val != null) {
+        let list = val
+        let index = list.findIndex(it => it._id == id)
+        list.splice(index, 1)
+        this.storage.set("CL" + this.dataWorkEARow._id, list)
+        if (val == []) {
+          this.storage.remove("CL" + this.dataWorkEARow._id);
+        }
+      }
+    });
+    this.storage.remove(id);
+    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+      if (val != null) {
+        this.dataCommunity = val
+      }
+    })
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 

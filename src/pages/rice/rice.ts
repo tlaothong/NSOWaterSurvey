@@ -52,8 +52,8 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
-    this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
-    this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
+    // this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
+    // this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
     this.data.agriculture.ricePlant = this.f.value;
     if (this.f.valid || (this.f.get('doing').value == false)) {
@@ -113,7 +113,7 @@ export class RicePage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  private setupFieldCountChanges() {
+  public setupFieldCountChanges() {
     const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 

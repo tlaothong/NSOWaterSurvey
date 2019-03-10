@@ -1,7 +1,7 @@
 <ion-header>
 
   <!-- <questionnaire-menu title="ตอนที่ 2 ข้อมูครัวเรือน/สถานประกอบการในบ้าน/อาคาร/สิ่งปลูกสร้าง"></questionnaire-menu> -->
-  <questionnaire-menu title= " " ></questionnaire-menu>
+  <questionnaire-menu title=" "></questionnaire-menu>
 
 
 </ion-header>
@@ -19,13 +19,20 @@
         </ion-item>
 
         <ion-item>
-          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="unitCount" [class.invalid]="isValid('unitCount')"></ion-input>
+          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="unitCount"
+            [class.invalid]="isValid('unitCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('unitCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
+        <ion-item *ngIf="f.get('unitCount').value > 99">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนให้ถูกต้อง
+            </span>
+          </ion-item>
       </ion-card-content>
     </ion-card>
 
@@ -72,7 +79,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount"
+                [class.invalid]="isValid('floorCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('floorCount')">
               <span class="invalid-msg">
@@ -88,7 +96,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount" [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount"
+                [class.invalid]="isValid('occupiedRoomCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('occupiedRoomCount')">
               <span class="invalid-msg">
@@ -102,7 +111,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="vacantRoomCount" [class.invalid]="isValid('vacantRoomCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="vacantRoomCount"
+                [class.invalid]="isValid('vacantRoomCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('vacantRoomCount')">
               <span class="invalid-msg">
@@ -167,7 +177,8 @@
                       </ion-label>
                     </ion-item>
                     <ion-item>
-                      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterBill" [class.invalid]="isValid('waterQuantity.waterBill')"></ion-input>
+                      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterBill"
+                        [class.invalid]="isValid('waterQuantity.waterBill')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('waterQuantity.waterBill')">
                       <span class="invalid-msg">
@@ -185,7 +196,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount"
+                [class.invalid]="isValid('floorCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('floorCount')">
               <span class="invalid-msg">
@@ -210,7 +222,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount" [class.invalid]="isValid('floorCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="floorCount"
+                [class.invalid]="isValid('floorCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('floorCount')">
               <span class="invalid-msg">
@@ -232,6 +245,6 @@
     </ion-card>
 
     <form-buttons-bar [isBuilding]="true"></form-buttons-bar>
-    
+
   </form>
 </ion-content>

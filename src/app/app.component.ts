@@ -22,7 +22,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       // test push
-      { title: 'Home', component: HomePage },
+      // { title: 'Home', component: HomePage },
     ];
 
   }
@@ -43,14 +43,15 @@ export class MyApp {
   }
 
   goGetworkPage() {
-    this.nav.push("GetworkPage")
+    // this.nav.pop();
+    this.nav.setRoot("GetworkPage")
   }
 
   goSelectEaPage() {
-    this.nav.push("SelectEaPage")
+    this.nav.setRoot("SelectEaPage")
   }
 
   goSendPage() {
-    this.nav.push("SendPage")
+    this.nav.setRoot("SendPage")
   }
 }

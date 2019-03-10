@@ -1,0 +1,175 @@
+<!--
+  Generated template for the MeasurePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>ตารางมาตราวัด</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table1.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table1.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table1.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table1.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table2.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table2.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table2.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table2.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table3.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table3.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table3.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table3.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table4.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table4.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table4.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table4.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table5.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table5.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table5.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table5.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table6.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table6.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table6.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table6.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-item>
+    <label>
+      <h1 class="title text-center" style="margin-top: 5px">{{table7.name}}</h1>
+    </label>
+  </ion-item>
+
+  <ion-list no-lines style="text-align: center">
+    <ion-item *ngFor="let i of range(table7.source)">
+      <ion-row>
+        <ion-col col-5>
+          {{table7.source[i]}}
+        </ion-col>
+        <ion-col col-2>
+          <label>เท่ากับ</label>
+        </ion-col>
+        <ion-col col-5>
+          {{table7.dest[i]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="applyFooter">
+  <ion-footer>
+    <button ion-button block color="light" (click)="back()">ย้อนกลับ</button>
+  </ion-footer>
+</ion-footer>

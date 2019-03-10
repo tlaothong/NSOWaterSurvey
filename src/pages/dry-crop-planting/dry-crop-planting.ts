@@ -59,8 +59,10 @@ export class DryCropPlantingPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
-    this.store.dispatch(new SetAgiSelectAgronomy(true));
+    console.log(selected);
+    
+    // this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
+    // this.store.dispatch(new SetAgiSelectAgronomy(true));
     this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
     if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
@@ -125,7 +127,7 @@ export class DryCropPlantingPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  private setupFieldCountChanges() {
+  public setupFieldCountChanges() {
     const componentFormArray: string = "fields";
     const componentCount: string = "fieldCount";
 

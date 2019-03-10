@@ -10,7 +10,20 @@ import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
-
+import { FieldFarmingComponent } from '../field-farming/field-farming';
+import { FieldDryCropPlantingComponent } from '../field-dry-crop-planting/field-dry-crop-planting';
+import { FieldMushroomComponent } from '../field-mushroom/field-mushroom';
+import { FieldFlowerCropComponent } from '../field-flower-crop/field-flower-crop';
+import { FieldHerbsPlantComponent } from '../field-herbs-plant/field-herbs-plant';
+import { FieldPerenialPlantingComponent } from '../field-perenial-planting/field-perenial-planting';
+import { FieldRebbertreeComponent } from '../field-rebbertree/field-rebbertree';
+import { FishFarmingComponent } from '../fish-farming/fish-farming';
+import { FrogFarmingComponent } from '../frog-farming/frog-farming';
+import { CrocodileFarmingComponent } from '../crocodile-farming/crocodile-farming';
+import { GroundWaterUsageComponent } from '../ground-water-usage/ground-water-usage';
+import { PumpComponent } from '../pump/pump';
+import { PoolUsageComponent } from '../pool-usage/pool-usage';
+import { PoolAreaComponent } from '../pool-area/pool-area';
 /**
  * Generated class for the UnitButtonComponent component.
  *
@@ -49,15 +62,25 @@ export class UnitButtonComponent {
   private formData$ = this.store.select(getHouseHoldSample);
 
 
-  constructor(private modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder) {
+  constructor(private modalCtrl: ModalController, private storage: Storage,
+    public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController,
+    private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder
+  ) {
     console.log('Hello UnitButtonComponent Component');
-    this.dataHomeBuilding$.subscribe(data => this.id_BD = data._id);
+    this.dataHomeBuilding$.subscribe(data => {
+      if (data != null) {
+        this.id_BD = data._id
+      }
+    });
     this.text = '';
     this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
   }
 
   ngOnInit() {
     this.GetUnitByIdBuilding$.subscribe(data => {
+      console.log("dataxxxxxx");
+      console.log(data);
+      
       if (data != null) {
         if (data[Number(this.unitNo) - 1] != undefined) {
           let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
@@ -75,7 +98,7 @@ export class UnitButtonComponent {
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
     this.FormItem.get('_id').setValue(Guid.create().toString());
-    
+
     console.log(this.FormItem.value);
     if (this.FormItem.get('subUnit.accessCount').value > 0) {
       this.setAccess();
@@ -651,7 +674,7 @@ export class UnitButtonComponent {
           'waterResourceCount': 0,
           'waterResources': fb.array([]),
           'poolCount': 0,
-          'hasSameSize': null,
+          'hasSameSize': true,
           'poolSizes': fb.array([]),
         }),
         'irrigation': fb.group({
@@ -835,32 +858,12 @@ export class UnitButtonComponent {
     console.log(id);
     this.storage.get(id).then((val) => {
       console.log(val);
-      if(val != null){
+      if (val != null) {
         this.dataS = val;
         console.log(val);
         this.store.dispatch(new LoadHouseHoldSampleSuccess(this.dataS));
       }
     })
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataS = data;
-    //   }
-    // });
-
-    // this.storage.set(id, this.dataS)
-    // let f = this.store.select(getHouseHoldSample);
-    // f.subscribe(data => console.log("fffff", data));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 8)) {
-    //       arrayIsCheck.splice(0, arrayIsCheck.length);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public showModalSetting() {
@@ -885,6 +888,8 @@ export class UnitButtonComponent {
   public showModal() {
     if (this.access == 1) {
       this.sendIdUnit();
+      console.log(this.FormItem);
+
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
@@ -952,7 +957,7 @@ export class UnitButtonComponent {
   private updateStatus() {
     switch (this.access) {
       case 1:
-        if (this.FormItem.valid) {
+        if (this.FormItem.get('status').value == "complete") {
           this.class = (this.allComment == '') ? "complete" : "completeCm";
         }
         else {
@@ -1055,4 +1060,5 @@ export class UnitButtonComponent {
 
     onComponentCountChanges();
   }
+
 }

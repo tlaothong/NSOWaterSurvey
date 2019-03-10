@@ -58,8 +58,10 @@ export class PerennialPlantingPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
-    this.store.dispatch(new SetAgiSelectPerennial(true));
+    console.log(selected);
+
+    // this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
+    // this.store.dispatch(new SetAgiSelectPerennial(true));
     this.formData.agriculture.perennialPlant = this.PerennialPlantingFrm.value;
     if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
       this.arrayIsCheckMethod();

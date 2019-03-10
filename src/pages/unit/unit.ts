@@ -38,12 +38,15 @@ export class UnitPage {
     console.log(this.f.get('unitCount').value);
     this.setupUnitsCountChanges();
     this.dataHomeBuilding$.subscribe(data => {
-      this.id_BD = data._id
-      let key = "BL" + this.id_BD
-      this.storage.get(key).then((val) => {
-        console.log(val);
-        this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-      })
+      console.log(data);
+      if (data != null) {
+        this.id_BD = data._id
+        let key = "BL" + this.id_BD
+        this.storage.get(key).then((val) => {
+          console.log(val);
+          this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
+        })
+      }
     });
     console.log(this.f.get('units').value);
   }

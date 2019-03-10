@@ -33,7 +33,7 @@ export class BuidlingInformation2Page {
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
         console.log(data);
-        
+
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
         this.f.setValue(data);
@@ -86,6 +86,9 @@ export class BuidlingInformation2Page {
     // this.formDataFromBuilding1$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data)
+    this.getBuildingType$.subscribe(data => console.log(data));
+    console.log(this.f.value);
+    
     this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
     //   }
     // });
@@ -98,12 +101,15 @@ export class BuidlingInformation2Page {
     console.log("f.valid", this.f.valid);
 
     if (this.f.valid && (this.f.get('unitCount').value > 0)) {
-      console.log("pass");
+      console.log("unitCount: " + this.f.get('unitCount').value);
 
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
       // this.store.dispatch(new SetHomeBuilding(this.f.value));
+
       this.storage.set(this.f.get('_id').value, this.f.value);
       this.storage.get(this.f.get('ea').value).then((data) => {
+        console.log("test: ", data);
+
         let listBD = data
         let idBD = this.f.get('_id').value;
         if (listBD != null) {
@@ -111,20 +117,24 @@ export class BuidlingInformation2Page {
           if (fin == null) {
             listBD.push(this.f.value)
             this.storage.set(this.f.get('ea').value, listBD)
-          }else{
+          } else {
             let index = listBD.findIndex(it => it._id == idBD)
             listBD.splice(index, 1);
             listBD.push(this.f.value);
             this.storage.set(this.f.get('ea').value, listBD)
           }
-        }else{
+        } else {
           listBD = []
           listBD.push(this.f.value)
           this.storage.set(this.f.get('ea').value, listBD)
         }
+        console.log(listBD);
+
       })
+      console.log(this.f.value);
+
       this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-      this.navCtrl.push("HouseHoldTestPage");
+      this.navCtrl.push("UnitPage");
     }
   }
 

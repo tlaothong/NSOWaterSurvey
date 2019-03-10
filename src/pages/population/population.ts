@@ -68,14 +68,15 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.dataPop.population = this.f.value
+    this.dataPop.status = "complete"
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
-      this.store.dispatch(new SetHouseHold(this.dataPop)); 
+      // this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
       // this.storage.set('unit', this.dataPop)  
       let id = this.dataPop._id
-      this.storage.set(id, this.dataPop)
       this.local.updateListUnit(this.dataPop.buildingId,this.dataPop)
+      // this.storage.set(id, this.dataPop)
       this.navCtrl.setRoot("UnitPage");
     }
   }
