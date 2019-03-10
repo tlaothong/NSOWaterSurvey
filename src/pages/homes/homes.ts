@@ -37,7 +37,7 @@ export class HomesPage {
   private dataBuilding$ = this.store.select(getHomeBuilding);
   private dataCommunity$ = this.store.select(getLoadCommunity);
   private dataCommunity: any;
-  public statusEa:any;
+  public statusEa: any;
 
   constructor(private fb: FormBuilder, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
@@ -64,7 +64,7 @@ export class HomesPage {
 
         this.str = data._id.substring(1, 7);
         console.log(this.str);
-        
+
         this.store.dispatch(new SetIdEaWorkHomes(this.str));
       }
     });
@@ -169,6 +169,9 @@ export class HomesPage {
         let index = list.findIndex(it => it._id == id)
         list.splice(index, 1)
         this.storage.set(this.dataWorkEARow._id, list)
+        if (data == []) {
+          this.storage.remove(this.dataWorkEARow._id);
+        }
       }
     });
     this.storage.remove(id);
@@ -192,6 +195,9 @@ export class HomesPage {
         let index = list.findIndex(it => it._id == id)
         list.splice(index, 1)
         this.storage.set("CL" + this.dataWorkEARow._id, list)
+        if (val == []) {
+          this.storage.remove("CL" + this.dataWorkEARow._id);
+        }
       }
     });
     this.storage.remove(id);

@@ -33,4 +33,7 @@ export class QuestionnaireMenuPopoverComponent {
     this.viewCtrl.dismiss();
   }
 
+  goMeasure(){
+    this.navCtrl.push("MeasurePage")
+  }
 }
