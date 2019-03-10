@@ -35,8 +35,10 @@ export class DlgUnitPage {
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.dataHomeBuilding$.subscribe(data => {
-      this.id_BD = data._id
-      this.FormItem.controls['buildingId'].setValue(this.id_BD);
+      if(data != null){
+        this.id_BD = data._id
+        this.FormItem.controls['buildingId'].setValue(this.id_BD);
+      }
     });
     this.setEnvironment();
   }
