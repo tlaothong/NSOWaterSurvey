@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold, SetBackToRoot } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 
@@ -30,7 +30,7 @@ export class UserPage {
   public commercialServiceUse: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
       "factorialCategoryCode": [null, Validators.required],
@@ -46,7 +46,7 @@ export class UserPage {
         this.formData = data;
       }
     })
-   
+
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
@@ -56,14 +56,15 @@ export class UserPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.formData.closing = this.userInfo.value
+    this.formData.status = "complete"
     if (this.userInfo.valid) {
-    this.arrayIsCheckMethod();
-    // this.store.dispatch(new SetHouseHold(this.formData));
-    // this.storage.set('unit', this.formData)
-    let id = this.formData._id
-    this.storage.set(id, this.formData)
-    this.local.updateListUnit(this.formData.buildingId,this.formData)
-    this.navCtrl.popTo("CheckListPage");
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      // this.storage.set(id, this.formData);
+      this.local.updateListUnit(this.formData.buildingId, this.formData);
+      this.navCtrl.setRoot("UnitPage");
     }
   }
 

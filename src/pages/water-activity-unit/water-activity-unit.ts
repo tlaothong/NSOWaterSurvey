@@ -54,11 +54,11 @@ export class WaterActivityUnitPage {
         this.dataHouseHold = data;
         console.log(this.dataHouseHold);
         
-        this.f.get('subUnit').setValue(this.dataHouseHold.subUnit)
-        this.f.get('subUnit.accessCount').setValue(this.dataHouseHold.subUnit.accessCount)
+        this.f.get('subUnit').patchValue(this.dataHouseHold.subUnit)
+        this.f.get('subUnit.accessCount').patchValue(this.dataHouseHold.subUnit.accessCount)
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
-        this.f.get('comments').setValue(this.dataHouseHold.comments)
+        this.f.get('comments').patchValue(this.dataHouseHold.comments)
 
         this.f.get('isHouseHold').setValue(this.dataHouseHold.isHouseHold)
         this.f.get('isAgriculture').setValue(this.dataHouseHold.isAgriculture)

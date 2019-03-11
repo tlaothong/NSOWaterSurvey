@@ -90,7 +90,7 @@
       </ion-row>
 
       <ion-segment icon-start [(ngModel)]="icons">
-        <ion-segment-button value="lastest">
+        <ion-segment-button value="lastest" (click)="filterLastUpdate()">
           <ion-icon name="md-create"></ion-icon>
           ข้อมูลล่าสุด
         </ion-segment-button>
