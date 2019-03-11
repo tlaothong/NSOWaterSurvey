@@ -35,8 +35,10 @@ export class DlgUnitPage {
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.dataHomeBuilding$.subscribe(data => {
-      this.id_BD = data._id
-      this.FormItem.controls['buildingId'].setValue(this.id_BD);
+      if(data != null){
+        this.id_BD = data._id
+        this.FormItem.controls['buildingId'].setValue(this.id_BD);
+      }
     });
     this.setEnvironment();
   }
@@ -127,8 +129,8 @@ export class DlgUnitPage {
           this.storage.get(building.ea).then((val) => {
             let BDlist = val
             let index = BDlist.findIndex(it => it._id == building._id)
-            BDlist.splice(index, 1);
-            BDlist.push(building)
+            BDlist.splice(index, 1, building);
+            // BDlist.push(building)
             this.storage.set(building.ea, BDlist)
           })
         }
@@ -147,8 +149,8 @@ export class DlgUnitPage {
           this.storage.set(key, list)
         } else {
           let index = list.findIndex(it => it._id == id)
-          list.splice(index, 1);
-          list.push(this.FormItem.value);
+          list.splice(index, 1, this.FormItem.value);
+          // list.push(this.FormItem.value);
           this.storage.set(key, list)
         }
       } else {

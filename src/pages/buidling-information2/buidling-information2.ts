@@ -119,8 +119,8 @@ export class BuidlingInformation2Page {
             this.storage.set(this.f.get('ea').value, listBD)
           } else {
             let index = listBD.findIndex(it => it._id == idBD)
-            listBD.splice(index, 1);
-            listBD.push(this.f.value);
+            listBD.splice(index, 1, this.f.value);
+            // listBD.push(this.f.value);
             this.storage.set(this.f.get('ea').value, listBD)
           }
         } else {

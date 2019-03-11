@@ -35,8 +35,8 @@ export class LocalStorageProvider {
         if (fin == null) {
           list.push(data);
         } else {
-          list.splice(index, 1);
-          list.push(data)
+          list.splice(index, 1, data);
+          // list.push(data)
         }
         this.storage.set(key, list)
 
@@ -66,8 +66,8 @@ export class LocalStorageProvider {
           this.storage.get(building.ea).then((val) => {
             let BDlist = val
             let index = BDlist.findIndex(it => it._id == building._id)
-            BDlist.splice(index, 1);
-            BDlist.push(building)
+            BDlist.splice(index, 1, building);
+            // BDlist.push(building)
             this.storage.set(building.ea, BDlist)
           })
         }
