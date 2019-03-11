@@ -1,6 +1,6 @@
 import { SetHomeBuildingSuccess } from './../../states/building/building.actions';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, AlertController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
@@ -39,7 +39,7 @@ export class HomesPage {
   private dataCommunity: any;
   public statusEa: any;
 
-  constructor(private fb: FormBuilder, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
+  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
   }
 
@@ -161,52 +161,94 @@ export class HomesPage {
 
   }
 
-  DeleteBuilding(id: string) {
-    // this.store.dispatch(new DeleteHomeBuilding(id));
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
-      if (data != null) {
-        let list = data
-        let index = list.findIndex(it => it._id == id)
-        list.splice(index, 1)
-        this.storage.set(this.dataWorkEARow._id, list)
-        if (data == []) {
-          this.storage.remove(this.dataWorkEARow._id);
+  async presentAlertBD(id) {
+    const alert = await this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.storage.get(this.dataWorkEARow._id).then((data) => {
+              if (data != null) {
+                let list = data
+                let index = list.findIndex(it => it._id == id)
+                list.splice(index, 1)
+                if (data == []) {
+                  this.storage.remove(this.dataWorkEARow._id);
+                }
+                this.storage.set(this.dataWorkEARow._id, list)
+              }
+            });
+            this.storage.remove(id);
+            // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
+            this.storage.get(this.dataWorkEARow._id).then((data) => {
+              if (data != null) {
+                this.dataEa = data
+                this.listFilter = this.dataEa;
+                console.log(this.dataEa)
+              }
+            });
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
         }
-      }
+      ]
     });
-    this.storage.remove(id);
-    // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
+    await alert.present();
+  }
+
+  async presentAlertCM(id) {
+    const alert = await this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            console.log(id);
+            console.log("CL" + this.dataWorkEARow._id);
+            this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+              if (val != null) {
+                let list = val
+                let index = list.findIndex(it => it._id == id)
+                list.splice(index, 1)
+                if (val == []) {
+                  this.storage.remove("CL" + this.dataWorkEARow._id);
+                }
+                this.storage.set("CL" + this.dataWorkEARow._id, list)
+              }
+            });
+            this.storage.remove(id);
+            this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+              if (val != null) {
+                this.dataCommunity = val
+              }
+            })
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
     });
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    await alert.present();
+  }
+
+  DeleteBuilding(id: string) {
+    this.presentAlertBD(id)
   }
 
   deleteCommu(id: string) {
-    console.log(id);
-    console.log("CL" + this.dataWorkEARow._id);
-    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
-      if (val != null) {
-        let list = val
-        let index = list.findIndex(it => it._id == id)
-        list.splice(index, 1)
-        this.storage.set("CL" + this.dataWorkEARow._id, list)
-        if (val == []) {
-          this.storage.remove("CL" + this.dataWorkEARow._id);
-        }
-      }
-    });
-    this.storage.remove(id);
-    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
-      if (val != null) {
-        this.dataCommunity = val
-      }
-    })
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    this.presentAlertCM(id)
   }
 
   initializeItems() {

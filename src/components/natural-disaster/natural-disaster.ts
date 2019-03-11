@@ -16,19 +16,21 @@ export class NaturalDisasterComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'tsunami': [false, Validators.required],
-      'landSlide': [false, Validators.required],
-      'earthquake': [false, Validators.required],
-      'cyclone': [false, Validators.required],
-      'forestFire': [false, Validators.required],
-      'drought': [false, Validators.required],
-      'cold': [false, Validators.required],
-      'epidemic': [false, Validators.required],
-      'pest': [false, Validators.required],
-      'epizootics': [false, Validators.required],
-    }, {
-        validator: NaturalDisasterComponent.checkAnyOrOther()
-      });
+      'tsunami': [false, Validators],
+      'landSlide': [false, Validators],
+      'earthquake': [false, Validators],
+      'cyclone': [false, Validators],
+      'forestFire': [false, Validators],
+      'drought': [false, Validators],
+      'cold': [false, Validators],
+      'epidemic': [false, Validators],
+      'pest': [false, Validators],
+      'epizootics': [false, Validators],
+    }, 
+    // {
+    //     validator: NaturalDisasterComponent.checkAnyOrOther()
+    //   }
+      );
   }
 
   public static checkAnyOrOther(): ValidatorFn {
