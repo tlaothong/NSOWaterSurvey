@@ -186,7 +186,7 @@ export class CommunityWaterManagementPage {
           } else {
             console.log("2");
             let index = listBD.findIndex(it => it._id == key)
-            listBD.splice(index, 1);
+            listBD.splice(index, 1, this.formDataCom.value);
             listBD.push(this.formDataCom.value);
             this.storage.set(keyEA, listBD)
           }
