@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold, SetBackToRoot } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getRecieveDataFromBuilding } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -28,9 +30,11 @@ export class UserPage {
   public facCategoryUse: boolean;
   private commercialServiceUse$ = this.store.select(getIsCommercial);
   public commercialServiceUse: boolean;
+  private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
+  private GetDataFromBuilding:any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
       "factorialCategoryCode": [null, Validators.required],
@@ -64,7 +68,16 @@ export class UserPage {
       let id = this.formData._id
       // this.storage.set(id, this.formData);
       this.local.updateListUnit(this.formData.buildingId, this.formData);
-      this.navCtrl.setRoot("UnitPage");
+      this.GetDataFromBuilding$.subscribe(data => {
+        if(data != null){
+          this.GetDataFromBuilding = data;
+          if(this.GetDataFromBuilding == 1){
+            this.navCtrl.setRoot("HomesPage");
+          }else{
+            this.navCtrl.setRoot("UnitPage");
+          }
+        }
+      })
     }
   }
 

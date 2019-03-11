@@ -96,23 +96,15 @@ export class HomesPage {
   }
 
   filterLastUpdate(){
-    // this.storage.get(this.dataWorkEARow._id).then((data)=>{
-    //   if(data != null){
-    //     this.dataEa = data;
-    
-    //     // this.dataEa.forEach(it  => {
-    //     //   console.log(it.name + " * "+it.lastUpdate);
-    //     //   it.lastUpdate > Date.now()
-    //     // });
-    //     this.datap = this.dataEa.sort(it => {
-    //       console.log(it.name + " - "+it.lastUpdate);
-    //       return it.lastUpdate;
-    //     });
-    //     console.log(this.datap);
-    //     this.listFilter = this.datap.reverse();
-    //     console.log(this.listFilter);
-    //   }
-    // });
+    this.storage.get(this.dataWorkEARow._id).then((data)=>{
+      if(data != null){
+        this.dataEa = data;
+        this.datap = this.dataEa.sort(it => {
+          return -it.lastUpdate;
+        });
+        this.listFilter = this.datap;
+      }
+    });
   }
 
   filterPause() {
