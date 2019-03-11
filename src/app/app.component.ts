@@ -54,4 +54,11 @@ export class MyApp {
   goSendPage() {
     this.nav.setRoot("SendPage")
   }
+
+  /**
+   * Open manual
+   */
+  public openManual() {
+    window.open('http://water.surveydb.app/assets/fi.pdf', '_system', 'location=yes');
+  }
 }

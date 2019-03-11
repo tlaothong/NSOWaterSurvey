@@ -23,6 +23,10 @@
         <ion-icon name="cloud-download"></ion-icon>
         ดาวน์โหลด
       </button>
+      <button ion-button block icon-start type="button" (click)="openManual()">
+        <ion-icon name="md-document"></ion-icon>
+        คู่มือการใช้งาน
+      </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
