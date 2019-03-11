@@ -24,10 +24,10 @@ export class PopulationPage {
   public f: FormGroup;
   public whatever: any;
   private formData: any;
-  private i:any
+  private i: any
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private formData$ = this.store.select(getHouseHoldSample);
-  public dataPop:any
+  public dataPop: any
   private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;
@@ -39,7 +39,7 @@ export class PopulationPage {
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
@@ -68,16 +68,16 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.dataPop.population = this.f.value
-    this.dataPop.status = "complete"
+    // this.dataPop.status = "complete"
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
       // this.storage.set('unit', this.dataPop)  
       let id = this.dataPop._id
-      this.local.updateListUnit(this.dataPop.buildingId,this.dataPop)
+      this.local.updateListUnit(this.dataPop.buildingId, this.dataPop)
       // this.storage.set(id, this.dataPop)
-      this.navCtrl.setRoot("UnitPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 

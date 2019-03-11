@@ -73,6 +73,7 @@ export class BuidlingInformation2Page {
       'floorCount': [null, Validators],
       '_id': [null],
       'status': [null],
+      'lastUpdate': null,
     }, {
         validator: BuidlingInformation2Page.checkAnyOrOther()
       });
@@ -88,7 +89,7 @@ export class BuidlingInformation2Page {
     //     this.f.setValue(data)
     this.getBuildingType$.subscribe(data => console.log(data));
     console.log(this.f.value);
-    
+
     this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
     //   }
     // });
@@ -99,6 +100,8 @@ export class BuidlingInformation2Page {
 
     console.log("data ยิง API", this.f.value);
     console.log("f.valid", this.f.valid);
+    this.f.get('lastUpdate').setValue(Date.now())
+    console.log(this.f.get('lastUpdate').value);
 
     if (this.f.valid && (this.f.get('unitCount').value > 0)) {
       console.log("unitCount: " + this.f.get('unitCount').value);

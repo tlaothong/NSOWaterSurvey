@@ -62,6 +62,7 @@ export class LocalStorageProvider {
           if (building.unitCountComplete == building.unitCount) {
             building.status = "done-all";
           }
+          building.lastUpdate = Date.now()
           this.storage.set(idBuilding, building)
           this.storage.get(building.ea).then((val) => {
             let BDlist = val
@@ -72,6 +73,18 @@ export class LocalStorageProvider {
           })
         }
         this.storage.set(dataHousehold._id, dataHousehold)
+      })
+      console.log(building.lastUpdate);
+
+      building.lastUpdate = Date.now()
+      console.log(building.lastUpdate);
+      this.storage.set(idBuilding, building)
+      this.storage.get(building.ea).then((val) => {
+        let BDlist = val
+        let index = BDlist.findIndex(it => it._id == building._id)
+        BDlist.splice(index, 1, building);
+        // BDlist.push(building)
+        this.storage.set(building.ea, BDlist)
       })
     })
   }

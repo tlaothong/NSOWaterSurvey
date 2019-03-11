@@ -66,6 +66,7 @@ export class BuildingInformation1Page {
       'floorCount': [null],
       '_id': [null],
       'status': [null],
+      'lastUpdate': null,
     });
   }
 
@@ -140,10 +141,13 @@ export class BuildingInformation1Page {
     let fgcm = this.f.get('comments') as FormArray;
     fgac.at(this.index).setValue(this.access);
     fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment });
-
+    this.f.get('lastUpdate').setValue(Date.now())
+    console.log(this.f.get('lastUpdate').value);
+    
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
+
     if (idBD == null) {
       this.f.get('_id').setValue(Guid.create().toString());
       idBD = this.f.get('_id').value

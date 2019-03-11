@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
+import { LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 
@@ -18,6 +18,7 @@ import { Storage } from '@ionic/storage';
 export class UnitPage {
 
   public f: FormGroup;
+  public g: FormGroup;
   @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
   private dataHomeBuilding$ = this.store.select(setHomeBuilding);

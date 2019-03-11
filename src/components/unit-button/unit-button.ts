@@ -6,24 +6,10 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
 import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
-import { map } from 'rxjs/operators';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
-import { FieldFarmingComponent } from '../field-farming/field-farming';
-import { FieldDryCropPlantingComponent } from '../field-dry-crop-planting/field-dry-crop-planting';
-import { FieldMushroomComponent } from '../field-mushroom/field-mushroom';
-import { FieldFlowerCropComponent } from '../field-flower-crop/field-flower-crop';
-import { FieldHerbsPlantComponent } from '../field-herbs-plant/field-herbs-plant';
-import { FieldPerenialPlantingComponent } from '../field-perenial-planting/field-perenial-planting';
-import { FieldRebbertreeComponent } from '../field-rebbertree/field-rebbertree';
-import { FishFarmingComponent } from '../fish-farming/fish-farming';
-import { FrogFarmingComponent } from '../frog-farming/frog-farming';
-import { CrocodileFarmingComponent } from '../crocodile-farming/crocodile-farming';
-import { GroundWaterUsageComponent } from '../ground-water-usage/ground-water-usage';
-import { PumpComponent } from '../pump/pump';
-import { PoolUsageComponent } from '../pool-usage/pool-usage';
-import { PoolAreaComponent } from '../pool-area/pool-area';
+
 /**
  * Generated class for the UnitButtonComponent component.
  *
@@ -80,7 +66,7 @@ export class UnitButtonComponent {
     this.GetUnitByIdBuilding$.subscribe(data => {
       console.log("dataxxxxxx");
       console.log(data);
-      
+
       if (data != null) {
         if (data[Number(this.unitNo) - 1] != undefined) {
           let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
@@ -105,6 +91,7 @@ export class UnitButtonComponent {
     }
     if (this.unitCount == 1) {
       this.FormItem.controls['buildingId'].setValue(this.id_BD);
+      this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
   }
