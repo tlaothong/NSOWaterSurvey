@@ -46,9 +46,9 @@ export class ManagementForFarmingPage {
       'doing': [null, Validators],
       'projectCount': [0, Validators],
       'details': fb.array([]),
-    },{
-      validator:ManagementForFarmingPage.checkAnyOrOther()
-    });
+    }, {
+        validator: ManagementForFarmingPage.checkAnyOrOther()
+      });
   }
 
   ionViewDidLoad() {
@@ -66,37 +66,37 @@ export class ManagementForFarmingPage {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
 
-    // this.formData.communityProject = this.managementforfarming.value;
+    this.formData.communityProject = this.managementforfarming.value;
     if (this.managementforfarming.valid) {
       console.log("ewfew");
-      
-  // let key = this.formData._id
-    // this.storage.set(key, this.formData)
 
-    // let keyEA = "CL" + this.formData.ea
-    // this.storage.get(keyEA).then((data) => {
-    //   let listBD = data
-    //   if (listBD != null) {
-    //     let fin = listBD.find(it => it._id == key)
-    //     if (fin == null) {
-    //       listBD.push(this.formData)
-    //       this.storage.set(keyEA, listBD)
-    //     } else {
-    //       let index = listBD.findIndex(it => it._id == key)
-    //       listBD.splice(index, 1);
-    //       listBD.push(this.formData);
-    //       this.storage.set(keyEA, listBD)
-    //     }
-    //   } else {
-    //     listBD = []
-    //     listBD.push(this.formData)
-    //     this.storage.set(keyEA, listBD)
-    //   }
-    // })
-    // console.log("หลังส่ง: ", this.formData);
-    // this.navCtrl.popToRoot();
+      let key = this.formData._id
+      this.storage.set(key, this.formData)
+
+      let keyEA = "CL" + this.formData.ea
+      this.storage.get(keyEA).then((data) => {
+        let listBD = data
+        if (listBD != null) {
+          let fin = listBD.find(it => it._id == key)
+          if (fin == null) {
+            listBD.push(this.formData)
+            this.storage.set(keyEA, listBD)
+          } else {
+            let index = listBD.findIndex(it => it._id == key)
+            listBD.splice(index, 1);
+            listBD.push(this.formData);
+            this.storage.set(keyEA, listBD)
+          }
+        } else {
+          listBD = []
+          listBD.push(this.formData)
+          this.storage.set(keyEA, listBD)
+        }
+      })
+      console.log("หลังส่ง: ", this.formData);
+      this.navCtrl.popToRoot();
     }
-  
+
   }
 
   public static checkAnyOrOther(): ValidatorFn {
