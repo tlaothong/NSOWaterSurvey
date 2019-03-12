@@ -52,7 +52,7 @@ export class MyApp {
   }
 
   goSendPage() {
-    this.nav.setRoot("SendPage")
+    this.nav.push("SendPage")
   }
 
   /**
