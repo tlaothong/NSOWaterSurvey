@@ -65,7 +65,7 @@ export class ManagementForFarmingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
-
+    this.formData.status = "done-all"
     this.formData.communityProject = this.managementforfarming.value;
     if (this.managementforfarming.valid) {
       console.log("ewfew");
@@ -83,8 +83,8 @@ export class ManagementForFarmingPage {
             this.storage.set(keyEA, listBD)
           } else {
             let index = listBD.findIndex(it => it._id == key)
-            listBD.splice(index, 1);
-            listBD.push(this.formData);
+            listBD.splice(index, 1, this.formData);
+            // listBD.push(this.formData);
             this.storage.set(keyEA, listBD)
           }
         } else {

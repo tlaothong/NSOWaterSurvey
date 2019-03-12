@@ -81,18 +81,28 @@ export class UnitButtonComponent {
         }
       }
     });
-    this.setupAccessCountChanges();
-    this.setupAccessCountChangesForComments();
-    this.FormItem.get('_id').setValue(Guid.create().toString());
-
-    console.log(this.FormItem.value);
-    if (this.FormItem.get('subUnit.accessCount').value > 0) {
-      this.setAccess();
-    }
     if (this.unitCount == 1) {
       this.FormItem.controls['buildingId'].setValue(this.id_BD);
-      this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
-      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+      this.storage.get("BL" + this.id_BD).then((val) => {
+        console.log(val);
+        if (val != null) {
+          let dataListHH = val[0];
+          console.log(dataListHH);
+          this.store.dispatch(new LoadHouseHoldSampleSuccess(dataListHH));
+        } else {
+          this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
+        }
+        this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+      });
+    } else {
+      this.setupAccessCountChanges();
+      this.setupAccessCountChangesForComments();
+      this.FormItem.get('_id').setValue(Guid.create().toString());
+
+      console.log(this.FormItem.value);
+      if (this.FormItem.get('subUnit.accessCount').value > 0) {
+        this.setAccess();
+      }
     }
   }
 
