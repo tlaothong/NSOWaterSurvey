@@ -127,14 +127,14 @@ export class WaterActivityUnitPage {
         })
       })
       if (this.dataHouseHold.status == "complete") {
-        this.storage.get(this.dataHouseHold.status).then((val) => {
+        this.storage.get(this.dataHouseHold.buildingId).then((val) => {
           if (val != null) {
             let building = val;
             building.unitCountComplete++;
             if (building.unitCountComplete == building.unitCount) {
               building.status = "done-all";
             }
-            this.storage.set(this.dataHouseHold.status, building);
+            this.storage.set(this.dataHouseHold.buildingId, building);
             this.storage.get(building.ea).then((val) => {
               let BDlist = val
               let index = BDlist.findIndex(it => it._id == building._id)
