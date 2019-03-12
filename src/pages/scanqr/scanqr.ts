@@ -33,49 +33,6 @@ export class ScanqrPage {
     // this.navCtrl.pop();
   }
 
-  // scan() {
-
-  //   this.qrScanner.prepare()
-  //     .then((status: QRScannerStatus) => {
-  //       if (status.authorized) {
-  //         let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
-
-  //         // camera permission was granted
-  //         // start scanning
-  //         let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
-  //           console.log('Scanned something', text);
-
-  //           const alert = this.alertCtrl.create({
-  //             title: text,
-  //           });
-  //           alert.present();
-
-  //           this.qrScanner.hide(); // hide camera preview
-  //           scanSub.unsubscribe(); // stop scanning
-  //           ionApp.style.display = "block";
-
-  //         });
-  //         ionApp.style.display = "none";
-  //         this.qrScanner.show();
-  //       } else if (status.denied) {
-  //         const alert = this.alertCtrl.create({
-  //           title: "1111111111",
-  //         });
-  //         alert.present();
-  //         // camera permission was permanently denied
-  //         // you must use QRScanner.openSettings() method to guide the user to the settings page
-  //         // then they can grant the permission from there
-  //       } else {
-  //         const alert = this.alertCtrl.create({
-  //           title: "222222222222",
-  //         });
-  //         alert.present();
-  //         // permission was denied, but not permanently. You can ask for permission again at a later time.
-  //       }
-  //     })
-  //     .catch((e: any) => console.log('Error is', e));
-  // }
-
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
@@ -88,7 +45,7 @@ export class ScanqrPage {
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
               //alert(text);
               let alert = this.alertCtrl.create({
-                title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่...",
+                title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ",
               });
               alert.present();
 
@@ -121,14 +78,18 @@ export class ScanqrPage {
             // then they can grant the permission from there
           } else {
             let alert = this.alertCtrl.create({
-              title: "5555555555555",
+              title: "Error",
             });
             alert.present();
             // permission was denied, but not permanently. You can ask for permission again at a later time.
           }
         })
-        .catch((e: any) => console.log('Error is', e));
-
+        .catch((e: any) => {
+          let alert = this.alertCtrl.create({
+            title: "Error",
+          });
+          alert.present();
+        });
 
     } else {
 
