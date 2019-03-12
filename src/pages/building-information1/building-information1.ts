@@ -84,12 +84,28 @@ export class BuildingInformation1Page {
     let id = this.f.get('_id').value;
     this.setupCountChanges();
     console.log(id);
-    
+
     this.storage.get(id).then((data) => {
       if (data != null) {
         this.f.setValue(data);
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
+      } else {
+        this.storage.get('road').then((val)=>{
+          if(val != null){
+            this.f.get('road').setValue(val);
+          }
+        })
+        this.storage.get('alley').then((val)=>{
+          if(val != null){
+            this.f.get('alley').setValue(val);
+          }
+        })
+        this.storage.get('name').then((val)=>{
+          if(val != null){
+            this.f.get('name').setValue(val);
+          }
+        })
       }
     });
   }
@@ -152,7 +168,10 @@ export class BuildingInformation1Page {
       idBD = this.f.get('_id').value
     }
     console.log(this.f.value);
-    
+    this.storage.set('road', this.f.get('road').value)
+    this.storage.set('alley', this.f.get('alley').value)
+    this.storage.set('name', this.f.get('name').value)
+
     this.storage.set(idBD, this.f.value)
     this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
 
@@ -221,7 +240,7 @@ export class BuildingInformation1Page {
       this.index = this.f.get('accessCount').value;
     }
     this.f.get('accessCount').setValue(this.index + 1);
-    
+
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
   }
