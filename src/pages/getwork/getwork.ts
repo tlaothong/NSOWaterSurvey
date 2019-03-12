@@ -43,19 +43,19 @@ export class GetworkPage {
   ionViewDidEnter() {
     console.log('ionViewDidLoad GetworkPage');
     this.storage.get('UserInfo').then((val) => {
-      this.userInfo = val;
-      this.eaList = this.userInfo.eaList;
-      console.log(this.userInfo);
-      
-      this.storage.get(val.idUser).then((val) => {
-        if (val != null) {
-          this.isWork = true;
-          this.presentAlert();
-        }
-      });
-
+      if(val != null){
+        this.userInfo = val;
+        this.eaList = this.userInfo.eaList;
+        console.log(this.userInfo);
+        
+        this.storage.get(val.idUser).then((val) => {
+          if (val != null) {
+            this.isWork = true;
+            this.presentAlert();
+          }
+        });
+      }
     });
-
   }
 
   goConfirmDownLoadPage() {

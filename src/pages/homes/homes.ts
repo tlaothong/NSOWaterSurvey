@@ -193,11 +193,13 @@ export class HomesPage {
             });
             this.storage.remove(id);
             this.storage.get("BL" + id).then((val) => {
-              let listHH = val;
-              listHH.forEach(it => {
-                this.storage.remove(it._id);
-                this.storage.remove("BL" + id);
-              });
+              if(val != null){
+                let listHH = val;
+                listHH.forEach(it => {
+                  this.storage.remove(it._id);
+                  this.storage.remove("BL" + id);
+                });
+              }
             })
             // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
             this.storage.get(this.dataWorkEARow._id).then((data) => {
