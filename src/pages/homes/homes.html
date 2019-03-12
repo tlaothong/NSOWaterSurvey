@@ -218,8 +218,8 @@
       <hr>
       <div *ngFor="let itemCom of dataCommunity;let i=index">
         <ion-row text-center align-items-center>
-          <ion-col col-1>
-            <ion-icon disabled="false" name="pause"></ion-icon>
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
+            <ion-icon disabled="false" name="{{itemCom.status}}"></ion-icon>
           </ion-col>
           <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
             {{i+1}}
