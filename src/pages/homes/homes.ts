@@ -95,9 +95,9 @@ export class HomesPage {
     });
   }
 
-  filterLastUpdate(){
-    this.storage.get(this.dataWorkEARow._id).then((data)=>{
-      if(data != null){
+  filterLastUpdate() {
+    this.storage.get(this.dataWorkEARow._id).then((data) => {
+      if (data != null) {
         this.dataEa = data;
         this.datap = this.dataEa.sort(it => {
           return -it.lastUpdate;
@@ -142,22 +142,22 @@ export class HomesPage {
   }
 
   goEditBuildingInfo(item: any) {
-    if (this.num == '1' && item.status != 'done-all') {
+    if (this.num == '1') {
       //this.swith.updateBuildingState(item._id);
       this.storage.get(item._id).then((val) => {
         console.log(val);
         this.storeBuild.dispatch(new SetHomeBuildingSuccess(val));
-        switch (val.status) {
-          case 'refresh':
-            this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
-            break;
-          case 'pause':
-            // this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
-            this.navCtrl.push("UnitPage");
-            break;
-          default:
-            break;
-        }
+        this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
+        // switch (val.status) {
+        //   case 'refresh':
+        //     this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
+        //     break;
+        //   case 'pause':
+        //     this.navCtrl.push("UnitPage");
+        //     break;
+        //   default:
+        //     break;
+        // }
       })
     }
     else if (this.num == '2') {
