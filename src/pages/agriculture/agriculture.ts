@@ -121,7 +121,7 @@ export class AgriculturePage {
           data.agriculture.aquaticAnimals.doing = this.f.get('aquaticAnimals.doing').value;
           console.log("plant", data);
           this.storage.set(data._id, data)
-          this.local.updateListUnit(data._id, data)
+          this.local.updateListUnit(data.buildingId, data)
         }
       });
       this.arrayIsCheckMethod();

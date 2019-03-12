@@ -47,45 +47,48 @@ export class LocalStorageProvider {
 
   updateStatusBuilding(idBuilding: string, dataHousehold: any) {
     this.storage.get(idBuilding).then((val) => {
-      let building = val
-      console.log(building);
+      if (val != null) {
 
-      this.storage.get(dataHousehold._id).then((val) => {
-        let find = val
-        console.log(find);
+        let building = val
+        console.log(building);
 
-        if (find.status != dataHousehold.status && (find.status == "complete" || dataHousehold.status == "complete")) {
-          console.log("1111111");
+        this.storage.get(dataHousehold._id).then((val) => {
+          let find = val
+          console.log(find);
 
-          building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
-          console.log(building.unitCountComplete);
-          if (building.unitCountComplete == building.unitCount) {
-            building.status = "done-all";
+          if (find.status != dataHousehold.status && (find.status == "complete" || dataHousehold.status == "complete")) {
+            console.log("1111111");
+
+            building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
+            console.log(building.unitCountComplete);
+            if (building.unitCountComplete == building.unitCount) {
+              building.status = "done-all";
+            }
+            building.lastUpdate = Date.now()
+            this.storage.set(idBuilding, building)
+            this.storage.get(building.ea).then((val) => {
+              let BDlist = val
+              let index = BDlist.findIndex(it => it._id == building._id)
+              BDlist.splice(index, 1, building);
+              // BDlist.push(building)
+              this.storage.set(building.ea, BDlist)
+            })
           }
-          building.lastUpdate = Date.now()
-          this.storage.set(idBuilding, building)
-          this.storage.get(building.ea).then((val) => {
-            let BDlist = val
-            let index = BDlist.findIndex(it => it._id == building._id)
-            BDlist.splice(index, 1, building);
-            // BDlist.push(building)
-            this.storage.set(building.ea, BDlist)
-          })
-        }
-        this.storage.set(dataHousehold._id, dataHousehold)
-      })
-      console.log(building.lastUpdate);
+          this.storage.set(dataHousehold._id, dataHousehold)
+        })
+        console.log(building.lastUpdate);
 
-      building.lastUpdate = Date.now()
-      console.log(building.lastUpdate);
-      this.storage.set(idBuilding, building)
-      this.storage.get(building.ea).then((val) => {
-        let BDlist = val
-        let index = BDlist.findIndex(it => it._id == building._id)
-        BDlist.splice(index, 1, building);
-        // BDlist.push(building)
-        this.storage.set(building.ea, BDlist)
-      })
+        building.lastUpdate = Date.now()
+        console.log(building.ea);
+        this.storage.set(idBuilding, building)
+        this.storage.get(building.ea).then((val) => {
+          let BDlist = val
+          let index = BDlist.findIndex(it => it._id == building._id)
+          BDlist.splice(index, 1, building);
+          // BDlist.push(building)
+          this.storage.set(building.ea, BDlist)
+        })
+      }
     })
   }
 
