@@ -83,6 +83,8 @@ export class BuildingInformation1Page {
     // });
     let id = this.f.get('_id').value;
     this.setupCountChanges();
+    console.log(id);
+    
     this.storage.get(id).then((data) => {
       if (data != null) {
         this.f.setValue(data);
@@ -149,7 +151,8 @@ export class BuildingInformation1Page {
       this.f.get('_id').setValue(Guid.create().toString());
       idBD = this.f.get('_id').value
     }
-
+    console.log(this.f.value);
+    
     this.storage.set(idBD, this.f.value)
     this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
 

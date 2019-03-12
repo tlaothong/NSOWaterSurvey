@@ -108,6 +108,7 @@ export class BuidlingInformation2Page {
 
       this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
       // this.store.dispatch(new SetHomeBuilding(this.f.value));
+      console.log(this.f.value);
 
       this.storage.set(this.f.get('_id').value, this.f.value);
       this.storage.get(this.f.get('ea').value).then((data) => {
