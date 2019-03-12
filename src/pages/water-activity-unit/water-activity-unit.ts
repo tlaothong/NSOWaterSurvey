@@ -167,7 +167,7 @@ export class WaterActivityUnitPage {
         }
       })
       console.log(this.dataHouseHold);
-      this.local.updateListUnit(this.dataHouseHold.buildingId, this.dataHouseHold);
+      // this.local.updateListUnit(this.dataHouseHold.buildingId, this.dataHouseHold);
       this.navCtrl.push("CheckListPage", { id: this.dataHouseHold._id });
     }
 
