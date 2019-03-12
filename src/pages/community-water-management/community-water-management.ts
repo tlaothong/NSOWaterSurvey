@@ -37,8 +37,10 @@ export class CommunityWaterManagementPage {
   private formDataCom: FormGroup;
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private DataStoreWorkEaOneRecord: any;
+  public id: string;
 
   constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
+    this.id = this.navParams.get('id')
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
     this.setupPublicWaterCountChanges();
     this.setupWaterServiceCountChanges();
@@ -71,6 +73,7 @@ export class CommunityWaterManagementPage {
       'ea': [null],
       'management': null,
       'communityProject': [null],
+      'status': null
     })
     this.formDataCom$.subscribe(data => {
       if (data != null) {
@@ -83,7 +86,7 @@ export class CommunityWaterManagementPage {
         this.DataStoreWorkEaOneRecord = data;
       }
     });
-    
+
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.CommunityWaterManagement.setValue(data)
@@ -163,36 +166,31 @@ export class CommunityWaterManagementPage {
 
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
     this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
-    // console.log(this.CommunityWaterManagement.valid);
-    // console.log(this.CommunityWaterManagement.get('details').valid);
-    // console.log(this.CommunityWaterManagement.get('waterServices').valid);
-    // console.log(this.CommunityWaterManagement.get('disasters').valid);
-    // console.log(this.CommunityWaterManagement.get('disasterWarningMethods').valid);
-    
+
     if (this.CommunityWaterManagement.valid) {
       console.log("5555555555555555");
       let key = this.formDataCom.get('_id').value
       this.storage.set(key, this.formDataCom.value)
-  
+
       console.log(this.formDataCom.value);
-      
+
       let keyEA = "CL" + this.formDataCom.get('ea').value
       this.storage.get(keyEA).then((data) => {
         console.log(data);
-        
+
         let listBD = data
         if (listBD != null) {
           let fin = listBD.find(it => it._id == key)
           if (fin == null) {
             console.log("1");
-            
+
             listBD.push(this.formDataCom.value)
             this.storage.set(keyEA, listBD)
           } else {
             console.log("2");
             let index = listBD.findIndex(it => it._id == key)
             listBD.splice(index, 1, this.formDataCom.value);
-            listBD.push(this.formDataCom.value);
+            // listBD.push(this.formDataCom.value);
             this.storage.set(keyEA, listBD)
           }
         } else {
@@ -202,7 +200,7 @@ export class CommunityWaterManagementPage {
           this.storage.set(keyEA, listBD)
         }
       })
-  
+
       this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
     }
   }
@@ -226,22 +224,22 @@ export class CommunityWaterManagementPage {
       if ((hasPublicWater.value != null) && (hasPublicWater.value == true) && (publicWaterCount.value < 1)) {
         return { 'publicWaterCount': true };
       }
-      if ((hasPublicWater.value != null) 
-      && (hasPublicWater.value == true) 
-      && (publicWaterCount.value > 0) 
-      && (pwa.value == null)) {
+      if ((hasPublicWater.value != null)
+        && (hasPublicWater.value == true)
+        && (publicWaterCount.value > 0)
+        && (pwa.value == null)) {
         return { 'pwa': true };
       }
-      if ((hasPublicWater.value != null) 
-      && (hasPublicWater.value == true) 
-      && (publicWaterCount.value > 0) 
-      && (mwa.value == null)) {
+      if ((hasPublicWater.value != null)
+        && (hasPublicWater.value == true)
+        && (publicWaterCount.value > 0)
+        && (mwa.value == null)) {
         return { 'mwa': true };
       }
-      if ((hasPublicWater.value != null) 
-      && (hasPublicWater.value == true) 
-      && (publicWaterCount.value > 0) 
-      && (otherPlumbing.value == null)) {
+      if ((hasPublicWater.value != null)
+        && (hasPublicWater.value == true)
+        && (publicWaterCount.value > 0)
+        && (otherPlumbing.value == null)) {
         return { 'otherPlumbing': true };
       }
       if (hasPublicWater.value != null && hasPublicWater.value == false && pwa.value == null) {
@@ -253,23 +251,23 @@ export class CommunityWaterManagementPage {
       if (hasPublicWater.value != null && hasPublicWater.value == false && otherPlumbing.value == null) {
         return { 'otherPlumbing': true };
       }
-      
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == null) {
         return { 'hasWaterService': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == true
         && waterServiceCount.value < 1) {
         return { 'waterServiceCount': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == true
         && hasWaterService.value == true
         && waterServiceCount.value < 1) {
         return { 'waterServiceCount': true };
@@ -277,117 +275,117 @@ export class CommunityWaterManagementPage {
       if (hasWaterService.value == true && hasWaterTreatment.value == null) {
         return { 'hasWaterTreatment': true };
       }
-      
+
       if (hasWaterService.value == true && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      
+
       if (hasWaterService.value == true && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == true
         && hasWaterService.value == null) {
         return { 'hasWaterService': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == false
         && hasWaterTreatment.value == null) {
         return { 'hasWaterTreatment': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == false
         && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == false
         && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == true
         && hasWaterService.value == false
         && hasWaterTreatment.value == null) {
         return { 'hasWaterTreatment': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == false
         && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == true
         && hasWaterService.value == false
-        && hasWaterTreatment.value != null 
+        && hasWaterTreatment.value != null
         && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == false 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == false
         && hasWaterTreatment.value == null) {
         return { 'hasWaterTreatment': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == false 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == false
         && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == false 
-        && otherPlumbing.value == false 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == false
+        && otherPlumbing.value == false
         && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == true
         && hasWaterTreatment.value == null) {
         return { 'hasWaterTreatment': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == true
         && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == true 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == true
         && hasWaterService.value == true
         && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == false 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == false
         && hasWaterTreatment.value == null) {
         return { 'hasWaterTreatment': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == false 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == false
         && hasDisaster.value == null) {
         return { 'hasDisaster': true };
       }
-      if (hasPublicWater.value != null 
-        && hasPublicWater.value == true 
-        && otherPlumbing.value == false 
+      if (hasPublicWater.value != null
+        && hasPublicWater.value == true
+        && otherPlumbing.value == false
         && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
@@ -403,7 +401,7 @@ export class CommunityWaterManagementPage {
       // }
       return null;
 
-   
+
     }
   }
 
@@ -436,7 +434,7 @@ export class CommunityWaterManagementPage {
     if (name == 'waterServiceCount') {
       let ctrls = this.CommunityWaterManagement;
       return ctrls.errors && ctrls.errors.waterServiceCount && (ctrl.dirty || this.submitRequested);
-    } 
+    }
     if (name == 'hasWaterTreatment') {
       let ctrls = this.CommunityWaterManagement;
       return ctrls.errors && ctrls.errors.hasWaterTreatment && (ctrl.dirty || this.submitRequested);

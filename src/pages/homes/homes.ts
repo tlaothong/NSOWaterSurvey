@@ -167,8 +167,8 @@ export class HomesPage {
       this.storage.get(item).then((val) => {
         console.log(val);
         this.store.dispatch(new LoadCommunityForEditSuccess(val));
+        this.navCtrl.push("CommunityTestPage")
       });
-      this.navCtrl.push("CommunityTestPage")
     }
 
   }
