@@ -90,6 +90,8 @@ export class UnitButtonComponent {
           console.log(dataListHH);
           this.store.dispatch(new LoadHouseHoldSampleSuccess(dataListHH));
         } else {
+          console.log(this.FormItem.value);
+          this.FormItem.get('_id').setValue(Guid.create().toString());
           this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
         }
         this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
