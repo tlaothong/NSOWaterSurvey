@@ -185,6 +185,11 @@ export const getNumberRoom = createSelector(
     state => state.numberRoom,
 );
 
+export const getUnitNo = createSelector(
+    getHouseHoldFeatureState,
+    state => state.unitNo,
+);
+
 
 
 

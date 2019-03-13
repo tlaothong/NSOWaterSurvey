@@ -41,6 +41,7 @@ export interface HouseHoldState {
     back: any,
     dataOfUnit: any,
     numberRoom: string,
+    unitNo: string,
 }
 
 const initialState: HouseHoldState = {
@@ -83,6 +84,7 @@ const initialState: HouseHoldState = {
     back: null,
     dataOfUnit: null,
     numberRoom: null,
+    unitNo: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -299,6 +301,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 numberRoom: action.payload,
+            };
+        case HouseHoldTypes.SetUnitNo:
+            return {
+                ...state,
+                unitNo: action.payload,
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
@@ -789,7 +796,7 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
-    arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold &&  state.houseHoldSample.residence.memberCount > 0 ) ? true : false;
+    arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold && state.houseHoldSample.residence.memberCount > 0) ? true : false;
     arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
     arr[11] = (state.selectG1234 && state.selectG1234.isFactorial) ? true : false;
     arr[12] = (state.selectG1234 && state.selectG1234.isCommercial) ? true : false;

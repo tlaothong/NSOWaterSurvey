@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
-import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUnitNo } from '../../states/household/household.actions';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
@@ -94,6 +94,7 @@ export class UnitButtonComponent {
           this.FormItem.get('_id').setValue(Guid.create().toString());
           this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
         }
+        this.setUnitNo();
         this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
       });
     } else {
@@ -106,6 +107,10 @@ export class UnitButtonComponent {
         this.setAccess();
       }
     }
+  }
+
+  setUnitNo() {
+    this.store.dispatch(new SetUnitNo(this.unitNo));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -877,6 +882,7 @@ export class UnitButtonComponent {
         if (access.at(lastIndex).value == 1) {
           this.sendIdUnit();
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          this.setUnitNo();
           this.navCtrl.push('WaterActivityUnitPage')
         }
       }
@@ -888,7 +894,7 @@ export class UnitButtonComponent {
     if (this.access == 1) {
       this.sendIdUnit();
       console.log(this.FormItem);
-
+      this.setUnitNo();
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
@@ -909,6 +915,7 @@ export class UnitButtonComponent {
           if (access.at(lastIndex).value == 1) {
             this.sendIdUnit();
             this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            this.setUnitNo();
             this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
           }
         }
