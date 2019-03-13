@@ -52,7 +52,7 @@ export class CheckListPage {
       { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage", isCheck: false },
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage", isCheck: false },
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage", isCheck: false },
-      { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage", isCheck: false },
+      { title: 'แบบข้อมูลประชากร', component: "PopulationPage", isCheck: false },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage", isCheck: false },
     ];
   }
