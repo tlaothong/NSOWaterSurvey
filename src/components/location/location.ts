@@ -1,9 +1,9 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Directive } from '@angular/core';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { provinceData } from '../../models/ProvinceData';
 import { LocationDataProvider } from '../../providers/location-data/location-data';
-import { districtData } from '../../models/DistrictData';
+import { districtData, District } from '../../models/DistrictData';
 import { subDistrictData } from '../../models/SubDistrictData';
 
 @Component({
@@ -13,7 +13,7 @@ import { subDistrictData } from '../../models/SubDistrictData';
 
 export class LocationComponent implements ISubmitRequestable {
 
-  public provinceData = provinceData;
+  public provinceData: any;
   public province: any;
   public district: any;
   public subDistrict: any
@@ -28,9 +28,10 @@ export class LocationComponent implements ISubmitRequestable {
   }
 
   ngOnInit() {
+    this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name))
     if (this.FormItem.get('province').value != null) {
       this.onChange(this.FormItem.get('province').value);
-      if(this.FormItem.get('district').value != null){
+      if (this.FormItem.get('district').value != null) {
         this.onChange1(this.FormItem.get('district').value);
       }
     }
@@ -55,14 +56,16 @@ export class LocationComponent implements ISubmitRequestable {
 
   onChange(name: any) {
     let code = provinceData.find(it => it.name == name)
-    this.district = LocationDataProvider.getDistric(code.codeProvince);
+    let order = LocationDataProvider.getDistric(code.codeProvince);
+    this.district = order.sort((a, b) => a.name.localeCompare(b.name))
     console.log(code);
     console.log(code.codeProvince);
   }
 
   onChange1(name: any) {
     var code = districtData.find(it => it.name == name)
-    this.subDistrict = LocationDataProvider.getSubdistric(code.codeDistrict);
+    let order = LocationDataProvider.getSubdistric(code.codeDistrict);
+    this.subDistrict = order.sort((a, b) => a.name.localeCompare(b.name))
   }
 
 }
