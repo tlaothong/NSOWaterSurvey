@@ -84,7 +84,7 @@ export class RainPage {
       this.activityResidential = (data != null) ? data.rain : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityAgiculture$.subscribe(data => {
       this.activityAgiculture = (data != null) ? data : null;

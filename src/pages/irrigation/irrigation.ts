@@ -55,7 +55,7 @@ export class IrrigationPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.f = this.fb.group({
       'hasCubicMeterPerMonth': [null, Validators],
@@ -90,7 +90,7 @@ export class IrrigationPage {
       this.activityResidential = (data != null) ? data.irrigation : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.irrigation : null;
@@ -146,7 +146,7 @@ export class IrrigationPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -56,7 +56,7 @@ export class RiverPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
@@ -78,7 +78,7 @@ export class RiverPage {
       }
     })
     this.storage.get('unit').then((val) => {
-      if(val != null){
+      if (val != null) {
         this.formData = val;
         this.f.patchValue(val.waterUsage.river);
         console.log(val);
@@ -94,7 +94,7 @@ export class RiverPage {
       this.activityResidential = (data != null) ? data.river : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.river : null;
@@ -150,10 +150,10 @@ export class RiverPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
-      
-      
+
+
     }
   }
 
