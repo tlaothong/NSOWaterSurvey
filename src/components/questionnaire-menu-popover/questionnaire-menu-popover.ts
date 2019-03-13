@@ -3,6 +3,8 @@ import { NavParams, NavController, ViewController } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
 import { getStoreWorkEaOneRecord } from '../../states/logging';
+import { SetBackToRoot } from '../../states/household/household.actions';
+import { UnitPage } from '../../pages/unit/unit';
 
 @Component({
   selector: 'questionnaire-menu-popover',
@@ -33,7 +35,12 @@ export class QuestionnaireMenuPopoverComponent {
     this.viewCtrl.dismiss();
   }
 
-  goMeasure(){
+  goMeasure() {
     this.navCtrl.push("MeasurePage")
+  }
+
+  goToUnitPage() {
+    this.store.dispatch(new SetBackToRoot(true));
+    this.navCtrl.popTo(this.navCtrl.getByIndex(3));
   }
 }
