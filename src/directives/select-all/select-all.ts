@@ -21,10 +21,14 @@ export class SelectAllDirective {
     let nativeEl: HTMLInputElement = this.el.nativeElement.querySelector('input');
 
     if (nativeEl) {
-      // if (nativeEl.setSelectionRange) {
-      //   // select the text from start to end
-      //   return nativeEl.setSelectionRange(0, nativeEl.value.length);
-      // }
+      if (nativeEl.setSelectionRange) {
+        // select the text from start to end
+        try {
+          nativeEl.setSelectionRange(0, nativeEl.value.length);
+          return;
+        } catch (error) {
+        }
+      }
 
       nativeEl.select();
     }

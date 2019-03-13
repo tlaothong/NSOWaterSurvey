@@ -91,7 +91,10 @@ export class BuidlingInformation2Page {
     this.getBuildingType$.subscribe(data => console.log(data));
     console.log(this.f.value);
 
-    this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+    this.getBuildingType$.subscribe(data => {
+      this.f.get('buildingType').setValue(data);
+      setTimeout(() => this.numOfUnits._native.nativeElement.select(), 99);
+    });
     //   }
     // });
   }
