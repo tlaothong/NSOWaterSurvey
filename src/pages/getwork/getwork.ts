@@ -27,6 +27,7 @@ export class GetworkPage {
   async presentAlert() {
     const alert = await this.alertController.create({
       title: 'โหลดงานสำเร็จแล้ว',
+      enableBackdropDismiss: false,
       buttons: [
         {
           text: 'OK',
@@ -34,7 +35,6 @@ export class GetworkPage {
             this.navCtrl.setRoot("SelectEaPage");
           }
         }
-
       ]
     });
     await alert.present();
