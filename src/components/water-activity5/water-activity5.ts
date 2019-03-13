@@ -30,7 +30,13 @@ export class WaterActivity5Component {
 
   ngOnInit() {
     this.onChangeValue();
+    this.checkTotalActive();
+  }
 
+  checkTotalActive() {
+    if (!this.activeRes && !this.activeWateringRes && !this.activeAgi && !this.activeFac && !this.activeCom) {
+      this.resultSum = 100;
+    }
   }
 
   ngDoCheck() {
