@@ -96,7 +96,7 @@
           </div>
           <div *ngSwitchCase="false">
             <div *ngFor="let pool of f.get('poolSizes').controls; let i = index">
-              <pool-area headline="สระที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
+              <pool-area headline="สระที่ " head="สระที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
             </div>
           </div>
         </div>

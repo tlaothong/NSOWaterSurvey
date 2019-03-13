@@ -11,6 +11,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class PoolAreaComponent implements ISubmitRequestable {
 
   @Input("headline") private text: string;
+  @Input("head") private head: string;
   @Input("pool") private poolText: string;
   @Input('no') public no: string;
   @Input() public FormItem: FormGroup;
@@ -99,7 +100,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no, head: this.head });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;

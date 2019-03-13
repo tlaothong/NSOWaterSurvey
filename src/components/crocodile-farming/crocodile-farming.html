@@ -92,12 +92,12 @@
   <div *ngIf="FormItem.get('depression').value">
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
       <div *ngSwitchCase="true">
-        <pool-area *ngIf="FormItem.get('fields').length> 0" headline="ขนาดบ่อ" [FormItem]="FormItem.get('fields').at(0)"></pool-area>
+        <pool-area *ngIf="FormItem.get('fields').length> 0" headline="ขนาดบ่อ" head="บ่อที่ " [FormItem]="FormItem.get('fields').at(0)"></pool-area>
       </div>
 
       <div *ngSwitchCase="false">
         <div *ngFor="let p of FormItem.get('fields').controls;let i= index">
-          <pool-area headline="บ่อ" [no]="i+1" [FormItem]="p"></pool-area>
+          <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [FormItem]="p"></pool-area>
         </div>
       </div>
     </div>

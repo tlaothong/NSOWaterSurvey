@@ -26,9 +26,9 @@ export class QuestionnaireMenuComponent {
 
   ngOnInit() {
     console.log("isBuilding: " + this.isBuilding);
-    if (!this.isBuilding) {
-      this.unitNo$.subscribe(data => this.No = data);
-    }
+    // if (!this.isBuilding) {
+    //   this.unitNo$.subscribe(data => this.No = data);
+    // }
   }
 
   public showQuickMenu(myEvent) {
