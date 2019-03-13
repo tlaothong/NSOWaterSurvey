@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, DateTime } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
@@ -35,7 +35,7 @@ export class DlgUnitPage {
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.dataHomeBuilding$.subscribe(data => {
-      if(data != null){
+      if (data != null) {
         this.id_BD = data._id
         this.FormItem.controls['buildingId'].setValue(this.id_BD);
       }
@@ -69,8 +69,20 @@ export class DlgUnitPage {
     }
   }
 
+  // public setValue(name: string) {
+  //   var ctrl = this.FormItem.get(name);
+  //   if (name == "hasPlumbing" ) {
+  //     this.FormItem.get('hasPlumbingMeter').setValue(false);
+  //     this.FormItem.get('isPlumbingMeterXWA').setValue(false);
+  //   }
+  //   if (name == "hasGroundWater") {
+  //     this.FormItem.get('hasGroundWaterMeter').setValue(false);
+  //   }
+  // }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -115,7 +127,7 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    let key = "BL" + this.id_BD 
+    let key = "BL" + this.id_BD
     console.log(this.id_BD);
     this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
       let bd = val
@@ -136,7 +148,7 @@ export class DlgUnitPage {
           building.unitCountComplete++;
           if (building.unitCountComplete == building.unitCount) {
             building.status = "done-all";
-          }        
+          }
           this.storage.set(this.FormItem.get('buildingId').value, building);
           this.storage.get(building.ea).then((val) => {
             let BDlist = val
