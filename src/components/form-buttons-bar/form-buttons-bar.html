@@ -8,7 +8,7 @@
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-col>
-    <ion-col col-3 *ngIf="!isBuilding">
+    <ion-col col-3 *ngIf="backNum > 0">
       <div class="progress-outer">
         <div class="progress-inner" [style.width]="60 + '%'">
           {{frontNum}} / {{backNum}}
@@ -23,7 +23,7 @@
         </button>
       </div>
 
-      <div *ngIf="checkEnd == false" >
+      <div *ngIf="checkEnd == false">
         <button ion-button block icon-end type="submit">
           บันทึก และ สิ้นสุดการสัมภาษณ์
           <ion-icon name="ios-arrow-forward"></ion-icon>
