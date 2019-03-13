@@ -9,12 +9,13 @@ import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { SetCommunity } from '../../states/community/community.actions';
-import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
+import { getStoreWorkEaOneRecord, getLoadCommunityForEdit, getIdEsWorkHomes } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getCommunitySample } from '../../states/community';
 import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
+import { subDistrictData } from '../../models/SubDistrictData';
 
 @IonicPage()
 @Component({
@@ -38,6 +39,12 @@ export class CommunityWaterManagementPage {
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private DataStoreWorkEaOneRecord: any;
   public id: string;
+
+  private getIdHomes$ = this.store.select(getIdEsWorkHomes);
+  private getIdHomes: any;
+  public subDistrict: any;
+  public MWA: boolean;
+  public PWA: boolean;
 
   constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
     this.id = this.navParams.get('id')
@@ -87,6 +94,22 @@ export class CommunityWaterManagementPage {
       }
     });
 
+    this.getIdHomes$.subscribe(data => {
+      this.getIdHomes = data
+      console.log(this.getIdHomes);
+      
+      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
+      console.log(this.subDistrict);
+      
+      this.MWA = this.subDistrict.MWA;
+      this.PWA = this.subDistrict.PWA;
+      if(this.MWA == false){
+        this.formDataCom.get('mwa').setValue(false);
+      }
+      if(this.PWA == false){
+        this.formDataCom.get('pwa').setValue(false);
+      }
+    })
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.CommunityWaterManagement.setValue(data)
