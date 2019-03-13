@@ -49,6 +49,13 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
+    if (this.FormItem.get('fieldsAreSameSize').value) {
+      let val = this.FormItem.get('fields').value
+      for (let index = 1; index < val.length; index++) {
+        val[index] = val[0]
+      }
+      this.FormItem.get('fields').setValue(val)
+    }
     this.poolArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     // this.dispatchWaterSource();
