@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { PopoverController } from 'ionic-angular';
 import { QuestionnaireMenuPopoverComponent } from '../questionnaire-menu-popover/questionnaire-menu-popover';
+import { getUnitNo } from '../../states/household';
 
 /**
  * Generated class for the BackToRootComponent component.
@@ -21,8 +22,12 @@ export class BackToRootComponent {
   @Input('title') public text: string;
   @Input('Pop') public Pop: boolean;
 
+  private unitNo$ = this.store.select(getUnitNo);
+  public No: string;
+
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private popoverCtrl: PopoverController) {
     console.log('Hello BackToRootComponent Component');
+    this.unitNo$.subscribe(data => this.No = data);
   }
 
   backToRoot() {

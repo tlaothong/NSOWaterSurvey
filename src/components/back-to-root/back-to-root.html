@@ -4,7 +4,7 @@
       <ion-icon name="md-arrow-back"></ion-icon>
     </button>
     <ion-title>{{ text }}</ion-title>
-    <ion-label text-right *ngIf="Pop != true">หน่วยตัวอย่าง ลำดับที่ 1</ion-label>
+    <ion-label text-right *ngIf="Pop != true && No">หน่วยตัวอย่าง ลำดับที่ {{ No }}</ion-label>
     <ion-label text-right *ngIf="Pop == true">ครัวเรือน ลำดับที่ 1</ion-label>
     <ion-buttons end>
       <button ion-button icon-only (click)="showQuickMenu($event)">
