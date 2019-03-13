@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { getStoreWorkEaOneRecord } from '../../states/logging';
 import { SetBackToRoot } from '../../states/household/household.actions';
 import { UnitPage } from '../../pages/unit/unit';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getRecieveDataFromBuilding } from '../../states/building';
 
 @Component({
   selector: 'questionnaire-menu-popover',
@@ -16,7 +18,11 @@ export class QuestionnaireMenuPopoverComponent {
   private navCtrl: NavController;
 
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
-  constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>) {
+  private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
+  public unitCount: number;
+  public isBuilding: boolean;
+
+  constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>, private storeBuild: Store<BuildingState>) {
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
 
     this.navCtrl = navParams.get('nav');
@@ -40,7 +46,12 @@ export class QuestionnaireMenuPopoverComponent {
   }
 
   goToUnitPage() {
+    this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
+    this.isBuilding = this.navParams.get('isBuilding');
+    console.log("isBuilding: " + this.isBuilding);
+    console.log("unitCount: " + this.unitCount);
+
     this.store.dispatch(new SetBackToRoot(true));
-    this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+    (this.isBuilding || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
   }
 }

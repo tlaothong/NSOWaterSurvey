@@ -13,7 +13,7 @@ export class QuestionnaireMenuComponent {
 
   @Input('title') public text: string;
   @Input('Pop') public Pop: boolean;
-  @Input('isUnit') public isUnit: boolean;
+  @Input('isBuilding') public isBuilding: boolean;
 
   public No: string;
 
@@ -21,18 +21,18 @@ export class QuestionnaireMenuComponent {
 
   constructor(private navCtrl: NavController, private popoverCtrl: PopoverController, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
-    this.isUnit = true;
+    this.isBuilding = false;
   }
 
   ngOnInit() {
-    console.log("isUnit: " + this.isUnit);
-    if (this.isUnit == true) {
+    console.log("isBuilding: " + this.isBuilding);
+    if (!this.isBuilding) {
       this.unitNo$.subscribe(data => this.No = data);
     }
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent, { nav: this.navCtrl });
+    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent, { nav: this.navCtrl, isBuilding: this.isBuilding });
     popover.present({
       ev: myEvent
     });
