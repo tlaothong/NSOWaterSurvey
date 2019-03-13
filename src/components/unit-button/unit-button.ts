@@ -95,7 +95,7 @@ export class UnitButtonComponent {
           this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
         }
         this.setUnitNo();
-        this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+        this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem, unitCount: this.unitCount });
       });
     } else {
       this.setupAccessCountChanges();

@@ -23,6 +23,7 @@ export class WaterActivityUnitPage {
   private submitRequested: boolean;
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
   public dataHouseHold: any;
+  public unitCount: any;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     // this.f = UnitButtonComponent.CreateFormGroup(fb);
     // this.f = navParams.get('FormItem');
@@ -48,6 +49,7 @@ export class WaterActivityUnitPage {
   }
 
   ionViewDidEnter() {
+    this.unitCount = this.navParams.get('unitCount');
     console.log("WaterActivityUnitPage");
     this.formDataRecieve$.subscribe(data => {
       if (data != null) {
