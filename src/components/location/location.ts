@@ -4,6 +4,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { provinceData } from '../../models/ProvinceData';
 import { LocationDataProvider } from '../../providers/location-data/location-data';
 import { districtData } from '../../models/DistrictData';
+import { subDistrictData } from '../../models/SubDistrictData';
 
 @Component({
   selector: 'location',
@@ -15,7 +16,7 @@ export class LocationComponent implements ISubmitRequestable {
   public provinceData = provinceData;
   public province: any;
   public district: any;
-  public subDistrict: any;
+  public subDistrict: any
   @Input() public FormItem: FormGroup;
   private submitRequested: boolean;
   public text: string;
@@ -24,6 +25,15 @@ export class LocationComponent implements ISubmitRequestable {
     this.text = 'Hello World';
     // this.getprovince();
     this.FormItem = LocationComponent.CreateFormGroup(this.fb);
+  }
+
+  ngOnInit() {
+    if (this.FormItem.get('province').value != null) {
+      this.onChange(this.FormItem.get('province').value);
+      if(this.FormItem.get('district').value != null){
+        this.onChange1(this.FormItem.get('district').value);
+      }
+    }
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {

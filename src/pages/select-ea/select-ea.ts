@@ -52,9 +52,6 @@ export class SelectEaPage {
 
           if (val != null) {
             this.dataEa = val
-            for (let index = 0; index < this.dataEa.length; index++) {
-              this.dataEa[index].properties.ea_code_14 = this.dataEa[index].properties.ea_code_14.substring(11)
-            }
           }
         });
       }
