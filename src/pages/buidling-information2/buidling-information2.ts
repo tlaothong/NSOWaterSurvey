@@ -139,7 +139,14 @@ export class BuidlingInformation2Page {
       console.log(this.f.value);
 
       this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-      this.navCtrl.push("UnitPage");
+      let unitAccess = this.f.get('unitAccess').value;
+      if (unitAccess == "2" || unitAccess == "3") {
+        this.f.get('status').setValue('done-all');
+        this.navCtrl.popToRoot();
+      }
+      else {
+        this.navCtrl.push("UnitPage");
+      }
     }
   }
 
