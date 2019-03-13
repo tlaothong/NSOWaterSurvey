@@ -12,10 +12,12 @@ export class DlgPoolAreaPage {
 
   public FormItem: FormGroup;
   public text: string;
+  public head: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem').get('rectangle');
     this.text = navParams.get("headline");
+    this.head = navParams.get("head");
     // this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
     //const datain = navParams.get('FormItem') as FormGroup;
     // this.FormItem.setValue(datain.value);
