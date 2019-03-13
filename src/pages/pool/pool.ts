@@ -87,7 +87,7 @@ export class PoolPage {
       this.activityResidential = (data != null) ? data.pool : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.pool : null;
@@ -125,7 +125,7 @@ export class PoolPage {
       || this.activityFactory == true
       || this.activityCommercial == true)
       && (this.f.get('waterResourceCount').value < 1)) {
-        return false;
+      return false;
     }
     return true;
   }
@@ -160,7 +160,7 @@ export class PoolPage {
       const poolCount = c.get('poolCount');
       const hasSameSize = c.get('hasSameSize');
       const waterResourceCount = c.get('waterResourceCount');
- 
+
       if (doing.value == null) {
         return { 'doing': true };
       }

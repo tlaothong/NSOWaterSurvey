@@ -60,7 +60,7 @@ export class PlumbingPage {
   public PWA: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider,  public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
@@ -124,7 +124,7 @@ export class PlumbingPage {
       this.activityResidential = (data != null) ? data.plumbing : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityAgiculture$.subscribe(data => {
       this.activityAgiculture = (data != null) ? data : null;
@@ -139,10 +139,10 @@ export class PlumbingPage {
     this.getIdHomes$.subscribe(data => {
       this.getIdHomes = data
       console.log(this.getIdHomes);
-      
+
       this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
       console.log(this.subDistrict);
-      
+
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
     })
@@ -178,7 +178,7 @@ export class PlumbingPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
     }
