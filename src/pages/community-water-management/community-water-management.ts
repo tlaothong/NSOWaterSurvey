@@ -104,10 +104,10 @@ export class CommunityWaterManagementPage {
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
       if(this.MWA == false){
-        this.formDataCom.get('mwa').setValue(false);
+        this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
       }
       if(this.PWA == false){
-        this.formDataCom.get('pwa').setValue(false);
+        this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
       }
     })
     // this.formData$.subscribe(data => {
