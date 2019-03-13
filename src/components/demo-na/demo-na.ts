@@ -16,7 +16,7 @@ export class DemoNaComponent {
     const alert = this.alertCtrl.create({
       title: 'New Friend!',
       subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
-      buttons: ['OK']
+      buttons: ['ตกลง']
     });
     alert.present();
   }

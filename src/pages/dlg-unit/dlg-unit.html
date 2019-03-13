@@ -51,7 +51,7 @@
       </ion-option>
     </ion-select>
   </ion-item>
-  
+
   <ion-item *ngIf="access == null && submitRequested">
     <span class="invalid-msg">
       กรุณาเลือกการเข้าพบ
@@ -76,12 +76,12 @@
               <ion-label>ใช้</ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-radio [value]="false" item-left ></ion-radio>
               <ion-label>ไม่ใช้</ion-label>
             </ion-item>
           </ion-row>
 
-          <div *ngIf="FormItem.get('subUnit.hasPlumbing').value">
+          <div *ngIf="FormItem.get('subUnit.hasPlumbing').value ">
             <ion-item>
               <ion-label>
                 2. มีมิเตอร์น้ำประปาแยกออกจากส่วนกลางหรือไม่
@@ -127,7 +127,7 @@
               <ion-label>ใช้</ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-radio [value]="false" item-left ></ion-radio>
               <ion-label>ไม่ใช้</ion-label>
             </ion-item>
           </ion-row>
@@ -167,10 +167,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && access == 1">OK</button>
+          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && access == 1">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>

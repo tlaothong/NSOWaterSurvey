@@ -117,11 +117,11 @@ export class UnitButtonComponent {
         'roomNumber': [null, Validators.required],
         'accessCount': [0, Validators.required],
         'accesses': fb.array([0]),
-        'hasPlumbing': [false, Validators.required],
-        'hasPlumbingMeter': [false, Validators.required],
-        'isPlumbingMeterXWA': [false, Validators.required],
-        'hasGroundWater': [false, Validators.required],
-        'hasGroundWaterMeter': [false, Validators.required],
+        'hasPlumbing': [null, Validators.required],
+        'hasPlumbingMeter': [null, Validators.required],
+        'isPlumbingMeterXWA': [null, Validators.required],
+        'hasGroundWater': [null, Validators.required],
+        'hasGroundWaterMeter': [null, Validators.required],
       }),
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],
@@ -987,7 +987,7 @@ export class UnitButtonComponent {
     const alert = this.alertCtrl.create({
       title: 'ปัญหา/อุปสรรค',
       subTitle: this.allComment,
-      buttons: ['OK']
+      buttons: ['ตกลง']
     });
     alert.present();
   }
