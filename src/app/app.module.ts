@@ -24,6 +24,7 @@ import { PumpDataProvider } from '../providers/pump-data/pump-data';
 import { LocationDataProvider } from '../providers/location-data/location-data';
 import { SwithStateProvider } from '../providers/swith-state/swith-state';
 import { LocalStorageProvider } from '../providers/local-storage/local-storage';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { LocalStorageProvider } from '../providers/local-storage/local-storage';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     ComponentsModule,
+    DirectivesModule,
     IonicStorageModule.forRoot({
       // name: 'User',
     }),

@@ -1,4 +1,4 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -27,6 +27,7 @@ export class BuidlingInformation2Page {
   private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
+  @ViewChild("numOfUnits") private numOfUnits;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);

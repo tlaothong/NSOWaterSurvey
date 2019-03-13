@@ -20,6 +20,7 @@
 
         <ion-item>
           <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="unitCount"
+            select-all
             [class.invalid]="isValid('unitCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('unitCount')">
