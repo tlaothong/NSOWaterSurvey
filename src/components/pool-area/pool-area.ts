@@ -19,7 +19,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     this.text = '';
-    this.poolText = "บ่อหรือร่องสวน";
+    this.poolText = "แหล่งน้ำ";
 
     // TODO: Remove this
     this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);

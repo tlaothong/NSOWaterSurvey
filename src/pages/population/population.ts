@@ -73,8 +73,8 @@ export class PopulationPage {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
-      // this.storage.set('unit', this.dataPop)  
       let id = this.dataPop._id
+      this.storage.set(id, this.dataPop)  
       this.local.updateListUnit(this.dataPop.buildingId, this.dataPop)
       // this.storage.set(id, this.dataPop)
       this.navCtrl.popTo("CheckListPage");
