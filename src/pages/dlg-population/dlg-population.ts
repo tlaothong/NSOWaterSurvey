@@ -23,7 +23,7 @@ export class DlgPopulationPage {
   public proName: any;
 
   public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
-  public OtherNation: Nationality[] = nationalityData.filter(it => it.Tag == false);
+  public OtherNation: Nationality[] = nationalityData
   public Province: Province[] = provinceData;
 
   public dateTime: Date = new Date();
@@ -32,6 +32,7 @@ export class DlgPopulationPage {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.proName = navParams.get('proName');
+    this.Province = this.Province.sort((a, b) => a.name.localeCompare(b.name));
 
     this.FormItem = TablePopulationComponent.CreateFormGroup(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
@@ -43,7 +44,7 @@ export class DlgPopulationPage {
 
   ionViewDidLoad() {
     let check = this.FormItem.get('nationality').value
-    if (check != null) {
+    if (check != null && check != "สัญชาติอื่นๆ") {
       let nat = nationalityData.find(it => it.Name == check)
       let natValue = nat.Tag
       if (natValue == false) {
@@ -56,6 +57,7 @@ export class DlgPopulationPage {
 
   change(event) {
     if (event == 'สัญชาติอื่นๆ') {
+      this.FormItem.get('nationality').setValue(null)
       this.Nation = this.OtherNation;
       let element = document.getElementById('nationSelect');
 
@@ -72,6 +74,7 @@ export class DlgPopulationPage {
 
   public okDialog() {
     this.submitRequested = true;
+
     if (this.FormItem.valid && !this.isCheckHeadfamily()) {
       this.viewCtrl.dismiss(this.FormItem);
     }
@@ -79,6 +82,10 @@ export class DlgPopulationPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'age') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.age && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -88,10 +95,10 @@ export class DlgPopulationPage {
       || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null
       || (this.FormItem.get('relationship').value == 7) && (this.FormItem.get('age').value < 13 && this.FormItem.get('age').value != null)
       || (this.FormItem.get('nameTitle').value == 1
-      || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
+        || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
       || (this.FormItem.get('nameTitle').value == 2
-      || this.FormItem.get('nameTitle').value == 3
-      || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
+        || this.FormItem.get('nameTitle').value == 3
+        || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
       || ((this.FormItem.get('otherProvince').value != null) && (this.FormItem.get('otherProvince').value == this.proName))) {
       return true
     }

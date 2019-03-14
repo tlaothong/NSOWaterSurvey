@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'table-population',
@@ -27,14 +27,17 @@ export class TablePopulationComponent {
       'lastName': [null, Validators.required],
       'relationship': [null, Validators.required],
       'sex': [null, Validators.required],
-      'age': [null, Validators.required],
+      'age': [null, Validators],
       'birthDate': [null, Validators.required],
       'birthMonth': [null, Validators.required],
       'birthYear': [null, Validators.required],
       'nationality': [null, Validators.required],
       'registration': [null, Validators.required],
       'otherProvince': [null],
-    });
+    }, {
+        validator: TablePopulationComponent.checkAnyOrOther()
+      }
+    );
     return fg
 
   }
@@ -62,7 +65,24 @@ export class TablePopulationComponent {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == 'age') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.age && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+
   }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const age = c.get('age');
+
+      if (age.value == null || age.value == " ไม่ทราบ ") {
+        return { 'age': true };
+      }
+      return null;
+    }
+  }
+
 
 }

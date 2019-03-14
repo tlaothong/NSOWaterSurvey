@@ -147,7 +147,7 @@ export class UnitButtonComponent {
           'rainingAsIs': false,
           'buying': false,
           'hasOther': false,
-          'other': false,
+          'other': null,
         }),
         'gardeningUse': null
       }),

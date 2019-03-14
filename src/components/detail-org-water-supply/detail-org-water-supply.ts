@@ -104,10 +104,10 @@ export class DetailOrgWaterSupplyComponent implements ISubmitRequestable {
       if (useGroundWater.value == null) {
         return { 'useGroundWater': true };
       }
-      if (useGroundWater.value != null && useGroundWater.value != true && groundWaterCount.value == null) {
+      if (useGroundWater.value != null && useGroundWater.value == true && groundWaterCount.value == null) {
         return { 'groundWaterCount': true };
       }
-      if (useGroundWater.value != null && useGroundWater.value != true && groundWaterUsePerMonth.value == null) {
+      if (useGroundWater.value != null && useGroundWater.value == true && groundWaterUsePerMonth.value == null) {
         return { 'groundWaterUsePerMonth': true };
       }
       if (plumbingPrice.value == null) {
