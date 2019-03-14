@@ -406,7 +406,7 @@ export const surfaceSuctionPipeData: surfaceSuctionPipe[] = [
         name: '7-8'
     },
     {
-        codeWattHp: 'N2P1W5',
+        codeWattHp: 'N2P1W6',
         codeSuctionPipe: 'N2P1W5S8',
         name: '(1/2)-4'
     },
