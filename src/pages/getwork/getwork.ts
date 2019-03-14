@@ -26,11 +26,11 @@ export class GetworkPage {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      title: 'โหลดงานสำเร็จแล้ว',
+      title: 'โหลดงานสำเร็จแล้วจ้า',
       enableBackdropDismiss: false,
       buttons: [
         {
-          text: 'ตกลง',
+          text: 'ตกลงมั้ย',
           handler: data => {
             this.navCtrl.setRoot("SelectEaPage");
           }
