@@ -21,12 +21,11 @@ export class DlgUnitPage {
   public FormItem: FormGroup;
   public ff: FormGroup;
 
-
   public index: number;
   public access: number;
+  public static accessValid: number;
   public comment: string = '';
   public count: number;
-  public status: boolean = false
 
   private fgac: FormArray;
   private fgcm: FormArray;
@@ -38,6 +37,7 @@ export class DlgUnitPage {
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
+    this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value)
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
         this.id_BD = data._id
@@ -81,9 +81,14 @@ export class DlgUnitPage {
 
   public okDialog() {
     this.submitRequested = true;
-    console.log(this.FormItem.get('subUnit.roomNumber').value);
+    console.log(this.ff.get('subUnit.roomNumber').value);
+    console.log(this.ff.get('subUnit.hasPlumbing').value);
+
+    DlgUnitPage.accessValid = this.access;
+    console.log(DlgUnitPage.accessValid);
+    this.FormItem.get('subUnit').setValue(this.ff.get('subUnit').value)
     this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
-    if (this.FormItem.get('subUnit.roomNumber').valid && this.access != null) {
+    if (this.ff.valid && this.access != null) {
       this.setAccesses();
       this.AddUnit();
       this.viewCtrl.dismiss(this.FormItem);
@@ -104,33 +109,73 @@ export class DlgUnitPage {
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const roomNumber = c.get('subUnit.roomNumber');
-      const accessCount = c.get('subUnit.accessCount');
-      const accesses = c.get('accesses');
       const hasPlumbing = c.get('subUnit.hasPlumbing');
-      const hasPlumbingMeter = c.get('hasPlumbingMeter');
-      const isPlumbingMeterXWA = c.get('isPlumbingMeterXWA');
-      const hasGroundWater = c.get('hasGroundWater');
-      const hasGroundWaterMeter = c.get('hasGroundWaterMeter');
-
+      const hasPlumbingMeter = c.get('subUnit.hasPlumbingMeter');
+      const isPlumbingMeterXWA = c.get('subUnit.isPlumbingMeterXWA');
+      const hasGroundWater = c.get('subUnit.hasGroundWater');
+      const hasGroundWaterMeter = c.get('subUnit.hasGroundWaterMeter');
+      
       if (roomNumber.value == null) {
         return { 'roomNumber': true };
       }
-      if (roomNumber.value != null && accesses.value != null && hasPlumbing.value == null) {
+      if (hasPlumbing.value == null ) {
         return { 'hasPlumbing': true };
+      } 
+      if (hasPlumbing.value == true && hasPlumbingMeter.value == null) {
+        return { 'hasPlumbingMeter': true };
       }
-
+      if (hasPlumbing.value == true && hasPlumbingMeter.value == false && hasGroundWater.value == null) {
+        return { 'hasGroundWater': true };
+      }
+      if (hasPlumbingMeter.value != null && isPlumbingMeterXWA.value == null) {
+        return { 'isPlumbingMeterXWA': true };
+      }
+      if (hasPlumbing.value != null &&hasGroundWater.value == null) {
+        return { 'hasGroundWater': true };
+      }
+      if (hasPlumbing.value != null && hasPlumbingMeter.value != null && hasGroundWater.value == null) {
+        return { 'hasGroundWater': true };
+      }
+      if (hasGroundWater.value == true && hasGroundWaterMeter.value == null) {
+        return { 'hasGroundWaterMeter': true };
+      }
+      return null;
     }
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.ff.get(name);
-    if (name == 'roomNumber') {
+    var ct = this.ff.get('subUnit.roomNumber');
+    var cd = this.ff.get('subUnit.hasPlumbing');
+    var cr = this.ff.get('subUnit.hasPlumbingMeter');
+    var cs = this.ff.get('subUnit.hasGroundWater');
+    var cm = this.ff.get('subUnit.isPlumbingMeterXWA');
+    var cn = this.ff.get('subUnit.hasGroundWaterMeter');
+
+    if (name == 'subUnit.roomNumber') {
       let ctrls = this.ff;
-      return ctrls.errors && ctrls.errors.subUnit.roomNumber && (ctrl.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.roomNumber && (ct.dirty || this.submitRequested);
     }
-    if (name == 'hasPlumbing') {
+   
+    if (name == 'subUnit.hasPlumbing') {
       let ctrls = this.ff;
-      return ctrls.errors && ctrls.errors.hasPlumbing && (ctrl.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.hasPlumbing && (cd.dirty || this.submitRequested);
+    }
+    if (name == 'subUnit.hasGroundWater') {
+      let ctrls = this.ff;
+      return ctrls.errors && ctrls.errors.hasGroundWater && (cs.dirty || this.submitRequested);
+    }
+    if (name == 'subUnit.hasPlumbingMeter') {
+      let ctrls = this.ff;
+      return ctrls.errors && ctrls.errors.hasPlumbingMeter && (cr.dirty || this.submitRequested);
+    }
+    if (name == 'subUnit.isPlumbingMeterXWA') {
+      let ctrls = this.ff;
+      return ctrls.errors && ctrls.errors.isPlumbingMeterXWA && (cm.dirty || this.submitRequested);
+    }
+    if (name == 'subUnit.hasGroundWaterMeter') {
+      let ctrls = this.ff;
+      return ctrls.errors && ctrls.errors.hasGroundWaterMeter && (cn.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
