@@ -49,6 +49,7 @@ import { EAlistComponent } from './e-alist/e-alist';
 import { EaComponent } from './ea/ea';
 import { BackToRootComponent } from './back-to-root/back-to-root';
 import { BackToRootLoginComponent } from './back-to-root-login/back-to-root-login';
+import { InputNumberOfArrayComponent } from './input-number-of-array/input-number-of-array';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -101,6 +102,7 @@ import { BackToRootLoginComponent } from './back-to-root-login/back-to-root-logi
     EaComponent,
     BackToRootComponent,
     BackToRootLoginComponent,
+    InputNumberOfArrayComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -160,6 +162,7 @@ import { BackToRootLoginComponent } from './back-to-root-login/back-to-root-logi
     EaComponent,
     BackToRootComponent,
     BackToRootLoginComponent,
+    InputNumberOfArrayComponent,
   ]
 })
 export class ComponentsModule { }
