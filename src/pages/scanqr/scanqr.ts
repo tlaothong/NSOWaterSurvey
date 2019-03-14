@@ -31,25 +31,25 @@ export class ScanqrPage {
     // this.qrCode = "f30d8fca-e7ad-4838-93b9-90179cfe9295";
 
   }
-  
+
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
-      .then((status: QRScannerStatus) => {
-        if (status.authorized) {
-          // camera permission was granted
-          let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
-          
-          // start scanning
-          let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
-            //alert(text);
-            if (text == "40500841234") {
-              this.store.dispatch(new LoadUserDataByQRCode(text));
-              this.navCtrl.pop();
-              this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
-              }else{
+        .then((status: QRScannerStatus) => {
+          if (status.authorized) {
+            // camera permission was granted
+            let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
+
+            // start scanning
+            let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
+              //alert(text);
+              if (text == "40500841234") {
+                this.store.dispatch(new LoadUserDataByQRCode(text));
+                this.navCtrl.pop();
+                this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
+              } else {
                 let alert = this.alertCtrl.create({
-                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ",
+                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
                 });
                 alert.present();
               }
