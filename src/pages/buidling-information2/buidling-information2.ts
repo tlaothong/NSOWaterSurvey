@@ -18,7 +18,6 @@ import { Storage } from '@ionic/storage';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-  public isBuilding: boolean;
 
   // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
   // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));

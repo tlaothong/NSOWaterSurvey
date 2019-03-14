@@ -136,12 +136,13 @@ export class HomesPage {
       this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
       this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id, id: null })
     } else if (this.num == '2') {
+      let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.store.dispatch(new LoadCommunityForEditSuccess(null));
-      this.navCtrl.push("CommunityTestPage", { id: null })
+      this.navCtrl.push("CommunityTestPage", { id: null, no: no.toString() })
     }
   }
 
-  goEditBuildingInfo(item: any) {
+  goEditBuildingInfo(item: any, no: number) {
     if (this.num == '1') {
       //this.swith.updateBuildingState(item._id);
       this.storage.get(item._id).then((val) => {
@@ -161,13 +162,11 @@ export class HomesPage {
       })
     }
     else if (this.num == '2') {
-
       console.log(item);
-
       this.storage.get(item).then((val) => {
         console.log(val);
         this.store.dispatch(new LoadCommunityForEditSuccess(val));
-        this.navCtrl.push("CommunityTestPage")
+        this.navCtrl.push("CommunityTestPage", { no: no.toString() })
       });
     }
 
@@ -193,7 +192,7 @@ export class HomesPage {
             });
             this.storage.remove(id);
             this.storage.get("BL" + id).then((val) => {
-              if(val != null){
+              if (val != null) {
                 let listHH = val;
                 listHH.forEach(it => {
                   this.storage.remove(it._id);

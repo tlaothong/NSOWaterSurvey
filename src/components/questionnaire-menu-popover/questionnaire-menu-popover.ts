@@ -20,15 +20,22 @@ export class QuestionnaireMenuPopoverComponent {
   private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
   public unitCount: number;
-  public isBuilding: boolean;
+  public isDisabled: boolean;
+  public isCommunity: boolean;
+  public Pop: boolean;
+  public No: string;
 
   constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>, private storeBuild: Store<BuildingState>) {
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
-
     this.navCtrl = navParams.get('nav');
   }
 
   ionViewDidLoad() {
+    this.Pop = this.navParams.get('Pop');
+    this.No = this.navParams.get('No');
+    console.log("Pop: "+this.Pop);
+    console.log("No: "+this.No);
+    
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.dataWorkEARow = data
@@ -47,11 +54,12 @@ export class QuestionnaireMenuPopoverComponent {
 
   goToUnitPage() {
     this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
-    this.isBuilding = this.navParams.get('isBuilding');
-    console.log("isBuilding: " + this.isBuilding);
+    this.isDisabled = this.navParams.get('isDisabled');
+    this.isCommunity = this.navParams.get('isCommunity');
+    console.log("isDisabled: " + this.isDisabled);
     console.log("unitCount: " + this.unitCount);
 
     this.store.dispatch(new SetBackToRoot(true));
-    (this.isBuilding || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+    (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
   }
 }

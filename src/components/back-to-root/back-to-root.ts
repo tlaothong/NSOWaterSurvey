@@ -48,7 +48,7 @@ export class BackToRootComponent {
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent, { nav: this.navCtrl });
+    let popover = this.popoverCtrl.create(QuestionnaireMenuPopoverComponent, { nav: this.navCtrl, No: this.No });
     popover.present({
       ev: myEvent
     });

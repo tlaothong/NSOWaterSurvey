@@ -8,8 +8,7 @@ export enum CommunityTypes {
     LoadSuccess = "[CM] Load Success",
     SetCommunity = "[CM] Set Community",
     SetCommunitySuccess = "[CM] Set Community Success",
-  
-
+    SetComNo = "[HH] Set Com No",
 }
 
 export class LoadCommunityList implements Action {
@@ -54,6 +53,12 @@ export class SetCommunitySuccess implements Action {
     }
 }
 
+export class SetComNo implements Action {
+    readonly type = CommunityTypes.SetComNo;
+
+    constructor(public payload: string) {
+    }
+}
 
 
 export type CommunityActionsType =
@@ -63,4 +68,5 @@ export type CommunityActionsType =
     | LoadCommunitySampleSuccess
     | SetCommunity
     | SetCommunitySuccess
+    | SetComNo
     ;

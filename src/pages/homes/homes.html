@@ -124,7 +124,7 @@
           <ion-row align-items-center>
             <ion-label>
               ครัวเรือน<br>สถานประกอบการ
-              
+
             </ion-label>
           </ion-row>
           <ion-row>
@@ -218,16 +218,16 @@
       <hr>
       <div *ngFor="let itemCom of dataCommunity;let i=index">
         <ion-row text-center align-items-center>
-          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             <ion-icon disabled="false" name="{{itemCom.status}}"></ion-icon>
           </ion-col>
-          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             {{i+1}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             {{dataWorkEARow.properties.moo}}
           </ion-col>
-          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             {{dataWorkEARow.properties.muni_name}}
           </ion-col>
           <ion-col col-1>

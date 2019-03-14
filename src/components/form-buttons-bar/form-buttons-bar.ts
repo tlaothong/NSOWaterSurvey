@@ -12,7 +12,7 @@ export class FormButtonsBarComponent {
 
   public text: string;
   @Input("checkEnd") public checkEnd: boolean;
-  @Input("isBuilding") public isBuilding: boolean;
+  @Input("isDisabled") public isDisabled: boolean;
   @Input("frontNum") public frontNum: any;
   @Input("backNum") public backNum: any;
 
@@ -21,11 +21,11 @@ export class FormButtonsBarComponent {
   }
 
   ionViewDidEnter() {
-    console.log(this.isBuilding);
+    console.log(this.isDisabled);
   }
 
   backToHome() {
-    if (this.isBuilding == true) {
+    if (this.isDisabled == true) {
       this.navCtrl.popTo("HomesPage");
     } else {
       this.store.dispatch(new SetSelectorIndex(-1));
@@ -35,7 +35,7 @@ export class FormButtonsBarComponent {
   }
 
   previouPage() {
-    if (this.isBuilding == true) {
+    if (this.isDisabled == true) {
       this.navCtrl.popTo("HomesPage");
     } else {
       this.store.dispatch(new SetBack(true));
