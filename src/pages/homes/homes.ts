@@ -136,7 +136,7 @@ export class HomesPage {
       this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
       this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id, id: null })
     } else if (this.num == '2') {
-      let no = (this.dataCommunity.length + 1);
+      let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.store.dispatch(new LoadCommunityForEditSuccess(null));
       this.navCtrl.push("CommunityTestPage", { id: null, no: no.toString() })
     }
