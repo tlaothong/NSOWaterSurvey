@@ -53,6 +53,13 @@ export class PoolPage {
   private backNum: any;
   public checked: boolean
 
+  public static checkActivityResidential: any;
+  public static checkActivityWateringRes: any;
+  public static checkActivityRice: any;
+  public static checkActivityAgiculture: any;
+  public static checkActivityFactory: any;
+  public static checkActivityCommercial: any;
+
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators],
@@ -102,6 +109,13 @@ export class PoolPage {
       this.activityCommercial = (data != null) ? data.pool : null;
     });
     this.changeValueActivity();
+    PoolPage.checkActivityResidential = this.activityResidential;
+    PoolPage.checkActivityWateringRes = this.activityWateringRes;
+    PoolPage.checkActivityRice = this.activityRice;
+    PoolPage.checkActivityAgiculture = this.activityAgiculture;
+    PoolPage.checkActivityFactory = this.activityFactory;
+    PoolPage.checkActivityCommercial = this.activityCommercial;
+
     console.log("activityResidential", this.activityResidential);
     console.log("activityWateringRes", this.activityWateringRes);
     console.log("activityRice", this.activityRice);
@@ -143,7 +157,7 @@ export class PoolPage {
       this.f.get('poolSizes').setValue(val)
     }
     this.formData.waterUsage.pool = this.f.value
-    if (this.f.valid || this.checkvalid()) {
+    if (this.f.valid && this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
@@ -170,7 +184,13 @@ export class PoolPage {
       if ((doing.value == true) && (hasSameSize.value == null)) {
         return { 'hasSameSize': true };
       }
-      if ((doing.value == true) && ((waterResourceCount.value == null) || (waterResourceCount.value == 0))) {
+      if ((doing.value == true) && ((waterResourceCount.value == null)
+        || (waterResourceCount.value == 0 && (PoolPage.checkActivityResidential == true
+          || PoolPage.checkActivityWateringRes == true
+          || PoolPage.checkActivityRice == true
+          || PoolPage.checkActivityAgiculture == true
+          || PoolPage.checkActivityFactory == true
+          || PoolPage.checkActivityCommercial == true)))) {
         return { 'waterResourceCount': true };
       }
       return null;

@@ -23,7 +23,7 @@ export class DlgPopulationPage {
   public proName: any;
 
   public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
-  public OtherNation: Nationality[] = nationalityData.filter(it => it.Tag == false);
+  public OtherNation: Nationality[] = nationalityData
   public Province: Province[] = provinceData;
 
   public dateTime: Date = new Date();
@@ -44,7 +44,7 @@ export class DlgPopulationPage {
 
   ionViewDidLoad() {
     let check = this.FormItem.get('nationality').value
-    if (check != null) {
+    if (check != null && check != "สัญชาติอื่นๆ") {
       let nat = nationalityData.find(it => it.Name == check)
       let natValue = nat.Tag
       if (natValue == false) {
@@ -57,6 +57,7 @@ export class DlgPopulationPage {
 
   change(event) {
     if (event == 'สัญชาติอื่นๆ') {
+      this.FormItem.get('nationality').setValue(null)
       this.Nation = this.OtherNation;
       let element = document.getElementById('nationSelect');
 

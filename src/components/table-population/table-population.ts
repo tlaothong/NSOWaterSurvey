@@ -34,7 +34,9 @@ export class TablePopulationComponent {
       'nationality': [null, Validators.required],
       'registration': [null, Validators.required],
       'otherProvince': [null],
-    }, { validator: TablePopulationComponent.checkAnyOrOther() }
+    }, {
+        validator: TablePopulationComponent.checkAnyOrOther()
+      }
     );
     return fg
 
