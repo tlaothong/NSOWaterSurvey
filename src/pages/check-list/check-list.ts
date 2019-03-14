@@ -134,18 +134,13 @@ export class CheckListPage {
     arrayNextPageForHide$.subscribe(data => {
       if (data != null) {
         let arrayNextPageForHide = data;
-        // let arrayNextPageForHideArray = arrayNextPageForHide.filter((it) => {
-        //   return it === false
-        // })
-        console.log("arrayNextPageForHideArray", arrayNextPageForHide);
+
         for (let i = 0; i < arrayNextPageForHide.length; i++) {
           if (arrayNextPageForHide[i] == false) {
             this.pages[i].isShow = false;
           } else
             this.pages[i].isShow = true;
         }
-
-        console.log("pages", this.pages);
       }
     });
   }
