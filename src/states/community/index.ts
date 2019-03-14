@@ -14,5 +14,10 @@ export const getSetCommunity = createSelector(
     state => state.setCommunity,
 );
 
+export const getComNo = createSelector(
+    getCommunityFeatureState,
+    state => state.comNo,
+);
+
 
 

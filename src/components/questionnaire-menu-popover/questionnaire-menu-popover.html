@@ -10,7 +10,8 @@
       <h3>
         EA: {{dataWorkEARow?._id}}
       </h3>
-      หน่วยตัวอย่าง ลำดับที่ 1
+      <div *ngIf="Pop && No">ครัวเรือน ลำดับที่ {{ No }}</div>
+      <div *ngIf="!Pop && No">หน่วยตัวอย่าง ลำดับที่ {{ No }}</div>
     </ion-item>
   </div>
 

@@ -19,7 +19,6 @@ export class BuildingInformation1Page {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  public isBuilding: boolean;
 
   public lat: any;
   public long: any;

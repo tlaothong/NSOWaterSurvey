@@ -7,6 +7,7 @@ export interface CommunityState {
     getWorkEA: any,
     setCommunity: any,
     communityList: any,
+    comNo: string;
 }
 
 const initialState: CommunityState = {
@@ -15,6 +16,7 @@ const initialState: CommunityState = {
     getWorkEA: [],
     setCommunity: null,
     communityList: [],
+    comNo: null,
 };
 
 export function reducer(state: CommunityState = initialState, action: CommunityActionsType): CommunityState {
@@ -33,7 +35,11 @@ export function reducer(state: CommunityState = initialState, action: CommunityA
                 ...state,
                 setCommunity: action.payload,
             };
-      
+        case CommunityTypes.SetComNo:
+            return {
+                ...state,
+                comNo: action.payload,
+            };
         default:
             return state;
     }
