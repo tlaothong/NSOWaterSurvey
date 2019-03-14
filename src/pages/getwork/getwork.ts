@@ -30,7 +30,7 @@ export class GetworkPage {
       enableBackdropDismiss: false,
       buttons: [
         {
-          text: 'ตกลงมั้ย',
+          text: 'ตกลงมั้ยจ๊ะ',
           handler: data => {
             this.navCtrl.setRoot("SelectEaPage");
           }
