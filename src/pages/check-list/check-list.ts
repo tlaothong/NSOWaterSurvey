@@ -22,7 +22,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'check-list.html',
 })
 export class CheckListPage {
-  pages: Array<{ title: string, component: any, isCheck: boolean }>;
+  pages: Array<{ title: string, component: any, isCheck: boolean, isShow: boolean }>;
   private index: any;
   private objSkipPage: any;
   private arrayNextPage: any[];
@@ -31,29 +31,29 @@ export class CheckListPage {
   constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
-      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false },
-      { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false },
-      { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage", isCheck: false },
-      { title: 'ตอนที่ 2.2 พืชไร่ ', component: "DryCropPlantingPage", isCheck: false },
-      { title: 'ตอนที่ 2.3 ยางพารา', component: "RubberTreePage", isCheck: false },
-      { title: 'ตอนที่ 2.4 พืชยืนต้น ไม้ผล สวนป่า', component: "PerennialPlantingPage", isCheck: false },
-      { title: 'ตอนที่ 2.5 พืชผัก สมุนไพร', component: "HerbsPlantPage", isCheck: false },
-      { title: 'ตอนที่ 2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้ ', component: "FlowerCropPage", isCheck: false },
-      { title: 'ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด', component: "MushroomPage", isCheck: false },
-      { title: 'ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร', component: "AnimalFarmPage", isCheck: false },
-      { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage", isCheck: false },
-      { title: 'ตอนที่ 3 การผลิตสินค้า ', component: "FactorialPage", isCheck: false },
-      { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage", isCheck: false },//12
-      { title: '5.1 น้้ำประปา ', component: "PlumbingPage", isCheck: false },
-      { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage", isCheck: false },
-      { title: '5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ', component: "RiverPage", isCheck: false },
-      { title: '5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง ', component: "PoolPage", isCheck: false },
-      { title: '5.5 น้ำจากชลประทาน', component: "IrrigationPage", isCheck: false },
-      { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage", isCheck: false },
-      { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage", isCheck: false },
-      { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage", isCheck: false },
-      { title: 'แบบข้อมูลประชากร', component: "PopulationPage", isCheck: false },
-      { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage", isCheck: false },
+      { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.1 ข้าว ', component: "RicePage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.2 พืชไร่ ', component: "DryCropPlantingPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.3 ยางพารา', component: "RubberTreePage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.4 พืชยืนต้น ไม้ผล สวนป่า', component: "PerennialPlantingPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.5 พืชผัก สมุนไพร', component: "HerbsPlantPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้ ', component: "FlowerCropPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด', component: "MushroomPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร', component: "AnimalFarmPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด', component: "WaterAnimalPlantingPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 3 การผลิตสินค้า ', component: "FactorialPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 4 การค้าและการบริการ', component: "CommercialPage", isCheck: false, isShow: true },//12
+      { title: '5.1 น้้ำประปา ', component: "PlumbingPage", isCheck: false, isShow: true },
+      { title: '5.2 น้ำบาดาล ', component: "GroundWaterPage", isCheck: false, isShow: true },
+      { title: '5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ', component: "RiverPage", isCheck: false, isShow: true },
+      { title: '5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง ', component: "PoolPage", isCheck: false, isShow: true },
+      { title: '5.5 น้ำจากชลประทาน', component: "IrrigationPage", isCheck: false, isShow: true },
+      { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage", isCheck: false, isShow: true },
+      { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage", isCheck: false, isShow: true },
+      { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage", isCheck: false, isShow: true },
+      { title: 'แบบข้อมูลประชากร', component: "PopulationPage", isCheck: false, isShow: true },
+      { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage", isCheck: false, isShow: true },
     ];
   }
 
@@ -112,7 +112,6 @@ export class CheckListPage {
         this.arrayNextPage = data
         this.skipPageMedthod();
         console.log("boolean arr", this.arrayNextPage);
-
       }
     });
   }
@@ -128,6 +127,25 @@ export class CheckListPage {
         for (let i = 0; i < arrayIsCheck.length; i++) {
           this.pages[arrayIsCheck[i]].isCheck = true;
         }
+      }
+    });
+
+    let arrayNextPageForHide$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+    arrayNextPageForHide$.subscribe(data => {
+      if (data != null) {
+        let arrayNextPageForHide = data;
+        // let arrayNextPageForHideArray = arrayNextPageForHide.filter((it) => {
+        //   return it === false
+        // })
+        console.log("arrayNextPageForHideArray", arrayNextPageForHide);
+        for (let i = 0; i < arrayNextPageForHide.length; i++) {
+          if (arrayNextPageForHide[i] == false) {
+            this.pages[i].isShow = false;
+          } else
+            this.pages[i].isShow = true;
+        }
+
+        console.log("pages", this.pages);
       }
     });
   }
