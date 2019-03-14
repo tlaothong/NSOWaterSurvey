@@ -102,7 +102,7 @@ export class GroundWaterPage {
       this.activityRice = (data != null) ? data.underGround : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.underGround : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.underGround : null;

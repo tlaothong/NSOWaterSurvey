@@ -96,7 +96,7 @@ export class IrrigationPage {
       this.activityRice = (data != null) ? data.irrigation : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.irrigation  : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.irrigation : null;

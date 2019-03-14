@@ -66,7 +66,6 @@ export class WaterActivityUnitPage {
         this.f.get('isAgriculture').setValue(this.dataHouseHold.isAgriculture)
         this.f.get('isFactorial').setValue(this.dataHouseHold.isFactorial)
         this.f.get('isCommercial').setValue(this.dataHouseHold.isCommercial)
-        // this.f.patchValue(data);
         console.log(this.f.value);
         console.log("this.dataHouseHold.isAgriculture");
         console.log(this.dataHouseHold.isAgriculture);
@@ -85,8 +84,7 @@ export class WaterActivityUnitPage {
       isFactorial: this.f.get('isFactorial').value,
       isCommercial: this.f.get('isCommercial').value,
     }
-    // this.store.dispatch(new SetSelectG1234(objRes));
-    // this.dataHouseHold = 
+    
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let pilot: any
     arrayNextPage$.subscribe(data => {
@@ -94,11 +92,7 @@ export class WaterActivityUnitPage {
         pilot = data
       }
     });
-    // this.store.dispatch(new SetIsHouseHold(this.f.get('isHouseHold').value));
-    // this.store.dispatch(new SetIsAgriculture(this.f.get('isAgriculture').value));
-    // this.store.dispatch(new SetIsFactorial(this.f.get('isFactorial').value));
-    // this.store.dispatch(new SetIsCommercial(this.f.get('isCommercial').value));
-    // this.store.dispatch(new SetWaterSourcesAgiculture(this.f.get('isAgriculture').value));
+   
     this.dataHouseHold.isHouseHold = this.f.get('isHouseHold').value;
     this.dataHouseHold.isAgriculture = this.f.get('isAgriculture').value;
     this.dataHouseHold.isFactorial = this.f.get('isFactorial').value;
@@ -111,7 +105,6 @@ export class WaterActivityUnitPage {
       && (this.f.get('isAgriculture').value != null)
       && (this.f.get('isFactorial').value != null)
       && (this.f.get('isCommercial').value != null)) {
-      // this.store.dispatch(new SetHouseHold(this.f.value));
       console.log(this.f.value);
       let id = this.dataHouseHold._id;
       this.storage.set(id, this.dataHouseHold);
@@ -124,7 +117,6 @@ export class WaterActivityUnitPage {
           let BDlist = val
           let index = BDlist.findIndex(it => it._id == bd._id)
           BDlist.splice(index, 1, bd);
-          // BDlist.push(building)
           this.storage.set(bd.ea, BDlist)
         })
       })
@@ -141,7 +133,6 @@ export class WaterActivityUnitPage {
               let BDlist = val
               let index = BDlist.findIndex(it => it._id == building._id)
               BDlist.splice(index, 1, building);
-              // BDlist.push(building)
               this.storage.set(building.ea, BDlist)
             })
           }
@@ -169,7 +160,6 @@ export class WaterActivityUnitPage {
         }
       })
       console.log(this.dataHouseHold);
-      // this.local.updateListUnit(this.dataHouseHold.buildingId, this.dataHouseHold);
       this.navCtrl.push("CheckListPage", { id: this.dataHouseHold._id });
     }
 
