@@ -110,13 +110,13 @@ export class PoolUsageComponent implements ISubmitRequestable {
       if(hasCubicMeterPerMonth.value == null){
         return { 'hasCubicMeterPerMonth': true };
       }
-      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value < 1))) {
+      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value <= 0))) {
         return { 'cubicMeterPerMonth': true };
       }
       if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {
         return { 'hasPump': true };
       }
-      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
       return null;

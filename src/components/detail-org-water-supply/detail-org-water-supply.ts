@@ -116,7 +116,7 @@ export class DetailOrgWaterSupplyComponent implements ISubmitRequestable {
       if (meterRentalFee.value == null) {
         return { 'meterRentalFee': true };
       }
-      if (disinfection.value < 1) {
+      if (disinfection.value <= 0) {
         return { 'disinfection': true };
       }
       if (disinfection.value == 2 && otherDisinfection.value == null) {

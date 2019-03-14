@@ -107,7 +107,7 @@ export class ManagementForFarmingPage {
       if (doing.value == null) {
         return { 'doing': true };
       }
-      if (doing.value != null && doing.value == true && projectCount.value < 1) {
+      if (doing.value != null && doing.value == true && projectCount.value <= 0) {
         return { 'projectCount': true };
       }
 
