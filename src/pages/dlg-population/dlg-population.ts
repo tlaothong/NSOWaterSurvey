@@ -64,7 +64,7 @@ export class DlgPopulationPage {
       setTimeout(() => {
         this.nation.open();
         console.log(this.nation);
-      }, 1000);
+      }, 500 );
     }
   }
 
