@@ -29,26 +29,30 @@ export class ScanqrPage {
   goFirstLogin() {
     // this.navCtrl.push("FirstpagePage")
     // this.qrCode = "f30d8fca-e7ad-4838-93b9-90179cfe9295";
-    // this.store.dispatch(new LoadUserDataByQRCode(this.qrCode));
-    // this.navCtrl.pop();
-    // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
-  }
 
+  }
+  
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
-        .then((status: QRScannerStatus) => {
-          if (status.authorized) {
-            // camera permission was granted
-            let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
-
-            // start scanning
-            let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
-              //alert(text);
-              let alert = this.alertCtrl.create({
-                title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ",
-              });
-              alert.present();
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          // camera permission was granted
+          let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
+          
+          // start scanning
+          let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
+            //alert(text);
+            if (text == "40500841234") {
+              this.store.dispatch(new LoadUserDataByQRCode(text));
+              this.navCtrl.pop();
+              this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
+              }else{
+                let alert = this.alertCtrl.create({
+                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ",
+                });
+                alert.present();
+              }
 
               // this.scanData = text;
               // let userID = this.scanData.slice(0, 7);
