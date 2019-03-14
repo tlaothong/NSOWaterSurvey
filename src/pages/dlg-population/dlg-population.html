@@ -181,7 +181,7 @@
       <ion-item [class.invalid]="isValid('birthYear')">
         <ion-label>ปีเกิด</ion-label>
         <ion-select interface="action-sheet" formControlName="birthYear" (ionChange)="CalculateAge()">
-          <ion-option [value]="999"> ไม่ทราบ </ion-option>
+          <ion-option [value]="999"> ไม่ทราบปีเกิด </ion-option>
           <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
           <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
           <ion-option [value]="560"> พ.ศ. 2560 </ion-option>
@@ -344,7 +344,6 @@
     <ion-item [class.invalid]="isValid('age')">
       <ion-label>อายุ</ion-label>
       <ion-select interface="action-sheet" formControlName="age">
-        <ion-option [value]="999"> ไม่ทราบ </ion-option>
         <ion-option [value]="000"> อายุต่ำกว่า 1 ปี </ion-option>
         <ion-option [value]="001"> อายุ 1 ปี </ion-option>
         <ion-option [value]="002"> อายุ 2 ปี </ion-option>
