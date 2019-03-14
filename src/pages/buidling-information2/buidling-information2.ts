@@ -163,10 +163,10 @@ export class BuidlingInformation2Page {
       const waterBill = c.get('waterQuantity.waterBill');
       const floorCount = c.get('floorCount');
 
-      if (((buildingType.value != 4) || (buildingType.value != 5)) && (unitCount.value < 1)) {
+      if (((buildingType.value != 4) || (buildingType.value != 5)) && (unitCount.value <= 0)) {
         return { 'unitCount': true };
       }
-      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitCount.value < 1)) {
+      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitCount.value <= 0)) {
         return { 'unitCount': true };
       }
       if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitAccess.value < 1)) {

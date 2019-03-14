@@ -78,13 +78,13 @@ export class FishFarmingComponent implements ISubmitRequestable {
       } else if ((hasOther.value == true) && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldCount.value < 1)) {
+      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
       if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldsAreSameSize.value == null)) {
         return { 'fieldsAreSameSize': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && ((animalsCount.value == null) || (animalsCount.value < 1))) {
+      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && ((animalsCount.value == null) || (animalsCount.value <= 0))) {
         return { 'animalsCount': true };
       }
       return null;

@@ -124,7 +124,7 @@ export class PoolPage {
       || this.activityAgiculture == true
       || this.activityFactory == true
       || this.activityCommercial == true)
-      && (this.f.get('waterResourceCount').value < 1)) {
+      && (this.f.get('waterResourceCount').value <= 0)) {
       return false;
     }
     return true;
@@ -164,7 +164,7 @@ export class PoolPage {
       if (doing.value == null) {
         return { 'doing': true };
       }
-      if ((doing.value == true) && ((poolCount.value == null) || (poolCount.value < 1))) {
+      if ((doing.value == true) && ((poolCount.value == null) || (poolCount.value <= 0))) {
         return { 'poolCount': true };
       }
       if ((doing.value == true) && (hasSameSize.value == null)) {

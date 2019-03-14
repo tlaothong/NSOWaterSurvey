@@ -101,7 +101,7 @@ export class PumpComponent implements ISubmitRequestable {
         return { 'pumpRate': true, }
       }
       if ((hasPumpRate.value == false)
-        && (energySource.value < 1)) {
+        && (energySource.value <= 0)) {
         return { 'energySource': true, }
       }
       if ((hasPumpRate.value == false)

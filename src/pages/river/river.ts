@@ -178,7 +178,7 @@ export class RiverPage {
       if (hasPump.value == null) {
         return { 'hasPump': true };
       }
-      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
       return null;

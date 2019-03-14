@@ -244,7 +244,7 @@ export class CommunityWaterManagementPage {
       if (hasPublicWater.value == null) {
         return { 'hasPublicWater': true };
       }
-      if ((hasPublicWater.value != null) && (hasPublicWater.value == true) && (publicWaterCount.value < 1)) {
+      if ((hasPublicWater.value != null) && (hasPublicWater.value == true) && (publicWaterCount.value <= 0)) {
         return { 'publicWaterCount': true };
       }
       if ((hasPublicWater.value != null)
@@ -285,14 +285,14 @@ export class CommunityWaterManagementPage {
         && hasPublicWater.value == true
         && otherPlumbing.value == true
         && hasWaterService.value == true
-        && waterServiceCount.value < 1) {
+        && waterServiceCount.value <= 0) {
         return { 'waterServiceCount': true };
       }
       if (hasPublicWater.value != null
         && hasPublicWater.value == false
         && otherPlumbing.value == true
         && hasWaterService.value == true
-        && waterServiceCount.value < 1) {
+        && waterServiceCount.value <= 0) {
         return { 'waterServiceCount': true };
       }
       if (hasWaterService.value == true && hasWaterTreatment.value == null) {

@@ -100,7 +100,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
-      if ((depression.value || hasOther.value) && (fieldCount.value < 1)) {
+      if ((depression.value || hasOther.value) && (fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
       if ((depression.value || hasOther.value) && (fieldsAreSameSize.value == null)) {

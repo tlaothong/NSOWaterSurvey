@@ -49,25 +49,25 @@ export class PoolAreaComponent implements ISubmitRequestable {
       const length = c.get('rectangle.length');
       const diameter = c.get('diameter');
 
-      if (shape.value < 1) {
+      if (shape.value <= 0) {
         return { 'shape': true };
       }
-      if ((shape.value == 1) && ((depth.value == null) || (depth.value < 1))) {
+      if ((shape.value == 1) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
-      if ((shape.value == 2) && ((width.value == null) || (width.value < 1))) {
+      if ((shape.value == 2) && ((width.value == null) || (width.value <= 0))) {
         return { 'width': true };
       }
-      if ((shape.value == 2) && ((length.value == null) || (length.value < 1))) {
+      if ((shape.value == 2) && ((length.value == null) || (length.value <= 0))) {
         return { 'length': true };
       }
-      if ((shape.value == 2) && ((depth.value == null) || (depth.value < 1))) {
+      if ((shape.value == 2) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
-      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value < 1))) {
+      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value <= 0))) {
         return { 'diameter': true };
       }
-      if ((shape.value == 3) && ((depth.value == null) || (depth.value < 1))) {
+      if ((shape.value == 3) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
       return null;
