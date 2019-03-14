@@ -1,7 +1,7 @@
 import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 import { Store } from '@ngrx/store';
@@ -58,6 +58,13 @@ export class GroundWaterPage {
   private backNum: any;
   public checked: boolean;
 
+  public static checkActivityResidential: any;
+  public static checkActivityWateringRes: any;
+  public static checkActivityRice: any;
+  public static checkActivityAgiculture: any;
+  public static checkActivityFactory: any;
+  public static checkActivityCommercial: any;
+
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
@@ -71,7 +78,10 @@ export class GroundWaterPage {
         'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
         'waterResources': this.fb.array([])
       })
-    });
+
+    }, {
+        validator: GroundWaterPage.checkAnyOrOther()
+      });
 
     this.setupuseGroundWaterCountChanges();
     this.setupusePublicGroundWaterCountChanges();
@@ -111,6 +121,20 @@ export class GroundWaterPage {
       this.activityCommercial = (data != null) ? data.underGround : null;
     });
     this.changeValueActivity();
+
+    GroundWaterPage.checkActivityResidential = this.activityResidential;
+    GroundWaterPage.checkActivityWateringRes = this.activityWateringRes;
+    GroundWaterPage.checkActivityRice = this.activityRice;
+    GroundWaterPage.checkActivityAgiculture = this.activityAgiculture;
+    GroundWaterPage.checkActivityFactory = this.activityFactory;
+    GroundWaterPage.checkActivityCommercial = this.activityCommercial;
+
+    console.log("activityResidential", GroundWaterPage.checkActivityResidential);
+    console.log("activityWateringRes", GroundWaterPage.checkActivityWateringRes);
+    console.log("activityRice", GroundWaterPage.checkActivityRice);
+    console.log("activityAgiculture", GroundWaterPage.checkActivityAgiculture);
+    console.log("activityFactory", GroundWaterPage.checkActivityFactory);
+    console.log("activityCommercial", GroundWaterPage.checkActivityCommercial);
   }
 
   changeValueActivity() {
@@ -139,7 +163,9 @@ export class GroundWaterPage {
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     this.formData.waterUsage.groundWater = this.f.value;
-    if (this.isCheck()) {
+    console.log(this.checkvalid());
+    
+    if (this.isCheck() && this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
@@ -160,7 +186,7 @@ export class GroundWaterPage {
     let ischeckGroundWater = this.groundWaterUsage.find(it => !it.checkValid()) ? false : true;
     return (this.f.get('privateGroundWater.doing').value) ?
       (this.f.get('privateGroundWater.allCount').valid
-        && this.f.get('privateGroundWater.waterResourceCount').valid
+        && this.f.get('privateGroundWater.waterResourceCount').invalid
         && ischeckGroundWater)
       : this.f.get('privateGroundWater.doing').valid;
   }
@@ -223,8 +249,44 @@ export class GroundWaterPage {
     });
   }
 
+  public checkvalid(): boolean {
+    if ((this.activityResidential == true
+      || this.activityWateringRes == true
+      || this.activityRice == true
+      || this.activityAgiculture == true
+      || this.activityFactory == true
+      || this.activityCommercial == true)
+      && (this.f.get('privateGroundWater.waterResourceCount').value <= 0)) {
+      return false;
+    }
+    return true;
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const waterResourceCount = c.get('privateGroundWater.waterResourceCount');
+      const doing = c.get('privateGroundWater.doing');
+
+      if ((doing.value == true) && ((waterResourceCount.value == null)
+        || (waterResourceCount.value <= 0 && (GroundWaterPage.checkActivityResidential == true
+          || GroundWaterPage.checkActivityWateringRes == true
+          || GroundWaterPage.checkActivityRice == true
+          || GroundWaterPage.checkActivityAgiculture == true
+          || GroundWaterPage.checkActivityFactory == true
+          || GroundWaterPage.checkActivityCommercial == true)))) {
+        return { 'waterResourceCount': true };
+      }
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    var cw = this.f.get('privateGroundWater.waterResourceCount');
+    if (name == 'privateGroundWater.waterResourceCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.waterResourceCount && (cw.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

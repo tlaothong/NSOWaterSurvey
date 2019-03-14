@@ -185,7 +185,7 @@ export class PoolPage {
         return { 'hasSameSize': true };
       }
       if ((doing.value == true) && ((waterResourceCount.value == null)
-        || (waterResourceCount.value == 0 && (PoolPage.checkActivityResidential == true
+        || (waterResourceCount.value <= 0 && (PoolPage.checkActivityResidential == true
           || PoolPage.checkActivityWateringRes == true
           || PoolPage.checkActivityRice == true
           || PoolPage.checkActivityAgiculture == true
