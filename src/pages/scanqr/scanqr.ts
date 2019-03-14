@@ -44,9 +44,16 @@ export class ScanqrPage {
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
               //alert(text);
               if (text == "40500841234") {
+                let alert = this.alertCtrl.create({
+                  title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
+                });
+                alert.present();
                 this.store.dispatch(new LoadUserDataByQRCode(text));
-                this.navCtrl.pop();
-                this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
+                setTimeout(() => {
+                  alert.dismiss();
+                  this.navCtrl.pop();
+                }, 2000);
+                // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
               } else {
                 let alert = this.alertCtrl.create({
                   title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
