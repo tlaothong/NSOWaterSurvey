@@ -93,7 +93,7 @@ export class PoolPage {
       this.activityRice = (data != null) ? data.pool : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.pool : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.pool : null;

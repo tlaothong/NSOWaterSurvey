@@ -100,7 +100,7 @@ export class RiverPage {
       this.activityRice = (data != null) ? data.river : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.river : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.river : null;

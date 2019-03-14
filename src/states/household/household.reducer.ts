@@ -441,23 +441,32 @@ function resetStatesForModel(model: any): any {
     };
 
     let wS = [];
+    let wSPlant = [];
     let waterRes;
     let waterFac;
     let waterCom;
     let waterRice = findWaterSourceRice(ag && ag.ricePlant);
     wS.push(waterRice);
+    wSPlant.push(waterRice);
     let waterDry = findWaterSourceDry(ag && ag.agronomyPlant);
     wS.push(waterDry);
+    wSPlant.push(waterDry);
     let waterRubber = findWaterSourceRubber(ag && ag.rubberTree);
     wS.push(waterRubber);
+    wSPlant.push(waterRubber);
     let waterPenrenial = findWaterSourcePenrenial(ag && ag.perennialPlant);
     wS.push(waterPenrenial);
+    wSPlant.push(waterPenrenial);
     let waterHerb = findWaterSourceHerb(ag && ag.herbsPlant);
     wS.push(waterHerb);
+    wSPlant.push(waterHerb);
     let waterFlower = findWaterSourceFlower(ag && ag.flowerCrop);
     wS.push(waterFlower);
+    wSPlant.push(waterFlower);
     let waterMushroom = findWaterSourceMushroom(ag && ag.mushroomPlant);
     wS.push(waterMushroom);
+    wSPlant.push(waterMushroom);
+
     if (model.residence != null) {
         waterRes = model.residence && model.residence.waterSources;
         wS.push(waterRes);
@@ -473,17 +482,34 @@ function resetStatesForModel(model: any): any {
     if (ag.animalFarm != null) {
         let waterAnimalFarm = ag && ag.animalFarm.waterSources;
         wS.push(waterAnimalFarm);
+        wSPlant.push(waterAnimalFarm);
+
     }
+
     let waterAquatic = findWaterSourceAquticAnimals(ag && ag.aquaticAnimals);
     wS.push(waterAquatic);
+    wSPlant.push(waterAquatic);
 
-    console.log("WS", JSON.stringify(wS));
+    console.log("wSPlant", JSON.stringify(wSPlant));
 
     let checkPlumbing: boolean;
     let checkRiver: boolean;
     let checkIrrigation: boolean;
     let checkRain: boolean;
     let checkBuying: boolean;
+    let waterAgi = {
+        plumbing: wSPlant.some(p => p.plumbing == true),
+        underGround: wSPlant.some(p => p.underGround == true),
+        river: wSPlant.some(p => p.river == true),
+        pool: wSPlant.some(p => p.pool == true),
+        irrigation: wSPlant.some(p => p.irrigation == true),
+        rain: wSPlant.some(p => p.rain == true),
+        buying: wSPlant.some(p => p.buying == true),
+        rainingAsIs: wSPlant.some(p => p.rainingAsIs == true),
+        hasOther: wSPlant.some(p => p.hasOther == true),
+        other: "water",
+    };
+
     if (wS != null) {
         checkPlumbing = wS.some(it => it.plumbing == true);
         checkRiver = wS.some(it => it.river == true);
@@ -509,7 +535,7 @@ function resetStatesForModel(model: any): any {
         wateringResidential: model && model.residence.gardeningUse,
         waterSourcesResidential: waterRes,
         waterSourcesRice: waterRice,
-        waterSourcesAgiculture: model && model.isAgriculture,
+        waterSourcesAgiculture: waterAgi,
         waterSourcesFactory: waterFac,
         waterSourcesCommercial: waterCom,
         riceDoing: model && model.agriculture.ricePlant.doing,

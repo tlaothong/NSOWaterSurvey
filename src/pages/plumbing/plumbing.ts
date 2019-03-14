@@ -127,7 +127,7 @@ export class PlumbingPage {
       this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.plumbing : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.plumbing : null;
