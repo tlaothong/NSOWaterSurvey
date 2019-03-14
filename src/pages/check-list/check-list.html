@@ -12,10 +12,13 @@
 <ion-content padding>
 
   <ion-list>
-    <button menuClose ion-item *ngFor="let p of pages;let i = index" (click)="openPage(p,i)">
-      <ion-icon color="secondary" ios="ios-checkbox" md="md-checkbox" *ngIf="p.isCheck"></ion-icon>
-      {{p.title}}
-    </button>
+    <div *ngFor="let p of pages  ; let i = index">
+      <button menuClose ion-item (click)="openPage(p,i)" *ngIf="p.isShow">
+        <ion-icon color="secondary" ios="ios-checkbox" md="md-checkbox" *ngIf="p.isCheck"></ion-icon>
+        {{p.title}}
+      </button>
+    </div>
+
   </ion-list>
 
 </ion-content>
