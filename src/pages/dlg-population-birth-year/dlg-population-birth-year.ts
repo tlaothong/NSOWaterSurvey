@@ -16,14 +16,14 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 export class DlgPopulationBirthYearPage {
 
   public birthYear: Array<number> = [];
+  public orders = [0, 1, 2, 3, 4];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgPopulationBirthYearPage');
-    this.birthYear.push(999);
-    for (let i = 562; i >= 442; i--) {
+    for (let i = 560; i >= 442; i -= 5) {
       this.birthYear.push(i);
     }
   }
