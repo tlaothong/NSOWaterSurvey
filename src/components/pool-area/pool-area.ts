@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
 import { ModalController } from 'ionic-angular';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { LocationComponent } from '../location/location';
 
 @Component({
   selector: 'pool-area',
@@ -16,6 +17,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   @Input('no') public no: string;
   @Input() public FormItem: FormGroup;
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
+  @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
@@ -35,7 +37,8 @@ export class PoolAreaComponent implements ISubmitRequestable {
         'width': [null, Validators],
         'length': [null, Validators],
       }),
-      'diameter': [null, Validators]
+      'diameter': [null, Validators],
+      'location': LocationComponent.CreateFormGroup(fb),
     }, {
         validator: PoolAreaComponent.checkAnyOrOther()
       });
@@ -113,6 +116,8 @@ export class PoolAreaComponent implements ISubmitRequestable {
   submitRequest() {
     this.submitRequested = true;
     this.fieldArea.forEach(it => it.submitRequest());
+    this.locationT.forEach(it => it.submitRequest());
+
   }
 
 
