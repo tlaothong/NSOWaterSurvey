@@ -114,7 +114,7 @@ export class DlgPopulationPage {
   }
 
   public CalculateAge() {
-    this.dateTime.setFullYear(2019, 4, 1);
+    this.dateTime.setFullYear(2019, 3, 30);
 
     let birthDate = this.FormItem.get('birthDate').value;
     let birthMonth = this.FormItem.get('birthMonth').value - 1;
