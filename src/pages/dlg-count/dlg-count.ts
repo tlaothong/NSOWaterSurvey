@@ -29,6 +29,7 @@ export class DlgCountPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgCountPage');
     let count = this.navParams.get('count')
+    if (count == 0) count = null;
     this.FormItem.get('count').setValue(count);
     this.title = this.navParams.get('title');
   }
