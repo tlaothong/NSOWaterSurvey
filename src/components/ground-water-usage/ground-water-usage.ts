@@ -5,6 +5,7 @@ import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem6Component } from '../water-problem6/water-problem6';
 import { ModalController } from 'ionic-angular';
+import { LocationComponent } from '../location/location';
 
 @Component({
   selector: 'ground-water-usage',
@@ -30,6 +31,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   @ViewChildren(PumpComponent) public pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) public waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem6Component) public waterProblem6: WaterProblem6Component[];
+  @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
@@ -47,6 +49,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
       // 'waterBill': [null],
       'hasPump': [null, Validators.required],
       'pumpCount': [0, Validators.required],
+      'location': LocationComponent.CreateFormGroup(fb),
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       "qualityProblem": fb.group({
@@ -109,6 +112,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     this.pump.forEach(it => it.submitRequest());
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
+    this.locationT.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

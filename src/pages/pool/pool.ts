@@ -68,6 +68,7 @@ export class PoolPage {
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators],
       'waterResources': this.fb.array([]),
+      
     }, {
         validator: PoolPage.checkAnyOrOther()
       });

@@ -12,6 +12,7 @@
       <ion-row text-center>
         <ion-col col-4 *ngFor="let unit of f.get('units').controls; let i = index">
           <unit-button [unitCount]="f.get('unitCount').value" [no]="i + 1" [FormItem]="unit"></unit-button>
+          
         </ion-col>
       </ion-row>
     </div>

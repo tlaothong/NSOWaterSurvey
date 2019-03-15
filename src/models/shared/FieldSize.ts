@@ -10,5 +10,7 @@
         Rectangle: RectanglePool;
         /**ถ้าบ่อเป็นวงกลม เส้นผ่านศูนย์กลางกี่เมตร ลึก เท่าไร  */
         Diameter: number;
+        /**ตั้งอยู่ที่ใด */
+        // Location: Location;
     }
 }

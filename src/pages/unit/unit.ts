@@ -81,5 +81,8 @@ export class UnitPage {
 
     onComponentCountChanges();
   }
+  deleteUnit(){
+    
+  }
 
 }

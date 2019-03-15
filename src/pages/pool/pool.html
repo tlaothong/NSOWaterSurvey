@@ -93,7 +93,8 @@
 
         <div [ngSwitch]="f.get('hasSameSize').value">
           <div *ngSwitchCase="true">
-            <pool-area *ngIf="f.get('poolSizes').length > 0" headline="ขนาดสระน้ำ" [FormItem]="f.get('poolSizes').at(0)"></pool-area>
+            <pool-area *ngIf="f.get('poolSizes').length > 0" headline="ขนาดสระน้ำ"
+              [FormItem]="f.get('poolSizes').at(0)"></pool-area>
           </div>
           <div *ngSwitchCase="false">
             <div *ngFor="let pool of f.get('poolSizes').controls; let i = index">
@@ -127,12 +128,14 @@
         </ion-card>
 
 
-        <div *ngIf="f.get('doing').value == 1 && f.get('waterResourceCount').value > 0 && !(f.get('waterResourceCount').value > f.get('poolCount').value)">
+        <div
+          *ngIf="f.get('doing').value == 1 && f.get('waterResourceCount').value > 0 && !(f.get('waterResourceCount').value > f.get('poolCount').value)">
           <div *ngFor="let pool of f.get('waterResources').controls; let i = index">
             <pool-usage doing="{{riceDoing}}" use="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-              residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="pool" activeRes="{{activityResidential}}"
-              activeWateringRes="{{activityWateringRes}}" activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}"
-              activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}"></pool-usage>
+              residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="pool"
+              activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+              activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}"
+              activeCom="{{activityCommercial}}"></pool-usage>
           </div>
         </div>
       </div>

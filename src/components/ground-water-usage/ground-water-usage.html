@@ -11,12 +11,20 @@
 
       <ion-item>
         <ion-label>
-          1) ในรอบ 1 ปีที่ผ่านมา ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
+          1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
+        </ion-label>
+      </ion-item>
+      <location [FormItem]="FormItem.get('location')"></location>
+
+      <ion-item>
+        <ion-label>
+          2) ในรอบ 1 ปีที่ผ่านมา ใช้น้ำปริมาณเท่าไรต่อเดือนโดยเฉลี่ย
         </ion-label>
       </ion-item>
 
       <div formGroupName="usageType">
-        <ion-row radio-group formControlName="groundWaterQuantity" [class.invalid]="isValid('usageType.groundWaterQuantity')" (ionChange)="setDefult()">
+        <ion-row radio-group formControlName="groundWaterQuantity"
+          [class.invalid]="isValid('usageType.groundWaterQuantity')" (ionChange)="setDefult()">
           <ion-item *ngIf="isValid('usageType.groundWaterQuantity')">
             <span class="invalid-msg">
               กรุณาเลือก
@@ -53,7 +61,8 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="usageCubicMeters" [class.invalid]="isValid('usageType.usageCubicMeters')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="usageCubicMeters"
+                [class.invalid]="isValid('usageType.usageCubicMeters')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('usageType.usageCubicMeters')">
               <span class="invalid-msg">
@@ -68,7 +77,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterBill" [class.invalid]="isValid('usageType.waterBill')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterBill"
+                [class.invalid]="isValid('usageType.waterBill')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('usageType.waterBill')">
               <span class="invalid-msg">
@@ -82,7 +92,7 @@
       <div *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 3">
         <ion-item>
           <ion-label>
-            2) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
+            3) ใช้เครื่องสูบน้ำเพื่อสูบน้ำหรือไม่
           </ion-label>
         </ion-item>
 
@@ -111,7 +121,7 @@
           <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
-                3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
+                4) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
               </ion-label>
             </ion-item>
 
@@ -136,17 +146,14 @@
     </div>
   </div>
 
-  <div *ngIf="residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'">
+  <div
+    *ngIf="residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'">
     <ion-card>
       <ion-card-content>
-        <water-activity6  headline="5) ใช้น้ำจากบ่อนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"
-          [FormItem]="FormItem.get('waterActivities')"
-          activeRes="{{activeRes}}"
-          activeWateringRes="{{activeWateringRes}}"
-          activRice="{{activRice}}"
-          activeAgi="{{activeAgi}}"
-          activeFac="{{activeFac}}"
-          activeCom="{{activeCom}}"></water-activity6>
+        <water-activity6 headline="5) ใช้น้ำจากบ่อนี้เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร"
+          [FormItem]="FormItem.get('waterActivities')" activeRes="{{activeRes}}"
+          activeWateringRes="{{activeWateringRes}}" activRice="{{activRice}}" activeAgi="{{activeAgi}}"
+          activeFac="{{activeFac}}" activeCom="{{activeCom}}"></water-activity6>
       </ion-card-content>
     </ion-card>
   </div>
