@@ -23,8 +23,8 @@ export class FirstloginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder, private alertCtrl: AlertController) {
     this.f = this.fb.group({
       '_idqr': [null],
-      'idUser': [null],
-      'password': [null],
+      'idUser': "4050084",
+      'password': "1234",
       'name': [null],
       'email': [null],
       'idEA': [null]

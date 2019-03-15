@@ -2,11 +2,12 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
-import { LoadUserDataByQRCode } from '../../states/logging/logging.actions';
+import { LoadUserDataByQRCode, LoadUserDataById } from '../../states/logging/logging.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getUserData } from '../../states/logging';
 import { map, delay } from 'rxjs/operators';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,8 +19,10 @@ export class ScanqrPage {
   data: any;
   fg: FormGroup;
   qrCode: string;
+  private formDataUser$ = this.store.select(getUserData);
+  public userObj:any
   private formData$ = this.store.select(getUserData).pipe(map(s => s));
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private platform: Platform, private qrScanner: QRScanner, public navParams: NavParams, private store: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, private alertCtrl: AlertController, private platform: Platform, private qrScanner: QRScanner, public navParams: NavParams, private store: Store<LoggingState>) {
   }
 
   ionViewDidLoad() {
@@ -52,9 +55,19 @@ export class ScanqrPage {
                 });
                 alert.present();
                 // this.store.dispatch(new LoadUserDataByQRCode(text));
+                this.store.dispatch(new LoadUserDataById("4050084"));
+                this.formDataUser$.subscribe(data => {
+                  if (data != null) {
+                    this.userObj = data
+                    console.log(this.userObj);
+                    this.storage.set('UserInfo', this.userObj);
+                  }
+
+                });
                 setTimeout(() => {
                   alert.dismiss();
-                  this.navCtrl.push("LoginPage");
+                  // this.navCtrl.push("ConfirmloginPage");
+                  this.navCtrl.pop()
                 }, 2000);
                 // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
               } else {
