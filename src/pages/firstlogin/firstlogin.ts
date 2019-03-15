@@ -42,22 +42,22 @@ export class FirstloginPage {
 
 
   goConfirmloginPage(confirmPassword: any) {
-    let _idqr = this.f.get('_idqr').value;
-    let password = this.f.get('password').value;
+    // let _idqr = this.f.get('_idqr').value;
+    // let password = this.f.get('password').value;
 
-    let alert = this.alertCtrl.create({
-      message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
-      buttons: ['ยืนยัน']
-    });
+    // let alert = this.alertCtrl.create({
+    //   message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
+    //   buttons: ['ยืนยัน']
+    // });
 
-    if (password == confirmPassword) {
-      this.store.dispatch(new SetUserPassword({
-        _idqr,
-        password
-      }));
+    // if (password == confirmPassword) {
+    //   this.store.dispatch(new SetUserPassword({
+    //     _idqr,
+    //     password
+    //   }));
       this.navCtrl.pop();
-    } else {
-      alert.present()
-    }
+    // } else {
+    //   alert.present()
+    // }
   }
 }
