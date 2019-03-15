@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ปีเกิด</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-row>
+    <ion-col col-2 *ngFor="let year of birthYear" no-padding>
+      <button ion-button outline color="dark" (click)="okDialog(year)" *ngIf="year != 999">2{{ year }}</button>
+      <button ion-button outline color="dark" (click)="okDialog(year)" *ngIf="year == 999">ไม่ทราบ</button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
