@@ -97,16 +97,16 @@ export class CommunityWaterManagementPage {
     this.getIdHomes$.subscribe(data => {
       this.getIdHomes = data
       console.log(this.getIdHomes);
-      
+
       this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
       console.log(this.subDistrict);
-      
+
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
-      if(this.MWA == false){
+      if (this.MWA == false) {
         this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
       }
-      if(this.PWA == false){
+      if (this.PWA == false) {
         this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
       }
     })
@@ -190,6 +190,10 @@ export class CommunityWaterManagementPage {
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
     this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
 
+    if (this.CommunityWaterManagement.get('otherPlumbing').value == false) {
+      this.CommunityWaterManagement.get('hasWaterService').setValue(null);
+      this.CommunityWaterManagement.get('waterServiceCount').setValue(null);
+    }
     if (this.CommunityWaterManagement.valid) {
       console.log("5555555555555555");
       let key = this.formDataCom.get('_id').value
