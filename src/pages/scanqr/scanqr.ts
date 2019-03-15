@@ -29,6 +29,9 @@ export class ScanqrPage {
   goFirstLogin() {
     // this.navCtrl.push("FirstpagePage")
     // this.qrCode = "f30d8fca-e7ad-4838-93b9-90179cfe9295";
+    // this.qrCode = "40500841234";
+    // this.store.dispatch(new LoadUserDataByQRCode(this.qrCode));
+    // this.navCtrl.pop();
 
   }
 
@@ -48,10 +51,10 @@ export class ScanqrPage {
                   title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
                 });
                 alert.present();
-                this.store.dispatch(new LoadUserDataByQRCode(text));
+                // this.store.dispatch(new LoadUserDataByQRCode(text));
                 setTimeout(() => {
                   alert.dismiss();
-                  this.navCtrl.pop();
+                  this.navCtrl.push("LoginPage");
                 }, 2000);
                 // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
               } else {
