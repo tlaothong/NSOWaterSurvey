@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="residentialFrm">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="residentialFrm" [rx-form-data]="(formData$ | async)?.residence">
 
     <h3>ตอนที่ 1 ครัวเรือนอยู่อาศัย</h3>
 

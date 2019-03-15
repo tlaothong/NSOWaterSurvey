@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SelectAllDirective } from './select-all/select-all';
+import { RxFormDataDirective } from './rx-form-data/rx-form-data';
 @NgModule({
-	declarations: [SelectAllDirective],
+	declarations: [SelectAllDirective,
+    RxFormDataDirective],
 	imports: [],
-	exports: [SelectAllDirective]
+	exports: [SelectAllDirective,
+    RxFormDataDirective]
 })
 export class DirectivesModule {}

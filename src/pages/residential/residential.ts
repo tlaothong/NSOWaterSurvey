@@ -43,10 +43,9 @@ export class ResidentialPage {
 
     this.formData$.subscribe(data => {
       if (data != null) {
-        this.residentialFrm.setValue(data.residence)
+        // this.residentialFrm.setValue(data.residence)
         this.dataRes = data;
-        console.log(data);
-
+        // console.log(data);
       }
     });
 
