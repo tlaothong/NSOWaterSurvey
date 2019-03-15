@@ -33,6 +33,14 @@ export class ScanqrPage {
     // this.navCtrl.push("FirstpagePage")
     // this.qrCode = "f30d8fca-e7ad-4838-93b9-90179cfe9295";
     // this.qrCode = "40500841234";
+    // this.store.dispatch(new LoadUserDataById("4050084"));
+    // this.formDataUser$.subscribe(data => {
+    //   if (data != null) {
+    //     this.userObj = data
+    //     console.log(this.userObj);
+    //     this.storage.set('UserInfo', this.userObj);
+    //   }
+    // });
     // this.store.dispatch(new LoadUserDataByQRCode(this.qrCode));
     // this.navCtrl.pop();
 
@@ -55,19 +63,19 @@ export class ScanqrPage {
                 });
                 alert.present();
                 // this.store.dispatch(new LoadUserDataByQRCode(text));
-                this.store.dispatch(new LoadUserDataById("4050084"));
-                this.formDataUser$.subscribe(data => {
-                  if (data != null) {
-                    this.userObj = data
-                    console.log(this.userObj);
-                    this.storage.set('UserInfo', this.userObj);
-                  }
+                // this.store.dispatch(new LoadUserDataById("4050084"));
+                // this.formDataUser$.subscribe(data => {
+                //   if (data != null) {
+                //     this.userObj = data
+                //     console.log(this.userObj);
+                //     this.storage.set('UserInfo', this.userObj);
+                //   }
 
-                });
+                // });
                 setTimeout(() => {
                   alert.dismiss();
                   // this.navCtrl.push("ConfirmloginPage");
-                  this.navCtrl.pop()
+                  this.navCtrl.push("ConfirmloginPage")
                 }, 2000);
                 // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
               } else {

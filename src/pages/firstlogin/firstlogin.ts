@@ -24,7 +24,7 @@ export class FirstloginPage {
     this.f = this.fb.group({
       '_idqr': [null],
       'idUser': "4050084",
-      'password': "1234",
+      'password': null,
       'name': [null],
       'email': [null],
       'idEA': [null]
@@ -55,7 +55,7 @@ export class FirstloginPage {
     //     _idqr,
     //     password
     //   }));
-      this.navCtrl.pop();
+      this.navCtrl.setRoot("LoginPage");
     // } else {
     //   alert.present()
     // }
