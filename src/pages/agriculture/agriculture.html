@@ -31,12 +31,17 @@
             </ion-item>
           </div>
 
-          <div formGroupName="agronomyPlant">
-            <ion-item>
+          <ion-row formGroupName="agronomyPlant">
+            <ion-item col-6>
               <ion-checkbox formControlName="doing"></ion-checkbox>
               <ion-label>2.พืชไร่</ion-label>
             </ion-item>
-          </div>
+            <ion-item col-6>
+              <button item-right ion-button type="button" (click)="presentAlert('พืชไร่')">
+                ตัวอย่างพืช
+              </button>
+            </ion-item>
+          </ion-row>
 
           <div formGroupName="rubberTree">
             <ion-item>
@@ -45,26 +50,41 @@
             </ion-item>
           </div>
 
-          <div formGroupName="perennialPlant">
-            <ion-item>
+          <ion-row formGroupName="perennialPlant">
+            <ion-item col-6>
               <ion-checkbox formControlName="doing"></ion-checkbox>
               <ion-label>4.พืชยืนต้น ไม้ผล สวนป่า </ion-label>
             </ion-item>
-          </div>
+            <ion-item col-6>
+              <button item-right ion-button type="button" (click)="presentAlert('พืชยืนต้น')">
+                ตัวอย่างพืช
+              </button>
+            </ion-item>
+          </ion-row>
 
-          <div formGroupName="herbsPlant">
-            <ion-item>
+          <ion-row formGroupName="herbsPlant">
+            <ion-item col-6>
               <ion-checkbox formControlName="doing"></ion-checkbox>
               <ion-label>5.พืชผัก สมุนไพร</ion-label>
             </ion-item>
-          </div>
+            <ion-item col-6>
+              <button item-right ion-button type="button" (click)="presentAlert('พืชผักสมุนไพร')">
+                ตัวอย่างพืช
+              </button>
+            </ion-item>
+          </ion-row>
 
-          <div formGroupName="flowerCrop">
-            <ion-item>
+          <ion-row formGroupName="flowerCrop">
+            <ion-item col-6>
               <ion-checkbox formControlName="doing"></ion-checkbox>
               <ion-label>6.ไม้ดอกไม้ประดับ การเพาะพันธุ์ไม้ </ion-label>
             </ion-item>
-          </div>
+            <ion-item col-6>
+              <button item-right ion-button type="button" (click)="presentAlert('ไม้ดอกไม้ประดับ')">
+                ตัวอย่างพืช
+              </button>
+            </ion-item>
+          </ion-row>
 
           <div formGroupName="mushroomPlant">
             <ion-item>
