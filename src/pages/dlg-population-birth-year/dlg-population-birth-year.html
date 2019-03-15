@@ -9,12 +9,25 @@
 
 <ion-content padding>
 
-  <ion-row>
-    <ion-col col-2 *ngFor="let year of birthYear">
-      <button ion-button outline block color="dark" (click)="okDialog(year)" *ngIf="year == 999">ไม่ทราบ</button>
-      <button ion-button outline block color="dark" (click)="okDialog(year)" *ngIf="year != 999">2{{ year }}</button>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-7>
+        <button ion-button outline block color="dark" (click)="okDialog(999)">ไม่ทราบ</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline block color="dark" (click)="okDialog(562)">2562</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline block color="dark" (click)="okDialog(561)">2561</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let year of birthYear">
+      <ion-col *ngFor="let i of orders">
+        <button ion-button outline block color="dark" (click)="okDialog(year-i)">2{{ year - i}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-row>
     <ion-col>
