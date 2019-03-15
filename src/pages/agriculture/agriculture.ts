@@ -59,10 +59,10 @@ export class AgriculturePage {
       });
   }
   
-  async presentAlert(Title: string) {
+   presentAlert(Title: string) {
     if (Title == "พืชไร่") {
       
-      const alert = await this.alertController.create({
+      const alert = this.alertController.create({
         title: 'ตัวอย่าง พืชไร่',
         subTitle: 'เช่น กก ข้าวโพดเลี้ยงสัตว์ ข้าวฟ่าง งา ถั่วทุกชนิด ทานตะวัน นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง <br> ลูกเดือย สาคู แห้ว อ้อย สัปปะรด กาแฟ เป็นต้น',
         enableBackdropDismiss: false,
@@ -74,14 +74,14 @@ export class AgriculturePage {
           }
         ]
       });
-      await alert.present();
+     alert.present();
     }
 
     if (Title == "พืชยืนต้น") {
       
-      const alert = await this.alertController.create({
+      const alert = this.alertController.create({
         title: 'ตัวอย่าง พืชยืนต้น',
-        subTitle: 'พืชยืนต้น ไม้ผล เช่น กระท้อน กล้วย แก้วมังกร จาก เงาะ ชมพู่ หมาก หวาย หม่อน มะม่วง มะนาว มังคุด ทุเรียน ลิ้นจี่ มะละกอ ลองกอง ลางสาด สะตอ สะเดา ส้มโอ <br> ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว แตงโม <br> ปาล์มน้ำมัน เป็นต้น <br> สวนป่า เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่ <br> มะค่าโมง ยางนา ยูคาลิปตัส สน สัก เป็นต้น',
+        subTitle: '<b>พืชยืนต้น ไม้ผล</b> เช่น กระท้อน กล้วย แก้วมังกร จาก เงาะ ชมพู่ หมาก หวาย หม่อน มะม่วง มะนาว มังคุด ทุเรียน ลิ้นจี่ มะละกอ ลองกอง ลางสาด สะตอ สะเดา ส้มโอ ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว แตงโม <br> ปาล์มน้ำมัน เป็นต้น <br> <b>สวนป่า</b> เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่ <br> มะค่าโมง ยางนา ยูคาลิปตัส สน สัก เป็นต้น',
         enableBackdropDismiss: false,
         buttons: [
           {
@@ -91,12 +91,12 @@ export class AgriculturePage {
           }
         ]
       });
-      await alert.present();
+     alert.present();
     }
 
     if (Title == "พืชผักสมุนไพร") {
       
-      const alert = await this.alertController.create({
+      const alert = this.alertController.create({
         title: 'ตัวอย่าง พืชผักสมุนไพร',
         subTitle: 'เช่น กะหล่ำปลี ข่า ขิง ขมิ้น คะน้า ชะอม ตะไคร้ แตงกวา บวบ บัวสาย ผักกาดขาว ผักชี เผือก พริก หอม มันเทศ โหระพา กะเพรา แมงลัก มะเขือเทศ มะเขือ พริกไทย กระวาน กานพลู กวาวเครือ สำรอง <br> หญ้าหวาน อบเชย อัญชัน <br> ข้าวโพดฝักอ่อน ข้าวโพดรับประทาน เป็นต้น',
         enableBackdropDismiss: false,
@@ -108,14 +108,14 @@ export class AgriculturePage {
           }
         ]
       });
-      await alert.present();
+     alert.present();
     }
 
     if (Title == "ไม้ดอกไม้ประดับ") {
       
-      const alert = await this.alertController.create({
+      const alert = this.alertController.create({
         title: 'ตัวอย่าง ไม้ดอกไม้ประดับ',
-        subTitle: 'ไม้ดอก เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จำปา จำปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ เยอร์บิรา หน้าวัว เป็นต้น <br> ไม้ประดับ เช่น โกสน เข็ม เตย ไทร เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาล์มต่าง ๆ ไผ่ เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปูสนาม เป็นต้น',
+        subTitle: '<b>ไม้ดอก</b> เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จำปา จำปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ เยอร์บิรา หน้าวัว เป็นต้น <br> <b>ไม้ประดับ</b> เช่น โกสน เข็ม เตย ไทร เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาล์มต่าง ๆ ไผ่ เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปูสนาม เป็นต้น',
         enableBackdropDismiss: false,
         buttons: [
           {
@@ -125,7 +125,7 @@ export class AgriculturePage {
           }
         ]
       });
-      await alert.present();
+      alert.present();
     }
   }
 
