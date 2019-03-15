@@ -34,6 +34,16 @@ export class PerennialPlantingPage {
     });
     this.setupFieldCountChanges();
   }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.PerennialPlantingFrm.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.PerennialPlantingFrm.get(item).setValue(data);
+      }
+    });
+    modal.present();
+  }
 
   ionViewDidLoad() {
     this.countNumberPage();

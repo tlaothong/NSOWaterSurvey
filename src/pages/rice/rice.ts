@@ -1,6 +1,6 @@
 import { SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
@@ -30,13 +30,23 @@ export class RicePage {
   private data: any
   formData$: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider,  public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, Validators.required],
       'fields': this.fb.array([]),
     });
     this.setupFieldCountChanges();
+  }
+
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.f.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   ionViewDidLoad() {
@@ -62,7 +72,7 @@ export class RicePage {
       // this.storage.set('unit', this.data)
       let id = this.data._id
       this.storage.set(id, this.data)
-      this.local.updateListUnit(this.data.buildingId,this.data)
+      this.local.updateListUnit(this.data.buildingId, this.data)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -105,8 +115,6 @@ export class RicePage {
       }
     });
   }
-
-
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

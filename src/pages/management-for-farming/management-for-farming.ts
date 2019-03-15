@@ -1,6 +1,6 @@
 import { CommunityState } from './../../states/community/community.reducer';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
@@ -36,7 +36,7 @@ export class ManagementForFarmingPage {
   public getSetCommunity: FormGroup;
 
   private formData: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, public fb: FormBuilder, private store: Store<CommunityState>) {
     this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
     this.setupprojectcountChanges();
   }
@@ -49,6 +49,16 @@ export class ManagementForFarmingPage {
     }, {
         validator: ManagementForFarmingPage.checkAnyOrOther()
       });
+  }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.managementforfarming.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.managementforfarming.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   ionViewDidLoad() {

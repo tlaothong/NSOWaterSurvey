@@ -54,6 +54,16 @@ export class FlowerCropPage {
     });
     this.setupFieldCountChanges();
   }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.flowerCropFrm.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.flowerCropFrm.get(item).setValue(data);
+      }
+    });
+    modal.present();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');

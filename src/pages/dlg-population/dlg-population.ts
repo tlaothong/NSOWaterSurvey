@@ -50,9 +50,7 @@ export class DlgPopulationPage {
       if (natValue == false) {
         this.Nation = nationalityData;
       }
-
     }
-    console.log(this.Nation)
   }
 
   change(event) {
@@ -116,6 +114,8 @@ export class DlgPopulationPage {
   }
 
   public CalculateAge() {
+    this.dateTime.setFullYear(2019, 4, 1);
+
     let birthDate = this.FormItem.get('birthDate').value;
     let birthMonth = this.FormItem.get('birthMonth').value - 1;
     let birthYear = this.FormItem.get('birthYear').value + 1457;
@@ -135,5 +135,14 @@ export class DlgPopulationPage {
     profileModal.present();
   }
 
-
+  presentModal() {
+    const modal = this.modalCtrl.create("DlgPopulationBirthYearPage");
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get('birthYear').setValue(data);
+        this.CalculateAge();
+      }
+    });
+    modal.present();
+  }
 }

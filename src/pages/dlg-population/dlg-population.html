@@ -86,11 +86,7 @@
         <ion-option [value]="7">7.พ่อ แม่ พ่อแม่ของคู่สมรส</ion-option>
         <ion-option [value]="8">8.ญาติอื่นๆ</ion-option>
         <ion-option [value]="9">9.ผู้อาศัย/คนรับใช้/คนงาน</ion-option>
-<<<<<<< HEAD
         <ion-option [value]="0">0.คนงาน/พระสงฆ์/เณร/อื่นๆ</ion-option>
-=======
-        <ion-option [value]="0">10.คนงาน/พระสงฆ์/เณร/อื่นๆ</ion-option>
->>>>>>> ui
       </ion-select>
     </ion-item>
 
@@ -182,9 +178,9 @@
         </ion-select>
       </ion-item>
 
-      <ion-item [class.invalid]="isValid('birthYear')">
+      <ion-item [class.invalid]="isValid('birthYear')" (click)="presentModal()">
         <ion-label>ปีเกิด</ion-label>
-        <ion-select interface="action-sheet" formControlName="birthYear" (ionChange)="CalculateAge()">
+        <ion-select formControlName="birthYear" disabled="true">
           <ion-option [value]="999"> ไม่ทราบปีเกิด </ion-option>
           <ion-option [value]="562"> พ.ศ. 2562 </ion-option>
           <ion-option [value]="561"> พ.ศ. 2561 </ion-option>
@@ -309,6 +305,7 @@
           <ion-option [value]="442"> พ.ศ. 2442 </ion-option>
         </ion-select>
       </ion-item>
+
     </div>
 
     <ion-row>
