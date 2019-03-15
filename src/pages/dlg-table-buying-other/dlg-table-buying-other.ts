@@ -36,11 +36,30 @@ export class DlgTableBuyingOtherPage {
   }
 
   public okDialog() {
+  
     this.viewCtrl.dismiss(this.FormItem);
   }
 
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgTableBuyingPage');
+    if (this.getIsHouseHold == 'false') {
+      this.FormItem.get('drink').setValue(0);
+    }
+    if(this.getIsAgriculture == 'false'){
+      this.FormItem.get('agriculture').setValue(0);
+    }
+    if(this.getIsFactorial == 'false'){
+
+      this.FormItem.get('factory').setValue(0);
+    }
+    if(this.getIsCommercial == 'false'){
+      this.FormItem.get('service').setValue(0);
+    }
+    console.log(this.FormItem.value);
+    if (this.FormItem.get('size').invalid) {
+      this.FormItem.get('size').setValue(this.size);
+    }
   }
 
   public isValid(name: string): boolean {
