@@ -10,9 +10,9 @@
 <ion-content padding>
 
   <ion-row>
-    <ion-col col-2 *ngFor="let year of birthYear" no-padding>
-      <button ion-button outline color="dark" (click)="okDialog(year)" *ngIf="year != 999">2{{ year }}</button>
-      <button ion-button outline color="dark" (click)="okDialog(year)" *ngIf="year == 999">ไม่ทราบ</button>
+    <ion-col col-2 *ngFor="let year of birthYear">
+      <button ion-button outline block color="dark" (click)="okDialog(year)" *ngIf="year == 999">ไม่ทราบ</button>
+      <button ion-button outline block color="dark" (click)="okDialog(year)" *ngIf="year != 999">2{{ year }}</button>
     </ion-col>
   </ion-row>
 
