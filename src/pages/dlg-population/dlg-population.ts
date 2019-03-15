@@ -49,9 +49,7 @@ export class DlgPopulationPage {
       if (natValue == false) {
         this.Nation = nationalityData;
       }
-
     }
-    console.log(this.Nation)
   }
 
   change(event) {
@@ -88,10 +86,10 @@ export class DlgPopulationPage {
       || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null
       || (this.FormItem.get('relationship').value == 7) && (this.FormItem.get('age').value < 13 && this.FormItem.get('age').value != null)
       || (this.FormItem.get('nameTitle').value == 1
-      || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
+        || this.FormItem.get('nameTitle').value == 4) && (this.FormItem.get('sex').value == 2 && this.FormItem.get('sex').value != null)
       || (this.FormItem.get('nameTitle').value == 2
-      || this.FormItem.get('nameTitle').value == 3
-      || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
+        || this.FormItem.get('nameTitle').value == 3
+        || this.FormItem.get('nameTitle').value == 5) && (this.FormItem.get('sex').value == 1 && (this.FormItem.get('sex').value != null))
       || ((this.FormItem.get('otherProvince').value != null) && (this.FormItem.get('otherProvince').value == this.proName))) {
       return true
     }
@@ -128,5 +126,14 @@ export class DlgPopulationPage {
     profileModal.present();
   }
 
-
+  presentModal() {
+    const modal = this.modalCtrl.create("DlgPopulationBirthYearPage");
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get('birthYear').setValue(data);
+        this.CalculateAge();
+      }
+    });
+    modal.present();
+  }
 }
