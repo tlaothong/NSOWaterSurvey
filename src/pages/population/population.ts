@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -39,12 +39,22 @@ export class PopulationPage {
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
     }),
       this.setupPersonCountChanges();
+  }
+
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.f.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   ionViewDidLoad() {
@@ -74,7 +84,7 @@ export class PopulationPage {
       // this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
       let id = this.dataPop._id
-      this.storage.set(id, this.dataPop)  
+      this.storage.set(id, this.dataPop)
       this.local.updateListUnit(this.dataPop.buildingId, this.dataPop)
       // this.storage.set(id, this.dataPop)
       this.navCtrl.popTo("CheckListPage");

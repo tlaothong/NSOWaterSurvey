@@ -1,6 +1,6 @@
 import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
@@ -65,7 +65,7 @@ export class GroundWaterPage {
   public static checkActivityFactory: any;
   public static checkActivityCommercial: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
@@ -78,13 +78,21 @@ export class GroundWaterPage {
         'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
         'waterResources': this.fb.array([])
       })
-
     }, {
         validator: GroundWaterPage.checkAnyOrOther()
       });
-
     this.setupuseGroundWaterCountChanges();
     this.setupusePublicGroundWaterCountChanges();
+  }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.f.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   ionViewDidLoad() {

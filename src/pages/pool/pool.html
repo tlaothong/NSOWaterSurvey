@@ -47,7 +47,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="poolCount" [class.invalid]="isValid('poolCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="poolCount" [class.invalid]="isValid('poolCount')"
+              [disabled]="true" (click)="presentModalCount('poolCount','จำนวนสระ')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('poolCount')">
               <span class="invalid-msg">
@@ -109,7 +110,8 @@
               </ion-label>
             </ion-item>
             <ion-item>
-              <ion-input (ionChange)="check()" type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('waterResourceCount') || (checked)"></ion-input>
+              <ion-input (ionChange)="check()" type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('waterResourceCount') || (checked)"
+              [disabled]="true" (click)="presentModalCount('waterResourceCount','จำนวนสระ')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('waterResourceCount')">
               <span class="invalid-msg">

@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
@@ -56,7 +56,7 @@ export class RiverPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
@@ -250,5 +250,15 @@ export class RiverPage {
     };
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
     onComponentCountChanges();
+  }
+
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.f.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
@@ -60,7 +60,7 @@ export class PoolPage {
   public static checkActivityFactory: any;
   public static checkActivityCommercial: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators],
       'poolCount': [null, Validators],
@@ -73,6 +73,16 @@ export class PoolPage {
       });
     this.setupPoolCountChanges();
     this.setupPoolCountUsageChanges();
+  }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.f.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   ionViewDidLoad() {

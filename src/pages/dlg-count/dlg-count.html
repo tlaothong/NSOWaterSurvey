@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+
+    <ion-item>
+      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="count" [class.invalid]="isValid('count')">
+      </ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="isValid('count')">
+      <span class="invalid-msg">
+        กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button type="submit" block [disabled]="FormItem.invalid">ตกลง</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </form>
+
+</ion-content>

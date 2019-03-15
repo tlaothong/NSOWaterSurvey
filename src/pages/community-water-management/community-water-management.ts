@@ -1,6 +1,6 @@
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { DetailWaterManagementComponent } from '../../components/detail-water-management/detail-water-management';
 import { DetailOrgWaterSupplyComponent } from '../../components/detail-org-water-supply/detail-org-water-supply';
 import { NaturalDisasterComponent } from '../../components/natural-disaster/natural-disaster';
@@ -46,7 +46,7 @@ export class CommunityWaterManagementPage {
   public MWA: boolean;
   public PWA: boolean;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
     this.id = this.navParams.get('id')
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
     this.setupPublicWaterCountChanges();
@@ -74,6 +74,16 @@ export class CommunityWaterManagementPage {
       });
   }
 
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.CommunityWaterManagement.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.CommunityWaterManagement.get(item).setValue(data);
+      }
+    });
+    modal.present();
+  }
+
   ionViewDidLoad() {
     this.formDataCom = this.fb.group({
       '_id': [null],
@@ -97,16 +107,16 @@ export class CommunityWaterManagementPage {
     this.getIdHomes$.subscribe(data => {
       this.getIdHomes = data
       console.log(this.getIdHomes);
-      
+
       this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
       console.log(this.subDistrict);
-      
+
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
-      if(this.MWA == false){
+      if (this.MWA == false) {
         this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
       }
-      if(this.PWA == false){
+      if (this.PWA == false) {
         this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
       }
     })
