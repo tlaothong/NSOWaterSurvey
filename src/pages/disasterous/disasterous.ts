@@ -27,7 +27,7 @@ export class DisasterousPage {
   public dataDis: any;
   private frontNum: any;
   private backNum: any;
-  constructor(private modalCtrl: ModalController,public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -74,7 +74,7 @@ export class DisasterousPage {
       // this.storage.set('unit', this.dataDis)
       let id = this.dataDis._id
       this.storage.set(id, this.dataDis)
-      this.local.updateListUnit(this.dataDis.buildingId,this.dataDis)
+      this.local.updateListUnit(this.dataDis.buildingId, this.dataDis)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -124,6 +124,11 @@ export class DisasterousPage {
 
   submitRequest() {
     this.submitRequested = true;
+  }
+
+  deleteData(num: number) {
+    let test = this.Disasterous.get('yearsDisasterous') as FormArray;
+    test.at(num).reset();
   }
 
   public isValid(name: string): boolean {
