@@ -45,7 +45,7 @@
 
           <ion-item>
             <ion-input formControlName="publicWaterCount" [class.invalid]="isValid('publicWaterCount')" type="number"
-              placeholder="กรอกข้อมูล"></ion-input>
+              placeholder="กรอกข้อมูล" [disabled]="true" (click)="presentModalCount('publicWaterCount','จำนวนแหล่งน้ำ')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('publicWaterCount')">
             <span class="invalid-msg">
@@ -191,7 +191,7 @@
 
               <ion-item>
                 <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')"
-                  type="number" placeholder="กรอกข้อมูล"></ion-input>
+                  type="number" placeholder="กรอกข้อมูล" [disabled]="true" (click)="presentModalCount('waterServiceCount','จำนวนแหล่งผลิตน้ำประปาอื่นๆ')"></ion-input>
               </ion-item>
               <ion-item *ngIf="isValid('waterServiceCount')">
                 <span class="invalid-msg">

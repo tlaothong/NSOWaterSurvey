@@ -45,7 +45,8 @@
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="projectCount" [class.invalid]="isValid('projectCount')"></ion-input>
+            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="projectCount" [class.invalid]="isValid('projectCount')"
+            [disabled]="true" (click)="presentModalCount('projectCount','จำนวนโครงการ')"></ion-input>
           </ion-item>
 
           <ion-item *ngIf="isValid('projectCount')">

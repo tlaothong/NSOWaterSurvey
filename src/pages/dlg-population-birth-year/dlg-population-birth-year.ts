@@ -22,10 +22,10 @@ export class DlgPopulationBirthYearPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgPopulationBirthYearPage');
+    this.birthYear.push(999);
     for (let i = 562; i >= 442; i--) {
       this.birthYear.push(i);
     }
-    this.birthYear.push(999);
   }
 
   public closeDialog() {

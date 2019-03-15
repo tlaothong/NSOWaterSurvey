@@ -2,12 +2,12 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetAgiSelectRubber, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
@@ -29,7 +29,7 @@ export class RubberTreePage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,  public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.required],
@@ -37,6 +37,16 @@ export class RubberTreePage {
     });
 
     this.setupFieldCountChanges();
+  }
+
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.rubbertree.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.rubbertree.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   ionViewDidLoad() {
@@ -61,7 +71,7 @@ export class RubberTreePage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

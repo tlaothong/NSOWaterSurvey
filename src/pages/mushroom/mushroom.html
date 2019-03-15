@@ -48,7 +48,7 @@
             </ion-item>
             <ion-item>
               <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount"
-                [class.invalid]="isValid('fieldCount')"></ion-input>
+                [class.invalid]="isValid('fieldCount')" [disabled]="true" (click)="presentModalCount('fieldCount','จำนวนโรงเรือน')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('fieldCount')">
               <span class="invalid-msg">
