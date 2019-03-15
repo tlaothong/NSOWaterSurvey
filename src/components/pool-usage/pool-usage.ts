@@ -4,6 +4,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem4Component } from '../water-problem4/water-problem4';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'pool-usage',
@@ -32,7 +33,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = '1';
     this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb)
   }
@@ -51,6 +52,16 @@ export class PoolUsageComponent implements ISubmitRequestable {
       });
     PoolUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
+  }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   submitRequest() {

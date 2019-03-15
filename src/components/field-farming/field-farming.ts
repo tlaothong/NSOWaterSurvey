@@ -9,6 +9,7 @@ import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWaterSourcesRice } from '../../states/household/household.actions';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'field-farming',
@@ -25,7 +26,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   @ViewChildren(WaterSources8AComponent) private waterSources8A: WaterSources8AComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
     this.FormItem = FieldFarmingComponent.CreateFormGroup(this.fb);
   }
 
@@ -45,6 +46,16 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     return fg
   }
 
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get(item).setValue(data);
+      }
+    });
+    modal.present();
+  }
+
   submitRequest() {
     this.submitRequested = true;
     this.fieldAreas.forEach(it => it.submitRequest());
@@ -52,16 +63,16 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources8A.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
-    console.log("waterRice",this.FormItem.get('waterSources').value);
+    console.log("waterRice", this.FormItem.get('waterSources').value);
     // this.dispatchWaterSource();
   }
 
   private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
+    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
+    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
+    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
+    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
+    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
     console.log("dispatch rice can work");
   }
 
@@ -74,7 +85,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     let area = Number(this.FormItem.get('area.rai').value) * 400
       + Number(this.FormItem.get('area.ngan').value) * 100
       + Number(this.FormItem.get('area.sqWa').value);
-      
+
     let areaUsed = Number(far.get('rai').value) * 400
       + Number(far.get('ngan').value) * 100
       + Number(far.get('sqWa').value);

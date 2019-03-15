@@ -6,6 +6,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'fish-farming',
@@ -20,7 +21,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.type = 'กก.';
   }
@@ -45,6 +46,16 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
     FishFarmingComponent.setupPoolCountChanges(fb, fg);
     return fg;
+  }
+
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   submitRequest() {
