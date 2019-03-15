@@ -4,6 +4,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem6Component } from '../water-problem6/water-problem6';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'ground-water-usage-public',
@@ -31,7 +32,7 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
   @ViewChildren(WaterProblem6Component) private waterProblem6: WaterProblem6Component[];
   private submitRequested: boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public modalCtrl: ModalController) {
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
   }
 
@@ -50,6 +51,16 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
     });
     GroundWaterUsagePublicComponent.setupPumpCountChanges(fb, fg);
     return fg;
+  }
+
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   public checkValid(): boolean {

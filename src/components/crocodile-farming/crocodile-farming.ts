@@ -1,3 +1,4 @@
+import { ModalController } from 'ionic-angular';
 import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../pool-area/pool-area';
@@ -23,7 +24,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
     console.log('Hello CrocodileFarmingComponent Component');
     this.text = 'Hello World';
   }
@@ -45,6 +46,16 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     );
     CrocodileFarmingComponent.setupFieldCountChanges(fb, fg);
     return fg;
+  }
+  
+  presentModalCount(item: string, title: string) {
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.FormItem.get(item).setValue(data);
+      }
+    });
+    modal.present();
   }
 
   checkCrocValid() {
