@@ -25,6 +25,7 @@ import { LocationDataProvider } from '../providers/location-data/location-data';
 import { SwithStateProvider } from '../providers/swith-state/swith-state';
 import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 import { DirectivesModule } from '../directives/directives.module';
+import { DataStoreProvider } from '../providers/data-store/data-store';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { DirectivesModule } from '../directives/directives.module';
     LocationDataProvider,
     SwithStateProvider,
     LocalStorageProvider,
+    DataStoreProvider,
   ]
 })
 export class AppModule { }

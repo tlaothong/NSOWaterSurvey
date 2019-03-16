@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Store } from '@ngrx/store';
-import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIsCheckShow } from '../../states/logging/logging.actions';
+import { BootupState } from '../../states/bootup/bootup.reducer';
+import { LoadBootstrap } from '../../states/bootup/bootup.actions';
 
 @IonicPage()
 @Component({
@@ -11,7 +11,8 @@ import { SetIsCheckShow } from '../../states/logging/logging.actions';
 })
 export class FirstpagePage {
 
-  constructor(public navCtrl: NavController, private store: Store<LoggingState>, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private store: Store<BootupState>, public navParams: NavParams) {
+    this.store.dispatch(new LoadBootstrap());
   }
 
   ionViewDidLoad() {
@@ -19,12 +20,10 @@ export class FirstpagePage {
   }
 
   goScanqrPage() {
-    this.store.dispatch(new SetIsCheckShow(true));
     this.navCtrl.pop();
   }
 
   goLoginPage() {
-    this.store.dispatch(new SetIsCheckShow(false));
     this.navCtrl.pop();
   }
 
