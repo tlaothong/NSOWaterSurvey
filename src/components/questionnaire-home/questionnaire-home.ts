@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { LoggingState } from '../../states/logging/logging.reducer';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NavParams } from 'ionic-angular';
+import { getCurrentWorkingEA } from '../../states/bootup';
+import { BootupState } from '../../states/bootup/bootup.reducer';
 
 @Component({
   selector: 'questionnaire-home',
@@ -11,16 +12,13 @@ import { NavParams } from 'ionic-angular';
 })
 
 export class QuestionnaireHomeComponent {
-  public data: any;
-  public str: string;
-  constructor(private fb: FormBuilder, public navParams: NavParams, private store: Store<LoggingState>) {
 
-    this.data = this.navParams.get('data');
-    this.str = this.navParams.get('str');
+  public currentEA$ = this.store.select(getCurrentWorkingEA);
+
+  constructor(private store: Store<BootupState>) {
   }
 
   ionViewDidLoad() {
-
   }
 
 }

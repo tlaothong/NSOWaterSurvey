@@ -13,6 +13,8 @@ import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/buildi
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { shiftInitState } from '@angular/core/src/view';
+import { BootupState } from '../../states/bootup/bootup.reducer';
+import { getCurrentWorkingEA } from '../../states/bootup';
 
 
 
@@ -33,13 +35,15 @@ export class HomesPage {
   public comunity: any;
   public num: string = "1";
   public listFilter: any;
-  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
-  private dataBuilding$ = this.store.select(getHomeBuilding);
-  private dataCommunity$ = this.store.select(getLoadCommunity);
+  // private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
+  private dataBuilding$ = this.storeLogging.select(getHomeBuilding);
+  private dataCommunity$ = this.storeLogging.select(getLoadCommunity);
   private dataCommunity: any;
   public statusEa: any;
 
-  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
+  public currentEA$ = this.store.select(getCurrentWorkingEA);
+
+  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
     this.initializeItems();
   }
 
@@ -54,35 +58,35 @@ export class HomesPage {
   }
 
   ionViewDidEnter() {
-    this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    this.DataStoreWorkEaOneRecord$.subscribe(data => {
-      if (data != null) {
-        this.dataWorkEARow = data
-        this.statusEa = data.properties.ea_type;
-        console.log(this.dataWorkEARow);
-        console.log(this.statusEa);
+    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
+    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
+    //   if (data != null) {
+    //     this.dataWorkEARow = data
+    //     this.statusEa = data.properties.ea_type;
+    //     console.log(this.dataWorkEARow);
+    //     console.log(this.statusEa);
 
-        this.str = data._id.substring(1, 7);
-        console.log(this.str);
+    //     this.str = data._id.substring(1, 7);
+    //     console.log(this.str);
 
-        this.store.dispatch(new SetIdEaWorkHomes(this.str));
-      }
-    });
+    //     this.store.dispatch(new SetIdEaWorkHomes(this.str));
+    //   }
+    // });
 
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
-    });
+    // this.storage.get(this.dataWorkEARow._id).then((data) => {
+    //   if (data != null) {
+    //     this.dataEa = data
+    //     this.listFilter = this.dataEa;
+    //     console.log(this.dataEa)
+    //   }
+    // });
 
-    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
-      if (val != null) {
-        this.dataCommunity = val
-        console.log(this.dataCommunity);
-      }
-    })
+    // this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+    //   if (val != null) {
+    //     this.dataCommunity = val
+    //     console.log(this.dataCommunity);
+    //   }
+    // })
   }
   filterRefresh() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
@@ -137,7 +141,7 @@ export class HomesPage {
       this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id, id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
-      this.store.dispatch(new LoadCommunityForEditSuccess(null));
+      this.storeLogging.dispatch(new LoadCommunityForEditSuccess(null));
       this.navCtrl.push("CommunityTestPage", { id: null, no: no.toString() })
     }
   }
@@ -165,7 +169,7 @@ export class HomesPage {
       console.log(item);
       this.storage.get(item).then((val) => {
         console.log(val);
-        this.store.dispatch(new LoadCommunityForEditSuccess(val));
+        this.storeLogging.dispatch(new LoadCommunityForEditSuccess(val));
         this.navCtrl.push("CommunityTestPage", { no: no.toString() })
       });
     }

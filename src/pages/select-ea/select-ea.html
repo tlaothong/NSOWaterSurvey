@@ -38,24 +38,24 @@
   </ion-row>
   <hr>
 
-  <ion-row *ngFor="let item of dataEa" text-center align-items-center>
+  <ion-row *ngFor="let item of listOfEAs$ | async" text-center align-items-center>
     <ion-col col-2>
-      {{ item.properties.pro_name }}
+      {{ item.CWT_NAME }}
     </ion-col>
     <ion-col col-2>
-      {{ item.properties.dis_name }}
+      {{ item.AMP_NAME }}
     </ion-col>
     <ion-col col-2>
-      {{ item.properties.tam_name }}
+      {{ item.TAM_NAME }}
     </ion-col>
     <ion-col col-2>
-      {{ item.properties.ea_type }}
+      {{ item.DISTRICT }}
     </ion-col>
     <ion-col col-2>
-      {{ item.properties.muni_name }}
+      {{ item.MUN_NAME }}{{ item.TAO_NAME }}
     </ion-col>
     <ion-col col-1>
-      {{ item.properties.ea_code_14 }}
+      {{ item.code }}
     </ion-col>
     <ion-col col-1>
       <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
