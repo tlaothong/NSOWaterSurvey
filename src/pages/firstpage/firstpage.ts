@@ -18,14 +18,5 @@ export class FirstpagePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstpagePage');
   }
-
-  goScanqrPage() {
-    this.navCtrl.pop();
-  }
-
-  goLoginPage() {
-    this.navCtrl.pop();
-  }
-
-  
+ 
 }
