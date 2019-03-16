@@ -4,6 +4,11 @@ import { BootupTypes } from './bootup.actions';
 
 const getBootstrapFeatureState = createFeatureSelector<BootupState>(BootupTypes.StateName);
 
+export const getUserId = createSelector(
+    getBootstrapFeatureState,
+    state => state.userId,
+);
+
 export const getListOfEAs = createSelector(
     getBootstrapFeatureState,
     state => state.EAs,

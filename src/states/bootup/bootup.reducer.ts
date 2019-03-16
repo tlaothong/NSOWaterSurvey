@@ -2,6 +2,7 @@ import { BootupActionsType, BootupTypes } from "./bootup.actions";
 
 
 export interface BootupState {
+    userId: string;
     EAs: EA[];
     currentEaCode: string;
 }
@@ -38,45 +39,22 @@ export interface EA {
   };
 
 const initialState: BootupState = {
+    userId: null,
     EAs: [],
     currentEaCode: null,
 };
 
 export function reducer(state: BootupState = initialState, action: BootupActionsType): BootupState {
     switch (action.type) {
-        case BootupTypes.LoadSuccess:   // TODO: Complete this later
+        case BootupTypes.LoginSuccess:
             return {
                 ...state,
-                EAs: [{
-                    code: "11001011000002",
-                    "Area_Code": "100101",
-                    "REG": "1",
-                    "REG_NAME": "กรุงเทพมหานคร",
-                    "CWT": "10",
-                    "CWT_NAME": "กรุงเทพมหานคร",
-                    "AMP": "01",
-                    "AMP_NAME": "พระนคร",
-                    "TAM": "01",
-                    "TAM_NAME": "พระบรมมหาราชวัง",
-                    "DISTRICT": 1,
-                    "MUN": "000",
-                    "MUN_NAME": "กรุงเทพมหานคร",
-                    "TAO": "",
-                    "TAO_NAME": "",
-                    "EA": "002",
-                    "VIL": "00",
-                    "VIL_NAME": "",
-                    "MAP_STATUS": 1,
-                    "Building": 75,
-                    "Household": 73,
-                    "population": 405,
-                    "Agricultural_HH": 0,
-                    "ES_BUSI": "93",
-                    "ES_INDUS": "5",
-                    "ES_HOTEL": "",
-                    "ES_PV_HOS": "",
-                    "REMARK": "วัด 1 แห่ง  , สถานที่ราชการ 1 แห่ง ,โรงเรียน 1 แห่ง, มหาวิทยาลัย 1 แห่ง",
-                }]
+                userId: action.userId,
+            };
+        case BootupTypes.DownloadUserToMobileSuccess:   // TODO: Complete this later
+            return {
+                ...state,
+                EAs: action.eas,
             };
         case BootupTypes.SetCurrentWorkingEA:
             return {

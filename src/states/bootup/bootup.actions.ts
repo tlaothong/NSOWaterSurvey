@@ -1,9 +1,14 @@
 import { Action } from '@ngrx/store';
+import { EA } from './bootup.reducer';
 
 export enum BootupTypes {
     StateName = "Bootup",
     Load = "[BT] Load",
     LoadSuccess = "[BT] Load Success",
+    Login = "[BT] Login",
+    LoginSuccess = "[BT] Login Success",
+    DownloadUserToMobile = "[BT] Download User Cloud Data To Mobile",
+    DownloadUserToMobileSuccess = "[BT] User Cloud Data Downloaded To Mobile Successfully",
     SetCurrentWorkingEA = "[BT] Set Current Working EA",
 }
 
@@ -21,6 +26,37 @@ export class LoadBootstrapSuccess implements Action {
     }
 }
 
+export class LoginUser implements Action {
+    readonly type = BootupTypes.Login;
+
+    // TODO: params
+    constructor(public userId: string) {
+    }
+}
+
+export class LoginUserSuccess implements Action {
+    readonly type = BootupTypes.LoginSuccess;
+
+    // TODO: params
+    constructor(public userId: string) {
+    }
+}
+
+export class DownloadUserToMobile implements Action {
+    readonly type = BootupTypes.DownloadUserToMobile;
+
+    constructor() {
+    }
+}
+
+export class DownloadUserToMobileSuccess implements Action {
+    readonly type = BootupTypes.DownloadUserToMobileSuccess;
+
+    // TODO: Add more info other than just EAs
+    constructor(public eas: EA[]) {
+    }
+}
+
 export class SetCurrentWorkingEA implements Action {
     readonly type = BootupTypes.SetCurrentWorkingEA;
 
@@ -31,5 +67,9 @@ export class SetCurrentWorkingEA implements Action {
 export type BootupActionsType =
     LoadBootstrap
     | LoadBootstrapSuccess
+    | LoginUser
+    | LoginUserSuccess
+    | DownloadUserToMobile
+    | DownloadUserToMobileSuccess
     | SetCurrentWorkingEA
     ;
