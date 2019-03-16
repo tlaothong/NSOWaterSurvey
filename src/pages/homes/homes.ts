@@ -138,7 +138,7 @@ export class HomesPage {
   goBuildingInfo() {
     if (this.num == '1') {
       this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
-      this.navCtrl.push("BuildingInformation1Page", { ea: this.dataWorkEARow._id, id: null })
+      this.navCtrl.push("BuildingInformation1Page", { id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.storeLogging.dispatch(new LoadCommunityForEditSuccess(null));
