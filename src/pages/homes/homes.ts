@@ -54,35 +54,35 @@ export class HomesPage {
   }
 
   ionViewDidEnter() {
-    this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    this.DataStoreWorkEaOneRecord$.subscribe(data => {
-      if (data != null) {
-        this.dataWorkEARow = data
-        this.statusEa = data.properties.ea_type;
-        console.log(this.dataWorkEARow);
-        console.log(this.statusEa);
+    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
+    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
+    //   if (data != null) {
+    //     this.dataWorkEARow = data
+    //     this.statusEa = data.properties.ea_type;
+    //     console.log(this.dataWorkEARow);
+    //     console.log(this.statusEa);
 
-        this.str = data._id.substring(1, 7);
-        console.log(this.str);
+    //     this.str = data._id.substring(1, 7);
+    //     console.log(this.str);
 
-        this.store.dispatch(new SetIdEaWorkHomes(this.str));
-      }
-    });
+    //     this.store.dispatch(new SetIdEaWorkHomes(this.str));
+    //   }
+    // });
 
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
-    });
+    // this.storage.get(this.dataWorkEARow._id).then((data) => {
+    //   if (data != null) {
+    //     this.dataEa = data
+    //     this.listFilter = this.dataEa;
+    //     console.log(this.dataEa)
+    //   }
+    // });
 
-    this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
-      if (val != null) {
-        this.dataCommunity = val
-        console.log(this.dataCommunity);
-      }
-    })
+    // this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+    //   if (val != null) {
+    //     this.dataCommunity = val
+    //     console.log(this.dataCommunity);
+    //   }
+    // })
   }
   filterRefresh() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {

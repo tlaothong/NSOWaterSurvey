@@ -6,6 +6,9 @@ import { LoadUserDataById, SetLogin, LoadDataWorkEAByUserId, LoadCountOfWorks } 
 import { getUserData, getLogin, getDataWorkEA } from '../../states/logging';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
+import {} from '../../states/bootup';
+import { BootupState } from '../../states/bootup/bootup.reducer';
+import { LoadBootstrap } from '../../states/bootup/bootup.actions';
 
 @IonicPage()
 @Component({
@@ -13,16 +16,16 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  private formDataUser$ = this.store.select(getUserData);
-  
-  formData$ = this.store.select(getUserData).pipe(map(s => s));
-  private getDataLogin$ = this.store.select(getLogin);
+  private formDataUser$ = this.storeLogging.select(getUserData);
+
+  formData$ = this.storeLogging.select(getUserData).pipe(map(s => s));
+  private getDataLogin$ = this.storeLogging.select(getLogin);
   private getDataLogin: any;
   private userData: any;
 
   public dataEa: any;
   public userObj: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<LoggingState>, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private alertCtrl: AlertController) {
     this.userData = null;
   }
 
@@ -32,17 +35,21 @@ export class LoginPage {
   // }
 
   goConfirmloginPage(event: any) {
+    /********************** */
+    console.log('Login and LoadBootstrap!');
+    this.store.dispatch(new LoadBootstrap());
+    /********************** */
     let data = {
       idUser: event.idUser._value,
       password: event.password._value
     }
-    this.store.dispatch(new SetLogin(data));
+    this.storeLogging.dispatch(new SetLogin(data));
     this.getDataLogin$.subscribe(data => {
       if (data != null) {
         this.getDataLogin = data
         console.log(this.getDataLogin);
         if (this.getDataLogin == true) {
-          this.store.dispatch(new LoadUserDataById(event.idUser._value));
+          this.storeLogging.dispatch(new LoadUserDataById(event.idUser._value));
           this.formDataUser$.subscribe(data => {
             if (data != null) {
               this.userObj = data
