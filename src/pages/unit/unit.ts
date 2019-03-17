@@ -9,6 +9,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,7 @@ export class UnitPage {
   public units: any;
   public FormItem: FormGroup;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
@@ -38,16 +39,21 @@ export class UnitPage {
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     console.log(this.f.get('unitCount').value);
     this.setupUnitsCountChanges();
-    this.dataHomeBuilding$.subscribe(data => {
-      console.log(data);
-      if (data != null) {
-        this.id_BD = data._id
-        let key = "BL" + this.id_BD
-        this.storage.get(key).then((val) => {
-          console.log(val);
-          this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-        })
-      }
+    // this.dataHomeBuilding$.subscribe(data => {
+    //   console.log(data);
+    //   if (data != null) {
+    //     this.id_BD = data._id
+    //     let key = "BL" + this.id_BD
+    //     this.storage.get(key).then((val) => {
+    //       console.log(val);
+    //       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
+    //     })
+    //   }
+    // });
+    let key = "BL" + this.appState.buildingId;
+    this.storage.get(key).then((val) => {
+      console.log(val);
+      this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
     });
     console.log(this.f.get('units').value);
   }

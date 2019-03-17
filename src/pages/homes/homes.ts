@@ -72,20 +72,22 @@ export class HomesPage {
     //   }
     // });
 
-    // this.storage.get(this.dataWorkEARow._id).then((data) => {
-    //   if (data != null) {
-    //     this.dataEa = data
-    //     this.listFilter = this.dataEa;
-    //     console.log(this.dataEa)
-    //   }
-    // });
+    var eaCode = this.appState.eaCode;
 
-    // this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
-    //   if (val != null) {
-    //     this.dataCommunity = val
-    //     console.log(this.dataCommunity);
-    //   }
-    // })
+    this.storage.get(eaCode).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.listFilter = this.dataEa;
+        console.log(this.dataEa)
+      }
+    });
+
+    this.storage.get("CL" + eaCode).then((val) => {
+      if (val != null) {
+        this.dataCommunity = val
+        console.log(this.dataCommunity);
+      }
+    })
   }
   filterRefresh() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
