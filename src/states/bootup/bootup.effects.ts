@@ -45,7 +45,10 @@ export class BootupEffects {
     @Effect()
     public setCurrentWorkingEA$: Observable<Action> = this.action$.pipe(
         ofType(BootupTypes.SetCurrentWorkingEA),
-        tap((action: SetCurrentWorkingEA) => this.appState.eaCode = action.payload),
+        tap((action: SetCurrentWorkingEA) => {
+            this.appState.eaCode = action.payload;
+            this.appState.buildingId = '';
+        }),
         mergeMap((action: SetCurrentWorkingEA) => Observable.of(new CurrentWorkingEaChanged(action.payload))),
     );
 

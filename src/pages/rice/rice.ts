@@ -78,7 +78,7 @@ export class RicePage {
   }
 
   countNumberPage() {
-    console.log("onSubmit ");
+    console.log("countNumberPage ==> ");
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let arrayNextPage: any[];
     arrayNextPage$.subscribe(data => {

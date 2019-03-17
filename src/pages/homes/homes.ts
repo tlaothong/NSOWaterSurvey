@@ -1,4 +1,3 @@
-import { SetHomeBuildingSuccess } from './../../states/building/building.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, AlertController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
@@ -137,7 +136,7 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
+      this.storeBuild.dispatch(new SetHomeBuilding(null));
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
@@ -151,7 +150,7 @@ export class HomesPage {
       //this.swith.updateBuildingState(item._id);
       this.storage.get(item._id).then((val) => {
         console.log(val);
-        this.storeBuild.dispatch(new SetHomeBuildingSuccess(val));
+        this.storeBuild.dispatch(new SetHomeBuilding(val));
         this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
         // switch (val.status) {
         //   case 'refresh':
