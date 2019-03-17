@@ -10,7 +10,6 @@ import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsF
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getIdEsWorkHomes } from '../../states/logging';
 import { subDistrictData } from '../../models/SubDistrictData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
@@ -53,7 +52,7 @@ export class PlumbingPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
-  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  // private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   private getIdHomes: any;
 
   public subDistrict: any;

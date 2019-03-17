@@ -9,7 +9,7 @@ import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { SetCommunity } from '../../states/community/community.actions';
-import { getStoreWorkEaOneRecord, getLoadCommunityForEdit, getIdEsWorkHomes } from '../../states/logging';
+import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getCommunitySample } from '../../states/community';
 import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
@@ -41,7 +41,7 @@ export class CommunityWaterManagementPage {
   private DataStoreWorkEaOneRecord: any;
   public id: string;
 
-  private getIdHomes$ = this.store.select(getIdEsWorkHomes);
+  // private getIdHomes$ = this.store.select(getIdEsWorkHomes);
   private getIdHomes: any;
   public subDistrict: any;
   public MWA: boolean;

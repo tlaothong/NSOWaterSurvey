@@ -8,7 +8,6 @@ import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../..
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
@@ -29,7 +28,7 @@ export class PopulationPage {
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private formData$ = this.store.select(getHouseHoldSample);
   public dataPop: any
-  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  // private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;
   public pro: Province;
