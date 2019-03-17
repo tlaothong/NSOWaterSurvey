@@ -30,13 +30,13 @@ export class BuildingInformation1Page {
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
-    // this.f.get('ea').setValue(navParams.get('ea'));
+    this.f.get('ea').setValue(navParams.get('ea'));
     this.f.get('_id').setValue(navParams.get('id'));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      // 'ea': [null],
+      'ea': [null],
       'ordering': [0],
       'road': [null, Validators.required],
       'alley': [null, Validators.required],

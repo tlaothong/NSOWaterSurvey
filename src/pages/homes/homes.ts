@@ -51,10 +51,7 @@ export class HomesPage {
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, {
-      data: this.dataWorkEARow,
-      str: this.str
-    });
+    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent);
     popover.present({
       ev: myEvent
     });
@@ -141,7 +138,7 @@ export class HomesPage {
   goBuildingInfo() {
     if (this.num == '1') {
       this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
-      this.navCtrl.push("BuildingInformation1Page", { id: null })
+      this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.storeLogging.dispatch(new LoadCommunityForEditSuccess(null));
@@ -155,7 +152,7 @@ export class HomesPage {
       this.storage.get(item._id).then((val) => {
         console.log(val);
         this.storeBuild.dispatch(new SetHomeBuildingSuccess(val));
-        this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
+        this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
         // switch (val.status) {
         //   case 'refresh':
         //     this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
