@@ -15,6 +15,7 @@ import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.ac
 import { shiftInitState } from '@angular/core/src/view';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
 
@@ -43,8 +44,10 @@ export class HomesPage {
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
 
-  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
+  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();
+    console.log('User Id: ' + this.appState.userId);
+    console.log('EA Code: ' + this.appState.eaCode);
   }
 
   public showQuickMenu(myEvent) {
