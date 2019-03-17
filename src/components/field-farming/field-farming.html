@@ -27,11 +27,24 @@
         3) ในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนากี่ครั้ง (ไม่เกิน 4 ครั้ง)
       </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plantingCount"
-        [class.invalid]="isValid('plantingCount')" [disabled]="true"
-        (click)="presentModalCount('plantingCount','จำนวนครั้งในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนา')"></ion-input>
-    </ion-item>
+
+    <ion-row>
+      <ion-col col-10>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="plantingCount"
+            [class.invalid]="isValid('plantingCount')" [disabled]="true">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button block type="button"
+          (click)="presentModalCount('plantingCount','จำนวนครั้งในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนา')">แก้ไข</button>
+      </ion-col>
+    </ion-row>
+
+
+
+
     <ion-item *ngIf="isValid('plantingCount')">
       <span class="invalid-msg">
         กรอกพื้นที่ทำนา ไม่เกิน 4 ครั้ง
