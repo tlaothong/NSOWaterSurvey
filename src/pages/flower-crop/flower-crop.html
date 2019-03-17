@@ -62,11 +62,19 @@
             </ion-label>
           </ion-item>
 
+          <ion-row>
+            <ion-col col-10>
+              <ion-item>
+                <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount"
+                  [class.invalid]="isValid('fieldCount')" [disabled]="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button block type="button"
+                (click)="presentModalCount('fieldCount','จำนวนแปลง/โรงเรือน')">แก้ไข</button>
+            </ion-col>
+          </ion-row>
 
-          <ion-item>
-            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"
-            [disabled]="true" (click)="presentModalCount('fieldCount','จำนวนแปลง/โรงเรือน')"></ion-input>
-          </ion-item>
           <ion-item *ngIf="isValid('fieldCount')">
             <span class="invalid-msg">
               กรุณากรอกข้อมูล
@@ -79,8 +87,9 @@
 
     <div *ngIf="flowerCropFrm.get('fieldCount').value > 0 && flowerCropFrm.get('doing').value">
       <div *ngFor="let ffc of flowerCropFrm.get('fields').controls;let i=index">
-        <field-flower-crop [no]="i+1" [forwardListPlant]="listSumData" [FormItem]="ffc" agiselectrice="{{getAgiSelectRice}}"
-          agiselectagronomy="{{getAgiSelectAgronomy}}" agiselectrubber="{{getAgiSelectRubber}}" agiselectperennial="{{getAgiSelectPerennial}}"></field-flower-crop>
+        <field-flower-crop [no]="i+1" [forwardListPlant]="listSumData" [FormItem]="ffc"
+          agiselectrice="{{getAgiSelectRice}}" agiselectagronomy="{{getAgiSelectAgronomy}}"
+          agiselectrubber="{{getAgiSelectRubber}}" agiselectperennial="{{getAgiSelectPerennial}}"></field-flower-crop>
       </div>
     </div>
 

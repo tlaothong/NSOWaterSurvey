@@ -69,10 +69,22 @@
             2) มีจำนวนบ่อหรือร่องสวนรวมเท่าไร
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"
-          [disabled]="true" (click)="presentModalCount('fieldCount','จำนวนบ่อหรือร่องสวน')"></ion-input>
-        </ion-item>
+
+        <ion-row>
+          <ion-col col-10>
+            <ion-item>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount"
+                [class.invalid]="isValid('fieldCount')" [disabled]="true"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button block type="button"
+              (click)="presentModalCount('fieldCount','จำนวนบ่อหรือร่องสวน')">แก้ไข</button>
+          </ion-col>
+        </ion-row>
+
+
+
         <ion-item *ngIf="isValid('fieldCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
@@ -112,11 +124,13 @@
   <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
       <div *ngSwitchCase="true">
-        <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน" head="ขนาดบ่อหรือร่องสวนที่ " [FormItem]="FormItem.get('fields').at(0)"></pool-area>
+        <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน" head="ขนาดบ่อหรือร่องสวนที่ "
+          [FormItem]="FormItem.get('fields').at(0)"></pool-area>
       </div>
       <div *ngSwitchCase="false">
         <div *ngFor="let pool of FormItem.get('fields').controls; let i= index">
-          <pool-area headline="ขนาดบ่อหรือร่องสวนที่" head="ขนาดบ่อหรือร่องสวนที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
+          <pool-area headline="ขนาดบ่อหรือร่องสวนที่" head="ขนาดบ่อหรือร่องสวนที่ " [no]="i + 1" [FormItem]="pool">
+          </pool-area>
         </div>
       </div>
     </div>
@@ -130,7 +144,8 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('animalsCount')" formControlName="animalsCount"></ion-input>
+          <ion-input type="number" placeholder="กรอกข้อมูล" [class.invalid]="isValid('animalsCount')"
+            formControlName="animalsCount"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('animalsCount')">
           <span class="invalid-msg">

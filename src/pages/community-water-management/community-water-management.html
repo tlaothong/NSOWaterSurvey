@@ -43,10 +43,19 @@
             </ion-label>
           </ion-item>
 
-          <ion-item>
-            <ion-input formControlName="publicWaterCount" [class.invalid]="isValid('publicWaterCount')" type="number"
-              placeholder="กรอกข้อมูล" [disabled]="true" (click)="presentModalCount('publicWaterCount','จำนวนแหล่งน้ำ')"></ion-input>
-          </ion-item>
+          <ion-row>
+            <ion-col col-10>
+              <ion-item>
+                <ion-input formControlName="publicWaterCount" [class.invalid]="isValid('publicWaterCount')"
+                  type="number" placeholder="กรอกข้อมูล" [disabled]="true"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button block type="button"
+                (click)="presentModalCount('publicWaterCount','จำนวนแหล่งน้ำ')">แก้ไข</button>
+            </ion-col>
+          </ion-row>
+
           <ion-item *ngIf="isValid('publicWaterCount')">
             <span class="invalid-msg">
               กรุณากรอกข้อมูล
@@ -189,10 +198,19 @@
                 </ion-label>
               </ion-item>
 
-              <ion-item>
-                <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')"
-                  type="number" placeholder="กรอกข้อมูล" [disabled]="true" (click)="presentModalCount('waterServiceCount','จำนวนแหล่งผลิตน้ำประปาอื่นๆ')"></ion-input>
-              </ion-item>
+              <ion-row>
+                <ion-col col-10>
+                  <ion-item>
+                    <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')"
+                      type="number" placeholder="กรอกข้อมูล" [disabled]="true"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-2>
+                  <button ion-button block type="button"
+                    (click)="presentModalCount('waterServiceCount','จำนวนแหล่งผลิตน้ำประปาอื่นๆ')">แก้ไข</button>
+                </ion-col>
+              </ion-row>
+
               <ion-item *ngIf="isValid('waterServiceCount')">
                 <span class="invalid-msg">
                   กรุณากรอกข้อมูล
@@ -205,8 +223,7 @@
       </ion-card>
     </div>
 
-    <div
-      *ngIf="(CommunityWaterManagement.get('waterServiceCount').value > 0) 
+    <div *ngIf="(CommunityWaterManagement.get('waterServiceCount').value > 0) 
       && (CommunityWaterManagement.get('hasWaterService').value)
       && (CommunityWaterManagement.get('otherPlumbing').value == true) ">
       <div *ngFor="let p of CommunityWaterManagement.get('waterServices').controls; let i = index">

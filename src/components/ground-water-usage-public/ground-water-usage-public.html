@@ -8,7 +8,7 @@
           5.2.6 <b>บ่อที่ {{ text }}</b>
         </ion-label>
       </ion-item>
-      
+
       <ion-item>
         <ion-label>
           1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
@@ -96,10 +96,20 @@
                 3) บ่อนี้ใช้เครื่องสูบน้ำกี่เครื่อง
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-input type="number" placeholder="กรอกจำนวนเครื่องสูบน้ำ" formControlName="pumpCount"
-                [class.invalid]="isValid('pumpCount')" [disabled]="true" (click)="presentModalCount('pumpCount','จำนวนเครื่องสูบน้ำ')"></ion-input>
-            </ion-item>
+
+            <ion-row>
+              <ion-col col-10>
+                <ion-item>
+                  <ion-input type="number" placeholder="กรอกจำนวนเครื่องสูบน้ำ" formControlName="pumpCount"
+                    [class.invalid]="isValid('pumpCount')" [disabled]="true"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-2>
+                <button ion-button block type="button"
+                  (click)="presentModalCount('pumpCount','จำนวนเครื่องสูบน้ำ')">แก้ไข</button>
+              </ion-col>
+            </ion-row>
+
             <ion-item *ngIf="isValid('pumpCount')">
               <span class="invalid-msg">
                 กรุณากรอกจำนวน
