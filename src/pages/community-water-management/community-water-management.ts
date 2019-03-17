@@ -16,6 +16,7 @@ import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { subDistrictData } from '../../models/SubDistrictData';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -46,7 +47,7 @@ export class CommunityWaterManagementPage {
   public MWA: boolean;
   public PWA: boolean;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>, private appState: AppStateProvider) {
     this.id = this.navParams.get('id')
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
     this.setupPublicWaterCountChanges();
@@ -104,22 +105,36 @@ export class CommunityWaterManagementPage {
       }
     });
 
-    this.getIdHomes$.subscribe(data => {
-      this.getIdHomes = data
-      console.log(this.getIdHomes);
+    var cwtamptam = this.appState.eaCode.substr(1, 6);
+    console.log(cwtamptam);
+    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(cwtamptam));
+    this.MWA = this.subDistrict.MWA;
+    this.PWA = this.subDistrict.PWA;
+    if (this.MWA == false) {
+      this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
+    }
+    if (this.PWA == false) {
+      this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
+    }
 
-      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
-      console.log(this.subDistrict);
+    // this.getIdHomes$.subscribe(data => {
+    //   this.getIdHomes = data
+    //   console.log(this.getIdHomes);
 
-      this.MWA = this.subDistrict.MWA;
-      this.PWA = this.subDistrict.PWA;
-      if (this.MWA == false) {
-        this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
-      }
-      if (this.PWA == false) {
-        this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
-      }
-    })
+    //   this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
+    //   console.log(this.subDistrict);
+
+    //   this.MWA = this.subDistrict.MWA;
+    //   this.PWA = this.subDistrict.PWA;
+    //   if (this.MWA == false) {
+    //     this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
+    //   }
+    //   if (this.PWA == false) {
+    //     this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
+    //   }
+    // })
+
+
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.CommunityWaterManagement.setValue(data)
