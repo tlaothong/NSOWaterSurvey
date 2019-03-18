@@ -85,15 +85,19 @@ export class CommunityWaterManagementPage {
       'communityProject': [null],
       'status': null
     })
+    
     this.formDataCom$.subscribe(data => {
       if (data != null) {
         this.formDataCom.setValue(data);
         this.CommunityWaterManagement.setValue(data.management);
       }
     });
+
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.DataStoreWorkEaOneRecord = data;
+        console.log(this.DataStoreWorkEaOneRecord);
+        
       }
     });
 
