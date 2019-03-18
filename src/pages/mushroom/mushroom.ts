@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -25,25 +26,15 @@ export class MushroomPage {
   private formData: any;
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
-
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
+      'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': this.fb.array([]),
     });
     this.setupPlantingCountChanges()
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.f.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -60,6 +51,7 @@ export class MushroomPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.agriculture.mushroomPlant = this.f.value;
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();

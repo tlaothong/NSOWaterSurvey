@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWaterSourcesRice } from '../../states/household/household.actions';
 import { ModalController } from 'ionic-angular';
+import { CountComponent } from '../count/count';
 
 @Component({
   selector: 'field-farming',
@@ -24,6 +25,7 @@ export class FieldFarmingComponent implements ISubmitRequestable {
   @ViewChildren(FieldRiceHarvestComponent) private riceHarvests: FieldRiceHarvestComponent[];
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(WaterSources8AComponent) private waterSources8A: WaterSources8AComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
@@ -46,22 +48,13 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     return fg
   }
 
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem.get(item).setValue(data);
-      }
-    });
-    modal.present();
-  }
-
   submitRequest() {
     this.submitRequested = true;
     this.fieldAreas.forEach(it => it.submitRequest());
     this.riceHarvests.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources8A.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
     console.log("waterRice", this.FormItem.get('waterSources').value);
     // this.dispatchWaterSource();

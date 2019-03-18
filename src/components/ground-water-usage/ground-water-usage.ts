@@ -6,6 +6,7 @@ import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem6Component } from '../water-problem6/water-problem6';
 import { ModalController } from 'ionic-angular';
 import { LocationComponent } from '../location/location';
+import { CountComponent } from '../count/count';
 
 @Component({
   selector: 'ground-water-usage',
@@ -32,6 +33,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   @ViewChildren(WaterActivity6Component) public waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem6Component) public waterProblem6: WaterProblem6Component[];
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
@@ -48,7 +50,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
       // 'cubicMeterPerMonth': [null],
       // 'waterBill': [null],
       'hasPump': [null, Validators.required],
-      'pumpCount': [0, Validators.required],
+      'pumpCount': [0, [Validators.required, Validators.min(1)]],
       'location': LocationComponent.CreateFormGroup(fb),
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
@@ -59,16 +61,6 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     });
     GroundWaterUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   public checkValid(): boolean {
@@ -113,6 +105,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
   }
 
   public isValid(name: string): boolean {

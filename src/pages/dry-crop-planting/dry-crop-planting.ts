@@ -9,6 +9,7 @@ import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, Lo
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 
 export class DryCropPlantingPage {
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private frontNum: any;
   private backNum: any;
 
@@ -31,20 +33,10 @@ export class DryCropPlantingPage {
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
+      "fieldCount": [null, [Validators.required, Validators.min(1)]],
       "fields": this.fb.array([]),
     });
     this.setupFieldCountChanges();
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.agronomyPlant.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.agronomyPlant.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -60,6 +52,7 @@ export class DryCropPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     let fields = this.agronomyPlant.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {

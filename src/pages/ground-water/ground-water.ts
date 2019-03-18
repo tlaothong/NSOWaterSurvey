@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class GroundWaterPage {
 
   @ViewChildren(GroundWaterUsagePublicComponent) private groundWaterUsagePublic: GroundWaterUsagePublicComponent[];
   @ViewChildren(GroundWaterUsageComponent) public groundWaterUsage: GroundWaterUsageComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   private submitRequested: boolean;
   public f: FormGroup;
@@ -70,7 +72,7 @@ export class GroundWaterPage {
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'allCount': [null, [Validators.required, Validators.min(1)]],
-        'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
+        'waterResourceCount': [null, Validators.required],
         'waterResources': this.fb.array([])
       }),
       'publicGroundWater': this.fb.group({
@@ -83,16 +85,6 @@ export class GroundWaterPage {
       });
     this.setupuseGroundWaterCountChanges();
     this.setupusePublicGroundWaterCountChanges();
-  }
-  
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.f.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -170,9 +162,9 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.groundWater = this.f.value;
-    console.log(this.checkvalid());
-    
+
     if (this.isCheck() && this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -194,7 +186,7 @@ export class GroundWaterPage {
     let ischeckGroundWater = this.groundWaterUsage.find(it => !it.checkValid()) ? false : true;
     return (this.f.get('privateGroundWater.doing').value) ?
       (this.f.get('privateGroundWater.allCount').valid
-        && this.f.get('privateGroundWater.waterResourceCount').invalid
+        && this.f.get('privateGroundWater.waterResourceCount').valid
         && ischeckGroundWater)
       : this.f.get('privateGroundWater.doing').valid;
   }

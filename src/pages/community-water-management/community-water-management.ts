@@ -16,6 +16,7 @@ import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { subDistrictData } from '../../models/SubDistrictData';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -28,6 +29,7 @@ export class CommunityWaterManagementPage {
   @ViewChildren(DisasterWarningMethodsComponent) private disasterWarningMethods: DisasterWarningMethodsComponent[];
   @ViewChildren(DetailWaterManagementComponent) private detailWaterManagement: DetailWaterManagementComponent[];
   @ViewChildren(DetailOrgWaterSupplyComponent) private detailOrgWaterSupply: DetailOrgWaterSupplyComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   // @ViewChildren(ManagementForFarmingPage) private managementForFarming: ManagementForFarmingPage;
 
   public CommunityWaterManagement: FormGroup;
@@ -72,16 +74,6 @@ export class CommunityWaterManagementPage {
     }, {
         validator: CommunityWaterManagementPage.checkAnyOrOther()
       });
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.CommunityWaterManagement.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.CommunityWaterManagement.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -192,6 +184,7 @@ export class CommunityWaterManagementPage {
     this.detailWaterManagement.forEach(it => it.submitRequest());
     this.detailOrgWaterSupply.forEach(it => it.submitRequest());
     this.naturalDisaster.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
     if (this.formDataCom.get('_id').value == null) {
       this.formDataCom.get('_id').setValue(Guid.create().toString());

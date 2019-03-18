@@ -1,3 +1,4 @@
+import { CountComponent } from './../count/count';
 import { ModalController } from 'ionic-angular';
 import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
@@ -19,7 +20,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   @Input('no') public no: string;
 
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
-
+  @ViewChildren(CountComponent) private count: CountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
 
   private submitRequested: boolean;
@@ -46,16 +47,6 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     );
     CrocodileFarmingComponent.setupFieldCountChanges(fb, fg);
     return fg;
-  }
-  
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   checkCrocValid() {
@@ -84,6 +75,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       this.FormItem.get('fields').setValue(val)
     }
     this.poolArea.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     // this.dispatchWaterSource();
   }

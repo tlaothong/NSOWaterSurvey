@@ -54,28 +54,15 @@
               </ion-label>
             </ion-item>
 
-            <ion-row>
-              <ion-col col-10>
-                <ion-item>
-                  <ion-input (ionChange)="check()" type="number" placeholder="กรอกข้อมูล"
-                    formControlName="waterResourceCount"
-                    [class.invalid]="isValid('privateGroundWater.waterResourceCount') || (checked)" [disabled]="true">
-                  </ion-input>
-                  </ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col col-2>
-                <button ion-button block type="button"
-                  (click)="presentModalCount('privateGroundWater.waterResourceCount','จำนวนบ่อน้ำบาดาล')">แก้ไข</button>
-              </ion-col>
-            </ion-row>
+            <count [title]="'จำนวนบ่อน้ำบาดาล'" [FormItem]="f" [count]="'privateGroundWater.waterResourceCount'">
+            </count>
 
             <ion-item *ngIf="isValid('privateGroundWater.waterResourceCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
-            <ion-item *ngIf="(checked)">
+            <ion-item *ngIf="check()">
               <span class="invalid-msg">
                 กรุณาเช็คจำนวนบ่อจากข้อ 5.2.2
               </span>
@@ -129,18 +116,8 @@
               </ion-label>
             </ion-item>
 
-            <ion-row>
-              <ion-col col-10>
-                <ion-item>
-                  <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount"
-                    [class.invalid]="isValid('publicGroundWater.waterResourceCount')" [disabled]="true"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col col-2>
-                <button ion-button block type="button"
-                  (click)="presentModalCount('publicGroundWater.waterResourceCount','จำนวนบ่อ')">แก้ไข</button>
-              </ion-col>
-            </ion-row>
+            <count [title]="'จำนวนบ่อ'" [FormItem]="f" [count]="'publicGroundWater.waterResourceCount'">
+            </count>
 
             <ion-item *ngIf="isValid('publicGroundWater.waterResourceCount')">
               <span class="invalid-msg">

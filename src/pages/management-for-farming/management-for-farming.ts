@@ -11,6 +11,7 @@ import { CommunityWaterManagementPage } from '../community-water-management/comm
 import { SetCommunity } from '../../states/community/community.actions';
 import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
 import { Storage } from '@ionic/storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ import { Storage } from '@ionic/storage';
 export class ManagementForFarmingPage {
 
   @ViewChildren(DetailManagementForFarmingComponent) private detailManagementForFarming: DetailManagementForFarmingComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   // @ViewChildren(CommunityWaterManagementPage) private communityWaterManagement: CommunityWaterManagementPage;
 
   public managementforfarming: FormGroup;
@@ -50,16 +52,6 @@ export class ManagementForFarmingPage {
         validator: ManagementForFarmingPage.checkAnyOrOther()
       });
   }
-  
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.managementforfarming.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.managementforfarming.get(item).setValue(data);
-      }
-    });
-    modal.present();
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManagementForFarmingPage');
@@ -75,6 +67,7 @@ export class ManagementForFarmingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.detailManagementForFarming.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.status = "done-all"
     this.formData.communityProject = this.managementforfarming.value;
     if (this.managementforfarming.valid) {
