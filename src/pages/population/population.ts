@@ -8,10 +8,10 @@ import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../..
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -28,7 +28,7 @@ export class PopulationPage {
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private formData$ = this.store.select(getHouseHoldSample);
   public dataPop: any
-  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  // private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;
   public pro: Province;
@@ -39,7 +39,7 @@ export class PopulationPage {
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'personCount': [null, Validators.required],
       'persons': this.fb.array([])
@@ -66,9 +66,9 @@ export class PopulationPage {
       }
     });
 
-    this.getIdHomes$.subscribe(data => this.str = data);
+    // this.getIdHomes$.subscribe(data => this.str = data);
 
-    this.getIdHomes = this.str.substring(0, 2); //10
+    this.getIdHomes = this.appState.eaCode.substring(0, 2); // this.str.substring(0, 2); //10
     this.pro = provinceData.find(it => it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;
     this.i = this.navParams.get('i');

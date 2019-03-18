@@ -10,10 +10,10 @@ import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsF
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getIdEsWorkHomes } from '../../states/logging';
 import { subDistrictData } from '../../models/SubDistrictData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -52,7 +52,7 @@ export class PlumbingPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
-  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  // private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   private getIdHomes: any;
 
   public subDistrict: any;
@@ -60,7 +60,7 @@ export class PlumbingPage {
   public PWA: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],
@@ -136,16 +136,22 @@ export class PlumbingPage {
       this.activityCommercial = (data != null) ? data.plumbing : null;
     });
     this.changeValueActivity();
-    this.getIdHomes$.subscribe(data => {
-      this.getIdHomes = data
-      console.log(this.getIdHomes);
 
-      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
-      console.log(this.subDistrict);
+    var cwtamptam = this.appState.eaCode.substr(1, 6);
+    console.log(cwtamptam);
+    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(cwtamptam));
+    this.MWA = this.subDistrict.MWA;
+    this.PWA = this.subDistrict.PWA;
+    // this.getIdHomes$.subscribe(data => {
+    //   this.getIdHomes = data
+    //   console.log(this.getIdHomes);
 
-      this.MWA = this.subDistrict.MWA;
-      this.PWA = this.subDistrict.PWA;
-    })
+    //   this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
+    //   console.log(this.subDistrict);
+
+    //   this.MWA = this.subDistrict.MWA;
+    //   this.PWA = this.subDistrict.PWA;
+    // })
 
   }
 

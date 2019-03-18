@@ -27,10 +27,10 @@ export const getCountHomeBuilding = createSelector(
     getLoggingFeatureState,
     state => state.countOfBuilding,
 );
-export const getIdEsWorkHomes = createSelector(
-    getLoggingFeatureState,
-    state => state.idHomes,
-);
+// export const getIdEsWorkHomes = createSelector(
+//     getLoggingFeatureState,
+//     state => state.idHomes,
+// );
 export const getDataBuilding = createSelector(
     getLoggingFeatureState,
     state => state.dataBuilding,

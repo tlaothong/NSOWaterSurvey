@@ -8,7 +8,8 @@ import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {} from '../../states/bootup';
 import { BootupState } from '../../states/bootup/bootup.reducer';
-import { LoadBootstrap, LoginUser } from '../../states/bootup/bootup.actions';
+import { LoadBootstrap, LoginUser, DownloadUserToMobile } from '../../states/bootup/bootup.actions';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,7 @@ export class LoginPage {
 
   public dataEa: any;
   public userObj: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
     this.userData = null;
   }
 
@@ -37,8 +38,16 @@ export class LoginPage {
   goConfirmloginPage(event: any) {
     /********************** */
     console.log('Login and LoadBootstrap!');
-    this.store.dispatch(new LoginUser(event.idUser._value));
-    this.navCtrl.push("GetworkPage");
+    var userId = event.idUser.value;
+    this.store.dispatch(new LoginUser(userId));
+    this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+      if (hasDownloaded) {
+        this.store.dispatch(new DownloadUserToMobile());
+        this.navCtrl.setRoot("SelectEaPage");
+      } else {
+        this.navCtrl.push("GetworkPage");
+      }
+    });
     /********************** */
     // let data = {
     //   idUser: event.idUser._value,

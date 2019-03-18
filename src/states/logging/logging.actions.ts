@@ -15,9 +15,9 @@ export enum LoggingTypes {
     LoadHomeBuildingSuccess = "[L] Load Home Building Success",
     LoadCountOfHomeBuilding = "[L] Load Count Home Building",
     LoadCountOfHomeBuildingSuccess = "[L] Load Count Home Building Success",
-    SetHomeBuilding = "[L] Set Home Building",
-    SetHomeBuildingSuccess = "[L] Set Home Building Success",
-    SetIdEaWorkHomes = "[L] Set Id Ea Work Homes",
+    // SetHomeBuilding = "[L] Set Home Building",
+    // SetHomeBuildingSuccess = "[L] Set Home Building Success",
+    // SetIdEaWorkHomes = "[L] Set Id Ea Work Homes",
     DeleteHomeBuilding = "[L] Delete HomeBuilding",
     DeleteHomeBuildingSuccess = "[L] Delete HomeBuilding Success",
     LoadDataBuildingForEdit = "[L] Load Data Building For Edit",
@@ -91,19 +91,19 @@ export class LoadCountOfHomeBuildingSuccess implements Action {
     constructor(public payload: any) { }
 }
 
-export class SetHomeBuilding implements Action {
-    readonly type = LoggingTypes.SetHomeBuilding;
-    constructor(public payload: any) { }
-}
+// export class SetHomeBuilding implements Action {
+//     readonly type = LoggingTypes.SetHomeBuilding;
+//     constructor(public payload: any) { }
+// }
 
-export class SetHomeBuildingSuccess implements Action {
-    readonly type = LoggingTypes.SetHomeBuildingSuccess;
-    constructor() { }
-}
-export class SetIdEaWorkHomes implements Action {
-    readonly type = LoggingTypes.SetIdEaWorkHomes;
-    constructor(public payload: string) { }
-}
+// export class SetHomeBuildingSuccess implements Action {
+//     readonly type = LoggingTypes.SetHomeBuildingSuccess;
+//     constructor() { }
+// }
+// export class SetIdEaWorkHomes implements Action {
+//     readonly type = LoggingTypes.SetIdEaWorkHomes;
+//     constructor(public payload: string) { }
+// }
 
 export class DeleteHomeBuilding implements Action {
     readonly type = LoggingTypes.DeleteHomeBuilding;
@@ -195,7 +195,7 @@ export type LoggingActionsType =
     | LoadHomeBuildingSuccess
     | LoadCountOfHomeBuilding
     | LoadCountOfHomeBuildingSuccess
-    | SetIdEaWorkHomes
+    // | SetIdEaWorkHomes
     | DeleteHomeBuilding
     | DeleteHomeBuildingSuccess
     | LoadDataBuildingForEdit

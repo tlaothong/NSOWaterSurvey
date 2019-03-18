@@ -1,11 +1,10 @@
-import { SetHomeBuildingSuccess } from './../../states/building/building.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, AlertController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetIdEaWorkHomes, LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit, LoadCommunityForEditSuccess } from '../../states/logging/logging.actions';
+import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit, LoadCommunityForEditSuccess } from '../../states/logging/logging.actions';
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -15,6 +14,7 @@ import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.ac
 import { shiftInitState } from '@angular/core/src/view';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
 
@@ -43,15 +43,14 @@ export class HomesPage {
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
 
-  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>) {
+  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();
+    console.log('User Id: ' + this.appState.userId);
+    console.log('EA Code: ' + this.appState.eaCode);
   }
 
   public showQuickMenu(myEvent) {
-    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent, {
-      data: this.dataWorkEARow,
-      str: this.str
-    });
+    let popover = this.popoverCtrl.create(QuestionnaireHomeComponent);
     popover.present({
       ev: myEvent
     });
@@ -73,20 +72,22 @@ export class HomesPage {
     //   }
     // });
 
-    // this.storage.get(this.dataWorkEARow._id).then((data) => {
-    //   if (data != null) {
-    //     this.dataEa = data
-    //     this.listFilter = this.dataEa;
-    //     console.log(this.dataEa)
-    //   }
-    // });
+    var eaCode = this.appState.eaCode;
 
-    // this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
-    //   if (val != null) {
-    //     this.dataCommunity = val
-    //     console.log(this.dataCommunity);
-    //   }
-    // })
+    this.storage.get(eaCode).then((data) => {
+      if (data != null) {
+        this.dataEa = data
+        this.listFilter = this.dataEa;
+        console.log(this.dataEa)
+      }
+    });
+
+    this.storage.get("CL" + eaCode).then((val) => {
+      if (val != null) {
+        this.dataCommunity = val
+        console.log(this.dataCommunity);
+      }
+    })
   }
   filterRefresh() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
@@ -137,8 +138,8 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.storeBuild.dispatch(new SetHomeBuildingSuccess(null));
-      this.navCtrl.push("BuildingInformation1Page", { id: null })
+      this.storeBuild.dispatch(new SetHomeBuilding(null));
+      this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.storeLogging.dispatch(new LoadCommunityForEditSuccess(null));
@@ -151,8 +152,8 @@ export class HomesPage {
       //this.swith.updateBuildingState(item._id);
       this.storage.get(item._id).then((val) => {
         console.log(val);
-        this.storeBuild.dispatch(new SetHomeBuildingSuccess(val));
-        this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
+        this.storeBuild.dispatch(new SetHomeBuilding(val));
+        this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
         // switch (val.status) {
         //   case 'refresh':
         //     this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });

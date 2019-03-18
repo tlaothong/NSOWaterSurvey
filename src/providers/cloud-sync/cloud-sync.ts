@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { EA } from '../../states/bootup/bootup.reducer';
 
 @Injectable()
 export class CloudSyncProvider {
@@ -11,6 +12,14 @@ export class CloudSyncProvider {
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
   }
+
+  public downloadCloudUpdate(userId: string): Observable<EA[]> {
+    return <Observable<any>>(this.http.get('http://water.surveydb.app/api/MobileConnect/' + userId));
+  }
+
+  /*************************
+   * ของเก่า
+   *************************/
 
   public setHouseHold(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);

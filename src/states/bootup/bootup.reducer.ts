@@ -1,4 +1,5 @@
 import { BootupActionsType, BootupTypes } from "./bootup.actions";
+import { AppStateProvider } from "../../providers/app-state/app-state";
 
 
 export interface BootupState {
@@ -56,7 +57,7 @@ export function reducer(state: BootupState = initialState, action: BootupActions
                 ...state,
                 EAs: action.eas,
             };
-        case BootupTypes.SetCurrentWorkingEA:
+        case BootupTypes.CurrentWorkingEaChanged:
             return {
                 ...state,
                 currentEaCode: action.payload,

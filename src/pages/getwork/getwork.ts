@@ -7,6 +7,8 @@ import { LoadDataWorkEAByUserId, LoadCountOfWorks } from '../../states/logging/l
 import { Storage } from '@ionic/storage';
 import { DownloadUserToMobile } from '../../states/bootup/bootup.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
+import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
 @IonicPage()
@@ -20,10 +22,10 @@ export class GetworkPage {
   private formDataEa$ = this.store.select(getDataWorkEA);
   public dataEa: any;
   public userInfo: any;
-  public eaList:any[];
+  public eaList$ = this.cloudSync.downloadCloudUpdate(this.appState.userId).delay(99).retry(3);
   public isWork: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>, private storage: Storage, public alertController: AlertController) {
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>, private storage: Storage, public alertController: AlertController, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
   }
 
   async presentAlert() {
