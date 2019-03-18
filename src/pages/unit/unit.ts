@@ -1,6 +1,6 @@
 import { UnitButtonComponent } from './../../components/unit-button/unit-button';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -27,7 +27,7 @@ export class UnitPage {
   public units: any;
   public FormItem: FormGroup;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
@@ -56,6 +56,7 @@ export class UnitPage {
       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
     });
     console.log(this.f.get('units').value);
+    this.presentLoading();
   }
 
   private setupUnitsCountChanges() {
@@ -86,6 +87,13 @@ export class UnitPage {
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
+  }
+  presentLoading() {
+    const loader = this.loadingCtrl.create({
+      content: "กรุณารอสักครู่...",
+      duration: 1500
+    });
+    loader.present();
   }
 
   deleteUnit(HH: any) {
