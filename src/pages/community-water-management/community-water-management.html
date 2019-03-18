@@ -43,18 +43,7 @@
             </ion-label>
           </ion-item>
 
-          <ion-row>
-            <ion-col col-10>
-              <ion-item>
-                <ion-input formControlName="publicWaterCount" [class.invalid]="isValid('publicWaterCount')"
-                  type="number" placeholder="กรอกข้อมูล" [disabled]="true"></ion-input>
-              </ion-item>
-            </ion-col>
-            <ion-col col-2>
-              <button ion-button block type="button"
-                (click)="presentModalCount('publicWaterCount','จำนวนแหล่งน้ำ')">แก้ไข</button>
-            </ion-col>
-          </ion-row>
+          <count [title]="'จำนวนแหล่งน้ำ'" [FormItem]="CommunityWaterManagement" [count]="'publicWaterCount'"></count>
 
           <ion-item *ngIf="isValid('publicWaterCount')">
             <span class="invalid-msg">
@@ -198,18 +187,8 @@
                 </ion-label>
               </ion-item>
 
-              <ion-row>
-                <ion-col col-10>
-                  <ion-item>
-                    <ion-input formControlName="waterServiceCount" [class.invalid]="isValid('waterServiceCount')"
-                      type="number" placeholder="กรอกข้อมูล" [disabled]="true"></ion-input>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-2>
-                  <button ion-button block type="button"
-                    (click)="presentModalCount('waterServiceCount','จำนวนแหล่งผลิตน้ำประปาอื่นๆ')">แก้ไข</button>
-                </ion-col>
-              </ion-row>
+              <count [title]="'จำนวนแหล่งผลิตน้ำประปาอื่นๆ'" [FormItem]="CommunityWaterManagement"
+                [count]="'waterServiceCount'"></count>
 
               <ion-item *ngIf="isValid('waterServiceCount')">
                 <span class="invalid-msg">

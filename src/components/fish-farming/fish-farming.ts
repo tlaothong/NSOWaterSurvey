@@ -7,6 +7,7 @@ import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, Set
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { ModalController } from 'ionic-angular';
+import { CountComponent } from '../count/count';
 
 @Component({
   selector: 'fish-farming',
@@ -19,6 +20,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
   @Input('type') public type: string;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
@@ -48,16 +50,6 @@ export class FishFarmingComponent implements ISubmitRequestable {
     return fg;
   }
 
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem.get(item).setValue(data);
-      }
-    });
-    modal.present();
-  }
-
   submitRequest() {
     this.submitRequested = true;
     if (this.FormItem.get('fieldsAreSameSize').value) {
@@ -68,6 +60,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
       this.FormItem.get('fields').setValue(val)
     }
     this.poolArea.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     // this.dispatchWaterSource();
   }

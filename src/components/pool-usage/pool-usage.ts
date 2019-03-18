@@ -5,6 +5,7 @@ import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem4Component } from '../water-problem4/water-problem4';
 import { ModalController } from 'ionic-angular';
+import { CountComponent } from '../count/count';
 
 @Component({
   selector: 'pool-usage',
@@ -32,6 +33,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = '1';
@@ -43,7 +45,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
       'hasCubicMeterPerMonth': [null, Validators],
       'cubicMeterPerMonth': [null, Validators],
       'hasPump': [null, Validators],
-      'pumpCount': [0, Validators],
+      'pumpCount': [0, [Validators.required, Validators.min(1)]],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': WaterProblem4Component.CreateFormGroup(fb)
@@ -53,22 +55,13 @@ export class PoolUsageComponent implements ISubmitRequestable {
     PoolUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
   }
-  
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.FormItem.get(item).setValue(data);
-      }
-    });
-    modal.present();
-  }
 
   submitRequest() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
   }
 
   checkValid(): boolean {

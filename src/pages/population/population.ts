@@ -12,6 +12,7 @@ import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -38,23 +39,14 @@ export class PopulationPage {
   private backNum: any;
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
-      'personCount': [null, Validators.required],
+      'personCount': [null, [Validators.required,Validators.min(1)]],
       'persons': this.fb.array([])
     }),
       this.setupPersonCountChanges();
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.f.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -77,6 +69,7 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.dataPop.population = this.f.value
     // this.dataPop.status = "complete"
     if (this.f.valid && this.isCheckHaveHeadfamily()) {

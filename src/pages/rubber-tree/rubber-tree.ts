@@ -11,6 +11,7 @@ import { SetRubberTreeSelectPlant, SetAgiSelectRubber, SetSelectorIndex, LoadHou
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 export class RubberTreePage {
 
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   public rubbertree: FormGroup;
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getHouseHoldSample);
@@ -32,21 +34,11 @@ export class RubberTreePage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
+      "fieldCount": [null, [Validators.required, Validators.min(1)]],
       'fields': fb.array([]),
     });
 
     this.setupFieldCountChanges();
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.rubbertree.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.rubbertree.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -62,6 +54,7 @@ export class RubberTreePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     // this.store.dispatch(new SetAgiSelectRubber(true));
     this.formData.agriculture.rubberTree = this.rubbertree.value;

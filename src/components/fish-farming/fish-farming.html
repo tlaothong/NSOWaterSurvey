@@ -70,20 +70,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-row>
-          <ion-col col-10>
-            <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount"
-                [class.invalid]="isValid('fieldCount')" [disabled]="true"></ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col col-2>
-            <button ion-button block type="button"
-              (click)="presentModalCount('fieldCount','จำนวนบ่อหรือร่องสวน')">แก้ไข</button>
-          </ion-col>
-        </ion-row>
-
-
+        <count [title]="'จำนวนบ่อหรือร่องสวน'" [FormItem]="FormItem" [count]="'fieldCount'"></count>
 
         <ion-item *ngIf="isValid('fieldCount')">
           <span class="invalid-msg">

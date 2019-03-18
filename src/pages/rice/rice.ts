@@ -1,3 +1,4 @@
+import { CountComponent } from './../../components/count/count';
 import { SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
@@ -24,29 +25,20 @@ export class RicePage {
   private backNum: any;
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   public DataList = EX_RICH_LIST;
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private data: any
   formData$: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
+      'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': this.fb.array([]),
     });
     this.setupFieldCountChanges();
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.f.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -62,6 +54,7 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     // this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));

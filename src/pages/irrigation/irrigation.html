@@ -96,18 +96,7 @@
               </ion-label>
             </ion-item>
 
-            <ion-row>
-              <ion-col col-10>
-                <ion-item>
-                  <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="pumpCount"
-                    [class.invalid]="isValid('pumpCount')" [disabled]="true"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col col-2>
-                <button ion-button block type="button"
-                  (click)="presentModalCount('pumpCount','จำนวนเครื่องสูบน้ำ')">แก้ไข</button>
-              </ion-col>
-            </ion-row>
+            <count [title]="'จำนวนเครื่องสูบน้ำ'" [FormItem]="f" [count]="'pumpCount'"></count>
 
             <ion-item *ngIf="isValid('pumpCount')">
               <span class="invalid-msg">

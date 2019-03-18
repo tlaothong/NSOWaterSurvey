@@ -11,6 +11,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class IrrigationPage {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
@@ -69,16 +71,6 @@ export class IrrigationPage {
         validator: IrrigationPage.checkAnyOrOther()
       });
     this.setupPumpCountChanges()
-  }
-
-  presentModalCount(item: string, title: string) {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.f.get(item).value, title: title });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.f.get(item).setValue(data);
-      }
-    });
-    modal.present();
   }
 
   ionViewDidLoad() {
@@ -149,6 +141,7 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.irrigation = this.f.value
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
