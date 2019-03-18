@@ -394,12 +394,10 @@ function resetStatesForModel(model: any): any {
             isFactorial: model.isFactorial,
             isCommercial: model.isCommercial,
         }
-
         numberRoomUnit = model.subUnit.roomNumber;
     }
 
     let objAgri = {};
-
     let ag = model && model.agriculture;
     let riceDoing = ag && ag.ricePlant.doing;
     let rubberDoing = ag && ag.rubberTree.doing;
@@ -432,9 +430,7 @@ function resetStatesForModel(model: any): any {
 
         if (riceDoing) {
             listRice = EX_RICH_LIST;
-
         }
-
         if (rubberDoing) {
             listRubber = EX_RUBBER_LIST;
         }
@@ -724,39 +720,6 @@ function findWaterSourceMushroom(water) {
     }
     return waterSourceMushroom
 }
-
-// function findWaterSourceAnimalFarm(water) {
-//     let fields = water && water.fields;
-//     let waterSourceAnimalFarm = {
-//         plumbing: false,
-//         underGround: false,
-//         river: false,
-//         pool: false,
-//         irrigation: false,
-//         rain: false,
-//         buying: false,
-//         rainingAsIs: false,
-//         hasOther: false,
-//         other: "water",
-//     };
-//     fields.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAnimalFarm = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     return waterSourceAnimalFarm
-// }
 
 function findWaterSourceAquticAnimals(water) {
     let fish = water && water.fish;
