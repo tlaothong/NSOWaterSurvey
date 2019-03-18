@@ -87,8 +87,17 @@ export class UnitPage {
 
     onComponentCountChanges();
   }
-  deleteUnit(){
-    
+
+  deleteUnit(HH: any) {
+    let keyHH = HH._id;
+    let keyBD = "BL" + HH.buildingId;
+    this.storage.get(keyBD).then((val) => {
+      let BDList = val;
+      let index = BDList.findIndex(it => it._id == HH._id);
+      BDList.splice(index, 1);
+      this.storage.set(keyBD, BDList);
+      this.storage.remove(keyHH)
+    })
   }
 
 }
