@@ -23,6 +23,13 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.get('uea' + userId));
   }
 
+  /**
+   * รายการ EAs ได้ถูก Download แล้วหรือยัง?f
+   */
+  public hasEasDownloaded(userId: string): Observable<boolean> {
+    return Observable.fromPromise(this.storage.get('uea' + userId)).map(it => it != null);
+  }
+
   /*********** */
 
   /**
