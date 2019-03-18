@@ -162,9 +162,6 @@ export class WaterActivityUnitPage {
       console.log(this.dataHouseHold);
       this.navCtrl.push("CheckListPage", { id: this.dataHouseHold._id });
     }
-
-    // this.checkNextPage();
-
   }
 
   arrayNextPageMedthod() {

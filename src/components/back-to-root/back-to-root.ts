@@ -38,7 +38,7 @@ export class BackToRootComponent {
   backToRoot() {
     this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
     if (this.unitCount == 1 && this.isWaterAct) {
-      this.navCtrl.popTo(this.navCtrl.getByIndex(1));
+      this.navCtrl.popTo(this.navCtrl.getByIndex(2));
     }
     else {
       this.store.dispatch(new SetSelectorIndex(-1));
