@@ -59,7 +59,12 @@ export class LocalStorageProvider {
           if (find.status != dataHousehold.status && (find.status == "complete" || dataHousehold.status == "complete")) {
             console.log("1111111");
 
-            building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
+            // building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
+
+            this.storage.get('BL' + find.buildingId).then((val) => {
+              building.unitCountComplete += val.filter((it) => it.status == "complete") ? 1 : -1;
+            });
+
             console.log(building.unitCountComplete);
             if (building.unitCountComplete == building.unitCount) {
               building.status = "done-all";
