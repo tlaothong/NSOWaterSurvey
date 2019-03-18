@@ -36,21 +36,21 @@
     </ion-row>
  
     <!-- รอ blind ข้อมูล -->
-    <ion-row *ngFor="let item of eaList" text-center align-items-center>
+    <ion-row *ngFor="let item of eaList$ | async" text-center align-items-center>
         <ion-col col-2>
-          {{ item.province }}
+          {{ item.CWT_NAME }}
         </ion-col>
         <ion-col col-2>
-          {{ item.district }}
+          {{ item.AMP_NAME }}
         </ion-col>
         <ion-col col-2>
-          {{ item.subDistrict }}
+          {{ item.TAM_NAME }}
         </ion-col>
         <ion-col col-2>
-          {{ item.zone }}
+          {{ item.DISTRICT }}
         </ion-col>
         <ion-col col-2>
-          {{ item.communityName }}
+          {{ item.MUN_NAME }}{{ item.TAO_NAME }}
         </ion-col>
         <ion-col col-1>
           {{ item._id }}
