@@ -65,7 +65,7 @@
     "plugins": {
       "cordova-plugin-ionic": {
         "APP_ID": "051dd5e2",
-        "CHANNEL_NAME": "UI",
+        "CHANNEL_NAME": "Dev",
         "UPDATE_METHOD": "auto"
       },
       "cordova-plugin-whitelist": {},
