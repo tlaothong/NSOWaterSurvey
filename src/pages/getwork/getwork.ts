@@ -78,11 +78,4 @@ export class GetworkPage {
     //   }
     // });
   }
-
-  goBack() {
-    this.navCtrl.pop();
-  }
-
-
-
 }

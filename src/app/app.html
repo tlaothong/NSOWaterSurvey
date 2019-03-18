@@ -26,6 +26,13 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+      <button ion-button block icon-start type="button" (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+        ออกจากระบบ (log out)
+      </button>
+      <ion-item>
+        สำรวจน้ำ v.0.0.3
+      </ion-item>
     </ion-list>
   </ion-content>
 
