@@ -30,7 +30,7 @@ export class GetworkPage {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      title: 'โหลดงานสำเร็จ',
+      title: 'โหลดงานสำเร็จแล้ว',
       enableBackdropDismiss: false,
       buttons: [
         {
