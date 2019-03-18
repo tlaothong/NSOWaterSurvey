@@ -23,8 +23,8 @@ export class FirstloginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder, private alertCtrl: AlertController) {
     this.f = this.fb.group({
       '_idqr': [null],
-      'idUser': [null],
-      'password': [null],
+      'idUser': "4050084",
+      'password': null,
       'name': [null],
       'email': [null],
       'idEA': [null]
@@ -42,22 +42,22 @@ export class FirstloginPage {
 
 
   goConfirmloginPage(confirmPassword: any) {
-    let _idqr = this.f.get('_idqr').value;
-    let password = this.f.get('password').value;
+    // let _idqr = this.f.get('_idqr').value;
+    // let password = this.f.get('password').value;
 
-    let alert = this.alertCtrl.create({
-      message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
-      buttons: ['ยืนยัน']
-    });
+    // let alert = this.alertCtrl.create({
+    //   message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
+    //   buttons: ['ยืนยัน']
+    // });
 
-    if (password == confirmPassword) {
-      this.store.dispatch(new SetUserPassword({
-        _idqr,
-        password
-      }));
-      this.navCtrl.pop();
-    } else {
-      alert.present()
-    }
+    // if (password == confirmPassword) {
+    //   this.store.dispatch(new SetUserPassword({
+    //     _idqr,
+    //     password
+    //   }));
+      this.navCtrl.setRoot("LoginPage");
+    // } else {
+    //   alert.present()
+    // }
   }
 }

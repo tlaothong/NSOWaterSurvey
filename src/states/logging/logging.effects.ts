@@ -7,8 +7,10 @@ import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import {
     LoggingTypes, LoadUserDataSuccess, SetUserPasswordSuccess, SetUserPassword,
     LoadUserDataByQRCode, LoadCountOfWorksSuccess,
-    LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, SetHomeBuilding,
-    SetHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, LoadDataWorkEAByUserId, LoadHomeBuilding, DeleteHomeBuildingSuccess, DeleteHomeBuilding, LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess, SetLogin, SetLoginSuccess, LoadCommunity, LoadCommunitySuccess, LoadCommunityForEdit, LoadCommunityForEditSuccess,
+    LoadHomeBuildingSuccess, LoadCountOfHomeBuildingSuccess, LoadUserDataById, LoadDataWorkEAByUserIdSuccess, 
+    LoadDataWorkEAByUserId, LoadHomeBuilding, DeleteHomeBuildingSuccess, DeleteHomeBuilding, 
+    LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess, SetLogin, SetLoginSuccess, LoadCommunity, 
+    LoadCommunitySuccess, LoadCommunityForEdit, LoadCommunityForEditSuccess,
 } from "./logging.actions";
 
 @Injectable()
@@ -72,13 +74,13 @@ export class LoggingEffects {
         ),
     );
 
-    @Effect()
-    public SetHomeBuilding: Observable<Action> = this.action$.pipe(
-        ofType(LoggingTypes.SetHomeBuilding),
-        mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
-            map(data => new SetHomeBuildingSuccess())),
-        ),
-    );
+    // @Effect()
+    // public SetHomeBuilding: Observable<Action> = this.action$.pipe(
+    //     ofType(LoggingTypes.SetHomeBuilding),
+    //     mergeMap(action => this.cloudSync.setHomeBuilding((<SetHomeBuilding>action).payload).pipe(
+    //         map(data => new SetHomeBuildingSuccess())),
+    //     ),
+    // );
 
     @Effect()
     public DeleteHomeBuilding$: Observable<Action> = this.action$.pipe(

@@ -21,10 +21,10 @@ export class ConfirmloginPage {
   constructor(private fb: FormBuilder, private navCtrl: NavController, private store: Store<LoggingState>) {
     this.fg = fb.group({
       '_idqr': null,
-      'idUser': null,
+      'idUser': "4050084",
       'password': null,
-      'name': null,
-      'email': null,
+      'name': "ก๊ก ขอนแก่น",
+      'email': "pee@gmail.com",
       'idEA':[null]
     });
   }
@@ -35,6 +35,6 @@ export class ConfirmloginPage {
   }
 
   goGetworkPage() {
-    this.navCtrl.pop();
+    this.navCtrl.push("FirstloginPage");
   }
 }

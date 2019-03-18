@@ -19,10 +19,6 @@
         <ion-icon name="cloud-upload"></ion-icon>
         ส่งข้อมูล
       </button>
-      <button ion-button block icon-start type="button" (click)="goGetworkPage()">
-        <ion-icon name="cloud-download"></ion-icon>
-        ดาวน์โหลด
-      </button>
       <button ion-button block icon-start type="button" (click)="openManual()">
         <ion-icon name="md-document"></ion-icon>
         คู่มือการใช้งาน
@@ -30,6 +26,15 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+      <button ion-button block icon-start type="button" (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+        ออกจากระบบ (log out)
+      </button>
+      <ion-item>
+        <ion-icon name="pricetag" item-start></ion-icon>
+        แอพสำรวจน้ำ
+        <ion-note item-end>v.0.7.1</ion-note>
+      </ion-item>
     </ion-list>
   </ion-content>
 

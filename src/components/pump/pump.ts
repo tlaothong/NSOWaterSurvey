@@ -51,7 +51,7 @@ export class PumpComponent implements ISubmitRequestable {
   }
 
   public showModalArea() {
-    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text });
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.text, head: "เครื่องสูบน้ำที่" });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
@@ -101,7 +101,7 @@ export class PumpComponent implements ISubmitRequestable {
         return { 'pumpRate': true, }
       }
       if ((hasPumpRate.value == false)
-        && (energySource.value < 1)) {
+        && (energySource.value <= 0)) {
         return { 'energySource': true, }
       }
       if ((hasPumpRate.value == false)

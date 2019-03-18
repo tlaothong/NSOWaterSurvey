@@ -1,16 +1,16 @@
-<ion-list>
+<ion-list *ngIf="currentEA$ | async as ea">
   <ion-list-header>
-    {{ data.properties.pro_name }} <br />
-    {{ data.properties.dis_name }} <br />
-    {{ data.properties.tam_name }} <br />
-    {{ str }}
-    {{ data.properties.ea_code_14 }}
+    {{ ea.CWT_NAME }} <br />
+    {{ ea.AMP_NAME }} <br />
+    {{ ea.TAM_NAME }} <br />
+    <br />
+    <span text-wrap>{{ ea.REMARK }}</span>
   </ion-list-header>
 
   <div no-lines>
     <ion-item>
       <h3>
-        EA: {{data._id}}
+        EA: {{ ea.code.substr(0, 11) }} <b>{{ ea.EA }}</b>
       </h3>
     </ion-item>
   </div>
@@ -19,7 +19,7 @@
     <ion-icon name="md-refresh"></ion-icon>
     อัพเดทข้อมูล
   </button>
-  <button ion-item icon-start>
+  <button ion-item icon-start [navPush]="'EaMapPage'">
     <ion-icon name="map"></ion-icon>
     ดูแผนที่
   </button>

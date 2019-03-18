@@ -1,6 +1,6 @@
 <ion-header>
 
-  <questionnaire-menu title="ตอนที่ 1 ข้อมูลบ้าน/อาคาร/สิ่งปลูกสร้าง"></questionnaire-menu>
+  <questionnaire-menu title="ตอนที่ 1 ข้อมูลบ้าน/อาคาร/สิ่งปลูกสร้าง" isDisabled="true"></questionnaire-menu>
 
 </ion-header>
 
@@ -237,7 +237,7 @@
   </ion-card>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
-    <form-buttons-bar [isBuilding]="true"></form-buttons-bar>
+    <form-buttons-bar [isDisabled]="true"></form-buttons-bar>
   </form>
 
 

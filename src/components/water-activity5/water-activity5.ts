@@ -30,7 +30,13 @@ export class WaterActivity5Component {
 
   ngOnInit() {
     this.onChangeValue();
+    this.checkTotalActive();
+  }
 
+  checkTotalActive() {
+    if (!this.activeRes && !this.activeWateringRes && !this.activeAgi && !this.activeFac && !this.activeCom) {
+      this.resultSum = 100;
+    }
   }
 
   ngDoCheck() {
@@ -65,11 +71,11 @@ export class WaterActivity5Component {
     let isProduct = true;
     let isService = true;
 
-    isDrink = (this.FormItem.get('drink').value < 1 && this.activeRes) ? false : true;
-    isPlant = (this.FormItem.get('plant').value < 1 && this.activeWateringRes) ? false : true;
-    isAgriculture = (this.FormItem.get('agriculture').value < 1 && this.activeAgi) ? false : true;
-    isProduct = (this.FormItem.get('product').value < 1 && this.activeFac) ? false : true;
-    isProduct = (this.FormItem.get('service').value < 1 && this.activeCom) ? false : true;
+    isDrink = (this.FormItem.get('drink').value < 0 && this.activeRes) ? false : true;
+    isPlant = (this.FormItem.get('plant').value < 0 && this.activeWateringRes) ? false : true;
+    isAgriculture = (this.FormItem.get('agriculture').value < 0 && this.activeAgi) ? false : true;
+    isProduct = (this.FormItem.get('product').value < 0 && this.activeFac) ? false : true;
+    isProduct = (this.FormItem.get('service').value < 0 && this.activeCom) ? false : true;
 
     return this.resultSum == 100 && isDrink && isPlant && isAgriculture && isProduct && isService
   }

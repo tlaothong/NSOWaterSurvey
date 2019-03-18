@@ -6,6 +6,8 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { ModalController } from 'ionic-angular';
+import { CountComponent } from '../count/count';
 
 @Component({
   selector: 'fish-farming',
@@ -18,9 +20,10 @@ export class FishFarmingComponent implements ISubmitRequestable {
   @Input('type') public type: string;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.type = 'กก.';
   }
@@ -49,7 +52,15 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
+    if (this.FormItem.get('fieldsAreSameSize').value) {
+      let val = this.FormItem.get('fields').value
+      for (let index = 1; index < val.length; index++) {
+        val[index] = val[0]
+      }
+      this.FormItem.get('fields').setValue(val)
+    }
     this.poolArea.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     // this.dispatchWaterSource();
   }
@@ -71,13 +82,13 @@ export class FishFarmingComponent implements ISubmitRequestable {
       } else if ((hasOther.value == true) && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldCount.value < 1)) {
+      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
       if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldsAreSameSize.value == null)) {
         return { 'fieldsAreSameSize': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && ((animalsCount.value == null) || (animalsCount.value < 1))) {
+      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && ((animalsCount.value == null) || (animalsCount.value <= 0))) {
         return { 'animalsCount': true };
       }
       return null;

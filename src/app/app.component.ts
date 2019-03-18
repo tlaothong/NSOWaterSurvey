@@ -1,10 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
-
 
 @Component({
   templateUrl: 'app.html'
@@ -12,11 +9,11 @@ import { HomePage } from '../pages/home/home';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = "LoggingTestPage";
+  rootPage: any = "FirstpagePage";
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private menuCtrl: MenuController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -52,7 +49,7 @@ export class MyApp {
   }
 
   goSendPage() {
-    this.nav.setRoot("SendPage")
+    this.nav.push("SendPage")
   }
 
   /**
@@ -60,5 +57,10 @@ export class MyApp {
    */
   public openManual() {
     window.open('http://water.surveydb.app/assets/fi.pdf', '_system', 'location=yes');
+  }
+  
+  logOut() {
+    this.menuCtrl.close();
+    this.nav.setRoot("FirstpagePage");
   }
 }

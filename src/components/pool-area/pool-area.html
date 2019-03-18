@@ -12,6 +12,12 @@
         <span class="invalid-msg">กรุณาเลือกลักษณะของ{{ poolText }}</span>
       </ion-item>
       <ion-item>
+        <ion-label>
+          1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
+        </ion-label>
+      </ion-item>
+      <location [FormItem]="FormItem.get('location')"></location>
+      <ion-item>
         <ion-label>ทราบพื้นที่ ไร่ งาน ตารางวา <br>ความลึกของ{{ poolText }}</ion-label>
         <ion-radio value="1" item-left></ion-radio>
       </ion-item>
@@ -36,7 +42,8 @@
           <ion-col col-6>
             <ion-item>
               <ion-label>ความกว้าง (เมตร)</ion-label>
-              <ion-input type="number" disabled="true" formControlName="width" [class.invalid]="isValid('rectangle.width')"></ion-input>
+              <ion-input type="number" disabled="true" formControlName="width"
+                [class.invalid]="isValid('rectangle.width')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('rectangle.width')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
@@ -46,7 +53,8 @@
           <ion-col col-6>
             <ion-item>
               <ion-label>ความยาว (เมตร)</ion-label>
-              <ion-input type="number" disabled="true" formControlName="length" [class.invalid]="isValid('rectangle.length')"></ion-input>
+              <ion-input type="number" disabled="true" formControlName="length"
+                [class.invalid]="isValid('rectangle.length')"></ion-input>
               <ion-icon name="create" item-end></ion-icon>
             </ion-item>
             <ion-item *ngIf="isValid('rectangle.length')">

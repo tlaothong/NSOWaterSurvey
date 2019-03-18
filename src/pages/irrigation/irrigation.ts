@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
@@ -11,6 +11,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class IrrigationPage {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
@@ -55,7 +57,7 @@ export class IrrigationPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
 
     this.f = this.fb.group({
       'hasCubicMeterPerMonth': [null, Validators],
@@ -90,13 +92,13 @@ export class IrrigationPage {
       this.activityResidential = (data != null) ? data.irrigation : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.irrigation : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.irrigation  : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.irrigation : null;
@@ -139,6 +141,7 @@ export class IrrigationPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.irrigation = this.f.value
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
@@ -146,7 +149,7 @@ export class IrrigationPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -164,7 +167,7 @@ export class IrrigationPage {
       }
       if ((hasCubicMeterPerMonth.value == true)
         && ((cubicMeterPerMonth.value == null)
-          || (cubicMeterPerMonth.value < 1))) {
+          || (cubicMeterPerMonth.value <= 0))) {
         return { 'cubicMeterPerMonth': true };
       }
       if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {

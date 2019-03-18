@@ -1,0 +1,31 @@
+<div [formGroup]="FormItem">
+
+  <div *ngIf="isGroup" formGroupName="{{group}}">
+    <ion-row>
+      <ion-col col-10>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="{{item}}" [disabled]="true"
+            [class.invalid]="isValid(count)"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button block type="button" (click)="presentModalCount()">แก้ไข</button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div *ngIf="!isGroup">
+    <ion-row>
+      <ion-col col-10>
+        <ion-item>
+          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="{{count}}" [disabled]="true"
+            [class.invalid]="isValid(count)"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button block type="button" (click)="presentModalCount()">แก้ไข</button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</div>

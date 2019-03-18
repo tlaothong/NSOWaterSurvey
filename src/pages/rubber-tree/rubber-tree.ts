@@ -2,15 +2,16 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
-import { getHouseHoldSample, getArrayIsCheck,  getNextPageDirection } from '../../states/household';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetAgiSelectRubber,  SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetAgiSelectRubber, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 export class RubberTreePage {
 
   @ViewChildren(FieldRebbertreeComponent) private fieldrebbertree: FieldRebbertreeComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   public rubbertree: FormGroup;
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getHouseHoldSample);
@@ -29,10 +31,10 @@ export class RubberTreePage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,  public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
+      "fieldCount": [null, [Validators.required, Validators.min(1)]],
       'fields': fb.array([]),
     });
 
@@ -52,6 +54,7 @@ export class RubberTreePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     // this.store.dispatch(new SetAgiSelectRubber(true));
     this.formData.agriculture.rubberTree = this.rubbertree.value;
@@ -61,7 +64,7 @@ export class RubberTreePage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

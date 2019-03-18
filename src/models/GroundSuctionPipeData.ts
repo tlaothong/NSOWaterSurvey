@@ -553,7 +553,7 @@ export const groundWaterSuctionPipeData: GroundWaterSuctionPipe[] = [
     {
         codeWattHp: 'N4P2W1',
         codeSuction: 'N4P2W1S14',
-        name: '1'
+        name: '-'
     },
     {
         codeWattHp: 'N4P3W1',

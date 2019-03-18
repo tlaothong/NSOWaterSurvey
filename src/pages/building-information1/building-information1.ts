@@ -19,7 +19,6 @@ export class BuildingInformation1Page {
 
   public f: FormGroup;
   private submitRequested: boolean;
-  public isBuilding: boolean;
 
   public lat: any;
   public long: any;
@@ -66,6 +65,7 @@ export class BuildingInformation1Page {
       'floorCount': [null],
       '_id': [null],
       'status': [null],
+      'lastUpdate': null,
     });
   }
 
@@ -81,17 +81,32 @@ export class BuildingInformation1Page {
     //   }
     // });
     let id = this.f.get('_id').value;
+    this.setupCountChanges();
+    console.log(id);
+
     this.storage.get(id).then((data) => {
-      console.log(data);
-      
       if (data != null) {
         this.f.setValue(data);
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
-        
+      } else {
+        this.storage.get('road').then((val)=>{
+          if(val != null){
+            this.f.get('road').setValue(val);
+          }
+        })
+        this.storage.get('alley').then((val)=>{
+          if(val != null){
+            this.f.get('alley').setValue(val);
+          }
+        })
+        this.storage.get('name').then((val)=>{
+          if(val != null){
+            this.f.get('name').setValue(val);
+          }
+        })
       }
     });
-    this.setupCountChanges();
   }
 
   loadMap() {
@@ -140,16 +155,23 @@ export class BuildingInformation1Page {
     let fgcm = this.f.get('comments') as FormArray;
     fgac.at(this.index).setValue(this.access);
     fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment });
+    this.f.get('lastUpdate').setValue(Date.now())
+    console.log(this.f.get('lastUpdate').value);
 
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
+
     if (idBD == null) {
       this.f.get('_id').setValue(Guid.create().toString());
       idBD = this.f.get('_id').value
     }
+    console.log(this.f.value);
+    this.storage.set('road', this.f.get('road').value)
+    this.storage.set('alley', this.f.get('alley').value)
+    this.storage.set('name', this.f.get('name').value)
 
-    this.storage.set(idBD,this.f.value)
+    this.storage.set(idBD, this.f.value)
     this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
 
     this.storage.get(this.f.get('ea').value).then((data) => {
@@ -207,9 +229,16 @@ export class BuildingInformation1Page {
   }
 
   private setupCountChanges() {
-    this.index = this.f.get('accessCount').value;
+    let status = this.f.get('status').value;
+    if (status == 'pause' || status == 'done-all') {
+      this.index = this.f.get('accessCount').value - 1;
+      this.access = this.f.get('access').value[this.index];
+      this.comment = this.f.get('comments').value[this.index].text;
+    }
+    else {
+      this.index = this.f.get('accessCount').value;
+    }
     this.f.get('accessCount').setValue(this.index + 1);
-    console.log("Count: " + this.f.get('accessCount').value);
 
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();

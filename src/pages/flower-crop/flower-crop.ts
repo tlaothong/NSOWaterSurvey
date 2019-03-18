@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ export class FlowerCropPage {
 
 
   @ViewChildren(FieldFlowerCropComponent) private fieldFlowerCrop: FieldFlowerCropComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
   public flowerCropFrm: FormGroup;
   public shownData: string[];
@@ -48,7 +50,7 @@ export class FlowerCropPage {
   constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
+      'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
     });
@@ -133,6 +135,7 @@ export class FlowerCropPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     console.log(this.flowerCropFrm.value);
     let fields = this.flowerCropFrm.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();

@@ -5,25 +5,11 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
-import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
-import { map } from 'rxjs/operators';
+import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUnitNo } from '../../states/household/household.actions';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
-import { FieldFarmingComponent } from '../field-farming/field-farming';
-import { FieldDryCropPlantingComponent } from '../field-dry-crop-planting/field-dry-crop-planting';
-import { FieldMushroomComponent } from '../field-mushroom/field-mushroom';
-import { FieldFlowerCropComponent } from '../field-flower-crop/field-flower-crop';
-import { FieldHerbsPlantComponent } from '../field-herbs-plant/field-herbs-plant';
-import { FieldPerenialPlantingComponent } from '../field-perenial-planting/field-perenial-planting';
-import { FieldRebbertreeComponent } from '../field-rebbertree/field-rebbertree';
-import { FishFarmingComponent } from '../fish-farming/fish-farming';
-import { FrogFarmingComponent } from '../frog-farming/frog-farming';
-import { CrocodileFarmingComponent } from '../crocodile-farming/crocodile-farming';
-import { GroundWaterUsageComponent } from '../ground-water-usage/ground-water-usage';
-import { PumpComponent } from '../pump/pump';
-import { PoolUsageComponent } from '../pool-usage/pool-usage';
-import { PoolAreaComponent } from '../pool-area/pool-area';
+
 /**
  * Generated class for the UnitButtonComponent component.
  *
@@ -80,7 +66,7 @@ export class UnitButtonComponent {
     this.GetUnitByIdBuilding$.subscribe(data => {
       console.log("dataxxxxxx");
       console.log(data);
-      
+
       if (data != null) {
         if (data[Number(this.unitNo) - 1] != undefined) {
           let count = data[Number(this.unitNo) - 1].subUnit.accessCount;
@@ -95,18 +81,36 @@ export class UnitButtonComponent {
         }
       }
     });
-    this.setupAccessCountChanges();
-    this.setupAccessCountChangesForComments();
-    this.FormItem.get('_id').setValue(Guid.create().toString());
-
-    console.log(this.FormItem.value);
-    if (this.FormItem.get('subUnit.accessCount').value > 0) {
-      this.setAccess();
-    }
     if (this.unitCount == 1) {
       this.FormItem.controls['buildingId'].setValue(this.id_BD);
-      this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
+      this.storage.get("BL" + this.id_BD).then((val) => {
+        console.log(val);
+        if (val != null) {
+          let dataListHH = val[0];
+          console.log(dataListHH);
+          this.store.dispatch(new LoadHouseHoldSampleSuccess(dataListHH));
+        } else {
+          console.log(this.FormItem.value);
+          this.FormItem.get('_id').setValue(Guid.create().toString());
+          this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
+        }
+        this.setUnitNo();
+        this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem, unitCount: this.unitCount });
+      });
+    } else {
+      this.setupAccessCountChanges();
+      this.setupAccessCountChangesForComments();
+      this.FormItem.get('_id').setValue(Guid.create().toString());
+
+      console.log(this.FormItem.value);
+      if (this.FormItem.get('subUnit.accessCount').value > 0) {
+        this.setAccess();
+      }
     }
+  }
+
+  setUnitNo() {
+    this.store.dispatch(new SetUnitNo(this.unitNo));
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -118,11 +122,11 @@ export class UnitButtonComponent {
         'roomNumber': [null, Validators.required],
         'accessCount': [0, Validators.required],
         'accesses': fb.array([0]),
-        'hasPlumbing': [false, Validators.required],
-        'hasPlumbingMeter': [false, Validators.required],
-        'isPlumbingMeterXWA': [false, Validators.required],
-        'hasGroundWater': [false, Validators.required],
-        'hasGroundWaterMeter': [false, Validators.required],
+        'hasPlumbing': [null, Validators.required],
+        'hasPlumbingMeter': [null, Validators.required],
+        'isPlumbingMeterXWA': [null, Validators.required],
+        'hasGroundWater': [null, Validators.required],
+        'hasGroundWaterMeter': [null, Validators.required],
       }),
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],
@@ -143,7 +147,7 @@ export class UnitButtonComponent {
           'rainingAsIs': false,
           'buying': false,
           'hasOther': false,
-          'other': false,
+          'other': null,
         }),
         'gardeningUse': null
       }),
@@ -878,6 +882,7 @@ export class UnitButtonComponent {
         if (access.at(lastIndex).value == 1) {
           this.sendIdUnit();
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          this.setUnitNo();
           this.navCtrl.push('WaterActivityUnitPage')
         }
       }
@@ -889,7 +894,7 @@ export class UnitButtonComponent {
     if (this.access == 1) {
       this.sendIdUnit();
       console.log(this.FormItem);
-
+      this.setUnitNo();
       this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem });
     }
     else if (this.class == "play" || this.class == "return" || this.class == "returnCm") {
@@ -910,6 +915,7 @@ export class UnitButtonComponent {
           if (access.at(lastIndex).value == 1) {
             this.sendIdUnit();
             this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            this.setUnitNo();
             this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
           }
         }
@@ -988,7 +994,7 @@ export class UnitButtonComponent {
     const alert = this.alertCtrl.create({
       title: 'ปัญหา/อุปสรรค',
       subTitle: this.allComment,
-      buttons: ['OK']
+      buttons: ['ตกลง']
     });
     alert.present();
   }

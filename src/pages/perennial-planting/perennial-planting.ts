@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { SetPerennialPlantSelectPlant, SetAgiSelectPerennial, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -25,11 +26,12 @@ export class PerennialPlantingPage {
   private frontNum: any;
   private backNum: any;
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.PerennialPlantingFrm = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
+      "fieldCount": [null, [Validators.required, Validators.min(1)]],
       "fields": fb.array([]),
     });
     this.setupFieldCountChanges();
@@ -48,6 +50,7 @@ export class PerennialPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldPerenialPlanting.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     console.log(this.PerennialPlantingFrm.value);
     let fields = this.PerennialPlantingFrm.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();

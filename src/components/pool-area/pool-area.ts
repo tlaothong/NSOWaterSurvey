@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, Abst
 import { ModalController } from 'ionic-angular';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
+import { LocationComponent } from '../location/location';
 
 @Component({
   selector: 'pool-area',
@@ -11,15 +12,17 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class PoolAreaComponent implements ISubmitRequestable {
 
   @Input("headline") private text: string;
+  @Input("head") private head: string;
   @Input("pool") private poolText: string;
   @Input('no') public no: string;
   @Input() public FormItem: FormGroup;
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
+  @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     this.text = '';
-    this.poolText = "บ่อหรือร่องสวน";
+    this.poolText = "แหล่งน้ำ";
 
     // TODO: Remove this
     this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
@@ -34,7 +37,8 @@ export class PoolAreaComponent implements ISubmitRequestable {
         'width': [null, Validators],
         'length': [null, Validators],
       }),
-      'diameter': [null, Validators]
+      'diameter': [null, Validators],
+      'location': LocationComponent.CreateFormGroup(fb),
     }, {
         validator: PoolAreaComponent.checkAnyOrOther()
       });
@@ -48,25 +52,25 @@ export class PoolAreaComponent implements ISubmitRequestable {
       const length = c.get('rectangle.length');
       const diameter = c.get('diameter');
 
-      if (shape.value < 1) {
+      if (shape.value <= 0) {
         return { 'shape': true };
       }
-      if ((shape.value == 1) && ((depth.value == null) || (depth.value < 1))) {
+      if ((shape.value == 1) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
-      if ((shape.value == 2) && ((width.value == null) || (width.value < 1))) {
+      if ((shape.value == 2) && ((width.value == null) || (width.value <= 0))) {
         return { 'width': true };
       }
-      if ((shape.value == 2) && ((length.value == null) || (length.value < 1))) {
+      if ((shape.value == 2) && ((length.value == null) || (length.value <= 0))) {
         return { 'length': true };
       }
-      if ((shape.value == 2) && ((depth.value == null) || (depth.value < 1))) {
+      if ((shape.value == 2) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
-      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value < 1))) {
+      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value <= 0))) {
         return { 'diameter': true };
       }
-      if ((shape.value == 3) && ((depth.value == null) || (depth.value < 1))) {
+      if ((shape.value == 3) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
       return null;
@@ -99,7 +103,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no });
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no, head: this.head });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
@@ -112,6 +116,8 @@ export class PoolAreaComponent implements ISubmitRequestable {
   submitRequest() {
     this.submitRequested = true;
     this.fieldArea.forEach(it => it.submitRequest());
+    this.locationT.forEach(it => it.submitRequest());
+
   }
 
 

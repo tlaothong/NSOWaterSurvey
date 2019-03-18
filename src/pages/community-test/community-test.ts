@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommunityState } from '../../states/community/community.reducer';
-import { LoadCommunitySample } from '../../states/community/community.actions';
+import { LoadCommunitySample, SetComNo } from '../../states/community/community.actions';
 
 @IonicPage()
 @Component({
@@ -25,6 +25,8 @@ export class CommunityTestPage {
   ionViewDidLoad() {
     this.navCtrl.push("CommunityWaterManagementPage");
     console.log('ionViewDidLoad CommunityTestPage');
+    let no = this.navParams.get('no');
+    this.store.dispatch(new SetComNo(no));
   }
 
   public openPage(page) {

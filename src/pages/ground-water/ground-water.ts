@@ -1,7 +1,7 @@
 import { getWaterSourcesRice, getWateringResidential, getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { GroundWaterUsageComponent } from '../../components/ground-water-usage/ground-water-usage';
 import { GroundWaterUsagePublicComponent } from '../../components/ground-water-usage-public/ground-water-usage-public';
 import { Store } from '@ngrx/store';
@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class GroundWaterPage {
 
   @ViewChildren(GroundWaterUsagePublicComponent) private groundWaterUsagePublic: GroundWaterUsagePublicComponent[];
   @ViewChildren(GroundWaterUsageComponent) public groundWaterUsage: GroundWaterUsageComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   private submitRequested: boolean;
   public f: FormGroup;
@@ -58,21 +60,29 @@ export class GroundWaterPage {
   private backNum: any;
   public checked: boolean;
 
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  public static checkActivityResidential: any;
+  public static checkActivityWateringRes: any;
+  public static checkActivityRice: any;
+  public static checkActivityAgiculture: any;
+  public static checkActivityFactory: any;
+  public static checkActivityCommercial: any;
+
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'allCount': [null, [Validators.required, Validators.min(1)]],
-        'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
+        'waterResourceCount': [null, Validators.required],
         'waterResources': this.fb.array([])
       }),
       'publicGroundWater': this.fb.group({
         'doing': [null, Validators.required],
         'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
-        'waterResources': this.fb.array([]) 
+        'waterResources': this.fb.array([])
       })
-    });
-
+    }, {
+        validator: GroundWaterPage.checkAnyOrOther()
+      });
     this.setupuseGroundWaterCountChanges();
     this.setupusePublicGroundWaterCountChanges();
   }
@@ -85,7 +95,7 @@ export class GroundWaterPage {
         this.formData = data;
       }
     })
-  
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -96,13 +106,13 @@ export class GroundWaterPage {
       this.activityResidential = (data != null) ? data.underGround : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.underGround : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.underGround : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.underGround : null;
@@ -111,6 +121,20 @@ export class GroundWaterPage {
       this.activityCommercial = (data != null) ? data.underGround : null;
     });
     this.changeValueActivity();
+
+    GroundWaterPage.checkActivityResidential = this.activityResidential;
+    GroundWaterPage.checkActivityWateringRes = this.activityWateringRes;
+    GroundWaterPage.checkActivityRice = this.activityRice;
+    GroundWaterPage.checkActivityAgiculture = this.activityAgiculture;
+    GroundWaterPage.checkActivityFactory = this.activityFactory;
+    GroundWaterPage.checkActivityCommercial = this.activityCommercial;
+
+    console.log("activityResidential", GroundWaterPage.checkActivityResidential);
+    console.log("activityWateringRes", GroundWaterPage.checkActivityWateringRes);
+    console.log("activityRice", GroundWaterPage.checkActivityRice);
+    console.log("activityAgiculture", GroundWaterPage.checkActivityAgiculture);
+    console.log("activityFactory", GroundWaterPage.checkActivityFactory);
+    console.log("activityCommercial", GroundWaterPage.checkActivityCommercial);
   }
 
   changeValueActivity() {
@@ -138,17 +162,19 @@ export class GroundWaterPage {
     this.submitRequested = true;
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.groundWater = this.f.value;
-    if (this.isCheck()) {
+
+    if (this.isCheck() && this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
-      
+
     }
   }
 
@@ -223,8 +249,44 @@ export class GroundWaterPage {
     });
   }
 
+  public checkvalid(): boolean {
+    if ((this.activityResidential == true
+      || this.activityWateringRes == true
+      || this.activityRice == true
+      || this.activityAgiculture == true
+      || this.activityFactory == true
+      || this.activityCommercial == true)
+      && (this.f.get('privateGroundWater.waterResourceCount').value <= 0)) {
+      return false;
+    }
+    return true;
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const waterResourceCount = c.get('privateGroundWater.waterResourceCount');
+      const doing = c.get('privateGroundWater.doing');
+
+      if ((doing.value == true) && ((waterResourceCount.value == null)
+        || (waterResourceCount.value <= 0 && (GroundWaterPage.checkActivityResidential == true
+          || GroundWaterPage.checkActivityWateringRes == true
+          || GroundWaterPage.checkActivityRice == true
+          || GroundWaterPage.checkActivityAgiculture == true
+          || GroundWaterPage.checkActivityFactory == true
+          || GroundWaterPage.checkActivityCommercial == true)))) {
+        return { 'waterResourceCount': true };
+      }
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    var cw = this.f.get('privateGroundWater.waterResourceCount');
+    if (name == 'privateGroundWater.waterResourceCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.waterResourceCount && (cw.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

@@ -41,6 +41,7 @@ export interface HouseHoldState {
     back: any,
     dataOfUnit: any,
     numberRoom: string,
+    unitNo: string,
 }
 
 const initialState: HouseHoldState = {
@@ -83,6 +84,7 @@ const initialState: HouseHoldState = {
     back: null,
     dataOfUnit: null,
     numberRoom: null,
+    unitNo: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -300,6 +302,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 numberRoom: action.payload,
             };
+        case HouseHoldTypes.SetUnitNo:
+            return {
+                ...state,
+                unitNo: action.payload,
+            };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
             console.log("Payload", JSON.stringify(action.payload));
@@ -387,12 +394,10 @@ function resetStatesForModel(model: any): any {
             isFactorial: model.isFactorial,
             isCommercial: model.isCommercial,
         }
-
         numberRoomUnit = model.subUnit.roomNumber;
     }
 
     let objAgri = {};
-
     let ag = model && model.agriculture;
     let riceDoing = ag && ag.ricePlant.doing;
     let rubberDoing = ag && ag.rubberTree.doing;
@@ -425,32 +430,39 @@ function resetStatesForModel(model: any): any {
 
         if (riceDoing) {
             listRice = EX_RICH_LIST;
-
         }
-
         if (rubberDoing) {
             listRubber = EX_RUBBER_LIST;
         }
     };
 
     let wS = [];
+    let wSPlant = [];
     let waterRes;
     let waterFac;
     let waterCom;
     let waterRice = findWaterSourceRice(ag && ag.ricePlant);
     wS.push(waterRice);
+    wSPlant.push(waterRice);
     let waterDry = findWaterSourceDry(ag && ag.agronomyPlant);
     wS.push(waterDry);
+    wSPlant.push(waterDry);
     let waterRubber = findWaterSourceRubber(ag && ag.rubberTree);
     wS.push(waterRubber);
+    wSPlant.push(waterRubber);
     let waterPenrenial = findWaterSourcePenrenial(ag && ag.perennialPlant);
     wS.push(waterPenrenial);
+    wSPlant.push(waterPenrenial);
     let waterHerb = findWaterSourceHerb(ag && ag.herbsPlant);
     wS.push(waterHerb);
+    wSPlant.push(waterHerb);
     let waterFlower = findWaterSourceFlower(ag && ag.flowerCrop);
     wS.push(waterFlower);
+    wSPlant.push(waterFlower);
     let waterMushroom = findWaterSourceMushroom(ag && ag.mushroomPlant);
     wS.push(waterMushroom);
+    wSPlant.push(waterMushroom);
+
     if (model.residence != null) {
         waterRes = model.residence && model.residence.waterSources;
         wS.push(waterRes);
@@ -466,17 +478,34 @@ function resetStatesForModel(model: any): any {
     if (ag.animalFarm != null) {
         let waterAnimalFarm = ag && ag.animalFarm.waterSources;
         wS.push(waterAnimalFarm);
+        wSPlant.push(waterAnimalFarm);
+
     }
+
     let waterAquatic = findWaterSourceAquticAnimals(ag && ag.aquaticAnimals);
     wS.push(waterAquatic);
+    wSPlant.push(waterAquatic);
 
-    console.log("WS", JSON.stringify(wS));
+    console.log("wSPlant", JSON.stringify(wSPlant));
 
     let checkPlumbing: boolean;
     let checkRiver: boolean;
     let checkIrrigation: boolean;
     let checkRain: boolean;
     let checkBuying: boolean;
+    let waterAgi = {
+        plumbing: wSPlant.some(p => p.plumbing == true),
+        underGround: wSPlant.some(p => p.underGround == true),
+        river: wSPlant.some(p => p.river == true),
+        pool: wSPlant.some(p => p.pool == true),
+        irrigation: wSPlant.some(p => p.irrigation == true),
+        rain: wSPlant.some(p => p.rain == true),
+        buying: wSPlant.some(p => p.buying == true),
+        rainingAsIs: wSPlant.some(p => p.rainingAsIs == true),
+        hasOther: wSPlant.some(p => p.hasOther == true),
+        other: "water",
+    };
+
     if (wS != null) {
         checkPlumbing = wS.some(it => it.plumbing == true);
         checkRiver = wS.some(it => it.river == true);
@@ -502,7 +531,7 @@ function resetStatesForModel(model: any): any {
         wateringResidential: model && model.residence.gardeningUse,
         waterSourcesResidential: waterRes,
         waterSourcesRice: waterRice,
-        waterSourcesAgiculture: model && model.isAgriculture,
+        waterSourcesAgiculture: waterAgi,
         waterSourcesFactory: waterFac,
         waterSourcesCommercial: waterCom,
         riceDoing: model && model.agriculture.ricePlant.doing,
@@ -692,39 +721,6 @@ function findWaterSourceMushroom(water) {
     return waterSourceMushroom
 }
 
-// function findWaterSourceAnimalFarm(water) {
-//     let fields = water && water.fields;
-//     let waterSourceAnimalFarm = {
-//         plumbing: false,
-//         underGround: false,
-//         river: false,
-//         pool: false,
-//         irrigation: false,
-//         rain: false,
-//         buying: false,
-//         rainingAsIs: false,
-//         hasOther: false,
-//         other: "water",
-//     };
-//     fields.forEach(f => {
-//         if (f && f.waterSources) {
-//             waterSourceAnimalFarm = {
-//                 plumbing: f.waterSources.some(p => p.plumbing == true),
-//                 underGround: f.waterSources.some(p => p.underGround == true),
-//                 river: f.waterSources.some(p => p.river == true),
-//                 pool: f.waterSources.some(p => p.pool == true),
-//                 irrigation: f.waterSources.some(p => p.irrigation == true),
-//                 rain: f.waterSources.some(p => p.rain == true),
-//                 buying: f.waterSources.some(p => p.buying == true),
-//                 rainingAsIs: f.waterSources.some(p => p.rainingAsIs == true),
-//                 hasOther: f.waterSources.some(p => p.hasOther == true),
-//                 other: "water",
-//             };
-//         }
-//     });
-//     return waterSourceAnimalFarm
-// }
-
 function findWaterSourceAquticAnimals(water) {
     let fish = water && water.fish;
     let shrimp = water && water.shrimp;
@@ -789,6 +785,7 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
+    arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold && state.houseHoldSample.residence.memberCount > 0) ? true : false;
     arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
     arr[11] = (state.selectG1234 && state.selectG1234.isFactorial) ? true : false;
     arr[12] = (state.selectG1234 && state.selectG1234.isCommercial) ? true : false;

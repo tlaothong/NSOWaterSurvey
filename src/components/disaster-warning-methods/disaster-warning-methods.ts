@@ -21,14 +21,16 @@ export class DisasterWarningMethodsComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'governmentProcess': [false, Validators.required],
-      'communityPlan': [false, Validators.required],
-      'consultingService': [false, Validators.required],
-      'hasOther': [false, Validators.required],
-      'other': [null, Validators.required],
-    }, {
-        validator: DisasterWarningMethodsComponent.checkAnyOrOther()
-      });
+      'governmentProcess': [false, Validators],
+      'communityPlan': [false, Validators],
+      'consultingService': [false, Validators],
+      'hasOther': [false, Validators],
+      'other': [null, Validators],
+    },
+    //  {
+    //     validator: DisasterWarningMethodsComponent.checkAnyOrOther()
+    //   }
+    );
   }
 
   public static checkAnyOrOther(): ValidatorFn {

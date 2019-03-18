@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class RiverPage {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
@@ -56,7 +58,7 @@ export class RiverPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
@@ -78,7 +80,7 @@ export class RiverPage {
       }
     })
     this.storage.get('unit').then((val) => {
-      if(val != null){
+      if (val != null) {
         this.formData = val;
         this.f.patchValue(val.waterUsage.river);
         console.log(val);
@@ -94,13 +96,13 @@ export class RiverPage {
       this.activityResidential = (data != null) ? data.river : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.river : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.river : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.river : null;
@@ -143,6 +145,7 @@ export class RiverPage {
     this.pump.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.river = this.f.value;
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
@@ -150,10 +153,10 @@ export class RiverPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
-      
-      
+
+
     }
   }
 
@@ -178,7 +181,7 @@ export class RiverPage {
       if (hasPump.value == null) {
         return { 'hasPump': true };
       }
-      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
       return null;

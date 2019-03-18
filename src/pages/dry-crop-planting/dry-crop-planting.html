@@ -16,7 +16,7 @@
           </dd>
           <dt>
             เช่น กก ข้าวโพดเลี้ยงสัตว์(ถ้าเป็นข้าวโพดรับประทานให้ไปกรอกในตอนที่ 2.5) ข้าวฟ่าง งา ถั่วทุกชนิด ทานตะวัน
-            นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง ลูกเดือย สาคู แห้ว อ้อย <br>สัปปะรด แตงโม กาแฟ เป็นต้น
+            นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง ลูกเดือย สาคู แห้ว อ้อย <br>สัปปะรด กาแฟ เป็นต้น
           </dt>
         </dl>
       </ion-card-content>
@@ -57,9 +57,9 @@
                 2.2.2 ถ้า “ปลูก” มีพื้นที่ปลูก<b>พืชไร่</b>จำนวนกี่แปลง
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="fieldCount" [class.invalid]="isValid('fieldCount')"></ion-input>
-            </ion-item>
+
+            <count [title]="'จำนวนแปลง'" [FormItem]="agronomyPlant" [count]="'fieldCount'"></count>
+
             <ion-item *ngIf="isValid('fieldCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล

@@ -2,7 +2,7 @@
 
   <ion-toolbar>
     <ion-title>
-      ระบบการจัดเก็บข้อมูลในครัวเรือน
+      ระบบการจัดเก็บข้อมูล
     </ion-title>
   </ion-toolbar>
 
@@ -16,8 +16,8 @@
         <br><br>
         <h4>ระบบการจัดเก็บข้อมูลในครัวเรือน <br>ครัวเรือนเกษตร<br> สถานประกอบการ และพื้นที่ย่อย</h4>
         <br><br>
-        <button ion-button full color="secondary" (click)="goScanqrPage()">เปิดใช้งาน TABLET</button>
-        <button ion-button full color="light" (click)="goLoginPage()">เข้าสู่ระบบ</button>
+        <button ion-button full color="secondary" [navPush]="'ScanqrPage'">เปิดใช้งาน TABLET</button>
+        <button ion-button full color="light" [navPush]="'LoginPage'">เข้าสู่ระบบ</button>
       </ion-col>
 
     </ion-row>

@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -25,15 +26,14 @@ export class MushroomPage {
   private formData: any;
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
-
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
+      'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': this.fb.array([]),
     });
-
     this.setupPlantingCountChanges()
   }
 
@@ -51,6 +51,7 @@ export class MushroomPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldMushroom.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.formData.agriculture.mushroomPlant = this.f.value;
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
@@ -58,7 +59,7 @@ export class MushroomPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }

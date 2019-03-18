@@ -1,4 +1,5 @@
-import { Component, ViewChildren } from '@angular/core';
+import { CountComponent } from './../../components/count/count';
+import { Component, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -18,7 +19,6 @@ import { Storage } from '@ionic/storage';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-  public isBuilding: boolean;
 
   // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
   // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
@@ -27,6 +27,9 @@ export class BuidlingInformation2Page {
   private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
+  @ViewChild("numOfUnits") private numOfUnits;
+  checked: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
@@ -73,6 +76,7 @@ export class BuidlingInformation2Page {
       'floorCount': [null, Validators],
       '_id': [null],
       'status': [null],
+      'lastUpdate': null,
     }, {
         validator: BuidlingInformation2Page.checkAnyOrOther()
       });
@@ -88,54 +92,67 @@ export class BuidlingInformation2Page {
     //     this.f.setValue(data)
     this.getBuildingType$.subscribe(data => console.log(data));
     console.log(this.f.value);
-    
-    this.getBuildingType$.subscribe(data => this.f.get('buildingType').setValue(data));
+
+    // this.getBuildingType$.subscribe(data => {
+    //   this.f.get('buildingType').setValue(data);
+    //   setTimeout(() => this.numOfUnits._native.nativeElement.select(), 99);
+    // });
     //   }
     // });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.count.forEach(it => it.submitRequest());
     console.log("data ยิง API", this.f.value);
     console.log("f.valid", this.f.valid);
+    this.f.get('lastUpdate').setValue(Date.now())
+    console.log(this.f.get('lastUpdate').value);
 
     if (this.f.valid && (this.f.get('unitCount').value > 0)) {
-      console.log("unitCount: " + this.f.get('unitCount').value);
+      if (((this.f.get('buildingType').value == 4) || (this.f.get('buildingType').value == 5))
+        && (this.f.get('unitAccess').value == 2) || (this.f.get('unitAccess').value == 3)) {
+        let unitdone = this.f.get('unitCount').value;
+        this.f.get('unitCountComplete').setValue(unitdone);
+        this.f.get('status').setValue('done-all');
 
-      this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-      // this.store.dispatch(new SetHomeBuilding(this.f.value));
+        this.localStorage()
+        this.navCtrl.popToRoot();
+      } else {
+        this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
+        this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
+        this.localStorage()
+        this.navCtrl.push("UnitPage");
+      }
+    }
+  }
 
-      this.storage.set(this.f.get('_id').value, this.f.value);
-      this.storage.get(this.f.get('ea').value).then((data) => {
-        console.log("test: ", data);
-
-        let listBD = data
-        let idBD = this.f.get('_id').value;
-        if (listBD != null) {
-          let fin = listBD.find(it => it._id == idBD)
-          if (fin == null) {
-            listBD.push(this.f.value)
-            this.storage.set(this.f.get('ea').value, listBD)
-          } else {
-            let index = listBD.findIndex(it => it._id == idBD)
-            listBD.splice(index, 1, this.f.value);
-            // listBD.push(this.f.value);
-            this.storage.set(this.f.get('ea').value, listBD)
-          }
-        } else {
-          listBD = []
+  localStorage() {
+    this.storage.set(this.f.get('_id').value, this.f.value);
+    this.storage.get(this.f.get('ea').value).then((data) => {
+      console.log("test: ", data);
+      let listBD = data
+      let idBD = this.f.get('_id').value;
+      if (listBD != null) {
+        let fin = listBD.find(it => it._id == idBD)
+        if (fin == null) {
           listBD.push(this.f.value)
           this.storage.set(this.f.get('ea').value, listBD)
+        } else {
+          let index = listBD.findIndex(it => it._id == idBD)
+          listBD.splice(index, 1, this.f.value);
+          // listBD.push(this.f.value);
+          this.storage.set(this.f.get('ea').value, listBD)
         }
-        console.log(listBD);
+      } else {
+        listBD = []
+        listBD.push(this.f.value)
+        this.storage.set(this.f.get('ea').value, listBD)
+      }
+      console.log(listBD);
 
-      })
-      console.log(this.f.value);
 
-      this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-      this.navCtrl.push("UnitPage");
-    }
+    })
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -150,7 +167,10 @@ export class BuidlingInformation2Page {
       const waterBill = c.get('waterQuantity.waterBill');
       const floorCount = c.get('floorCount');
 
-      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitCount.value < 1)) {
+      if (((buildingType.value != 4) || (buildingType.value != 5)) && (unitCount.value <= 0)) {
+        return { 'unitCount': true };
+      }
+      if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitCount.value <= 0)) {
         return { 'unitCount': true };
       }
       if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitAccess.value < 1)) {
@@ -165,6 +185,12 @@ export class BuidlingInformation2Page {
       if ((unitAccess.value == 2) && (vacantRoomCount.value == null)) {
         return { 'vacantRoomCount': true, }
       }
+      if ((unitAccess.value == 2)
+        && (vacantRoomCount.value != null)
+        && (occupiedRoomCount.value != null)
+        && (Number(unitCount.value) != (Number(vacantRoomCount.value) + Number(occupiedRoomCount.value)))) {
+        return { 'anyCheck': true, }
+      }
       if ((unitAccess.value == 2) && (waterQuantity.value < 1)) {
         return { 'waterQuantity': true, }
       }
@@ -173,6 +199,9 @@ export class BuidlingInformation2Page {
       }
       if ((unitAccess.value == 2) && (waterQuantity.value == 2) && (waterBill.value == null)) {
         return { 'waterBill': true, }
+      }
+      if ((unitAccess.value == 2) && (floorCount.value == null)) {
+        return { 'floorCount': true, }
       }
       if ((unitAccess.value == 3) && (floorCount.value == null)) {
         return { 'floorCount': true, }
@@ -183,6 +212,8 @@ export class BuidlingInformation2Page {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    var ctrll = this.f.get('waterQuantity.cubicMeterPerMonth');
+    var ctrle = this.f.get('waterQuantity.waterBill');
     if (name == 'unitCount') {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.unitCount && (ctrl.dirty || this.submitRequested);
@@ -209,11 +240,15 @@ export class BuidlingInformation2Page {
     }
     if (name == 'cubicMeterPerMonth') {
       let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.cubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.cubicMeterPerMonth && (ctrll.dirty || this.submitRequested);
     }
     if (name == 'waterBill') {
       let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.waterBill && (ctrl.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.waterBill && (ctrle.dirty || this.submitRequested);
+    }
+    if (name == 'anyCheck') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.anyCheck && (ctrle.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }

@@ -28,7 +28,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       'useForFarming': [false, Validators],
       'useForService': [false, Validators],
       'useForOther': [false, Validators],
-      'other': [null, Validators],
+      'other': [false, Validators],
       'projectArea': PoolAreaComponent.CreateFormGroup(fb),
     }, {
         validator: DetailWaterManagementComponent.checkAnyOrOther()
@@ -53,7 +53,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       if (name.value == null) {
         return { 'name': true };
       }
-      if (!useForPlumbing.value && !useForFactory.value && !useForFarming.value && !useForOther.value && !useForService.value) {
+      if (!useForPlumbing.value && !useForFactory.value && !useForFarming.value && !useForOther.value && !useForService.value && !other.value) {
         return { 'anycheck': true };
       } else if (useForOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };

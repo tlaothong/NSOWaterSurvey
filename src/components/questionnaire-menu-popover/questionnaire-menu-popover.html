@@ -10,15 +10,16 @@
       <h3>
         EA: {{dataWorkEARow?._id}}
       </h3>
-      หน่วยตัวอย่าง ลำดับที่ 1
+      <div *ngIf="Pop && No">ครัวเรือน ลำดับที่ {{ No }}</div>
+      <div *ngIf="!Pop && No">หน่วยตัวอย่าง ลำดับที่ {{ No }}</div>
     </ion-item>
   </div>
 
   <button ion-item icon-start (click)="goHome()">
     <ion-icon name="home"></ion-icon>
-    Home
+    หน้าหลัก
   </button>
-  <button ion-item icon-start>
+  <button ion-item icon-start [navPush]="'EaMapPage'">
     <ion-icon name="map"></ion-icon>
     ดูแผนที่
   </button>
@@ -26,7 +27,7 @@
     <ion-icon name="flask"></ion-icon>
     มาตราวัด
   </button>
-  <button ion-item icon-start>
+  <button ion-item icon-start (click)="goToUnitPage()">
     <ion-icon name="pause"></ion-icon>
     หยุดชั่วคราว
   </button>

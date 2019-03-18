@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 import { PoolUsageComponent } from '../../components/pool-usage/pool-usage';
@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class PoolPage {
   public f: FormGroup;
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
@@ -53,7 +55,14 @@ export class PoolPage {
   private backNum: any;
   public checked: boolean
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  public static checkActivityResidential: any;
+  public static checkActivityWateringRes: any;
+  public static checkActivityRice: any;
+  public static checkActivityAgiculture: any;
+  public static checkActivityFactory: any;
+  public static checkActivityCommercial: any;
+
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators],
       'poolCount': [null, Validators],
@@ -61,6 +70,7 @@ export class PoolPage {
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators],
       'waterResources': this.fb.array([]),
+      
     }, {
         validator: PoolPage.checkAnyOrOther()
       });
@@ -87,13 +97,13 @@ export class PoolPage {
       this.activityResidential = (data != null) ? data.pool : null;
     });
     this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null) ? data : null;
+      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
     });
     this.activityRice$.subscribe(data => {
       this.activityRice = (data != null) ? data.pool : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data : null;
+      this.activityAgiculture = (data != null) ? data.pool : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.pool : null;
@@ -102,6 +112,13 @@ export class PoolPage {
       this.activityCommercial = (data != null) ? data.pool : null;
     });
     this.changeValueActivity();
+    PoolPage.checkActivityResidential = this.activityResidential;
+    PoolPage.checkActivityWateringRes = this.activityWateringRes;
+    PoolPage.checkActivityRice = this.activityRice;
+    PoolPage.checkActivityAgiculture = this.activityAgiculture;
+    PoolPage.checkActivityFactory = this.activityFactory;
+    PoolPage.checkActivityCommercial = this.activityCommercial;
+
     console.log("activityResidential", this.activityResidential);
     console.log("activityWateringRes", this.activityWateringRes);
     console.log("activityRice", this.activityRice);
@@ -124,8 +141,8 @@ export class PoolPage {
       || this.activityAgiculture == true
       || this.activityFactory == true
       || this.activityCommercial == true)
-      && (this.f.get('waterResourceCount').value < 1)) {
-        return false;
+      && (this.f.get('waterResourceCount').value <= 0)) {
+      return false;
     }
     return true;
   }
@@ -134,6 +151,7 @@ export class PoolPage {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
     this.poolArea.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
 
     if (this.f.get('hasSameSize').value) {
       let val = this.f.get('poolSizes').value
@@ -143,7 +161,7 @@ export class PoolPage {
       this.f.get('poolSizes').setValue(val)
     }
     this.formData.waterUsage.pool = this.f.value
-    if (this.f.valid || this.checkvalid()) {
+    if (this.f.valid && this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
@@ -160,17 +178,23 @@ export class PoolPage {
       const poolCount = c.get('poolCount');
       const hasSameSize = c.get('hasSameSize');
       const waterResourceCount = c.get('waterResourceCount');
- 
+
       if (doing.value == null) {
         return { 'doing': true };
       }
-      if ((doing.value == true) && ((poolCount.value == null) || (poolCount.value < 1))) {
+      if ((doing.value == true) && ((poolCount.value == null) || (poolCount.value <= 0))) {
         return { 'poolCount': true };
       }
       if ((doing.value == true) && (hasSameSize.value == null)) {
         return { 'hasSameSize': true };
       }
-      if ((doing.value == true) && ((waterResourceCount.value == null) || (waterResourceCount.value == 0))) {
+      if ((doing.value == true) && ((waterResourceCount.value == null)
+        || (waterResourceCount.value <= 0 && (PoolPage.checkActivityResidential == true
+          || PoolPage.checkActivityWateringRes == true
+          || PoolPage.checkActivityRice == true
+          || PoolPage.checkActivityAgiculture == true
+          || PoolPage.checkActivityFactory == true
+          || PoolPage.checkActivityCommercial == true)))) {
         return { 'waterResourceCount': true };
       }
       return null;

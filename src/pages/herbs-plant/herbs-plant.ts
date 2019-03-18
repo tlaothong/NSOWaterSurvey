@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -45,11 +46,12 @@ export class HerbsPlantPage {
   private frontNum: any;
   private backNum: any;
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
+      'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': this.fb.array([]),
     });
     this.setupPlantingCountChanges();
@@ -116,6 +118,7 @@ export class HerbsPlantPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldHerbsPlant.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     let fields = this.f.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
@@ -132,7 +135,7 @@ export class HerbsPlantPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -194,7 +197,7 @@ export class HerbsPlantPage {
       var fieldCount = this.f.get(componentCount).value || 0;
       var farr = this.fb.array([]);
 
-      fieldCount = Math.max(1, fieldCount);
+      fieldCount = Math.max(0, fieldCount);
 
       for (let i = 0; i < fieldCount; i++) {
         var ctrl = null;

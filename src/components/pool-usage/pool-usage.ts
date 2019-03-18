@@ -4,6 +4,8 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { PumpComponent } from '../pump/pump';
 import { WaterActivity6Component } from '../water-activity6/water-activity6';
 import { WaterProblem4Component } from '../water-problem4/water-problem4';
+import { ModalController } from 'ionic-angular';
+import { CountComponent } from '../count/count';
 
 @Component({
   selector: 'pool-usage',
@@ -31,8 +33,9 @@ export class PoolUsageComponent implements ISubmitRequestable {
   @ViewChildren(PumpComponent) private pump: PumpComponent[];
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = '1';
     this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb)
   }
@@ -42,7 +45,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
       'hasCubicMeterPerMonth': [null, Validators],
       'cubicMeterPerMonth': [null, Validators],
       'hasPump': [null, Validators],
-      'pumpCount': [0, Validators],
+      'pumpCount': [0, [Validators.required, Validators.min(1)]],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
       'qualityProblem': WaterProblem4Component.CreateFormGroup(fb)
@@ -58,6 +61,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
     this.pump.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.waterActivity6.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
   }
 
   checkValid(): boolean {
@@ -110,13 +114,13 @@ export class PoolUsageComponent implements ISubmitRequestable {
       if(hasCubicMeterPerMonth.value == null){
         return { 'hasCubicMeterPerMonth': true };
       }
-      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value < 1))) {
+      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value <= 0))) {
         return { 'cubicMeterPerMonth': true };
       }
       if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {
         return { 'hasPump': true };
       }
-      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value < 1))) {
+      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
       return null;

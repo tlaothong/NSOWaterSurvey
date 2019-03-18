@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -8,10 +8,11 @@ import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../..
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getIdEsWorkHomes } from '../../states/logging';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -24,11 +25,11 @@ export class PopulationPage {
   public f: FormGroup;
   public whatever: any;
   private formData: any;
-  private i:any
+  private i: any
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private formData$ = this.store.select(getHouseHoldSample);
-  public dataPop:any
-  private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
+  public dataPop: any
+  // private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   public getIdHomes: any;
   public str: any;
   public pro: Province;
@@ -38,10 +39,11 @@ export class PopulationPage {
   private backNum: any;
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
-      'personCount': [null, Validators.required],
+      'personCount': [null, [Validators.required,Validators.min(1)]],
       'persons': this.fb.array([])
     }),
       this.setupPersonCountChanges();
@@ -56,9 +58,9 @@ export class PopulationPage {
       }
     });
 
-    this.getIdHomes$.subscribe(data => this.str = data);
+    // this.getIdHomes$.subscribe(data => this.str = data);
 
-    this.getIdHomes = this.str.substring(0, 2); //10
+    this.getIdHomes = this.appState.eaCode.substring(0, 2); // this.str.substring(0, 2); //10
     this.pro = provinceData.find(it => it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;
     this.i = this.navParams.get('i');
@@ -67,17 +69,18 @@ export class PopulationPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.dataPop.population = this.f.value
-    this.dataPop.status = "complete"
+    // this.dataPop.status = "complete"
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataPop)); 
       console.log(this.dataPop);
-      // this.storage.set('unit', this.dataPop)  
       let id = this.dataPop._id
-      this.local.updateListUnit(this.dataPop.buildingId,this.dataPop)
+      this.storage.set(id, this.dataPop)
+      this.local.updateListUnit(this.dataPop.buildingId, this.dataPop)
       // this.storage.set(id, this.dataPop)
-      this.navCtrl.setRoot("UnitPage");
+      this.navCtrl.popTo("CheckListPage");
     }
   }
 
@@ -109,14 +112,14 @@ export class PopulationPage {
     console.log("frontNum", this.frontNum);
   }
   arrayIsCheckMethod() {
-    this.store.dispatch(new SetSelectorIndex(22));
+    this.store.dispatch(new SetSelectorIndex(21));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 22)) {
-          arrayIsCheck.push(22);
+        if (arrayIsCheck.every(it => it != 21)) {
+          arrayIsCheck.push(21);
         }
         console.log(arrayIsCheck);
       }

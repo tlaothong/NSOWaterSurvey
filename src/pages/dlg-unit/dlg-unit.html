@@ -8,7 +8,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+  <form [formGroup]="ff" (ngSubmit)="okDialog()">
     <div formGroupName="subUnit">
 
       <ion-item>
@@ -51,14 +51,14 @@
       </ion-option>
     </ion-select>
   </ion-item>
-  
+
   <ion-item *ngIf="access == null && submitRequested">
     <span class="invalid-msg">
       กรุณาเลือกการเข้าพบ
     </span>
   </ion-item>
 
-  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+  <form [formGroup]="ff" (ngSubmit)="okDialog()">
     <div formGroupName="subUnit">
       <ion-list>
         <div *ngIf="access == 1">
@@ -70,24 +70,34 @@
               1. ใช้น้ำประปาหรือไม่
             </ion-label>
           </ion-item>
-          <ion-row radio-group formControlName="hasPlumbing">
+          <ion-item *ngIf="isValid('subUnit.hasPlumbing')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
+          <ion-row radio-group formControlName="hasPlumbing" [class.invalid]="isValid('subUnit.hasPlumbing')">
             <ion-item col-6>
               <ion-radio [value]="true" item-left></ion-radio>
               <ion-label>ใช้</ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-radio [value]="false" item-left ></ion-radio>
               <ion-label>ไม่ใช้</ion-label>
             </ion-item>
           </ion-row>
 
-          <div *ngIf="FormItem.get('subUnit.hasPlumbing').value">
+          <div *ngIf="ff.get('subUnit.hasPlumbing').value ">
             <ion-item>
               <ion-label>
                 2. มีมิเตอร์น้ำประปาแยกออกจากส่วนกลางหรือไม่
               </ion-label>
             </ion-item>
-            <ion-row radio-group formControlName="hasPlumbingMeter">
+            <ion-item *ngIf="isValid('subUnit.hasPlumbingMeter')">
+                <span class="invalid-msg">
+                  กรุณาเลือก
+                </span>
+              </ion-item>
+            <ion-row radio-group formControlName="hasPlumbingMeter"  [class.invalid]="isValid('subUnit.hasPlumbingMeter')">
               <ion-item col-6>
                 <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>มี</ion-label>
@@ -99,13 +109,18 @@
             </ion-row>
           </div>
 
-          <div *ngIf="FormItem.get('subUnit.hasPlumbingMeter').value">
+          <div *ngIf="ff.get('subUnit.hasPlumbingMeter').value">
             <ion-item>
               <ion-label>
                 2.1 เป็นมิเตอร์ของการประปาส่วนภูมิภาค/นครหลวงใช่หรือไม่
               </ion-label>
             </ion-item>
-            <ion-row radio-group formControlName="isPlumbingMeterXWA">
+            <ion-item *ngIf="isValid('subUnit.isPlumbingMeterXWA')">
+                <span class="invalid-msg">
+                  กรุณาเลือก
+                </span>
+              </ion-item>
+            <ion-row radio-group formControlName="isPlumbingMeterXWA" [class.invalid]="isValid('subUnit.isPlumbingMeterXWA')">
               <ion-item col-6>
                 <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>ใช่</ion-label>
@@ -121,24 +136,34 @@
               3. ใช้น้ำบาดาลหรือไม่
             </ion-label>
           </ion-item>
-          <ion-row radio-group formControlName="hasGroundWater">
+          <ion-item *ngIf="isValid('subUnit.hasGroundWater')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+          <ion-row radio-group formControlName="hasGroundWater" [class.invalid]="isValid('subUnit.hasGroundWater')">
             <ion-item col-6>
               <ion-radio [value]="true" item-left></ion-radio>
               <ion-label>ใช้</ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-radio [value]="false" item-left ></ion-radio>
               <ion-label>ไม่ใช้</ion-label>
             </ion-item>
           </ion-row>
 
-          <div *ngIf="FormItem.get('subUnit.hasGroundWater').value">
+          <div *ngIf="ff.get('subUnit.hasGroundWater').value">
             <ion-item>
               <ion-label>
                 4. มีมิเตอร์น้ำบาดาลแยกออกจากส่วนกลางหรือไม่
               </ion-label>
             </ion-item>
-            <ion-row radio-group formControlName="hasGroundWaterMeter">
+            <ion-item *ngIf="isValid('subUnit.hasGroundWaterMeter')">
+                <span class="invalid-msg">
+                  กรุณาเลือก
+                </span>
+              </ion-item>
+            <ion-row radio-group formControlName="hasGroundWaterMeter" [class.invalid]="isValid('subUnit.hasGroundWaterMeter')">
               <ion-item col-6>
                 <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>มี</ion-label>
@@ -167,10 +192,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && access == 1">OK</button>
+          <button ion-button block >ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>

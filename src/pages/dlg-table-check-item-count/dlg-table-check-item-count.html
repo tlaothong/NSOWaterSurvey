@@ -36,7 +36,7 @@
       <ion-item *ngIf="FormItem.get('itemCount').value > 99">
         <ion-icon md="md-warning"></ion-icon>
         <span class="invalid-msg">
-          กรุณาตรวจสอบจำนวนที่เลี้ยงมีจำนวนที่เยอะผิดปกติหรือไม่
+          กรุณาตรวจสอบจำนวน {{ unit }} มีจำนวนที่เยอะผิดปกติหรือไม่
         </span>
       </ion-item>
     </ion-list>
@@ -44,10 +44,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button type="button" block color="light" (click)="closeDialog()">Cancel</button>
+          <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="isDisabled()">OK</button>
+          <button ion-button block [disabled]="isDisabled()">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>

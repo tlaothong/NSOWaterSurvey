@@ -5,9 +5,11 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold, SetBackToRoot } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { BuildingState } from '../../states/building/building.reducer';
+import { getRecieveDataFromBuilding } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -28,9 +30,11 @@ export class UserPage {
   public facCategoryUse: boolean;
   private commercialServiceUse$ = this.store.select(getIsCommercial);
   public commercialServiceUse: boolean;
+  private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
+  private GetDataFromBuilding:any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
       "factorialCategoryCode": [null, Validators.required],
@@ -46,7 +50,7 @@ export class UserPage {
         this.formData = data;
       }
     })
-   
+
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
@@ -56,14 +60,24 @@ export class UserPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.formData.closing = this.userInfo.value
+    this.formData.status = "complete"
     if (this.userInfo.valid) {
-    this.arrayIsCheckMethod();
-    // this.store.dispatch(new SetHouseHold(this.formData));
-    // this.storage.set('unit', this.formData)
-    let id = this.formData._id
-    this.storage.set(id, this.formData)
-    this.local.updateListUnit(this.formData.buildingId,this.formData)
-    this.navCtrl.popTo("CheckListPage");
+      this.arrayIsCheckMethod();
+      // this.store.dispatch(new SetHouseHold(this.formData));
+      // this.storage.set('unit', this.formData)
+      let id = this.formData._id
+      // this.storage.set(id, this.formData);
+      this.local.updateListUnit(this.formData.buildingId, this.formData);
+      this.GetDataFromBuilding$.subscribe(data => {
+        if(data != null){
+          this.GetDataFromBuilding = data;
+          if(this.GetDataFromBuilding == 1){
+            this.navCtrl.setRoot("HomesPage");
+          }else{
+            this.navCtrl.setRoot("UnitPage");
+          }
+        }
+      })
     }
   }
 
@@ -96,14 +110,14 @@ export class UserPage {
   }
 
   arrayIsCheckMethod() {
-    this.store.dispatch(new SetSelectorIndex(21));
+    this.store.dispatch(new SetSelectorIndex(22));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
     let arrayIsCheck: Array<number>;
     arrayIsCheck$.subscribe(data => {
       if (data != null) {
         arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 21)) {
-          arrayIsCheck.push(21);
+        if (arrayIsCheck.every(it => it != 22)) {
+          arrayIsCheck.push(22);
         }
         console.log(arrayIsCheck);
       }

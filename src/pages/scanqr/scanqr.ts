@@ -2,11 +2,12 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
-import { LoadUserDataByQRCode } from '../../states/logging/logging.actions';
+import { LoadUserDataByQRCode, LoadUserDataById } from '../../states/logging/logging.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getUserData } from '../../states/logging';
 import { map, delay } from 'rxjs/operators';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,8 +19,10 @@ export class ScanqrPage {
   data: any;
   fg: FormGroup;
   qrCode: string;
+  private formDataUser$ = this.store.select(getUserData);
+  public userObj:any
   private formData$ = this.store.select(getUserData).pipe(map(s => s));
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private platform: Platform, private qrScanner: QRScanner, public navParams: NavParams, private store: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, private alertCtrl: AlertController, private platform: Platform, private qrScanner: QRScanner, public navParams: NavParams, private store: Store<LoggingState>) {
   }
 
   ionViewDidLoad() {
@@ -27,54 +30,21 @@ export class ScanqrPage {
   }
 
   goFirstLogin() {
-    this.navCtrl.push("FirstpagePage")
+    // this.navCtrl.push("FirstpagePage")
     // this.qrCode = "f30d8fca-e7ad-4838-93b9-90179cfe9295";
+    // this.qrCode = "40500841234";
+    // this.store.dispatch(new LoadUserDataById("4050084"));
+    // this.formDataUser$.subscribe(data => {
+    //   if (data != null) {
+    //     this.userObj = data
+    //     console.log(this.userObj);
+    //     this.storage.set('UserInfo', this.userObj);
+    //   }
+    // });
     // this.store.dispatch(new LoadUserDataByQRCode(this.qrCode));
     // this.navCtrl.pop();
+
   }
-
-  // scan() {
-
-  //   this.qrScanner.prepare()
-  //     .then((status: QRScannerStatus) => {
-  //       if (status.authorized) {
-  //         let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
-
-  //         // camera permission was granted
-  //         // start scanning
-  //         let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
-  //           console.log('Scanned something', text);
-
-  //           const alert = this.alertCtrl.create({
-  //             title: text,
-  //           });
-  //           alert.present();
-
-  //           this.qrScanner.hide(); // hide camera preview
-  //           scanSub.unsubscribe(); // stop scanning
-  //           ionApp.style.display = "block";
-
-  //         });
-  //         ionApp.style.display = "none";
-  //         this.qrScanner.show();
-  //       } else if (status.denied) {
-  //         const alert = this.alertCtrl.create({
-  //           title: "1111111111",
-  //         });
-  //         alert.present();
-  //         // camera permission was permanently denied
-  //         // you must use QRScanner.openSettings() method to guide the user to the settings page
-  //         // then they can grant the permission from there
-  //       } else {
-  //         const alert = this.alertCtrl.create({
-  //           title: "222222222222",
-  //         });
-  //         alert.present();
-  //         // permission was denied, but not permanently. You can ask for permission again at a later time.
-  //       }
-  //     })
-  //     .catch((e: any) => console.log('Error is', e));
-  // }
 
   Scan() {
     if (this.platform.is('cordova')) {
@@ -87,10 +57,33 @@ export class ScanqrPage {
             // start scanning
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
               //alert(text);
-              let alert = this.alertCtrl.create({
-                title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่...",
-              });
-              alert.present();
+              if (text == "40500841234") {
+                let alert = this.alertCtrl.create({
+                  title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
+                });
+                alert.present();
+                // this.store.dispatch(new LoadUserDataByQRCode(text));
+                // this.store.dispatch(new LoadUserDataById("4050084"));
+                // this.formDataUser$.subscribe(data => {
+                //   if (data != null) {
+                //     this.userObj = data
+                //     console.log(this.userObj);
+                //     this.storage.set('UserInfo', this.userObj);
+                //   }
+
+                // });
+                setTimeout(() => {
+                  alert.dismiss();
+                  // this.navCtrl.push("ConfirmloginPage");
+                  this.navCtrl.push("ConfirmloginPage")
+                }, 2000);
+                // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
+              } else {
+                let alert = this.alertCtrl.create({
+                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
+                });
+                alert.present();
+              }
 
               // this.scanData = text;
               // let userID = this.scanData.slice(0, 7);
@@ -121,14 +114,18 @@ export class ScanqrPage {
             // then they can grant the permission from there
           } else {
             let alert = this.alertCtrl.create({
-              title: "5555555555555",
+              title: "Error",
             });
             alert.present();
             // permission was denied, but not permanently. You can ask for permission again at a later time.
           }
         })
-        .catch((e: any) => console.log('Error is', e));
-
+        .catch((e: any) => {
+          let alert = this.alertCtrl.create({
+            title: "Error",
+          });
+          alert.present();
+        });
 
     } else {
 

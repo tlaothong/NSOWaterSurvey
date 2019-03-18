@@ -1,7 +1,7 @@
 <ion-header>
 
-  <questionnaire-menu title="จัดการน้ำเพื่อการเกษตรชุมชน"></questionnaire-menu>
-  
+  <questionnaire-menu title="จัดการน้ำเพื่อการเกษตรชุมชน" isCommunity="true" Pop="true"></questionnaire-menu>
+
 </ion-header>
 
 
@@ -44,9 +44,8 @@
               10. หาก "มี" มีกี่โครงการ
             </ion-label>
           </ion-item>
-          <ion-item>
-            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="projectCount" [class.invalid]="isValid('projectCount')"></ion-input>
-          </ion-item>
+
+          <count [title]="'จำนวนโครงการ'" [FormItem]="managementforfarming" [count]="'projectCount'"></count>
 
           <ion-item *ngIf="isValid('projectCount')">
             <span class="invalid-msg">

@@ -1,5 +1,10 @@
 <ion-header>
-  <back-to-root-login title="เปิดใช้งาน Tablet"></back-to-root-login>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>สแกนคิวอาร์โค้ด</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -14,7 +19,7 @@
 
   <ion-row padding>
     <button ion-button full color="secondary" (click)="Scan()">กดเพื่อเริ่มสแกน</button>
-    <button ion-button full color="light" (click)="goFirstLogin()">ย้อนกลับ</button>
+    <!-- <button ion-button full color="light" (click)="goFirstLogin()">ย้อนกลับ</button> -->
   </ion-row>
 
 </ion-content>

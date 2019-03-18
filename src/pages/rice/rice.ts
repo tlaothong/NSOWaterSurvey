@@ -1,6 +1,7 @@
+import { CountComponent } from './../../components/count/count';
 import { SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
@@ -24,16 +25,17 @@ export class RicePage {
   private backNum: any;
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   public DataList = EX_RICH_LIST;
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private data: any
   formData$: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider,  public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, Validators.required],
+      'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': this.fb.array([]),
     });
     this.setupFieldCountChanges();
@@ -52,6 +54,7 @@ export class RicePage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
     // this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
     this.store.dispatch(new SetAgiSelectRice(true));
@@ -62,13 +65,13 @@ export class RicePage {
       // this.storage.set('unit', this.data)
       let id = this.data._id
       this.storage.set(id, this.data)
-      this.local.updateListUnit(this.data.buildingId,this.data)
+      this.local.updateListUnit(this.data.buildingId, this.data)
       this.navCtrl.popTo("CheckListPage");
     }
   }
 
   countNumberPage() {
-    console.log("onSubmit ");
+    console.log("countNumberPage ==> ");
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     let arrayNextPage: any[];
     arrayNextPage$.subscribe(data => {
@@ -105,8 +108,6 @@ export class RicePage {
       }
     });
   }
-
-
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);

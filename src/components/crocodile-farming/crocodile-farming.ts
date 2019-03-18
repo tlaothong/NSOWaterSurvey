@@ -1,3 +1,5 @@
+import { CountComponent } from './../count/count';
+import { ModalController } from 'ionic-angular';
 import { Component, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../pool-area/pool-area';
@@ -18,12 +20,12 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   @Input('no') public no: string;
 
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
-
+  @ViewChildren(CountComponent) private count: CountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
 
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
     console.log('Hello CrocodileFarmingComponent Component');
     this.text = 'Hello World';
   }
@@ -65,7 +67,15 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
+    if (this.FormItem.get('fieldsAreSameSize').value) {
+      let val = this.FormItem.get('fields').value
+      for (let index = 1; index < val.length; index++) {
+        val[index] = val[0]
+      }
+      this.FormItem.get('fields').setValue(val)
+    }
     this.poolArea.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     // this.dispatchWaterSource();
   }
@@ -93,7 +103,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
-      if ((depression.value || hasOther.value) && (fieldCount.value < 1)) {
+      if ((depression.value || hasOther.value) && (fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
       if ((depression.value || hasOther.value) && (fieldsAreSameSize.value == null)) {

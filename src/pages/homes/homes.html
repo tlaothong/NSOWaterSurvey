@@ -18,12 +18,12 @@
 
   <ion-row>
     <ion-item>
-      <ion-label>
-        {{ dataWorkEARow?.properties.pro_name }}
-        {{ dataWorkEARow?.properties.dis_name }}
-        {{ dataWorkEARow?.properties.tam_name }}
-        {{ str }}
-        {{ dataWorkEARow?.properties.ea_code_14 }}
+      <ion-label *ngIf="currentEA$ | async as ea">
+        {{ ea.CWT_NAME }}
+        {{ ea.AMP_NAME }}
+        {{ ea.TAM_NAME }}
+        &nbsp;
+        {{ ea.code.substr(0, 11) }} <b>{{ ea.EA }}</b>
       </ion-label>
     </ion-item>
 
@@ -90,7 +90,7 @@
       </ion-row>
 
       <ion-segment icon-start [(ngModel)]="icons">
-        <ion-segment-button value="lastest">
+        <ion-segment-button value="lastest" (click)="filterLastUpdate()">
           <ion-icon name="md-create"></ion-icon>
           ข้อมูลล่าสุด
         </ion-segment-button>
@@ -124,7 +124,7 @@
           <ion-row align-items-center>
             <ion-label>
               ครัวเรือน<br>สถานประกอบการ
-              
+
             </ion-label>
           </ion-row>
           <ion-row>
@@ -182,25 +182,6 @@
         </ion-col>
       </ion-row>
 
-      <ion-segment icon-start [(ngModel)]="icons">
-        <ion-segment-button value="lastest">
-          <ion-icon name="md-create"></ion-icon>
-          ข้อมูลล่าสุด
-        </ion-segment-button>
-        <ion-segment-button value="all">
-          <ion-icon name="folder"></ion-icon>
-          ข้อมูลทั้งหมด
-        </ion-segment-button>
-        <ion-segment-button value="pause">
-          <ion-icon name="md-pause"></ion-icon>
-          หยุดชั่วคราว
-        </ion-segment-button>
-        <ion-segment-button value="return">
-          <ion-icon name="md-eye"></ion-icon>
-          สำรวจครั้งที่ 2,3
-        </ion-segment-button>
-      </ion-segment>
-
       <ion-row text-center align-items-center>
         <ion-col col-2>
           ลำดับที่
@@ -218,16 +199,16 @@
       <hr>
       <div *ngFor="let itemCom of dataCommunity;let i=index">
         <ion-row text-center align-items-center>
-          <ion-col col-1>
-            <ion-icon disabled="false" name="pause"></ion-icon>
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id,i+1)">
+            <ion-icon disabled="false" name="{{itemCom.status}}"></ion-icon>
           </ion-col>
-          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             {{i+1}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             {{dataWorkEARow.properties.moo}}
           </ion-col>
-          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id)">
+          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id,i+1)">
             {{dataWorkEARow.properties.muni_name}}
           </ion-col>
           <ion-col col-1>

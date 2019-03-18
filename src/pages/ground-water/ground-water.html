@@ -41,7 +41,8 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="allCount" [class.invalid]="isValid('privateGroundWater.allCount')"></ion-input>
+              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="allCount"
+                [class.invalid]="isValid('privateGroundWater.allCount')"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('privateGroundWater.allCount')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
@@ -53,15 +54,15 @@
               </ion-label>
             </ion-item>
 
-            <ion-item>
-              <ion-input (ionChange)="check()" type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('privateGroundWater.waterResourceCount') || (checked)"></ion-input>
-            </ion-item>
+            <count [title]="'จำนวนบ่อน้ำบาดาล'" [FormItem]="f" [count]="'privateGroundWater.waterResourceCount'">
+            </count>
+
             <ion-item *ngIf="isValid('privateGroundWater.waterResourceCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
-            <ion-item *ngIf="(checked)">
+            <ion-item *ngIf="check()">
               <span class="invalid-msg">
                 กรุณาเช็คจำนวนบ่อจากข้อ 5.2.2
               </span>
@@ -71,12 +72,14 @@
       </ion-card-content>
     </ion-card>
 
-    <div *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0 && !(f.get('privateGroundWater.waterResourceCount').value > f.get('privateGroundWater.allCount').value)">
+    <div
+      *ngIf="f.get('privateGroundWater.doing').value && f.get('privateGroundWater.waterResourceCount').value > 0 && !(f.get('privateGroundWater.waterResourceCount').value > f.get('privateGroundWater.allCount').value)">
       <div *ngFor="let avg of f.get('privateGroundWater.waterResources').controls; let i = index">
-        <ground-water-usage doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="avg" activeRes="{{activityResidential}}"
-          activeWateringRes="{{activityWateringRes}}" activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}"
-          activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage>
+        <ground-water-usage doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}"
+          factory="{{factoryUse}}" residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1"
+          [FormItem]="avg" activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+          activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}"
+          activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage>
       </div>
     </div>
 
@@ -112,9 +115,10 @@
                 5.2.5 ใช้จำนวนกี่บ่อ
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterResourceCount" [class.invalid]="isValid('publicGroundWater.waterResourceCount')"></ion-input>
-            </ion-item>
+
+            <count [title]="'จำนวนบ่อ'" [FormItem]="f" [count]="'publicGroundWater.waterResourceCount'">
+            </count>
+
             <ion-item *ngIf="isValid('publicGroundWater.waterResourceCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
@@ -128,10 +132,11 @@
 
     <div *ngIf="f.get('publicGroundWater.doing').value && f.get('publicGroundWater.waterResourceCount').value > 0">
       <div *ngFor="let use of f.get('publicGroundWater.waterResources').controls; let i = index">
-        <ground-water-usage-public doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}" factory="{{factoryUse}}"
-          residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1" [FormItem]="use" activeRes="{{activityResidential}}"
-          activeWateringRes="{{activeWateringRes}}" activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}"
-          activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage-public>
+        <ground-water-usage-public doing="{{riceDoing}}" usee="{{gardeningUse}}" commerce="{{commerceUse}}"
+          factory="{{factoryUse}}" residence="{{residenceUse}}" agriculture="{{agricultureUse}}" [no]="i + 1"
+          [FormItem]="use" activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}"
+          activRice="{{activityRice}}" activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}"
+          activeCom="{{activityCommercial}}" [G]="true"></ground-water-usage-public>
       </div>
     </div>
 

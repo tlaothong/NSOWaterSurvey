@@ -9,6 +9,7 @@ import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, Lo
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { CountComponent } from '../../components/count/count';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 
 export class DryCropPlantingPage {
   @ViewChildren(FieldDryCropPlantingComponent) private fieldDryCrop: FieldDryCropPlantingComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   private frontNum: any;
   private backNum: any;
 
@@ -28,10 +30,10 @@ export class DryCropPlantingPage {
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   private formData: any;
 
-  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, Validators.required],
+      "fieldCount": [null, [Validators.required, Validators.min(1)]],
       "fields": this.fb.array([]),
     });
     this.setupFieldCountChanges();
@@ -50,6 +52,7 @@ export class DryCropPlantingPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldDryCrop.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     let fields = this.agronomyPlant.get('fields').value as Array<any>;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
@@ -60,7 +63,7 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
     console.log(selected);
-    
+
     // this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     // this.store.dispatch(new SetAgiSelectAgronomy(true));
     this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
@@ -70,7 +73,7 @@ export class DryCropPlantingPage {
       // this.storage.set('unit', this.formData)
       let id = this.formData._id
       this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+      this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
   }
