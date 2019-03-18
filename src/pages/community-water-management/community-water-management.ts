@@ -214,7 +214,7 @@ export class CommunityWaterManagementPage {
 
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
     this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
-
+    this.formDataCom.get('status').setValue("pause");
     if (this.CommunityWaterManagement.get('otherPlumbing').value == false) {
       this.CommunityWaterManagement.get('hasWaterService').setValue(null);
       this.CommunityWaterManagement.get('waterServiceCount').setValue(null);

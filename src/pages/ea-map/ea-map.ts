@@ -30,7 +30,7 @@ export class EaMapPage {
 
   loadInitialMap(nativeElemt) {
     let mapOptions = {
-      center: new google.maps.LatLng('13.7557723', '100.4876131'),
+      center: new google.maps.LatLng('13.754599', '100.492011'),
       zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       streetViewControl: false
