@@ -92,7 +92,7 @@ export class HomesPage {
   presentLoading() {
     const loader = this.loadingCtrl.create({
       content: "กรุณารอสักครู่...",
-      duration: 1500
+      duration: 2000
     });
     loader.present();
   }
