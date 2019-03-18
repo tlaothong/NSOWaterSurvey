@@ -1,6 +1,6 @@
 import { getBackToRoot, getHouseHoldSample, getBack } from './../../states/household/index';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
@@ -28,7 +28,7 @@ export class CheckListPage {
   private arrayNextPage: any[];
   // private indexBack: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
@@ -65,6 +65,14 @@ export class CheckListPage {
       this.arrayIsCheckMethod();
       this.arrayNextPageMethod();
     })
+    this.presentLoading();
+  }
+  presentLoading() {
+    const loader = this.loadingCtrl.create({
+      content: "กรุณารอสักครู่...",
+      duration: 1500
+    });
+    loader.present();
   }
 
   skipPageMedthod() {

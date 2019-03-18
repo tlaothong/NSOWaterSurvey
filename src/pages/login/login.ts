@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { LoadUserDataById, SetLogin, LoadDataWorkEAByUserId, LoadCountOfWorks } from '../../states/logging/logging.actions';
@@ -26,7 +26,7 @@ export class LoginPage {
 
   public dataEa: any;
   public userObj: any;
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
     this.userData = null;
   }
 
@@ -34,6 +34,13 @@ export class LoginPage {
   //   this.store.dispatch(new LoadUserDataById(id));
   //   this.formData$.subscribe(it => this.userData = it);
   // }
+  presentLoading() {
+    const loader = this.loadingCtrl.create({
+      content: "กรุณารอสักครู่...",
+      duration: 1500
+    });
+    loader.present();
+  }
 
   goConfirmloginPage(event: any) {
     /********************** */
@@ -44,6 +51,7 @@ export class LoginPage {
       if (hasDownloaded) {
         this.store.dispatch(new DownloadUserToMobile());
         this.navCtrl.setRoot("SelectEaPage");
+       this.presentLoading();
       } else {
         this.navCtrl.push("GetworkPage");
       }

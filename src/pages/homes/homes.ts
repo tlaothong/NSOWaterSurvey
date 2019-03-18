@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, AlertController, LoadingController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
@@ -43,7 +43,7 @@ export class HomesPage {
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
 
-  constructor(private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController,private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
@@ -89,6 +89,14 @@ export class HomesPage {
       }
     })
   }
+  presentLoading() {
+    const loader = this.loadingCtrl.create({
+      content: "กรุณารอสักครู่...",
+      duration: 2000
+    });
+    loader.present();
+  }
+
   filterRefresh() {
     this.storage.get(this.dataWorkEARow._id).then((data) => {
       if (data != null) {
@@ -174,6 +182,7 @@ export class HomesPage {
         this.navCtrl.push("CommunityTestPage", { no: no.toString() })
       });
     }
+    this.presentLoading();
 
   }
 
