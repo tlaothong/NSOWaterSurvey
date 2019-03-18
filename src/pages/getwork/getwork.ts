@@ -22,7 +22,7 @@ export class GetworkPage {
   private formDataEa$ = this.store.select(getDataWorkEA);
   public dataEa: any;
   public userInfo: any;
-  public eaList$ = this.cloudSync.downloadCloudUpdate(this.appState.userId);
+  public eaList$ = this.cloudSync.downloadCloudUpdate(this.appState.userId).delay(99).retry(3);
   public isWork: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>, private storage: Storage, public alertController: AlertController, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
