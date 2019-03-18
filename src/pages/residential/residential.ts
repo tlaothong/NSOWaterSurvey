@@ -1,3 +1,4 @@
+import { CountComponent } from './../../components/count/count';
 import { getArrayIsCheck, getNextPageDirection, getResidentialGardeningUse } from './../../states/household/index';
 import { SetWaterSourcesResidential, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
@@ -20,6 +21,7 @@ import { LocalStorageProvider } from '../../providers/local-storage/local-storag
 export class ResidentialPage {
 
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
@@ -30,7 +32,7 @@ export class ResidentialPage {
   public checked: boolean;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.residentialFrm = this.fb.group({
-      'memberCount': [null, Validators.required],
+      'memberCount': [null, [Validators.required, Validators.min(1)]],
       'workingAge': [null, Validators.required],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
@@ -63,6 +65,7 @@ export class ResidentialPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
+    this.count.forEach(it => it.submitRequest());
     // (this.residentialFrm.get('waterSources.underGround').value),
     // (this.residentialFrm.get('waterSources.river').value),
     // (this.residentialFrm.get('waterSources.pool').value),
@@ -78,8 +81,8 @@ export class ResidentialPage {
       // this.storage.set('unit', this.dataRes)
       let id = this.dataRes._id
       this.storage.set(id, this.dataRes)
-      console.log("set",this.dataRes);
-      this.local.updateListUnit(this.dataRes.buildingId,this.dataRes)
+      console.log("set", this.dataRes);
+      this.local.updateListUnit(this.dataRes.buildingId, this.dataRes)
       this.navCtrl.popTo("CheckListPage");
     }
   }
