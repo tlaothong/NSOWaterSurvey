@@ -30,14 +30,14 @@ export class EaMapPage {
 
   loadInitialMap(nativeElemt) {
     let mapOptions = {
-      center: new google.maps.LatLng('16.4265872', '102.8518399'),
+      center: new google.maps.LatLng('13.7557723', '100.4876131'),
       zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       streetViewControl: false
     }
     let map = new google.maps.Map(nativeElemt, mapOptions);
 
-    map.data.loadGeoJson('https://water.surveydb.app/assets/test.json');
+    map.data.loadGeoJson('https://nsomap.blob.core.windows.net/byea/11001011000002.json');
 
     map.data.setStyle({
       fillColor: 'red',
