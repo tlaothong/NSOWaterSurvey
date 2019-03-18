@@ -18,11 +18,14 @@
           </ion-label>
         </ion-item>
 
-        <ion-item>
+        <count [title]="'จำนวนทั้งหมด'" [FormItem]="f" [count]="'unitCount'"></count>
+
+        <!-- <ion-item>
           <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="unitCount"
             #numOfUnits id="numOfUnits" select-all
             [class.invalid]="isValid('unitCount')"></ion-input>
-        </ion-item>
+        </ion-item> -->
+
         <ion-item *ngIf="isValid('unitCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล

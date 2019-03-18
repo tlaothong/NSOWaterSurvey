@@ -1,3 +1,4 @@
+import { CountComponent } from './../../components/count/count';
 import { Component, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray, FormControl } from '@angular/forms';
@@ -26,6 +27,7 @@ export class BuidlingInformation2Page {
   private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
+  @ViewChildren(CountComponent) private count: CountComponent[];
   @ViewChild("numOfUnits") private numOfUnits;
   checked: boolean;
 
@@ -91,17 +93,17 @@ export class BuidlingInformation2Page {
     this.getBuildingType$.subscribe(data => console.log(data));
     console.log(this.f.value);
 
-    this.getBuildingType$.subscribe(data => {
-      this.f.get('buildingType').setValue(data);
-      setTimeout(() => this.numOfUnits._native.nativeElement.select(), 99);
-    });
+    // this.getBuildingType$.subscribe(data => {
+    //   this.f.get('buildingType').setValue(data);
+    //   setTimeout(() => this.numOfUnits._native.nativeElement.select(), 99);
+    // });
     //   }
     // });
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-
+    this.count.forEach(it => it.submitRequest());
     console.log("data ยิง API", this.f.value);
     console.log("f.valid", this.f.valid);
     this.f.get('lastUpdate').setValue(Date.now())

@@ -17,10 +17,9 @@
             1.1 จำนวนสมาชิกในครัวเรือนที่<b>อยู่ประจำ</b>ติดต่อกัน<br>ตั้งแต่ 3 เดือนขึ้นไปมีกี่คน
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="memberCount"
-            [class.invalid]="isValid('memberCount')"></ion-input>
-        </ion-item>
+
+        <count [title]="'จำนวนสมาชิก'" [FormItem]="residentialFrm" [count]="'memberCount'"></count>
+
         <ion-item *ngIf="isValid('memberCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
@@ -33,8 +32,8 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input (ionChange)="check()" class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="workingAge"
-            [class.invalid]="isValid('workingAge') || (checked)"></ion-input>
+          <ion-input (ionChange)="check()" class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+            formControlName="workingAge" [class.invalid]="isValid('workingAge') || (checked)"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('workingAge')">
           <span class="invalid-msg">
@@ -49,7 +48,8 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources8-b [headline]="'1.3 ครัวเรือนนี้ใช้น้ำเพื่อการอุปโภคบริโภค จากแหล่งใดบ้าง'" [FormItem]="residentialFrm.get('waterSources')"></water-sources8-b>
+    <water-sources8-b [headline]="'1.3 ครัวเรือนนี้ใช้น้ำเพื่อการอุปโภคบริโภค จากแหล่งใดบ้าง'"
+      [FormItem]="residentialFrm.get('waterSources')"></water-sources8-b>
 
     <ion-card>
       <ion-card-content>
