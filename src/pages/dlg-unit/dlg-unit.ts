@@ -9,6 +9,7 @@ import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 
 // import { Guid } from "guid-typescript";
 @IonicPage()
@@ -35,11 +36,13 @@ export class DlgUnitPage {
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider,
-     private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, 
-     private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+    private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>,
+    private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
-    this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value)
+    this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
+    this.setupAccessCountChanges();
+    this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
     this.dataHomeBuilding$.subscribe(data => {
       if (data != null) {
         this.id_BD = data._id
@@ -90,11 +93,20 @@ export class DlgUnitPage {
     console.log(DlgUnitPage.accessValid);
     this.FormItem.get('subUnit').setValue(this.ff.get('subUnit').value)
     this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
-    if (this.ff.valid && this.access != null) {
-      this.setAccesses();
-      this.AddUnit();
-      this.viewCtrl.dismiss(this.FormItem);
+    if (this.access == 1) {
+      if (this.ff.valid && this.access != null) {
+        this.setAccesses();
+        this.AddUnit();
+        this.viewCtrl.dismiss(this.FormItem);
+      }
+    } else {
+      if (this.ff.get('subUnit.roomNumber').value != null) {
+        this.setAccesses();
+        this.AddUnit();
+        this.viewCtrl.dismiss(this.FormItem);
+      }
     }
+
   }
 
   // public setValue(name: string) {
@@ -116,13 +128,13 @@ export class DlgUnitPage {
       const isPlumbingMeterXWA = c.get('subUnit.isPlumbingMeterXWA');
       const hasGroundWater = c.get('subUnit.hasGroundWater');
       const hasGroundWaterMeter = c.get('subUnit.hasGroundWaterMeter');
-      
+
       if (roomNumber.value == null) {
         return { 'roomNumber': true };
       }
-      if (hasPlumbing.value == null ) {
+      if (hasPlumbing.value == null) {
         return { 'hasPlumbing': true };
-      } 
+      }
       if (hasPlumbing.value == true && hasPlumbingMeter.value == null) {
         return { 'hasPlumbingMeter': true };
       }
@@ -132,7 +144,7 @@ export class DlgUnitPage {
       if (hasPlumbingMeter.value == true && isPlumbingMeterXWA.value == null) {
         return { 'isPlumbingMeterXWA': true };
       }
-      if (hasPlumbing.value != null &&hasGroundWater.value == null) {
+      if (hasPlumbing.value != null && hasGroundWater.value == null) {
         return { 'hasGroundWater': true };
       }
       if (hasPlumbing.value != null && hasPlumbingMeter.value != null && hasGroundWater.value == null) {
@@ -158,7 +170,7 @@ export class DlgUnitPage {
       let ctrls = this.ff;
       return ctrls.errors && ctrls.errors.roomNumber && (ct.dirty || this.submitRequested);
     }
-   
+
     if (name == 'subUnit.hasPlumbing') {
       let ctrls = this.ff;
       return ctrls.errors && ctrls.errors.hasPlumbing && (cd.dirty || this.submitRequested);
@@ -281,4 +293,36 @@ export class DlgUnitPage {
     })
     console.log(this.FormItem.value);
   }
+
+  private setupAccessCountChanges() {
+    const componentFormArray: string = "subUnit.accesses";
+    const componentCount: string = "subUnit.accessCount";
+
+    var onComponentCountChanges = () => {
+      var accesses = (this.ff.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.ff.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < accesses.length) {
+          const fld = accesses[i];
+          ctrl = fld;
+        } else {
+          ctrl = new FormControl();
+        }
+
+        farr.push(ctrl);
+      }
+      let fgrp = this.ff.get('subUnit') as FormGroup;
+      fgrp.setControl('accesses', farr);
+    };
+
+    this.ff.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
 }
