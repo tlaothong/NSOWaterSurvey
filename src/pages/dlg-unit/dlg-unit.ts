@@ -34,7 +34,9 @@ export class DlgUnitPage {
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
-  constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+  constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider,
+     private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>, 
+     private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
     this.FormItem = navParams.get('FormItem');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
     this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value)

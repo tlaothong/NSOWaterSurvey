@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { ModalController, NavController, AlertController, NavParams, FabButton } from 'ionic-angular';
+import { ModalController, NavController, AlertController, NavParams, FabButton, PopoverController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -9,6 +9,7 @@ import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUn
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
+import { UnitButtonPopoverComponent } from '../unit-button-popover/unit-button-popover';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -43,6 +44,8 @@ export class UnitButtonComponent {
   public fgac: FormArray;
   public fgcm: FormArray;
 
+
+
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
   private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
   private formData$ = this.store.select(getHouseHoldSample);
@@ -50,7 +53,8 @@ export class UnitButtonComponent {
 
   constructor(private modalCtrl: ModalController, private storage: Storage,
     public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController,
-    private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder
+    private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder,
+    private popoverCtrl: PopoverController
   ) {
     console.log('Hello UnitButtonComponent Component');
     this.dataHomeBuilding$.subscribe(data => {
@@ -869,6 +873,21 @@ export class UnitButtonComponent {
       }
     })
   }
+
+  public showUnitButtonPopover(myEvent) {
+    let popover = this.popoverCtrl.create(UnitButtonPopoverComponent);
+    popover.present({
+      ev: myEvent
+    });
+    popover.onDidDismiss(data => {
+      data == 'settings' ? this.showModalSetting() : console.log(data);
+    });
+  }
+
+  // public DeleteUnit() {
+  //   let id = this.FormItem.get('_id').value;
+  //   this.storage.remove(id);
+  // }
 
   public showModalSetting() {
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
