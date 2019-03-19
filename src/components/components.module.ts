@@ -51,7 +51,11 @@ import { BackToRootComponent } from './back-to-root/back-to-root';
 import { BackToRootLoginComponent } from './back-to-root-login/back-to-root-login';
 import { InputNumberOfArrayComponent } from './input-number-of-array/input-number-of-array';
 import { CountComponent } from './count/count';
+<<<<<<< HEAD
 import { UnitButtonPopoverComponent } from './unit-button-popover/unit-button-popover';
+=======
+import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-commu';
+>>>>>>> dia
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -106,7 +110,11 @@ import { UnitButtonPopoverComponent } from './unit-button-popover/unit-button-po
     BackToRootLoginComponent,
     InputNumberOfArrayComponent,
     CountComponent,
+<<<<<<< HEAD
     UnitButtonPopoverComponent,
+=======
+    PoolAreaForCommuComponent,
+>>>>>>> dia
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -169,7 +177,11 @@ import { UnitButtonPopoverComponent } from './unit-button-popover/unit-button-po
     BackToRootLoginComponent,
     InputNumberOfArrayComponent,
     CountComponent,
+<<<<<<< HEAD
     UnitButtonPopoverComponent,
+=======
+    PoolAreaForCommuComponent,
+>>>>>>> dia
   ]
 })
 export class ComponentsModule { }
