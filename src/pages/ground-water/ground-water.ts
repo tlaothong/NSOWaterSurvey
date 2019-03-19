@@ -183,7 +183,12 @@ export class GroundWaterPage {
   }
 
   public isCheck(): boolean {
-    return this.isCheckPrivate() && this.isCheckPublic();
+    return this.isCheckPrivate() && this.isCheckPublic() && this.isCheckBoth();
+  }
+
+  public isCheckBoth(): boolean {
+    return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) ?
+      this.f.get('privateGroundWater.waterResourceCount').value > 0 : true;
   }
 
   public isCheckPrivate(): boolean {
@@ -261,7 +266,7 @@ export class GroundWaterPage {
       || this.activityAgiculture == true
       || this.activityFactory == true
       || this.activityCommercial == true)
-      && (this.f.get('privateGroundWater.waterResourceCount').value <= 0)) {
+      && (this.f.get('privateGroundWater.waterResourceCount').value < 0)) {
       return false;
     }
     return true;

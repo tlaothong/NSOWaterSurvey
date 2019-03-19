@@ -22,7 +22,6 @@ export class CountComponent {
   public group: string;
   public isGroup: boolean;
 
-  public isPersonCount: boolean = false;
   public submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController) {
@@ -34,11 +33,7 @@ export class CountComponent {
     console.log(this.FormItem.value);
     console.log(this.count);
     console.log(this.FormItem.get(this.count).value);
-    if (this.count == "personCount") {
-      this.isPersonCount = true;
-      console.log("isPersonCount "+this.isPersonCount);
-      
-    }
+    
     let st = this.count.split(".");
     console.log(st);
     this.isGroup = (st.length > 1);
