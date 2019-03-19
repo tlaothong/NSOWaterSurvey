@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
-import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUnitNo } from '../../states/household/household.actions';
+import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUnitNo, LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { Guid } from "guid-typescript";
 import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
@@ -63,10 +63,10 @@ export class UnitButtonComponent {
       }
     });
     this.text = '';
-    this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
   }
 
   ngOnInit() {
+    this.FormItem = UnitButtonComponent.CreateFormGroup(this.fb);
     this.GetUnitByIdBuilding$.subscribe(data => {
       console.log("dataxxxxxx");
       console.log(data);
@@ -880,14 +880,29 @@ export class UnitButtonComponent {
       ev: myEvent
     });
     popover.onDidDismiss(data => {
-      data == 'settings' ? this.showModalSetting() : console.log(data);
+      (data == 'settings') ? this.showModalSetting() : this.deleteUnit(this.FormItem.value);
     });
   }
 
-  // public DeleteUnit() {
-  //   let id = this.FormItem.get('_id').value;
-  //   this.storage.remove(id);
-  // }
+  public deleteUnit(HH: any) {
+    // let id = this.FormItem.get('_id').value;
+    // this.storage.remove(id);
+  
+    console.log(HH);
+    let keyHH = HH._id;
+    let keyBD = "BL" + HH.buildingId;
+    this.storage.get(keyBD).then((val) => {
+      let BDList = val;
+      let index = BDList.findIndex(it => it._id == HH._id);
+      BDList.splice(index, 1);
+      this.storage.set(keyBD, BDList);
+      this.storage.remove(keyHH)
+    })
+    this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
+    // this.ngOnInit();
+    // this.navCtrl.getActive().component;
+  }
 
   public showModalSetting() {
     const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
