@@ -27,7 +27,7 @@ export class UnitPage {
   public units: any;
   public FormItem: FormGroup;
 
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
@@ -35,7 +35,6 @@ export class UnitPage {
   }
 
   ionViewDidEnter() {
-    this.navCtrl.getViews();
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     console.log(this.f.get('unitCount').value);
