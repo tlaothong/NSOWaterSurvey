@@ -900,7 +900,8 @@ export class UnitButtonComponent {
         let lastIndex = access.length - 1;
         if (access.at(lastIndex).value == 1) {
           this.sendIdUnit();
-          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          this.navCtrl.getActive().component;
           this.setUnitNo();
           this.navCtrl.push('WaterActivityUnitPage')
         }
@@ -933,7 +934,8 @@ export class UnitButtonComponent {
           let lastIndex = access.length - 1;
           if (access.at(lastIndex).value == 1) {
             this.sendIdUnit();
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            this.navCtrl.getActive().component;
             this.setUnitNo();
             this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem })
           }
