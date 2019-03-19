@@ -58,9 +58,9 @@ export class HomesPage {
 
   ionViewDidEnter() {
     // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    this.DataStoreWorkEaOneRecord$.subscribe(data => {
-      if (data != null) {
-        this.dataWorkEARow = data
+    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
+    //   if (data != null) {
+    //     this.dataWorkEARow = data
         // this.statusEa = data.properties.ea_type;
         // console.log(this.dataWorkEARow);
         // console.log(this.statusEa);
@@ -69,8 +69,8 @@ export class HomesPage {
         // console.log(this.str);
 
         // this.store.dispatch(new SetIdEaWorkHomes(this.str));
-      }
-    });
+    //   }
+    // });
 
     var eaCode = this.appState.eaCode;
 
