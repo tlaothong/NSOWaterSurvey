@@ -35,6 +35,7 @@ export class UnitPage {
   }
 
   ionViewDidEnter() {
+    this.navCtrl.getViews();
     console.log('ionViewDidLoad UnitPage');
     this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
     console.log(this.f.get('unitCount').value);
