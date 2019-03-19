@@ -31,7 +31,7 @@ export class UserPage {
   private commercialServiceUse$ = this.store.select(getIsCommercial);
   public commercialServiceUse: boolean;
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-  private GetDataFromBuilding:any;
+  private GetDataFromBuilding: any;
   private frontNum: any;
   private backNum: any;
   constructor(public navCtrl: NavController, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
@@ -69,12 +69,14 @@ export class UserPage {
       // this.storage.set(id, this.formData);
       this.local.updateListUnit(this.formData.buildingId, this.formData);
       this.GetDataFromBuilding$.subscribe(data => {
-        if(data != null){
+        if (data != null) {
           this.GetDataFromBuilding = data;
-          if(this.GetDataFromBuilding == 1){
+          if (this.GetDataFromBuilding == 1) {
             this.navCtrl.setRoot("HomesPage");
-          }else{
-            this.navCtrl.setRoot("UnitPage");
+          } else {
+            // this.navCtrl.setRoot("UnitPage");
+            this.store.dispatch(new SetBackToRoot(true));
+            this.navCtrl.popTo(this.navCtrl.getByIndex(3))
           }
         }
       })
