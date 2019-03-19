@@ -49,6 +49,7 @@ export enum HouseHoldTypes {
     SetHouseHoldSuccess = "[HH] Set House Hold Success",
     SetNumberRoom = "[HH] Set Number Room",
     SetUnitNo = "[HH] Set Unit No",
+    SetMemberCount = "[HH] Set Count Member",
 }
 
 export class LoadHouseHoldList implements Action {
@@ -343,6 +344,11 @@ export class SetUnitNo implements Action {
     constructor(public payload: string) {
     }
 }
+export class SetMemberCount implements Action {
+    readonly type = HouseHoldTypes.SetMemberCount;
+    constructor(public payload: number) {
+    }
+}
 
 export type HouseHoldActionsType =
     LoadHouseHoldList
@@ -391,4 +397,5 @@ export type HouseHoldActionsType =
     | SetHouseHoldSuccess
     | SetNumberRoom
     | SetUnitNo
+    | SetMemberCount
     ;

@@ -35,7 +35,7 @@ export class HomesPage {
   public comunity: any;
   public num: string = "1";
   public listFilter: any;
-  // private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
+  private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.storeLogging.select(getHomeBuilding);
   private dataCommunity$ = this.storeLogging.select(getLoadCommunity);
   private dataCommunity: any;
@@ -58,19 +58,19 @@ export class HomesPage {
 
   ionViewDidEnter() {
     // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataWorkEARow = data
-    //     this.statusEa = data.properties.ea_type;
-    //     console.log(this.dataWorkEARow);
-    //     console.log(this.statusEa);
+    this.DataStoreWorkEaOneRecord$.subscribe(data => {
+      if (data != null) {
+        this.dataWorkEARow = data
+        // this.statusEa = data.properties.ea_type;
+        // console.log(this.dataWorkEARow);
+        // console.log(this.statusEa);
 
-    //     this.str = data._id.substring(1, 7);
-    //     console.log(this.str);
+        // this.str = data._id.substring(1, 7);
+        // console.log(this.str);
 
-    //     this.store.dispatch(new SetIdEaWorkHomes(this.str));
-    //   }
-    // });
+        // this.store.dispatch(new SetIdEaWorkHomes(this.str));
+      }
+    });
 
     var eaCode = this.appState.eaCode;
 

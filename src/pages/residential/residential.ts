@@ -1,6 +1,6 @@
 import { CountComponent } from './../../components/count/count';
-import { getArrayIsCheck, getNextPageDirection, getResidentialGardeningUse } from './../../states/household/index';
-import { SetWaterSourcesResidential, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
+import { getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
+import { SetWaterSourcesResidential, SetSelectorIndex,SetMemberCount } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -83,6 +83,7 @@ export class ResidentialPage {
       this.storage.set(id, this.dataRes)
       console.log("set", this.dataRes);
       this.local.updateListUnit(this.dataRes.buildingId, this.dataRes)
+      this.store.dispatch(new SetMemberCount(this.residentialFrm.get('memberCount').value));
       this.navCtrl.popTo("CheckListPage");
     }
   }
