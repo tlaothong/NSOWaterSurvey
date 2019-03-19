@@ -50,6 +50,8 @@ export class UnitPage {
     //     })
     //   }
     // });
+
+    this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
     let key = "BL" + this.appState.buildingId;
     this.storage.get(key).then((val) => {
       console.log(val);
