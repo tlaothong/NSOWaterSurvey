@@ -165,7 +165,11 @@ export class GroundWaterPage {
     this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.groundWater = this.f.value;
 
-    if (this.isCheck() && this.checkvalid()) {
+    console.log(this.isCheck());
+    console.log(this.checkvalid());
+
+
+    if (this.isCheck()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
@@ -187,7 +191,8 @@ export class GroundWaterPage {
     return (this.f.get('privateGroundWater.doing').value) ?
       (this.f.get('privateGroundWater.allCount').valid
         && this.f.get('privateGroundWater.waterResourceCount').valid
-        && ischeckGroundWater)
+        && ischeckGroundWater
+        && this.checkvalid())
       : this.f.get('privateGroundWater.doing').valid;
   }
 
