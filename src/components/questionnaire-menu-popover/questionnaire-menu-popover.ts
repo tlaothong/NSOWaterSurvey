@@ -28,14 +28,16 @@ export class QuestionnaireMenuPopoverComponent {
   constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>, private storeBuild: Store<BuildingState>) {
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
     this.navCtrl = navParams.get('nav');
+    this.isDisabled = false;
+    this.isCommunity = false;
   }
 
   ionViewDidLoad() {
     this.Pop = this.navParams.get('Pop');
     this.No = this.navParams.get('No');
-    console.log("Pop: "+this.Pop);
-    console.log("No: "+this.No);
-    
+    console.log("Pop: " + this.Pop);
+    console.log("No: " + this.No);
+
     this.DataStoreWorkEaOneRecord$.subscribe(data => {
       if (data != null) {
         this.dataWorkEARow = data
