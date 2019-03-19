@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getMemberCount } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
@@ -20,6 +20,7 @@ import { CountComponent } from '../../components/count/count';
   templateUrl: 'population.html',
 })
 export class PopulationPage {
+  private getMemberCount$ = this.store.select(getMemberCount);
 
   private submitRequested: boolean;
   public f: FormGroup;
@@ -41,12 +42,22 @@ export class PopulationPage {
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
-      'personCount': [null, [Validators.required,Validators.min(1)]],
+      'personCount': [null, [Validators.required, Validators.min(1)]],
       'persons': this.fb.array([])
-    }),
-      this.setupPersonCountChanges();
+    });
+    console.log(this.getMemberCount$);
+    
+    this.getMember();
+  }
+
+  getMember() {
+    let count = 0;
+    this.getMemberCount$.subscribe((data) => count = data);
+    this.f.get('personCount').setValue(count);
+    console.log(this.f.get('personCount').value);
+    this.setupPersonCountChanges();
   }
 
   ionViewDidLoad() {
@@ -55,6 +66,7 @@ export class PopulationPage {
       if (data != null) {
         this.f.patchValue(data.population)
         this.dataPop = data;
+        this.getMember();
       }
     });
 
@@ -110,7 +122,9 @@ export class PopulationPage {
 
     });
     console.log("frontNum", this.frontNum);
+    console.log(this.f.get('personCount').value);
   }
+
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(21));
     let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
@@ -150,6 +164,8 @@ export class PopulationPage {
       var persons = (this.f.get(componentFormArray) as FormArray).controls || [];
       var personCount = this.f.get(componentCount).value || 0;
       var farr = this.fb.array([]);
+
+      console.log(this.f.get(componentCount).value);
 
       personCount = Math.max(0, personCount);
 

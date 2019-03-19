@@ -22,23 +22,33 @@ export class CountComponent {
   public group: string;
   public isGroup: boolean;
 
+  public isPersonCount: boolean = false;
   public submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController) {
     console.log('Hello CountComponent Component');
+
   }
 
   ngOnInit() {
+    console.log(this.FormItem.value);
     console.log(this.count);
+    console.log(this.FormItem.get(this.count).value);
+    if (this.count == "personCount") {
+      this.isPersonCount = true;
+      console.log("isPersonCount "+this.isPersonCount);
+      
+    }
     let st = this.count.split(".");
     console.log(st);
     this.isGroup = (st.length > 1);
+    console.log(this.isGroup);
     if (this.isGroup) {
       this.group = st[0];
       this.item = st[1];
+      console.log(this.group);
+      console.log(this.item);
     }
-    console.log(this.group);
-    console.log(this.item);
   }
 
   submitRequest() {
