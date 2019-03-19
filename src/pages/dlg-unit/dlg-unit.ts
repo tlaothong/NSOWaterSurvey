@@ -127,7 +127,7 @@ export class DlgUnitPage {
       if (hasPlumbing.value == true && hasPlumbingMeter.value == false && hasGroundWater.value == null) {
         return { 'hasGroundWater': true };
       }
-      if (hasPlumbingMeter.value != null && isPlumbingMeterXWA.value == null) {
+      if (hasPlumbingMeter.value == true && isPlumbingMeterXWA.value == null) {
         return { 'isPlumbingMeterXWA': true };
       }
       if (hasPlumbing.value != null &&hasGroundWater.value == null) {
