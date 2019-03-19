@@ -7,6 +7,7 @@ import { SetBackToRoot } from '../../states/household/household.actions';
 import { UnitPage } from '../../pages/unit/unit';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding } from '../../states/building';
+import { getCurrentWorkingEA } from '../../states/bootup';
 
 @Component({
   selector: 'questionnaire-menu-popover',
@@ -14,10 +15,11 @@ import { getRecieveDataFromBuilding } from '../../states/building';
 })
 export class QuestionnaireMenuPopoverComponent {
 
-  public dataWorkEARow: any;
+  // public dataWorkEARow: any;
   private navCtrl: NavController;
 
-  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  public currentEA$ = this.store.select(getCurrentWorkingEA);
+  // private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
   public unitCount: number;
   public isDisabled: boolean;
@@ -38,11 +40,11 @@ export class QuestionnaireMenuPopoverComponent {
     console.log("Pop: " + this.Pop);
     console.log("No: " + this.No);
 
-    this.DataStoreWorkEaOneRecord$.subscribe(data => {
-      if (data != null) {
-        this.dataWorkEARow = data
-      }
-    });
+    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
+    //   if (data != null) {
+    //     this.dataWorkEARow = data
+    //   }
+    // });
   }
 
   public goHome() {
