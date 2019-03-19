@@ -27,6 +27,7 @@ export class DlgUnitPage {
   public static accessValid: number;
   public comment: string = '';
   public count: number;
+  public oldStatus: string;
 
   private fgac: FormArray;
   private fgcm: FormArray;
@@ -202,6 +203,7 @@ export class DlgUnitPage {
   }
 
   public updateStatus() {
+    this.oldStatus = this.FormItem.get('status').value;
     let status: string;
     switch (this.access) {
       case 1:
@@ -249,25 +251,32 @@ export class DlgUnitPage {
         this.storage.set(bd.ea, BDlist)
       })
     })
-    if (this.FormItem.get('status').value == "complete") {
-      this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
-        if (val != null) {
-          let building = val;
+
+    this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
+      if (val != null) {
+        let building = val;
+        if (this.FormItem.get('status').value == "complete" && this.oldStatus != "complete") {
           building.unitCountComplete++;
           if (building.unitCountComplete == building.unitCount) {
             building.status = "done-all";
           }
-          this.storage.set(this.FormItem.get('buildingId').value, building);
-          this.storage.get(building.ea).then((val) => {
-            let BDlist = val
-            let index = BDlist.findIndex(it => it._id == building._id)
-            BDlist.splice(index, 1, building);
-            // BDlist.push(building)
-            this.storage.set(building.ea, BDlist)
-          })
         }
-      });
-    }
+        else if (this.FormItem.get('status').value != "complete" && this.oldStatus == "complete") {
+          building.unitCountComplete--;
+          if (building.status == "done-all") {
+            building.status = "pause";
+          }
+        }
+        this.storage.set(this.FormItem.get('buildingId').value, building);
+        this.storage.get(building.ea).then((val) => {
+          let BDlist = val
+          let index = BDlist.findIndex(it => it._id == building._id)
+          BDlist.splice(index, 1, building);
+          // BDlist.push(building)
+          this.storage.set(building.ea, BDlist)
+        })
+      }
+    });
 
     let fin: any
     let list: any[]
