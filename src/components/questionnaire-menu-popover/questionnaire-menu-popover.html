@@ -1,14 +1,16 @@
-<ion-list>
+<ion-list *ngIf="currentEA$ | async as ea">
   <ion-list-header>
-    {{dataWorkEARow?.properties.pro_name}}<br />
-    {{dataWorkEARow?.properties.dis_name}}<br />
-    {{dataWorkEARow?.properties.tam_name}}<br />
+    {{ ea.CWT_NAME }} <br />
+    {{ ea.AMP_NAME }} <br />
+    {{ ea.TAM_NAME }} <br />
+    <br />
+    <span text-wrap>{{ ea.REMARK }}</span>
   </ion-list-header>
 
   <div no-lines>
     <ion-item>
       <h3>
-        EA: {{dataWorkEARow?._id}}
+        EA: {{ ea.code.substr(0, 11) }} <b>{{ ea.EA }}</b>
       </h3>
       <div *ngIf="Pop && No">ครัวเรือน ลำดับที่ {{ No }}</div>
       <div *ngIf="!Pop && No">หน่วยตัวอย่าง ลำดับที่ {{ No }}</div>
