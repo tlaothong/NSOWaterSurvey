@@ -30,7 +30,7 @@ export class HomesPage {
   x: number = 0;
   public dataEa: any;
   public datap: any[];
-  public dataWorkEARow: any;
+  // public dataWorkEARow: any;
   public str: string;
   public comunity: any;
   public num: string = "1";
@@ -98,7 +98,7 @@ export class HomesPage {
   }
 
   filterRefresh() {
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
+    this.storage.get(this.appState.eaCode).then((data) => {
       if (data != null) {
         this.dataEa = data
         this.datap = this.dataEa.filter(it => it.status == "refresh")
@@ -109,7 +109,7 @@ export class HomesPage {
   }
 
   filterLastUpdate() {
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
+    this.storage.get(this.appState.eaCode).then((data) => {
       if (data != null) {
         this.dataEa = data;
         this.datap = this.dataEa.sort(it => {
@@ -121,7 +121,7 @@ export class HomesPage {
   }
 
   filterPause() {
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
+    this.storage.get(this.appState.eaCode).then((data) => {
       if (data != null) {
         this.dataEa = data
         this.datap = this.dataEa.filter(it => it.status == "pause")
@@ -131,7 +131,7 @@ export class HomesPage {
     });
   }
   totalData() {
-    this.storage.get(this.dataWorkEARow._id).then((data) => {
+    this.storage.get(this.appState.eaCode).then((data) => {
       if (data != null) {
         this.dataEa = data
         this.listFilter = this.dataEa;
@@ -164,7 +164,7 @@ export class HomesPage {
         this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
         // switch (val.status) {
         //   case 'refresh':
-        //     this.navCtrl.push('BuildingInformation1Page', { ea: this.dataWorkEARow._id, id: val._id });
+        //     this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
         //     break;
         //   case 'pause':
         //     this.navCtrl.push("UnitPage");
@@ -193,15 +193,15 @@ export class HomesPage {
         {
           text: 'ยืนยัน',
           handler: data => {
-            this.storage.get(this.dataWorkEARow._id).then((data) => {
+            this.storage.get(this.appState.eaCode).then((data) => {
               if (data != null) {
                 let list = data
                 let index = list.findIndex(it => it._id == id)
                 list.splice(index, 1)
                 if (data == []) {
-                  this.storage.remove(this.dataWorkEARow._id);
+                  this.storage.remove(this.appState.eaCode);
                 }
-                this.storage.set(this.dataWorkEARow._id, list)
+                this.storage.set(this.appState.eaCode, list)
               }
             });
             this.storage.remove(id);
@@ -214,8 +214,8 @@ export class HomesPage {
                 });
               }
             })
-            // this.store.dispatch(new LoadHomeBuilding(this.dataWorkEARow._id));
-            this.storage.get(this.dataWorkEARow._id).then((data) => {
+            // this.store.dispatch(new LoadHomeBuilding(this.appState.eaCode));
+            this.storage.get(this.appState.eaCode).then((data) => {
               if (data != null) {
                 this.dataEa = data
                 this.listFilter = this.dataEa;
@@ -245,20 +245,20 @@ export class HomesPage {
           text: 'ยืนยัน',
           handler: data => {
             console.log(id);
-            console.log("CL" + this.dataWorkEARow._id);
-            this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+            console.log("CL" + this.appState.eaCode);
+            this.storage.get("CL" + this.appState.eaCode).then((val) => {
               if (val != null) {
                 let list = val
                 let index = list.findIndex(it => it._id == id)
                 list.splice(index, 1)
                 if (val == []) {
-                  this.storage.remove("CL" + this.dataWorkEARow._id);
+                  this.storage.remove("CL" + this.appState.eaCode);
                 }
-                this.storage.set("CL" + this.dataWorkEARow._id, list)
+                this.storage.set("CL" + this.appState.eaCode, list)
               }
             });
             this.storage.remove(id);
-            this.storage.get("CL" + this.dataWorkEARow._id).then((val) => {
+            this.storage.get("CL" + this.appState.eaCode).then((val) => {
               if (val != null) {
                 this.dataCommunity = val
               }
