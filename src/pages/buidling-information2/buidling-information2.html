@@ -32,11 +32,11 @@
           </span>
         </ion-item>
         <ion-item *ngIf="f.get('unitCount').value > 99">
-            <ion-icon md="md-warning"></ion-icon>
-            <span class="invalid-msg">
-              กรุณาตรวจสอบจำนวนให้ถูกต้อง
-            </span>
-          </ion-item>
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนให้ถูกต้อง
+          </span>
+        </ion-item>
       </ion-card-content>
     </ion-card>
 
@@ -89,6 +89,12 @@
             <ion-item *ngIf="isValid('floorCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="f.get('floorCount').value > 100">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนชั้นของอาคารมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>
@@ -213,6 +219,14 @@
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
+            <ion-item *ngIf="f.get('floorCount').value > 100">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนชั้นของอาคารมีเยอะผิดปกติหรือไม่
+              </span>
+            </ion-item>
+
+
 
             <ion-item>
               <ion-label>
@@ -237,6 +251,12 @@
             <ion-item *ngIf="isValid('floorCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="f.get('floorCount').value > 100">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนชั้นของอาคารมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
             <ion-item>

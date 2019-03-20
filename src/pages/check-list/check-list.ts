@@ -65,7 +65,7 @@ export class CheckListPage {
       this.arrayIsCheckMethod();
       this.arrayNextPageMethod();
     })
-    this.presentLoading();
+    //this.presentLoading();
   }
   presentLoading() {
     const loader = this.loadingCtrl.create({

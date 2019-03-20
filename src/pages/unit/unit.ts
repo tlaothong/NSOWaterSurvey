@@ -60,7 +60,7 @@ export class UnitPage {
       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
     });
     console.log(this.f.get('units').value);
-    this.presentLoading();
+    //this.presentLoading();
   }
 
   private setupUnitsCountChanges() {

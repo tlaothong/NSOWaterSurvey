@@ -38,13 +38,15 @@ export class PoolUsageComponent implements ISubmitRequestable {
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = '1';
     this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb)
+  
+    
   }
-
+  
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'hasCubicMeterPerMonth': [null, Validators],
-      'cubicMeterPerMonth': [null, Validators],
-      'hasPump': [null, Validators],
+      'hasCubicMeterPerMonth': [null, Validators.required],
+      'cubicMeterPerMonth': [null, [Validators.required, Validators.min(1)]],
+      'hasPump': [null, Validators.required],
       'pumpCount': [0, [Validators.required, Validators.min(1)]],
       'pumps': fb.array([]),
       'waterActivities': WaterActivity6Component.CreateFormGroup(fb),
@@ -55,7 +57,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
     PoolUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
   }
-
+ 
   submitRequest() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());
@@ -65,64 +67,55 @@ export class PoolUsageComponent implements ISubmitRequestable {
   }
 
   checkValid(): boolean {
-    let activity = (!this.waterActivity6.find(it => it.checkValid()))
-    let cubic: boolean;
-    let problem: boolean;
-    let pump: boolean;
-    let pumps = true;
-    if (this.FormItem.get('hasCubicMeterPerMonth').value == true) {
-      cubic = (this.FormItem.get('cubicMeterPerMonth').value != null)
-      pump = true
-    }
-    if (this.FormItem.get('hasCubicMeterPerMonth').value == false) {
-      // this.FormItem.get('cubicMeterPerMonth').setValue(null);
-      if (this.FormItem.get('hasPump').value == false) {
-        // this.FormItem.get('pumpCount').setValue('0');
-        cubic = true;
-        pump = true;
-      }
-      if (this.FormItem.get('hasPump').value == true) {
-        if (this.FormItem.get('pumpCount').value > 0) {
-          cubic = true;
-          pump = true;
-          pumps = this.FormItem.get('pumps').valid
-        }
-      }
-    }
+    return this.isCheckCubicMeter() && this.isCheckValidwaterAct() && this.isCheckProblem();
+  }
 
-    if (this.FormItem.get('hasCubicMeterPerMonth').value == false && this.FormItem.get('hasPump').value == false) {
-      // if (!("residenceUse == 'true' || gardeningUse == 'true' || agricultureUse == 'true' || factoryUse == 'true' || commerceUse == 'true' || riceDoing == 'true'")) {
-      console.log("entrane condition");
+  public isCheckCubicMeter(): boolean {
+    return (this.FormItem.get('hasCubicMeterPerMonth').valid) ?
+      ((this.FormItem.get('hasCubicMeterPerMonth').value) ? this.FormItem.get('cubicMeterPerMonth').valid : this.isCheckPump())
+      : false;
+  }
 
-      this.FormItem.get('qualityProblem.hasProblem').setValue(false);
-    }
-    if (!this.FormItem.get('qualityProblem.hasProblem').value) {
-      problem = true;
-    } else {
-      problem = this.FormItem.get('qualityProblem.problem').valid
-    }
-    return activity && cubic && problem && pump && pumps
+  public isCheckPump(): boolean {
+    let isCheckPump = this.FormItem.get('pumps').valid
+    return (this.FormItem.get('hasPump').value) ?
+      (this.FormItem.get('pumpCount').valid && isCheckPump) : this.FormItem.get('hasPump').valid;
+  }
+
+  public isCheckValidwaterAct(): boolean {
+    let isCheckWaterAct = !this.waterActivity6.some(it => it.isCheck == false);
+    // let isCheckWaterAct = this.waterActivity6.find(it => it.totalSum != 100) ? false : true;
+    return (this.gardeningUse || this.riceDoing || this.commerceUse || this.factoryUse || this.residenceUse || this.agricultureUse) ?
+      isCheckWaterAct : true;
+  }
+
+  public isCheckProblem(): boolean {
+    return (this.FormItem.get('qualityProblem.hasProblem').value) ?
+      this.FormItem.get('qualityProblem.problem').valid : this.FormItem.get('qualityProblem.hasProblem').valid;
   }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const hasCubicMeterPerMonth = c.get('hasCubicMeterPerMonth');
       const cubicMeterPerMonth = c.get('cubicMeterPerMonth');
+
       const hasPump = c.get('hasPump');
       const pumpCount = c.get('pumpCount');
 
-      if(hasCubicMeterPerMonth.value == null){
+      if (hasCubicMeterPerMonth.value == null) {
         return { 'hasCubicMeterPerMonth': true };
       }
-      if ((hasCubicMeterPerMonth.value == true) && ((cubicMeterPerMonth.value == null) || (cubicMeterPerMonth.value <= 0))) {
+
+      if ((hasCubicMeterPerMonth.value == true) && cubicMeterPerMonth.valid) {
         return { 'cubicMeterPerMonth': true };
       }
-      if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == null)) {
-        return { 'hasPump': true };
-      }
-      if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
+
+      if ((hasCubicMeterPerMonth.value == false) && (hasPump.value == true && pumpCount.value == null)) {
         return { 'pumpCount': true };
       }
+      // if ((hasPump.value == true) && ((pumpCount.value == null) && (pumpCount.value <= 0))) {
+      //   return { 'pumpCount': true };
+      // }
       return null;
     }
   }
@@ -134,12 +127,10 @@ export class PoolUsageComponent implements ISubmitRequestable {
       return ctrls.errors && ctrls.errors.hasCubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'cubicMeterPerMonth') {
-      let ctrls = this.FormItem;
-      return ctrls.errors && ctrls.errors.cubicMeterPerMonth && (ctrl.dirty || this.submitRequested);
+      return ctrl.invalid && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'hasPump') {
-      let ctrls = this.FormItem;
-      return ctrls.errors && ctrls.errors.hasPump && (ctrl.dirty || this.submitRequested);
+      return ctrl.invalid && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'pumpCount') {
       let ctrls = this.FormItem;

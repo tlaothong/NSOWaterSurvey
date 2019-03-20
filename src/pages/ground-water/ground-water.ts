@@ -165,10 +165,6 @@ export class GroundWaterPage {
     this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.groundWater = this.f.value;
 
-    console.log(this.isCheck());
-    console.log(this.checkvalid());
-
-
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -177,8 +173,6 @@ export class GroundWaterPage {
       this.storage.set(id, this.formData)
       this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
-      // console.log("ผ่านแล้วจ้า");
-
     }
   }
 
@@ -187,8 +181,17 @@ export class GroundWaterPage {
   }
 
   public isCheckBoth(): boolean {
-    return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) ?
-      this.f.get('privateGroundWater.waterResourceCount').value > 0 : true;
+    if (this.isCheckActivity()) {
+      return this.f.get('privateGroundWater.waterResourceCount').value > 0 && (this.f.get('privateGroundWater.doing').value || this.f.get('publicGroundWater.doing').value);
+    }
+    else if (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) {
+      return this.f.get('privateGroundWater.waterResourceCount').value > 0;
+    }
+    return true;
+  }
+
+  public isCheckActivity(): boolean {
+    return this.activityResidential || this.activityWateringRes || this.activityRice || this.activityAgiculture || this.activityFactory || this.activityCommercial
   }
 
   public isCheckPrivate(): boolean {
