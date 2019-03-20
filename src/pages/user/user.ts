@@ -70,20 +70,15 @@ export class UserPage {
       let id = this.formData._id
       // this.storage.set(id, this.formData);
       this.local.updateListUnit(this.formData.buildingId, this.formData);
-      this.GetDataFromBuilding$.subscribe(data => {
-        if (data != null) {
-          this.GetDataFromBuilding = data;
-          if (this.GetDataFromBuilding == 1) {
-            // this.navCtrl.setRoot("HomesPage");
-            this.store.dispatch(new SetBackToRoot(true));
-            this.navCtrl.popToRoot();
-          } else {
-            // this.navCtrl.setRoot("UnitPage");
-            this.store.dispatch(new SetBackToRoot(true));
-            this.navCtrl.popTo(this.navCtrl.getByIndex(3))
-          }
-        }
-      })
+      this.GetDataFromBuilding$.subscribe(data => this.GetDataFromBuilding = data);
+      if (this.GetDataFromBuilding == 1) {
+        this.store.dispatch(new SetBackToRoot(true));
+        this.navCtrl.popToRoot();
+      } else {
+        // this.navCtrl.setRoot("UnitPage");
+        this.store.dispatch(new SetBackToRoot(true));
+        this.navCtrl.popTo(this.navCtrl.getByIndex(3))
+      }
     }
   }
 
