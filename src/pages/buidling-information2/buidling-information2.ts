@@ -62,16 +62,16 @@ export class BuidlingInformation2Page {
       'abandonedCount': null,
       'comments': fb.array([
       ]),
-      'recCtrl': [null, Validators],
+      'recCtrl': [null, Validators.required],
       'vacantRoomCount': [null],
       'unitCountComplete': 0,
-      'unitCount': [0, Validators],
-      'unitAccess': [null, Validators],
-      'occupiedRoomCount': [null, Validators],
+      'unitCount': [0, Validators.required],
+      'unitAccess': [null, Validators.required],
+      'occupiedRoomCount': [null, Validators.required],
       'waterQuantity': fb.group({
-        'waterQuantity': [null, Validators],
-        'cubicMeterPerMonth': [null, Validators],
-        'waterBill': [null, Validators],
+        'waterQuantity': [null, Validators.required],
+        'cubicMeterPerMonth': [null, Validators.required],
+        'waterBill': [null, Validators.required],
       }),
       'floorCount': [null, [Validators.required, Validators.min(1)]],
       '_id': [null],
@@ -109,7 +109,7 @@ export class BuidlingInformation2Page {
     this.f.get('lastUpdate').setValue(Date.now())
     console.log(this.f.get('lastUpdate').value);
 
-    if (this.f.valid && (this.f.get('unitCount').value > 0)) {
+    if ((this.f.get('unitCount').value > 0)) {
       if (((this.f.get('buildingType').value == 4) || (this.f.get('buildingType').value == 5))
         && (this.f.get('unitAccess').value == 2) || (this.f.get('unitAccess').value == 3)) {
         let unitdone = this.f.get('unitCount').value;
@@ -223,7 +223,8 @@ export class BuidlingInformation2Page {
       return ctrls.errors && ctrls.errors.unitAccess && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'floorCount') {
-      return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.floorCount && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'occupiedRoomCount') {
       let ctrls = this.f;
