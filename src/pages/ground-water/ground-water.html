@@ -42,7 +42,7 @@
 
             <ion-item>
               <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="allCount"
-                [class.invalid]="isValid('privateGroundWater.allCount')"></ion-input>
+                [class.invalid]="isValid('privateGroundWater.allCount')" (click)="$event.target.select()"></ion-input>
             </ion-item>
             <ion-item *ngIf="isValid('privateGroundWater.allCount')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
