@@ -200,7 +200,9 @@ export class BuildingInformation1Page {
   public updateStatus() {
     switch (this.access) {
       case 1:
-        this.f.get('status').setValue('pause')
+        if (this.f.get('status').value == null) {
+          this.f.get('status').setValue('pause');
+        }
         break;
       case 2:
       case 3:
