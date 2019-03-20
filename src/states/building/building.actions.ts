@@ -20,7 +20,7 @@ export enum BuildingTypes {
 export class LoadBuildingList implements Action {
     readonly type = BuildingTypes.LoadList;
 
-    constructor() {
+    constructor(public eaCode: string) {
     }
 }
 

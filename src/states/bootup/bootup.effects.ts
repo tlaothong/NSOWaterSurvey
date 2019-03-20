@@ -53,7 +53,7 @@ export class BootupEffects {
         switchMap((action: SetCurrentWorkingEA) => 
             [
                 new CurrentWorkingEaChanged(action.payload),
-                new LoadBuildingList()
+                new LoadBuildingList(action.payload)
             ])
     );
 

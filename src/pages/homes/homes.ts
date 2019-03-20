@@ -153,7 +153,7 @@ export class HomesPage {
   goEditBuildingInfo(item: any, no: number) {
     if (this.num == '1') {
       //this.swith.updateBuildingState(item._id);
-      this.storage.get(item._id).then((val) => {
+      this.storage.get(item.buildingId).then((val) => {
         console.log(val);
         this.storeBuild.dispatch(new SetHomeBuilding(val));
         this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
