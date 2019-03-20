@@ -29,9 +29,9 @@ export class SendPage {
       for (const k of keys) {
         this.storage.get(k).then(txt => {
           blob.createBlockBlobFromText("uptest", k + ".txt", JSON.stringify(txt), (err, result, resp) => {
-            console.log('err: ' + err);
-            console.log('result: ' + JSON.stringify(result));
-            console.log('response: ' + JSON.stringify(resp));
+            if (!resp.isSuccessful) {
+              // err != null?
+            }
           });  
         });
       }
