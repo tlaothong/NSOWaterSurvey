@@ -16,14 +16,14 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>หมายเลขห้อง</ion-label>
+        <ion-label>หมายเลขห้อง/เลขที่บ้าน</ion-label>
       </ion-item>
       <ion-item>
         <ion-input type="text" formControlName="roomNumber" [class.invalid]="isValid('subUnit.roomNumber')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('subUnit.roomNumber')">
         <span class="invalid-msg">
-          กรุณากรอกหมายเลขห้อง
+          กรุณากรอกหมายเลขห้อง/เลขที่บ้าน
         </span>
       </ion-item>
     </div>
