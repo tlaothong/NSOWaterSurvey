@@ -73,7 +73,7 @@ export class BuidlingInformation2Page {
         'cubicMeterPerMonth': [null, Validators],
         'waterBill': [null, Validators],
       }),
-      'floorCount': [null, Validators],
+      'floorCount': [null, [Validators.required, Validators.min(1)]],
       '_id': [null],
       'status': [null],
       'lastUpdate': null,
@@ -177,34 +177,34 @@ export class BuidlingInformation2Page {
         return { 'unitAccess': true };
       }
       if ((unitAccess.value == 1) && (floorCount.value == null)) {
-        return { 'floorCount': true, };
+        return { 'floorCount': true };
       }
       if ((unitAccess.value == 2) && (occupiedRoomCount.value == null)) {
-        return { 'occupiedRoomCount': true, };
+        return { 'occupiedRoomCount': true };
       }
       if ((unitAccess.value == 2) && (vacantRoomCount.value == null)) {
-        return { 'vacantRoomCount': true, }
+        return { 'vacantRoomCount': true }
       }
       if ((unitAccess.value == 2)
         && (vacantRoomCount.value != null)
         && (occupiedRoomCount.value != null)
         && (Number(unitCount.value) != (Number(vacantRoomCount.value) + Number(occupiedRoomCount.value)))) {
-        return { 'anyCheck': true, }
+        return { 'anyCheck': true }
       }
       if ((unitAccess.value == 2) && (waterQuantity.value < 1)) {
-        return { 'waterQuantity': true, }
+        return { 'waterQuantity': true }
       }
       if ((unitAccess.value == 2) && (waterQuantity.value == 1) && (cubicMeterPerMonth.value == null)) {
         return { 'cubicMeterPerMonth': true, }
       }
       if ((unitAccess.value == 2) && (waterQuantity.value == 2) && (waterBill.value == null)) {
-        return { 'waterBill': true, }
+        return { 'waterBill': true }
       }
       if ((unitAccess.value == 2) && (floorCount.value == null)) {
-        return { 'floorCount': true, }
+        return { 'floorCount': true }
       }
       if ((unitAccess.value == 3) && (floorCount.value == null)) {
-        return { 'floorCount': true, }
+        return { 'floorCount': true }
       }
       return null;
     }
@@ -223,8 +223,7 @@ export class BuidlingInformation2Page {
       return ctrls.errors && ctrls.errors.unitAccess && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'floorCount') {
-      let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.floorCount && (ctrl.dirty || this.submitRequested);
+      return ctrl.invalid && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'occupiedRoomCount') {
       let ctrls = this.f;

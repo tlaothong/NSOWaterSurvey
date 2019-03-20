@@ -70,7 +70,6 @@ export class PoolPage {
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators],
       'waterResources': this.fb.array([]),
-      
     }, {
         validator: PoolPage.checkAnyOrOther()
       });
@@ -134,19 +133,6 @@ export class PoolPage {
     return this.checked = false
   }
 
-  public checkvalid(): boolean {
-    if ((this.activityResidential == true
-      || this.activityWateringRes == true
-      || this.activityRice == true
-      || this.activityAgiculture == true
-      || this.activityFactory == true
-      || this.activityCommercial == true)
-      && (this.f.get('waterResourceCount').value <= 0)) {
-      return false;
-    }
-    return true;
-  }
-
   public handleSubmit() {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
@@ -161,7 +147,8 @@ export class PoolPage {
       this.f.get('poolSizes').setValue(val)
     }
     this.formData.waterUsage.pool = this.f.value
-    if (this.f.valid && this.checkvalid()) {
+
+    if (this.checkvalid()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
@@ -170,6 +157,15 @@ export class PoolPage {
       this.local.updateListUnit(this.formData.buildingId, this.formData)
       this.navCtrl.popTo("CheckListPage");
     }
+  }
+
+  public checkvalid(): boolean {
+    let ischeckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
+    return this.isCheckActivity() ? (this.f.get('waterResourceCount').value > 0 && ischeckPoolUsage) : ischeckPoolUsage;
+  }
+
+  public isCheckActivity(): boolean {
+    return this.activityResidential || this.activityWateringRes || this.activityRice || this.activityAgiculture || this.activityFactory || this.activityCommercial
   }
 
   public static checkAnyOrOther(): ValidatorFn {
