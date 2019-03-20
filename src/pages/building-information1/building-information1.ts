@@ -9,6 +9,7 @@ import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { Guid } from 'guid-typescript';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,7 @@ export class BuildingInformation1Page {
   public comment: string = '';
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.get('ea').setValue(navParams.get('ea'));
     this.f.get('_id').setValue(navParams.get('id'));
@@ -163,7 +164,7 @@ export class BuildingInformation1Page {
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
 
     if (idBD == null) {
-      this.f.get('_id').setValue(Guid.create().toString());
+      this.f.get('_id').setValue(this.appState.generateId('bld'));
       idBD = this.f.get('_id').value
     }
     console.log(this.f.value);
