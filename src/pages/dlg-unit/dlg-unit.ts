@@ -237,7 +237,7 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value
     this.storage.set(id, this.FormItem.value)
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
-    let key = "BL" + this.id_BD
+    let key = "bld" + this.id_BD
     console.log(this.id_BD);
     this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
       let bd = val

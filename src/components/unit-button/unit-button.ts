@@ -87,7 +87,7 @@ export class UnitButtonComponent {
     });
     if (this.unitCount == 1) {
       this.FormItem.controls['buildingId'].setValue(this.id_BD);
-      this.storage.get("BL" + this.id_BD).then((val) => {
+      this.storage.get("bld" + this.id_BD).then((val) => {
         console.log(val);
         if (val != null) {
           let dataListHH = val[0];
