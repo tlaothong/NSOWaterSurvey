@@ -99,6 +99,7 @@ export class HomesPage {
     loader.present();
   }
 
+  // TODO: Will be handled this
   filterRefresh() {
     this.storage.get(this.appState.eaCode).then((data) => {
       if (data != null) {

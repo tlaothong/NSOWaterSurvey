@@ -172,7 +172,7 @@ export class BuildingInformation1Page {
     this.storage.set('name', this.f.get('name').value)
 
     this.storage.set(idBD, this.f.value)
-    this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
+    this.store.dispatch(new SetHomeBuilding(this.f.value));
 
     this.storage.get(this.f.get('ea').value).then((data) => {
       listBD = data
