@@ -206,10 +206,10 @@
             {{i+1}}
           </ion-col>
           <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id,i+1)">
-            {{dataWorkEARow.properties.moo}}
+            {{ itemCom.management.vil }}
           </ion-col>
           <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id,i+1)">
-            {{dataWorkEARow.properties.muni_name}}
+            {{ itemCom.management.vil_name }}
           </ion-col>
           <ion-col col-1>
             <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom._id)">
