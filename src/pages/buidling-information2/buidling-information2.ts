@@ -115,6 +115,8 @@ export class BuidlingInformation2Page {
       if (this.f.get('buildingType').value == 4 || this.f.get('buildingType').value == 5) {
         if (this.f.get('floorCount').valid) {
           if (this.f.get('unitAccess').value == 1) {
+            this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
+            this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
             this.localStorage();
             this.navCtrl.push("UnitPage");
           }
@@ -160,19 +162,6 @@ export class BuidlingInformation2Page {
     this.localStorage();
     this.navCtrl.popToRoot();
   }
-
-  public checkValid(): boolean {
-    return (this.f.get('unitCount').value > 0);
-  }
-
-  // public checkBuildTypeAndUnitAccess(): boolean {
-
-  //   // if (this.f.get('buildingType').value == 4 || (this.f.get('buildingType').value == 5)
-  //   //   && (this.f.get('unitAccess').value == 2) || (this.f.get('unitAccess').value == 3)) {
-
-  //   // }
-
-  // }
 
   localStorage() {
     this.storage.set(this.f.get('_id').value, this.f.value);
@@ -290,7 +279,7 @@ export class BuidlingInformation2Page {
     }
     if (name == 'waterBill') {
       let ctrls = this.f;
-      return ctrls.invalid && ctrls.errors.waterBill && (ctrle.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.waterBill && (ctrle.dirty || this.submitRequested);
     }
     if (name == 'anyCheck') {
       let ctrls = this.f;
