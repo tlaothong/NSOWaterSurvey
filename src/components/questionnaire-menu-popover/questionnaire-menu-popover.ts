@@ -52,13 +52,13 @@ export class QuestionnaireMenuPopoverComponent {
       title: 'คุณต้องการกลับหน้าหลักหรือไม่',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'ยกเลิก',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Ok',
+          text: 'ตกลง',
           handler: () => {
             this.navCtrl.setRoot("HomesPage")
             this.viewCtrl.dismiss();
@@ -78,13 +78,13 @@ export class QuestionnaireMenuPopoverComponent {
       title: 'คุณต้องการหยุดการทำงานชั่วคราวหรือไม่',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'ยกเลิก',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Ok',
+          text: 'ตกลง',
           handler: () => {
             this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
             this.isDisabled = this.navParams.get('isDisabled');
