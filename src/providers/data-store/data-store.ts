@@ -59,9 +59,9 @@ export class DataStoreProvider {
   /**
    * บันทึกข้อมูล Building 1 อาคาร
    */
-  public saveBuilding(building: any): Observable<any> {
-    return Observable.fromPromise(this.storage.set(building._id, building));
-  }
+  // public saveBuilding(building: any): Observable<any> {
+  //   return Observable.fromPromise(this.storage.set(building._id, building));
+  // }
 
   /**
    * บันทึกรายการ Building แบบบันทึกเป็น List
