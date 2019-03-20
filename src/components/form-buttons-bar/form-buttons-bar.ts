@@ -30,7 +30,7 @@ export class FormButtonsBarComponent {
 
   backToHome() {
     const alert = this.alertCtrl.create({
-      title: 'ข้อมูลยังไม่ถูกบันทึกจะกดอยู่บ่...',
+      title: 'ข้อมูลยังไม่ถูกบันทึก ต้องการดำเนินการต่อหรือไม่',
       buttons: [
         {
           text: 'ยกเลิก',
@@ -62,7 +62,7 @@ export class FormButtonsBarComponent {
 
   previouPage() {
     const alert = this.alertCtrl.create({
-      title: 'ข้อมูลจะไม่ถูกบันทึก ต้องการดำเนินการต่อหรื่อไม่',
+      title: 'ข้อมูลยังไม่ถูกบันทึก ต้องการดำเนินการต่อหรือไม่',
       buttons: [
         {
           text: 'ยกเลิก',
