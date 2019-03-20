@@ -187,4 +187,9 @@ export class PopulationPage {
 
     onComponentCountChanges();
   }
+
+  deleteData(num: number){
+    let del = this.f.get('persons') as FormArray;
+    del.at(num).reset();
+  }
 }
