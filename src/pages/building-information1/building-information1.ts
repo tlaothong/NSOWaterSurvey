@@ -90,18 +90,18 @@ export class BuildingInformation1Page {
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
       } else {
-        this.storage.get('road').then((val)=>{
-          if(val != null){
+        this.storage.get('road').then((val) => {
+          if (val != null) {
             this.f.get('road').setValue(val);
           }
         })
-        this.storage.get('alley').then((val)=>{
-          if(val != null){
+        this.storage.get('alley').then((val) => {
+          if (val != null) {
             this.f.get('alley').setValue(val);
           }
         })
-        this.storage.get('name').then((val)=>{
-          if(val != null){
+        this.storage.get('name').then((val) => {
+          if (val != null) {
             this.f.get('name').setValue(val);
           }
         })
@@ -137,12 +137,14 @@ export class BuildingInformation1Page {
   public handleSubmit() {
     this.submitRequested = true;
     this.updateStatus();
+    console.log("access", this.access);
+
     if (this.f.valid && this.access == 1) {
       this.dispatch();
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
       // this.storage.set('key', this.f.value)
     }
-    if (this.f.valid && (this.access == 2 || this.access == 3 || this.access == 4)) {
+    else if (this.f.valid && (this.access == 2 || this.access == 3 || this.access == 4)) {
       this.dispatch();
       this.navCtrl.push("HomesPage", { f: this.f });
     }
