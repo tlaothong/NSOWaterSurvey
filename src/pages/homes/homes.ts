@@ -8,7 +8,7 @@ import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEd
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetRecieveDataFromBuilding, SetHomeBuilding, NewHomeBuilding } from '../../states/building/building.actions';
+import { SetRecieveDataFromBuilding, SetHomeBuilding, NewHomeBuilding, DeleteBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { shiftInitState } from '@angular/core/src/view';
@@ -181,34 +181,35 @@ export class HomesPage {
 
   }
 
-  async presentAlertBD(id) {
+  async presentAlertBD(item) {
     const alert = await this.alertController.create({
       title: 'ต้องการจะลบใช่หรือไม่',
       buttons: [
         {
           text: 'ยืนยัน',
           handler: data => {
-            this.storage.get(this.appState.eaCode).then((data) => {
-              if (data != null) {
-                let list = data
-                let index = list.findIndex(it => it._id == id)
-                list.splice(index, 1)
-                if (data == []) {
-                  this.storage.remove(this.appState.eaCode);
-                }
-                this.storage.set(this.appState.eaCode, list)
-              }
-            });
-            this.storage.remove(id);
-            this.storage.get("BL" + id).then((val) => {
-              if (val != null) {
-                let listHH = val;
-                listHH.forEach(it => {
-                  this.storage.remove(it._id);
-                  this.storage.remove("BL" + id);
-                });
-              }
-            })
+            this.store.dispatch(new DeleteBuilding(item))
+            // this.storage.get(this.appState.eaCode).then((data) => {
+            //   if (data != null) {
+            //     let list = data
+            //     let index = list.findIndex(it => it._id == id)
+            //     list.splice(index, 1)
+            //     if (data == []) {
+            //       this.storage.remove(this.appState.eaCode);
+            //     }
+            //     this.storage.set(this.appState.eaCode, list)
+            //   }
+            // });
+            // this.storage.remove(id);
+            // this.storage.get("BL" + id).then((val) => {
+            //   if (val != null) {
+            //     let listHH = val;
+            //     listHH.forEach(it => {
+            //       this.storage.remove(it._id);
+            //       this.storage.remove("BL" + id);
+            //     });
+            //   }
+            // })
             // this.store.dispatch(new LoadHomeBuilding(this.appState.eaCode));
             // this.storage.get(this.appState.eaCode).then((data) => {
             //   if (data != null) {
