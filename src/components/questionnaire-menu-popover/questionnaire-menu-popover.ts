@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, ViewController } from 'ionic-angular';
+import { NavParams, NavController, ViewController, AlertController } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
 import { getStoreWorkEaOneRecord } from '../../states/logging';
@@ -27,7 +27,7 @@ export class QuestionnaireMenuPopoverComponent {
   public Pop: boolean;
   public No: string;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>, private storeBuild: Store<BuildingState>) {
+  constructor(public alertCtrl: AlertController, public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>, private storeBuild: Store<BuildingState>) {
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
     this.navCtrl = navParams.get('nav');
     this.isDisabled = false;
@@ -48,8 +48,25 @@ export class QuestionnaireMenuPopoverComponent {
   }
 
   public goHome() {
-    this.navCtrl.setRoot("HomesPage")
-    this.viewCtrl.dismiss();
+    const alert = this.alertCtrl.create({
+      title: 'คุณต้องการกลับหน้าหลักหรือไม่',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.setRoot("HomesPage")
+            this.viewCtrl.dismiss();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   goMeasure() {
@@ -57,13 +74,29 @@ export class QuestionnaireMenuPopoverComponent {
   }
 
   goToUnitPage() {
-    this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
-    this.isDisabled = this.navParams.get('isDisabled');
-    this.isCommunity = this.navParams.get('isCommunity');
-    console.log("isDisabled: " + this.isDisabled);
-    console.log("unitCount: " + this.unitCount);
-
-    this.store.dispatch(new SetBackToRoot(true));
-    (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+    const alert = this.alertCtrl.create({
+      title: 'คุณต้องการหยุดการทำงานชั่วคราวหรือไม่',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
+            this.isDisabled = this.navParams.get('isDisabled');
+            this.isCommunity = this.navParams.get('isCommunity');
+            console.log("isDisabled: " + this.isDisabled);
+            console.log("unitCount: " + this.unitCount);
+            this.store.dispatch(new SetBackToRoot(true));
+            (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
