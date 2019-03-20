@@ -165,6 +165,13 @@ export class GroundWaterPage {
     this.count.forEach(it => it.submitRequest());
     this.formData.waterUsage.groundWater = this.f.value;
 
+    console.log(this.isCheckPrivate());
+    console.log(this.isCheckPublic());
+    console.log(this.isCheckBoth());
+    console.log(this.isCheckActivity());
+    console.log(this.isCheckPrivate());
+
+
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -182,7 +189,12 @@ export class GroundWaterPage {
 
   public isCheckBoth(): boolean {
     if (this.isCheckActivity()) {
-      return this.f.get('privateGroundWater.waterResourceCount').value > 0 && (this.f.get('privateGroundWater.doing').value || this.f.get('publicGroundWater.doing').value);
+      if (this.f.get('privateGroundWater.waterResourceCount').value > 0) {
+        return this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value;
+      }
+      else if (this.f.get('privateGroundWater.waterResourceCount').value <= 0) {
+        return this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value;
+      }
     }
     else if (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) {
       return this.f.get('privateGroundWater.waterResourceCount').value > 0;
