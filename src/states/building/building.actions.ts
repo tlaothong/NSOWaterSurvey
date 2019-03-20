@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { EaComponent } from '../../components/ea/ea';
 
 export enum BuildingTypes {
     StateName = "Building",
@@ -14,6 +15,7 @@ export enum BuildingTypes {
     SetHomeBuildingSuccess = "[BLD] Set HomeBuilding Success",
     UpdateBuildingList = "[BLD] Update or Insert the Building into the List",
     UpdateBuildingListSuccess = "[BLD] Update the Building List Success",
+    DeleteBuilding = "[BLD] Delete Building",
     SetOtherBuildingType = "[BLD] Set Other Building Type"
 }
 
@@ -104,6 +106,14 @@ export class SetOtherBuildingType implements Action {
     }
 }
 
+export class DeleteBuilding implements Action {
+    readonly type = BuildingTypes.DeleteBuilding;
+
+    constructor(public payload: any){
+
+    }
+}
+
 export type BuildingActionsType =
     LoadBuildingList
     | LoadBuildingListSuccess
@@ -117,6 +127,7 @@ export type BuildingActionsType =
     | SetHomeBuildingSuccess
     | UpdateBuildingList
     | SetOtherBuildingType
+    | DeleteBuilding
    
     ;
 

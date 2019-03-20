@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess, NewHomeBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList } from "./building.actions";
+import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess, NewHomeBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList, DeleteBuilding } from "./building.actions";
 import { mergeMap, map, tap, switchMap, filter, withLatestFrom } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -54,10 +54,25 @@ export class BuildingEffects {
             new SetHomeBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
         ]),
+
         // mergeMap((action: SetHomeBuilding) => Observable.of(new SetHomeBuildingSuccess(action.payload))),
         // mergeMap((action: SetHomeBuilding) => this.cloudSync.setHomeBuilding(action.payload).pipe(
         //     map(data => new SetHomeBuildingSuccess(data)),
         // )),
+    );
+
+    @Effect()
+    public DeleteBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(BuildingTypes.DeleteBuilding),
+        filter((action: DeleteBuilding, i) => action.payload),
+        map((action: DeleteBuilding) => action.payload),
+        withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA)),
+        mergeMap(([bld, lst, ea]) => {
+            let idx = lst.findIndex(it => it.buildingId == bld._id);
+            lst.splice(idx, 1);
+            return this.dataStore.saveBuildingList(ea.code, lst).mapTo(lst);
+        }),
+        map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),
     );
 
     @Effect()

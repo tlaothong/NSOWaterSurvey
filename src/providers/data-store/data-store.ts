@@ -46,7 +46,16 @@ export class DataStoreProvider {
   }
 
   /*********** */
+  public saveBuilding(dataBuilding: any): Observable<any> {
+    console.log(dataBuilding._id);
+    console.log("BLD Data: " + JSON.stringify(dataBuilding));
+    
+    return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
+  }
 
+  // public saveBuildingList(listBuilding: any): Observable<units[]>{
+
+  // }
   /**
    * บันทึกข้อมูล Building 1 อาคาร
    */

@@ -21,28 +21,27 @@ export class LocalStorageProvider {
   }
 
   public saveBuilding(dataBuilding: any): Observable<any> {
-    return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding))
-      // .switchMap(_ => this.loadBuilding(dataBuilding._id))
-      .mergeMap(_ => this.saveBuildingList(dataBuilding))
+    return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }
 
   public loadBuilding(idBuilding: string): Observable<any> {
     return Observable.fromPromise(this.storage.get(idBuilding))
   }
 
-  public saveBuildingList(dataBuilding: any): Observable<any> {
-    let pipeline = this.loadBuildingList(dataBuilding).filter(it => it != null)
-      .map((bldList: any[]) => {
-        if (bldList.find(it => it._id == dataBuilding._id) != null) {
-          let index = bldList.findIndex(it => it._id == dataBuilding._id);
-          return bldList.splice(index, 1, dataBuilding)
-        } else {
-          let newBldList = [];
-          newBldList.push(dataBuilding);
-          return newBldList;
-        }
-      }).mergeMap(it => this.storage.set(dataBuilding.ea, it));
-    return pipeline;
+  public saveBuildingList(payload: any): Observable<any> {
+    return Observable.fromPromise(this.storage.set('key', payload))
+    // let pipeline = this.loadBuildingList(dataBuilding).filter(it => it != null)
+    //   .map((bldList: any[]) => {
+    //     if (bldList.find(it => it._id == dataBuilding._id) != null) {
+    //       let index = bldList.findIndex(it => it._id == dataBuilding._id);
+    //       return bldList.splice(index, 1, dataBuilding)
+    //     } else {
+    //       let newBldList = [];
+    //       newBldList.push(dataBuilding);
+    //       return newBldList;
+    //     }
+    //   }).mergeMap(it => this.storage.set(dataBuilding.ea, it));
+    // return pipeline;
   }
 
   public loadBuildingList(dataBuilding: any): Observable<any> {
