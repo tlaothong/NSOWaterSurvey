@@ -82,15 +82,7 @@ export class HomesPage {
     //   }
     // });
 
-    var eaCode = this.appState.eaCode;
-
-    // this.storage.get(eaCode).then((data) => {
-    //   if (data != null) {
-    //     this.dataEa = data
-    //     this.listFilter = this.dataEa;
-    //     console.log(this.dataEa)
-    //   }
-    // });
+    let eaCode = this.appState.eaCode;
 
     this.storage.get("CL" + eaCode).then((val) => {
       if (val != null) {
@@ -189,37 +181,6 @@ export class HomesPage {
           text: 'ยืนยัน',
           handler: data => {
             this.store.dispatch(new DeleteBuilding(item))
-            // this.storage.get(this.appState.eaCode).then((data) => {
-            //   if (data != null) {
-            //     let list = data
-            //     let index = list.findIndex(it => it._id == id)
-            //     list.splice(index, 1)
-            //     if (data == []) {
-            //       this.storage.remove(this.appState.eaCode);
-            //     }
-            //     this.storage.set(this.appState.eaCode, list)
-            //   }
-            // });
-            // this.storage.remove(id);
-            // this.storage.get("BL" + id).then((val) => {
-            //   if (val != null) {
-            //     let listHH = val;
-            //     listHH.forEach(it => {
-            //       this.storage.remove(it._id);
-            //       this.storage.remove("BL" + id);
-            //     });
-            //   }
-            // })
-            // this.store.dispatch(new LoadHomeBuilding(this.appState.eaCode));
-            // this.storage.get(this.appState.eaCode).then((data) => {
-            //   if (data != null) {
-            //     this.dataEa = data
-            //     this.listFilter = this.dataEa;
-            //     console.log(this.dataEa)
-            //   }
-            // });
-            // this.navCtrl.setRoot(this.navCtrl.getActive().component);
-
           }
         },
         {
@@ -283,7 +244,7 @@ export class HomesPage {
 
   searchItem(ev) {
     this.initializeItems();
-    // // set val to the value of the ev target
+
     let val = '';
     if (ev.target && ev.target.value) {
       val = ev.target.value.toLowerCase();
@@ -292,12 +253,5 @@ export class HomesPage {
         it.name.toLowerCase().indexOf(val) > -1
         || it.houseNo.toLowerCase().indexOf(val) > -1
       ));
-    // if (val && val.trim() != '') {
-    //   this.listFilter = this.dataEa.filter((item) => {
-    //     return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1
-    //       || item.houseNo.toLowerCase().indexOf(val.toLowerCase()) > -1
-    //     );
-    //   });
-    // }
   }
 }
