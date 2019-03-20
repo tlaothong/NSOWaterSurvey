@@ -239,44 +239,8 @@ export class DlgUnitPage {
     this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value))
     let key = "BL" + this.id_BD
     console.log(this.id_BD);
-    this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
-      let bd = val
-      bd.lastUpdate = Date.now()
-      this.storage.set(this.FormItem.get('buildingId').value, bd)
-      this.storage.get(bd.ea).then((val) => {
-        let BDlist = val
-        let index = BDlist.findIndex(it => it._id == bd._id)
-        BDlist.splice(index, 1, bd);
-        // BDlist.push(building)
-        this.storage.set(bd.ea, BDlist)
-      })
-    })
 
-    this.storage.get(this.FormItem.get('buildingId').value).then((val) => {
-      if (val != null) {
-        let building = val;
-        if (this.FormItem.get('status').value == "complete" && this.oldStatus != "complete") {
-          building.unitCountComplete++;
-          if (building.unitCountComplete == building.unitCount) {
-            building.status = "done-all";
-          }
-        }
-        else if (this.FormItem.get('status').value != "complete" && this.oldStatus == "complete") {
-          building.unitCountComplete--;
-          if (building.status == "done-all") {
-            building.status = "pause";
-          }
-        }
-        this.storage.set(this.FormItem.get('buildingId').value, building);
-        this.storage.get(building.ea).then((val) => {
-          let BDlist = val
-          let index = BDlist.findIndex(it => it._id == building._id)
-          BDlist.splice(index, 1, building);
-          // BDlist.push(building)
-          this.storage.set(building.ea, BDlist)
-        })
-      }
-    });
+    this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value)
 
     let fin: any
     let list: any[]

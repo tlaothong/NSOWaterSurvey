@@ -60,10 +60,9 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.formData.closing = this.userInfo.value
-    this.oldStatus = this.formData.status;
+    this.formData.closing = this.userInfo.value;
     this.formData.status = "complete";
-    this.updateUnitCountComplete();
+    this.local.updateListUnit(this.formData.buildingId, this.formData)
     if (this.userInfo.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -84,34 +83,6 @@ export class UserPage {
         }
       })
     }
-  }
-
-  public updateUnitCountComplete() {
-    this.storage.get(this.formData.buildingId).then((val) => {
-      if (val != null) {
-        let building = val;
-        if (this.formData.status == "complete" && this.oldStatus != "complete") {
-          building.unitCountComplete++;
-          if (building.unitCountComplete == building.unitCount) {
-            building.status = "done-all";
-          }
-        }
-        else if (this.formData.status != "complete" && this.oldStatus == "complete") {
-          building.unitCountComplete--;
-          if (building.status == "done-all") {
-            building.status = "pause";
-          }
-        }
-        this.storage.set(this.formData.buildingId, building);
-        this.storage.get(building.ea).then((val) => {
-          let BDlist = val
-          let index = BDlist.findIndex(it => it._id == building._id)
-          BDlist.splice(index, 1, building);
-          // BDlist.push(building)
-          this.storage.set(building.ea, BDlist)
-        })
-      }
-    });
   }
 
   countNumberPage() {
