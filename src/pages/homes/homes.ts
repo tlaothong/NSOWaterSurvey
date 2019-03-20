@@ -29,7 +29,7 @@ export class HomesPage {
   formItem: FormGroup;
   office: string = "building";
   x: number = 0;
-  public dataEa: any;
+  // public dataEa: any;
   public datap: any[];
   // public dataWorkEARow: any;
   public str: string;
@@ -44,9 +44,17 @@ export class HomesPage {
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
   public buildings$ = this.storeBuild.select(getBuildingList);
+  public buildingList$ = this.buildings$;
+  public buildingListAll$;
+  public buildingListRecentlyUse$;
+  public buidlingListPaused$;
+  public buildingListRevisit$;
+
+  public listMode: string = "recent";
 
   constructor(public loadingCtrl: LoadingController,private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();
+    this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
   }
@@ -76,13 +84,13 @@ export class HomesPage {
 
     var eaCode = this.appState.eaCode;
 
-    this.storage.get(eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
-    });
+    // this.storage.get(eaCode).then((data) => {
+    //   if (data != null) {
+    //     this.dataEa = data
+    //     this.listFilter = this.dataEa;
+    //     console.log(this.dataEa)
+    //   }
+    // });
 
     this.storage.get("CL" + eaCode).then((val) => {
       if (val != null) {
@@ -100,47 +108,30 @@ export class HomesPage {
   }
 
   // TODO: Will be handled this
-  filterRefresh() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.datap = this.dataEa.filter(it => it.status == "refresh")
-        console.log(this.datap);
-        this.listFilter = this.datap;
-      }
-    });
+  initializeItems() {
+    // this.listFilter = this.dataEa;
+    this.buildingListAll$ = this.buildings$;
+    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort(it => -it.buildingId));
+    this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
+    this.buidlingListPaused$ = this.buildings$.map(lst => lst.filter(it => it.status == "pause"));
   }
 
-  filterLastUpdate() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data;
-        this.datap = this.dataEa.sort(it => {
-          return -it.lastUpdate;
-        });
-        this.listFilter = this.datap;
-      }
-    });
-  }
-
-  filterPause() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.datap = this.dataEa.filter(it => it.status == "pause")
-        console.log(this.datap);
-        this.listFilter = this.datap;
-      }
-    });
-  }
-  totalData() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
-    });
+  switchListMode() {
+    switch (this.listMode) {
+      case "recent":
+        this.buildingList$ = this.buildingListRecentlyUse$;
+        break;
+      case "paused":
+        this.buildingList$ = this.buidlingListPaused$;
+        break;
+      case "revisit":
+        this.buildingList$ = this.buildingListRevisit$;
+        break;
+    
+      default: // all
+        this.buildingList$ = this.buildingListAll$;
+        break;
+    }
   }
 
   changeNum(num: string) {
@@ -219,13 +210,13 @@ export class HomesPage {
               }
             })
             // this.store.dispatch(new LoadHomeBuilding(this.appState.eaCode));
-            this.storage.get(this.appState.eaCode).then((data) => {
-              if (data != null) {
-                this.dataEa = data
-                this.listFilter = this.dataEa;
-                console.log(this.dataEa)
-              }
-            });
+            // this.storage.get(this.appState.eaCode).then((data) => {
+            //   if (data != null) {
+            //     this.dataEa = data
+            //     this.listFilter = this.dataEa;
+            //     console.log(this.dataEa)
+            //   }
+            // });
             this.navCtrl.setRoot(this.navCtrl.getActive().component);
 
           }
@@ -289,21 +280,23 @@ export class HomesPage {
     this.presentAlertCM(id)
   }
 
-  initializeItems() {
-    this.listFilter = this.dataEa;
-  }
-
   searchItem(ev) {
     this.initializeItems();
     // // set val to the value of the ev target
-    var val = ev.target.value;
-    // // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.listFilter = this.dataEa.filter((item) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1
-          || item.houseNo.toLowerCase().indexOf(val.toLowerCase()) > -1
-        );
-      });
+    let val = '';
+    if (ev.target && ev.target.value) {
+      val = ev.target.value.toLowerCase();
     }
+    this.buildingList$ = this.buildingListAll$.map(lst => lst.filter(it => 
+        it.name.toLowerCase().indexOf(val) > -1
+        || it.houseNo.toLowerCase().indexOf(val) > -1
+      ));
+    // if (val && val.trim() != '') {
+    //   this.listFilter = this.dataEa.filter((item) => {
+    //     return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1
+    //       || item.houseNo.toLowerCase().indexOf(val.toLowerCase()) > -1
+    //     );
+    //   });
+    // }
   }
 }

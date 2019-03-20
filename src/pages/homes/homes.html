@@ -89,22 +89,22 @@
         </ion-col>
       </ion-row>
 
-      <ion-segment icon-start [(ngModel)]="icons">
-        <ion-segment-button value="lastest" (click)="filterLastUpdate()">
+      <ion-segment icon-start [(ngModel)]="listMode">
+        <ion-segment-button value="recent" (click)="switchListMode()">
           <ion-icon name="md-create"></ion-icon>
           ข้อมูลล่าสุด
         </ion-segment-button>
-        <ion-segment-button value="all" (click)="totalData()">
+        <ion-segment-button value="all" (click)="switchListMode()">
           <ion-icon name="folder"></ion-icon>
           ข้อมูลทั้งหมด
         </ion-segment-button>
 
-        <ion-segment-button value="pause" (click)="filterPause()">
+        <ion-segment-button value="paused" (click)="switchListMode()">
           <ion-icon name="md-pause"></ion-icon>
           หยุดชั่วคราว
         </ion-segment-button>
 
-        <ion-segment-button value="return" (click)="filterRefresh()">
+        <ion-segment-button value="revisit" (click)="switchListMode()">
           <ion-icon name="md-eye"></ion-icon>
           สำรวจครั้งที่ 2,3
         </ion-segment-button>
@@ -141,7 +141,7 @@
       <hr>
 
 
-      <div *ngFor="let item of buildings$ | async; let i = index;">
+      <div *ngFor="let item of buildingList$ | async; let i = index;">
         <ion-row text-center align-items-center>
           <ion-col col-1 (click)="goEditBuildingInfo(item)">
             <ion-icon disabled="false" name="{{item.status}}"></ion-icon>
