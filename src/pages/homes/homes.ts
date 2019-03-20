@@ -218,7 +218,7 @@ export class HomesPage {
             //     console.log(this.dataEa)
             //   }
             // });
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            // this.navCtrl.setRoot(this.navCtrl.getActive().component);
 
           }
         },
