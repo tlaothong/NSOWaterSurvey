@@ -2,6 +2,7 @@ import { Component, Input, ViewChildren } from '@angular/core';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PoolAreaComponent } from '../pool-area/pool-area';
+import { PoolAreaForCommuComponent } from '../pool-area-for-commu/pool-area-for-commu';
 
 @Component({
   selector: 'detail-water-management',
@@ -9,7 +10,7 @@ import { PoolAreaComponent } from '../pool-area/pool-area';
 })
 export class DetailWaterManagementComponent implements ISubmitRequestable {
 
-  @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
+  @ViewChildren(PoolAreaForCommuComponent) private poolAreaCommu: PoolAreaForCommuComponent[];
   @Input() public FormItem: FormGroup;
 
   @Input('no') public fieldNo: string;
@@ -29,7 +30,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       'useForService': [false, Validators],
       'useForOther': [false, Validators],
       'other': [false, Validators],
-      'projectArea': PoolAreaComponent.CreateFormGroup(fb),
+      'projectArea': PoolAreaForCommuComponent.CreateFormGroup(fb),
     }, {
         validator: DetailWaterManagementComponent.checkAnyOrOther()
       });
@@ -37,7 +38,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
 
   submitRequest() {
     this.submitRequested = true;
-    this.poolArea.forEach(it => it.submitRequest());
+    this.poolAreaCommu.forEach(it => it.submitRequest());
   }
 
   public static checkAnyOrOther(): ValidatorFn {

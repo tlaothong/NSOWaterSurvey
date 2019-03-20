@@ -27,7 +27,9 @@ export class UnitPage {
   public units: any;
   public FormItem: FormGroup;
 
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, public fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, 
+    public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
+    public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'unitCount': [null],
       'units': this.fb.array([]),
@@ -50,6 +52,8 @@ export class UnitPage {
     //     })
     //   }
     // });
+
+    this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
     let key = "BL" + this.appState.buildingId;
     this.storage.get(key).then((val) => {
       console.log(val);
@@ -106,6 +110,7 @@ export class UnitPage {
       this.storage.set(keyBD, BDList);
       this.storage.remove(keyHH)
     })
+    
   }
 
 }

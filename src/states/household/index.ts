@@ -189,6 +189,10 @@ export const getUnitNo = createSelector(
     getHouseHoldFeatureState,
     state => state.unitNo,
 );
+export const getMemberCount = createSelector(
+    getHouseHoldFeatureState,
+    state => state.memberCount,
+);
 
 
 
