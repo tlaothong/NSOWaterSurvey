@@ -15,6 +15,7 @@ import { shiftInitState } from '@angular/core/src/view';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { getBuildingList } from '../../states/building';
 
 
 
@@ -42,6 +43,7 @@ export class HomesPage {
   public statusEa: any;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
+  public buildings$ = this.storeBuild.select(getBuildingList);
 
   constructor(public loadingCtrl: LoadingController,private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();

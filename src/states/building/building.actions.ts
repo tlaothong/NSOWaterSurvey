@@ -24,7 +24,7 @@ export class LoadBuildingList implements Action {
 export class LoadBuildingListSuccess implements Action {
     readonly type = BuildingTypes.LoadListSuccess;
 
-    constructor(payload: BuildingInList[]) {
+    constructor(public payload: BuildingInList[]) {
     }
 }
 
@@ -97,6 +97,7 @@ export type BuildingActionsType =
 
 export interface BuildingInList {
     buildingId: string;
+    status: string;
     houseNo: string;
     name: string;
     completedCount: number;

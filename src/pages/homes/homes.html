@@ -141,7 +141,7 @@
       <hr>
 
 
-      <div *ngFor="let item of listFilter;let i = index;">
+      <div *ngFor="let item of buildings$ | async; let i = index;">
         <ion-row text-center align-items-center>
           <ion-col col-1 (click)="goEditBuildingInfo(item)">
             <ion-icon disabled="false" name="{{item.status}}"></ion-icon>
@@ -156,7 +156,7 @@
             {{item.name}}
           </ion-col>
           <ion-col col-2 (click)="goEditBuildingInfo(item)">
-            {{item.unitCountComplete}}
+            {{item.completedCount}}
           </ion-col>
           <ion-col col-2 (click)="goEditBuildingInfo(item)">
             {{item.unitCount}}
