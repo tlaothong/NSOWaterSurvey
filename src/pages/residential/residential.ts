@@ -29,7 +29,6 @@ export class ResidentialPage {
   private formData$ = this.store.select(getHouseHoldSample);
   private frontNum: any;
   private backNum: any;
-  public dataRes: any
   public checked: boolean;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
@@ -42,18 +41,6 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    console.log(this.formData$);
-
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        // this.residentialFrm.setValue(data.residence)
-        this.dataRes = data;
-        // console.log(data);
-      }
-    });
-
-    // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
-
   }
 
   check(): boolean {
