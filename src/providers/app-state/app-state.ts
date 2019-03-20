@@ -20,6 +20,8 @@ export class AppStateProvider {
   public eaCode: string;
   public buildingId: string;
 
+  public houseHoldUnit: any;
+
   /**
    * สร้าง Id สำหรับใช้กับข้อมูลต่างๆ โดยใช้เวลาและคนมาประกอบกัน
    */
