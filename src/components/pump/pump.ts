@@ -32,6 +32,16 @@ export class PumpComponent implements ISubmitRequestable {
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
   }
 
+  ngOnInit() {
+    let code = this.FormItem.get('energySource').value || 0;
+    if (code != 0) {
+      this.onChange(this.FormItem.get('energySource').value);
+      this.onChange1(this.FormItem.get('pumpType').value);
+      this.onChange2(this.FormItem.get('horsePower').value);
+      this.onChange3(this.FormItem.get('suctionPipeSize').value);
+    }
+  }
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'pumpAuto': [null, Validators],
@@ -180,6 +190,8 @@ export class PumpComponent implements ISubmitRequestable {
   }
 
   onChange(code: any) {
+    console.log(code);
+
     if (this.G == true) {
       this.pumpTypes = PumpDataProvider.getGroundWaterPumpTypeData(code);
     }
