@@ -24,10 +24,10 @@ export class DataStoreProvider {
    * Download Cloud to Device update for sync
    */
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
-    let updated: EA[];
-    return this.cloudSync.downloadCloudUpdate(userId)
-      .map(update => Observable.fromPromise(this.storage.set('uea' + userId, update)))
-      .switchMap(_ => this.listDownloadedEAs(userId));
+    let x = this.cloudSync.downloadCloudUpdate(userId)
+      .switchMap(update => Observable.of(this.storage.set('uea' + userId, update))
+      .mapTo(update));
+    return x;
   }
 
   /**
