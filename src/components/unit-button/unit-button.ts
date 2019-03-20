@@ -92,11 +92,11 @@ export class UnitButtonComponent {
         if (val != null) {
           let dataListHH = val[0];
           console.log(dataListHH);
-          this.store.dispatch(new LoadHouseHoldSampleSuccess(dataListHH));
+          this.store.dispatch(new LoadHouseHoldSample(dataListHH));
         } else {
           console.log(this.FormItem.value);
           this.FormItem.get('_id').setValue(Guid.create().toString());
-          this.store.dispatch(new LoadHouseHoldSampleSuccess(this.FormItem.value));
+          this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
         }
         this.setUnitNo();
         this.navCtrl.push('WaterActivityUnitPage', { FormItem: this.FormItem, unitCount: this.unitCount });
@@ -869,7 +869,7 @@ export class UnitButtonComponent {
       if (val != null) {
         this.dataS = val;
         console.log(val);
-        this.store.dispatch(new LoadHouseHoldSampleSuccess(this.dataS));
+        this.store.dispatch(new LoadHouseHoldSample(this.dataS));
       }
     })
   }

@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -30,7 +31,7 @@ export class ResidentialPage {
   private backNum: any;
   public dataRes: any
   public checked: boolean;
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, [Validators.required, Validators.min(1)]],
       'workingAge': [null, Validators.required],
@@ -73,17 +74,22 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
 
-    this.dataRes.residence = this.residentialFrm.value
+    // this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid && !(this.check())) {
-      this.arrayIsCheckMethod();
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        residence: this.residentialFrm.value,
+      };
+        this.arrayIsCheckMethod();
       // this.dispatchWaterSource();
       // this.store.dispatch(new SetHouseHold(this.dataRes));
       // this.storage.set('unit', this.dataRes)
-      let id = this.dataRes._id
-      this.storage.set(id, this.dataRes)
-      console.log("set", this.dataRes);
-      this.local.updateListUnit(this.dataRes.buildingId, this.dataRes)
-      this.store.dispatch(new SetMemberCount(this.residentialFrm.get('memberCount').value));
+      let id = newHouseHold._id
+      this.storage.set(id, newHouseHold)
+      // console.log("set", newHouseHold);
+      this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
+      this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
       this.navCtrl.popTo("CheckListPage");
     }
   }
