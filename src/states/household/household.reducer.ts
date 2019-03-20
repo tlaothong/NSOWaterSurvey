@@ -42,6 +42,7 @@ export interface HouseHoldState {
     dataOfUnit: any,
     numberRoom: string,
     unitNo: string,
+    memberCount: number,
 }
 
 const initialState: HouseHoldState = {
@@ -85,6 +86,7 @@ const initialState: HouseHoldState = {
     dataOfUnit: null,
     numberRoom: null,
     unitNo: null,
+    memberCount: null,
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -111,6 +113,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 isAgriculture: action.payload,
+            };
+        case HouseHoldTypes.SetMemberCount:
+            return {
+                ...state,
+                memberCount: action.payload,
             };
         case HouseHoldTypes.SetIsFactorial:
             return {

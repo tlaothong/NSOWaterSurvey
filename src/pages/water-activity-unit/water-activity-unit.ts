@@ -56,12 +56,13 @@ export class WaterActivityUnitPage {
         this.dataHouseHold = data;
         console.log(this.dataHouseHold);
 
-        this.f.get('subUnit').patchValue(this.dataHouseHold.subUnit)
         this.f.get('subUnit.accessCount').patchValue(this.dataHouseHold.subUnit.accessCount)
+        
         this.setupAccessCountChanges();
         this.setupAccessCountChangesForComments();
-        this.f.get('comments').patchValue(this.dataHouseHold.comments)
 
+        this.f.get('subUnit').patchValue(this.dataHouseHold.subUnit)
+        this.f.get('comments').patchValue(this.dataHouseHold.comments)
         this.f.get('isHouseHold').setValue(this.dataHouseHold.isHouseHold)
         this.f.get('isAgriculture').setValue(this.dataHouseHold.isAgriculture)
         this.f.get('isFactorial').setValue(this.dataHouseHold.isFactorial)
@@ -124,10 +125,10 @@ export class WaterActivityUnitPage {
         this.storage.get(this.dataHouseHold.buildingId).then((val) => {
           if (val != null) {
             let building = val;
-            building.unitCountComplete++;
-            if (building.unitCountComplete == building.unitCount) {
-              building.status = "done-all";
-            }
+            // building.unitCountComplete++;
+            // if (building.unitCountComplete == building.unitCount) {
+            //   building.status = "done-all";
+            // }
             this.storage.set(this.dataHouseHold.buildingId, building);
             this.storage.get(building.ea).then((val) => {
               let BDlist = val

@@ -58,6 +58,8 @@ export class CommunityWaterManagementPage {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      'vil': [null, Validators.required],
+      'vil_name': [null, Validators.required],
       'hasPublicWater': [null, Validators],
       'publicWaterCount': [0, Validators],
       'details': fb.array([]),
@@ -210,7 +212,7 @@ export class CommunityWaterManagementPage {
     }
 
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
-    this.formDataCom.get('ea').setValue(this.DataStoreWorkEaOneRecord._id);
+    this.formDataCom.get('ea').setValue(this.appState.eaCode);
     this.formDataCom.get('status').setValue("pause");
     if (this.CommunityWaterManagement.get('otherPlumbing').value == false) {
       this.CommunityWaterManagement.get('hasWaterService').setValue(null);

@@ -16,7 +16,7 @@ export class BuildingEffects {
     @Effect()
     public loadBuildingList$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.LoadList),
-        mergeMap(action => Observable.of(new LoadBuildingListSuccess())),
+        mergeMap(action => Observable.of(new LoadBuildingListSuccess([]))),
     );
 
     @Effect()
