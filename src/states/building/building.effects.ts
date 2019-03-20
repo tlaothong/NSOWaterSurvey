@@ -8,11 +8,12 @@ import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { BuildingState } from "./building.reducer";
 import { getBuildingList } from ".";
+import { DataStoreProvider } from "../../providers/data-store/data-store";
 
 
 @Injectable()
 export class BuildingEffects {
-    constructor(private action$: Actions, private store: Store<BuildingState>, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+    constructor(private action$: Actions, private dataStore: DataStoreProvider, private store: Store<BuildingState>, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
     }
 
     @Effect()
@@ -56,10 +57,12 @@ export class BuildingEffects {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),
         // TODO: Save the building to local storage
+        mergeMap((action: SetHomeBuilding) => this.dataStore.saveBuilding(action.payload)),
         switchMap((action: SetHomeBuilding) => [
             new SetHomeBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
         ]),
+        
         // mergeMap((action: SetHomeBuilding) => Observable.of(new SetHomeBuildingSuccess(action.payload))),
         // mergeMap((action: SetHomeBuilding) => this.cloudSync.setHomeBuilding(action.payload).pipe(
         //     map(data => new SetHomeBuildingSuccess(data)),
@@ -88,7 +91,7 @@ export class BuildingEffects {
                 lst.push(bInList);
             }
             // TODO: Save the building list
-
+            
             return Observable.of(lst);
         }),
         map(bldList => new LoadBuildingListSuccess(bldList)),
