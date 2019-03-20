@@ -74,7 +74,9 @@ export class UserPage {
         if (data != null) {
           this.GetDataFromBuilding = data;
           if (this.GetDataFromBuilding == 1) {
-            this.navCtrl.setRoot("HomesPage");
+            // this.navCtrl.setRoot("HomesPage");
+            this.store.dispatch(new SetBackToRoot(true));
+            this.navCtrl.popToRoot();
           } else {
             // this.navCtrl.setRoot("UnitPage");
             this.store.dispatch(new SetBackToRoot(true));
