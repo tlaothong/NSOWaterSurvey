@@ -18,6 +18,7 @@ export class FormButtonsBarComponent {
   @Input("isDisabled") public isDisabled: boolean;
   @Input("frontNum") public frontNum: any;
   @Input("backNum") public backNum: any;
+  @Input("checkFormButtonsForBuilding") public checkFormButtonsForBuilding : boolean; 
   public unitCount: number;
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
 
