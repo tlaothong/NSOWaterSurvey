@@ -58,6 +58,8 @@ export class CommunityWaterManagementPage {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
+      'vil': [null, Validators.required],
+      'vil_name': [null, Validators.required],
       'hasPublicWater': [null, Validators],
       'publicWaterCount': [0, Validators],
       'details': fb.array([]),
