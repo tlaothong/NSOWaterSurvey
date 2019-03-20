@@ -6,6 +6,7 @@ import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
 import { tap, map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operator/mergeMap';
 import { switchMap } from 'rxjs/operator/switchMap';
+import { BuildingInList } from '../../states/building/building.actions';
 
 /*
   Generated class for the DataStoreProvider provider.
@@ -55,6 +56,30 @@ export class DataStoreProvider {
   // public saveBuildingList(listBuilding: any): Observable<units[]>{
 
   // }
+  /**
+   * บันทึกข้อมูล Building 1 อาคาร
+   */
+  public saveBuilding(building: any): Observable<any> {
+    return Observable.fromPromise(this.storage.set(building._id, building));
+  }
+
+  /**
+   * บันทึกรายการ Building แบบบันทึกเป็น List
+   */
+  public saveBuildingList(eaCode: string, buildings: BuildingInList[]) {
+    return Observable.fromPromise(this.storage.set('bldlst' + eaCode, buildings));
+  }
+
+  /**
+   * เรียกรายการ Buildings ที่เก็บไว้เป็น list สำหรับ EA ที่ระบุ
+   */
+  public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
+    return Observable.fromPromise(this.storage.get('bldlst' + eaCode));
+  }
+
+
+  /*********** */
+
   /**
    * setEaForTest
    */

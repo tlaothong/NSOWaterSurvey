@@ -21,8 +21,6 @@ const initialState: BuildingState = {
     recieveDataFromBuilding: null,
     setDataBuilding: null,
     otherBuildingType: null,
-
-
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {

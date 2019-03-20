@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess, NewHomeBuilding, UpdateBuildingList, UpdateBuildingListSuccess } from "./building.actions";
+import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess, NewHomeBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList } from "./building.actions";
 import { mergeMap, map, tap, switchMap, filter, withLatestFrom } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -9,35 +9,27 @@ import { AppStateProvider } from "../../providers/app-state/app-state";
 import { BuildingState } from "./building.reducer";
 import { getBuildingList } from ".";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
+import { BootupState } from "../bootup/bootup.reducer";
+import { getCurrentWorkingEA } from "../bootup";
 
 
 @Injectable()
 export class BuildingEffects {
-    constructor(private action$: Actions, private dataStore: DataStoreProvider, private store: Store<BuildingState>, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+    constructor(private action$: Actions, private store: Store<BuildingState>, private storeBoot: Store<BootupState>, private cloudSync: CloudSyncProvider, private dataStore: DataStoreProvider, private appState: AppStateProvider) {
     }
 
     @Effect()
     public loadBuildingList$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.LoadList),
-        mergeMap(action => Observable.of(new LoadBuildingListSuccess([
-            {
-                "buildingId": "123",
-                "status": "search",
-                "houseNo": "45",
-                "name": "บ้านฉัน",
-                "completedCount": 2,
-                "unitCount": 3,
-            }
-        ]))),
+        mergeMap((action: LoadBuildingList) => this.dataStore.listBuildingsForEA(action.eaCode)),
+        map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),
     );
 
     @Effect()
     public loadBuildingSample$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.Load),
-        mergeMap(action => this.cloudSync.loadBuildingSampleTestData().pipe(
-            map(data => new LoadBuildingSampleSuccess(data)),
-        )
-        ),
+        mergeMap(action => this.cloudSync.loadBuildingSampleTestData()),
+        map(data => new LoadBuildingSampleSuccess(data)),
     );
 
     @Effect()
@@ -57,7 +49,7 @@ export class BuildingEffects {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),
         // TODO: Save the building to local storage
-        mergeMap((action: SetHomeBuilding) => this.dataStore.saveBuilding(action.payload)),
+        mergeMap((action: SetHomeBuilding) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
         switchMap((action: SetHomeBuilding) => [
             new SetHomeBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
@@ -74,26 +66,26 @@ export class BuildingEffects {
         ofType(BuildingTypes.UpdateBuildingList),
         filter((action: UpdateBuildingList, i) => action.payload),
         map((action: UpdateBuildingList) => action.payload),
-        withLatestFrom(this.store.select(getBuildingList)),
-        mergeMap(([bld, lst]) => {
+        withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA)),
+        mergeMap(([bld, lst, ea]) => {
             let bInList = {
-                "buildingId": bld.buildingId,
+                "buildingId": bld._id,
                 "houseNo": bld.houseNo,
                 "name": bld.name,
                 "status": "log-out",
                 "completedCount": 0,
                 "unitCount": bld.unitCount,
             };
-            let idx = lst.findIndex(it => it.buildingId == bld.buildingId);
+            let idx = lst.findIndex(it => it.buildingId == bld._id);
             if (idx >= 0) {
                 lst[idx] = bInList;
             } else {
                 lst.push(bInList);
             }
             // TODO: Save the building list
-            
-            return Observable.of(lst);
+            return this.dataStore.saveBuildingList(ea.code, lst)
+                .mapTo(lst);
         }),
-        map(bldList => new LoadBuildingListSuccess(bldList)),
+        map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),
     );
 }
