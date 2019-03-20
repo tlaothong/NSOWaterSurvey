@@ -51,7 +51,7 @@ export class LoginPage {
       if (hasDownloaded) {
         this.store.dispatch(new DownloadUserToMobile());
         this.navCtrl.setRoot("SelectEaPage");
-       //this.presentLoading();
+       this.presentLoading();
       } else {
         this.navCtrl.push("GetworkPage");
       }

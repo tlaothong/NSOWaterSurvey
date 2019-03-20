@@ -63,7 +63,7 @@ export class BuidlingInformation2Page {
       'comments': fb.array([
       ]),
       'recCtrl': [null, Validators.required],
-      'vacantRoomCount': [null],
+      'vacantRoomCount': [null, Validators.required],
       'unitCountComplete': 0,
       'unitCount': [0, Validators.required],
       'unitAccess': [null, Validators.required],
@@ -108,17 +108,27 @@ export class BuidlingInformation2Page {
     console.log("f.valid", this.f.valid);
     this.f.get('lastUpdate').setValue(Date.now())
     console.log(this.f.get('lastUpdate').value);
+    console.log(this.isCheckValidAccess2());
+    console.log(this.isCheckValidAccess3());
 
-    if ((this.f.get('unitCount').value > 0)) {
-      if (((this.f.get('buildingType').value == 4) || (this.f.get('buildingType').value == 5))
-        && (this.f.get('unitAccess').value == 2) || (this.f.get('unitAccess').value == 3)) {
-        let unitdone = this.f.get('unitCount').value;
-        this.f.get('unitCountComplete').setValue(unitdone);
-        this.f.get('status').setValue('done-all');
-
-        this.localStorage()
-        this.navCtrl.popToRoot();
-      } else {
+    if (this.f.get('unitCount').value > 0) {
+      if (this.f.get('buildingType').value == 4 || this.f.get('buildingType').value == 5) {
+        if (this.f.get('floorCount').valid) {
+          if (this.f.get('unitAccess').value == 1) {
+            this.localStorage();
+            this.navCtrl.push("UnitPage");
+          }
+          else {
+            if (this.f.get('unitAccess').value == 2 && this.isCheckValidAccess2()) {
+              this.nextPage();
+            }
+            else if (this.f.get('unitAccess').value == 3 && this.isCheckValidAccess3()) {
+              this.nextPage();
+            }
+          }
+        }
+      }
+      else {
         this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
         this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
         this.localStorage()
@@ -126,6 +136,43 @@ export class BuidlingInformation2Page {
       }
     }
   }
+
+  public isCheckValidAccess2(): boolean {
+    if (this.f.get('occupiedRoomCount').valid && this.f.get('vacantRoomCount').valid) {
+      if (this.f.get('waterQuantity.waterQuantity').value == 1) {
+        return this.f.get('waterQuantity.cubicMeterPerMonth').valid && this.f.get('floorCount').valid
+      }
+      else {
+        return this.f.get('waterQuantity.waterBill').valid && this.f.get('floorCount').valid
+      }
+    }
+    return false;
+  }
+
+  public isCheckValidAccess3(): boolean {
+    return this.f.get('floorCount').valid;
+  }
+
+  public nextPage() {
+    let unitdone = this.f.get('unitCount').value;
+    this.f.get('unitCountComplete').setValue(unitdone);
+    this.f.get('status').setValue('done-all');
+    this.localStorage();
+    this.navCtrl.popToRoot();
+  }
+
+  public checkValid(): boolean {
+    return (this.f.get('unitCount').value > 0);
+  }
+
+  // public checkBuildTypeAndUnitAccess(): boolean {
+
+  //   // if (this.f.get('buildingType').value == 4 || (this.f.get('buildingType').value == 5)
+  //   //   && (this.f.get('unitAccess').value == 2) || (this.f.get('unitAccess').value == 3)) {
+
+  //   // }
+
+  // }
 
   localStorage() {
     this.storage.set(this.f.get('_id').value, this.f.value);
@@ -176,7 +223,7 @@ export class BuidlingInformation2Page {
       if (((buildingType.value == 4) || (buildingType.value == 5)) && (unitAccess.value < 1)) {
         return { 'unitAccess': true };
       }
-      if ((unitAccess.value == 1) && (floorCount.value == null)) {
+      if ((unitAccess.value == 1) && ((floorCount.value == null) || (floorCount.value <= 0))) {
         return { 'floorCount': true };
       }
       if ((unitAccess.value == 2) && (occupiedRoomCount.value == null)) {
@@ -200,10 +247,10 @@ export class BuidlingInformation2Page {
       if ((unitAccess.value == 2) && (waterQuantity.value == 2) && (waterBill.value == null)) {
         return { 'waterBill': true }
       }
-      if ((unitAccess.value == 2) && (floorCount.value == null)) {
+      if ((unitAccess.value == 2) && ((floorCount.value == null) || (floorCount.value <= 0))) {
         return { 'floorCount': true }
       }
-      if ((unitAccess.value == 3) && (floorCount.value == null)) {
+      if ((unitAccess.value == 3) && ((floorCount.value == null) || (floorCount.value <= 0))) {
         return { 'floorCount': true }
       }
       return null;
@@ -223,8 +270,7 @@ export class BuidlingInformation2Page {
       return ctrls.errors && ctrls.errors.unitAccess && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'floorCount') {
-      let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.floorCount && (ctrl.dirty || this.submitRequested);
+      return ctrl.invalid && (ctrl.dirty || this.submitRequested);
     }
     if (name == 'occupiedRoomCount') {
       let ctrls = this.f;
@@ -244,7 +290,7 @@ export class BuidlingInformation2Page {
     }
     if (name == 'waterBill') {
       let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.waterBill && (ctrle.dirty || this.submitRequested);
+      return ctrls.invalid && ctrls.errors.waterBill && (ctrle.dirty || this.submitRequested);
     }
     if (name == 'anyCheck') {
       let ctrls = this.f;

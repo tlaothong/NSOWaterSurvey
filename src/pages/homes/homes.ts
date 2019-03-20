@@ -182,7 +182,7 @@ export class HomesPage {
         this.navCtrl.push("CommunityTestPage", { no: no.toString() })
       });
     }
-    //this.presentLoading();
+    this.presentLoading();
 
   }
 
