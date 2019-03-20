@@ -27,6 +27,8 @@ export class BuildingInformation1Page {
   public access: number;
   public comment: string = '';
 
+  public checkFormButtonsForBuilding : boolean = true;
+
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
