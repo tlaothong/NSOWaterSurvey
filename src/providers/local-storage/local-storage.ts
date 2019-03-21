@@ -6,6 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetHouseHoldSuccess } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
+import { SetHomeBuilding } from '../../states/building/building.actions';
 
 /*
   Generated class for the LocalStorageProvider provider.
@@ -140,6 +141,10 @@ export class LocalStorageProvider {
           // list.push(data)
         }
         this.storage.set(key, list)
+      } else {
+        list = []
+        list.push(data);
+        this.storage.set(key, list)
       }
     })
     this.updateStatusBuilding(id, data)
@@ -170,29 +175,32 @@ export class LocalStorageProvider {
           })
 
           building.lastUpdate = Date.now()
-          this.storage.set(idBuilding, building);
+          // this.storage.set(idBuilding, building);
+          this.store.dispatch(new SetHomeBuilding(building));
+
         });
 
-        this.storage.get(building.ea).then((val) => {
-          let BDlist = val
-          let index = BDlist.findIndex(it => it._id == building._id)
-          BDlist.splice(index, 1, building);
-          // BDlist.push(building)
-          this.storage.set(building.ea, BDlist)
-        });
+        // this.storage.get(building.ea).then((val) => {
+        //   let BDlist = val
+        //   let index = BDlist.findIndex(it => it._id == building._id)
+        //   BDlist.splice(index, 1, building);
+        //   // BDlist.push(building)
+        //   this.storage.set(building.ea, BDlist)
+        // });
         this.storage.set(dataHousehold._id, dataHousehold)
-        console.log(building.lastUpdate);
+        // console.log(building.lastUpdate);
 
         building.lastUpdate = Date.now()
-        console.log(building.ea);
-        this.storage.set(idBuilding, building)
-        this.storage.get(building.ea).then((val) => {
-          let BDlist = val
-          let index = BDlist.findIndex(it => it._id == building._id)
-          BDlist.splice(index, 1, building);
-          // BDlist.push(building)
-          this.storage.set(building.ea, BDlist)
-        });
+        // console.log(building.ea);
+        // this.storage.set(idBuilding, building)
+        this.store.dispatch(new SetHomeBuilding(building));
+        // this.storage.get(building.ea).then((val) => {
+        //   let BDlist = val
+        //   let index = BDlist.findIndex(it => it._id == building._id)
+        //   BDlist.splice(index, 1, building);
+        //   // BDlist.push(building)
+        //   this.storage.set(building.ea, BDlist)
+        // });
       }
     });
   }
