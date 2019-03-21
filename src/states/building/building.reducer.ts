@@ -1,4 +1,5 @@
-import { BuildingActionsType, BuildingTypes, BuildingInList, LoadBuildingListSuccess } from "./building.actions";
+import { BuildingActionsType, BuildingTypes, LoadBuildingListSuccess } from "./building.actions";
+import { BuildingInList } from "../../models/mobile/MobileModels";
 
 
 export interface BuildingState {
