@@ -67,7 +67,7 @@ export const EX_TREERAI_LIST: Tree[] = [
 export const EX_TREETON_LIST: Tree[] = [
     { code: '1', name: 'กระท้อน' },
     { code: '2', name: 'กล้วยไข่' },
-    { code: '3', name: 'กล้วยน้ําว้า' },
+    { code: '3', name: 'กล้วยน้ำว้า' },
     { code: '4', name: 'กล้วยหอม' },
     { code: '5', name: 'กาน้า (สมอจีน)' },
     { code: '6', name: 'กาแฟ' },
