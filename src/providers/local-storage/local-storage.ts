@@ -69,12 +69,12 @@ export class LocalStorageProvider {
           newBldList.push(dataHousehold);
           return newBldList;
         }
-      }).mergeMap(it => this.storage.set("bld" + dataHousehold.buildingId, it));
+      }).mergeMap(it => this.storage.set(dataHousehold.buildingId, it));
     return pipeline;
   }
 
   public loadHouseholdList(dataHousehold: any): Observable<any> {
-    return Observable.fromPromise(this.storage.get("bld" + dataHousehold.buildingId))
+    return Observable.fromPromise(this.storage.get(dataHousehold.buildingId))
   }
 
   public saveCommunity() {
@@ -122,7 +122,7 @@ export class LocalStorageProvider {
   // }
 
   updateListUnit(id: string, data: any) { //id building, unit form
-    let key = "bld" + id
+    let key = id;
     console.log(key);
     // this.store.dispatch(new SetHouseHoldSuccess(data));
     this.store.dispatch(new SetHouseHold(data))
@@ -154,7 +154,7 @@ export class LocalStorageProvider {
   }
 
   updateStatusBuilding(idb: string, dataHousehold: any) {
-    let idBuilding = "bld" + this.appState.buildingId;
+    let idBuilding = idb;
 
     this.storage.get(idBuilding).then((val) => {
       if (val != null) {
@@ -168,7 +168,7 @@ export class LocalStorageProvider {
 
           console.log("1111111");
 
-          this.storage.get("bldlst" + this.appState.buildingId).then((val) => {
+          this.storage.get("bldlst" + this.appState.eaCode).then((val) => {
             let HHList = val;
             // building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
             let complete = HHList.filter(it => it.status == "complete");
