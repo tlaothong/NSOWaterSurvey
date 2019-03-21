@@ -10,6 +10,7 @@ import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 // import { Guid } from "guid-typescript";
 @IonicPage()
@@ -31,25 +32,28 @@ export class DlgUnitPage {
 
   private fgac: FormArray;
   private fgcm: FormArray;
-  public id_BD: string;
+  // public id_BD: string;
 
   private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   private dataHouseHold$ = this.store.select(getHouseHoldSample);
 
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider,
     private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>,
-    private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, private viewCtrl: ViewController, public fb: FormBuilder) {
+    private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, 
+    private viewCtrl: ViewController, public fb: FormBuilder,
+    private appState: AppStateProvider) {
     this.FormItem = navParams.get('FormItem');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
     this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
     this.setupAccessCountChanges();
     this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
-    this.dataHomeBuilding$.subscribe(data => {
-      if (data != null) {
-        this.id_BD = data._id
-        this.FormItem.controls['buildingId'].setValue(this.id_BD);
-      }
-    });
+    // this.dataHomeBuilding$.subscribe(data => {
+    //   if (data != null) {
+    //     this.id_BD = data._id
+    //     this.FormItem.controls['buildingId'].setValue(this.id_BD);
+    //   }
+    // });
+    this.FormItem.controls['buildingId'].setValue(this.appState.buildingId);
     this.setEnvironment();
   }
 
@@ -234,13 +238,13 @@ export class DlgUnitPage {
   }
 
   AddUnit() {
-    let id = this.FormItem.get('_id').value
-    this.storage.set(id, this.FormItem.value)
-    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value))
-    let key = "bld" + this.id_BD
-    console.log(this.id_BD);
+    let id = this.FormItem.get('_id').value;
+    this.storage.set(id, this.FormItem.value);
+    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
+    let key = "bld" + this.appState.buildingId;
+    console.log(this.appState.buildingId);
 
-    this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value)
+    this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value);
 
   //   let fin: any
   //   let list: any[]

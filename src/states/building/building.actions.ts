@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { EaComponent } from '../../components/ea/ea';
+import { BuildingInList } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
@@ -130,17 +131,3 @@ export type BuildingActionsType =
     | DeleteBuilding
    
     ;
-
-export interface BuildingInList {
-    buildingId: string;
-    status: string;
-    houseNo: string;
-    name: string;
-    completedCount: number;
-    unitCount: number;
-}
-
-export interface CommunityInList {
-    vil: string;
-    name: string;
-}

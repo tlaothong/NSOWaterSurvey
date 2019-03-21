@@ -7,6 +7,7 @@ import { SetHouseHoldSuccess } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
 import { SetHomeBuilding } from '../../states/building/building.actions';
+import { AppStateProvider } from '../app-state/app-state';
 
 /*
   Generated class for the LocalStorageProvider provider.
@@ -17,7 +18,7 @@ import { SetHomeBuilding } from '../../states/building/building.actions';
 @Injectable()
 export class LocalStorageProvider {
 
-  constructor(public http: HttpClient, private storage: Storage, private store: Store<HouseHoldState>) {
+  constructor(public http: HttpClient, private storage: Storage, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     console.log('Hello LocalStorageProvider Provider');
   }
 
@@ -150,7 +151,9 @@ export class LocalStorageProvider {
     this.updateStatusBuilding(id, data)
   }
 
-  updateStatusBuilding(idBuilding: string, dataHousehold: any) {
+  updateStatusBuilding(idb: string, dataHousehold: any) {
+    let idBuilding = "bld" + this.appState.buildingId;
+
     this.storage.get(idBuilding).then((val) => {
       if (val != null) {
 
@@ -163,7 +166,7 @@ export class LocalStorageProvider {
 
           console.log("1111111");
 
-          this.storage.get("bld" + idBuilding).then((val) => {
+          this.storage.get("bldlst" + this.appState.buildingId).then((val) => {
             let HHList = val;
             // building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
             let complete = HHList.filter(it => it.status == "complete");
@@ -172,12 +175,11 @@ export class LocalStorageProvider {
             if (building.unitCountComplete == building.unitCount) {
               building.status = "done-all";
             }
-          })
+          });
 
           building.lastUpdate = Date.now()
           // this.storage.set(idBuilding, building);
           this.store.dispatch(new SetHomeBuilding(building));
-
         });
 
         // this.storage.get(building.ea).then((val) => {
@@ -187,13 +189,12 @@ export class LocalStorageProvider {
         //   // BDlist.push(building)
         //   this.storage.set(building.ea, BDlist)
         // });
-        this.storage.set(dataHousehold._id, dataHousehold)
-        // console.log(building.lastUpdate);
+        // this.storage.set(dataHousehold._id, dataHousehold)
+        console.log(building.lastUpdate);
 
-        building.lastUpdate = Date.now()
+        // building.lastUpdate = Date.now()
         // console.log(building.ea);
         // this.storage.set(idBuilding, building)
-        this.store.dispatch(new SetHomeBuilding(building));
         // this.storage.get(building.ea).then((val) => {
         //   let BDlist = val
         //   let index = BDlist.findIndex(it => it._id == building._id)

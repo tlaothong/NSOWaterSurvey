@@ -3,10 +3,7 @@ import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 import { EA } from '../../states/bootup/bootup.reducer';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
-import { tap, map } from 'rxjs/operators';
-import { mergeMap } from 'rxjs/operator/mergeMap';
-import { switchMap } from 'rxjs/operator/switchMap';
-import { BuildingInList } from '../../states/building/building.actions';
+import { BuildingInList } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the DataStoreProvider provider.

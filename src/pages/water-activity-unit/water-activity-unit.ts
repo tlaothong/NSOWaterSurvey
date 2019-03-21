@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,7 @@ export class WaterActivityUnitPage {
   private formDataRecieve$ = this.store.select(getHouseHoldSample);
   public dataHouseHold: any;
   public unitCount: any;
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     // this.f = UnitButtonComponent.CreateFormGroup(fb);
     // this.f = navParams.get('FormItem');
     console.log(this.f);
@@ -110,56 +111,65 @@ export class WaterActivityUnitPage {
       let id = this.dataHouseHold._id;
       this.storage.set(id, this.dataHouseHold);
       let key = "bld" + this.dataHouseHold.buildingId;
-      this.storage.get(this.dataHouseHold.buildingId).then((val) => {
-        let bd = val
-        bd.lastUpdate = Date.now()
-        this.storage.set(this.dataHouseHold.buildingId, bd)
-        this.storage.get(bd.ea).then((val) => {
-          let BDlist = val
-          let index = BDlist.findIndex(it => it._id == bd._id)
-          BDlist.splice(index, 1, bd);
-          this.storage.set(bd.ea, BDlist)
-        })
-      })
-      if (this.dataHouseHold.status == "complete") {
-        this.storage.get(this.dataHouseHold.buildingId).then((val) => {
-          if (val != null) {
-            let building = val;
-            // building.unitCountComplete++;
-            // if (building.unitCountComplete == building.unitCount) {
-            //   building.status = "done-all";
-            // }
-            this.storage.set(this.dataHouseHold.buildingId, building);
-            this.storage.get(building.ea).then((val) => {
-              let BDlist = val
-              let index = BDlist.findIndex(it => it._id == building._id)
-              BDlist.splice(index, 1, building);
-              this.storage.set(building.ea, BDlist)
-            })
-          }
-        });
-      }
+
+      // TODO: Replace this code with the new one
+
+      // this.storage.get(this.dataHouseHold.buildingId).then((val) => {
+      //   let bd = val
+      //   bd.lastUpdate = Date.now()
+      //   this.storage.set(this.dataHouseHold.buildingId, bd)
+      //   this.storage.get(bd.ea).then((val) => {
+      //     let BDlist = val
+      //     let index = BDlist.findIndex(it => it._id == bd._id)
+      //     BDlist.splice(index, 1, bd);
+      //     this.storage.set(bd.ea, BDlist)
+      //   })
+      // })
+
+      // TODO: Replace with the working code
+
+      // if (this.dataHouseHold.status == "complete") {
+      //   this.storage.get(this.dataHouseHold.buildingId).then((val) => {
+      //     if (val != null) {
+      //       let building = val;
+      //       // building.unitCountComplete++;
+      //       // if (building.unitCountComplete == building.unitCount) {
+      //       //   building.status = "done-all";
+      //       // }
+      //       this.storage.set(this.dataHouseHold.buildingId, building);
+      //       this.storage.get(building.ea).then((val) => {
+      //         let BDlist = val
+      //         let index = BDlist.findIndex(it => it._id == building._id)
+      //         BDlist.splice(index, 1, building);
+      //         this.storage.set(building.ea, BDlist)
+      //       })
+      //     }
+      //   });
+      // }
       let fin: any
       let list: any[]
-      this.storage.get(key).then((val) => {
-        list = val
-        console.log(list);
-        if (list != null) {
-          fin = list.find(it => it._id == id)
-          if (fin == null) {
-            list.push(this.dataHouseHold);
-            this.storage.set(key, list)
-          } else {
-            let index = list.findIndex(it => it._id == id)
-            list.splice(index, 1, this.dataHouseHold);
-            this.storage.set(key, list)
-          }
-        } else {
-          list = []
-          list.push(this.dataHouseHold);
-          this.storage.set(key, list)
-        }
-      })
+
+      // TODO: Replace with the working strategy
+
+      // this.storage.get(key).then((val) => {
+      //   list = val
+      //   console.log(list);
+      //   if (list != null) {
+      //     fin = list.find(it => it._id == id)
+      //     if (fin == null) {
+      //       list.push(this.dataHouseHold);
+      //       this.storage.set(key, list)
+      //     } else {
+      //       let index = list.findIndex(it => it._id == id)
+      //       list.splice(index, 1, this.dataHouseHold);
+      //       this.storage.set(key, list)
+      //     }
+      //   } else {
+      //     list = []
+      //     list.push(this.dataHouseHold);
+      //     this.storage.set(key, list)
+      //   }
+      // })
       console.log(this.dataHouseHold);
       this.navCtrl.push("CheckListPage", { id: this.dataHouseHold._id });
     }

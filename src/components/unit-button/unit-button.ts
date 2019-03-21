@@ -7,9 +7,10 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
 import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUnitNo, LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { Guid } from "guid-typescript";
-import { setHomeBuilding } from '../../states/building';
+// import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
 import { UnitButtonPopoverComponent } from '../unit-button-popover/unit-button-popover';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 /**
  * Generated class for the UnitButtonComponent component.
@@ -47,21 +48,21 @@ export class UnitButtonComponent {
 
 
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
-  private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
+  // private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
   private formData$ = this.store.select(getHouseHoldSample);
 
 
   constructor(private modalCtrl: ModalController, private storage: Storage,
     public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController,
     private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, private fb: FormBuilder,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController, private appState: AppStateProvider
   ) {
     console.log('Hello UnitButtonComponent Component');
-    this.dataHomeBuilding$.subscribe(data => {
-      if (data != null) {
-        this.id_BD = data._id
-      }
-    });
+    // this.dataHomeBuilding$.subscribe(data => {
+    //   if (data != null) {
+    //     this.id_BD = data._id
+    //   }
+    // });
     this.text = '';
   }
 
@@ -86,8 +87,8 @@ export class UnitButtonComponent {
       }
     });
     if (this.unitCount == 1) {
-      this.FormItem.controls['buildingId'].setValue(this.id_BD);
-      this.storage.get("bld" + this.id_BD).then((val) => {
+      this.FormItem.controls['buildingId'].setValue(this.appState.buildingId);
+      this.storage.get("bld" + this.appState.buildingId).then((val) => {
         console.log(val);
         if (val != null) {
           let dataListHH = val[0];
