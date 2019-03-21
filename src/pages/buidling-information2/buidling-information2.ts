@@ -116,8 +116,8 @@ export class BuidlingInformation2Page {
         if (this.f.get('floorCount').valid) {
           if (this.f.get('unitAccess').value == 1) {
             this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-            this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-            this.localStorage();
+            this.store.dispatch(new SetHomeBuilding(this.f.value));
+            // this.localStorage();
             this.navCtrl.push("UnitPage");
           }
           else {
@@ -132,8 +132,8 @@ export class BuidlingInformation2Page {
       }
       else {
         this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-        this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
-        this.localStorage()
+        this.store.dispatch(new SetHomeBuilding(this.f.value));
+        // this.localStorage()
         this.navCtrl.push("UnitPage");
       }
     }
