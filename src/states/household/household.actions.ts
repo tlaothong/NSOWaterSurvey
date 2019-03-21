@@ -69,7 +69,7 @@ export class LoadHouseHoldListSuccess implements Action {
 export class LoadHouseHoldSample implements Action {
     readonly type = HouseHoldTypes.LoadHouseHoldSample;
 
-    constructor(public payload: string) {
+    constructor(public payload: any) {
     }
 }
 

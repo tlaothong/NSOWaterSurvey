@@ -31,7 +31,7 @@ export class UnitPage {
     public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
     public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
-      'unitCount': [null],
+      'unitCount': null,
       'units': this.fb.array([]),
     });
   }
@@ -54,7 +54,7 @@ export class UnitPage {
     // });
 
     this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    let key = "BL" + this.appState.buildingId;
+    let key = "bld" + this.appState.buildingId;
     this.storage.get(key).then((val) => {
       console.log(val);
       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
@@ -101,15 +101,15 @@ export class UnitPage {
   }
 
   deleteUnit(HH: any) {
-    let keyHH = HH._id;
-    let keyBD = "BL" + HH.buildingId;
-    this.storage.get(keyBD).then((val) => {
-      let BDList = val;
-      let index = BDList.findIndex(it => it._id == HH._id);
-      BDList.splice(index, 1);
-      this.storage.set(keyBD, BDList);
-      this.storage.remove(keyHH)
-    })
+    // let keyHH = HH._id;
+    // let keyBD = "BL" + HH.buildingId;
+    // this.storage.get(keyBD).then((val) => {
+    //   let BDList = val;
+    //   let index = BDList.findIndex(it => it._id == HH._id);
+    //   BDList.splice(index, 1);
+    //   this.storage.set(keyBD, BDList);
+    //   this.storage.remove(keyHH)
+    // })
     
   }
 

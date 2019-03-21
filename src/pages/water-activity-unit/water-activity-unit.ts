@@ -109,7 +109,7 @@ export class WaterActivityUnitPage {
       console.log(this.f.value);
       let id = this.dataHouseHold._id;
       this.storage.set(id, this.dataHouseHold);
-      let key = "BL" + this.dataHouseHold.buildingId;
+      let key = "bld" + this.dataHouseHold.buildingId;
       this.storage.get(this.dataHouseHold.buildingId).then((val) => {
         let bd = val
         bd.lastUpdate = Date.now()

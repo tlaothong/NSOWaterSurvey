@@ -1,28 +1,26 @@
-import { BuildingActionsType, BuildingTypes } from "./building.actions";
+import { BuildingActionsType, BuildingTypes, BuildingInList, LoadBuildingListSuccess } from "./building.actions";
 
 
 export interface BuildingState {
     units: any,
+    buildings: BuildingInList[],
     buildingSample: any,
     sendDataBuilding: any,
     sendBuildingType: any,
     recieveDataFromBuilding: any,
     setDataBuilding: any,
     otherBuildingType: any,
-
-
 }
 
 const initialState: BuildingState = {
     units: [],
+    buildings: [],
     buildingSample: null,
     sendDataBuilding: null,
     sendBuildingType: null,
     recieveDataFromBuilding: null,
     setDataBuilding: null,
     otherBuildingType: null,
-
-
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -30,6 +28,7 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
         case BuildingTypes.LoadListSuccess:
             return {
                 ...state,
+                buildings: (<LoadBuildingListSuccess>action).payload,
             };
         case BuildingTypes.LoadSuccess:
             return {

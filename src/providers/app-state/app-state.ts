@@ -20,4 +20,12 @@ export class AppStateProvider {
   public eaCode: string;
   public buildingId: string;
 
+  public houseHoldUnit: any;
+
+  /**
+   * สร้าง Id สำหรับใช้กับข้อมูลต่างๆ โดยใช้เวลาและคนมาประกอบกัน
+   */
+  public generateId(prefix: string): string {
+    return prefix + Date.now().valueOf() + this.userId;
+  }
 }

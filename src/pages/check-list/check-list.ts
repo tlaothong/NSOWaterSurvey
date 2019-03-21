@@ -61,7 +61,7 @@ export class CheckListPage {
     console.log('ionViewDidEnter CheckListPage');
     this.storage.get(this.navParams.get('id')).then((val) => {
       console.log("get", val);
-      this.store.dispatch(new LoadHouseHoldSampleSuccess(val))
+      this.store.dispatch(new LoadHouseHoldSample(val));
       this.arrayIsCheckMethod();
       this.arrayNextPageMethod();
     })

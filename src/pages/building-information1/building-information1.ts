@@ -9,6 +9,7 @@ import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { Guid } from 'guid-typescript';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -30,7 +31,7 @@ export class BuildingInformation1Page {
   public checkFormButtonsForBuilding : boolean = true;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
     this.f.get('ea').setValue(navParams.get('ea'));
     this.f.get('_id').setValue(navParams.get('id'));
@@ -38,7 +39,7 @@ export class BuildingInformation1Page {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'ea': [null],
+      'ea': null,
       'ordering': [0],
       'road': [null, Validators.required],
       'alley': [null, Validators.required],
@@ -88,7 +89,8 @@ export class BuildingInformation1Page {
 
     this.storage.get(id).then((data) => {
       if (data != null) {
-        this.f.setValue(data);
+        console.log("DATA: " + JSON.stringify(data));
+        this.f.patchValue(data);
         this.f.get('accessCount').setValue(data.accessCount);
         this.setupCountChanges();
       } else {
@@ -167,7 +169,7 @@ export class BuildingInformation1Page {
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
 
     if (idBD == null) {
-      this.f.get('_id').setValue(Guid.create().toString());
+      this.f.get('_id').setValue(this.appState.generateId('bld'));
       idBD = this.f.get('_id').value
     }
     console.log(this.f.value);
@@ -175,28 +177,28 @@ export class BuildingInformation1Page {
     this.storage.set('alley', this.f.get('alley').value)
     this.storage.set('name', this.f.get('name').value)
 
-    this.storage.set(idBD, this.f.value)
-    this.store.dispatch(new SetHomeBuildingSuccess(this.f.value));
+    // this.storage.set(idBD, this.f.value)
+    this.store.dispatch(new SetHomeBuilding(this.f.value));
 
-    this.storage.get(this.f.get('ea').value).then((data) => {
-      listBD = data
-      if (listBD != null) {
-        let fin = listBD.find(it => it._id == idBD)
-        if (fin == null) {
-          listBD.push(this.f.value)
-          this.storage.set(this.f.get('ea').value, listBD)
-        } else {
-          let index = listBD.findIndex(it => it._id == idBD)
-          listBD.splice(index, 1, this.f.value);
-          // listBD.push(this.f.value);
-          this.storage.set(this.f.get('ea').value, listBD)
-        }
-      } else {
-        listBD = []
-        listBD.push(this.f.value)
-        this.storage.set(this.f.get('ea').value, listBD)
-      }
-    })
+    // this.storage.get(this.f.get('ea').value).then((data) => {
+    //   listBD = data
+    //   if (listBD != null) {
+    //     let fin = listBD.find(it => it._id == idBD)
+    //     if (fin == null) {
+    //       listBD.push(this.f.value)
+    //       this.storage.set(this.f.get('ea').value, listBD)
+    //     } else {
+    //       let index = listBD.findIndex(it => it._id == idBD)
+    //       listBD.splice(index, 1, this.f.value);
+    //       // listBD.push(this.f.value);
+    //       this.storage.set(this.f.get('ea').value, listBD)
+    //     }
+    //   } else {
+    //     listBD = []
+    //     listBD.push(this.f.value)
+    //     this.storage.set(this.f.get('ea').value, listBD)
+    //   }
+    // })
   }
 
   public updateStatus() {
