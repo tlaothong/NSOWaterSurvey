@@ -14,7 +14,11 @@ export class CloudSyncProvider {
   }
 
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
-    return <Observable<any>>(this.http.get('http://water.surveydb.app/api/MobileConnect/' + userId));
+    return <Observable<any>>(this.http.get('https://water.surveydb.app/api/MobileConnect/' + userId));
+  }
+
+  public getUploadToCloud(userId: string): Observable<DeviceToCloudInfo> {
+    return <Observable<any>>this.http.post('https://water.surveydb.app/api/MobileConnect/up2cloud/' + userId, {});
   }
 
   /*************************
@@ -102,4 +106,9 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/' + id);
   }
 
+}
+
+export interface DeviceToCloudInfo {
+  containerName: string;
+  complementary: string;
 }
