@@ -890,7 +890,7 @@ export class UnitButtonComponent {
   
     console.log(HH);
     let keyHH = HH._id;
-    let keyBD = "BL" + HH.buildingId;
+    let keyBD = "bld" + HH.buildingId;
     this.storage.get(keyBD).then((val) => {
       let BDList = val;
       let index = BDList.findIndex(it => it._id == HH._id);

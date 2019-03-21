@@ -242,29 +242,29 @@ export class DlgUnitPage {
 
     this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value)
 
-    let fin: any
-    let list: any[]
-    this.storage.get(key).then((val) => {
-      list = val
-      console.log(list);
-      if (list != null) {
-        fin = list.find(it => it._id == id)
-        if (fin == null) {
-          list.push(this.FormItem.value);
-          this.storage.set(key, list)
-        } else {
-          let index = list.findIndex(it => it._id == id)
-          list.splice(index, 1, this.FormItem.value);
-          // list.push(this.FormItem.value);
-          this.storage.set(key, list)
-        }
-      } else {
-        list = []
-        list.push(this.FormItem.value);
-        this.storage.set(key, list)
-      }
-    })
-    console.log(this.FormItem.value);
+  //   let fin: any
+  //   let list: any[]
+  //   this.storage.get(key).then((val) => {
+  //     list = val
+  //     console.log(list);
+  //     if (list != null) {
+  //       fin = list.find(it => it._id == id)
+  //       if (fin == null) {
+  //         list.push(this.FormItem.value);
+  //         this.storage.set(key, list)
+  //       } else {
+  //         let index = list.findIndex(it => it._id == id)
+  //         list.splice(index, 1, this.FormItem.value);
+  //         // list.push(this.FormItem.value);
+  //         this.storage.set(key, list)
+  //       }
+  //     } else {
+  //       list = []
+  //       list.push(this.FormItem.value);
+  //       this.storage.set(key, list)
+  //     }
+  //   })
+  //   console.log(this.FormItem.value);
   }
 
   private setupAccessCountChanges() {
