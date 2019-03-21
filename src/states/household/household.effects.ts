@@ -25,7 +25,10 @@ export class HouseHoldEffects {
     @Effect()
     public loadHouseHoldSample$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.LoadHouseHoldSample),
-        tap((action: LoadHouseHoldSample) => this.appState.houseHoldUnit = action.payload),
+        tap((action: LoadHouseHoldSample) => {
+            action.payload.ea = this.appState.eaCode;
+            this.appState.houseHoldUnit = action.payload;
+        }),
         map((action: LoadHouseHoldSample) => new LoadHouseHoldSampleSuccess(action.payload))
         // mergeMap(action => this.cloudSync.loadHouseHoldSampleTestData((<LoadHouseHoldSample>action).payload).pipe(
         //     map(data => new LoadHouseHoldSampleSuccess(data))),
@@ -44,7 +47,7 @@ export class HouseHoldEffects {
     @Effect()
     public SetHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SetHouseHold),
-        mergeMap((action: SetHouseHold) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
+        mergeMap((action: SetHouseHold) => this.dataStore.saveHouseHold(action.payload).mapTo(action)),
         map((action: SetHouseHold) => new SetHouseHoldSuccess(action.payload),
         // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
         //     map(data => new SetHouseHoldSuccess(data)),

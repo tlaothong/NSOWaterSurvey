@@ -110,7 +110,7 @@ export class WaterActivityUnitPage {
       console.log(this.f.value);
       let id = this.dataHouseHold._id;
       this.storage.set(id, this.dataHouseHold);
-      let key = "bld" + this.dataHouseHold.buildingId;
+      let key = this.dataHouseHold.buildingId;
 
       // TODO: Replace this code with the new one
 

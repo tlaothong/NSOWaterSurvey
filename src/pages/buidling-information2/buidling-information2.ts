@@ -20,11 +20,11 @@ export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
 
-  // private formData$ = this.store.select(getBuildingSample).pipe(map(s => s));
+  private formData$ = this.store.select(getBuildingSample);
   // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
-  private getBuildingType$ = this.store.select(getSendBuildingType);
-  private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
+  // private getBuildingType$ = this.store.select(getSendBuildingType);
+  // private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
   @ViewChildren(CountComponent) private count: CountComponent[];
@@ -33,15 +33,15 @@ export class BuidlingInformation2Page {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
-    this.dataHomeBuilding$.subscribe(data => {
-      if (data != null) {
-        console.log(data);
+    // this.dataHomeBuilding$.subscribe(data => {
+    //   if (data != null) {
+    //     console.log(data);
 
-        this.f.get('accessCount').setValue(data.accessCount);
-        this.setupCountChanges();
-        this.f.setValue(data);
-      }
-    });
+    //     this.f.get('accessCount').setValue(data.accessCount);
+    //     this.f.setValue(data);
+    //   }
+    // });
+    this.setupCountChanges();
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -56,7 +56,7 @@ export class BuidlingInformation2Page {
       'longitude': null,
       'buildingType': null,
       'other': null,
-      'accessCount': null,
+      'accessCount': 0,
       'access': fb.array([]),
       'vacancyCount': null,
       'abandonedCount': null,
@@ -90,7 +90,8 @@ export class BuidlingInformation2Page {
     // this.formDataFromBuilding1$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data)
-    this.getBuildingType$.subscribe(data => console.log(data));
+    
+    // this.getBuildingType$.subscribe(data => console.log(data));
     console.log(this.f.value);
 
     // this.getBuildingType$.subscribe(data => {
