@@ -152,26 +152,21 @@ export class LocalStorageProvider {
         let building = val
         console.log(building);
 
-        this.storage.get(dataHousehold._id).then((val) => {
-          let find = val
-          console.log(find);
 
-          console.log("1111111");
+        this.storage.get("bld" + idBuilding).then((val) => {
+          let HHList = val;
+          // building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
+          let complete = HHList.filter(it => it.status == "complete");
+          building.unitCountComplete = complete.length;
+          console.log(building.unitCountComplete);
+          if (building.unitCountComplete == building.unitCount) {
+            building.status = "done-all";
+          }
+        })
 
-          this.storage.get("bld" + idBuilding).then((val) => {
-            let HHList = val;
-            // building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
-            let complete = HHList.filter(it => it.status == "complete");
-            building.unitCountComplete = complete.length;
-            console.log(building.unitCountComplete);
-            if (building.unitCountComplete == building.unitCount) {
-              building.status = "done-all";
-            }
-          })
+        building.lastUpdate = Date.now()
+        this.storage.set(idBuilding, building);
 
-          building.lastUpdate = Date.now()
-          this.storage.set(idBuilding, building);
-        });
 
         this.storage.get(building.ea).then((val) => {
           let BDlist = val

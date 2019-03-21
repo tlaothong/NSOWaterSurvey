@@ -170,7 +170,7 @@ export class BuildingInformation1Page {
 
     if (idBD == null) {
       this.f.get('_id').setValue(this.appState.generateId('bld'));
-      idBD = this.f.get('_id').value
+      // idBD = this.f.get('_id').value
     }
     console.log(this.f.value);
     this.storage.set('road', this.f.get('road').value)
