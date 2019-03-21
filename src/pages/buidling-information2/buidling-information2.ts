@@ -159,37 +159,36 @@ export class BuidlingInformation2Page {
     let unitdone = this.f.get('unitCount').value;
     this.f.get('unitCountComplete').setValue(unitdone);
     this.f.get('status').setValue('done-all');
-    this.localStorage();
+    // this.localStorage();
+    this.store.dispatch(new SetHomeBuilding(this.f.value));
     this.navCtrl.popToRoot();
   }
 
-  localStorage() {
-    this.storage.set(this.f.get('_id').value, this.f.value);
-    this.storage.get(this.f.get('ea').value).then((data) => {
-      console.log("test: ", data);
-      let listBD = data
-      let idBD = this.f.get('_id').value;
-      if (listBD != null) {
-        let fin = listBD.find(it => it._id == idBD)
-        if (fin == null) {
-          listBD.push(this.f.value)
-          this.storage.set(this.f.get('ea').value, listBD)
-        } else {
-          let index = listBD.findIndex(it => it._id == idBD)
-          listBD.splice(index, 1, this.f.value);
-          // listBD.push(this.f.value);
-          this.storage.set(this.f.get('ea').value, listBD)
-        }
-      } else {
-        listBD = []
-        listBD.push(this.f.value)
-        this.storage.set(this.f.get('ea').value, listBD)
-      }
-      console.log(listBD);
-
-
-    })
-  }
+  // localStorage() {
+  //   this.storage.set(this.f.get('_id').value, this.f.value);
+  //   this.storage.get(this.f.get('ea').value).then((data) => {
+  //     console.log("test: ", data);
+  //     let listBD = data
+  //     let idBD = this.f.get('_id').value;
+  //     if (listBD != null) {
+  //       let fin = listBD.find(it => it._id == idBD)
+  //       if (fin == null) {
+  //         listBD.push(this.f.value)
+  //         this.storage.set(this.f.get('ea').value, listBD)
+  //       } else {
+  //         let index = listBD.findIndex(it => it._id == idBD)
+  //         listBD.splice(index, 1, this.f.value);
+  //         // listBD.push(this.f.value);
+  //         this.storage.set(this.f.get('ea').value, listBD)
+  //       }
+  //     } else {
+  //       listBD = []
+  //       listBD.push(this.f.value)
+  //       this.storage.set(this.f.get('ea').value, listBD)
+  //     }
+  //     console.log(listBD);
+  //   })
+  // }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
