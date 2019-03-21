@@ -68,6 +68,12 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.get('bldlst' + eaCode));
   }
 
+  /**
+   * บันทึกรายการ household 1 unit
+   */
+  public saveHouseHold(household:any): Observable<any> {
+    return Observable.fromPromise(this.storage.set(household._id, household));
+  }
 
   /*********** */
 
