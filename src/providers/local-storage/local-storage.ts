@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetHouseHoldSuccess } from '../../states/household/household.actions';
+import { SetHouseHoldSuccess, SetHouseHold } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
 import { SetHomeBuilding } from '../../states/building/building.actions';
@@ -124,7 +124,9 @@ export class LocalStorageProvider {
   updateListUnit(id: string, data: any) { //id building, unit form
     let key = "bld" + id
     console.log(key);
-    this.store.dispatch(new SetHouseHoldSuccess(data));
+    // this.store.dispatch(new SetHouseHoldSuccess(data));
+    this.store.dispatch(new SetHouseHold(data))
+
     this.storage.get(key).then((val) => {
       let list = val
       console.log(list);

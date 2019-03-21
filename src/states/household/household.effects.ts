@@ -6,12 +6,14 @@ import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SetHouseHold, SetHouseHoldSuccess} from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
+import { DataStoreProvider } from "../../providers/data-store/data-store";
+import { filter } from "rxjs/operator/filter";
 
 
 @Injectable()
 export class HouseHoldEffects {
 
-    constructor(private action$: Actions, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+    constructor(private action$: Actions, private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
     }
 
     @Effect()
@@ -42,10 +44,12 @@ export class HouseHoldEffects {
     @Effect()
     public SetHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SetHouseHold),
-        mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
-            map(data => new SetHouseHoldSuccess(data)),
-        )
-        ),
-    );
+        mergeMap((action: SetHouseHold) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
+        map((action: SetHouseHold) => new SetHouseHoldSuccess(action.payload),
+        // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
+        //     map(data => new SetHouseHoldSuccess(data)),
+        // )
+        // ),
+    ));
 
 }
