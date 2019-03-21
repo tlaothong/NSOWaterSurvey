@@ -14,7 +14,7 @@ export interface CommunityInList {
 
 export interface UnitInList {
     houseHoldId: string;
-    unitNo: number;
+    // unitNo: number;
     roomNumber: string;
     status: string; // formerly 'class'
 }
