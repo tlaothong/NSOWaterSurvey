@@ -36,16 +36,7 @@ export class HouseHoldEffects {
     );
 
     @Effect()
-    public LoadUnitByIdBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(HouseHoldTypes.LoadUnitByIdBuilding),
-        mergeMap(action => this.cloudSync.getUnitByIdBuilding((<LoadUnitByIdBuilding>action).payload).pipe(
-            map(data => new LoadUnitByIdBuildingSuccess(data)),
-        )
-        ),
-    );
-
-    @Effect()
-    public SetHouseHold$: Observable<Action> = this.action$.pipe(
+    public saveHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SaveHouseHold),
         mergeMap((action: SaveHouseHold) => this.dataStore.saveHouseHold(action.payload).mapTo(action)),
         map((action: SaveHouseHold) => new SaveHouseHoldSuccess(action.payload),
@@ -54,5 +45,14 @@ export class HouseHoldEffects {
         // )
         // ),
     ));
+
+    @Effect()
+    public LoadUnitByIdBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.LoadUnitByIdBuilding),
+        mergeMap(action => this.cloudSync.getUnitByIdBuilding((<LoadUnitByIdBuilding>action).payload).pipe(
+            map(data => new LoadUnitByIdBuildingSuccess(data)),
+        )
+        ),
+    );
 
 }

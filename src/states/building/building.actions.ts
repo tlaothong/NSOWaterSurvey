@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { EaComponent } from '../../components/ea/ea';
-import { BuildingInList } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
@@ -36,6 +36,26 @@ export class LoadBuildingListSuccess implements Action {
     }
 }
 
+export class NewBuilding implements Action {
+    readonly type = BuildingTypes.NewBuilding;
+
+    constructor() {
+    }
+}
+export class SaveBuilding implements Action {
+    readonly type = BuildingTypes.SaveBuilding;
+
+    constructor(public payload: Building) {
+    }
+}
+export class SaveBuildingSuccess implements Action {
+    readonly type = BuildingTypes.SaveBuildingSuccess;
+
+    constructor(public payload: Building) {
+    }
+}
+
+
 export class LoadBuildingSample implements Action {
     readonly type = BuildingTypes.Load;
 
@@ -65,25 +85,6 @@ export class SetSendBuildingType implements Action {
 
 export class SetSendDataBuilding implements Action {
     readonly type = BuildingTypes.SetSendDataBuilding;
-
-    constructor(public payload: any) {
-    }
-}
-
-export class NewBuilding implements Action {
-    readonly type = BuildingTypes.NewBuilding;
-
-    constructor() {
-    }
-}
-export class SaveBuilding implements Action {
-    readonly type = BuildingTypes.SaveBuilding;
-
-    constructor(public payload: any) {
-    }
-}
-export class SaveBuildingSuccess implements Action {
-    readonly type = BuildingTypes.SaveBuildingSuccess;
 
     constructor(public payload: any) {
     }

@@ -44,7 +44,7 @@ export class BuildingEffects {
     @Effect()
     public setHomeBuilding$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.SaveBuilding),
-        filter((action: SaveBuilding, i) => action.payload),
+        filter((action: any, i) => action.payload),
         tap((action: SaveBuilding) => {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),

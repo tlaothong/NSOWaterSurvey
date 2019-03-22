@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { HouseHoldUnit } from '../../models/mobile/MobileModels';
 
 export enum HouseHoldTypes {
     StateName = "HouseHold",
@@ -91,7 +92,7 @@ export class SaveHouseHold implements Action {
 }
 export class SaveHouseHoldSuccess implements Action {
     readonly type = HouseHoldTypes.SaveHouseHoldSuccess;
-    constructor(public payload: any) {
+    constructor(public payload: HouseHoldUnit) {
     }
 }
 
@@ -99,7 +100,7 @@ export class SaveHouseHoldSuccess implements Action {
 export class SetSelectG1234 implements Action {
     readonly type = HouseHoldTypes.SetSelectG1234;
 
-    constructor(public payload: any) {
+    constructor(public payload: HouseHoldUnit) {
     }
 }
 

@@ -3,7 +3,7 @@ import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 import { EA } from '../../states/bootup/bootup.reducer';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
-import { BuildingInList } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, HouseHoldUnit } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the DataStoreProvider provider.
@@ -47,7 +47,7 @@ export class DataStoreProvider {
    /**
    * บันทึกข้อมูล Building 1 อาคาร
    */
-  public saveBuilding(dataBuilding: any): Observable<any> {
+  public saveBuilding(dataBuilding: Building): Observable<any> {
     console.log(dataBuilding._id);
     console.log("BLD Data: " + JSON.stringify(dataBuilding));
     
@@ -71,7 +71,7 @@ export class DataStoreProvider {
   /**
    * บันทึกรายการ household 1 unit
    */
-  public saveHouseHold(household:any): Observable<any> {
+  public saveHouseHold(household: HouseHoldUnit): Observable<any> {
     return Observable.fromPromise(this.storage.set(household._id, household));
   }
 

@@ -18,3 +18,17 @@ export interface UnitInList {
     roomNumber: string;
     status: string; // formerly 'class'
 }
+
+export interface Building {
+    _id: string;
+    ea: string;
+    name: string;
+    houseNo: string;
+    unitCount: number;
+}
+
+export interface HouseHoldUnit {
+    _id: string;
+    ea: string;
+    buildingId: string;
+}
