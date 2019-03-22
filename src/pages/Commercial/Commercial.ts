@@ -1,7 +1,7 @@
 import { SetWaterSourcesCommercial, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TableCheckItemCountComponent } from '../../components/table-check-item-count/table-check-item-count';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
@@ -31,7 +31,7 @@ export class CommercialPage {
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formData$ = this.store.select(getHouseHoldSample);
   private numberRoom$ = this.store.select(getNumberRoom);
-  private numberRoom:boolean = false;
+  private numberRoom: boolean = false;
   public dataCom: any;
   private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
@@ -50,36 +50,38 @@ export class CommercialPage {
         'highSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        'personnelCount': [null],
+        'personnelCount': [null, Validators],
       }),
       'hotelsAndResorts': this.fb.group({
-        'roomCount': [null],
-        'personnelCount': [null],
+        'roomCount': [null, Validators],
+        'personnelCount': [null, Validators],
       }),
       'hospital': this.fb.group({
-        'bedCount': [null],
-        'personnelCount': [null],
+        'bedCount': [null, Validators],
+        'personnelCount': [null, Validators],
       }),
       'building': this.fb.group({
-        'roomCount': [null],
-        'occupiedRoomCount': [null],
-        'personnelCount': [null],
+        'roomCount': [null, Validators],
+        'occupiedRoomCount': [null, Validators],
+        'personnelCount': [null, Validators],
       }),
       'religious': this.fb.group({
-        'peopleCount': [null],
+        'peopleCount': [null, Validators],
       }),
       'otherBuilding': this.fb.group({
-        'personnelCount': [null],
+        'personnelCount': [null, Validators.required],
       }),
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
-    });
+    }), {
+        validator: CommercialPage.checkAnyOrOther()
+      };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
     this.numberRoom$.subscribe(data => {
       if (data != null) {
-        if(data == "-"){
+        if (data == "-") {
           this.numberRoom = true
         }
         console.log(this.numberRoom);
@@ -122,8 +124,106 @@ export class CommercialPage {
       let id = this.dataCom._id
       this.storage.set(id, this.dataCom)
       this.local.updateListUnit(this.dataCom.buildingId, this.dataCom)
+      console.log(this.f.value);
+
       this.navCtrl.popTo("CheckListPage");
     }
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const buildingCode = c.get('buildingCode');
+      const personnelCountQuestionForAcademy = c.get('questionForAcademy.personnelCount');
+      const roomCountHotelsAndResorts = c.get('hotelsAndResorts.roomCount');
+      const personnelCountHotelsAndResorts = c.get('hotelsAndResorts.personnelCount');
+      const bedCount = c.get('hospital.bedCount');
+      const personnelCountHospital = c.get('hospital.personnelCount');
+      const roomCountBuilding = c.get('building.roomCount');
+      const occupiedRoomCount = c.get('building.occupiedRoomCount');
+      const personnelCountBuilding = c.get('building.personnelCount');
+      const peopleCount = c.get('religious.peopleCount');
+
+      if (buildingCode.value == 11 || buildingCode.value == 12 && personnelCountQuestionForAcademy.value == null) {
+        return { 'questionForAcademy.personnelCount': true };
+      }
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null && personnelCountHotelsAndResorts.value == null) {
+        return { 'hotelsAndResorts.roomCount': true, 'hotelsAndResorts.personnelCount': true };
+      }
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null && personnelCountHotelsAndResorts.value != null) {
+        return { 'hotelsAndResorts.roomCount': true };
+      }
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value != null && personnelCountHotelsAndResorts.value == null) {
+        return { 'hotelsAndResorts.personnelCount': true };
+      }
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null && personnelCountHospital.value == null) {
+        return { 'hospital.bedCount': true, 'hospital.personnelCount': true };
+      }
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null && personnelCountHospital.value != null) {
+        return { 'hospital.bedCount': true };
+      }
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount != null && personnelCountHospital.value == null) {
+        return { 'hospital.personnelCount': true };
+      }
+      if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value == null && personnelCountBuilding.value == null) {
+        return { 'building.roomCount': true, 'building.occupiedRoomCount': true, 'building.personnelCount': true };
+      }
+      if (buildingCode.value == 4 && roomCountBuilding.value != null && occupiedRoomCount.value == null && personnelCountBuilding.value == null) {
+        return { 'building.roomCount': true };
+      }
+      if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value != null && personnelCountBuilding.value == null) {
+        return { 'building.occupiedRoomCount': true };
+      }
+      if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value == null && personnelCountBuilding.value != null) {
+        return { 'building.personnelCount': true };
+      }
+      if (buildingCode.value == 10 && peopleCount.value == null) {
+        return { 'religious.peopleCount': true };
+      }
+
+      return null;
+    }
+  }
+
+  public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
+    if (name == 'questionForAcademy.personnelCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.personnelCountQuestionForAcademy && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hotelsAndResorts.roomCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.roomCountHotelsAndResorts && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hotelsAndResorts.personnelCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.personnelCountHotelsAndResorts && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hospital.bedCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.bedCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'hospital.personnelCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.personnelCountHospital && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'building.roomCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.roomCountBuilding && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'building.occupiedRoomCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.occupiedRoomCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'building.personnelCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.personnelCountBuilding && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'religious.peopleCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.peopleCount && (ctrl.dirty || this.submitRequested);
+    }
+
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   countNumberPage() {
@@ -172,8 +272,4 @@ export class CommercialPage {
     this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
   }
 
-  public isValid(name: string): boolean {
-    var ctrl = this.f.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  }
 }
