@@ -100,6 +100,7 @@ export class WaterActivityUnitPage {
         isCommercial: this.f.get('isCommercial').value,
       };
 
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.push("CheckListPage", { id: houseHold._id });
     }
     

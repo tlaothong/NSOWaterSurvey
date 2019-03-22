@@ -75,9 +75,12 @@ export class ResidentialPage {
       // let id = newHouseHold._id
       // this.storage.set(id, newHouseHold)
       // console.log("set", newHouseHold);
-      this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
+
+      // this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
+      
       // this.store.dispatch(new SetHouseHold(newHouseHold))
       this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

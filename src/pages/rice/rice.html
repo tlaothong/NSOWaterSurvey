@@ -8,7 +8,7 @@
 
   <h3>ตอนที่ 2.1 ข้าว</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.agriculture?.ricePlant">
 
     <ion-card>
       <ion-card-content>
