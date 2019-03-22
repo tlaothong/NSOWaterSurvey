@@ -5,7 +5,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SetHouseHold, SetHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 
 

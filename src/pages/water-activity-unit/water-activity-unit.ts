@@ -1,5 +1,5 @@
 import { getNextPageDirection } from './../../states/household/index';
-import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack, LoadHouseHoldSampleSuccess, SetHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack, LoadHouseHoldSampleSuccess, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';

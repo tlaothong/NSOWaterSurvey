@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators, ValidatorFn
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SaveHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';

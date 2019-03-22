@@ -1,6 +1,6 @@
 import { CountComponent } from './../../components/count/count';
 import { getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
-import { SetWaterSourcesResidential, SetSelectorIndex,SetMemberCount, SetHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesResidential, SetSelectorIndex,SetMemberCount, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

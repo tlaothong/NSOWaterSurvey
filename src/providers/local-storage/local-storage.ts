@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetHouseHoldSuccess, SetHouseHold } from '../../states/household/household.actions';
+import { SaveHouseHoldSuccess, SaveHouseHold } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
 import { SaveBuilding } from '../../states/building/building.actions';
@@ -125,7 +125,7 @@ export class LocalStorageProvider {
     let key = id;
     console.log(key);
     // this.store.dispatch(new SetHouseHoldSuccess(data));
-    this.store.dispatch(new SetHouseHold(data))
+    this.store.dispatch(new SaveHouseHold(data))
 
     this.storage.get(key).then((val) => {
       let list = val

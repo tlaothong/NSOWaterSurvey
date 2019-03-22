@@ -6,6 +6,9 @@ export enum HouseHoldTypes {
     LoadHouseHoldSample = "[HH] Load",
     LoadHouseHoldSampleSuccess = "[HH] Load Success",
 
+    SaveHouseHold = "[HH] Save House Hold",
+    SaveHouseHoldSuccess = "[HH] Save House Hold Success",
+
     LoadList = "[HH] Load List",
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
@@ -47,8 +50,6 @@ export enum HouseHoldTypes {
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
     SetBack = "[HH] Set Back",
-    SetHouseHold = "[HH] Set House Hold",
-    SetHouseHoldSuccess = "[HH] Set House Hold Success",
     SetNumberRoom = "[HH] Set Number Room",
     SetUnitNo = "[HH] Set Unit No",
     SetMemberCount = "[HH] Set Count Member",
@@ -81,6 +82,19 @@ export class LoadHouseHoldSampleSuccess implements Action {
     constructor(public payload: any) {
     }
 }
+
+
+export class SaveHouseHold implements Action {
+    readonly type = HouseHoldTypes.SaveHouseHold;
+    constructor(public payload: any) {
+    }
+}
+export class SaveHouseHoldSuccess implements Action {
+    readonly type = HouseHoldTypes.SaveHouseHoldSuccess;
+    constructor(public payload: any) {
+    }
+}
+
 
 export class SetSelectG1234 implements Action {
     readonly type = HouseHoldTypes.SetSelectG1234;
@@ -326,16 +340,6 @@ export class SetBack implements Action {
     }
 }
 
-export class SetHouseHold implements Action {
-    readonly type = HouseHoldTypes.SetHouseHold;
-    constructor(public payload: any) {
-    }
-}
-export class SetHouseHoldSuccess implements Action {
-    readonly type = HouseHoldTypes.SetHouseHoldSuccess;
-    constructor(public payload: any) {
-    }
-}
 export class SetNumberRoom implements Action {
     readonly type = HouseHoldTypes.SetNumberRoom;
     constructor(public payload: string) {
@@ -357,6 +361,8 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
+    | SaveHouseHold
+    | SaveHouseHoldSuccess
     | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
@@ -395,8 +401,6 @@ export type HouseHoldActionsType =
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
     | SetBack
-    | SetHouseHold
-    | SetHouseHoldSuccess
     | SetNumberRoom
     | SetUnitNo
     | SetMemberCount
