@@ -8,7 +8,7 @@
 
   <h3>ตอนที่ 2.3 ยางพารา</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="rubbertree">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="rubbertree" [rx-form-data]="(formData$ | async)?.agriculture?.rubberTree">
 
     <ion-card>
       <ion-card-content>

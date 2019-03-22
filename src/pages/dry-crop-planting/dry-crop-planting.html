@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant" [rx-form-data]="(formData$ | async)?.agriculture?.agronomyPlant">
     <h3>ตอนที่ 2.2 พืชไร่</h3>
     <ion-card>
       <ion-card-content>
