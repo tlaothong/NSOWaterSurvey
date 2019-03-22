@@ -7,7 +7,7 @@
 <ion-content padding>
 
   <h3>5.7 น้ำที่ซื้อมาใช้</h3>
-  <form (ngSubmit)="handleSubmit()" [rx-form-data]="(formData$ | async)?.waterUsage?.buying">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="BuyingForm" [rx-form-data]="(formData$ | async)?.waterUsage?.buying">
 
     <ion-card>
       <ion-card-content>
