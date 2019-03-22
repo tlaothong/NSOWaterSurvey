@@ -37,7 +37,7 @@ export class HouseHoldEffects {
     @Effect()
     public createHouseHoldFor1UnitBuilding$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.CreateHouseHoldFor1UnitBuilding),
-        map(_ => new SaveHouseHoldSuccess({
+        map(_ => new SaveHouseHold({
             _id: this.appState.generateId('unt'),
             ea: this.appState.eaCode, 
             buildingId: this.appState.buildingId
@@ -47,7 +47,7 @@ export class HouseHoldEffects {
     @Effect()
     public newHouseHoldWithSubUnit$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.NewHouseHoldWithSubUnit),
-        map(_ => new SaveHouseHoldSuccess({
+        map(_ => new SaveHouseHold({
             _id: '', 
             ea: this.appState.eaCode, 
             buildingId: this.appState.buildingId,
@@ -58,6 +58,7 @@ export class HouseHoldEffects {
     @Effect()
     public saveHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SaveHouseHold),
+        tap((action: SaveHouseHold) => this.appState.houseHoldUnit = action.payload),
         mergeMap((action: SaveHouseHold) => this.dataStore.saveHouseHold(action.payload).mapTo(action)),
         map((action: SaveHouseHold) => new SaveHouseHoldSuccess(action.payload),
             // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
