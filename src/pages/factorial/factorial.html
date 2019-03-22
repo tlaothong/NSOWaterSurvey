@@ -7,7 +7,7 @@
 <ion-content padding>
   <h3>ตอนที่ 3 การผลิตสินค้า</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="FactoryForm">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="FactoryForm" [rx-form-data]="(formData$ | async)?.factory">
     <ion-card>
       <ion-card-content>
         <ion-item>

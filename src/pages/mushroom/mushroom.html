@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.agriculture?.mushroomPlant">
 
     <h3>ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด</h3>
 

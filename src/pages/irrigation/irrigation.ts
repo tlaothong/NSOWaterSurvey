@@ -12,6 +12,7 @@ import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../stat
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -28,9 +29,9 @@ export class IrrigationPage {
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData: any;
+  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -57,7 +58,7 @@ export class IrrigationPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
 
     this.f = this.fb.group({
       'hasCubicMeterPerMonth': [null, Validators],
@@ -75,12 +76,12 @@ export class IrrigationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.waterUsage.irrigation)
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.waterUsage.irrigation)
+    //     this.formData = data;
+    //   }
+    // })
 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
@@ -98,7 +99,7 @@ export class IrrigationPage {
       this.activityRice = (data != null) ? data.irrigation : null;
     });
     this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data.irrigation  : null;
+      this.activityAgiculture = (data != null) ? data.irrigation : null;
     });
     this.activityFactory$.subscribe(data => {
       this.activityFactory = (data != null) ? data.irrigation : null;
@@ -142,14 +143,23 @@ export class IrrigationPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.formData.waterUsage.irrigation = this.f.value
+    // this.formData.waterUsage.irrigation = this.f.value
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let irri = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        irrigation: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: irri,
+      }
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

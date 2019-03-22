@@ -8,7 +8,7 @@
 
   <h3>แบบข้อมูลประชากร</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.population">
     <ion-card>
       <ion-card-content>
         <ion-item>
