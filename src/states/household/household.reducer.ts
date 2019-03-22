@@ -97,8 +97,8 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.SaveHouseHoldSuccess: {
             let s = resetStatesForModel(action.payload);
-            console.log("Payload", JSON.stringify(action.payload));
-            console.log(JSON.stringify(s));
+            // console.log("Payload", JSON.stringify(action.payload));
+            // console.log(JSON.stringify(s));
 
             let hh = {
                 ...state,
@@ -361,8 +361,8 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);
-            console.log("Payload", JSON.stringify(action.payload));
-            console.log(JSON.stringify(s));
+            // console.log("Payload", JSON.stringify(action.payload));
+            // console.log(JSON.stringify(s));
 
             return {
                 ...state,
@@ -539,7 +539,7 @@ function resetStatesForModel(model: any): any {
     wS.push(waterAquatic);
     wSPlant.push(waterAquatic);
 
-    console.log("wSPlant", JSON.stringify(wSPlant));
+    // console.log("wSPlant", JSON.stringify(wSPlant));
 
     let checkPlumbing: boolean;
     let checkRiver: boolean;
@@ -611,7 +611,7 @@ function findListAgronomy(list) {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    console.log(selected);
+    // console.log(selected);
     return selected;
 }
 
@@ -625,14 +625,12 @@ function findListPerennial(list) {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    console.log(selected);
+    // console.log(selected);
     return selected;
 }
 
 
 function findWaterSourceRice(water) {
-    console.log("findWaterSourceRice");
-    //
     let fields = water && water.fields as Array<any>;
     let waterSourceRice = {}
     if (fields != null) {
@@ -653,8 +651,6 @@ function findWaterSourceRice(water) {
 }
 
 function findWaterSourceDry(water) {
-    console.log("findWaterSourceDry");
-
     let fields = water && water.fields as Array<any>;
     let waterSourceDry = {}
     if (fields != null) {
