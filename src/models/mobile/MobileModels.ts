@@ -16,6 +16,7 @@ export interface UnitInList {
     houseHoldId: string;
     // unitNo: number;
     roomNumber: string;
+    // accessCount: number;
     status: string; // formerly 'class'
 }
 
@@ -36,4 +37,6 @@ export interface HouseHoldUnit {
 
 export interface SubUnit {
     roomNumber: string;
+    accessCount: number;
+    [x: string]: any;
 }
