@@ -2,12 +2,14 @@
 
   <ion-card-content>
 
-    <ion-item>
-      <ion-label>
-        ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
-      </ion-label>
-    </ion-item>
-    <location [FormItem]="FormItem.get('location')"></location>
+    <div *ngIf="checkIsPool == true">
+      <ion-item>
+        <ion-label>
+          ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
+        </ion-label>
+      </ion-item>
+      <location [FormItem]="FormItem.get('location')"></location>
+    </div>
 
     <ion-item>
       <ion-label>
