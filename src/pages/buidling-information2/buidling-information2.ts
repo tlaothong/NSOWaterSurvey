@@ -10,6 +10,7 @@ import { map, delay } from 'rxjs/operators';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
 import { Storage } from '@ionic/storage';
+import { CreateHouseHoldFor1UnitBuilding } from '../../states/household/household.actions';
 
 @IonicPage()
 @Component({
@@ -90,7 +91,7 @@ export class BuidlingInformation2Page {
     // this.formDataFromBuilding1$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data)
-    
+
     // this.getBuildingType$.subscribe(data => console.log(data));
     console.log(this.f.value);
 
@@ -116,28 +117,45 @@ export class BuidlingInformation2Page {
       if (this.f.get('buildingType').value == 4 || this.f.get('buildingType').value == 5) {
         if (this.f.get('floorCount').valid) {
           if (this.f.get('unitAccess').value == 1) {
-            this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-            this.store.dispatch(new SaveBuilding(this.f.value));
-            // this.localStorage();
-            this.navCtrl.push("UnitPage");
+            this.saveThenSurveyUnit();
           }
           else {
             if (this.f.get('unitAccess').value == 2 && this.isCheckValidAccess2()) {
-              this.nextPage();
+              this.saveThenGoHome();
             }
             else if (this.f.get('unitAccess').value == 3 && this.isCheckValidAccess3()) {
-              this.nextPage();
+              this.saveThenGoHome();
             }
           }
         }
       }
       else {
-        this.store.dispatch(new SetRecieveDataFromBuilding(this.f.get('unitCount').value));
-        this.store.dispatch(new SaveBuilding(this.f.value));
-        // this.localStorage()
-        this.navCtrl.push("UnitPage");
+        this.saveThenSurveyUnit();
       }
     }
+  }
+
+  private saveThenSurveyUnit() {
+    let unitCount = this.f.get('unitCount').value;
+    this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
+
+    if (unitCount == 1) {
+      this.store.dispatch(new CreateHouseHoldFor1UnitBuilding());
+      this.navCtrl.push("WaterActivityUnitPage");
+    } else {
+      this.store.dispatch(new SaveBuilding(this.f.value));
+      // this.localStorage();
+      this.navCtrl.push("UnitPage");
+    }
+  }
+
+  public saveThenGoHome() {
+    let unitdone = this.f.get('unitCount').value;
+    this.f.get('unitCountComplete').setValue(unitdone);
+    this.f.get('status').setValue('done-all');
+    // this.localStorage();
+    this.store.dispatch(new SaveBuilding(this.f.value));
+    this.navCtrl.popToRoot();
   }
 
   public isCheckValidAccess2(): boolean {
@@ -154,15 +172,6 @@ export class BuidlingInformation2Page {
 
   public isCheckValidAccess3(): boolean {
     return this.f.get('floorCount').valid;
-  }
-
-  public nextPage() {
-    let unitdone = this.f.get('unitCount').value;
-    this.f.get('unitCountComplete').setValue(unitdone);
-    this.f.get('status').setValue('done-all');
-    // this.localStorage();
-    this.store.dispatch(new SaveBuilding(this.f.value));
-    this.navCtrl.popToRoot();
   }
 
   // localStorage() {

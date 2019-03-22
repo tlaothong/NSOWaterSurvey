@@ -31,4 +31,9 @@ export interface HouseHoldUnit {
     _id: string;
     ea: string;
     buildingId: string;
+    [x: string]: any;
+}
+
+export interface SubUnit {
+    roomNumber: string;
 }

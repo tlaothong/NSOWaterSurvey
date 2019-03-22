@@ -4,10 +4,9 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map, tap } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess} from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
-import { filter } from "rxjs/operator/filter";
 
 
 @Injectable()
@@ -36,15 +35,36 @@ export class HouseHoldEffects {
     );
 
     @Effect()
+    public createHouseHoldFor1UnitBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.CreateHouseHoldFor1UnitBuilding),
+        map(_ => new SaveHouseHoldSuccess({
+            _id: this.appState.generateId('unt'),
+            ea: this.appState.eaCode, 
+            buildingId: this.appState.buildingId
+        })),
+    );
+
+    @Effect()
+    public newHouseHoldWithSubUnit$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.NewHouseHoldWithSubUnit),
+        map(_ => new SaveHouseHoldSuccess({
+            _id: '', 
+            ea: this.appState.eaCode, 
+            buildingId: this.appState.buildingId,
+            subUnit: {}
+        })),
+    );
+
+    @Effect()
     public saveHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SaveHouseHold),
         mergeMap((action: SaveHouseHold) => this.dataStore.saveHouseHold(action.payload).mapTo(action)),
         map((action: SaveHouseHold) => new SaveHouseHoldSuccess(action.payload),
-        // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
-        //     map(data => new SetHouseHoldSuccess(data)),
-        // )
-        // ),
-    ));
+            // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
+            //     map(data => new SetHouseHoldSuccess(data)),
+            // )
+            // ),
+        ));
 
     @Effect()
     public LoadUnitByIdBuilding$: Observable<Action> = this.action$.pipe(
