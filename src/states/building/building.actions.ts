@@ -1,19 +1,21 @@
 import { Action } from '@ngrx/store';
 import { EaComponent } from '../../components/ea/ea';
-import { BuildingInList } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
+    
     LoadList = "[BLD] Load List",
     LoadListSuccess = "[BLD] Load List Success",
+    NewBuilding = "[BLD] Create New HomeBuilding",
+    SaveBuilding = "[BLD] Set Building",
+    SaveBuildingSuccess = "[BLD] Set Building Success",
+
     Load = "[BLD] Load",
     LoadSuccess = "[BLD] Load Success",
     SetSendDataBuilding = "[BLD] Send Data Building",
     SetSendBuildingType = "[BLD] Send Building Type",
     SetRecieveDataFromBuilding = "[BLD] Recieve Data From Building",
-    NewHomeBuilding = "[BLD] Create New HomeBuilding",
-    SetHomeBuilding = "[BLD] Set HomeBuilding",
-    SetHomeBuildingSuccess = "[BLD] Set HomeBuilding Success",
     UpdateBuildingList = "[BLD] Update or Insert the Building into the List",
     UpdateBuildingListSuccess = "[BLD] Update the Building List Success",
     DeleteBuilding = "[BLD] Delete Building",
@@ -33,6 +35,26 @@ export class LoadBuildingListSuccess implements Action {
     constructor(public payload: BuildingInList[]) {
     }
 }
+
+export class NewBuilding implements Action {
+    readonly type = BuildingTypes.NewBuilding;
+
+    constructor() {
+    }
+}
+export class SaveBuilding implements Action {
+    readonly type = BuildingTypes.SaveBuilding;
+
+    constructor(public payload: Building) {
+    }
+}
+export class SaveBuildingSuccess implements Action {
+    readonly type = BuildingTypes.SaveBuildingSuccess;
+
+    constructor(public payload: Building) {
+    }
+}
+
 
 export class LoadBuildingSample implements Action {
     readonly type = BuildingTypes.Load;
@@ -63,25 +85,6 @@ export class SetSendBuildingType implements Action {
 
 export class SetSendDataBuilding implements Action {
     readonly type = BuildingTypes.SetSendDataBuilding;
-
-    constructor(public payload: any) {
-    }
-}
-
-export class NewHomeBuilding implements Action {
-    readonly type = BuildingTypes.NewHomeBuilding;
-
-    constructor() {
-    }
-}
-export class SetHomeBuilding implements Action {
-    readonly type = BuildingTypes.SetHomeBuilding;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetHomeBuildingSuccess implements Action {
-    readonly type = BuildingTypes.SetHomeBuildingSuccess;
 
     constructor(public payload: any) {
     }
@@ -123,9 +126,9 @@ export type BuildingActionsType =
     | SetSendDataBuilding
     | SetSendBuildingType
     | SetRecieveDataFromBuilding
-    | NewHomeBuilding
-    | SetHomeBuilding
-    | SetHomeBuildingSuccess
+    | NewBuilding
+    | SaveBuilding
+    | SaveBuildingSuccess
     | UpdateBuildingList
     | SetOtherBuildingType
     | DeleteBuilding

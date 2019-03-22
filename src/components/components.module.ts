@@ -43,7 +43,6 @@ import { DisasterWarningMethodsComponent } from './disaster-warning-methods/disa
 import { ModalPlantComponent } from './modal-plant/modal-plant';
 import { UnitButtonComponent } from './unit-button/unit-button';
 import { TablePopulationComponent } from './table-population/table-population';
-import { ItemInHomeComponent } from './item-in-home/item-in-home';
 import { QuestionnaireHomeComponent } from './questionnaire-home/questionnaire-home';
 import { EAlistComponent } from './e-alist/e-alist';
 import { EaComponent } from './ea/ea';
@@ -99,7 +98,6 @@ import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-c
     ModalPlantComponent,
     UnitButtonComponent,
     TablePopulationComponent,
-    ItemInHomeComponent,
     QuestionnaireHomeComponent,
     EAlistComponent,
     EaComponent,
@@ -163,7 +161,6 @@ import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-c
     ModalPlantComponent,
     UnitButtonComponent,
     TablePopulationComponent,
-    ItemInHomeComponent,
     QuestionnaireHomeComponent,
     EAlistComponent,
     EaComponent,

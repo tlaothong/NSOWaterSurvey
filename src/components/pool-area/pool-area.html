@@ -1,6 +1,14 @@
 <ion-card [formGroup]="FormItem">
 
   <ion-card-content>
+
+    <ion-item>
+      <ion-label>
+        ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
+      </ion-label>
+    </ion-item>
+    <location [FormItem]="FormItem.get('location')"></location>
+
     <ion-item>
       <ion-label>
         {{ text }} {{ no }}
@@ -11,12 +19,7 @@
       <ion-item *ngIf="isValid('shape')">
         <span class="invalid-msg">กรุณาเลือกลักษณะของ{{ poolText }}</span>
       </ion-item>
-      <ion-item>
-        <ion-label>
-          1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
-        </ion-label>
-      </ion-item>
-      <location [FormItem]="FormItem.get('location')"></location>
+
       <ion-item>
         <ion-label>ทราบพื้นที่ ไร่ งาน ตารางวา <br>ความลึกของ{{ poolText }}</ion-label>
         <ion-radio value="1" item-left></ion-radio>

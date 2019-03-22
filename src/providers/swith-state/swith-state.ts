@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetRecieveDataFromBuilding, SetHomeBuildingSuccess } from '../../states/building/building.actions';
+import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SetRecieveDataFromBuilding, SaveBuildingSuccess } from '../../states/building/building.actions';
 import { LoadDataBuildingForEdit, LoadDataBuildingForEditSuccess } from '../../states/logging/logging.actions';
 import { getDataBuilding } from '../../states/logging';
 import { HouseHoldState } from '../../states/household/household.reducer';

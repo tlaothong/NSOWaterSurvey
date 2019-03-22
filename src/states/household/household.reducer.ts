@@ -95,6 +95,51 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
             };
+        case HouseHoldTypes.SaveHouseHoldSuccess: {
+            let s = resetStatesForModel(action.payload);
+            console.log("Payload", JSON.stringify(action.payload));
+            console.log(JSON.stringify(s));
+
+            let hh = {
+                ...state,
+                houseHoldSample: action.payload,
+                selectG1234: s.selectG1234,
+                isHouseHold: s.isHouseHold,
+                isAgriculture: s.isAgriculture,
+                isFactorial: s.isFactorial,
+                isCommercial: s.isCommercial,
+                residentialGardeningUse: s.residentialGardeningUse,
+                wateringResidential: s.wateringResidential,
+                waterSourcesResidential: s.waterSourcesResidential,
+                waterSourcesRice: s.waterSourcesRice,
+                waterSourcesAgiculture: s.waterSourcesAgiculture,
+                waterSourcesFactory: s.waterSourcesFactory,
+                waterSourcesCommercial: s.waterSourcesCommercial,
+                arraySkipPageAgiculture: s.agi,
+                riceDoing: s.riceDoing,
+                agiSelectRice: s.agiSelectRice,
+                agiSelectRubber: s.agiSelectRubber,
+                agiSelectPerennial: s.agiSelectPerennial,
+                ricePlantSelectPlant: s.ricePlantSelectPlant,
+                agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
+                rubberTreeSelectPlant: s.rubberTreeSelectPlant,
+                perennialPlantSelectPlant: s.perennialPlantSelectPlant,
+                factorialCategory: s.factorialCategory,
+                commercialServiceType: s.commercialServiceType,
+                checkWaterPlumbing: s.checkWaterPlumbing,
+                checkWaterRiver: s.checkWaterRiver,
+                checkWaterIrrigation: s.checkWaterIrrigation,
+                checkWaterRain: s.checkWaterRain,
+                checkWaterBuying: s.checkWaterBuying,
+                numberRoom: s.numberRoom,
+            };
+
+            return {
+                ...hh,
+                nextPageDirection: listPagesToCheck(hh),
+            };
+        }
+
         case HouseHoldTypes.SetSelectG1234:
             return {
                 ...state,

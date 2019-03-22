@@ -53,7 +53,7 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 sendBuildingType: action.payload,
             };
         //------bigest---------
-        case BuildingTypes.SetHomeBuildingSuccess:
+        case BuildingTypes.SaveBuildingSuccess:
             let b = switchStateBuilding(action.payload);
             // console.log(JSON.stringify(action.payload));
 

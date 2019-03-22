@@ -88,7 +88,7 @@ export class UnitButtonComponent {
     });
     if (this.unitCount == 1) {
       this.FormItem.controls['buildingId'].setValue(this.appState.buildingId);
-      this.storage.get("bld" + this.appState.buildingId).then((val) => {
+      this.storage.get(this.appState.buildingId).then((val) => {
         console.log(val);
         if (val != null) {
           let dataListHH = val[0];
@@ -891,7 +891,7 @@ export class UnitButtonComponent {
   
     console.log(HH);
     let keyHH = HH._id;
-    let keyBD = "bld" + HH.buildingId;
+    let keyBD = HH.buildingId;
     this.storage.get(keyBD).then((val) => {
       let BDList = val;
       let index = BDList.findIndex(it => it._id == HH._id);
@@ -966,9 +966,9 @@ export class UnitButtonComponent {
     }
   }
 
-  submitRequest() {
-    this.submitRequested = true;
-  }
+  // submitRequest() {
+  //   this.submitRequested = true;
+  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnitButtonComponent');

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetHomeBuildingSuccess } from '../../states/building/building.actions';
+import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SaveBuildingSuccess } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -33,7 +33,7 @@ export class BuildingInformation1Page {
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
-    this.f.get('ea').setValue(navParams.get('ea'));
+    this.f.get('ea').setValue(this.appState.eaCode);
     this.f.get('_id').setValue(navParams.get('id'));
   }
 
@@ -178,7 +178,7 @@ export class BuildingInformation1Page {
     this.storage.set('name', this.f.get('name').value)
 
     // this.storage.set(idBD, this.f.value)
-    this.store.dispatch(new SetHomeBuilding(this.f.value));
+    this.store.dispatch(new SaveBuilding(this.f.value));
 
     // this.storage.get(this.f.get('ea').value).then((data) => {
     //   listBD = data

@@ -8,7 +8,7 @@ import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEd
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetRecieveDataFromBuilding, SetHomeBuilding, NewHomeBuilding, DeleteBuilding } from '../../states/building/building.actions';
+import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { shiftInitState } from '@angular/core/src/view';
@@ -133,7 +133,7 @@ export class HomesPage {
   goBuildingInfo() {
     if (this.num == '1') {
       // this.storeBuild.dispatch(new SetHomeBuilding(null));
-      this.storeBuild.dispatch(new NewHomeBuilding());
+      this.storeBuild.dispatch(new NewBuilding());
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
@@ -147,7 +147,7 @@ export class HomesPage {
       //this.swith.updateBuildingState(item._id);
       this.storage.get(item.buildingId).then((val) => {
         console.log(val);
-        this.storeBuild.dispatch(new SetHomeBuilding(val));
+        this.storeBuild.dispatch(new SaveBuilding(val));
         this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
         // switch (val.status) {
         //   case 'refresh':

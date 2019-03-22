@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetHouseHoldSuccess, SetHouseHold } from '../../states/household/household.actions';
+import { SaveHouseHoldSuccess, SaveHouseHold } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
-import { SetHomeBuilding } from '../../states/building/building.actions';
+import { SaveBuilding } from '../../states/building/building.actions';
 import { AppStateProvider } from '../app-state/app-state';
 
 /*
@@ -69,12 +69,12 @@ export class LocalStorageProvider {
           newBldList.push(dataHousehold);
           return newBldList;
         }
-      }).mergeMap(it => this.storage.set("bld" + dataHousehold.buildingId, it));
+      }).mergeMap(it => this.storage.set(dataHousehold.buildingId, it));
     return pipeline;
   }
 
   public loadHouseholdList(dataHousehold: any): Observable<any> {
-    return Observable.fromPromise(this.storage.get("bld" + dataHousehold.buildingId))
+    return Observable.fromPromise(this.storage.get(dataHousehold.buildingId))
   }
 
   public saveCommunity() {
@@ -122,39 +122,39 @@ export class LocalStorageProvider {
   // }
 
   updateListUnit(id: string, data: any) { //id building, unit form
-    let key = "bld" + id
-    console.log(key);
-    // this.store.dispatch(new SetHouseHoldSuccess(data));
-    this.store.dispatch(new SetHouseHold(data))
+    // let key = id;
+    // console.log(key);
+    // // this.store.dispatch(new SetHouseHoldSuccess(data));
+    // this.store.dispatch(new SaveHouseHold(data))
 
-    this.storage.get(key).then((val) => {
-      let list = val
-      console.log(list);
-      if (list != null) {
-        let fin = list.find(it => it._id == data._id)
-        console.log(fin);
+    // this.storage.get(key).then((val) => {
+    //   let list = val
+    //   console.log(list);
+    //   if (list != null) {
+    //     let fin = list.find(it => it._id == data._id)
+    //     console.log(fin);
 
-        let index = list.findIndex(d => d._id == data._id)
-        console.log(index);
+    //     let index = list.findIndex(d => d._id == data._id)
+    //     console.log(index);
 
-        if (fin == null) {
-          list.push(data);
-        } else {
-          list.splice(index, 1, data);
-          // list.push(data)
-        }
-        this.storage.set(key, list)
-      } else {
-        list = []
-        list.push(data);
-        this.storage.set(key, list)
-      }
-    })
-    this.updateStatusBuilding(id, data)
+    //     if (fin == null) {
+    //       list.push(data);
+    //     } else {
+    //       list.splice(index, 1, data);
+    //       // list.push(data)
+    //     }
+    //     this.storage.set(key, list)
+    //   } else {
+    //     list = []
+    //     list.push(data);
+    //     this.storage.set(key, list)
+    //   }
+    // })
+    // this.updateStatusBuilding(id, data)
   }
 
   updateStatusBuilding(idb: string, dataHousehold: any) {
-    let idBuilding = "bld" + this.appState.buildingId;
+    let idBuilding = idb;
 
     this.storage.get(idBuilding).then((val) => {
       if (val != null) {
@@ -168,7 +168,7 @@ export class LocalStorageProvider {
 
           console.log("1111111");
 
-          this.storage.get("bldlst" + this.appState.buildingId).then((val) => {
+          this.storage.get("bldlst" + this.appState.eaCode).then((val) => {
             let HHList = val;
             // building.unitCountComplete += (dataHousehold.status == "complete") ? 1 : -1;
             let complete = HHList.filter(it => it.status == "complete");
@@ -181,7 +181,7 @@ export class LocalStorageProvider {
 
           building.lastUpdate = Date.now()
           // this.storage.set(idBuilding, building);
-          this.store.dispatch(new SetHomeBuilding(building));
+          this.store.dispatch(new SaveBuilding(building));
         });
 
         // this.storage.get(building.ea).then((val) => {

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators, ValidatorFn
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SetHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
+import { LoadHouseHoldSample, SaveHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { Storage } from '@ionic/storage';
@@ -241,7 +241,7 @@ export class DlgUnitPage {
     let id = this.FormItem.get('_id').value;
     this.storage.set(id, this.FormItem.value);
     this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
-    let key = "bld" + this.appState.buildingId;
+    let key = this.appState.buildingId;
     console.log(this.appState.buildingId);
 
     this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value);

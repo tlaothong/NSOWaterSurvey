@@ -54,7 +54,7 @@ export class UnitPage {
     // });
 
     this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    let key = "bld" + this.appState.buildingId;
+    let key = this.appState.buildingId;
     this.storage.get(key).then((val) => {
       console.log(val);
       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
