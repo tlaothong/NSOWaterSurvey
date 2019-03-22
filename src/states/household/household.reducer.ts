@@ -445,8 +445,9 @@ function resetStatesForModel(model: any): any {
             isAgriculture: model.isAgriculture,
             isFactorial: model.isFactorial,
             isCommercial: model.isCommercial,
-        }
-        numberRoomUnit = model.subUnit.roomNumber;
+        };
+
+        numberRoomUnit = model.subUnit ? model.subUnit.roomNumber : 1;
     }
 
     let objAgri = {};
@@ -527,7 +528,7 @@ function resetStatesForModel(model: any): any {
         waterCom = model.commerce && model.commerce.waterSources;
         wS.push(waterCom);
     }
-    if (ag.animalFarm != null) {
+    if (ag && ag.animalFarm != null) {
         let waterAnimalFarm = ag && ag.animalFarm.waterSources;
         wS.push(waterAnimalFarm);
         wSPlant.push(waterAnimalFarm);
@@ -573,25 +574,25 @@ function resetStatesForModel(model: any): any {
         isAgriculture: model && model.isAgriculture,
         isFactorial: model && model.isFactorial,
         isCommercial: model && model.isCommercial,
-        residentialGardeningUse: model && model.residence.gardeningUse,
+        residentialGardeningUse: model && model.residence && model.residence.gardeningUse,
         agi: objAgri,
         numberRoom: numberRoomUnit,
         ricePlantSelectPlant: listRice,
         agronomyPlantSelectPlant: listAgronomy,
         rubberTreeSelectPlant: listRubber,
         perennialPlantSelectPlant: listPerennial,
-        wateringResidential: model && model.residence.gardeningUse,
+        wateringResidential: model && model.residence && model.residence.gardeningUse,
         waterSourcesResidential: waterRes,
         waterSourcesRice: waterRice,
         waterSourcesAgiculture: waterAgi,
         waterSourcesFactory: waterFac,
         waterSourcesCommercial: waterCom,
-        riceDoing: model && model.agriculture.ricePlant.doing,
-        agiSelectRice: model && model.agriculture.ricePlant.doing,
-        agiSelectRubber: model && model.agriculture.rubberTree.doing,
-        agiSelectPerennial: model && model.agriculture.perennialPlant.doing,
-        factorialCategory: model && model.factory.category,
-        commercialServiceType: model && model.commerce.serviceType,
+        riceDoing: model && model.agriculture && model.agri.ricePlant && model.agriculture.ricePlant.doing,
+        agiSelectRice: model && model.agriculture && model.agriculture.ricePlant && model.agriculture.ricePlant.doing,
+        agiSelectRubber: model && model.agriculture && model.agriculture.rubberTree &&  model.agriculture.rubberTree.doing,
+        agiSelectPerennial: model && model.agriculture &&  model.agriculture.perennialPlant && model.agriculture.perennialPlant.doing,
+        factorialCategory: model && model.factory && model.factory.category,
+        commercialServiceType: model && model.commerce && model.commerce.serviceType,
         checkWaterPlumbing: checkPlumbing,
         checkWaterRiver: checkRiver,
         checkWaterIrrigation: checkIrrigation,
@@ -837,7 +838,7 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
-    arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold && state.houseHoldSample.residence.memberCount > 0) ? true : false;
+    arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold && state.houseHoldSample && state.houseHoldSample.residence && state.houseHoldSample.residence.memberCount > 0) ? true : false;
     arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
     arr[11] = (state.selectG1234 && state.selectG1234.isFactorial) ? true : false;
     arr[12] = (state.selectG1234 && state.selectG1234.isCommercial) ? true : false;
