@@ -92,12 +92,13 @@
 
         <div [ngSwitch]="f.get('hasSameSize').value">
           <div *ngSwitchCase="true">
-            <pool-area *ngIf="f.get('poolSizes').length > 0" headline="ขนาดสระน้ำ"
-              [FormItem]="f.get('poolSizes').at(0)"></pool-area>
+            <pool-area *ngIf="f.get('poolSizes').length > 0" headline="ขนาดสระน้ำ" [FormItem]="f.get('poolSizes').at(0)"
+              [checkIsPool]="true"></pool-area>
           </div>
           <div *ngSwitchCase="false">
             <div *ngFor="let pool of f.get('poolSizes').controls; let i = index">
-              <pool-area headline="สระที่ " head="สระที่ " [no]="i + 1" [FormItem]="pool"></pool-area>
+              <pool-area headline="สระที่ " head="สระที่ " [no]="i + 1" [FormItem]="pool" [checkIsPool]="true">
+              </pool-area>
             </div>
           </div>
         </div>
