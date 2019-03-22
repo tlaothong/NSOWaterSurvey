@@ -8,7 +8,7 @@
 
   <h3>5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f"  [rx-form-data]="(formData$ | async)?.waterUsage?.pool">
 
     <ion-card>
       <ion-card-content>

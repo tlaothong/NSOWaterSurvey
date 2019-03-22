@@ -11,6 +11,7 @@ import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../stat
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class FlowerCropPage {
   public shownData: string[];
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formDataUnit$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  // private formData: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
@@ -47,7 +48,7 @@ export class FlowerCropPage {
   public getAgiSelectPerennial: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private appState: AppStateProvider,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, [Validators.required, Validators.min(1)]],
@@ -60,12 +61,12 @@ export class FlowerCropPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlowerCropPage');
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
+    //     // this.formData = data;
+    //   }
+    // })
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
         this.listRiceData = data
@@ -146,14 +147,23 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.formData.agriculture.flowerCrop = this.flowerCropFrm.value;
+    // this.formData.agriculture.flowerCrop = this.flowerCropFrm.value;
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingIds,this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingIds,this.formData)
+      
+      let argi = {
+        ...this.appState.houseHoldUnit.agriculture,
+        flowerCrop: this.flowerCropFrm.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        agriculture: argi,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

@@ -10,6 +10,7 @@ import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../stat
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -23,8 +24,8 @@ export class HerbsPlantPage {
   public shownData: string[];
   public Plant: string[];
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  private formData$ = this.store.select(getHouseHoldSample);
+  // private formData: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
@@ -48,7 +49,7 @@ export class HerbsPlantPage {
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, [Validators.required, Validators.min(1)]],
@@ -60,12 +61,12 @@ export class HerbsPlantPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.agriculture.herbsPlant);
-        this.formData = data
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.agriculture.herbsPlant);
+    //     this.formData = data
+    //   }
+    // })
 
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
@@ -128,14 +129,22 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.formData.agriculture.herbsPlant = this.f.value
+    // this.formData.agriculture.herbsPlant = this.f.value
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let argi = {
+        ...this.appState.houseHoldUnit.agriculture,
+        herbsPlant: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        agriculture: argi,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

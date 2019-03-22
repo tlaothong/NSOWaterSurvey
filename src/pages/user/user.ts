@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding } from '../../states/building';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -21,7 +22,7 @@ export class UserPage {
   private submitRequested: boolean;
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
   private formData$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  // private formData: any;
   private factorialCategory$ = this.store.select(getFactorialCategory);
   public facCategory: string;
   private commercialServiceType$ = this.store.select(getCommercialServiceType);
@@ -35,22 +36,23 @@ export class UserPage {
   private frontNum: any;
   private backNum: any;
   private oldStatus: string;
-  constructor(public navCtrl: NavController, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
-      "factorialCategoryCode": [null, Validators.required],
-      "serviceTypeCode": [null, Validators.required]
+      "factorialCategoryCode": [null, Validators],
+      "serviceTypeCode": [null, Validators]
     });
   }
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.userInfo.setValue(data.closing)
-        this.formData = data;
-      }
-    })
+    // this.formData$.subscribe((data) => {
+    //   if (data != null) {
+    //     this.userInfo.setValue(data.closing)
+    //     this.formData = data;
+    //   }
+
+    // })
 
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
@@ -60,16 +62,15 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.formData.closing = this.userInfo.value;
-    this.formData.status = "complete";
-    this.local.updateListUnit(this.formData.buildingId, this.formData)
     if (this.userInfo.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      // this.storage.set(id, this.formData);
-      this.local.updateListUnit(this.formData.buildingId, this.formData);
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        closing: this.userInfo.value,
+        status: "complete"
+      };
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.GetDataFromBuilding$.subscribe(data => this.GetDataFromBuilding = data);
       if (this.GetDataFromBuilding == 1) {
         this.store.dispatch(new SetBackToRoot(true));

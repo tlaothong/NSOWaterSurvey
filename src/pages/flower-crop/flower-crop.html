@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="flowerCropFrm" (ngSubmit)="handleSubmit()">
+  <form [formGroup]="flowerCropFrm" (ngSubmit)="handleSubmit()" [rx-form-data]="(formData$ | async)?.agriculture?.flowerCrop">
 
     <h3>2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้</h3>
 
