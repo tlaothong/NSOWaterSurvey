@@ -69,12 +69,12 @@ export class CommercialPage {
         'peopleCount': [null, Validators],
       }),
       'otherBuilding': this.fb.group({
-        'personnelCount': [null, Validators.required],
+        'personnelCount': [null, Validators],
       }),
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
-    }), {
+    }, {
         validator: CommercialPage.checkAnyOrOther()
-      };
+      });
   }
 
   ionViewDidLoad() {
@@ -117,6 +117,10 @@ export class CommercialPage {
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     // this.dispatchWaterSource();
     this.dataCom.commerce = this.f.value
+    console.log(this.f.valid);
+    console.log(this.f.errors.personnelCountOtherBuilding);
+    console.log(this.f.get('otherBuilding.personnelCount').dirty);
+
     if (this.f.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataCom));
@@ -126,7 +130,7 @@ export class CommercialPage {
       this.local.updateListUnit(this.dataCom.buildingId, this.dataCom)
       console.log(this.f.value);
 
-      this.navCtrl.popTo("CheckListPage");
+      // this.navCtrl.popTo("CheckListPage");
     }
   }
 
@@ -142,42 +146,48 @@ export class CommercialPage {
       const occupiedRoomCount = c.get('building.occupiedRoomCount');
       const personnelCountBuilding = c.get('building.personnelCount');
       const peopleCount = c.get('religious.peopleCount');
+      const personnelCountOtherBuilding = c.get('otherBuilding.personnelCount');
 
-      if (buildingCode.value == 11 || buildingCode.value == 12 && personnelCountQuestionForAcademy.value == null) {
-        return { 'questionForAcademy.personnelCount': true };
+      if ((buildingCode.value == 11 || buildingCode.value == 12) && personnelCountQuestionForAcademy.value == null) {
+        return { 'personnelCountQuestionForAcademy': true };
       }
-      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null && personnelCountHotelsAndResorts.value == null) {
-        return { 'hotelsAndResorts.roomCount': true, 'hotelsAndResorts.personnelCount': true };
+      // if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null && personnelCountHotelsAndResorts.value == null) {
+      //   return { 'roomCountHotelsAndResorts': true, 'personnelCountHotelsAndResorts': true };
+      // }
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null) {
+        return { 'roomCountHotelsAndResorts': true };
       }
-      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null && personnelCountHotelsAndResorts.value != null) {
-        return { 'hotelsAndResorts.roomCount': true };
+      if (buildingCode.value == 6 && personnelCountHotelsAndResorts.value == null) {
+        return { 'personnelCountHotelsAndResorts': true };
       }
-      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value != null && personnelCountHotelsAndResorts.value == null) {
-        return { 'hotelsAndResorts.personnelCount': true };
+      // if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null && personnelCountHospital.value == null) {
+      //   return { 'bedCount': true, 'personnelCountHospital': true };
+      // }
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null) {
+        return { 'bedCount': true };
       }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null && personnelCountHospital.value == null) {
-        return { 'hospital.bedCount': true, 'hospital.personnelCount': true };
-      }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null && personnelCountHospital.value != null) {
-        return { 'hospital.bedCount': true };
-      }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount != null && personnelCountHospital.value == null) {
-        return { 'hospital.personnelCount': true };
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && personnelCountHospital.value == null) {
+        return { 'personnelCountHospital': true };
       }
       if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value == null && personnelCountBuilding.value == null) {
-        return { 'building.roomCount': true, 'building.occupiedRoomCount': true, 'building.personnelCount': true };
+        return { 'roomCountBuilding': true, 'occupiedRoomCount': true, 'personnelCountBuilding': true };
       }
-      if (buildingCode.value == 4 && roomCountBuilding.value != null && occupiedRoomCount.value == null && personnelCountBuilding.value == null) {
-        return { 'building.roomCount': true };
+      if (buildingCode.value == 4 && roomCountBuilding.value == null) {
+        return { 'roomCountBuilding': true };
       }
-      if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value != null && personnelCountBuilding.value == null) {
-        return { 'building.occupiedRoomCount': true };
+      if (buildingCode.value == 4 && occupiedRoomCount.value == null) {
+        return { 'occupiedRoomCount': true };
       }
-      if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value == null && personnelCountBuilding.value != null) {
-        return { 'building.personnelCount': true };
+      if (buildingCode.value == 4 && personnelCountBuilding.value == null) {
+        return { 'personnelCountBuilding': true };
       }
       if (buildingCode.value == 10 && peopleCount.value == null) {
-        return { 'religious.peopleCount': true };
+        return { 'peopleCount': true };
+      }
+      if ((buildingCode.value == 1 || buildingCode.value == 2 || buildingCode.value == 3
+        || buildingCode.value == 5 || buildingCode.value == 9 || buildingCode.value == 13 || buildingCode.value == 14
+        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value == null) {
+        return { 'personnelCountOtherBuilding': true };
       }
 
       return null;
@@ -221,6 +231,10 @@ export class CommercialPage {
     if (name == 'religious.peopleCount') {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.peopleCount && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'otherBuilding.personnelCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.personnelCountOtherBuilding && (ctrl.touched || this.submitRequested);
     }
 
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);

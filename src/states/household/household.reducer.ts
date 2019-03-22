@@ -97,8 +97,8 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.SaveHouseHoldSuccess: {
             let s = resetStatesForModel(action.payload);
-            console.log("Payload", JSON.stringify(action.payload));
-            console.log(JSON.stringify(s));
+            // console.log("Payload", JSON.stringify(action.payload));
+            // console.log(JSON.stringify(s));
 
             let hh = {
                 ...state,
