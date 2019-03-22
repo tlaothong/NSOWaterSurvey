@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { SetHouseHoldSuccess, SetHouseHold } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
-import { SetHomeBuilding } from '../../states/building/building.actions';
+import { SaveBuilding } from '../../states/building/building.actions';
 import { AppStateProvider } from '../app-state/app-state';
 
 /*
@@ -181,7 +181,7 @@ export class LocalStorageProvider {
 
           building.lastUpdate = Date.now()
           // this.storage.set(idBuilding, building);
-          this.store.dispatch(new SetHomeBuilding(building));
+          this.store.dispatch(new SaveBuilding(building));
         });
 
         // this.storage.get(building.ea).then((val) => {

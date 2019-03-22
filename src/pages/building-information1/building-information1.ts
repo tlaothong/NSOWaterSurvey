@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SetHomeBuilding, SetOtherBuildingType, SetHomeBuildingSuccess } from '../../states/building/building.actions';
+import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SaveBuildingSuccess } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -178,7 +178,7 @@ export class BuildingInformation1Page {
     this.storage.set('name', this.f.get('name').value)
 
     // this.storage.set(idBD, this.f.value)
-    this.store.dispatch(new SetHomeBuilding(this.f.value));
+    this.store.dispatch(new SaveBuilding(this.f.value));
 
     // this.storage.get(this.f.get('ea').value).then((data) => {
     //   listBD = data

@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SetHomeBuilding, SetHomeBuildingSuccess, NewHomeBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList, DeleteBuilding } from "./building.actions";
+import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SaveBuilding, SaveBuildingSuccess, NewBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList, DeleteBuilding } from "./building.actions";
 import { mergeMap, map, tap, switchMap, filter, withLatestFrom } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -33,25 +33,25 @@ export class BuildingEffects {
     );
 
     @Effect()
-    public NewHomeBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(BuildingTypes.NewHomeBuilding),
-        tap((action: NewHomeBuilding) => {
+    public newHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(BuildingTypes.NewBuilding),
+        tap((action: NewBuilding) => {
             this.appState.buildingId = '';
         }),
-        mergeMap((action: NewHomeBuilding) => Observable.of(new SetHomeBuildingSuccess(null))),
+        mergeMap((action: NewBuilding) => Observable.of(new SaveBuildingSuccess(null))),
     );
 
     @Effect()
-    public SetHomeBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(BuildingTypes.SetHomeBuilding),
-        filter((action: SetHomeBuilding, i) => action.payload),
-        tap((action: SetHomeBuilding) => {
+    public setHomeBuilding$: Observable<Action> = this.action$.pipe(
+        ofType(BuildingTypes.SaveBuilding),
+        filter((action: SaveBuilding, i) => action.payload),
+        tap((action: SaveBuilding) => {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),
         // TODO: Save the building to local storage
-        mergeMap((action: SetHomeBuilding) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
-        switchMap((action: SetHomeBuilding) => [
-            new SetHomeBuildingSuccess(action.payload),
+        mergeMap((action: SaveBuilding) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
+        switchMap((action: SaveBuilding) => [
+            new SaveBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
         ]),
 
@@ -62,7 +62,7 @@ export class BuildingEffects {
     );
 
     @Effect()
-    public DeleteBuilding$: Observable<Action> = this.action$.pipe(
+    public deleteBuilding$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.DeleteBuilding),
         filter((action: DeleteBuilding, i) => action.payload),
         map((action: DeleteBuilding) => action.payload),
@@ -76,7 +76,7 @@ export class BuildingEffects {
     );
 
     @Effect()
-    public UpdateBuildingList$: Observable<Action> = this.action$.pipe(
+    public updateBuildingList$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.UpdateBuildingList),
         filter((action: UpdateBuildingList, i) => action.payload),
         map((action: UpdateBuildingList) => action.payload),
