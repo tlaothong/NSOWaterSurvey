@@ -122,35 +122,35 @@ export class LocalStorageProvider {
   // }
 
   updateListUnit(id: string, data: any) { //id building, unit form
-    let key = id;
-    console.log(key);
-    // this.store.dispatch(new SetHouseHoldSuccess(data));
-    this.store.dispatch(new SaveHouseHold(data))
+    // let key = id;
+    // console.log(key);
+    // // this.store.dispatch(new SetHouseHoldSuccess(data));
+    // this.store.dispatch(new SaveHouseHold(data))
 
-    this.storage.get(key).then((val) => {
-      let list = val
-      console.log(list);
-      if (list != null) {
-        let fin = list.find(it => it._id == data._id)
-        console.log(fin);
+    // this.storage.get(key).then((val) => {
+    //   let list = val
+    //   console.log(list);
+    //   if (list != null) {
+    //     let fin = list.find(it => it._id == data._id)
+    //     console.log(fin);
 
-        let index = list.findIndex(d => d._id == data._id)
-        console.log(index);
+    //     let index = list.findIndex(d => d._id == data._id)
+    //     console.log(index);
 
-        if (fin == null) {
-          list.push(data);
-        } else {
-          list.splice(index, 1, data);
-          // list.push(data)
-        }
-        this.storage.set(key, list)
-      } else {
-        list = []
-        list.push(data);
-        this.storage.set(key, list)
-      }
-    })
-    this.updateStatusBuilding(id, data)
+    //     if (fin == null) {
+    //       list.push(data);
+    //     } else {
+    //       list.splice(index, 1, data);
+    //       // list.push(data)
+    //     }
+    //     this.storage.set(key, list)
+    //   } else {
+    //     list = []
+    //     list.push(data);
+    //     this.storage.set(key, list)
+    //   }
+    // })
+    // this.updateStatusBuilding(id, data)
   }
 
   updateStatusBuilding(idb: string, dataHousehold: any) {
