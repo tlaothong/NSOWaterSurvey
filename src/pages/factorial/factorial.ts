@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { SetFactorialCategory, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -23,10 +24,10 @@ export class FactorialPage {
   FactoryForm: FormGroup;
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory));
   private formData$ = this.store.select(getHouseHoldSample);
-  private formData: any
+  // private formData: any
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],
@@ -42,14 +43,14 @@ export class FactorialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FactorialPage');
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.FactoryForm.setValue(data.factory);
-        this.formData = data;
-        console.log(data);
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.FactoryForm.setValue(data.factory);
+    //     this.formData = data;
+    //     console.log(data);
         
-      }
-    });
+    //   }
+    // });
   }
 
   public handleSubmit() {
@@ -59,14 +60,20 @@ export class FactorialPage {
     // this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
-    this.formData.factory = this.FactoryForm.value
+    // this.formData.factory = this.FactoryForm.value
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        factory: this.FactoryForm.value,
+      };
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }
