@@ -644,7 +644,7 @@ export class UnitButtonComponent {
         'groundWater': fb.group({
           'privateGroundWater': fb.group({
             'doing': null,
-            'allCount': 0,
+            'allCount': null,
             'waterResourceCount': 0,
             'waterResources': fb.array([])
           }),
