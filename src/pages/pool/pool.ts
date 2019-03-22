@@ -54,6 +54,7 @@ export class PoolPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean
+  public checkIsPool : boolean = true;
 
   public static checkActivityResidential: any;
   public static checkActivityWateringRes: any;
