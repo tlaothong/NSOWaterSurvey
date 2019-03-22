@@ -13,6 +13,7 @@ import { BuildingState } from '../../states/building/building.reducer';
 import { getSendBuildingType, getOtherBuildingType } from '../../states/building';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -31,14 +32,14 @@ export class CommercialPage {
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formData$ = this.store.select(getHouseHoldSample);
   private numberRoom$ = this.store.select(getNumberRoom);
-  private numberRoom:boolean = false;
-  public dataCom: any;
+  private numberRoom: boolean = false;
+  // public dataCom: any;
   private getBuildingType$ = this.storeBuild.select(getSendBuildingType)
   private frontNum: any;
   private backNum: any;
   private otherBuildingType$ = this.storeBuild.select(getOtherBuildingType);
 
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private store: Store<HouseHoldState>, private storage: Storage, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private store: Store<HouseHoldState>, private storage: Storage, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],
@@ -77,23 +78,23 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
-    this.numberRoom$.subscribe(data => {
-      if (data != null) {
-        if(data == "-"){
-          this.numberRoom = true
-        }
-        console.log(this.numberRoom);
-      }
-    });
+    // this.numberRoom$.subscribe(data => {
+    //   if (data != null) {
+    //     if(data == "-"){
+    //       this.numberRoom = true
+    //     }
+    //     console.log(this.numberRoom);
+    //   }
+    // });
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.f.setValue(data.commerce)
-        this.dataCom = data;
-        console.log(data);
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.setValue(data.commerce)
+    //     this.dataCom = data;
+    //     console.log(data);
 
-      }
-    });
+    //   }
+    // });
 
     this.getBuildingType$.subscribe(data => {
       if (data != null) {
@@ -114,14 +115,19 @@ export class CommercialPage {
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     // this.dispatchWaterSource();
-    this.dataCom.commerce = this.f.value
+    // this.dataCom.commerce = this.f.value
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.dataCom));
       // this.storage.set('unit', this.dataCom)
-      let id = this.dataCom._id
-      this.storage.set(id, this.dataCom)
-      this.local.updateListUnit(this.dataCom.buildingId, this.dataCom)
+      // let id = this.dataCom._id
+      // this.storage.set(id, this.dataCom)
+      // this.local.updateListUnit(this.dataCom.buildingId, this.dataCom)
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        commerce: this.f.value,
+      };
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }
