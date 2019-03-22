@@ -11,6 +11,7 @@ import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../stat
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,7 @@ export class PoolPage {
   private submitRequested: boolean;
   private formDataUnit$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData: any;
+  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -62,7 +63,7 @@ export class PoolPage {
   public static checkActivityFactory: any;
   public static checkActivityCommercial: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators],
       'poolCount': [null, Validators],
@@ -79,12 +80,12 @@ export class PoolPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.waterUsage.pool);
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.waterUsage.pool);
+    //     this.formData = data;
+    //   }
+    // })
 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
@@ -146,8 +147,8 @@ export class PoolPage {
       }
       this.f.get('poolSizes').setValue(val)
     }
-    this.formData.waterUsage.pool = this.f.value
- 
+    // this.formData.waterUsage.pool = this.f.value
+
 
     if (this.checkvalid()) {
       this.arrayIsCheckMethod();
@@ -155,9 +156,18 @@ export class PoolPage {
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
 
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let water = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        river: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: water,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -169,7 +179,7 @@ export class PoolPage {
         if (this.f.get('doing').value == true) {
           return this.f.get('waterResourceCount').value > 0 && this.f.get('poolCount').value > 0 && ischeckPoolUsage;
         }
-        else{
+        else {
           return false;
         }
       }

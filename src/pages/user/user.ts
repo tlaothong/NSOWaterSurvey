@@ -39,8 +39,8 @@ export class UserPage {
   constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
-      "factorialCategoryCode": [null, Validators.required],
-      "serviceTypeCode": [null, Validators.required]
+      "factorialCategoryCode": [null, Validators],
+      "serviceTypeCode": [null, Validators]
     });
   }
 
