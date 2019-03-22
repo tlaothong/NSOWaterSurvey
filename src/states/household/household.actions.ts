@@ -1,9 +1,11 @@
 import { Action } from '@ngrx/store';
 
 export enum HouseHoldTypes {
+    StateName = "HouseHold",
+
     LoadHouseHoldSample = "[HH] Load",
     LoadHouseHoldSampleSuccess = "[HH] Load Success",
-    StateName = "HouseHold",
+
     LoadList = "[HH] Load List",
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
