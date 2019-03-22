@@ -25,7 +25,7 @@ export class PoolPage {
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
@@ -161,7 +161,7 @@ export class PoolPage {
       // this.local.updateListUnit(this.formData.buildingId, this.formData)
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
-        river: this.f.value,
+        pool: this.f.value,
       };
       let houseHold = {
         ...this.appState.houseHoldUnit,
