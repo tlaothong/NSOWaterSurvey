@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <h3>ตอนที่ 2.8 การเลี้ยงสัตว์เพื่อขายหรือใช้งานเกษตร</h3>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.agriculture?.animalFarm">
 
     <ion-card>
       <ion-card-content>
