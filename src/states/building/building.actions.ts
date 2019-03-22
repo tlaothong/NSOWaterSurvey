@@ -4,16 +4,18 @@ import { BuildingInList } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
+    
     LoadList = "[BLD] Load List",
     LoadListSuccess = "[BLD] Load List Success",
+    NewBuilding = "[BLD] Create New HomeBuilding",
+    SaveBuilding = "[BLD] Set Building",
+    SaveBuildingSuccess = "[BLD] Set Building Success",
+
     Load = "[BLD] Load",
     LoadSuccess = "[BLD] Load Success",
     SetSendDataBuilding = "[BLD] Send Data Building",
     SetSendBuildingType = "[BLD] Send Building Type",
     SetRecieveDataFromBuilding = "[BLD] Recieve Data From Building",
-    NewBuilding = "[BLD] Create New HomeBuilding",
-    SaveBuilding = "[BLD] Set Building",
-    SaveBuildingSuccess = "[BLD] Set Building Success",
     UpdateBuildingList = "[BLD] Update or Insert the Building into the List",
     UpdateBuildingListSuccess = "[BLD] Update the Building List Success",
     DeleteBuilding = "[BLD] Delete Building",
