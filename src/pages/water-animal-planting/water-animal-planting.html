@@ -8,7 +8,7 @@
 
   <h3>ตอนที่ 2.9 การเพาะเลี้ยงสัตว์น้ำในพื้นที่น้ำจืด</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.agriculture?.aquaticAnimals">
 
     <ion-card>
       <ion-card-content>
