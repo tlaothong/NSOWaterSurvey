@@ -6,7 +6,17 @@
 
 <ion-content padding>
 
-  <form [formGroup]="f">
+  <ion-grid>
+    <ion-col col-2 *ngFor="let u of unitList$ | async; let i = index">
+      LST {{ i }}
+    </ion-col>
+    {{ emptyUnits$ | async | json }}
+    <ion-col col-1 *ngFor="let u of emptyUnits$ | async; let i = index">
+        EMP {{ u }}
+      </ion-col>
+    </ion-grid>
+
+  <!-- <form [formGroup]="f">
 
     <div *ngIf="f.get('unitCount').value > 0">
       <ion-row text-center>
@@ -17,6 +27,6 @@
       </ion-row>
     </div>
 
-  </form>
+  </form> -->
 
 </ion-content>

@@ -4,12 +4,18 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getRecieveDataFromBuilding, setHomeBuilding } from '../../states/building';
+import { getRecieveDataFromBuilding, setHomeBuilding, getUnitCount } from '../../states/building';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { getHouseHoldUnitList } from '../../states/household';
+import { zip, filter, switchMap, map, withLatestFrom, flatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { count } from 'rxjs/operator/count';
+import { mergeMap } from 'rxjs/operator/mergeMap';
+import { mapTo } from 'rxjs/operator/mapTo';
 
 @IonicPage()
 @Component({
@@ -26,6 +32,23 @@ export class UnitPage {
   public id_BD: string;
   public units: any;
   public FormItem: FormGroup;
+
+  public unitCount$ = this.storeBuild.select(getUnitCount);
+  public unitList$ = this.store.select(getHouseHoldUnitList);
+  public emptyUnits$ = this.store.select(getHouseHoldUnitList).pipe(
+    map(lst => lst ? lst.length: 0),
+    withLatestFrom(this.storeBuild.select(getUnitCount)),
+    map(([lstCnt, untCnt]) => { return { start: (lstCnt + 1), count: Math.max(0, untCnt - lstCnt) }}),
+    map(it => { if(it.count > 0)
+      {
+        let arr: number[] = [];
+        for (let idx = 0; idx < it.count; ++idx) {
+          arr.push(idx + it.start);
+        }
+        return arr;
+      }
+      else return[] }),
+  );
 
   constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, 
     public navParams: NavParams, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 

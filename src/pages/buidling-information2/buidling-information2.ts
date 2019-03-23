@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getBuildingSample, getSendBuildingType, setHomeBuilding } from '../../states/building';
 import { SetRecieveDataFromBuilding, SaveBuilding, SaveBuildingSuccess } from '../../states/building/building.actions';
-import { map, delay } from 'rxjs/operators';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
 import { Storage } from '@ionic/storage';
@@ -137,7 +136,7 @@ export class BuidlingInformation2Page {
 
   private saveThenSurveyUnit() {
     let unitCount = this.f.get('unitCount').value;
-    this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
+    // this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
     this.store.dispatch(new SaveBuilding(this.f.value));
     
     if (unitCount == 1) {

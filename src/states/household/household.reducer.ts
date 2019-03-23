@@ -1,9 +1,10 @@
-import { HouseHoldActionsType, HouseHoldTypes } from "./household.actions";
+import { HouseHoldActionsType, HouseHoldTypes, LoadSelectedHouseHold } from "./household.actions";
 import { EX_RICH_LIST, EX_RUBBER_LIST } from "../../models/tree";
+import { HouseHoldUnit, UnitInList } from "../../models/mobile/MobileModels";
 
 export interface HouseHoldState {
-    units: any,
-    houseHoldSample: any,
+    units: UnitInList[],
+    houseHoldSample: HouseHoldUnit,
     selectG1234: any,
     isHouseHold: boolean,
     isAgriculture: boolean,
@@ -139,6 +140,12 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 nextPageDirection: listPagesToCheck(hh),
             };
         }
+
+        case HouseHoldTypes.LoadSelectedHouseHold:
+            return {
+                ...state,
+                houseHoldSample: action.payload,
+            };
 
         case HouseHoldTypes.SetSelectG1234:
             return {

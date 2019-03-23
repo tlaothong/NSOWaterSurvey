@@ -34,6 +34,9 @@ export const getOtherBuildingType = createSelector(
     state => state.otherBuildingType,
 );
 
-
+export const getUnitCount = createSelector(
+    getBuildingFeatureState,
+    state => state.unitCount,
+);
 
 

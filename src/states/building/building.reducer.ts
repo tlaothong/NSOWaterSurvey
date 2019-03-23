@@ -1,20 +1,19 @@
 import { BuildingActionsType, BuildingTypes, LoadBuildingListSuccess } from "./building.actions";
-import { BuildingInList } from "../../models/mobile/MobileModels";
+import { BuildingInList, Building } from "../../models/mobile/MobileModels";
 
 
 export interface BuildingState {
-    units: any,
     buildings: BuildingInList[],
-    buildingSample: any,
+    buildingSample: Building,
     sendDataBuilding: any,
     sendBuildingType: any,
     recieveDataFromBuilding: any,
     setDataBuilding: any,
     otherBuildingType: any,
+    unitCount: number,
 }
 
 const initialState: BuildingState = {
-    units: [],
     buildings: [],
     buildingSample: null,
     sendDataBuilding: null,
@@ -22,6 +21,7 @@ const initialState: BuildingState = {
     recieveDataFromBuilding: null,
     setDataBuilding: null,
     otherBuildingType: null,
+    unitCount: 0,
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -63,7 +63,8 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 buildingSample: action.payload,
                 sendBuildingType: b.sendBuildingType,
                 otherBuildingType: b.otherBuildingType,
-                recieveDataFromBuilding: b.recieveDataFromBuilding
+                recieveDataFromBuilding: b.recieveDataFromBuilding,
+                unitCount: action.payload ? action.payload.unitCount : 0,
             };
         //--------------------
         case BuildingTypes.SetOtherBuildingType:
