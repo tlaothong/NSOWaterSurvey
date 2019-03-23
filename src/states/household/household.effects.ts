@@ -47,7 +47,7 @@ export class HouseHoldEffects {
                 ea: this.appState.eaCode, 
                 buildingId: this.appState.buildingId,
             }).map(it => { return { exists: false, data: it }})),
-        switchMap((x: UnitExistence) => x.exists ? [ new SaveHouseHold(x.data) ] : [ new SaveHouseHold(x.data), new LoadHouseHoldListSuccess() ])
+        switchMap((x: UnitExistence) => x.exists ? [ new SaveHouseHold(x.data) ] : [ new SaveHouseHold(x.data) ])
     );
 
     @Effect()
