@@ -54,6 +54,12 @@
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
+            <ion-item *ngIf="f.get('fieldCount').value > 20">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนแปลงมีเยอะผิดปกติหรือไม่
+              </span>
+            </ion-item>
           </div>
         </div>
 

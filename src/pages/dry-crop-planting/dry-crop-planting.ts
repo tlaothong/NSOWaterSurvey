@@ -34,7 +34,7 @@ export class DryCropPlantingPage {
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, [Validators.required, Validators.min(1)]],
+      "fieldCount": [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       "fields": this.fb.array([]),
     });
     this.setupFieldCountChanges();

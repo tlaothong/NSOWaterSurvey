@@ -39,7 +39,7 @@
     <div [ngSwitch]="FormItem.get('shape').value">
 
       <div *ngSwitchCase="1">
-        <field-area [FormItem]="FormItem.get('area')"></field-area>
+        <field-area [FormItem]="FormItem.get('area')" [isAnimal]="isAnimal"></field-area>
       </div>
 
       <div *ngSwitchCase="2" formGroupName="rectangle">
@@ -80,6 +80,12 @@
         <ion-item *ngIf="isValid('diameter')">
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
         </ion-item>
+        <ion-item *ngIf="FormItem.get('diameter').value > 100 || (FormItem.get('diameter').value < 0.5 &&  FormItem.get('diameter').value > 0)">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบเส้นผ่านศูนย์กลางมีขนาดผิดปกติหรือไม่
+          </span>
+        </ion-item>
       </div>
 
     </div>
@@ -93,6 +99,12 @@
       </ion-item>
       <ion-item *ngIf="isValid('depth')">
         <span class="invalid-msg">กรุณากรอกความลึก</span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('depth').value > 4 || (FormItem.get('depth').value < 0.5 &&  FormItem.get('depth').value > 0)">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบความลึกมีขนาดผิดปกติหรือไม่
+        </span>
       </ion-item>
     </div>
 

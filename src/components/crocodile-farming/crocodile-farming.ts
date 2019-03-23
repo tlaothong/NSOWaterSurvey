@@ -18,7 +18,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
   @Input('no') public no: string;
-
+  @Input('isAnimal') public isAnimal: boolean;
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
@@ -39,7 +39,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       'fieldCount': [null, Validators],
       'fieldsAreSameSize': [null, Validators],
       'fields': fb.array([]),
-      'animalsCount': [null, Validators.required],
+      'animalsCount': [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: CrocodileFarmingComponent.checkAnyOrOther()

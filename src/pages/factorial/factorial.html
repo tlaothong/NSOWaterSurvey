@@ -55,6 +55,13 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
+        <ion-item *ngIf="FactoryForm.get('workersCount').value > 100">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนคนมีเยอะผิดปกติหรือไม่
+          </span>
+        </ion-item>
+
         <ion-item>
           <ion-label>
             3.4 สถานประกอบการแห่งนี้ใช้เครื่องจักรที่มีขนาดแรงม้า<br>ตั้งแต่ 5 แรงม้าหรือ 3,725 วัตต์ขึ้นไป หรือไม่

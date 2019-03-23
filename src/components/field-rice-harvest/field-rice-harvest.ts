@@ -23,8 +23,8 @@ export class FieldRiceHarvestComponent implements ISubmitRequestable {
     return fb.group({
       "plantingFromMonth": [null, Validators.required],
       "plantingThruMonth": [null, Validators.required],
-      "waterFillingCount": [null, Validators.required],
-      "waterHeightCm": [null, Validators.required],
+      "waterFillingCount": [null, Validators.compose([Validators.pattern('[0-9]*'),Validators.required])],
+      "waterHeightCm": [null, Validators.compose([Validators.pattern('[0-9]*'),Validators.required])],
     });
   }
 
