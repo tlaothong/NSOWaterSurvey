@@ -1,6 +1,6 @@
 import { CountComponent } from './../../components/count/count';
 import { getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
-import { SetWaterSourcesResidential, SetSelectorIndex,SetMemberCount, SaveHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesResidential, SetSelectorIndex, SetMemberCount, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -32,8 +32,8 @@ export class ResidentialPage {
   public checked: boolean;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
-      'memberCount': [null, [Validators.required, Validators.min(1)]],
-      'workingAge': [null, Validators.required],
+      'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+      'workingAge': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
     });
@@ -68,7 +68,7 @@ export class ResidentialPage {
         ...originalHouseHold,
         residence: this.residentialFrm.value,
       };
-        this.arrayIsCheckMethod();
+      this.arrayIsCheckMethod();
       // this.dispatchWaterSource();
       // this.store.dispatch(new SetHouseHold(this.dataRes));
       // this.storage.set('unit', this.dataRes)
@@ -77,7 +77,7 @@ export class ResidentialPage {
       // console.log("set", newHouseHold);
 
       // this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
-      
+
       // this.store.dispatch(new SetHouseHold(newHouseHold))
       this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
       this.store.dispatch(new SaveHouseHold(newHouseHold));

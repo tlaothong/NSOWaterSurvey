@@ -34,9 +34,9 @@ export class LocationComponent implements ISubmitRequestable {
       this.FormItem.reset();
     }
     this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name))
-    if (this.FormItem.get('province').value != null) {
+    if (this.FormItem.get('province').value != 0) {
       this.onChange(this.FormItem.get('province').value);
-      if (this.FormItem.get('district').value != null) {
+      if (this.FormItem.get('district').value != 0) {
         this.onChange1(this.FormItem.get('district').value);
       }
     }
