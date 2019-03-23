@@ -3,7 +3,7 @@ import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 import { EA } from '../../states/bootup/bootup.reducer';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
-import { BuildingInList, Building, HouseHoldUnit } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, HouseHoldUnit, UnitInList } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the DataStoreProvider provider.
@@ -66,6 +66,20 @@ export class DataStoreProvider {
    */
   public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
     return Observable.fromPromise(this.storage.get('bldlst' + eaCode));
+  }
+
+  /**
+   * เรียกรายการ house hold ที่อยู่ใน building ที่ระบุ
+   */
+  public listHouseHoldInBuilding(buildingId: string): Observable<UnitInList[]> {
+    return Observable.fromPromise(this.storage.get('unt4' + buildingId)).map((lst: UnitInList[]) => lst ? lst : []);
+  }
+
+  /**
+   * getHouseHold
+   */
+  public getHouseHold(houseHoldId: string): Observable<HouseHoldUnit> {
+    return Observable.fromPromise(this.storage.get(houseHoldId));
   }
 
   /**
