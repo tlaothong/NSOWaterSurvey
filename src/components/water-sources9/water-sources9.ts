@@ -20,15 +20,15 @@ export class WaterSources9Component {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'plumbing': [false, Validators.required],
-      'underGround': [false, Validators.required],
-      'pool': [false, Validators.required],
-      'river': [false, Validators.required],
-      'irrigation': [false, Validators.required],
-      'rain': [false, Validators.required],
-      'rainingAsIs': [false, Validators.required],
-      'buying': [false, Validators.required],
-      'hasOther': [false, Validators.required],
+      'plumbing': [false, Validators],
+      'underGround': [false, Validators],
+      'pool': [false, Validators],
+      'river': [false, Validators],
+      'irrigation': [false, Validators],
+      'rain': [false, Validators],
+      'rainingAsIs': [false, Validators],
+      'buying': [false, Validators],
+      'hasOther': [false, Validators],
       'other': [''],
     }, {
         validator: WaterSources9Component.checkAnyOrOther()
