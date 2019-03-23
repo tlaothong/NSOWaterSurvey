@@ -62,6 +62,10 @@ export class FishFarmingComponent implements ISubmitRequestable {
     this.poolArea.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    if (!this.FormItem.get('depression').value && !this.FormItem.get('gardenGroove').value) {
+      this.FormItem.get('waterSources.hasOther').setValue(true);
+      this.FormItem.get('waterSources.other').setValue('-');
+    }
     // this.dispatchWaterSource();
   }
 
@@ -79,16 +83,16 @@ export class FishFarmingComponent implements ISubmitRequestable {
 
       if (!depression.value && !gardenGroove.value && !stew.value && !hasOther.value && !riceField.value) {
         return { 'anycheck': true };
-      } else if ((hasOther.value == true) && (!other.value || other.value.trim() == '')) {
+      } else if (hasOther.value == true && (other.value == null || other.value.trim() == '')) {
         return { 'other': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldCount.value <= 0)) {
+      if ((depression.value || gardenGroove.value) && (fieldCount.value == null || fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && (fieldsAreSameSize.value == null)) {
+      if ((depression.value || gardenGroove.value) && (fieldsAreSameSize.value == null)) {
         return { 'fieldsAreSameSize': true };
       }
-      if ((depression.value || gardenGroove.value || stew.value || hasOther.value || riceField.value) && ((animalsCount.value == null) || (animalsCount.value <= 0))) {
+      if ((depression.value || gardenGroove.value) && (animalsCount.value == null || animalsCount.value <= 0)) {
         return { 'animalsCount': true };
       }
       return null;

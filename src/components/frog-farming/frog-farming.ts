@@ -68,9 +68,9 @@ export class FrogFarmingComponent {
       const other = c.get('other');
       const hasOther = c.get('hasOther');
 
-      if (!depression.value && !stew.value) {
+      if (!depression.value && !stew.value && !hasOther.value) {
         return { 'anycheck': true };
-      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+      } else if (hasOther.value == true && (other.value == null || other.value.trim() == '')) {
         return { 'other': true };
       }
       return null;
