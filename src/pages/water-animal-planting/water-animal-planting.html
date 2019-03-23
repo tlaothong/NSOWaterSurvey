@@ -124,31 +124,31 @@
         </ion-card>
 
         <div *ngIf="f.get('isFish').value">
-          <fish-farming headline="1. ปลา" type="ตัว" [FormItem]="f.get('fish')"></fish-farming>
+          <fish-farming headline="1. ปลา" type="ตัว" [FormItem]="f.get('fish')" [isAnimal]="isAnimal"></fish-farming>
         </div>
         <div *ngIf="f.get('isShrimp').value">
-          <fish-farming headline="2. กุ้ง" [FormItem]="f.get('shrimp')"></fish-farming>
+          <fish-farming headline="2. กุ้ง" [FormItem]="f.get('shrimp')" [isAnimal]="isAnimal"></fish-farming>
         </div>
         <div *ngIf="f.get('isFrog').value">
           <frog-farming headline="3. กบ" [FormItem]="f.get('frog')"></frog-farming>
         </div>
         <div *ngIf="f.get('isCrocodile').value">
-          <crocodile-farming headline="4. จระเข้" [FormItem]="f.get('crocodile')"></crocodile-farming>
+          <crocodile-farming headline="4. จระเข้" [FormItem]="f.get('crocodile')" [isAnimal]="isAnimal"></crocodile-farming>
         </div>
         <div *ngIf="f.get('isSnappingTurtle').value">
-          <crocodile-farming headline="5. ตะพาบน้ำ" [FormItem]="f.get('snappingTurtle')"></crocodile-farming>
+          <crocodile-farming headline="5. ตะพาบน้ำ" [FormItem]="f.get('snappingTurtle')" [isAnimal]="isAnimal"></crocodile-farming>
         </div>
         <div *ngIf="f.get('isCrab').value">
-          <fish-farming headline="6. ปู" [FormItem]="f.get('crab')"></fish-farming>
+          <fish-farming headline="6. ปู" [FormItem]="f.get('crab')" [isAnimal]="isAnimal"></fish-farming>
         </div>
         <div *ngIf="f.get('isShellFish').value">
-          <fish-farming headline="7. หอย" [FormItem]="f.get('shellFish')"></fish-farming>
+          <fish-farming headline="7. หอย" [FormItem]="f.get('shellFish')" [isAnimal]="isAnimal"></fish-farming>
         </div>
         <div *ngIf="f.get('isTurtle').value">
-          <crocodile-farming headline="8. เต่า" [FormItem]="f.get('turtle')"></crocodile-farming>
+          <crocodile-farming headline="8. เต่า" [FormItem]="f.get('turtle')" [isAnimal]="isAnimal"></crocodile-farming>
         </div>
         <div *ngIf="f.get('isReddish').value">
-          <fish-farming headline="9. ไรแดง" [FormItem]="f.get('reddish')"></fish-farming>
+          <fish-farming headline="9. ไรแดง" [FormItem]="f.get('reddish')" [isAnimal]="isAnimal"></fish-farming>
         </div>
       </div>
     </div>

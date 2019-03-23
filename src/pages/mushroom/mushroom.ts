@@ -32,7 +32,7 @@ export class MushroomPage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, [Validators.required, Validators.min(1)]],
+      'fieldCount': [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'fields': this.fb.array([]),
     });
     this.setupPlantingCountChanges()

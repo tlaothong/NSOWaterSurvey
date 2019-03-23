@@ -12,6 +12,7 @@ export class DlgFieldAreaPage {
 
   public FormItem: FormGroup;
   public text: string;
+  public isAnimal: boolean;
 
   private submitRequested: boolean;
 
@@ -20,6 +21,7 @@ export class DlgFieldAreaPage {
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
     this.text = navParams.get("headline");
+    this.isAnimal = navParams.get("isAnimal");
   }
 
   public closeDialog() {
@@ -35,6 +37,8 @@ export class DlgFieldAreaPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgFieldAreaPage');
+    console.log(this.isAnimal);
+    
   }
 
   public isValid(name: string): boolean {

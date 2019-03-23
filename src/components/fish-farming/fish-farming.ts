@@ -18,6 +18,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input('headline') public text: string;
   @Input('type') public type: string;
+  @Input('isAnimal') public isAnimal: boolean;
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];

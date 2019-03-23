@@ -31,7 +31,7 @@ export class FactorialPage {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],
-      'workersCount': ['', Validators.required],
+      'workersCount': ['', Validators.compose([Validators.pattern('[0-9]*'),Validators.required])],
       'heavyMachine': ['', Validators.required],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'hasWasteWaterFromProduction': ['', Validators.required],

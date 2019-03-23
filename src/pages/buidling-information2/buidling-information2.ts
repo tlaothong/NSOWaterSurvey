@@ -65,7 +65,7 @@ export class BuidlingInformation2Page {
       'recCtrl': [null, Validators.required],
       'vacantRoomCount': [null, Validators.required],
       'unitCountComplete': 0,
-      'unitCount': [0, Validators.required],
+      'unitCount': [0, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'unitAccess': [null, Validators.required],
       'occupiedRoomCount': [null, Validators.required],
       'waterQuantity': fb.group({
