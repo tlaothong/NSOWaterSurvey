@@ -1,9 +1,9 @@
 import { HouseHoldActionsType, HouseHoldTypes, LoadSelectedHouseHold } from "./household.actions";
 import { EX_RICH_LIST, EX_RUBBER_LIST } from "../../models/tree";
-import { HouseHoldUnit } from "../../models/mobile/MobileModels";
+import { HouseHoldUnit, UnitInList } from "../../models/mobile/MobileModels";
 
 export interface HouseHoldState {
-    units: any,
+    units: UnitInList[],
     houseHoldSample: HouseHoldUnit,
     selectG1234: any,
     isHouseHold: boolean,

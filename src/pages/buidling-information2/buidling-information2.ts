@@ -136,7 +136,7 @@ export class BuidlingInformation2Page {
 
   private saveThenSurveyUnit() {
     let unitCount = this.f.get('unitCount').value;
-    this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
+    // this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
     this.store.dispatch(new SaveBuilding(this.f.value));
     
     if (unitCount == 1) {
