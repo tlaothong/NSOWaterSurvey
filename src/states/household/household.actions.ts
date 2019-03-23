@@ -14,13 +14,14 @@ export enum HouseHoldTypes {
     SaveHouseHold = "[HH] Save House Hold",
     SaveHouseHoldSuccess = "[HH] Save House Hold Success",
 
-    LoadList = "[HH] Load List",
+    LoadList = "[HH] Load House Hold List For Building",
+    LoadListSuccess = "[HH] Load List For Building Success",
+
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsHouseHold = "[HH] Set IsHouseHold",
     SetIsCommercial = "[HH] Set IsCommercial",
-    LoadListSuccess = "[HH] Load List Success",
     SetIsAgriculture = "[HH] Set IsAgriculture",
     LoadUserByQrCode = "[HH] Load User By QrCode",
     SetFactorialCategory = "[HH] Set Factorial Category",
@@ -63,14 +64,14 @@ export enum HouseHoldTypes {
 export class LoadHouseHoldList implements Action {
     readonly type = HouseHoldTypes.LoadList;
 
-    constructor() {
+    constructor(public buildingId: string) {
     }
 }
 
 export class LoadHouseHoldListSuccess implements Action {
     readonly type = HouseHoldTypes.LoadListSuccess;
 
-    constructor() {
+    constructor(public payload: UnitInList[]) {
     }
 }
 
