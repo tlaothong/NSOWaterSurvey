@@ -11,8 +11,12 @@ export enum HouseHoldTypes {
     NewHouseHoldWithSubUnit = "[HH] New House Hold with Empty Sub Unit", // สร้าง HH สำหรับใส่ข้อมูล subUnit ใน dialog
     LoadSelectedHouseHold = "[HH] Load a Selected House Hold",
 
+    SetCurrentWorkingHouseHold = "[HH] Set Current Working House Hold",
+
     SaveHouseHold = "[HH] Save House Hold",
     SaveHouseHoldSuccess = "[HH] Save House Hold Success",
+
+    UpdateUnitList = "[HH] Update the List of House Hold Units",
 
     LoadList = "[HH] Load House Hold List For Building",
     LoadListSuccess = "[HH] Load List For Building Success",
@@ -103,6 +107,19 @@ export class NewHouseHoldWithSubUnit implements Action {
     }
 }
 
+export class LoadSelectedHouseHold implements Action {
+    readonly type = HouseHoldTypes.LoadSelectedHouseHold;
+
+    constructor(public payload: HouseHoldUnit) {
+    }
+}
+
+export class SetCurrentWorkingHouseHold implements Action {
+    readonly type = HouseHoldTypes.SetCurrentWorkingHouseHold;
+    constructor(public houseHoldId: string) {
+    }
+}
+
 
 export class SaveHouseHold implements Action {
     readonly type = HouseHoldTypes.SaveHouseHold;
@@ -111,6 +128,12 @@ export class SaveHouseHold implements Action {
 }
 export class SaveHouseHoldSuccess implements Action {
     readonly type = HouseHoldTypes.SaveHouseHoldSuccess;
+    constructor(public payload: HouseHoldUnit) {
+    }
+}
+
+export class UpdateUnitList implements Action {
+    readonly type = HouseHoldTypes.UpdateUnitList;
     constructor(public payload: HouseHoldUnit) {
     }
 }
@@ -383,8 +406,11 @@ export type HouseHoldActionsType =
     | LoadHouseHoldSampleSuccess
     | CreateHouseHoldFor1UnitBuilding
     | NewHouseHoldWithSubUnit
+    | LoadSelectedHouseHold
+    | SetCurrentWorkingHouseHold
     | SaveHouseHold
     | SaveHouseHoldSuccess
+    | UpdateUnitList
     | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
