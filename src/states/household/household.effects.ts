@@ -74,6 +74,10 @@ export class HouseHoldEffects {
             ea: this.appState.eaCode, 
             buildingId: this.appState.buildingId,
             subUnit: subUnit,
+            isHouseHold: null,
+            isAgriculture: null,
+            isFactorial: null,
+            isCommercial: null,
             agriculture: {
                 ricePlant: {},
                 agronomyPlant: {},
@@ -136,6 +140,7 @@ export class HouseHoldEffects {
                 case 2:
                 case 3:
                     status = (accCnt < 3) ? "return": "complete";
+                    break;
                 default:
                     status = "pause";
                     break;

@@ -19,33 +19,18 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
   templateUrl: 'water-activity-unit.html',
 })
 export class WaterActivityUnitPage {
-  @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
+
   public f: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
   // public dataHouseHold: any;
   // public unitCount: any;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
-    // this.f = UnitButtonComponent.CreateFormGroup(fb);
-    // this.f = navParams.get('FormItem');
-    console.log(this.f);
     this.f = fb.group({
-      // 'subUnit': fb.group({
-      //   'roomNumber': [null],
-      //   'accessCount': [0],
-      //   'accesses': fb.array([0]),
-      //   'hasPlumbing': [false],
-      //   'hasPlumbingMeter': [false],
-      //   'isPlumbingMeterXWA': [false],
-      //   'hasGroundWater': [false],
-      //   'hasGroundWaterMeter': [false],
-      // }),
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
-      // 'comments': fb.array([]),
-
     });
   }
 

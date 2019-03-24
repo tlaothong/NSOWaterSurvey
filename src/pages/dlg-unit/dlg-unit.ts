@@ -68,14 +68,14 @@ export class DlgUnitPage {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'subUnit': fb.group({
-        'roomNumber': [null, Validators],
-        'accessCount': [0, Validators],
+        'roomNumber': [null, Validators.required],
+        'accessCount': 0,
         'accesses': fb.array([]),
-        'hasPlumbing': [null, Validators],
-        'hasPlumbingMeter': [null, Validators],
-        'isPlumbingMeterXWA': [null, Validators],
-        'hasGroundWater': [null, Validators],
-        'hasGroundWaterMeter': [null, Validators],
+        'hasPlumbing': null,
+        'hasPlumbingMeter': null,
+        'isPlumbingMeterXWA': null,
+        'hasGroundWater': null,
+        'hasGroundWaterMeter': null,
       }),
       'access': [null, Validators.required],
       'comment': null
@@ -101,8 +101,6 @@ export class DlgUnitPage {
 
   public okDialog() {
     this.submitRequested = true;
-    console.log(this.ff.get('subUnit.roomNumber').value);
-    console.log(this.ff.get('subUnit.hasPlumbing').value);
 
     if (this.ff.valid) {
       let formValue = this.ff.value;
@@ -149,35 +147,30 @@ export class DlgUnitPage {
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
-      const roomNumber = c.get('subUnit.roomNumber');
-      const hasPlumbing = c.get('subUnit.hasPlumbing');
-      const hasPlumbingMeter = c.get('subUnit.hasPlumbingMeter');
-      const isPlumbingMeterXWA = c.get('subUnit.isPlumbingMeterXWA');
-      const hasGroundWater = c.get('subUnit.hasGroundWater');
-      const hasGroundWaterMeter = c.get('subUnit.hasGroundWaterMeter');
+      const access = c.get('access').value;
+      const roomNumber = c.get('subUnit.roomNumber').value;
+      const hasPlumbing = c.get('subUnit.hasPlumbing').value;
+      const hasPlumbingMeter = c.get('subUnit.hasPlumbingMeter').value;
+      const isPlumbingMeterXWA = c.get('subUnit.isPlumbingMeterXWA').value;
+      const hasGroundWater = c.get('subUnit.hasGroundWater').value;
+      const hasGroundWaterMeter = c.get('subUnit.hasGroundWaterMeter').value;
 
-      if (roomNumber.value == null) {
+      if (roomNumber == null) {
         return { 'roomNumber': true };
       }
-      if (hasPlumbing.value == null) {
+      if (hasPlumbing == null && access == 1) {
         return { 'hasPlumbing': true };
       }
-      if (hasPlumbing.value == true && hasPlumbingMeter.value == null) {
+      if (hasPlumbing == true && hasPlumbingMeter == null && access == 1) {
         return { 'hasPlumbingMeter': true };
       }
-      if (hasPlumbing.value == true && hasPlumbingMeter.value == false && hasGroundWater.value == null) {
-        return { 'hasGroundWater': true };
-      }
-      if (hasPlumbingMeter.value == true && isPlumbingMeterXWA.value == null) {
+      if (hasPlumbingMeter == true && isPlumbingMeterXWA == null && access == 1) {
         return { 'isPlumbingMeterXWA': true };
       }
-      if (hasPlumbing.value != null && hasGroundWater.value == null) {
+      if (hasGroundWater == null && access == 1) {
         return { 'hasGroundWater': true };
       }
-      if (hasPlumbing.value != null && hasPlumbingMeter.value != null && hasGroundWater.value == null) {
-        return { 'hasGroundWater': true };
-      }
-      if (hasGroundWater.value == true && hasGroundWaterMeter.value == null) {
+      if (hasGroundWater == true && hasGroundWaterMeter == null && access == 1) {
         return { 'hasGroundWaterMeter': true };
       }
       return null;

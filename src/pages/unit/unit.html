@@ -6,39 +6,43 @@
 
 <ion-content padding>
 
+  <ng-container *ngIf="unitList$ | async">{{ updateTheEmptyList() }}</ng-container>
+
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let unt of unitList$ | async; let i = index">
 
-          <button padding>
+      <ng-container *ngFor="let unt of unitList$ | async; let i = index">
+        <ion-col col-4 *ngIf="(unitCount$ | async) > i">
+            <button padding>
 
-            <ion-row>
-              <ion-col text-left>
-                <h3># {{ i + 1 }}</h3>
-              </ion-col>
-              <ion-col text-right (click)="showUnitButtonPopover(unt, $event)">
-                <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
-              </ion-col>
-            </ion-row>
-        
-            <div text-center class="pause">
-              <ion-grid no-padding>
-                <ion-row>
-                  <ion-col (click)="continueUnit(unt)" style="padding-top: 20px">
-                    ห้องที่ {{roomNumber}}
-                  </ion-col>
-                  <ion-col col-3 no-padding *ngIf="allComment">
-                    <button ion-button clear (click)="showComments()"></button>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <button ion-button clear full style="height: 150px" (click)="continueUnit(unt)"></button>
-                </ion-row>
-              </ion-grid>
-            </div>
-          </button>
+              <ion-row>
+                <ion-col text-left>
+                  <h3># {{ i + 1 }}</h3>
+                </ion-col>
+                <ion-col text-right (click)="showUnitButtonPopover(unt, $event)">
+                  <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
+                </ion-col>
+              </ion-row>
           
-      </ion-col>
+              <div text-center [class]="unt.status">
+                <ion-grid no-padding>
+                  <ion-row>
+                    <ion-col (click)="continueUnit(unt)" style="padding-top: 20px">
+                      ห้องที่ {{roomNumber}}
+                    </ion-col>
+                    <ion-col col-3 no-padding *ngIf="allComment">
+                      <button ion-button clear (click)="showComments()"></button>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <button ion-button clear full style="height: 150px" (click)="continueUnit(unt)"></button>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </button>
+        </ion-col>
+      </ng-container>
+
       <ion-col col-4 *ngFor="let unitNo of emptyUnits$ | async">
 
         <button padding>

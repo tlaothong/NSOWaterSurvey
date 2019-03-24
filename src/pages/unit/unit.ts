@@ -8,8 +8,9 @@ import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getHouseHoldUnitList } from '../../states/household';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UnitInList } from '../../models/mobile/MobileModels';
+import { getUnitCount } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -27,34 +28,65 @@ export class UnitPage {
   // public FormItem: FormGroup;
 
   public unitList$ = this.store.select(getHouseHoldUnitList);
+  public unitCount$ = this.storeBuild.select(getUnitCount);
   public emptyUnits$ = Observable.of([]);
+  public terminator$ = new Subject<number>();
 
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, 
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController,
       public navParams: NavParams, private alertCtrl: AlertController,
       private modalCtrl: ModalController,
       private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
       /* public fb: FormBuilder, */ private appState: AppStateProvider) {
 
-    this.emptyUnits$ = this.unitList$
-      // .withLatestFrom(this.store.select(getUnitCount))
-      .map(it => { let untCnt = 3;
-      // .mergeMap(([it, untCnt]) => {
-          const start = it.length + 1;
-        const len = untCnt - it.length;
-        if(len > 0)
-        {
-          let arr: number[] = [];
-          for (let idx = 0; idx < len; ++idx) {
-            arr.push(idx + start);
-          }
-          return arr;
-        }
-        else return [];
+      let obs = this.unitList$.subscribe(_ => {
+        console.log('TAKE TAKE');
       });
-    // this.f = this.fb.group({
+
+  
+        
+    // this.emptyUnits$ = this.unitList$
+    //   .withLatestFrom(this.store.select(getUnitCount))
+    //   .map(([it, untCnt]) => {
+    //       const start = it.length + 1;
+    //     const len = untCnt - it.length;
+    //     if(len > 0)
+    //     {
+    //       let arr: number[] = [];
+    //       for (let idx = 0; idx < len; ++idx) {
+    //         arr.push(idx + start);
+    //       }
+    //       return arr;
+    //     }
+    //     else return [];
+    //   });
+
+
+      // this.f = this.fb.group({
     //   'unitCount': null,
     //   'units': this.fb.array([]),
     // });
+  }
+
+  public updateTheEmptyList() {
+    this.emptyUnits$ = Observable.combineLatest(
+      this.unitList$, this.unitCount$)
+    .map(([it, untCnt]) => {
+      const start = it.length + 1;
+      const len = untCnt - it.length;
+      if(len > 0)
+      {
+        let arr: number[] = [];
+        for (let idx = 0; idx < len; ++idx) {
+          arr.push(idx + start);
+        }
+        return arr;
+      }
+      else return [];
+    });
+  }
+
+  ngOnDestroy() {
+    this.terminator$.next(0);
   }
 
   public showUnitButtonPopover() {
