@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EA } from '../../states/bootup/bootup.reducer';
+import { EA } from '../../models/mobile/MobileModels';
 
 @Injectable()
 export class CloudSyncProvider {

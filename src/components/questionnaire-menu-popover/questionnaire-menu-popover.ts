@@ -8,6 +8,8 @@ import { UnitPage } from '../../pages/unit/unit';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding } from '../../states/building';
 import { getCurrentWorkingEA } from '../../states/bootup';
+import { AppStateProvider } from '../../providers/app-state/app-state';
+import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'questionnaire-menu-popover',
@@ -27,7 +29,12 @@ export class QuestionnaireMenuPopoverComponent {
   public Pop: boolean;
   public No: string;
 
-  constructor(public alertCtrl: AlertController, public navParams: NavParams, public viewCtrl: ViewController, private store: Store<LoggingState>, private storeBuild: Store<BuildingState>) {
+  constructor(public alertCtrl: AlertController, public navParams: NavParams, 
+      public viewCtrl: ViewController, 
+      private store: Store<LoggingState>, private storeBuild: Store<BuildingState>,
+      private storeUnit: Store<HouseHoldState>,
+      private appState: AppStateProvider) {
+
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
     this.navCtrl = navParams.get('nav');
     this.isDisabled = false;
@@ -45,6 +52,22 @@ export class QuestionnaireMenuPopoverComponent {
     //     this.dataWorkEARow = data
     //   }
     // });
+  }
+
+  public openMap() {
+    const mapPage = 'EaMapPage';
+    const ea$ = this.currentEA$.take(1).subscribe(ea => {
+      if (ea.Center) {
+        this.navCtrl.push(mapPage, { lat: ea.Center.coordinates[1], lng: ea.Center.coordinates[0] });
+      } else {
+        const alertNoMap = this.alertCtrl.create({
+          title: "ไม่มีแผนที่",
+          message: "ไม่พบแผนที่สำหรับ EA นี้ ระบบไม่สามารถแสดงแผนที่ได้",
+          buttons: ["ตกลง"],
+        });
+        alertNoMap.present();
+      }
+    });
   }
 
   public goHome() {
@@ -86,13 +109,19 @@ export class QuestionnaireMenuPopoverComponent {
         {
           text: 'ตกลง',
           handler: () => {
-            this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
-            this.isDisabled = this.navParams.get('isDisabled');
-            this.isCommunity = this.navParams.get('isCommunity');
-            console.log("isDisabled: " + this.isDisabled);
-            console.log("unitCount: " + this.unitCount);
-            this.store.dispatch(new SetBackToRoot(true));
-            (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+            this.GetDataFromBuilding$.take(1).subscribe(data => {
+              this.unitCount = data
+              this.isDisabled = this.navParams.get('isDisabled');
+              this.isCommunity = this.navParams.get('isCommunity');
+              console.log("isDisabled: " + this.isDisabled);
+              console.log("unitCount: " + this.unitCount);
+              this.storeUnit.dispatch(new SetBackToRoot(true));
+              // (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+              if (this.isDisabled || this.isCommunity || this.unitCount == 1)
+                this.navCtrl.popToRoot();
+              else
+                this.navCtrl.popTo(this.navCtrl.getByIndex(3));
+            });
           }
         }
       ]

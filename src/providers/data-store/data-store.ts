@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
-import { EA } from '../../states/bootup/bootup.reducer';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
-import { BuildingInList, Building, HouseHoldUnit, UnitInList } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the DataStoreProvider provider.
