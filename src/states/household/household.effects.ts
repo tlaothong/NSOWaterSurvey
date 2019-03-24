@@ -164,6 +164,9 @@ export class HouseHoldEffects {
     @Effect()
     public setCurrentWorkingHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SetCurrentWorkingHouseHold),
+        mergeMap((action: SetCurrentWorkingHouseHold) => this.dataStore.getHouseHold(action.houseHoldId)),
+        tap(unt => this.appState.houseHoldUnit = unt),
+        map(unt => new SaveHouseHoldSuccess(unt)),
     );
 
     @Effect()
