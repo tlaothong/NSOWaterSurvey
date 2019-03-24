@@ -3,12 +3,13 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit } from '../../states/household/household.actions';
+import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getHouseHoldUnitList } from '../../states/household';
 import { Observable } from 'rxjs';
+import { UnitInList } from '../../models/mobile/MobileModels';
 
 @IonicPage()
 @Component({
@@ -91,7 +92,11 @@ export class UnitPage {
     modal.present();
   }
 
-  public continueUnit() {
+  public continueUnit(unt: UnitInList) {
+    // if (unt.subUnit) {
+    // } else {      
+    // }
+    this.store.dispatch(new SetCurrentWorkingHouseHold(unt.houseHoldId));
     this.navCtrl.push('WaterActivityUnitPage');
   }
 

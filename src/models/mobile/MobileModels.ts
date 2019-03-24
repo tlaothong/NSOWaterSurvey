@@ -14,9 +14,10 @@ export interface CommunityInList {
 
 export interface UnitInList {
     houseHoldId: string;
-    // unitNo: number;
     roomNumber: string;
-    // accessCount: number;
+    subUnit: SubUnit;
+    accessCount: number;
+    lastAccess: number;
     status: string; // formerly 'class'
 }
 

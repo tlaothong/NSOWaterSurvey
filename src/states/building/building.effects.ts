@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SaveBuilding, SaveBuildingSuccess, NewBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList, DeleteBuilding } from "./building.actions";
+import { BuildingTypes, LoadBuildingListSuccess, LoadBuildingSampleSuccess, SaveBuilding, SaveBuildingSuccess, NewBuilding, UpdateBuildingList, UpdateBuildingListSuccess, LoadBuildingList, DeleteBuilding, SetCurrentWorkingBuilding } from "./building.actions";
 import { mergeMap, map, tap, switchMap, filter, withLatestFrom } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -11,6 +11,7 @@ import { getBuildingList } from ".";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { BootupState } from "../bootup/bootup.reducer";
 import { getCurrentWorkingEA } from "../bootup";
+import { LoadHouseHoldList } from "../household/household.actions";
 
 
 @Injectable()
@@ -37,13 +38,23 @@ export class BuildingEffects {
         ofType(BuildingTypes.NewBuilding),
         tap((action: NewBuilding) => {
             this.appState.buildingId = '';
-            this.appState.houseHoldUnit = null;
         }),
-        mergeMap((action: NewBuilding) => Observable.of(new SaveBuildingSuccess(null))),
+        switchMap((action: NewBuilding) => [ new SaveBuildingSuccess(null),
+            new LoadHouseHoldList('no-building') ]),
     );
 
     @Effect()
-    public setHomeBuilding$: Observable<Action> = this.action$.pipe(
+    public setCurrentWorkingBuilding$ = this.action$.pipe(
+        ofType(BuildingTypes.SetCurrentWorkingBuilding),
+        mergeMap((action: SetCurrentWorkingBuilding) => this.dataStore.getBuilding(action.buildingId)),
+        tap(bld => {
+            this.appState.buildingId = bld._id;
+        }),
+        switchMap(bld => [ new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id) ]),
+    );
+
+    @Effect()
+    public saveBuilding$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.SaveBuilding),
         filter((action: any, i) => action.payload),
         tap((action: SaveBuilding) => {

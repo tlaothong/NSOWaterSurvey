@@ -21,6 +21,7 @@ export class HouseHoldEffects {
     @Effect()
     public loadHouseHoldList$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.LoadList),
+        tap(_ => this.appState.houseHoldUnit = null),
         mergeMap((action: LoadHouseHoldList) => this.dataStore.listHouseHoldInBuilding(action.buildingId)),
         map((lst: UnitInList[]) => new LoadHouseHoldListSuccess(lst ? lst : [])),
     );
@@ -60,6 +61,14 @@ export class HouseHoldEffects {
     );
 
     private createDefaultHouseHoldUnit(subUnit: SubUnit, comment: string) {
+        if (subUnit) {
+            let accCnt = 0;
+            if (subUnit && subUnit.accesses) {
+                accCnt = subUnit.accesses.length;
+            }
+            subUnit.accessCount = accCnt;
+        }
+
         return {
             _id: this.appState.generateId('unt'),
             ea: this.appState.eaCode, 
@@ -110,10 +119,34 @@ export class HouseHoldEffects {
         map((action: UpdateUnitList) => action.payload),
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([unit, lst]) => {
+            const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
+            let lastAccess = 0;
+            if (unit.subUnit && accCnt > 0) {
+                lastAccess = unit.subUnit.accesses[accCnt - 1];
+            }
+            // TODO: Work with status
+            let status = "pause";
+            switch (lastAccess) {
+                case 4:
+                    status = "empty";
+                    break;
+                case 5:
+                    status = "abandoned";
+                    break;
+                case 2:
+                case 3:
+                    status = (accCnt < 3) ? "return": "complete";
+                default:
+                    status = "pause";
+                    break;
+            }
             let untInList: UnitInList = {
                 "houseHoldId": unit._id,
                 "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
-                "status": 'pause'
+                "subUnit": unit.subUnit,
+                "accessCount": accCnt,
+                "lastAccess": lastAccess,
+                "status": status,
             };
             let idx = lst.findIndex(it => it.houseHoldId == unit._id);
             if (idx >= 0) {
@@ -128,10 +161,10 @@ export class HouseHoldEffects {
         map(untList => new LoadHouseHoldListSuccess(untList ? untList : [])),
     );
 
-    // @Effect()
-    // public setCurrentWorkingHouseHold$: Observable<Action> = this.action$.pipe(
-    //     ofType(HouseHoldTypes.SetCurrentWorkingHouseHold),
-    // );
+    @Effect()
+    public setCurrentWorkingHouseHold$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.SetCurrentWorkingHouseHold),
+    );
 
     @Effect()
     public LoadUnitByIdBuilding$: Observable<Action> = this.action$.pipe(

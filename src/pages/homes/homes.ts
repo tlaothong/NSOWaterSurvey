@@ -8,7 +8,7 @@ import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEd
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding } from '../../states/building/building.actions';
+import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { shiftInitState } from '@angular/core/src/view';
@@ -16,6 +16,7 @@ import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getBuildingList } from '../../states/building';
+import { BuildingInList } from '../../models/mobile/MobileModels';
 
 
 
@@ -142,24 +143,27 @@ export class HomesPage {
     }
   }
 
-  goEditBuildingInfo(item: any, no: number) {
+  goEditBuildingInfo(item: BuildingInList, no: number) {
     if (this.num == '1') {
-      //this.swith.updateBuildingState(item._id);
-      this.storage.get(item.buildingId).then((val) => {
-        console.log(val);
-        this.storeBuild.dispatch(new SaveBuilding(val));
-        this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
-        // switch (val.status) {
-        //   case 'refresh':
-        //     this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
-        //     break;
-        //   case 'pause':
-        //     this.navCtrl.push("UnitPage");
-        //     break;
-        //   default:
-        //     break;
-        // }
-      })
+      this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
+      this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
+
+      // //this.swith.updateBuildingState(item._id);
+      // this.storage.get(item.buildingId).then((val) => {
+      //   console.log(val);
+      //   this.storeBuild.dispatch(new SaveBuilding(val));
+      //   this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
+      //   // switch (val.status) {
+      //   //   case 'refresh':
+      //   //     this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
+      //   //     break;
+      //   //   case 'pause':
+      //   //     this.navCtrl.push("UnitPage");
+      //   //     break;
+      //   //   default:
+      //   //     break;
+      //   // }
+      // })
     }
     else if (this.num == '2') {
       console.log(item);

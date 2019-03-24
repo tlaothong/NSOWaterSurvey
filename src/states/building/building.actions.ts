@@ -10,6 +10,7 @@ export enum BuildingTypes {
     NewBuilding = "[BLD] Create New HomeBuilding",
     SaveBuilding = "[BLD] Set Building",
     SaveBuildingSuccess = "[BLD] Set Building Success",
+    SetCurrentWorkingBuilding = "[BLD] Set the Current Working Building",
 
     Load = "[BLD] Load",
     LoadSuccess = "[BLD] Load Success",
@@ -52,6 +53,13 @@ export class SaveBuildingSuccess implements Action {
     readonly type = BuildingTypes.SaveBuildingSuccess;
 
     constructor(public payload: Building) {
+    }
+}
+
+export class SetCurrentWorkingBuilding implements Action {
+    readonly type = BuildingTypes.SetCurrentWorkingBuilding;
+
+    constructor(public buildingId: string) {
     }
 }
 

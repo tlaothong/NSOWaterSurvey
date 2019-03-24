@@ -68,6 +68,10 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.get('bldlst' + eaCode));
   }
 
+  public getBuilding(buildingId: string): Observable<Building> {
+    return Observable.fromPromise(this.storage.get(buildingId));
+  }
+
   /**
    * เรียกรายการ house hold ที่อยู่ใน building ที่ระบุ
    */
