@@ -16,7 +16,6 @@ import { getUnitCount } from '../../states/building';
 @Component({
   selector: 'page-unit',
   templateUrl: 'unit.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitPage {
 
