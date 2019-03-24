@@ -7,7 +7,7 @@ import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
-import { HouseHoldUnit, UnitInList } from "../../models/mobile/MobileModels";
+import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileModels";
 import { getHouseHoldUnitList } from ".";
 import { HouseHoldState } from "./household.reducer";
 
@@ -43,14 +43,9 @@ export class HouseHoldEffects {
         ofType(HouseHoldTypes.CreateHouseHoldFor1UnitBuilding),
         mergeMap((action: CreateHouseHoldFor1UnitBuilding) => (this.appState.houseHoldUnit)
             ? Observable.of({ exists: true, data: this.appState.houseHoldUnit })
-            : Observable.of<HouseHoldUnit>({
-                _id: this.appState.generateId('unt'),
-                ea: this.appState.eaCode, 
-                buildingId: this.appState.buildingId,
-                agriculture: {},
-                waterUsage: {},
-                comments: [],
-            }).map(it => { return { exists: false, data: it }})),
+            : Observable.of<HouseHoldUnit>(
+                this.createDefaultHouseHoldUnit(null, null)
+            ).map(it => { return { exists: false, data: it }})),
         mergeMap((x: UnitExistence) => Observable.if(() => x.exists,
             Observable.of(new SetCurrentWorkingHouseHold(x.data._id)),
             Observable.of(new SaveHouseHold(x.data)))),
@@ -59,16 +54,38 @@ export class HouseHoldEffects {
     @Effect()
     public newHouseHoldWithSubUnit$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.NewHouseHoldWithSubUnit),
-        map((action: NewHouseHoldWithSubUnit) => new SaveHouseHold({
+        map((action: NewHouseHoldWithSubUnit) => new SaveHouseHold(
+            this.createDefaultHouseHoldUnit(action.subUnit, action.comment))
+        ),
+    );
+
+    private createDefaultHouseHoldUnit(subUnit: SubUnit, comment: string) {
+        return {
             _id: this.appState.generateId('unt'),
             ea: this.appState.eaCode, 
             buildingId: this.appState.buildingId,
-            subUnit: action.subUnit,
-            agriculture: {},
+            subUnit: subUnit,
+            agriculture: {
+                ricePlant: {},
+                agronomyPlant: {},
+                rubberTree: {},
+                perennialPlant: {},
+                herbsPlant: {},
+                flowerCrop: {},
+                mushroomPlant: {},
+                animalFarm: {},
+                aquaticAnimals: {}
+            },
+            factory: {},
+            commerce: {},
             waterUsage: {},
-            comments: (action.comment && action.comment != '') ? [{ at: Date.now(), text: action.comment }]: [],
-        })),
-    );
+            disaster: {},
+            closing: {},
+            population: {},
+            comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }]: [],
+            recCtrl: {},
+        }
+    }
 
     @Effect()
     public saveHouseHold$: Observable<Action> = this.action$.pipe(
@@ -95,7 +112,7 @@ export class HouseHoldEffects {
         mergeMap(([unit, lst]) => {
             let untInList: UnitInList = {
                 "houseHoldId": unit._id,
-                "roomNumber": unit.subUnit.roomNumber,
+                "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
                 "status": 'pause'
             };
             let idx = lst.findIndex(it => it.houseHoldId == unit._id);
@@ -110,6 +127,11 @@ export class HouseHoldEffects {
         }),
         map(untList => new LoadHouseHoldListSuccess(untList ? untList : [])),
     );
+
+    // @Effect()
+    // public setCurrentWorkingHouseHold$: Observable<Action> = this.action$.pipe(
+    //     ofType(HouseHoldTypes.SetCurrentWorkingHouseHold),
+    // );
 
     @Effect()
     public LoadUnitByIdBuilding$: Observable<Action> = this.action$.pipe(

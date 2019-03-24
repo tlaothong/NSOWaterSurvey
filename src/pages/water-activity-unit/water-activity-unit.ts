@@ -23,38 +23,38 @@ export class WaterActivityUnitPage {
   public f: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
-  public dataHouseHold: any;
-  public unitCount: any;
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  // public dataHouseHold: any;
+  // public unitCount: any;
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     // this.f = UnitButtonComponent.CreateFormGroup(fb);
     // this.f = navParams.get('FormItem');
     console.log(this.f);
     this.f = fb.group({
-      'subUnit': fb.group({
-        'roomNumber': [null],
-        'accessCount': [0],
-        'accesses': fb.array([0]),
-        'hasPlumbing': [false],
-        'hasPlumbingMeter': [false],
-        'isPlumbingMeterXWA': [false],
-        'hasGroundWater': [false],
-        'hasGroundWaterMeter': [false],
-      }),
+      // 'subUnit': fb.group({
+      //   'roomNumber': [null],
+      //   'accessCount': [0],
+      //   'accesses': fb.array([0]),
+      //   'hasPlumbing': [false],
+      //   'hasPlumbingMeter': [false],
+      //   'isPlumbingMeterXWA': [false],
+      //   'hasGroundWater': [false],
+      //   'hasGroundWaterMeter': [false],
+      // }),
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],
       'isFactorial': [null, Validators.required],
       'isCommercial': [null, Validators.required],
-      'comments': fb.array([]),
+      // 'comments': fb.array([]),
 
     });
   }
 
   ionViewDidEnter() {
-    this.unitCount = this.navParams.get('unitCount');
+    // this.unitCount = this.navParams.get('unitCount');
     console.log("WaterActivityUnitPage");
 
-    this.setupAccessCountChanges();
-    this.setupAccessCountChangesForComments();
+    // this.setupAccessCountChanges();
+    // this.setupAccessCountChangesForComments();
 
     // this.formData$.subscribe(data => {
     //   if (data != null) {
@@ -205,64 +205,64 @@ export class WaterActivityUnitPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  private setupAccessCountChanges() {
-    const componentFormArray: string = "subUnit.accesses";
-    const componentCount: string = "subUnit.accessCount";
+  // private setupAccessCountChanges() {
+  //   const componentFormArray: string = "subUnit.accesses";
+  //   const componentCount: string = "subUnit.accessCount";
 
-    var onComponentCountChanges = () => {
-      var accesses = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var accessCount = this.f.get(componentCount).value || 0;
-      var farr = this.fb.array([]);
+  //   var onComponentCountChanges = () => {
+  //     var accesses = (this.f.get(componentFormArray) as FormArray).controls || [];
+  //     var accessCount = this.f.get(componentCount).value || 0;
+  //     var farr = this.fb.array([]);
 
-      accessCount = Math.max(0, accessCount);
+  //     accessCount = Math.max(0, accessCount);
 
-      for (let i = 0; i < accessCount; i++) {
-        var ctrl = null;
-        if (i < accesses.length) {
-          const fld = accesses[i];
-          ctrl = fld;
-        } else {
-          ctrl = new FormControl();
-        }
+  //     for (let i = 0; i < accessCount; i++) {
+  //       var ctrl = null;
+  //       if (i < accesses.length) {
+  //         const fld = accesses[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = new FormControl();
+  //       }
 
-        farr.push(ctrl);
-      }
-      let fgrp = this.f.get('subUnit') as FormGroup;
-      fgrp.setControl('accesses', farr);
-    };
+  //       farr.push(ctrl);
+  //     }
+  //     let fgrp = this.f.get('subUnit') as FormGroup;
+  //     fgrp.setControl('accesses', farr);
+  //   };
 
-    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+  //   this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
-    onComponentCountChanges();
+  //   onComponentCountChanges();
 
-  }
-  private setupAccessCountChangesForComments() {
-    const componentFormArray: string = "comments";
-    const componentCount: string = "subUnit.accessCount";
+  // }
+  // private setupAccessCountChangesForComments() {
+  //   const componentFormArray: string = "comments";
+  //   const componentCount: string = "subUnit.accessCount";
 
-    var onComponentCountChanges = () => {
-      var comments = (this.f.get(componentFormArray) as FormArray).controls || [];
-      var accessCount = this.f.get(componentCount).value || 0;
-      var farr = this.fb.array([]);
+  //   var onComponentCountChanges = () => {
+  //     var comments = (this.f.get(componentFormArray) as FormArray).controls || [];
+  //     var accessCount = this.f.get(componentCount).value || 0;
+  //     var farr = this.fb.array([]);
 
-      accessCount = Math.max(0, accessCount);
+  //     accessCount = Math.max(0, accessCount);
 
-      for (let i = 0; i < accessCount; i++) {
-        var ctrl = null;
-        if (i < comments.length) {
-          const fld = comments[i];
-          ctrl = fld;
-        } else {
-          ctrl = UnitButtonComponent.CreateComment(this.fb);
-        }
+  //     for (let i = 0; i < accessCount; i++) {
+  //       var ctrl = null;
+  //       if (i < comments.length) {
+  //         const fld = comments[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = UnitButtonComponent.CreateComment(this.fb);
+  //       }
 
-        farr.push(ctrl);
-      }
-      this.f.setControl(componentFormArray, farr);
-    };
+  //       farr.push(ctrl);
+  //     }
+  //     this.f.setControl(componentFormArray, farr);
+  //   };
 
-    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+  //   this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
-    onComponentCountChanges();
-  }
+  //   onComponentCountChanges();
+  // }
 }

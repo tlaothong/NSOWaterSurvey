@@ -37,6 +37,7 @@ export class BuildingEffects {
         ofType(BuildingTypes.NewBuilding),
         tap((action: NewBuilding) => {
             this.appState.buildingId = '';
+            this.appState.houseHoldUnit = null;
         }),
         mergeMap((action: NewBuilding) => Observable.of(new SaveBuildingSuccess(null))),
     );

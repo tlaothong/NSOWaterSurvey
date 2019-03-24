@@ -95,6 +95,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
         case HouseHoldTypes.LoadListSuccess:
             return {
                 ...state,
+                units: action.payload,
             };
         case HouseHoldTypes.SaveHouseHoldSuccess: {
             let s = resetStatesForModel(action.payload);
@@ -554,24 +555,24 @@ function resetStatesForModel(model: any): any {
     let checkRain: boolean;
     let checkBuying: boolean;
     let waterAgi = {
-        plumbing: wSPlant.some(p => p.plumbing == true),
-        underGround: wSPlant.some(p => p.underGround == true),
-        river: wSPlant.some(p => p.river == true),
-        pool: wSPlant.some(p => p.pool == true),
-        irrigation: wSPlant.some(p => p.irrigation == true),
-        rain: wSPlant.some(p => p.rain == true),
-        buying: wSPlant.some(p => p.buying == true),
-        rainingAsIs: wSPlant.some(p => p.rainingAsIs == true),
-        hasOther: wSPlant.some(p => p.hasOther == true),
+        plumbing: wSPlant.some(p => p && p.plumbing == true),
+        underGround: wSPlant.some(p => p && p.underGround == true),
+        river: wSPlant.some(p => p && p.river == true),
+        pool: wSPlant.some(p => p && p.pool == true),
+        irrigation: wSPlant.some(p => p && p.irrigation == true),
+        rain: wSPlant.some(p => p && p.rain == true),
+        buying: wSPlant.some(p => p && p.buying == true),
+        rainingAsIs: wSPlant.some(p => p && p.rainingAsIs == true),
+        hasOther: wSPlant.some(p => p && p.hasOther == true),
         other: "water",
     };
 
     if (wS != null) {
-        checkPlumbing = wS.some(it => it.plumbing == true);
-        checkRiver = wS.some(it => it.river == true);
-        checkIrrigation = wS.some(it => it.irrigation == true);
-        checkRain = wS.some(it => it.rain == true);
-        checkBuying = wS.some(it => it.buying == true);
+        checkPlumbing = wS.some(it => it && it.plumbing == true);
+        checkRiver = wS.some(it => it && it.river == true);
+        checkIrrigation = wS.some(it => it && it.irrigation == true);
+        checkRain = wS.some(it => it && it.rain == true);
+        checkBuying = wS.some(it => it && it.buying == true);
     }
 
     return {
@@ -648,15 +649,15 @@ function findWaterSourceRice(water) {
     let waterSourceRice = {}
     if (fields != null) {
         waterSourceRice = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
@@ -670,15 +671,15 @@ function findWaterSourceDry(water) {
     let waterSourceDry = {}
     if (fields != null) {
         waterSourceDry = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
@@ -692,15 +693,15 @@ function findWaterSourceRubber(water) {
     let waterSourceRubber = {}
     if (fields != null) {
         waterSourceRubber = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
@@ -714,15 +715,15 @@ function findWaterSourcePenrenial(water) {
     let waterSourcePenrenial = {}
     if (fields != null) {
         waterSourcePenrenial = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
@@ -736,15 +737,15 @@ function findWaterSourceHerb(water) {
     let waterSourceHerb = {}
     if (fields != null) {
         waterSourceHerb = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
@@ -758,15 +759,15 @@ function findWaterSourceFlower(water) {
     let waterSourceFlower = {}
     if (fields != null) {
         waterSourceFlower = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
@@ -780,15 +781,15 @@ function findWaterSourceMushroom(water) {
     let waterSourceMushroom = {}
     if (fields != null) {
         waterSourceMushroom = {
-            plumbing: fields.some(p => p.waterSources.plumbing == true),
-            underGround: fields.some(p => p.waterSources.underGround == true),
-            river: fields.some(p => p.waterSources.river == true),
-            pool: fields.some(p => p.waterSources.pool == true),
-            irrigation: fields.some(p => p.waterSources.irrigation == true),
-            rain: fields.some(p => p.waterSources.rain == true),
-            buying: fields.some(p => p.waterSources.buying == true),
-            rainingAsIs: fields.some(p => p.waterSources.rainingAsIs == true),
-            hasOther: fields.some(p => p.waterSources.hasOther == true),
+            plumbing: fields.some(p => p && p.waterSources && p.waterSources.plumbing == true),
+            underGround: fields.some(p => p && p.waterSources && p.waterSources.underGround == true),
+            river: fields.some(p => p && p.waterSources && p.waterSources.river == true),
+            pool: fields.some(p => p && p.waterSources && p.waterSources.pool == true),
+            irrigation: fields.some(p => p && p.waterSources && p.waterSources.irrigation == true),
+            rain: fields.some(p => p && p.waterSources && p.waterSources.rain == true),
+            buying: fields.some(p => p && p.waterSources && p.waterSources.buying == true),
+            rainingAsIs: fields.some(p => p && p.waterSources && p.waterSources.rainingAsIs == true),
+            hasOther: fields.some(p => p && p.waterSources && p.waterSources.hasOther == true),
             other: "water",
         };
     }
