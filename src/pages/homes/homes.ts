@@ -167,14 +167,13 @@ export class HomesPage {
     }
     else if (this.num == '2') {
       console.log(item);
-      this.storage.get(item).then((val) => {
-        console.log(val);
-        this.storeLogging.dispatch(new LoadCommunityForEditSuccess(val));
-        this.navCtrl.push("CommunityTestPage", { no: no.toString() })
-      });
+      // this.storage.get(item).then((val) => {
+      //   console.log(val);
+      //   this.storeLogging.dispatch(new LoadCommunityForEditSuccess(val));
+      //   this.navCtrl.push("CommunityTestPage", { no: no.toString() })
+      // });
     }
-    this.presentLoading();
-
+    // this.presentLoading();
   }
 
   async presentAlertBD(item) {
