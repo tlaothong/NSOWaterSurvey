@@ -1,4 +1,4 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
@@ -16,6 +16,7 @@ import { getUnitCount } from '../../states/building';
 @Component({
   selector: 'page-unit',
   templateUrl: 'unit.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitPage {
 
