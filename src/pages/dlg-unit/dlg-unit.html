@@ -27,13 +27,13 @@
         </span>
       </ion-item>
     </div>
-  </form>
+  <!-- </form> -->
 
   <ion-item>
     <ion-label stacked>
       ผลการเข้าพบ {{count}}/3
     </ion-label>
-    <ion-select interface="action-sheet" [(ngModel)]="access" [class.invalid]="access == null && submitRequested">
+    <ion-select interface="action-sheet" formControlName="access" [class.invalid]="ff.get('access').invalid && submitRequested">
       <ion-option [value]=1>
         1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
       </ion-option>
@@ -52,16 +52,16 @@
     </ion-select>
   </ion-item>
 
-  <ion-item *ngIf="access == null && submitRequested">
+  <ion-item *ngIf="ff.get('access').invalid && submitRequested">
     <span class="invalid-msg">
       กรุณาเลือกการเข้าพบ
     </span>
   </ion-item>
 
-  <form [formGroup]="ff" (ngSubmit)="okDialog()">
+  <!-- <form [formGroup]="ff" (ngSubmit)="okDialog()"> -->
     <div formGroupName="subUnit">
       <ion-list>
-        <div *ngIf="access == 1">
+        <div *ngIf="ff.get('access').value == 1">
           <ion-item>
             <ion-label>3.2 การแยกมิเตอร์น้ำประปา/น้ำบาดาล</ion-label>
           </ion-item>
@@ -180,25 +180,25 @@
         </div>
       </ion-list>
     </div>
-  </form>
+  <!-- </form> -->
 
-  <div *ngIf="access == 1 || access == 2 || access == 3">
+  <div>
     <ion-item>
       <ion-label>ปัญหา/อุปสรรค</ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="text" [(ngModel)]="comment"></ion-input>
+      <ion-input type="text" formControlName="comment"></ion-input>
     </ion-item>
   </div>
 
-  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+  <!-- <form [formGroup]="FormItem" (ngSubmit)="okDialog()"> -->
     <ion-grid>
       <ion-row>
         <ion-col>
           <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="FormItem.get('subUnit').invalid && access == null ">ตกลง</button>
+          <button ion-button block [disabled]="ff.get('subUnit').invalid || ff.get('access').invalid">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>

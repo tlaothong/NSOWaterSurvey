@@ -103,7 +103,7 @@ export class CreateHouseHoldFor1UnitBuilding implements Action {
 export class NewHouseHoldWithSubUnit implements Action {
     readonly type = HouseHoldTypes.NewHouseHoldWithSubUnit;
 
-    constructor() {
+    constructor(public subUnit: SubUnit, public comment: string) {
     }
 }
 

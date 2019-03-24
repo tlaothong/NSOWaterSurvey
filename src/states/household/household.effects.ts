@@ -1,19 +1,21 @@
 import { Observable } from "rxjs";
-import { Action } from "@ngrx/store";
+import { Action, Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
-import { mergeMap, map, tap, withLatestFrom, switchMap, mapTo } from "rxjs/operators";
+import { mergeMap, map, tap, withLatestFrom, switchMap, mapTo, filter } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { HouseHoldUnit, UnitInList } from "../../models/mobile/MobileModels";
+import { getHouseHoldUnitList } from ".";
+import { HouseHoldState } from "./household.reducer";
 
 
 @Injectable()
 export class HouseHoldEffects {
 
-    constructor(private action$: Actions, private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+    constructor(private action$: Actions, private store: Store<HouseHoldState>, private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
     }
 
     @Effect()
@@ -45,6 +47,9 @@ export class HouseHoldEffects {
                 _id: this.appState.generateId('unt'),
                 ea: this.appState.eaCode, 
                 buildingId: this.appState.buildingId,
+                agriculture: {},
+                waterUsage: {},
+                comments: [],
             }).map(it => { return { exists: false, data: it }})),
         mergeMap((x: UnitExistence) => Observable.if(() => x.exists,
             Observable.of(new SetCurrentWorkingHouseHold(x.data._id)),
@@ -54,11 +59,14 @@ export class HouseHoldEffects {
     @Effect()
     public newHouseHoldWithSubUnit$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.NewHouseHoldWithSubUnit),
-        map(_ => new LoadSelectedHouseHold({
+        map((action: NewHouseHoldWithSubUnit) => new SaveHouseHold({
             _id: this.appState.generateId('unt'),
             ea: this.appState.eaCode, 
             buildingId: this.appState.buildingId,
-            subUnit: {}
+            subUnit: action.subUnit,
+            agriculture: {},
+            waterUsage: {},
+            comments: (action.comment && action.comment != '') ? [{ at: Date.now(), text: action.comment }]: [],
         })),
     );
 
@@ -80,7 +88,27 @@ export class HouseHoldEffects {
     @Effect()
     public updateUnitList$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.UpdateUnitList),
-        map(x => x),
+
+        filter((action: any, i) => action.payload),
+        map((action: UpdateUnitList) => action.payload),
+        withLatestFrom(this.store.select(getHouseHoldUnitList)),
+        mergeMap(([unit, lst]) => {
+            let untInList: UnitInList = {
+                "houseHoldId": unit._id,
+                "roomNumber": unit.subUnit.roomNumber,
+                "status": 'pause'
+            };
+            let idx = lst.findIndex(it => it.houseHoldId == unit._id);
+            if (idx >= 0) {
+                lst[idx] = untInList;
+            } else {
+                lst.push(untInList);
+            }
+            // TODO: Save the building list
+            return this.dataStore.saveHouseHoldInBuiildingList(this.appState.buildingId, lst)
+                .mapTo(lst);
+        }),
+        map(untList => new LoadHouseHoldListSuccess(untList ? untList : [])),
     );
 
     @Effect()

@@ -7,14 +7,67 @@
 <ion-content padding>
 
   <ion-grid>
-    <ion-col col-2 *ngFor="let u of unitList$ | async; let i = index">
-      LST {{ i }}
-    </ion-col>
-    {{ emptyUnits$ | async | json }}
-    <ion-col col-1 *ngFor="let u of emptyUnits$ | async; let i = index">
-        EMP {{ u }}
+    <ion-row>
+      <ion-col col-4 *ngFor="let u of unitList$ | async; let i = index">
+
+          <button padding>
+
+            <ion-row>
+              <ion-col text-left>
+                <h3># {{unitNo}}</h3>
+              </ion-col>
+              <ion-col text-right (click)="showUnitButtonPopover($event)">
+                <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
+              </ion-col>
+            </ion-row>
+        
+            <div text-center class="{{class}}">
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col (click)="continueUnit()" style="padding-top: 20px">
+                    ห้องที่ {{roomNumber}}
+                  </ion-col>
+                  <ion-col col-3 no-padding *ngIf="allComment">
+                    <button ion-button clear (click)="showComments()"></button>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <button ion-button clear full style="height: 150px" (click)="continueUnit()"></button>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </button>
+          
       </ion-col>
-    </ion-grid>
+      <ion-col col-4 *ngFor="let unitNo of emptyUnits$ | async">
+
+        <button padding>
+
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col text-left>
+                <h3># {{unitNo}}</h3>
+              </ion-col>
+            </ion-row>      
+          </ion-grid>
+      
+          <div text-center class="play">
+            <ion-grid no-padding>
+              <ion-row>
+                <ion-col (click)="newUnit()" style="padding-top: 20px">
+                  ห้องยังไม่เริ่ม
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <button ion-button clear full style="height: 150px" (click)="newUnit()"></button>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <!-- <form [formGroup]="f">
 

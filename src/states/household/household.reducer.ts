@@ -459,8 +459,8 @@ function resetStatesForModel(model: any): any {
 
     let objAgri = {};
     let ag = model && model.agriculture;
-    let riceDoing = ag && ag.ricePlant.doing;
-    let rubberDoing = ag && ag.rubberTree.doing;
+    let riceDoing = ag && ag.ricePlant && ag.ricePlant.doing;
+    let rubberDoing = ag && ag.rubberTree && ag.rubberTree.doing;
     let listRice
     let listAgronomy = []
     let listRubber = []
@@ -483,8 +483,8 @@ function resetStatesForModel(model: any): any {
             garden = model.residence.gardeningUse;
         }
 
-        riceDoing = ag && ag.ricePlant.doing;
-        rubberDoing = ag && ag.rubberTree.doing;
+        riceDoing = ag && ag.ricePlant && ag.ricePlant.doing;
+        rubberDoing = ag && ag.rubberTree && ag.rubberTree.doing;
         listAgronomy = findListAgronomy(ag && ag.agronomyPlant);
         listPerennial = findListPerennial(ag && ag.perennialPlant);
 
@@ -594,7 +594,7 @@ function resetStatesForModel(model: any): any {
         waterSourcesAgiculture: waterAgi,
         waterSourcesFactory: waterFac,
         waterSourcesCommercial: waterCom,
-        riceDoing: model && model.agriculture && model.agri.ricePlant && model.agriculture.ricePlant.doing,
+        riceDoing: model && model.agriculture && model.agriculture.ricePlant && model.agriculture.ricePlant.doing,
         agiSelectRice: model && model.agriculture && model.agriculture.ricePlant && model.agriculture.ricePlant.doing,
         agiSelectRubber: model && model.agriculture && model.agriculture.rubberTree &&  model.agriculture.rubberTree.doing,
         agiSelectPerennial: model && model.agriculture &&  model.agriculture.perennialPlant && model.agriculture.perennialPlant.doing,
@@ -609,7 +609,9 @@ function resetStatesForModel(model: any): any {
 }
 
 function findListAgronomy(list) {
-    let fields = list && list.fields as Array<any>;
+    let fields = [];
+    if (list && list.fields)
+        fields = list.fields;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
         if (f.plantings && f.plantings.plants) {
@@ -623,7 +625,9 @@ function findListAgronomy(list) {
 }
 
 function findListPerennial(list) {
-    let fields = list && list.fields as Array<any>;
+    let fields = [];
+    if (list && list.fields)
+        fields = list.fields;
     let selectedMap = new Map<string, any>();
     fields.forEach(f => {
         if (f.plantings && f.plantings.plants) {
@@ -638,7 +642,9 @@ function findListPerennial(list) {
 
 
 function findWaterSourceRice(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourceRice = {}
     if (fields != null) {
         waterSourceRice = {
@@ -658,7 +664,9 @@ function findWaterSourceRice(water) {
 }
 
 function findWaterSourceDry(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourceDry = {}
     if (fields != null) {
         waterSourceDry = {
@@ -678,7 +686,9 @@ function findWaterSourceDry(water) {
 }
 
 function findWaterSourceRubber(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourceRubber = {}
     if (fields != null) {
         waterSourceRubber = {
@@ -698,7 +708,9 @@ function findWaterSourceRubber(water) {
 }
 
 function findWaterSourcePenrenial(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourcePenrenial = {}
     if (fields != null) {
         waterSourcePenrenial = {
@@ -718,7 +730,9 @@ function findWaterSourcePenrenial(water) {
 }
 
 function findWaterSourceHerb(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourceHerb = {}
     if (fields != null) {
         waterSourceHerb = {
@@ -738,7 +752,9 @@ function findWaterSourceHerb(water) {
 }
 
 function findWaterSourceFlower(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourceFlower = {}
     if (fields != null) {
         waterSourceFlower = {
@@ -758,7 +774,9 @@ function findWaterSourceFlower(water) {
 }
 
 function findWaterSourceMushroom(water) {
-    let fields = water && water.fields as Array<any>;
+    let fields = [];
+    if (water && water.fields)
+        fields = water.fields;
     let waterSourceMushroom = {}
     if (fields != null) {
         waterSourceMushroom = {

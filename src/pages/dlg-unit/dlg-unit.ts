@@ -20,13 +20,13 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 })
 export class DlgUnitPage {
   public submitRequested: boolean;
-  public FormItem: FormGroup;
+  // public FormItem: FormGroup;
   public ff: FormGroup;
 
-  public index: number;
-  public access: number;
+  // public index: number;
+  // public access: number;
   public static accessValid: number;
-  public comment: string = '';
+  // public comment: string = null;
   public count: number;
   public oldStatus: string;
 
@@ -34,27 +34,35 @@ export class DlgUnitPage {
   private fgcm: FormArray;
   // public id_BD: string;
 
-  private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
-  private dataHouseHold$ = this.store.select(getHouseHoldSample);
+  // private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
+  // public dataHouseHold$ = this.store.select(getHouseHoldSample);
 
   constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider,
-    private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>,
-    private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, 
-    private viewCtrl: ViewController, public fb: FormBuilder,
-    private appState: AppStateProvider) {
-    this.FormItem = navParams.get('FormItem');
+        private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>,
+        private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, 
+        private viewCtrl: ViewController, public fb: FormBuilder,
+        private appState: AppStateProvider) {
+
+    let unitInfo = navParams.get('unitInfo');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
-    this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
-    this.setupAccessCountChanges();
-    this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
+    this.ff.patchValue(unitInfo);
+
+    this.count = Math.min(3, unitInfo.subUnit.accessCount + 1);
+    // this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
+
+    // this.setupAccessCountChanges();
+
+// this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
+
     // this.dataHomeBuilding$.subscribe(data => {
     //   if (data != null) {
     //     this.id_BD = data._id
     //     this.FormItem.controls['buildingId'].setValue(this.id_BD);
     //   }
     // });
-    this.FormItem.controls['buildingId'].setValue(this.appState.buildingId);
-    this.setEnvironment();
+
+    // this.FormItem.controls['buildingId'].setValue(this.appState.buildingId);
+    // this.setEnvironment();
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -62,13 +70,15 @@ export class DlgUnitPage {
       'subUnit': fb.group({
         'roomNumber': [null, Validators],
         'accessCount': [0, Validators],
-        'accesses': fb.array([0]),
+        'accesses': fb.array([]),
         'hasPlumbing': [null, Validators],
         'hasPlumbingMeter': [null, Validators],
         'isPlumbingMeterXWA': [null, Validators],
         'hasGroundWater': [null, Validators],
         'hasGroundWaterMeter': [null, Validators],
       }),
+      'access': [null, Validators.required],
+      'comment': null
     }, {
         validator: DlgUnitPage.checkAnyOrOther()
       });
@@ -94,23 +104,35 @@ export class DlgUnitPage {
     console.log(this.ff.get('subUnit.roomNumber').value);
     console.log(this.ff.get('subUnit.hasPlumbing').value);
 
-    DlgUnitPage.accessValid = this.access;
-    console.log(DlgUnitPage.accessValid);
-    this.FormItem.get('subUnit').setValue(this.ff.get('subUnit').value)
-    this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
-    if (this.access == 1) {
-      if (this.ff.valid && this.access != null) {
-        this.setAccesses();
-        this.AddUnit();
-        this.viewCtrl.dismiss(this.FormItem);
-      }
-    } else {
-      if (this.ff.get('subUnit.roomNumber').value != null) {
-        this.setAccesses();
-        this.AddUnit();
-        this.viewCtrl.dismiss(this.FormItem);
-      }
+    if (this.ff.valid) {
+      let formValue = this.ff.value;
+      let subUnit = formValue.subUnit;
+      subUnit.accessCount++;
+      subUnit.accesses.push(formValue.access);
+
+      this.viewCtrl.dismiss({
+        subUnit: subUnit,
+        comment: formValue.comment,
+      });
     }
+
+    // DlgUnitPage.accessValid = this.access;
+    // console.log(DlgUnitPage.accessValid);
+    // this.FormItem.get('subUnit').setValue(this.ff.get('subUnit').value)
+    // this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
+    // if (this.access == 1) {
+    //   if (this.ff.valid && this.access != null) {
+    //     this.setAccesses();
+    //     this.AddUnit();
+    //     this.viewCtrl.dismiss(this.FormItem);
+    //   }
+    // } else {
+    //   if (this.ff.get('subUnit.roomNumber').value != null) {
+    //     this.setAccesses();
+    //     this.AddUnit();
+    //     this.viewCtrl.dismiss(this.FormItem);
+    //   }
+    // }
 
   }
 
@@ -199,77 +221,77 @@ export class DlgUnitPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  public setAccesses() {
-    this.FormItem.get('subUnit.accessCount').setValue(this.count);
-    this.fgac.at(this.index).setValue(this.access);
-    this.fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment, });
-    this.updateStatus();
-  }
+  // public setAccesses() {
+  //   this.FormItem.get('subUnit.accessCount').setValue(this.count);
+  //   this.fgac.at(this.index).setValue(this.access);
+  //   this.fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment, });
+  //   this.updateStatus();
+  // }
 
-  public updateStatus() {
-    this.oldStatus = this.FormItem.get('status').value;
-    let status: string;
-    switch (this.access) {
-      case 1:
-        status = "pause";
-        break;
-      case 2:
-      case 3:
-        status = (this.index < 2) ? "return" : "complete";
-        break;
-      default:
-        status = "complete";
-        break;
-    }
-    console.log(status);
+  // public updateStatus() {
+  //   this.oldStatus = this.FormItem.get('status').value;
+  //   let status: string;
+  //   switch (this.access) {
+  //     case 1:
+  //       status = "pause";
+  //       break;
+  //     case 2:
+  //     case 3:
+  //       status = (this.index < 2) ? "return" : "complete";
+  //       break;
+  //     default:
+  //       status = "complete";
+  //       break;
+  //   }
+  //   console.log(status);
 
-    this.FormItem.get('status').setValue(status);
-  }
+  //   this.FormItem.get('status').setValue(status);
+  // }
 
-  public setEnvironment() {
-    this.count = this.FormItem.get('subUnit.accessCount').value;
-    this.index = this.count - 1;
+  // public setEnvironment() {
+  //   this.count = this.FormItem.get('subUnit.accessCount').value;
+  //   this.index = this.count - 1;
 
-    this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
-    this.fgcm = this.FormItem.get('comments') as FormArray;
+  //   this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
+  //   this.fgcm = this.FormItem.get('comments') as FormArray;
 
-    this.access = this.fgac.at(this.index).value;
-    this.comment = this.fgcm.at(this.index).value.text;
-  }
+  //   this.access = this.fgac.at(this.index).value;
+  //   this.comment = this.fgcm.at(this.index).value.text;
+  // }
 
-  AddUnit() {
-    let id = this.FormItem.get('_id').value;
-    this.storage.set(id, this.FormItem.value);
-    this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
-    let key = this.appState.buildingId;
-    console.log(this.appState.buildingId);
+  // AddUnit() {
+  //   let id = this.FormItem.get('_id').value;
+  //   this.storage.set(id, this.FormItem.value);
+  //   this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
+  //   let key = this.appState.buildingId;
+  //   console.log(this.appState.buildingId);
 
-    this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value);
+  //   this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value);
 
-  //   let fin: any
-  //   let list: any[]
-  //   this.storage.get(key).then((val) => {
-  //     list = val
-  //     console.log(list);
-  //     if (list != null) {
-  //       fin = list.find(it => it._id == id)
-  //       if (fin == null) {
-  //         list.push(this.FormItem.value);
-  //         this.storage.set(key, list)
-  //       } else {
-  //         let index = list.findIndex(it => it._id == id)
-  //         list.splice(index, 1, this.FormItem.value);
-  //         // list.push(this.FormItem.value);
-  //         this.storage.set(key, list)
-  //       }
-  //     } else {
-  //       list = []
-  //       list.push(this.FormItem.value);
-  //       this.storage.set(key, list)
-  //     }
-  //   })
-  //   console.log(this.FormItem.value);
-  }
+  // //   let fin: any
+  // //   let list: any[]
+  // //   this.storage.get(key).then((val) => {
+  // //     list = val
+  // //     console.log(list);
+  // //     if (list != null) {
+  // //       fin = list.find(it => it._id == id)
+  // //       if (fin == null) {
+  // //         list.push(this.FormItem.value);
+  // //         this.storage.set(key, list)
+  // //       } else {
+  // //         let index = list.findIndex(it => it._id == id)
+  // //         list.splice(index, 1, this.FormItem.value);
+  // //         // list.push(this.FormItem.value);
+  // //         this.storage.set(key, list)
+  // //       }
+  // //     } else {
+  // //       list = []
+  // //       list.push(this.FormItem.value);
+  // //       this.storage.set(key, list)
+  // //     }
+  // //   })
+  // //   console.log(this.FormItem.value);
+  // }
 
   private setupAccessCountChanges() {
     const componentFormArray: string = "subUnit.accesses";

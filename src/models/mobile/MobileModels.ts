@@ -32,6 +32,7 @@ export interface HouseHoldUnit {
     _id: string;
     ea: string;
     buildingId: string;
+    subUnit: SubUnit;
     [x: string]: any;
 }
 
