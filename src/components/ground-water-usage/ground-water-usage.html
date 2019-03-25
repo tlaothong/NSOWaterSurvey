@@ -36,26 +36,12 @@
               ทราบปริมาณน้ำ
             </ion-label>
           </ion-item>
-          <ion-item
-            *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 1 && FormItem.get('usageType.groundWaterQuantity').value > 1000">
-            <ion-icon md="md-warning"></ion-icon>
-            <span class="invalid-msg">
-              กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
-            </span>
-          </ion-item>
 
           <ion-item>
             <ion-radio [value]="2" item-left></ion-radio>
             <ion-label>
               ไม่ทราบ ถามค่าน้ำ
             </ion-label>
-          </ion-item>
-          <ion-item
-            *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 2 && FormItem.get('usageType.groundWaterQuantity').value > 100000">
-            <ion-icon md="md-warning"></ion-icon>
-            <span class="invalid-msg">
-              กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
-            </span>
           </ion-item>
 
           <ion-item>
@@ -83,6 +69,12 @@
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
+            <ion-item *ngIf="FormItem.get('usageType.usageCubicMeters').value > 1000">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบปริมาณน้ำมีจำนวนผิดปกติหรือไม่
+              </span>
+            </ion-item>
           </div>
           <div *ngSwitchCase="2">
             <ion-item>
@@ -97,6 +89,12 @@
             <ion-item *ngIf="isValid('usageType.waterBill')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="FormItem.get('usageType.waterBill').value > 100000">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบค่าน้ำมีจำนวนมากผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>

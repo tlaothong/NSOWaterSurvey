@@ -19,7 +19,7 @@
       <ion-item *ngIf="isValid('rai')">
         <span class="invalid-msg">กรุณากรอกข้อมูล</span>
       </ion-item>
-      <div *ngIf="isAnimal == true">
+      <div *ngIf="isAnimal == true || checkIsPool == true">
         <ion-item *ngIf="FormItem.get('rai').value > 5">
           <ion-icon md="md-warning"></ion-icon>
           <span class="invalid-msg">
