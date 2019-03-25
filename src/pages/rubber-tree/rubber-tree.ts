@@ -7,11 +7,12 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
-import { SetRubberTreeSelectPlant, SetAgiSelectRubber, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from './../../states/household/household.actions';
+import { SetRubberTreeSelectPlant, SetAgiSelectRubber, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -24,14 +25,14 @@ export class RubberTreePage {
   @ViewChildren(CountComponent) private count: CountComponent[];
   public rubbertree: FormGroup;
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formData: any;
+  // private formData: any;
   public DataList = EX_RUBBER_LIST;
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, [Validators.required, Validators.min(1)]],
@@ -43,12 +44,12 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.rubbertree.patchValue(data.agriculture.rubberTree)
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.rubbertree.patchValue(data.agriculture.rubberTree)
+    //     this.formData = data;
+    //   }
+    // })
   }
 
   public handleSubmit() {
@@ -57,14 +58,25 @@ export class RubberTreePage {
     this.count.forEach(it => it.submitRequest());
     // this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
     // this.store.dispatch(new SetAgiSelectRubber(true));
-    this.formData.agriculture.rubberTree = this.rubbertree.value;
+    // this.formData.agriculture.rubberTree = this.rubbertree.value;
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let argi = {
+        ...this.appState.houseHoldUnit.agriculture,
+        rubberTree: this.rubbertree.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        agriculture: argi,
+      };
+
+      this.store.dispatch(new SaveHouseHold(houseHold));
+
       this.navCtrl.popTo("CheckListPage");
     }
   }

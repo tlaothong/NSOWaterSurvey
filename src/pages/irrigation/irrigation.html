@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.waterUsage?.irrigation">
 
     <h3>5.5 น้ำจากชลประทาน</h3>
 

@@ -7,9 +7,10 @@ import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, g
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -22,8 +23,8 @@ export class BuyingPage {
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  private formData$ = this.store.select(getHouseHoldSample);
+  // private formData: any;
   private getIsHouseHold$ = this.store.select(getIsHouseHold);
   public getIsHouseHold: boolean;
   private getIsAgriculture$ = this.store.select(getIsAgriculture);
@@ -35,7 +36,7 @@ export class BuyingPage {
   private frontNum: any;
   private backNum: any;
 
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.BuyingForm = this.fb.group({
       'package': this.fb.array([
         TableBuyingComponent.CreateFormGruop(this.fb),
@@ -53,12 +54,12 @@ export class BuyingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.BuyingForm.patchValue(data.waterUsage.buying);
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.BuyingForm.patchValue(data.waterUsage.buying);
+    //     this.formData = data;
+    //   }
+    // })
     this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);
     this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
@@ -68,16 +69,26 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.formData.waterUsage.buying = this.BuyingForm.value;
-    if (this.BuyingForm.valid 
+    // this.formData.waterUsage.buying = this.BuyingForm.value;
+    if (this.BuyingForm.valid
       || (this.tableBuying.some(it => it.FormItem.valid))
       || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId,this.formData)  
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId,this.formData)  
+      let water = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        buying: this.BuyingForm.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: water,
+      };
+
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.pop();
     }
   }

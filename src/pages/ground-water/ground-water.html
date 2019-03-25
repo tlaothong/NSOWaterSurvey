@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.waterUsage?.groundWater">
     <h3>5.2 น้ำบาดาล</h3>
     <ion-card formGroupName="privateGroundWater">
       <ion-card-content>

@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant" [rx-form-data]="(formData$ | async)?.agriculture?.agronomyPlant">
     <h3>ตอนที่ 2.2 พืชไร่</h3>
     <ion-card>
       <ion-card-content>
@@ -63,6 +63,12 @@
             <ion-item *ngIf="isValid('fieldCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="agronomyPlant.get('fieldCount').value > 20">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนแปลงมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>

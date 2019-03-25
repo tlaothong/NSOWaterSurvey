@@ -19,6 +19,22 @@
       <ion-item *ngIf="isValid('rai')">
         <span class="invalid-msg">กรุณากรอกข้อมูล</span>
       </ion-item>
+      <div *ngIf="isAnimal == true">
+        <ion-item *ngIf="FormItem.get('rai').value > 5">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนไร่มีเยอะผิดปกติหรือไม่
+          </span>
+        </ion-item>
+      </div>
+      <ion-item *ngIf="FormItem.get('rai').value > 50">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบจำนวนไร่มีเยอะผิดปกติหรือไม่
+        </span>
+      </ion-item>
+    
+
       <ion-item>
         <ion-label>งาน</ion-label>
       </ion-item>

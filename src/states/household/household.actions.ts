@@ -1,16 +1,31 @@
 import { Action } from '@ngrx/store';
+import { HouseHoldUnit, SubUnit, UnitInList } from '../../models/mobile/MobileModels';
 
 export enum HouseHoldTypes {
-    LoadHouseHoldSample = "[HH] Load",
-    LoadHouseHoldSampleSuccess = "[HH] Load Success",
     StateName = "HouseHold",
-    LoadList = "[HH] Load List",
+
+    LoadHouseHoldSample = "[HH] Load HouseHold",
+    LoadHouseHoldSampleSuccess = "[HH] Load HouseHold Success",
+
+    CreateHouseHoldFor1UnitBuilding = "[HH] Create House Hold for Building w 1 Unit", // สร้าง HH ที่ไม่มี subUnit
+    NewHouseHoldWithSubUnit = "[HH] New House Hold with Empty Sub Unit", // สร้าง HH สำหรับใส่ข้อมูล subUnit ใน dialog
+    LoadSelectedHouseHold = "[HH] Load a Selected House Hold",
+
+    SetCurrentWorkingHouseHold = "[HH] Set Current Working House Hold",
+
+    SaveHouseHold = "[HH] Save House Hold",
+    SaveHouseHoldSuccess = "[HH] Save House Hold Success",
+
+    UpdateUnitList = "[HH] Update the List of House Hold Units",
+
+    LoadList = "[HH] Load House Hold List For Building",
+    LoadListSuccess = "[HH] Load List For Building Success",
+
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsHouseHold = "[HH] Set IsHouseHold",
     SetIsCommercial = "[HH] Set IsCommercial",
-    LoadListSuccess = "[HH] Load List Success",
     SetIsAgriculture = "[HH] Set IsAgriculture",
     LoadUserByQrCode = "[HH] Load User By QrCode",
     SetFactorialCategory = "[HH] Set Factorial Category",
@@ -45,8 +60,6 @@ export enum HouseHoldTypes {
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
     SetBack = "[HH] Set Back",
-    SetHouseHold = "[HH] Set House Hold",
-    SetHouseHoldSuccess = "[HH] Set House Hold Success",
     SetNumberRoom = "[HH] Set Number Room",
     SetUnitNo = "[HH] Set Unit No",
     SetMemberCount = "[HH] Set Count Member",
@@ -55,21 +68,21 @@ export enum HouseHoldTypes {
 export class LoadHouseHoldList implements Action {
     readonly type = HouseHoldTypes.LoadList;
 
-    constructor() {
+    constructor(public buildingId: string) {
     }
 }
 
 export class LoadHouseHoldListSuccess implements Action {
     readonly type = HouseHoldTypes.LoadListSuccess;
 
-    constructor() {
+    constructor(public payload: UnitInList[]) {
     }
 }
 
 export class LoadHouseHoldSample implements Action {
     readonly type = HouseHoldTypes.LoadHouseHoldSample;
 
-    constructor(public payload: string) {
+    constructor(public payload: any) {
     }
 }
 
@@ -80,10 +93,56 @@ export class LoadHouseHoldSampleSuccess implements Action {
     }
 }
 
+export class CreateHouseHoldFor1UnitBuilding implements Action {
+    readonly type = HouseHoldTypes.CreateHouseHoldFor1UnitBuilding;
+
+    constructor() {
+    }
+}
+
+export class NewHouseHoldWithSubUnit implements Action {
+    readonly type = HouseHoldTypes.NewHouseHoldWithSubUnit;
+
+    constructor(public subUnit: SubUnit, public comment: string) {
+    }
+}
+
+export class LoadSelectedHouseHold implements Action {
+    readonly type = HouseHoldTypes.LoadSelectedHouseHold;
+
+    constructor(public payload: HouseHoldUnit) {
+    }
+}
+
+export class SetCurrentWorkingHouseHold implements Action {
+    readonly type = HouseHoldTypes.SetCurrentWorkingHouseHold;
+    constructor(public houseHoldId: string) {
+    }
+}
+
+
+export class SaveHouseHold implements Action {
+    readonly type = HouseHoldTypes.SaveHouseHold;
+    constructor(public payload: HouseHoldUnit) {
+    }
+}
+export class SaveHouseHoldSuccess implements Action {
+    readonly type = HouseHoldTypes.SaveHouseHoldSuccess;
+    constructor(public payload: HouseHoldUnit) {
+    }
+}
+
+export class UpdateUnitList implements Action {
+    readonly type = HouseHoldTypes.UpdateUnitList;
+    constructor(public payload: HouseHoldUnit) {
+    }
+}
+
+
 export class SetSelectG1234 implements Action {
     readonly type = HouseHoldTypes.SetSelectG1234;
 
-    constructor(public payload: any) {
+    constructor(public payload: HouseHoldUnit) {
     }
 }
 
@@ -324,16 +383,6 @@ export class SetBack implements Action {
     }
 }
 
-export class SetHouseHold implements Action {
-    readonly type = HouseHoldTypes.SetHouseHold;
-    constructor(public payload: any) {
-    }
-}
-export class SetHouseHoldSuccess implements Action {
-    readonly type = HouseHoldTypes.SetHouseHoldSuccess;
-    constructor(public payload: any) {
-    }
-}
 export class SetNumberRoom implements Action {
     readonly type = HouseHoldTypes.SetNumberRoom;
     constructor(public payload: string) {
@@ -355,6 +404,13 @@ export type HouseHoldActionsType =
     | LoadHouseHoldListSuccess
     | LoadHouseHoldSample
     | LoadHouseHoldSampleSuccess
+    | CreateHouseHoldFor1UnitBuilding
+    | NewHouseHoldWithSubUnit
+    | LoadSelectedHouseHold
+    | SetCurrentWorkingHouseHold
+    | SaveHouseHold
+    | SaveHouseHoldSuccess
+    | UpdateUnitList
     | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
@@ -393,8 +449,6 @@ export type HouseHoldActionsType =
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
     | SetBack
-    | SetHouseHold
-    | SetHouseHoldSuccess
     | SetNumberRoom
     | SetUnitNo
     | SetMemberCount

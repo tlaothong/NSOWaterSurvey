@@ -16,24 +16,24 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>หมายเลขห้อง</ion-label>
+        <ion-label>หมายเลขห้อง/เลขที่บ้าน</ion-label>
       </ion-item>
       <ion-item>
         <ion-input type="text" formControlName="roomNumber" [class.invalid]="isValid('subUnit.roomNumber')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('subUnit.roomNumber')">
         <span class="invalid-msg">
-          กรุณากรอกหมายเลขห้อง
+          กรุณากรอกหมายเลขห้อง/เลขที่บ้าน
         </span>
       </ion-item>
     </div>
-  </form>
+  <!-- </form> -->
 
   <ion-item>
     <ion-label stacked>
       ผลการเข้าพบ {{count}}/3
     </ion-label>
-    <ion-select interface="action-sheet" [(ngModel)]="access" [class.invalid]="access == null && submitRequested">
+    <ion-select interface="action-sheet" formControlName="access" [class.invalid]="ff.get('access').invalid && submitRequested">
       <ion-option [value]=1>
         1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
       </ion-option>
@@ -52,16 +52,16 @@
     </ion-select>
   </ion-item>
 
-  <ion-item *ngIf="access == null && submitRequested">
+  <ion-item *ngIf="ff.get('access').invalid && submitRequested">
     <span class="invalid-msg">
       กรุณาเลือกการเข้าพบ
     </span>
   </ion-item>
 
-  <form [formGroup]="ff" (ngSubmit)="okDialog()">
+  <!-- <form [formGroup]="ff" (ngSubmit)="okDialog()"> -->
     <div formGroupName="subUnit">
       <ion-list>
-        <div *ngIf="access == 1">
+        <div *ngIf="ff.get('access').value == 1">
           <ion-item>
             <ion-label>3.2 การแยกมิเตอร์น้ำประปา/น้ำบาดาล</ion-label>
           </ion-item>
@@ -81,7 +81,7 @@
               <ion-label>ใช้</ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio [value]="false" item-left ></ion-radio>
+              <ion-radio [value]="false" item-left></ion-radio>
               <ion-label>ไม่ใช้</ion-label>
             </ion-item>
           </ion-row>
@@ -93,11 +93,12 @@
               </ion-label>
             </ion-item>
             <ion-item *ngIf="isValid('subUnit.hasPlumbingMeter')">
-                <span class="invalid-msg">
-                  กรุณาเลือก
-                </span>
-              </ion-item>
-            <ion-row radio-group formControlName="hasPlumbingMeter"  [class.invalid]="isValid('subUnit.hasPlumbingMeter')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+            <ion-row radio-group formControlName="hasPlumbingMeter"
+              [class.invalid]="isValid('subUnit.hasPlumbingMeter')">
               <ion-item col-6>
                 <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>มี</ion-label>
@@ -116,11 +117,12 @@
               </ion-label>
             </ion-item>
             <ion-item *ngIf="isValid('subUnit.isPlumbingMeterXWA')">
-                <span class="invalid-msg">
-                  กรุณาเลือก
-                </span>
-              </ion-item>
-            <ion-row radio-group formControlName="isPlumbingMeterXWA" [class.invalid]="isValid('subUnit.isPlumbingMeterXWA')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+            <ion-row radio-group formControlName="isPlumbingMeterXWA"
+              [class.invalid]="isValid('subUnit.isPlumbingMeterXWA')">
               <ion-item col-6>
                 <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>ใช่</ion-label>
@@ -137,17 +139,17 @@
             </ion-label>
           </ion-item>
           <ion-item *ngIf="isValid('subUnit.hasGroundWater')">
-              <span class="invalid-msg">
-                กรุณาเลือก
-              </span>
-            </ion-item>
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
           <ion-row radio-group formControlName="hasGroundWater" [class.invalid]="isValid('subUnit.hasGroundWater')">
             <ion-item col-6>
               <ion-radio [value]="true" item-left></ion-radio>
               <ion-label>ใช้</ion-label>
             </ion-item>
             <ion-item col-6>
-              <ion-radio [value]="false" item-left ></ion-radio>
+              <ion-radio [value]="false" item-left></ion-radio>
               <ion-label>ไม่ใช้</ion-label>
             </ion-item>
           </ion-row>
@@ -159,11 +161,12 @@
               </ion-label>
             </ion-item>
             <ion-item *ngIf="isValid('subUnit.hasGroundWaterMeter')">
-                <span class="invalid-msg">
-                  กรุณาเลือก
-                </span>
-              </ion-item>
-            <ion-row radio-group formControlName="hasGroundWaterMeter" [class.invalid]="isValid('subUnit.hasGroundWaterMeter')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+            <ion-row radio-group formControlName="hasGroundWaterMeter"
+              [class.invalid]="isValid('subUnit.hasGroundWaterMeter')">
               <ion-item col-6>
                 <ion-radio [value]="true" item-left></ion-radio>
                 <ion-label>มี</ion-label>
@@ -177,25 +180,25 @@
         </div>
       </ion-list>
     </div>
-  </form>
+  <!-- </form> -->
 
-  <div *ngIf="access == 1 || access == 2 || access == 3">
+  <div>
     <ion-item>
       <ion-label>ปัญหา/อุปสรรค</ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="text" [(ngModel)]="comment"></ion-input>
+      <ion-input type="text" formControlName="comment"></ion-input>
     </ion-item>
   </div>
 
-  <form [formGroup]="FormItem" (ngSubmit)="okDialog()">
+  <!-- <form [formGroup]="FormItem" (ngSubmit)="okDialog()"> -->
     <ion-grid>
       <ion-row>
         <ion-col>
           <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block >ตกลง</button>
+          <button ion-button block [disabled]="ff.get('subUnit').invalid || ff.get('access').invalid">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -23,13 +24,13 @@ export class WaterAnimalPlantingPage {
   @ViewChildren(FrogFarmingComponent) private frogFarming: FrogFarmingComponent[];
   @ViewChildren(CrocodileFarmingComponent) private crocodileFarming: CrocodileFarmingComponent[];
   public f: FormGroup;
+  public isAnimal: boolean = true;
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  private formData$ = this.store.select(getHouseHoldSample);
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'isFish': [false, Validators.required],
@@ -57,34 +58,40 @@ export class WaterAnimalPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.agriculture.aquaticAnimals)
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.agriculture.aquaticAnimals)
+    //     this.formData = data;
+    //   }
+    // })
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fishFarming.forEach(it => it.submitRequest());
     this.frogFarming.forEach(it => it.submitRequest());
-    this.crocodileFarming.forEach(it => it.submitRequest());    
-    this.formData.agriculture.aquaticAnimals = this.f.value;
+    this.crocodileFarming.forEach(it => it.submitRequest());
+    // this.formData.agriculture.aquaticAnimals = this.f.value;
     if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      console.log(this.formData);
-      
-      let id = this.formData._id
-      console.log(id);
-      
-      this.storage.set(id, this.formData)
-      
-      this.local.updateListUnit(this.formData.buildingId,this.formData)
+
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId,this.formData)
+
+      let agriculture = {
+        ...this.appState.houseHoldUnit.agriculture,
+        aquaticAnimals: this.f.value,
+      }
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        agriculture: agriculture,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
+
       this.navCtrl.popTo("CheckListPage");
-      
     }
   }
 

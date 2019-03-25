@@ -8,10 +8,11 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -30,8 +31,8 @@ export class GroundWaterPage {
   public G: boolean = true;
 
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  private formData$ = this.store.select(getHouseHoldSample);
+  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -67,7 +68,7 @@ export class GroundWaterPage {
   public static checkActivityFactory: any;
   public static checkActivityCommercial: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
@@ -89,12 +90,12 @@ export class GroundWaterPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.waterUsage.groundWater);
-        this.formData = data;
-      }
-    })
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.waterUsage.groundWater);
+    //     this.formData = data;
+    //   }
+    // })
 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
@@ -163,22 +164,33 @@ export class GroundWaterPage {
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.formData.waterUsage.groundWater = this.f.value;
+    // this.formData.waterUsage.groundWater = this.f.value;
 
-    console.log(this.isCheck());
-    console.log(this.checkvalid());
+    console.log(this.isCheckPrivate());
+    console.log(this.isCheckPublic());
+    console.log(this.isCheckBoth());
+    console.log(this.isCheckActivity());
+    console.log(this.isCheckPrivate());
 
 
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let ground = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        groundWater: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: ground,
+      };
+      
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
-      // console.log("ผ่านแล้วจ้า");
-
     }
   }
 
@@ -187,8 +199,22 @@ export class GroundWaterPage {
   }
 
   public isCheckBoth(): boolean {
-    return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) ?
-      this.f.get('privateGroundWater.waterResourceCount').value > 0 : true;
+    if (this.isCheckActivity()) {
+      if (this.f.get('privateGroundWater.waterResourceCount').value > 0) {
+        return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) || (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value);
+      }
+      else if (this.f.get('privateGroundWater.waterResourceCount').value >= 0) {
+        return this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value;
+      }
+    }
+    else if (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) {
+      return this.f.get('privateGroundWater.waterResourceCount').value >= 0;
+    }
+    return true;
+  }
+
+  public isCheckActivity(): boolean {
+    return this.activityResidential || this.activityWateringRes || this.activityRice || this.activityAgiculture || this.activityFactory || this.activityCommercial
   }
 
   public isCheckPrivate(): boolean {

@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-    <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+    <form (ngSubmit)="handleSubmit()" [formGroup]="f"  [rx-form-data]="(formData$ | async)?.commerce">
 
         <h3>ตอนที่ 4 การค้าและการบริการ</h3>
 

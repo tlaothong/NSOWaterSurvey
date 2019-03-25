@@ -2,13 +2,14 @@ import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BootupTypes, LoadBootstrapSuccess, LoginUserSuccess, LoginUser, DownloadUserToMobile, DownloadUserToMobileSuccess, SetCurrentWorkingEA, CurrentWorkingEaChanged } from "./bootup.actions";
-import { mergeMap, map, withLatestFrom, tap } from "rxjs/operators";
+import { mergeMap, map, withLatestFrom, tap, switchMap } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { BootupState } from "./bootup.reducer";
 import { getUserId } from ".";
 import { AppStateProvider } from "../../providers/app-state/app-state";
+import { LoadBuildingList } from "../building/building.actions";
 
 
 @Injectable()
@@ -49,7 +50,11 @@ export class BootupEffects {
             this.appState.eaCode = action.payload;
             this.appState.buildingId = '';
         }),
-        mergeMap((action: SetCurrentWorkingEA) => Observable.of(new CurrentWorkingEaChanged(action.payload))),
+        switchMap((action: SetCurrentWorkingEA) => 
+            [
+                new CurrentWorkingEaChanged(action.payload),
+                new LoadBuildingList(action.payload)
+            ])
     );
 
 }

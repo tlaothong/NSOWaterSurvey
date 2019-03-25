@@ -7,6 +7,8 @@ import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SetUserPassword } from '../../states/logging/logging.actions';
 import { AlertController } from 'ionic-angular';
+import { AppStateProvider } from '../../providers/app-state/app-state';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 
 @IonicPage()
@@ -20,44 +22,44 @@ export class FirstloginPage {
   private formData$ = this.store.select(getUserData).pipe(map(s => s));
   public riceDoing: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>, private fb: FormBuilder, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>,
+      private fb: FormBuilder, private alertCtrl: AlertController, private appState: AppStateProvider,
+      private dataStore: DataStoreProvider) {
     this.f = this.fb.group({
       '_idqr': [null],
-      'idUser': "4050084",
+      'idUser': this.appState.userId,
       'password': null,
-      'name': [null],
-      'email': [null],
-      'idEA': [null]
+      'name': null,
+      'email': null,
+      'idEA': null
     });
   }
 
   ionViewDidLoad() {
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.f.setValue(data)
-      }
-    });
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.setValue(data)
+    //   }
+    // });
   }
 
 
 
   goConfirmloginPage(confirmPassword: any) {
     // let _idqr = this.f.get('_idqr').value;
-    // let password = this.f.get('password').value;
+    let password = this.f.get('password').value;
 
-    // let alert = this.alertCtrl.create({
-    //   message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
-    //   buttons: ['ยืนยัน']
-    // });
+    let alert = this.alertCtrl.create({
+      message: 'กรุณากรอกรหัสผ่านให้ถูกต้อง',
+      buttons: ['ยืนยัน']
+    });
 
-    // if (password == confirmPassword) {
-    //   this.store.dispatch(new SetUserPassword({
-    //     _idqr,
-    //     password
-    //   }));
+    if (password == confirmPassword) {
+      this.dataStore.saveUser(this.appState.userId, password);
+
       this.navCtrl.setRoot("LoginPage");
-    // } else {
-    //   alert.present()
-    // }
+    } else {
+      alert.present();
+    }
   }
 }

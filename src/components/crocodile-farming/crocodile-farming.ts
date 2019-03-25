@@ -18,7 +18,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input("headline") public text: string;
   @Input('no') public no: string;
-
+  @Input('isAnimal') public isAnimal: boolean;
   @ViewChildren(PoolAreaComponent) private poolArea: PoolAreaComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
@@ -33,13 +33,13 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
       'doing': null,
-      'depression': [false, Validators.required],
-      'hasOther': [false, Validators.required],
+      'depression': [false, Validators],
+      'hasOther': [false, Validators],
       'other': [null, Validators],
-      'fieldCount': [null, Validators.required],
-      'fieldsAreSameSize': [null, Validators.required],
+      'fieldCount': [null, Validators],
+      'fieldsAreSameSize': [null, Validators],
       'fields': fb.array([]),
-      'animalsCount': [null, Validators.required],
+      'animalsCount': [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: CrocodileFarmingComponent.checkAnyOrOther()
@@ -96,22 +96,22 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       const other = c.get('other');
       const fieldCount = c.get('fieldCount');
       const fieldsAreSameSize = c.get('fieldsAreSameSize');
-      const animalsCount = c.get('animalsCount');
+      // const animalsCount = c.get('animalsCount');
 
       if (!depression.value && !hasOther.value) {
         return { 'anycheck': true };
-      } else if (hasOther.value == true && (!other.value || other.value.trim() == '')) {
+      } else if (hasOther.value == true && (other.value == null || other.value.trim() == '')) {
         return { 'other': true };
       }
-      if ((depression.value || hasOther.value) && (fieldCount.value <= 0)) {
+      if (depression.value && (fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
-      if ((depression.value || hasOther.value) && (fieldsAreSameSize.value == null)) {
+      if (depression.value && fieldsAreSameSize.value == null) {
         return { 'fieldsAreSameSize': true };
       }
-      if ((depression.value || hasOther.value) && (animalsCount.value == null)) {
-        return { 'animalsCount': true };
-      }
+      // if ((depression.value || hasOther.value) && (animalsCount.value == null)) {
+      //   return { 'animalsCount': true };
+      // }
       return null;
     }
   }
@@ -133,10 +133,10 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.fieldsAreSameSize && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'animalsCount') {
-      let ctrls = this.FormItem;
-      return ctrls.errors && ctrls.errors.animalsCount && (ctrl.dirty || this.submitRequested);
-    }
+    // if (name == 'animalsCount') {
+    //   let ctrls = this.FormItem;
+    //   return ctrls.errors && ctrls.errors.animalsCount && (ctrl.dirty || this.submitRequested);
+    // }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
