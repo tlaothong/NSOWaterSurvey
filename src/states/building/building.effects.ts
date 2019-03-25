@@ -98,7 +98,7 @@ export class BuildingEffects {
                 "buildingId": bld._id,
                 "houseNo": bld.houseNo,
                 "name": bld.name,
-                "status": "log-out",
+                "status": bld.status,
                 "completedCount": 0,
                 "unitCount": bld.unitCount,
             };
