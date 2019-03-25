@@ -114,13 +114,13 @@
             <ion-label>
               มี
             </ion-label>
-            <ion-radio [value]="true" item-left (ionSelect)="setValue()"></ion-radio>
+            <ion-radio [value]="true" item-left (ionSelect)="setValueTrue()"></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
               ไม่มี
             </ion-label>
-            <ion-radio [value]="false" item-left></ion-radio>
+            <ion-radio [value]="false" item-left (ionSelect)="setValueFalse()"></ion-radio>
           </ion-item>
         </ion-row>
 
