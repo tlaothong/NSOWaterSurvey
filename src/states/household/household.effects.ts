@@ -23,7 +23,10 @@ export class HouseHoldEffects {
         ofType(HouseHoldTypes.LoadList),
         tap(_ => this.appState.houseHoldUnit = null),
         mergeMap((action: LoadHouseHoldList) => this.dataStore.listHouseHoldInBuilding(action.buildingId)),
-        map((lst: UnitInList[]) => new LoadHouseHoldListSuccess(lst ? lst : [])),
+        switchMap((lst: UnitInList[]) => (lst && lst.length == 1)
+            ? [ new LoadHouseHoldListSuccess(lst),
+                new SetCurrentWorkingHouseHold(lst[0].houseHoldId) ]
+            : [ new LoadHouseHoldListSuccess(lst ? lst : []) ]),
     );
 
     @Effect()
