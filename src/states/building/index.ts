@@ -9,6 +9,11 @@ export const getBuildingSample = createSelector(
     state => state.buildingSample,
 );
 
+export const getBuildingList = createSelector(
+    getBuildingFeatureState,
+    state => state.buildings,
+);
+
 export const getRecieveDataFromBuilding = createSelector(
     getBuildingFeatureState,
     state => state.recieveDataFromBuilding,
@@ -29,6 +34,9 @@ export const getOtherBuildingType = createSelector(
     state => state.otherBuildingType,
 );
 
-
+export const getUnitCount = createSelector(
+    getBuildingFeatureState,
+    state => state.unitCount,
+);
 
 

@@ -148,6 +148,12 @@
         กรุณากรอกข้อมูล
       </span>
     </ion-item>
+    <ion-item *ngIf="FormItem.get('waterFillingCount').value > 20">
+      <ion-icon md="md-warning"></ion-icon>
+      <span class="invalid-msg">
+        กรุณาตรวจสอบจำนวนครั้งที่ปล่อยน้ำเข้านามีเยอะผิดปกติหรือไม่
+      </span>
+    </ion-item>
 
     <ion-item>
       <ion-label>
@@ -160,6 +166,12 @@
     <ion-item *ngIf="isValid('waterHeightCm')">
       <span class="invalid-msg">
         กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
+    <ion-item *ngIf="FormItem.get('waterHeightCm').value > 20">
+      <ion-icon md="md-warning"></ion-icon>
+      <span class="invalid-msg">
+        กรุณาตรวจสอบความสูงที่ปล่อยน้ำเข้านาโดยเฉลี่ยมีเยอะผิดปกติหรือไม่
       </span>
     </ion-item>
 

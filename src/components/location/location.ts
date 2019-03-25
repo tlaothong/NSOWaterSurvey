@@ -18,30 +18,42 @@ export class LocationComponent implements ISubmitRequestable {
   public district: any;
   public subDistrict: any
   @Input() public FormItem: FormGroup;
+  @Input() public checkIsPool: boolean;
   private submitRequested: boolean;
   public text: string;
 
   constructor(public fb: FormBuilder) {
     this.text = 'Hello World';
+    this.checkIsPool = false;
     // this.getprovince();
     this.FormItem = LocationComponent.CreateFormGroup(this.fb);
   }
 
   ngOnInit() {
     this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name))
-    if (this.FormItem.get('province').value != null) {
-      this.onChange(this.FormItem.get('province').value);
-      if (this.FormItem.get('district').value != null) {
-        this.onChange1(this.FormItem.get('district').value);
+    if (this.checkIsPool && this.FormItem.get('province').value == 0) {
+      this.FormItem.reset();
+      if (this.FormItem.get('province').value != null) {
+        this.onChange(this.FormItem.get('province').value);
+        if (this.FormItem.get('district').value != null) {
+          this.onChange1(this.FormItem.get('district').value);
+        }
+      }
+    }else{
+      if (this.FormItem.get('province').value != 0) {
+        this.onChange(this.FormItem.get('province').value);
+        if (this.FormItem.get('district').value != 0) {
+          this.onChange1(this.FormItem.get('district').value);
+        }
       }
     }
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'province': [null, Validators.required],
-      'district': [null, Validators.required],
-      'subDistrict': [null, Validators.required]
+      'province': [0, Validators.required],
+      'district': [0, Validators.required],
+      'subDistrict': [0, Validators.required]
     });
   }
 

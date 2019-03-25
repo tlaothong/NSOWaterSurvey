@@ -15,7 +15,9 @@ export class PoolAreaComponent implements ISubmitRequestable {
   @Input("head") private head: string;
   @Input("pool") private poolText: string;
   @Input('no') public no: string;
+  @Input("checkIsPool") public checkIsPool: boolean;
   @Input() public FormItem: FormGroup;
+  @Input('isAnimal') public isAnimal: boolean;
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   private submitRequested: boolean;

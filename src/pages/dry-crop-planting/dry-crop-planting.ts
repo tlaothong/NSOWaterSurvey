@@ -5,11 +5,12 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -27,25 +28,25 @@ export class DryCropPlantingPage {
   private submitRequested: boolean;
   shownData: string[];
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
-  private formData: any;
+  private formData$ = this.store.select(getHouseHoldSample);
+  // private formData: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, [Validators.required, Validators.min(1)]],
+      "fieldCount": [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       "fields": this.fb.array([]),
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
+    //     this.formData = data;
+    //   }
+    // })
     this.countNumberPage();
   }
 
@@ -66,14 +67,23 @@ export class DryCropPlantingPage {
 
     // this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
     // this.store.dispatch(new SetAgiSelectAgronomy(true));
-    this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
+    // this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
     if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let argi = {
+        ...this.appState.houseHoldUnit.agriculture,
+        agronomyPlant: this.agronomyPlant.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        agriculture: argi,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

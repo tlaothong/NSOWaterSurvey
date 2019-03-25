@@ -8,10 +8,11 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -28,9 +29,9 @@ export class RiverPage {
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData: any;
+  // private formData: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -58,7 +59,7 @@ export class RiverPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
@@ -73,19 +74,13 @@ export class RiverPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.waterUsage.river);
-        this.formData = data;
-      }
-    })
-    this.storage.get('unit').then((val) => {
-      if (val != null) {
-        this.formData = val;
-        this.f.patchValue(val.waterUsage.river);
-        console.log(val);
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.waterUsage.river);
+    //     this.formData = data;
+    //   }
+    // })
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -146,14 +141,27 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.formData.waterUsage.river = this.f.value;
+    // this.formData.waterUsage.river = this.f.value;
+    console.log(this.f.valid);
+    console.log(this.f.get('waterActivities').valid);
+    console.log(this.f.get('qualityProblem').valid);
+
+
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let water = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        river: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: water,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
 
 

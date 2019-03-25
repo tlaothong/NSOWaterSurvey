@@ -1,6 +1,6 @@
 import { CountComponent } from './../../components/count/count';
 import { getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
-import { SetWaterSourcesResidential, SetSelectorIndex,SetMemberCount } from './../../states/household/household.actions';
+import { SetWaterSourcesResidential, SetSelectorIndex, SetMemberCount, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { SetResidentialGardeningUse, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWateringResidential } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -28,12 +29,11 @@ export class ResidentialPage {
   private formData$ = this.store.select(getHouseHoldSample);
   private frontNum: any;
   private backNum: any;
-  public dataRes: any
   public checked: boolean;
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
-      'memberCount': [null, [Validators.required, Validators.min(1)]],
-      'workingAge': [null, Validators.required],
+      'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+      'workingAge': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
     });
@@ -41,18 +41,6 @@ export class ResidentialPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    console.log(this.formData$);
-
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        // this.residentialFrm.setValue(data.residence)
-        this.dataRes = data;
-        // console.log(data);
-      }
-    });
-
-    // let  formDataPilot$ = this.store.select(getResidentialGardeningUse).subscribe(data => this.residentialFrm.get('gardeningUse').setValue(data));
-
   }
 
   check(): boolean {
@@ -73,17 +61,26 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.rain').value),
     // (this.residentialFrm.get('waterSources.buying').value)]));
 
-    this.dataRes.residence = this.residentialFrm.value
+    // this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid && !(this.check())) {
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        residence: this.residentialFrm.value,
+      };
       this.arrayIsCheckMethod();
       // this.dispatchWaterSource();
       // this.store.dispatch(new SetHouseHold(this.dataRes));
       // this.storage.set('unit', this.dataRes)
-      let id = this.dataRes._id
-      this.storage.set(id, this.dataRes)
-      console.log("set", this.dataRes);
-      this.local.updateListUnit(this.dataRes.buildingId, this.dataRes)
-      this.store.dispatch(new SetMemberCount(this.residentialFrm.get('memberCount').value));
+      // let id = newHouseHold._id
+      // this.storage.set(id, newHouseHold)
+      // console.log("set", newHouseHold);
+
+      // this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
+
+      // this.store.dispatch(new SetHouseHold(newHouseHold))
+      this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

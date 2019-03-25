@@ -1,25 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EA } from '../../states/bootup/bootup.reducer';
+import { EA } from '../../models/mobile/MobileModels';
 
 @Injectable()
 export class CloudSyncProvider {
-  LoadWorkByIdEASuccess(payload: any): any {
-    throw new Error("Method not implemented.");
-  }
+
+  private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
   }
 
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
-    return <Observable<any>>(this.http.get('http://water.surveydb.app/api/MobileConnect/' + userId));
+    return <Observable<any>>(this.http.get(this.baseUrl + 'MobileConnect/' + userId));
+  }
+
+  public getUploadToCloud(userId: string): Observable<DeviceToCloudInfo> {
+    return <Observable<any>>this.http.post(this.baseUrl + 'MobileConnect/up2cloud/' + userId, {});
   }
 
   /*************************
    * ของเก่า
    *************************/
+
+   LoadWorkByIdEASuccess(payload: any): any {
+    throw new Error("Method not implemented.");
+  }
 
   public setHouseHold(data: any): Observable<any> {
     return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);
@@ -102,4 +109,9 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/' + id);
   }
 
+}
+
+export interface DeviceToCloudInfo {
+  containerName: string;
+  complementary: string;
 }

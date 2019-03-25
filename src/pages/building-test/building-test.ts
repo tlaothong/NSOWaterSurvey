@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BuildingState } from '../../states/building/building.reducer';
 import { Store } from '@ngrx/store';
-import { LoadBuildingSample, SetRecieveDataFromBuilding, SetHomeBuilding, SetHomeBuildingSuccess } from '../../states/building/building.actions';
+import { LoadBuildingSample, SetRecieveDataFromBuilding, SaveBuilding, SaveBuildingSuccess } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -38,7 +38,7 @@ export class BuildingTestPage {
           this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
           // this.store.dispatch(new SetHomeBuilding(item));
           // this.storage.set(item._id, item)
-          this.store.dispatch(new SetHomeBuildingSuccess(item));
+          this.store.dispatch(new SaveBuildingSuccess(item));
           this.navCtrl.push("HouseHoldTestPage");
           break;
         default:

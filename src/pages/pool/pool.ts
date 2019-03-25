@@ -7,10 +7,11 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { CountComponent } from '../../components/count/count';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -24,9 +25,9 @@ export class PoolPage {
   @ViewChildren(PoolUsageComponent) private poolUsage: PoolUsageComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData: any;
+  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -54,6 +55,7 @@ export class PoolPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean
+  public checkIsPool : boolean = true;
 
   public static checkActivityResidential: any;
   public static checkActivityWateringRes: any;
@@ -62,7 +64,7 @@ export class PoolPage {
   public static checkActivityFactory: any;
   public static checkActivityCommercial: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators],
       'poolCount': [null, Validators],
@@ -70,7 +72,6 @@ export class PoolPage {
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators],
       'waterResources': this.fb.array([]),
-      
     }, {
         validator: PoolPage.checkAnyOrOther()
       });
@@ -80,12 +81,12 @@ export class PoolPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.waterUsage.pool);
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.waterUsage.pool);
+    //     this.formData = data;
+    //   }
+    // })
 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
@@ -134,19 +135,6 @@ export class PoolPage {
     return this.checked = false
   }
 
-  public checkvalid(): boolean {
-    if ((this.activityResidential == true
-      || this.activityWateringRes == true
-      || this.activityRice == true
-      || this.activityAgiculture == true
-      || this.activityFactory == true
-      || this.activityCommercial == true)
-      && (this.f.get('waterResourceCount').value <= 0)) {
-      return false;
-    }
-    return true;
-  }
-
   public handleSubmit() {
     this.submitRequested = true;
     this.poolUsage.forEach(it => it.submitRequest());
@@ -160,16 +148,54 @@ export class PoolPage {
       }
       this.f.get('poolSizes').setValue(val)
     }
-    this.formData.waterUsage.pool = this.f.value
-    if (this.f.valid && this.checkvalid()) {
+    // this.formData.waterUsage.pool = this.f.value
+
+
+    if (this.checkvalid()) {
       this.arrayIsCheckMethod();
+
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+      let water = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        pool: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: water,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
+  }
+
+  public checkvalid(): boolean {
+    let ischeckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
+    if (this.f.get('doing').value != null) {
+      if (this.isCheckActivity()) {
+        if (this.f.get('doing').value == true) {
+          return this.f.get('waterResourceCount').value > 0 && this.f.get('poolCount').value > 0 && ischeckPoolUsage;
+        }
+        else {
+          return false;
+        }
+      }
+      else {
+        return ischeckPoolUsage;
+      }
+    }
+    else {
+      return false;
+    }
+    // return this.isCheckActivity() ? (this.f.get('waterResourceCount').value > 0 && ischeckPoolUsage) : ischeckPoolUsage;
+  }
+
+  public isCheckActivity(): boolean {
+    return (this.activityResidential || this.activityWateringRes || this.activityRice || this.activityAgiculture || this.activityFactory || this.activityCommercial) ? true : false;
   }
 
   public static checkAnyOrOther(): ValidatorFn {

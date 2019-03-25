@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.agriculture?.mushroomPlant">
 
     <h3>ตอนที่ 2.7 เพาะเชื้อและปลูกเห็ด</h3>
 
@@ -52,6 +52,12 @@
             <ion-item *ngIf="isValid('fieldCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="f.get('fieldCount').value > 20">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนแปลงมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>

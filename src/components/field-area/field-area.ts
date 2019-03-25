@@ -10,6 +10,7 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 export class FieldAreaComponent implements ISubmitRequestable {
 
   @Input("headline") public text: string;
+  @Input("isAnimal") public isAnimal: boolean;
   @Input() public FormItem: FormGroup;
   private submitRequested: boolean;
 
@@ -32,7 +33,8 @@ export class FieldAreaComponent implements ISubmitRequestable {
     const modal = this.modalCtrl.create("DlgFieldAreaPage",
       {
         FormItem: this.FormItem,
-        headline: this.text
+        headline: this.text,
+        isAnimal: this.isAnimal
       });
     modal.onDidDismiss(data => {
       if (data) {

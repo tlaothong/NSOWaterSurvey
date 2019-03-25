@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HouseHoldUnit } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the AppStateProvider provider.
@@ -20,4 +21,12 @@ export class AppStateProvider {
   public eaCode: string;
   public buildingId: string;
 
+  public houseHoldUnit: HouseHoldUnit;
+
+  /**
+   * สร้าง Id สำหรับใช้กับข้อมูลต่างๆ โดยใช้เวลาและคนมาประกอบกัน
+   */
+  public generateId(prefix: string): string {
+    return prefix + Date.now().valueOf() + this.userId;
+  }
 }

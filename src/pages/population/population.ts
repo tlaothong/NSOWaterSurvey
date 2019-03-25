@@ -6,7 +6,7 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getMemberCount } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
@@ -25,7 +25,7 @@ export class PopulationPage {
   private submitRequested: boolean;
   public f: FormGroup;
   public whatever: any;
-  private formData: any;
+  // private formData: any;
   private i: any
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.population));
   private formData$ = this.store.select(getHouseHoldSample);
@@ -48,7 +48,7 @@ export class PopulationPage {
       'persons': this.fb.array([])
     });
     console.log(this.getMemberCount$);
-    
+
     this.getMember();
   }
 
@@ -62,13 +62,13 @@ export class PopulationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.population)
-        this.dataPop = data;
-        this.getMember();
-      }
-    });
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.population)
+    //     this.dataPop = data;
+    //     this.getMember();
+    //   }
+    // });
 
     // this.getIdHomes$.subscribe(data => this.str = data);
 
@@ -82,16 +82,22 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.dataPop.population = this.f.value
+    // this.dataPop.population = this.f.value
     // this.dataPop.status = "complete"
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataPop)); 
-      console.log(this.dataPop);
-      let id = this.dataPop._id
-      this.storage.set(id, this.dataPop)
-      this.local.updateListUnit(this.dataPop.buildingId, this.dataPop)
+      // console.log(this.dataPop);
+      // let id = this.dataPop._id
       // this.storage.set(id, this.dataPop)
+      // this.local.updateListUnit(this.dataPop.buildingId, this.dataPop)
+      // this.storage.set(id, this.dataPop)
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        population: this.f.value,
+      };
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }
@@ -186,5 +192,10 @@ export class PopulationPage {
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
     onComponentCountChanges();
+  }
+
+  deleteData(num: number) {
+    let del = this.f.get('persons') as FormArray;
+    del.at(num).reset();
   }
 }

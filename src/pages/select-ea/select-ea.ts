@@ -6,8 +6,9 @@ import { getListOfEAs } from '../../states/bootup';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import { EaComponent } from '../../components/ea/ea';
 import { Storage } from '@ionic/storage';
-import { BootupState, EA } from '../../states/bootup/bootup.reducer';
+import { BootupState } from '../../states/bootup/bootup.reducer';
 import { SetCurrentWorkingEA } from '../../states/bootup/bootup.actions';
+import { EA } from '../../models/mobile/MobileModels';
 
 @IonicPage()
 @Component({

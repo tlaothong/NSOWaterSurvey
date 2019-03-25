@@ -25,6 +25,14 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
+        <ion-item *ngIf="residentialFrm.get('memberCount').value > 20">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนสมาชิกมีเยอะผิดปกติหรือไม่
+          </span>
+        </ion-item>
+
+
 
         <ion-item>
           <ion-label>

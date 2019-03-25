@@ -6,9 +6,10 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class DisasterousPage {
   public dataDis: any;
   private frontNum: any;
   private backNum: any;
-  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>) {
+  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -43,12 +44,12 @@ export class DisasterousPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formData$.subscribe(data => {
-      if (data != null) {
-        this.Disasterous.patchValue(data.disaster)
-        this.dataDis = data;
-      }
-    })
+    // this.formData$.subscribe(data => {
+    //   if (data != null) {
+    //     this.Disasterous.patchValue(data.disaster)
+    //     this.dataDis = data;
+    //   }
+    // })
   }
 
   public showModal() {
@@ -65,16 +66,21 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.dataDis.disaster = this.Disasterous.value
+    // this.dataDis.disaster = this.Disasterous.value
     if (this.Disasterous.valid
       || this.Disasterous.get('flooded').value == false
       || this.tableDisasterous.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.dataDis));
       // this.storage.set('unit', this.dataDis)
-      let id = this.dataDis._id
-      this.storage.set(id, this.dataDis)
-      this.local.updateListUnit(this.dataDis.buildingId, this.dataDis)
+      // let id = this.dataDis._id
+      // this.storage.set(id, this.dataDis)
+      // this.local.updateListUnit(this.dataDis.buildingId, this.dataDis)
+      let originalHouseHold = this.appState.houseHoldUnit;
+      let newHouseHold = {
+        ...originalHouseHold,
+        commerce: this.Disasterous.value,
+      };
+      this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }

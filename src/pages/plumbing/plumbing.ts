@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SetHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { subDistrictData } from '../../models/SubDistrictData';
 import { Storage } from '@ionic/storage';
@@ -28,9 +28,9 @@ export class PlumbingPage {
   public f: FormGroup;
   private submitRequested: boolean;
 
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  private formData: any;
+  // private formData: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
@@ -108,12 +108,12 @@ export class PlumbingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    this.formDataUnit$.subscribe(data => {
-      if (data != null) {
-        this.f.patchValue(data.waterUsage.plumbing);
-        this.formData = data;
-      }
-    })
+    // this.formDataUnit$.subscribe(data => {
+    //   if (data != null) {
+    //     this.f.patchValue(data.waterUsage.plumbing);
+    //     this.formData = data;
+    //   }
+    // })
 
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -177,14 +177,27 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.formData.waterUsage.plumbing = this.f.value;
+
+    // this.formData.waterUsage.plumbing = this.f.value;
+
     if ((!this.MWA || this.isCheckValid('mwa')) && (!this.PWA || this.isCheckValid('pwa')) && this.isCheckValid('other')) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
       // this.storage.set('unit', this.formData)
-      let id = this.formData._id
-      this.storage.set(id, this.formData)
-      this.local.updateListUnit(this.formData.buildingId, this.formData)
+      // let id = this.formData._id
+      // this.storage.set(id, this.formData)
+      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+
+      let water = {
+        ...this.appState.houseHoldUnit.waterUsage,
+        plumbing: this.f.value,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        waterUsage: water,
+      };
+
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
       // console.log("ผ่านแล้วจ้า");
     }

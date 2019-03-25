@@ -33,7 +33,7 @@
       <ion-item>
         <ion-input type="number" formControlName="itemCount"></ion-input>
       </ion-item>
-      <ion-item *ngIf="FormItem.get('itemCount').value > 99">
+      <ion-item *ngIf="FormItem.get('itemCount').value > 100">
         <ion-icon md="md-warning"></ion-icon>
         <span class="invalid-msg">
           กรุณาตรวจสอบจำนวน {{ unit }} มีจำนวนที่เยอะผิดปกติหรือไม่

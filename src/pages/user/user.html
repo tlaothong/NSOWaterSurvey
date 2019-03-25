@@ -8,7 +8,7 @@
 
   <h3>ข้อมูลพื้นฐานส่วนบุคคล</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="userInfo">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="userInfo" [rx-form-data]="(formData$ | async)?.closing">
     <ion-card>
       <ion-card-content>
         <ion-item>
@@ -154,7 +154,7 @@
               2. งานวิศวกรรมโยธา
             </ion-option>
             <ion-option [value]="3">
-              3. งานก่อนสร้างเฉพาะงาน
+              3. งานก่อสร้างเฉพาะงาน
             </ion-option>
             <ion-option [value]="4">
               4. การขายส่งและการขายปลีก การซ่อมยานยนต์และจักรยานยนต์
