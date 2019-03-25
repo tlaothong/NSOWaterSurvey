@@ -40,6 +40,19 @@ export class DataStoreProvider {
   public hasEasDownloaded(userId: string): Observable<boolean> {
     return Observable.fromPromise(this.storage.get('uea' + userId)).map(it => it != null);
   }
+  /*********** */
+
+   /**
+   * ชั่วคราว ๆ
+   */
+  public saveUser(userId: string, password: string) {
+    this.storage.set('ulogin' + userId, password);
+  }
+
+  public async validateUser(userId: string, password: string) {
+    let pwd = await this.storage.get('ulogin' + userId);
+    return pwd == password;
+  }
 
   /*********** */
 
