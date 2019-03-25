@@ -228,39 +228,39 @@ export class CommunityWaterManagementPage {
       this.CommunityWaterManagement.get('waterServiceCount').setValue(null);
     }
     if (this.checkValid()) {
-      // let key = this.formDataCom.get('_id').value
-      // this.storage.set(key, this.formDataCom.value)
+      let key = this.formDataCom.get('_id').value
+      this.storage.set(key, this.formDataCom.value)
 
-      // console.log(this.formDataCom.value);
+      console.log(this.formDataCom.value);
 
-      // let keyEA = "CL" + this.formDataCom.get('ea').value
-      // this.storage.get(keyEA).then((data) => {
-      //   console.log(data);
+      let keyEA = "CL" + this.formDataCom.get('ea').value
+      this.storage.get(keyEA).then((data) => {
+        console.log(data);
 
-      //   let listBD = data
-      //   if (listBD != null) {
-      //     let fin = listBD.find(it => it._id == key)
-      //     if (fin == null) {
-      //       console.log("1");
+        let listBD = data
+        if (listBD != null) {
+          let fin = listBD.find(it => it._id == key)
+          if (fin == null) {
+            console.log("1");
 
-      //       listBD.push(this.formDataCom.value)
-      //       this.storage.set(keyEA, listBD)
-      //     } else {
-      //       console.log("2");
-      //       let index = listBD.findIndex(it => it._id == key)
-      //       listBD.splice(index, 1, this.formDataCom.value);
-      //       // listBD.push(this.formDataCom.value);
-      //       this.storage.set(keyEA, listBD)
-      //     }
-      //   } else {
-      //     console.log("3");
-      //     listBD = []
-      //     listBD.push(this.formDataCom.value)
-      //     this.storage.set(keyEA, listBD)
-      //   }
-      // })
+            listBD.push(this.formDataCom.value)
+            this.storage.set(keyEA, listBD)
+          } else {
+            console.log("2");
+            let index = listBD.findIndex(it => it._id == key)
+            listBD.splice(index, 1, this.formDataCom.value);
+            // listBD.push(this.formDataCom.value);
+            this.storage.set(keyEA, listBD)
+          }
+        } else {
+          console.log("3");
+          listBD = []
+          listBD.push(this.formDataCom.value)
+          this.storage.set(keyEA, listBD)
+        }
+      })
 
-      // this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
+      this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
     }
   }
 
