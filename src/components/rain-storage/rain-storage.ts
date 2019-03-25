@@ -23,7 +23,7 @@ export class RainStorageComponent {
     return fb.group({
       'category': [null, Validators.required],
       'size': [null, Validators.required],
-      'count': [null, Validators.required],
+      'count': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
     });
   }
 

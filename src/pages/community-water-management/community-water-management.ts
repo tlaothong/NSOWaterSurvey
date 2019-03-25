@@ -67,7 +67,7 @@ export class CommunityWaterManagementPage {
       'mwa': [null, Validators.required],
       'otherPlumbing': [null, Validators.required],
       'hasWaterService': [null, Validators.required],
-      'waterServiceCount': [null, Validators.required],
+      'waterServiceCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'waterServices': fb.array([]),
       'hasWaterTreatment': [null, Validators.required],
       'hasDisaster': [null, Validators.required],

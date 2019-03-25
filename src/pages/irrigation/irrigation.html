@@ -55,6 +55,12 @@
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
+            <ion-item *ngIf="f.get('cubicMeterPerMonth').value > 30000">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบปริมาณน้ำมีเยอะผิดปกติหรือไม่
+              </span>
+            </ion-item>
           </div>
         </div>
 

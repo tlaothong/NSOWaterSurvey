@@ -36,12 +36,26 @@
               ทราบปริมาณน้ำ
             </ion-label>
           </ion-item>
+          <ion-item
+            *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 1 && FormItem.get('usageType.groundWaterQuantity').value > 1000">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
+            </span>
+          </ion-item>
 
           <ion-item>
             <ion-radio [value]="2" item-left></ion-radio>
             <ion-label>
               ไม่ทราบ ถามค่าน้ำ
             </ion-label>
+          </ion-item>
+          <ion-item
+            *ngIf="FormItem.get('usageType.groundWaterQuantity').value == 2 && FormItem.get('usageType.groundWaterQuantity').value > 100000">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
+            </span>
           </ion-item>
 
           <ion-item>
