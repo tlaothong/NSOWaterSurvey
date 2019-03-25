@@ -30,14 +30,21 @@ export class LocationComponent implements ISubmitRequestable {
   }
 
   ngOnInit() {
+    this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name))
     if (this.checkIsPool && this.FormItem.get('province').value == 0) {
       this.FormItem.reset();
-    }
-    this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name))
-    if (this.FormItem.get('province').value != 0) {
-      this.onChange(this.FormItem.get('province').value);
-      if (this.FormItem.get('district').value != 0) {
-        this.onChange1(this.FormItem.get('district').value);
+      if (this.FormItem.get('province').value != null) {
+        this.onChange(this.FormItem.get('province').value);
+        if (this.FormItem.get('district').value != null) {
+          this.onChange1(this.FormItem.get('district').value);
+        }
+      }
+    }else{
+      if (this.FormItem.get('province').value != 0) {
+        this.onChange(this.FormItem.get('province').value);
+        if (this.FormItem.get('district').value != 0) {
+          this.onChange1(this.FormItem.get('district').value);
+        }
       }
     }
   }
