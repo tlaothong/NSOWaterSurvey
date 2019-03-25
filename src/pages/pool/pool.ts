@@ -55,7 +55,7 @@ export class PoolPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean
-  public checkIsPool : boolean = true;
+  public checkIsPool: boolean = true;
 
   public static checkActivityResidential: any;
   public static checkActivityWateringRes: any;
@@ -66,11 +66,11 @@ export class PoolPage {
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
-      'doing': [null, Validators],
-      'poolCount': [null, Validators],
-      'hasSameSize': [true, Validators],
+      'doing': [null, Validators.required],
+      'poolCount': [null, [Validators.required, Validators.min(1)]],
+      'hasSameSize': [true, Validators.required],
       'poolSizes': this.fb.array([]),
-      'waterResourceCount': [null, Validators],
+      'waterResourceCount': [null, Validators.required],
       'waterResources': this.fb.array([]),
     }, {
         validator: PoolPage.checkAnyOrOther()
@@ -150,8 +150,7 @@ export class PoolPage {
     }
     // this.formData.waterUsage.pool = this.f.value
 
-
-    if (this.checkvalid()) {
+    if (this.checkValid()) {
       this.arrayIsCheckMethod();
 
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -173,25 +172,19 @@ export class PoolPage {
     }
   }
 
-  public checkvalid(): boolean {
-    let ischeckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
-    if (this.f.get('doing').value != null) {
-      if (this.isCheckActivity()) {
-        if (this.f.get('doing').value == true) {
-          return this.f.get('waterResourceCount').value > 0 && this.f.get('poolCount').value > 0 && ischeckPoolUsage;
-        }
-        else {
-          return false;
-        }
-      }
-      else {
-        return ischeckPoolUsage;
-      }
-    }
-    else {
-      return false;
-    }
-    // return this.isCheckActivity() ? (this.f.get('waterResourceCount').value > 0 && ischeckPoolUsage) : ischeckPoolUsage;
+  public checkValid(): boolean {
+    return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
+  }
+
+  public isCheckPool(): boolean {
+    let isCheckPoolArea = this.poolArea.find(it => it.FormItem.invalid) ? false : true;
+    return this.f.get('poolCount').valid && isCheckPoolArea;
+  }
+
+  public isCheckWaterResources(): boolean {
+    let isCheckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
+    let isCheckWaterResourceCount = this.isCheckActivity() ? this.f.get('waterResourceCount').value > 0 : this.f.get('waterResourceCount').valid;
+    return this.f.get('waterResourceCount').value <= this.f.get('poolCount').value && isCheckPoolUsage && isCheckWaterResourceCount;
   }
 
   public isCheckActivity(): boolean {
@@ -229,10 +222,10 @@ export class PoolPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    if (name == 'doing') {
-      let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
-    }
+    // if (name == 'doing') {
+    //   let ctrls = this.f;
+    //   return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    // }
     if (name == 'poolCount') {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.poolCount && (ctrl.dirty || this.submitRequested);
