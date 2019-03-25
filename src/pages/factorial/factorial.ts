@@ -1,11 +1,11 @@
-import { SetWaterSourcesFactory,  SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesFactory, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample,  getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetFactorialCategory, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Storage } from '@ionic/storage';
@@ -27,15 +27,15 @@ export class FactorialPage {
   // private formData: any
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],
-      'workersCount': ['', Validators.compose([Validators.pattern('[0-9]*'),Validators.required])],
+      'workersCount': ['', Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'heavyMachine': ['', Validators.required],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'hasWasteWaterFromProduction': ['', Validators.required],
-      'hasWasteWaterTreatment': [null,Validators.required],
+      'hasWasteWaterTreatment': [null, Validators.required],
       'wasteWaterReuse': ['', Validators.required]
     });
   }
@@ -48,7 +48,7 @@ export class FactorialPage {
     //     this.FactoryForm.setValue(data.factory);
     //     this.formData = data;
     //     console.log(data);
-        
+
     //   }
     // });
   }
@@ -57,10 +57,8 @@ export class FactorialPage {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
-    // this.dispatchWaterSource();
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
-    // this.formData.factory = this.FactoryForm.value
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -129,8 +127,11 @@ export class FactorialPage {
     this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
   }
 
-  public setValue(){
+  public setValueTrue() {
     this.FactoryForm.get('hasWasteWaterTreatment').setValue(true);
+  }
+  public setValueFalse() {
+    this.FactoryForm.get('hasWasteWaterTreatment').setValue(false);
   }
 
 
