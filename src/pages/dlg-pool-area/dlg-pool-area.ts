@@ -37,7 +37,7 @@ export class DlgPoolAreaPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && ctrl.dirty;
+    return ctrl.value == null || ctrl.value <= 0;
   }
 
 }
