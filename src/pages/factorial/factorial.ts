@@ -35,7 +35,7 @@ export class FactorialPage {
       'heavyMachine': ['', Validators.required],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'hasWasteWaterFromProduction': ['', Validators.required],
-      'hasWasteWaterTreatment': [null],
+      'hasWasteWaterTreatment': [null,Validators.required],
       'wasteWaterReuse': ['', Validators.required]
     });
   }
@@ -129,6 +129,9 @@ export class FactorialPage {
     this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
   }
 
+  public setValue(){
+    this.FactoryForm.get('hasWasteWaterTreatment').setValue(true);
+  }
 
 
   public isValid(name: string): boolean {
