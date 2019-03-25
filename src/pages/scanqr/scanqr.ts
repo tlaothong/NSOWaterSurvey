@@ -82,6 +82,7 @@ export class ScanqrPage {
                 setTimeout(() => {
                   alert.dismiss();
                   // this.navCtrl.push("ConfirmloginPage");
+                  this.qrScanner.hide();
                   this.navCtrl.push("ConfirmloginPage")
                 }, 900);
                 // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
