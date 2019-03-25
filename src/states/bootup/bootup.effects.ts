@@ -38,7 +38,7 @@ export class BootupEffects {
     public downloadUserCloudToMobile$: Observable<Action> = this.action$.pipe(
         ofType(BootupTypes.DownloadUserToMobile),
         withLatestFrom(this.store.select(getUserId)),
-        mergeMap(([action, userId]) => this.dataStore.setEaForTest(userId).pipe(
+        mergeMap(([action, userId]) => this.dataStore.downloadCloudUpdate(userId).pipe(
             map(eas => new DownloadUserToMobileSuccess(eas))
         )),
     )
