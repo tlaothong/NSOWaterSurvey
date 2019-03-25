@@ -70,8 +70,8 @@ export class PlumbingPage {
         }),
         'plumbingUsage': this.fb.group({
           'waterQuantity': [null, Validators.required],
-          'cubicMeterPerMonth': [null, Validators.required],
-          'waterBill': [null, Validators.required]
+          'cubicMeterPerMonth': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+          'waterBill': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])]
         })
       }),
       'pwa': this.fb.group({
@@ -82,8 +82,8 @@ export class PlumbingPage {
         }),
         'plumbingUsage': this.fb.group({
           'waterQuantity': [null, Validators.required],
-          'cubicMeterPerMonth': [null, Validators.required],
-          'waterBill': [null, Validators.required],
+          'cubicMeterPerMonth': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+          'waterBill': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
         })
       }),
       'other': this.fb.group({
@@ -94,15 +94,15 @@ export class PlumbingPage {
         }),
         'plumbingUsage': this.fb.group({
           'waterQuantity': [null, Validators.required],
-          'cubicMeterPerMonth': [null, Validators.required],
-          'waterBill': [null, Validators.required],
+          'cubicMeterPerMonth': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+          'waterBill': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
         })
       }),
       'waterActivityMWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityPWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
       'hasWaterNotRunning': [null, Validators.required],
-      'waterNotRunningCount': [null, Validators.required]
+      'waterNotRunningCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])]
     });
   }
 
