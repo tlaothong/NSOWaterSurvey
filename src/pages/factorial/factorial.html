@@ -92,7 +92,8 @@
       </ion-card-content>
     </ion-card>
 
-    <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง'" [FormItem]="FactoryForm.get('waterSources')"></water-sources8-b>
+    <water-sources8-b [headline]="'3.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง'"
+      [FormItem]="FactoryForm.get('waterSources')"></water-sources8-b>
 
     <ion-card>
       <ion-card-content>
@@ -101,7 +102,8 @@
             3.6 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้<b><u>มีน้ำเสีย</u></b><br>จากกระบวนการผลิตสินค้าหรือไม่
           </ion-label>
         </ion-item>
-        <ion-row radio-group formControlName="hasWasteWaterFromProduction" [class.invalid]="isValid('hasWasteWaterFromProduction')">
+        <ion-row radio-group formControlName="hasWasteWaterFromProduction"
+          [class.invalid]="isValid('hasWasteWaterFromProduction')">
 
           <ion-item *ngIf="isValid('hasWasteWaterFromProduction')">
             <span class="invalid-msg">
@@ -112,7 +114,7 @@
             <ion-label>
               มี
             </ion-label>
-            <ion-radio [value]="true" item-left></ion-radio>
+            <ion-radio [value]="true" item-left (ionSelect)="setValue()"></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
@@ -126,11 +128,13 @@
           <div *ngSwitchCase="true">
             <ion-item>
               <ion-label>
-                3.7 ถ้า "มี" น้ำเสีย สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b><br>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่
+                3.7 ถ้า "มี" น้ำเสีย
+                สถานประกอบการนี้<b><u>มีการจัดการน้ำเสีย</u></b><br>ที่เกิดจากกระบวนการผลิตสินค้าหรือไม่
               </ion-label>
             </ion-item>
 
-            <ion-row radio-group formControlName="hasWasteWaterTreatment" [class.invalid]="isValid('hasWasteWaterTreatment')">
+            <ion-row radio-group formControlName="hasWasteWaterTreatment"
+              [class.invalid]="isValid('hasWasteWaterTreatment')">
 
               <ion-item *ngIf="isValid('hasWasteWaterTreatment')">
                 <span class="invalid-msg">
@@ -155,7 +159,8 @@
 
         <ion-item>
           <ion-label>
-            3.8 <b>ในรอบ 12 เดือนที่ผ่านมา</b>สถานประกอบการนี้มีการนำ<b><br>น้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่</b>หรือไม่
+            3.8 <b>ในรอบ 12
+              เดือนที่ผ่านมา</b>สถานประกอบการนี้มีการนำ<b><br>น้ำที่ผ่านกระบวนการผลิตสินค้าแล้วกลับมาใช้ใหม่</b>หรือไม่
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="wasteWaterReuse" [class.invalid]="isValid('wasteWaterReuse')">
