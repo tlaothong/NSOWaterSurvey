@@ -27,9 +27,9 @@ export class DisasterWarningMethodsComponent {
       'hasOther': [false, Validators],
       'other': [null, Validators],
     },
-    //  {
-    //     validator: DisasterWarningMethodsComponent.checkAnyOrOther()
-    //   }
+      {
+        validator: DisasterWarningMethodsComponent.checkAnyOrOther()
+      }
     );
   }
 

@@ -60,19 +60,19 @@ export class CommunityWaterManagementPage {
     return fb.group({
       'vil': [null, Validators.required],
       'vil_name': [null, Validators.required],
-      'hasPublicWater': [null, Validators],
-      'publicWaterCount': [0, Validators],
+      'hasPublicWater': [null, Validators.required],
+      'publicWaterCount': [0, Validators.required],
       'details': fb.array([]),
-      'pwa': [null, Validators],
-      'mwa': [null, Validators],
-      'otherPlumbing': [null, Validators],
-      'hasWaterService': [null, Validators],
-      'waterServiceCount': [null, Validators],
+      'pwa': [null, Validators.required],
+      'mwa': [null, Validators.required],
+      'otherPlumbing': [null, Validators.required],
+      'hasWaterService': [null, Validators.required],
+      'waterServiceCount': [null, Validators.required],
       'waterServices': fb.array([]),
-      'hasWaterTreatment': [null, Validators],
-      'hasDisaster': [null, Validators],
+      'hasWaterTreatment': [null, Validators.required],
+      'hasDisaster': [null, Validators.required],
       'disasters': NaturalDisasterComponent.CreateFormGroup(fb),
-      'hasDisasterWarning': [null, Validators],
+      'hasDisasterWarning': [null, Validators.required],
       'disasterWarningMethods': DisasterWarningMethodsComponent.CreateFormGroup(fb),
     }, {
         validator: CommunityWaterManagementPage.checkAnyOrOther()
@@ -87,7 +87,7 @@ export class CommunityWaterManagementPage {
       'communityProject': [null],
       'status': null
     })
-    
+
     this.formDataCom$.subscribe(data => {
       if (data != null) {
         this.formDataCom.setValue(data);
@@ -99,7 +99,7 @@ export class CommunityWaterManagementPage {
       if (data != null) {
         this.DataStoreWorkEaOneRecord = data;
         console.log(this.DataStoreWorkEaOneRecord);
-        
+
       }
     });
 
@@ -207,6 +207,15 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
+
+    console.log(this.checkValid());
+    console.log("checkPublicWater = " + this.checkPublicWater());
+    console.log("checkWater = " + this.checkWater());
+    console.log("checkOtherWater = " + this.checkOtherWater());
+    console.log("checkHasDisaster = " + this.checkHasDisaster());
+    console.log("checkHasDisasterWarning = " + this.checkHasDisasterWarning());
+    console.log("checkHas = " + this.checkHas());
+
     if (this.formDataCom.get('_id').value == null) {
       this.formDataCom.get('_id').setValue(Guid.create().toString());
     }
@@ -218,42 +227,93 @@ export class CommunityWaterManagementPage {
       this.CommunityWaterManagement.get('hasWaterService').setValue(null);
       this.CommunityWaterManagement.get('waterServiceCount').setValue(null);
     }
-    if (this.CommunityWaterManagement.valid) {
-      console.log("5555555555555555");
-      let key = this.formDataCom.get('_id').value
-      this.storage.set(key, this.formDataCom.value)
+    if (this.checkValid()) {
+      // let key = this.formDataCom.get('_id').value
+      // this.storage.set(key, this.formDataCom.value)
 
-      console.log(this.formDataCom.value);
+      // console.log(this.formDataCom.value);
 
-      let keyEA = "CL" + this.formDataCom.get('ea').value
-      this.storage.get(keyEA).then((data) => {
-        console.log(data);
+      // let keyEA = "CL" + this.formDataCom.get('ea').value
+      // this.storage.get(keyEA).then((data) => {
+      //   console.log(data);
 
-        let listBD = data
-        if (listBD != null) {
-          let fin = listBD.find(it => it._id == key)
-          if (fin == null) {
-            console.log("1");
+      //   let listBD = data
+      //   if (listBD != null) {
+      //     let fin = listBD.find(it => it._id == key)
+      //     if (fin == null) {
+      //       console.log("1");
 
-            listBD.push(this.formDataCom.value)
-            this.storage.set(keyEA, listBD)
-          } else {
-            console.log("2");
-            let index = listBD.findIndex(it => it._id == key)
-            listBD.splice(index, 1, this.formDataCom.value);
-            // listBD.push(this.formDataCom.value);
-            this.storage.set(keyEA, listBD)
-          }
-        } else {
-          console.log("3");
-          listBD = []
-          listBD.push(this.formDataCom.value)
-          this.storage.set(keyEA, listBD)
-        }
-      })
+      //       listBD.push(this.formDataCom.value)
+      //       this.storage.set(keyEA, listBD)
+      //     } else {
+      //       console.log("2");
+      //       let index = listBD.findIndex(it => it._id == key)
+      //       listBD.splice(index, 1, this.formDataCom.value);
+      //       // listBD.push(this.formDataCom.value);
+      //       this.storage.set(keyEA, listBD)
+      //     }
+      //   } else {
+      //     console.log("3");
+      //     listBD = []
+      //     listBD.push(this.formDataCom.value)
+      //     this.storage.set(keyEA, listBD)
+      //   }
+      // })
 
-      this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
+      // this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
     }
+  }
+
+  public checkValid(): boolean {
+    return this.CommunityWaterManagement.get('vil').valid
+      && this.CommunityWaterManagement.get('vil_name').valid
+      && this.CommunityWaterManagement.get('hasPublicWater').valid
+      && this.checkPublicWater()
+      && this.checkHasDisaster()
+      && this.checkHasDisasterWarning()
+  }
+
+  public checkPublicWater(): boolean {
+    let invalid = this.detailWaterManagement.find(it => it.FormItem.invalid);
+    return (this.CommunityWaterManagement.get('hasPublicWater').value) ? !invalid && this.checkWater() : this.checkWater();
+  }
+
+  public checkWater(): boolean {
+    if (this.MWA) {
+      return this.CommunityWaterManagement.get('mwa').valid
+        && this.CommunityWaterManagement.get('otherPlumbing').valid
+        && this.checkOtherWater();
+
+    }
+    if (this.PWA) {
+      return this.CommunityWaterManagement.get('pwa').valid
+        && this.CommunityWaterManagement.get('otherPlumbing').valid
+        && this.checkOtherWater();
+    }
+  }
+
+  public checkOtherWater(): boolean {
+    let invalid = this.detailOrgWaterSupply.find(it => it.FormItem.invalid);
+    return (this.CommunityWaterManagement.get('otherPlumbing').value && this.CommunityWaterManagement.get('hasWaterService').valid) ?
+      ((this.CommunityWaterManagement.get('hasWaterService').value) ?
+        this.CommunityWaterManagement.get('waterServiceCount').value > 0 && !invalid && this.checkHas() : this.checkHas()) : true;
+
+  }
+
+  private checkHas(): boolean {
+    return this.CommunityWaterManagement.get('hasWaterTreatment').valid
+      && this.CommunityWaterManagement.get('hasDisaster').valid
+      && this.CommunityWaterManagement.get('hasDisasterWarning').valid;
+  }
+
+  public checkHasDisaster(): boolean {
+    let invalid = this.naturalDisaster.find(it => it.FormItem.invalid);
+    return (this.CommunityWaterManagement.get('hasDisaster').value) ? !invalid : true;
+  }
+
+  public checkHasDisasterWarning(): boolean {
+    let invalid = this.disasterWarningMethods.find(it => it.FormItem.invalid)
+    return (this.CommunityWaterManagement.get('hasDisasterWarning').value) ? !invalid : true;
   }
 
   public static checkAnyOrOther(): ValidatorFn {
