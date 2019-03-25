@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { EA } from './bootup.reducer';
+import { EA } from '../../models/mobile/MobileModels';
 
 export enum BootupTypes {
     StateName = "Bootup",

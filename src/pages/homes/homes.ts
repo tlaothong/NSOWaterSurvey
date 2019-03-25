@@ -8,13 +8,15 @@ import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEd
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetRecieveDataFromBuilding, SetHomeBuilding } from '../../states/building/building.actions';
+import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
 import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
 import { shiftInitState } from '@angular/core/src/view';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { getBuildingList } from '../../states/building';
+import { BuildingInList } from '../../models/mobile/MobileModels';
 
 
 
@@ -28,7 +30,7 @@ export class HomesPage {
   formItem: FormGroup;
   office: string = "building";
   x: number = 0;
-  public dataEa: any;
+  // public dataEa: any;
   public datap: any[];
   // public dataWorkEARow: any;
   public str: string;
@@ -42,9 +44,18 @@ export class HomesPage {
   public statusEa: any;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
+  public buildings$ = this.storeBuild.select(getBuildingList);
+  public buildingList$ = this.buildings$;
+  public buildingListAll$;
+  public buildingListRecentlyUse$;
+  public buidlingListPaused$;
+  public buildingListRevisit$;
+
+  public listMode: string = "recent";
 
   constructor(public loadingCtrl: LoadingController,private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();
+    this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
   }
@@ -72,15 +83,7 @@ export class HomesPage {
     //   }
     // });
 
-    var eaCode = this.appState.eaCode;
-
-    this.storage.get(eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
-    });
+    let eaCode = this.appState.eaCode;
 
     this.storage.get("CL" + eaCode).then((val) => {
       if (val != null) {
@@ -97,47 +100,31 @@ export class HomesPage {
     loader.present();
   }
 
-  filterRefresh() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.datap = this.dataEa.filter(it => it.status == "refresh")
-        console.log(this.datap);
-        this.listFilter = this.datap;
-      }
-    });
+  // TODO: Will be handled this
+  initializeItems() {
+    // this.listFilter = this.dataEa;
+    this.buildingListAll$ = this.buildings$;
+    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort(it => -it.buildingId));
+    this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
+    this.buidlingListPaused$ = this.buildings$.map(lst => lst.filter(it => it.status == "pause"));
   }
 
-  filterLastUpdate() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data;
-        this.datap = this.dataEa.sort(it => {
-          return -it.lastUpdate;
-        });
-        this.listFilter = this.datap;
-      }
-    });
-  }
-
-  filterPause() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.datap = this.dataEa.filter(it => it.status == "pause")
-        console.log(this.datap);
-        this.listFilter = this.datap;
-      }
-    });
-  }
-  totalData() {
-    this.storage.get(this.appState.eaCode).then((data) => {
-      if (data != null) {
-        this.dataEa = data
-        this.listFilter = this.dataEa;
-        console.log(this.dataEa)
-      }
-    });
+  switchListMode() {
+    switch (this.listMode) {
+      case "recent":
+        this.buildingList$ = this.buildingListRecentlyUse$;
+        break;
+      case "paused":
+        this.buildingList$ = this.buidlingListPaused$;
+        break;
+      case "revisit":
+        this.buildingList$ = this.buildingListRevisit$;
+        break;
+    
+      default: // all
+        this.buildingList$ = this.buildingListAll$;
+        break;
+    }
   }
 
   changeNum(num: string) {
@@ -146,7 +133,8 @@ export class HomesPage {
 
   goBuildingInfo() {
     if (this.num == '1') {
-      this.storeBuild.dispatch(new SetHomeBuilding(null));
+      // this.storeBuild.dispatch(new SetHomeBuilding(null));
+      this.storeBuild.dispatch(new NewBuilding());
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.num == '2') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
@@ -155,75 +143,47 @@ export class HomesPage {
     }
   }
 
-  goEditBuildingInfo(item: any, no: number) {
+  goEditBuildingInfo(item: BuildingInList, no: number) {
     if (this.num == '1') {
-      //this.swith.updateBuildingState(item._id);
-      this.storage.get(item._id).then((val) => {
-        console.log(val);
-        this.storeBuild.dispatch(new SetHomeBuilding(val));
-        this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
-        // switch (val.status) {
-        //   case 'refresh':
-        //     this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
-        //     break;
-        //   case 'pause':
-        //     this.navCtrl.push("UnitPage");
-        //     break;
-        //   default:
-        //     break;
-        // }
-      })
+      this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
+      this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
+
+      // //this.swith.updateBuildingState(item._id);
+      // this.storage.get(item.buildingId).then((val) => {
+      //   console.log(val);
+      //   this.storeBuild.dispatch(new SaveBuilding(val));
+      //   this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
+      //   // switch (val.status) {
+      //   //   case 'refresh':
+      //   //     this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
+      //   //     break;
+      //   //   case 'pause':
+      //   //     this.navCtrl.push("UnitPage");
+      //   //     break;
+      //   //   default:
+      //   //     break;
+      //   // }
+      // })
     }
     else if (this.num == '2') {
       console.log(item);
-      this.storage.get(item).then((val) => {
-        console.log(val);
-        this.storeLogging.dispatch(new LoadCommunityForEditSuccess(val));
-        this.navCtrl.push("CommunityTestPage", { no: no.toString() })
-      });
+      // this.storage.get(item).then((val) => {
+      //   console.log(val);
+      //   this.storeLogging.dispatch(new LoadCommunityForEditSuccess(val));
+      //   this.navCtrl.push("CommunityTestPage", { no: no.toString() })
+      // });
     }
-    this.presentLoading();
-
+    // this.presentLoading();
   }
 
-  async presentAlertBD(id) {
+  async presentAlertBD(item) {
     const alert = await this.alertController.create({
       title: 'ต้องการจะลบใช่หรือไม่',
       buttons: [
         {
           text: 'ยืนยัน',
           handler: data => {
-            this.storage.get(this.appState.eaCode).then((data) => {
-              if (data != null) {
-                let list = data
-                let index = list.findIndex(it => it._id == id)
-                list.splice(index, 1)
-                if (data == []) {
-                  this.storage.remove(this.appState.eaCode);
-                }
-                this.storage.set(this.appState.eaCode, list)
-              }
-            });
-            this.storage.remove(id);
-            this.storage.get("BL" + id).then((val) => {
-              if (val != null) {
-                let listHH = val;
-                listHH.forEach(it => {
-                  this.storage.remove(it._id);
-                  this.storage.remove("BL" + id);
-                });
-              }
-            })
-            // this.store.dispatch(new LoadHomeBuilding(this.appState.eaCode));
-            this.storage.get(this.appState.eaCode).then((data) => {
-              if (data != null) {
-                this.dataEa = data
-                this.listFilter = this.dataEa;
-                console.log(this.dataEa)
-              }
-            });
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
-
+            this.store.dispatch(new DeleteBuilding(item))
           }
         },
         {
@@ -285,21 +245,16 @@ export class HomesPage {
     this.presentAlertCM(id)
   }
 
-  initializeItems() {
-    this.listFilter = this.dataEa;
-  }
-
   searchItem(ev) {
     this.initializeItems();
-    // // set val to the value of the ev target
-    var val = ev.target.value;
-    // // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.listFilter = this.dataEa.filter((item) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1
-          || item.houseNo.toLowerCase().indexOf(val.toLowerCase()) > -1
-        );
-      });
+
+    let val = '';
+    if (ev.target && ev.target.value) {
+      val = ev.target.value.toLowerCase();
     }
+    this.buildingList$ = this.buildingListAll$.map(lst => lst.filter(it => 
+        it.name.toLowerCase().indexOf(val) > -1
+        || it.houseNo.toLowerCase().indexOf(val) > -1
+      ));
   }
 }

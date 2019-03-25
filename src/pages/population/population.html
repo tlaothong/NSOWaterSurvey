@@ -8,7 +8,7 @@
 
   <h3>แบบข้อมูลประชากร</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.population">
     <ion-card>
       <ion-card-content>
         <ion-item>
@@ -45,8 +45,15 @@
 
         <div *ngIf="f.get('personCount').value > 0" [class.invalid]="!isCheckHaveHeadfamily()">
           <div *ngFor="let far of f.get('persons').controls; let i = index">
-            <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')" [ProName]="proName">
-            </table-population>
+            <ion-row>
+              <ion-col col-11>
+                <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')" [ProName]="proName">
+                </table-population>
+              </ion-col>
+              <ion-col col-1>
+                <button ion-button color="danger" (click)="deleteData(i)">ลบข้อมูล</button>
+              </ion-col>
+            </ion-row>
           </div>
           <ion-item *ngIf="!isCheckHaveHeadfamily()">
             <span class="invalid-msg" item-right>

@@ -7,7 +7,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="f" (ngSubmit)="handleSubmit()">
+  <form [formGroup]="f" (ngSubmit)="handleSubmit()" [rx-form-data]="formData$ | async">
     <ion-card>
       <ion-card-content>
 

@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="Disasterous">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="Disasterous" [rx-form-data]="(formData$ | async)?.disaster">
 
     <h3>ตอนที่ 6 ปัญหาอุทกภัย</h3>
 

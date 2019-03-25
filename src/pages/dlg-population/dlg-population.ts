@@ -62,7 +62,7 @@ export class DlgPopulationPage {
       setTimeout(() => {
         this.nation.open();
         console.log(this.nation);
-      }, 500 );
+      }, 500);
     }
   }
 
@@ -100,7 +100,11 @@ export class DlgPopulationPage {
       || ((this.FormItem.get('otherProvince').value != null) && (this.FormItem.get('otherProvince').value == this.proName))) {
       return true
     }
+    if (((this.FormItem.get('birthDate').value == 30 || this.FormItem.get('birthDate').value == 31) && (this.FormItem.get('birthMonth').value == 2))) {
+      return true;
+    }
     return false;
+
   }
 
   public isCheckHeadfamily(): boolean {
@@ -114,12 +118,12 @@ export class DlgPopulationPage {
   }
 
   public CalculateAge() {
-    this.dateTime.setFullYear(2019, 3, 30);
+    this.dateTime.setFullYear(2019, 4, 30);
 
-    let birthDate = this.FormItem.get('birthDate').value;
-    let birthMonth = this.FormItem.get('birthMonth').value - 1;
+    let birthDate = this.FormItem.get('birthDate').value || 99;
+    let birthMonth = this.FormItem.get('birthMonth').value || 99;
     let birthYear = this.FormItem.get('birthYear').value + 1457;
-
+    
     let age = this.dateTime.getFullYear() - birthYear;
 
     if (birthDate == 99) birthDate = 0;

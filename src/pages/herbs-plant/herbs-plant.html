@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <h3>ตอนที่ 2.5 พืชผัก สมุนไพร</h3>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.agriculture?.herbsPlant">
 
     <ion-card>
       <ion-card-content>

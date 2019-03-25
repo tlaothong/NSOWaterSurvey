@@ -8,7 +8,7 @@
 
   <h3>5.3 น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.waterUsage?.river">
 
     <ion-card>
       <ion-card-content>
@@ -72,7 +72,7 @@
           activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}" activRice="{{activityRice}}"
           activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}">
         </water-activity6>
-        <water-problem4 headline="5.3.5 มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="f.get('qualityProblem')"></water-problem4>
+        <water-problem4 headline="5.3.4 มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="f.get('qualityProblem')"></water-problem4>
       </ion-card-content>
     </ion-card>
 

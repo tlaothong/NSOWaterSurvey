@@ -1,28 +1,27 @@
-import { BuildingActionsType, BuildingTypes } from "./building.actions";
+import { BuildingActionsType, BuildingTypes, LoadBuildingListSuccess } from "./building.actions";
+import { BuildingInList, Building } from "../../models/mobile/MobileModels";
 
 
 export interface BuildingState {
-    units: any,
-    buildingSample: any,
+    buildings: BuildingInList[],
+    buildingSample: Building,
     sendDataBuilding: any,
     sendBuildingType: any,
     recieveDataFromBuilding: any,
     setDataBuilding: any,
     otherBuildingType: any,
-
-
+    unitCount: number,
 }
 
 const initialState: BuildingState = {
-    units: [],
+    buildings: [],
     buildingSample: null,
     sendDataBuilding: null,
     sendBuildingType: null,
     recieveDataFromBuilding: null,
     setDataBuilding: null,
     otherBuildingType: null,
-
-
+    unitCount: 0,
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -30,6 +29,7 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
         case BuildingTypes.LoadListSuccess:
             return {
                 ...state,
+                buildings: (<LoadBuildingListSuccess>action).payload,
             };
         case BuildingTypes.LoadSuccess:
             return {
@@ -53,9 +53,9 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 sendBuildingType: action.payload,
             };
         //------bigest---------
-        case BuildingTypes.SetHomeBuildingSuccess:
+        case BuildingTypes.SaveBuildingSuccess:
             let b = switchStateBuilding(action.payload);
-            console.log(JSON.stringify(action.payload));
+            // console.log(JSON.stringify(action.payload));
 
             return {
                 ...state,
@@ -63,7 +63,8 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 buildingSample: action.payload,
                 sendBuildingType: b.sendBuildingType,
                 otherBuildingType: b.otherBuildingType,
-                recieveDataFromBuilding: b.recieveDataFromBuilding
+                recieveDataFromBuilding: b.recieveDataFromBuilding,
+                unitCount: action.payload ? action.payload.unitCount : 0,
             };
         //--------------------
         case BuildingTypes.SetOtherBuildingType:

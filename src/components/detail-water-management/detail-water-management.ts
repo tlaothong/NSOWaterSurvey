@@ -29,7 +29,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       'useForFarming': [false, Validators],
       'useForService': [false, Validators],
       'useForOther': [false, Validators],
-      'other': [false, Validators],
+      'other': [null, Validators],
       'projectArea': PoolAreaForCommuComponent.CreateFormGroup(fb),
     }, {
         validator: DetailWaterManagementComponent.checkAnyOrOther()

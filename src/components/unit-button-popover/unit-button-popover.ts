@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the UnitButtonPopoverComponent component.
@@ -15,13 +15,22 @@ export class UnitButtonPopoverComponent {
 
   text: string;
 
-  constructor(private viewCtrl: ViewController) {
+  constructor(private viewCtrl: ViewController, public alertController: AlertController) {
     console.log('Hello UnitButtonPopoverComponent Component');
     this.text = 'Hello World';
   }
 
-  dissMissSetting(text:string) {
+  dissMissSetting(text: string) {
     this.viewCtrl.dismiss(text);
+
+  }
+
+  async alertDeleteUnit() {
+    const alert = this.alertController.create({
+      title: 'ฟังก์ชั่น Delete Unit ยังไม่พร้อมใช้งาน',
+      buttons: ['OK']
+    });
+    await alert.present();
 
   }
 

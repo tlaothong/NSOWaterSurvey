@@ -8,6 +8,8 @@ import { getUserData } from '../../states/logging';
 import { map, delay } from 'rxjs/operators';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Storage } from '@ionic/storage';
+import { stringify } from '@angular/core/src/render3/util';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -22,7 +24,10 @@ export class ScanqrPage {
   private formDataUser$ = this.store.select(getUserData);
   public userObj:any
   private formData$ = this.store.select(getUserData).pipe(map(s => s));
-  constructor(public navCtrl: NavController, private storage: Storage, private alertCtrl: AlertController, private platform: Platform, private qrScanner: QRScanner, public navParams: NavParams, private store: Store<LoggingState>) {
+  constructor(public navCtrl: NavController, private storage: Storage, 
+      private alertCtrl: AlertController, private platform: Platform, 
+      private qrScanner: QRScanner, public navParams: NavParams, 
+      private store: Store<LoggingState>, private appState: AppStateProvider) {
   }
 
   ionViewDidLoad() {
@@ -57,11 +62,13 @@ export class ScanqrPage {
             // start scanning
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
               //alert(text);
-              if (text == "40500841234") {
+              if (text.length >= 7) {
                 let alert = this.alertCtrl.create({
                   title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
                 });
                 alert.present();
+
+                this.appState.userId = text.substr(0, 7);
                 // this.store.dispatch(new LoadUserDataByQRCode(text));
                 // this.store.dispatch(new LoadUserDataById("4050084"));
                 // this.formDataUser$.subscribe(data => {
@@ -76,7 +83,7 @@ export class ScanqrPage {
                   alert.dismiss();
                   // this.navCtrl.push("ConfirmloginPage");
                   this.navCtrl.push("ConfirmloginPage")
-                }, 2000);
+                }, 900);
                 // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
               } else {
                 let alert = this.alertCtrl.create({

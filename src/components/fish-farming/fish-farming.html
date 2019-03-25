@@ -77,6 +77,12 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
+        <ion-item *ngIf="FormItem.get('fieldCount').value > 20">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนบ่อหรือร่องสวนมีเยอะผิดปกติหรือไม่
+          </span>
+        </ion-item>
 
         <ion-item>
           <ion-label>
@@ -112,7 +118,7 @@
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
       <div *ngSwitchCase="true">
         <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน" head="ขนาดบ่อหรือร่องสวนที่ "
-          [FormItem]="FormItem.get('fields').at(0)"></pool-area>
+          [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
       </div>
       <div *ngSwitchCase="false">
         <div *ngFor="let pool of FormItem.get('fields').controls; let i= index">
@@ -139,12 +145,23 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-        <ion-item *ngIf="FormItem.get('animalsCount').value > 9999">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
-            กรุณาตรวจสอบจำนวนที่เลี้ยงมีจำนวนที่เยอะผิดปกติหรือไม่
-          </span>
-        </ion-item>
+        <div *ngIf="type != 'กก.'">
+          <ion-item *ngIf="FormItem.get('animalsCount').value > 9999">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนที่เลี้ยงมีจำนวนผิดปกติหรือไม่
+            </span>
+          </ion-item>
+        </div>
+        <div *ngIf="type == 'กก.'">
+          <ion-item
+            *ngIf="FormItem.get('animalsCount').value > 100 || FormItem.get('animalsCount').value < 0.5 && FormItem.get('animalsCount').value > 0">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนที่เลี้ยงมีจำนวนผิดปกติหรือไม่
+            </span>
+          </ion-item>
+        </div>
       </ion-card-content>
     </ion-card>
 

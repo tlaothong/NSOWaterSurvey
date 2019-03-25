@@ -7,7 +7,7 @@
 <ion-content padding>
 
   <h3>5.7 น้ำที่ซื้อมาใช้</h3>
-  <form (ngSubmit)="handleSubmit()">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="BuyingForm" [rx-form-data]="(formData$ | async)?.waterUsage?.buying">
 
     <ion-card>
       <ion-card-content>
@@ -57,24 +57,33 @@
           </ion-col>
         </ion-row>
 
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="1. ขวด" size="350" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(0)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="2. ขวด" size="500" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(1)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="3. ขวด" size="750" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(2)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="4. ขวด" size="1000" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(3)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="5. ขวด" size="1500" volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(4)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="6. ถัง" [FormItem]="BuyingForm.get('package').at(5)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="7. แทงค์" [FormItem]="BuyingForm.get('package').at(6)"></table-buying>
-        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" headline="8. รถ" [FormItem]="BuyingForm.get('package').at(7)"></table-buying>
-        <table-buying-other getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}" getIsFactorial="{{getIsFactorial}}"
-          getIsCommercial="{{getIsCommercial}}" [FormItem]="BuyingForm.get('package').at(8)"></table-buying-other>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="1. ขวด" size="350"
+          volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(0)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="2. ขวด" size="500"
+          volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(1)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="3. ขวด" size="750"
+          volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(2)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="4. ขวด" size="1000"
+          volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(3)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="5. ขวด" size="1500"
+          volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(4)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="6. ถัง"
+          [FormItem]="BuyingForm.get('package').at(5)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="7. แทงค์"
+          [FormItem]="BuyingForm.get('package').at(6)"></table-buying>
+        <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="8. รถ"
+          [FormItem]="BuyingForm.get('package').at(7)"></table-buying>
+        <table-buying-other getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
+          getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}"
+          [FormItem]="BuyingForm.get('package').at(8)"></table-buying-other>
 
       </ion-card-content>
     </ion-card>
