@@ -89,11 +89,11 @@ export class PoolAreaComponent implements ISubmitRequestable {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.depth && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'width') {
+    if (name == 'rectangle.width') {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.width && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'length') {
+    if (name == 'rectangle.length') {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.length && (ctrl.dirty || this.submitRequested);
     }
@@ -119,7 +119,6 @@ export class PoolAreaComponent implements ISubmitRequestable {
     this.submitRequested = true;
     this.fieldArea.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
-
   }
 
 

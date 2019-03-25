@@ -19,7 +19,8 @@
     <ion-item *ngIf="isValid('width')">
       <span class="invalid-msg">กรุณากรอกข้อมูล</span>
     </ion-item>
-    <ion-item *ngIf="FormItem.get('width').value > 100 || (FormItem.get('width').value < 0.5 &&  FormItem.get('width').value > 0)">
+    <ion-item
+      *ngIf="FormItem.get('width').value > 100 || (FormItem.get('width').value < 0.5 &&  FormItem.get('width').value > 0)">
       <ion-icon md="md-warning"></ion-icon>
       <span class="invalid-msg">
         กรุณาตรวจสอบความกว้างมีขนาดผิดปกติหรือไม่
@@ -34,7 +35,8 @@
     <ion-item *ngIf="isValid('length')">
       <span class="invalid-msg">กรุณากรอกข้อมูล</span>
     </ion-item>
-    <ion-item *ngIf="FormItem.get('length').value > 100 || (FormItem.get('length').value < 0.5 &&  FormItem.get('length').value > 0)">
+    <ion-item
+      *ngIf="FormItem.get('length').value > 100 || (FormItem.get('length').value < 0.5 &&  FormItem.get('length').value > 0)">
       <ion-icon md="md-warning"></ion-icon>
       <span class="invalid-msg">
         กรุณาตรวจสอบความยาวมีขนาดผิดปกติหรือไม่
@@ -47,7 +49,7 @@
           <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="FormItem.invalid">ตกลง</button>
+          <button ion-button block [disabled]="isValid('width') || isValid('length')">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>
