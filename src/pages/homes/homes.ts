@@ -41,7 +41,7 @@ export class HomesPage {
   private dataBuilding$ = this.storeLogging.select(getHomeBuilding);
   private dataCommunity$ = this.storeLogging.select(getLoadCommunity);
   private dataCommunity: any;
-  public statusEa: any;
+  public statusEa: any = 1;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
   public buildings$ = this.storeBuild.select(getBuildingList);
@@ -53,7 +53,7 @@ export class HomesPage {
 
   public listMode: string = "recent";
 
-  constructor(public loadingCtrl: LoadingController,private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
     this.initializeItems();
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
@@ -72,14 +72,14 @@ export class HomesPage {
     // this.DataStoreWorkEaOneRecord$.subscribe(data => {
     //   if (data != null) {
     //     this.dataWorkEARow = data
-        // this.statusEa = data.properties.ea_type;
-        // console.log(this.dataWorkEARow);
-        // console.log(this.statusEa);
+    // this.statusEa = data.properties.ea_type;
+    // console.log(this.dataWorkEARow);
+    // console.log(this.statusEa);
 
-        // this.str = data._id.substring(1, 7);
-        // console.log(this.str);
+    // this.str = data._id.substring(1, 7);
+    // console.log(this.str);
 
-        // this.store.dispatch(new SetIdEaWorkHomes(this.str));
+    // this.store.dispatch(new SetIdEaWorkHomes(this.str));
     //   }
     // });
 
@@ -98,6 +98,11 @@ export class HomesPage {
       duration: 2000
     });
     loader.present();
+  }
+
+  changeEaStatus() {
+    this.statusEa = 2
+    console.log(this.statusEa);
   }
 
   // TODO: Will be handled this
@@ -120,7 +125,7 @@ export class HomesPage {
       case "revisit":
         this.buildingList$ = this.buildingListRevisit$;
         break;
-    
+
       default: // all
         this.buildingList$ = this.buildingListAll$;
         break;
@@ -237,8 +242,8 @@ export class HomesPage {
     await alert.present();
   }
 
-  DeleteBuilding(id: string) {
-    this.presentAlertBD(id)
+  DeleteBuilding(item: any) {
+    this.presentAlertBD(item)
   }
 
   deleteCommu(id: string) {
@@ -252,9 +257,9 @@ export class HomesPage {
     if (ev.target && ev.target.value) {
       val = ev.target.value.toLowerCase();
     }
-    this.buildingList$ = this.buildingListAll$.map(lst => lst.filter(it => 
-        it.name.toLowerCase().indexOf(val) > -1
-        || it.houseNo.toLowerCase().indexOf(val) > -1
-      ));
+    this.buildingList$ = this.buildingListAll$.map(lst => lst.filter(it =>
+      it.name.toLowerCase().indexOf(val) > -1
+      || it.houseNo.toLowerCase().indexOf(val) > -1
+    ));
   }
 }

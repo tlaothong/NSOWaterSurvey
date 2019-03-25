@@ -80,7 +80,7 @@ export class BuildingEffects {
         map((action: DeleteBuilding) => action.payload),
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA)),
         mergeMap(([bld, lst, ea]) => {
-            let idx = lst.findIndex(it => it.buildingId == bld._id);
+            let idx = lst.findIndex(it => it.buildingId == bld.buildingId);
             lst.splice(idx, 1);
             return this.dataStore.saveBuildingList(ea.code, lst).mapTo(lst);
         }),
