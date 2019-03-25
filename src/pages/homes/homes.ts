@@ -35,7 +35,7 @@ export class HomesPage {
   // public dataWorkEARow: any;
   public str: string;
   public comunity: any;
-  public num: string = "1";
+  // public num: string = "1";
   public listFilter: any;
   private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.storeLogging.select(getHomeBuilding);
@@ -127,16 +127,16 @@ export class HomesPage {
     }
   }
 
-  changeNum(num: string) {
-    this.num = num;
-  }
+  // changeNum(num: string) {
+  //   this.num = num;
+  // }
 
   goBuildingInfo() {
-    if (this.num == '1') {
+    if (this.office == 'building') {
       // this.storeBuild.dispatch(new SetHomeBuilding(null));
       this.storeBuild.dispatch(new NewBuilding());
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
-    } else if (this.num == '2') {
+    } else if (this.office == 'areayoi') {
       let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.storeLogging.dispatch(new LoadCommunityForEditSuccess(null));
       this.navCtrl.push("CommunityTestPage", { id: null, no: no.toString() })
@@ -144,7 +144,7 @@ export class HomesPage {
   }
 
   goEditBuildingInfo(item: BuildingInList, no: number) {
-    if (this.num == '1') {
+    if (this.office == 'building') {
       this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
       this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
 
@@ -165,7 +165,7 @@ export class HomesPage {
       //   // }
       // })
     }
-    else if (this.num == '2') {
+    else if (this.office == 'areayoi') {
       console.log(item);
       // this.storage.get(item).then((val) => {
       //   console.log(val);
