@@ -21,17 +21,17 @@ export class DetailOrgWaterSupplyComponent implements ISubmitRequestable {
     return fb.group({
       'name': [null, Validators],
       'hasSurfaceWater': [null, Validators],
-      'surfaceWaterPerMonth': [null, Validators],
+      'surfaceWaterPerMonth': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
       'useGroundWater': [null, Validators],
       'groundWaterCount': [null, Validators],
-      'groundWaterUsePerMonth': [null, Validators],
-      'plumbingPrice': [null, Validators],
-      'meterRentalFee': [null, Validators],
+      'groundWaterUsePerMonth': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'plumbingPrice': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'meterRentalFee': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
       'disinfection': [0, Validators],
       'otherDisinfection': [null, Validators],
-    },{
-      validator:DetailOrgWaterSupplyComponent.checkAnyOrOther()
-    });
+    }, {
+        validator: DetailOrgWaterSupplyComponent.checkAnyOrOther()
+      });
   }
 
   public isValid(name: string): boolean {

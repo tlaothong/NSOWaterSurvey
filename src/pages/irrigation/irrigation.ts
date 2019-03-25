@@ -62,7 +62,7 @@ export class IrrigationPage {
 
     this.f = this.fb.group({
       'hasCubicMeterPerMonth': [null, Validators],
-      'cubicMeterPerMonth': [null, Validators],
+      'cubicMeterPerMonth': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
       'pumps': this.fb.array([]),

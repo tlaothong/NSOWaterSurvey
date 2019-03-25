@@ -15,7 +15,8 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="name" [class.invalid]="isValid('name')" type="text" placeholder="กรอกข้อมูล"></ion-input>
+        <ion-input formControlName="name" [class.invalid]="isValid('name')" type="text" placeholder="กรอกข้อมูล">
+        </ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('name')">
         <span class="invalid-msg">
@@ -55,12 +56,18 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="surfaceWaterPerMonth" [class.invalid]="isValid('surfaceWaterPerMonth')" type="text"
-            placeholder="กรอกข้อมูล"></ion-input>
+          <ion-input formControlName="surfaceWaterPerMonth" [class.invalid]="isValid('surfaceWaterPerMonth')"
+            type="text" placeholder="กรอกข้อมูล"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('surfaceWaterPerMonth')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
+          </span>
+        </ion-item>
+        <ion-item *ngIf="FormItem.get('surfaceWaterPerMonth').value > 5 ">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนหน่วยงานมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
@@ -112,12 +119,18 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="groundWaterUsePerMonth" [class.invalid]="isValid('groundWaterUsePerMonth')" type="text"
-            placeholder="กรอกข้อมูล"></ion-input>
+          <ion-input formControlName="groundWaterUsePerMonth" [class.invalid]="isValid('groundWaterUsePerMonth')"
+            type="text" placeholder="กรอกข้อมูล"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('groundWaterUsePerMonth')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
+          </span>
+        </ion-item>
+        <ion-item *ngIf="FormItem.get('groundWaterUsePerMonth').value > 5 ">
+          <ion-icon md="md-warning"></ion-icon>
+          <span class="invalid-msg">
+            กรุณาตรวจสอบจำนวนหน่วยงานมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
@@ -128,11 +141,18 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="plumbingPrice" [class.invalid]="isValid('plumbingPrice')" type="text" placeholder="กรอกข้อมูล"></ion-input>
+        <ion-input formControlName="plumbingPrice" [class.invalid]="isValid('plumbingPrice')" type="text"
+          placeholder="กรอกข้อมูล"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('plumbingPrice')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('groundWaterUsePerMonth').value > 100 ">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบจำนวนราคาต่อหน่วยมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
 
@@ -142,11 +162,18 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="meterRentalFee" [class.invalid]="isValid('meterRentalFee')" type="text" placeholder="กรอกข้อมูล"></ion-input>
+        <ion-input formControlName="meterRentalFee" [class.invalid]="isValid('meterRentalFee')" type="text"
+          placeholder="กรอกข้อมูล"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('meterRentalFee')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('meterRentalFee').value > 1000 ">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบจำนวนค่าเช่ามิเตอร์ต่อเดือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
 
@@ -186,7 +213,8 @@
           <ion-label>
             ระบุวิธีการฆ่าเชื้อ
           </ion-label>
-          <ion-input type="text" [class.invalid]="isValid('otherDisinfection')" formControlName="otherDisinfection"></ion-input>
+          <ion-input type="text" [class.invalid]="isValid('otherDisinfection')" formControlName="otherDisinfection">
+          </ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('otherDisinfection')" class="invalid-msg">
           <span>

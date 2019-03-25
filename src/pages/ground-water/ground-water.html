@@ -47,6 +47,12 @@
             <ion-item *ngIf="isValid('privateGroundWater.allCount')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
+            <ion-item *ngIf="f.get('privateGroundWater.allCount').value > 10">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนบ่อมีเยอะผิดปกติหรือไม่
+              </span>
+            </ion-item>
 
             <ion-item>
               <ion-label>
@@ -122,6 +128,12 @@
             <ion-item *ngIf="isValid('publicGroundWater.waterResourceCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="f.get('publicGroundWater.waterResourceCount').value > 10">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนบ่อมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>

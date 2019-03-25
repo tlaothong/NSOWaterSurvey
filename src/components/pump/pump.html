@@ -32,10 +32,17 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="hoursPerPump" [class.invalid]="isValid('hoursPerPump')"></ion-input>
+        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="hoursPerPump"
+          [class.invalid]="isValid('hoursPerPump')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('hoursPerPump')">
         <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('hoursPerPump').value > 24 || (FormItem.get('hoursPerPump').value < 0.1 &&  FormItem.get('hoursPerPump').value > 0)">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบระยะเวลาในการสูบน้ำมีเยอะผิดปกติหรือไม่
+        </span>
       </ion-item>
 
       <ion-item>
@@ -44,10 +51,17 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="numberOfPumpsPerYear" [class.invalid]="isValid('numberOfPumpsPerYear')"></ion-input>
+        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="numberOfPumpsPerYear"
+          [class.invalid]="isValid('numberOfPumpsPerYear')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('numberOfPumpsPerYear')">
         <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('numberOfPumpsPerYear').value > 365">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบระยะเวลา 1 ปีสูบน้ำกี่ครั้งมีเยอะผิดปกติหรือไม่
+        </span>
       </ion-item>
 
       <ion-item>
@@ -77,10 +91,17 @@
       <div [ngSwitch]="FormItem.get('hasPumpRate').value">
         <div *ngSwitchCase="true">
           <ion-item>
-            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="pumpRate" [class.invalid]="isValid('pumpRate')"></ion-input>
+            <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="pumpRate"
+              [class.invalid]="isValid('pumpRate')"></ion-input>
           </ion-item>
           <ion-item *ngIf="isValid('pumpRate')">
             <span class="invalid-msg">กรุณากรอกข้อมูล</span>
+          </ion-item>
+          <ion-item *ngIf="FormItem.get('pumpRate').value > 50">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบอัตราการสูบน้ำมีเยอะผิดปกติหรือไม่
+            </span>
           </ion-item>
         </div>
       </div>
@@ -92,7 +113,8 @@
           </ion-label>
         </ion-item>
 
-        <ion-row radio-group formControlName="energySource" [class.invalid]="isValid('energySource')" (ionChange)="onChange($event)">
+        <ion-row radio-group formControlName="energySource" [class.invalid]="isValid('energySource')"
+          (ionChange)="onChange($event)">
           <ion-item *ngIf="isValid('energySource')">
             <span class="invalid-msg">กรุณาเลือก</span>
           </ion-item>
@@ -184,7 +206,7 @@
         <ion-item [class.invalid]="isValid('pipelineSize')">
           <ion-label>ขนาดท่อส่ง (นิ้ว)</ion-label>
           <ion-select interface="action-sheet" formControlName="pipelineSize">
-            <ion-option *ngFor="let item of pipeLineData">{{item.name}}</ion-option> 
+            <ion-option *ngFor="let item of pipeLineData">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
       </div>

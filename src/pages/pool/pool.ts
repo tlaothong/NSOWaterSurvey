@@ -67,7 +67,7 @@ export class PoolPage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'poolCount': [null, [Validators.required, Validators.min(1)]],
+      'poolCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'hasSameSize': [true, Validators.required],
       'poolSizes': this.fb.array([]),
       'waterResourceCount': [null, Validators.required],

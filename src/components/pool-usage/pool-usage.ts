@@ -38,14 +38,14 @@ export class PoolUsageComponent implements ISubmitRequestable {
   constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = '1';
     this.FormItem = PoolUsageComponent.CreateFormGroup(this.fb)
-  
-    
+
+
   }
-  
+
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
       'hasCubicMeterPerMonth': [null, Validators.required],
-      'cubicMeterPerMonth': [null, [Validators.required, Validators.min(1)]],
+      'cubicMeterPerMonth': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'hasPump': [null, Validators.required],
       'pumpCount': [0, [Validators.required, Validators.min(1)]],
       'pumps': fb.array([]),
@@ -57,7 +57,7 @@ export class PoolUsageComponent implements ISubmitRequestable {
     PoolUsageComponent.setupPumpCountChanges(fb, fg);
     return fg;
   }
- 
+
   submitRequest() {
     this.submitRequested = true;
     this.pump.forEach(it => it.submitRequest());

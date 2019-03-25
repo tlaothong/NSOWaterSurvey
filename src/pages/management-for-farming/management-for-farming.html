@@ -52,6 +52,12 @@
               กรุณากรอกข้อมูล
             </span>
           </ion-item>
+          <ion-item *ngIf="managementforfarming.get('projectCount').value > 5 ">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนโครงการมีเยอะผิดปกติหรือไม่
+            </span>
+          </ion-item>
 
         </div>
 
