@@ -48,7 +48,6 @@ export class PopulationPage {
       'persons': this.fb.array([])
     });
     console.log(this.getMemberCount$);
-
     this.getMember();
   }
 

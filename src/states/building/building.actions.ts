@@ -142,3 +142,16 @@ export type BuildingActionsType =
     | DeleteBuilding
    
     ;
+
+export interface BuildingInList {
+    buildingId: string;
+    houseNo: string;
+    name: string;
+    completedCount: number;
+    unitCount: number;
+}
+
+export interface CommunityInList {
+    vil: string;
+    name: string;
+}

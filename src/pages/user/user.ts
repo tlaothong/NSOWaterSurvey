@@ -83,6 +83,34 @@ export class UserPage {
     }
   }
 
+  // public updateUnitCountComplete() {
+  //   this.storage.get(this.formData.buildingId).then((val) => {
+  //     if (val != null) {
+  //       let building = val;
+  //       if (this.formData.status == "complete" && this.oldStatus != "complete") {
+  //         building.unitCountComplete++;
+  //         if (building.unitCountComplete == building.unitCount) {
+  //           building.status = "done-all";
+  //         }
+  //       }
+  //       else if (this.formData.status != "complete" && this.oldStatus == "complete") {
+  //         building.unitCountComplete--;
+  //         if (building.status == "done-all") {
+  //           building.status = "pause";
+  //         }
+  //       }
+  //       this.storage.set(this.formData.buildingId, building);
+  //       this.storage.get(building.ea).then((val) => {
+  //         let BDlist = val
+  //         let index = BDlist.findIndex(it => it._id == building._id)
+  //         BDlist.splice(index, 1, building);
+  //         // BDlist.push(building)
+  //         this.storage.set(building.ea, BDlist)
+  //       })
+  //     }
+  //   });
+  // }
+
   countNumberPage() {
     console.log("onSubmit ");
     let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));

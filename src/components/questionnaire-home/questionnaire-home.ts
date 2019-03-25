@@ -27,7 +27,7 @@ export class QuestionnaireHomeComponent {
     const mapPage = 'EaMapPage';
     const ea$ = this.currentEA$.take(1).subscribe(ea => {
       if (ea.Center) {
-        this.navCtrl.push(mapPage, { lat: ea.Center.coordinates[1], lng: ea.Center.coordinates[0] });
+        this.navCtrl.push(mapPage, { lat: ea.Center[0].value[1], lng: ea.Center[0].value[0] });
       } else {
         const alertNoMap = this.alertCtrl.create({
           title: "ไม่มีแผนที่",
