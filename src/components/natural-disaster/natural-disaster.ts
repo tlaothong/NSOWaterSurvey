@@ -26,11 +26,11 @@ export class NaturalDisasterComponent {
       'epidemic': [false, Validators],
       'pest': [false, Validators],
       'epizootics': [false, Validators],
-    }, 
-    // {
-    //     validator: NaturalDisasterComponent.checkAnyOrOther()
-    //   }
-      );
+    },
+      {
+        validator: NaturalDisasterComponent.checkAnyOrOther()
+      }
+    );
   }
 
   public static checkAnyOrOther(): ValidatorFn {
