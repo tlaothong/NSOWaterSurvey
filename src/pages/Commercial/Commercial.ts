@@ -51,26 +51,26 @@ export class CommercialPage {
         'highSchool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'vocational': TableCheckItemCountComponent.CreateFormGroup(this.fb),
         'higherEducation': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-        'personnelCount': [null, Validators],
+        'personnelCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       }),
       'hotelsAndResorts': this.fb.group({
-        'roomCount': [null, Validators],
-        'personnelCount': [null, Validators],
+        'roomCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+        'personnelCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       }),
       'hospital': this.fb.group({
-        'bedCount': [null, Validators],
-        'personnelCount': [null, Validators],
+        'bedCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+        'personnelCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       }),
       'building': this.fb.group({
-        'roomCount': [null, Validators],
+        'roomCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
         'occupiedRoomCount': [null, Validators],
-        'personnelCount': [null, Validators],
+        'personnelCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       }),
       'religious': this.fb.group({
-        'peopleCount': [null, Validators],
+        'peopleCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       }),
       'otherBuilding': this.fb.group({
-        'personnelCount': [null, Validators],
+        'personnelCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       }),
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
     }, {
