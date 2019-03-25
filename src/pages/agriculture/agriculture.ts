@@ -173,11 +173,8 @@ export class AgriculturePage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    console.log(this.submitRequested);
-
 
     if (!this.isValid('anycheck')) {
-      // this.store.dispatch(new SetArraySkipPageAgiculture(this.f.value));
       this.formData$.subscribe(data => {
         if (data != null) {
           data.agriculture.ricePlant.doing = this.f.get('ricePlant.doing').value;
@@ -210,7 +207,6 @@ export class AgriculturePage {
         if (arrayIsCheck.every(it => it != 1)) {
           arrayIsCheck.push(1);
         }
-
         console.log(arrayIsCheck);
       }
     });

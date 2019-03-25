@@ -27,7 +27,7 @@ export class FlowerCropPage {
   public flowerCropFrm: FormGroup;
   public shownData: string[];
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  private formDataUnit$ = this.store.select(getHouseHoldSample);
+  private formData$ = this.store.select(getHouseHoldSample);
   // private formData: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
@@ -48,7 +48,7 @@ export class FlowerCropPage {
   public getAgiSelectPerennial: boolean;
   private frontNum: any;
   private backNum: any;
-  constructor(public navCtrl: NavController, private appState: AppStateProvider,private storage: Storage,public local: LocalStorageProvider,public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [null, [Validators.required, Validators.min(1)]],
@@ -112,10 +112,8 @@ export class FlowerCropPage {
     console.log(this.listRiceData, this.listPerenialData, this.listRubberData, this.listDryCropData);
 
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
-    this.listSumData = sum;    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
-
-    this.listSumData = sum;
-    console.log('listSumData');
+    this.listSumData = sum; 
+    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
     console.log(this.listSumData);
   }
 
@@ -154,7 +152,7 @@ export class FlowerCropPage {
       // let id = this.formData._id
       // this.storage.set(id, this.formData)
       // this.local.updateListUnit(this.formData.buildingIds,this.formData)
-      
+
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
         flowerCrop: this.flowerCropFrm.value,
