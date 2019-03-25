@@ -39,7 +39,7 @@
     <div [ngSwitch]="FormItem.get('shape').value">
 
       <div *ngSwitchCase="1">
-        <field-area [FormItem]="FormItem.get('area')" [isAnimal]="isAnimal"></field-area>
+        <field-area [FormItem]="FormItem.get('area')" [isAnimal]="isAnimal" [checkIsPool]="checkIsPool"></field-area>
       </div>
 
       <div *ngSwitchCase="2" formGroupName="rectangle">

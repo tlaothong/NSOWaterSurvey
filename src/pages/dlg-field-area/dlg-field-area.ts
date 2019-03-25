@@ -13,6 +13,7 @@ export class DlgFieldAreaPage {
   public FormItem: FormGroup;
   public text: string;
   public isAnimal: boolean;
+  public checkIsPool: boolean;
 
   private submitRequested: boolean;
 
@@ -22,6 +23,7 @@ export class DlgFieldAreaPage {
     this.FormItem.setValue(datain.value);
     this.text = navParams.get("headline");
     this.isAnimal = navParams.get("isAnimal");
+    this.checkIsPool = navParams.get("checkIsPool");
   }
 
   public closeDialog() {
