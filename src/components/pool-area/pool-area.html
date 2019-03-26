@@ -17,7 +17,7 @@
       </ion-label>
     </ion-item>
 
-    <div radio-group formControlName="shape" [class.invalid]="isValid('shape')">
+    <div radio-group formControlName="shape" [class.invalid]="isValid('shape')" (ionChange)="setArea()">
       <ion-item *ngIf="isValid('shape')">
         <span class="invalid-msg">กรุณาเลือกลักษณะของ{{ poolText }}</span>
       </ion-item>
