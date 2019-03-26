@@ -22,14 +22,13 @@ export class PerennialPlantingPage {
   public PerennialPlantingFrm: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  // private formData: any;
+  private isCheckWarningBox: boolean;
   private frontNum: any;
   private backNum: any;
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController,private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.PerennialPlantingFrm = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, [Validators.required, Validators.min(1)]],
@@ -40,12 +39,6 @@ export class PerennialPlantingPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.PerennialPlantingFrm.patchValue(data.agriculture.perennialPlant);
-    //     this.formData = data;
-    //   }
-    // })
   }
 
   public handleSubmit() {
@@ -62,18 +55,10 @@ export class PerennialPlantingPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    console.log(selected);
+    this.isCheckWarningBox = this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false);
 
-    // this.store.dispatch(new SetPerennialPlantSelectPlant(selected));
-    // this.store.dispatch(new SetAgiSelectPerennial(true));
-    // this.formData.agriculture.perennialPlant = this.PerennialPlantingFrm.value;
-    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false))  {
+    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId,this.formData)
       let perennial = {
         ...this.appState.houseHoldUnit.agriculture,
         perennialPlant: this.PerennialPlantingFrm.value,
@@ -82,7 +67,7 @@ export class PerennialPlantingPage {
         ...this.appState.houseHoldUnit,
         agriculture: perennial,
       };
-      
+
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }

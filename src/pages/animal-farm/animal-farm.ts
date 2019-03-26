@@ -29,6 +29,7 @@ export class AnimalFarmPage {
   // public dataAni: any;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
 
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
@@ -66,8 +67,7 @@ export class AnimalFarmPage {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-
-    console.log(this.f.valid);
+    this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
 
     if (this.f.valid || (this.f.get('doing').value == false)) {
 

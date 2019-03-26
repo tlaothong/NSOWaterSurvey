@@ -27,6 +27,7 @@ export class RicePage {
   // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
+  private isCheckWarningBox: boolean;
   public DataList = EX_RICH_LIST;
   private formData$ = this.store.select(getHouseHoldSample);
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
@@ -44,30 +45,18 @@ export class RicePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.agriculture.ricePlant);
-    //     this.data = data;
-    //   }
-    // })
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetRicePlantSelectPlant(this.DataList));
-    // this.store.dispatch(new SetRiceDoing(this.f.get('doing').value));
+  
     this.store.dispatch(new SetAgiSelectRice(true));
-    // this.data.agriculture.ricePlant = this.f.value;
+    this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
+
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.data));
-      // this.storage.set('unit', this.data)
-
-      // let id = this.data._id
-      // this.storage.set(id, this.data)
-      // this.local.updateListUnit(this.data.buildingId, this.data)
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
         ricePlant: this.f.value,

@@ -23,6 +23,7 @@ export class AgriculturePage {
   private formData$ = this.store.select(getHouseHoldSample);
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private frontNum: any;
+  private isCheckWarningBox: boolean;
   private backNum: any;
   public id: any;
 
@@ -174,25 +175,9 @@ export class AgriculturePage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.isCheckWarningBox = !this.isValid('anycheck');
 
     if (!this.isValid('anycheck')) {
-      // this.formData$.subscribe(data => {
-      //   if (data != null) {
-      //     data.agriculture.ricePlant.doing = this.f.get('ricePlant.doing').value;
-      //     data.agriculture.agronomyPlant.doing = this.f.get('agronomyPlant.doing').value;
-      //     data.agriculture.rubberTree.doing = this.f.get('rubberTree.doing').value;
-      //     data.agriculture.perennialPlant.doing = this.f.get('perennialPlant.doing').value;
-      //     data.agriculture.herbsPlant.doing = this.f.get('herbsPlant.doing').value;
-      //     data.agriculture.flowerCrop.doing = this.f.get('flowerCrop.doing').value;
-      //     data.agriculture.mushroomPlant.doing = this.f.get('mushroomPlant.doing').value;
-      //     data.agriculture.animalFarm.doing = this.f.get('animalFarm.doing').value;
-      //     data.agriculture.aquaticAnimals.doing = this.f.get('aquaticAnimals.doing').value;
-      //     console.log("plant", data);
-      //     this.storage.set(data._id, data)
-      //     this.local.updateListUnit(data.buildingId, data)
-      //   }
-      // });
-
       let argiRice = {
         ...this.appState.houseHoldUnit.agriculture.ricePlant,
         doing: this.f.get('ricePlant.doing').value,

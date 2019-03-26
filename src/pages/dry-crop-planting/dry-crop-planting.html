@@ -84,8 +84,7 @@
       </div>
     </div>
 
-    <ion-card class="invalid-msg"
-      *ngIf="agronomyPlant.invalid && submitRequested && agronomyPlant.get('doing').value == true">
+    <ion-card class=" invalid-msg" *ngIf="!isCheckWarningBox && submitRequested ">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
