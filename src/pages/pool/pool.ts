@@ -56,6 +56,7 @@ export class PoolPage {
   private backNum: any;
   public checked: boolean
   public checkIsPool: boolean = true;
+  public isCheckWarningBox: boolean;
 
   public static checkActivityResidential: any;
   public static checkActivityWateringRes: any;
@@ -149,7 +150,7 @@ export class PoolPage {
       this.f.get('poolSizes').setValue(val)
     }
     // this.formData.waterUsage.pool = this.f.value
-
+    this.isCheckWarningBox = this.checkValid();
     if (this.checkValid()) {
       this.arrayIsCheckMethod();
 
