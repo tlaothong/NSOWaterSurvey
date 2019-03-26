@@ -48,6 +48,8 @@ export class FlowerCropPage {
   public getAgiSelectPerennial: boolean;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
+
   constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
@@ -112,7 +114,7 @@ export class FlowerCropPage {
     console.log(this.listRiceData, this.listPerenialData, this.listRubberData, this.listDryCropData);
 
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
-    this.listSumData = sum; 
+    this.listSumData = sum;
     console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
     console.log(this.listSumData);
   }
@@ -145,7 +147,8 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    // this.formData.agriculture.flowerCrop = this.flowerCropFrm.value;
+    this.isCheckWarningBox = this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false);
+
     if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.storage.set('unit', this.formData)

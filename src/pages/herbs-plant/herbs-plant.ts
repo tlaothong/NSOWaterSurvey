@@ -46,6 +46,7 @@ export class HerbsPlantPage {
   public getAgiSelectPerennial: boolean;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
@@ -129,7 +130,8 @@ export class HerbsPlantPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    // this.formData.agriculture.herbsPlant = this.f.value
+    this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
+
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       // this.storage.set('unit', this.formData)

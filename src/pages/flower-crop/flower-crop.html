@@ -84,7 +84,7 @@
     </div>
 
     <ion-card class="invalid-msg"
-      *ngIf="flowerCropFrm.invalid && submitRequested && flowerCropFrm.get('doing').value == true">
+      *ngIf="!isCheckWarningBox && submitRequested">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>

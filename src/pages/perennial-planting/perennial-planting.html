@@ -86,7 +86,7 @@
     </div>
 
     <ion-card class="invalid-msg"
-      *ngIf="PerennialPlantingFrm.invalid && submitRequested && PerennialPlantingFrm.get('doing').value == true">
+      *ngIf="!isCheckWarningBox && submitRequested ">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
