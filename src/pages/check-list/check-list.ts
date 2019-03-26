@@ -31,8 +31,8 @@ export class CheckListPage {
   private backToRoot: boolean;
   private back: boolean;
   private selectorIndex: number;
-  private arrayIsCheck: [];
-  private arrayNextPageForHide: [];
+  private arrayIsCheck: any[];
+  private arrayNextPageForHide: any[];
 
   private backToRoot$ = this.store.select(getBackToRoot);
   private back$ = this.store.select(getBack);
