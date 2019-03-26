@@ -59,6 +59,7 @@ export class RiverPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
@@ -74,13 +75,6 @@ export class RiverPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.river);
-    //     this.formData = data;
-    //   }
-    // })
-
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -141,18 +135,10 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.formData.waterUsage.river = this.f.value;
-    console.log(this.f.valid);
-    console.log(this.f.get('waterActivities').valid);
-    console.log(this.f.get('qualityProblem').valid);
-
+    this.isCheckWarningBox = this.f.valid && !this.waterActivity6.some(it => it.isCheck == false);
 
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId, this.formData)
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
         river: this.f.value,
@@ -160,11 +146,9 @@ export class RiverPage {
       let houseHold = {
         ...this.appState.houseHoldUnit,
         waterUsage: water,
-      };
+      };  
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
-
-
     }
   }
 
@@ -219,7 +203,6 @@ export class RiverPage {
         arrayIsCheck = data
         this.frontNum = arrayIsCheck.length;
       }
-
     });
     console.log("frontNum", this.frontNum);
   }

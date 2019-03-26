@@ -60,7 +60,7 @@ export class PlumbingPage {
   public PWA: boolean;
   private frontNum: any;
   private backNum: any;
-  private isCheckWarnBox: boolean;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
@@ -178,7 +178,7 @@ export class PlumbingPage {
     this.submitRequested = true;
     this.waterProblem6.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
-    this.isCheckWarnBox = (!this.MWA || this.isCheckValid('mwa')) && (!this.PWA || this.isCheckValid('pwa')) && this.isCheckValid('other');
+    this.isCheckWarningBox = (!this.MWA || this.isCheckValid('mwa')) && (!this.PWA || this.isCheckValid('pwa')) && this.isCheckValid('other');
 
     if ((!this.MWA || this.isCheckValid('mwa')) && (!this.PWA || this.isCheckValid('pwa')) && this.isCheckValid('other')) {
       this.arrayIsCheckMethod();

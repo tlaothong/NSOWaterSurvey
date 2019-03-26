@@ -76,7 +76,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested">
+    <ion-card class="invalid-msg" *ngIf="!isCheckWarningBox && submitRequested">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
