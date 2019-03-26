@@ -28,7 +28,8 @@
       </ion-label>
     </ion-item>
 
-    <count [title]="'จำนวนครั้งในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนา'" [FormItem]="FormItem" [count]="'plantingCount'"></count>
+    <count [title]="'จำนวนครั้งในรอบ 12 เดือนที่ผ่านมาใช้พื้นที่นี้ทำนา'" [FormItem]="FormItem"
+      [count]="'plantingCount'"></count>
 
     <ion-item *ngIf="isValid('plantingCount')">
       <span class="invalid-msg">
@@ -42,7 +43,8 @@
       </ion-label>
     </ion-item>
 
-    <ion-row radio-group formControlName="plantingArea" [class.invalid]="isValid('plantingArea')">
+    <ion-row radio-group formControlName="plantingArea" [class.invalid]="isValid('plantingArea')"
+      (ionChange)="setArea()">
       <ion-item *ngIf="isValid('plantingArea')">
         <span class="invalid-msg">
           กรุณาเลือก
