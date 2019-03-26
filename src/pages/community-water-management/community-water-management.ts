@@ -61,7 +61,7 @@ export class CommunityWaterManagementPage {
       'vil': [null, Validators.required],
       'vil_name': [null, Validators.required],
       'hasPublicWater': [null, Validators.required],
-      'publicWaterCount': [0, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'publicWaterCount': [0, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'details': fb.array([]),
       'pwa': [null, Validators.required],
       'mwa': [null, Validators.required],
@@ -208,14 +208,6 @@ export class CommunityWaterManagementPage {
     this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
 
-    console.log(this.checkValid());
-    console.log("checkPublicWater = " + this.checkPublicWater());
-    console.log("checkWater = " + this.checkWater());
-    console.log("checkOtherWater = " + this.checkOtherWater());
-    console.log("checkHasDisaster = " + this.checkHasDisaster());
-    console.log("checkHasDisasterWarning = " + this.checkHasDisasterWarning());
-    console.log("checkHas = " + this.checkHas());
-
     if (this.formDataCom.get('_id').value == null) {
       this.formDataCom.get('_id').setValue(Guid.create().toString());
     }
@@ -271,12 +263,12 @@ export class CommunityWaterManagementPage {
       && this.checkPublicWater()
       && this.checkHasDisaster()
       && this.checkHasDisasterWarning()
+      && this.checkWater()
   }
 
   public checkPublicWater(): boolean {
-    let invalid = this.detailWaterManagement.find(it => it.FormItem.invalid);
-    console.log(!invalid);
-    return (this.CommunityWaterManagement.get('hasPublicWater').value) ? !invalid && this.checkWater() : this.checkWater();
+    let isCheckDetail = this.detailWaterManagement.find(it => it.FormItem.invalid) ? false : true;
+    return (this.CommunityWaterManagement.get('hasPublicWater').value) ? isCheckDetail : true;
   }
 
   public checkWater(): boolean {
@@ -284,7 +276,6 @@ export class CommunityWaterManagementPage {
       return this.CommunityWaterManagement.get('mwa').valid
         && this.CommunityWaterManagement.get('otherPlumbing').valid
         && this.checkOtherWater();
-
     }
     if (this.PWA) {
       return this.CommunityWaterManagement.get('pwa').valid
@@ -295,12 +286,9 @@ export class CommunityWaterManagementPage {
 
   public checkOtherWater(): boolean {
     let invalid = this.detailOrgWaterSupply.find(it => it.FormItem.invalid);
-    console.log(!invalid);
-    
-    return (this.CommunityWaterManagement.get('otherPlumbing').value == true && this.CommunityWaterManagement.get('hasWaterService').valid) ?
+    return (this.CommunityWaterManagement.get('otherPlumbing').value == true) ?
       (this.CommunityWaterManagement.get('hasWaterService').value) ?
-        this.CommunityWaterManagement.get('waterServiceCount').value > 0 && !invalid && this.checkHas() : this.checkHas() : false;
-
+        this.CommunityWaterManagement.get('waterServiceCount').value > 0 && !invalid && this.checkHas() : this.checkHas() : true;
   }
 
   private checkHas(): boolean {
