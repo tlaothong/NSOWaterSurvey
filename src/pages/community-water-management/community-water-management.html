@@ -81,6 +81,12 @@
               กรุณากรอกข้อมูล
             </span>
           </ion-item>
+          <ion-item *ngIf="CommunityWaterManagement.get('publicWaterCount').value > 5">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนแหล่งน้ำมีเยอะผิดปกติหรือไม่
+            </span>
+          </ion-item>
         </div>
 
       </ion-card-content>
@@ -229,7 +235,7 @@
               <ion-item *ngIf="CommunityWaterManagement.get('waterServiceCount').value > 5 ">
                 <ion-icon md="md-warning"></ion-icon>
                 <span class="invalid-msg">
-                  กรุณาตรวจสอบจำนวนหน่วยงานมีเยอะผิดปกติหรือไม่
+                  กรุณาตรวจสอบจำนวนแหล่งผลิตมีเยอะผิดปกติหรือไม่
                 </span>
               </ion-item>
             </div>

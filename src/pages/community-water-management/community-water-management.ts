@@ -61,7 +61,7 @@ export class CommunityWaterManagementPage {
       'vil': [null, Validators.required],
       'vil_name': [null, Validators.required],
       'hasPublicWater': [null, Validators.required],
-      'publicWaterCount': [0, Validators.required],
+      'publicWaterCount': [0, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'details': fb.array([]),
       'pwa': [null, Validators.required],
       'mwa': [null, Validators.required],
