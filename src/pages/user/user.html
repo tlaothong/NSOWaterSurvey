@@ -124,8 +124,7 @@
               </ion-option>
             </ion-select>
           </ion-item>
-          <ion-item
-            *ngIf="facCategoryUse == true && submitRequested && userInfo.get('factorialCategoryCode').value == null">
+          <ion-item *ngIf="isValid('factorialCategoryCode')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
@@ -294,8 +293,7 @@
             </ion-select>
           </ion-item>
 
-          <ion-item
-            *ngIf="commercialServiceUse == true && userInfo.get('serviceTypeCode').value == null && submitRequested">
+          <ion-item *ngIf="isValid('serviceTypeCode')">
             <span class="invalid-msg">
               กรุณาเลือก
             </span>
@@ -304,7 +302,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="invalid-msg" *ngIf="userInfo.invalid && submitRequested">
+    <ion-card class="invalid-msg" *ngIf="!isCheckWarningBox && submitRequested">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
