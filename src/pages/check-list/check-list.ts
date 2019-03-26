@@ -40,7 +40,7 @@ export class CheckListPage {
   private arrayIsCheck$ = this.store.select(getArrayIsCheck);
   private arrayNextPageForHide$ = this.store.select(getNextPageDirection);
 
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, 
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
@@ -92,7 +92,7 @@ export class CheckListPage {
       this.updatePagesStatus(p.arrayIsCheck, p.arrayNextPageForHide);
       this.skipPageMedthod(p.backToRoot, p.back, p.arrayNextPageForHide);
     });
-  
+
     // this.storage.get(this.navParams.get('id')).then((val) => {
     //   console.log("get", val);
     //   this.store.dispatch(new LoadHouseHoldSample(val));
@@ -159,6 +159,7 @@ export class CheckListPage {
         this.pages[arrayIsCheck[i]].isCheck = true;
       }
     }
+    console.log("next page",arrayNextPageForHide);
 
     if (arrayNextPageForHide != null) {
       for (let i = 0; i < arrayNextPageForHide.length; i++) {
