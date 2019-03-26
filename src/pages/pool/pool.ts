@@ -173,7 +173,20 @@ export class PoolPage {
   }
 
   public checkValid(): boolean {
-    return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
+    // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
+    if (this.f.get('doing').valid == true) {
+      if (this.f.get('doing').value == true && this.isCheckActivity() == true) {
+        return this.isCheckPool() && this.isCheckWaterResources()
+      }
+      if (!this.f.get('doing').value == true && !this.isCheckActivity()) {
+        return true
+      }
+      else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   public isCheckPool(): boolean {
