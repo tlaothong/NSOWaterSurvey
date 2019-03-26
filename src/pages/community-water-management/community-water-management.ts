@@ -295,6 +295,8 @@ export class CommunityWaterManagementPage {
 
   public checkOtherWater(): boolean {
     let invalid = this.detailOrgWaterSupply.find(it => it.FormItem.invalid);
+    console.log(!invalid);
+    
     return (this.CommunityWaterManagement.get('otherPlumbing').value == true && this.CommunityWaterManagement.get('hasWaterService').valid) ?
       (this.CommunityWaterManagement.get('hasWaterService').value) ?
         this.CommunityWaterManagement.get('waterServiceCount').value > 0 && !invalid && this.checkHas() : this.checkHas() : false;
