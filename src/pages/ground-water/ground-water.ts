@@ -195,8 +195,7 @@ export class GroundWaterPage {
   }
 
   public isCheck(): boolean {
-    let isCheckGround = (this.groundWaterUsage != null && this.groundWaterUsagePublic != null)
-    return isCheckGround ? this.isCheckPrivate() && this.isCheckPublic() && this.isCheckBoth() : true;
+    return this.isCheckPrivate() && this.isCheckPublic() && this.isCheckBoth();
   }
 
   public isCheckBoth(): boolean {
