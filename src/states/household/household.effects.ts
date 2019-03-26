@@ -10,12 +10,18 @@ import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileModels";
 import { getHouseHoldUnitList } from ".";
 import { HouseHoldState } from "./household.reducer";
+import { BuildingState } from "../building/building.reducer";
+import { getBuildingSample } from "../building";
+import { UpdateBuildingList } from "../building/building.actions";
 
 
 @Injectable()
 export class HouseHoldEffects {
 
-    constructor(private action$: Actions, private store: Store<HouseHoldState>, private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+    constructor(private action$: Actions, 
+        private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
+        private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider, 
+        private appState: AppStateProvider) {
     }
 
     @Effect()
@@ -23,7 +29,8 @@ export class HouseHoldEffects {
         ofType(HouseHoldTypes.LoadList),
         tap(_ => this.appState.houseHoldUnit = null),
         mergeMap((action: LoadHouseHoldList) => this.dataStore.listHouseHoldInBuilding(action.buildingId)),
-        switchMap((lst: UnitInList[]) => (lst && lst.length == 1)
+        withLatestFrom(this.storeBuild.select(getBuildingSample)),
+        switchMap(([lst, bld]) => (lst && lst.length > 1 && bld.unitCount == 1)
             ? [ new LoadHouseHoldListSuccess(lst),
                 new SetCurrentWorkingHouseHold(lst[0].houseHoldId) ]
             : [ new LoadHouseHoldListSuccess(lst ? lst : []) ]),
@@ -166,7 +173,11 @@ export class HouseHoldEffects {
             return this.dataStore.saveHouseHoldInBuiildingList(this.appState.buildingId, lst)
                 .mapTo(lst);
         }),
-        map(untList => new LoadHouseHoldListSuccess(untList ? untList : [])),
+        withLatestFrom(this.storeBuild.select(getBuildingSample)),
+        switchMap(([untList, bld]) => [
+            new LoadHouseHoldListSuccess(untList ? untList : []),
+            new UpdateBuildingList(bld),
+        ]),
     );
 
     @Effect()

@@ -95,7 +95,7 @@ export class BuildingEffects {
     @Effect()
     public updateBuildingList$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.UpdateBuildingList),
-        filter((action: UpdateBuildingList, i) => action.payload),
+        filter((action: any, i) => action.payload),
         map((action: UpdateBuildingList) => action.payload),
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
             this.storeUnit.select(getHouseHoldUnitList)),
