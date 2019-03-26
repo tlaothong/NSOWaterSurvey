@@ -33,7 +33,7 @@ export class ResidentialPage {
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
-      'workingAge': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+      'workingAge': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'waterSources': WaterSources8BComponent.CreateFormGroup(this.fb),
       'gardeningUse': [null, Validators.required],
     });
