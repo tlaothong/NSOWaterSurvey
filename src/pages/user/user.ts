@@ -91,7 +91,6 @@ export class UserPage {
       else
         return false;
     }
-    return false;
   }
 
   public checkValidFactorialType(): boolean {
@@ -106,7 +105,6 @@ export class UserPage {
       else
         return false;
     }
-    return false;
   }
   // public updateUnitCountComplete() {
   //   this.storage.get(this.formData.buildingId).then((val) => {
