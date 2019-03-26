@@ -34,12 +34,12 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
     return fb.group({
       'shape': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'depth': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'depth': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
       'rectangle': fb.group({
-        'width': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-        'length': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+        'width': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+        'length': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       }),
-      'diameter': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'diameter': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
     }, {
         validator: PoolAreaForCommuComponent.checkAnyOrOther()
       });
