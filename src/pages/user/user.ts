@@ -39,8 +39,8 @@ export class UserPage {
   constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
-      "factorialCategoryCode": [null, Validators],
-      "serviceTypeCode": [null, Validators]
+      "factorialCategoryCode": [null, Validators.required],
+      "serviceTypeCode": [null, Validators.required]
     });
   }
 
@@ -74,11 +74,14 @@ export class UserPage {
       this.GetDataFromBuilding$.subscribe(data => this.GetDataFromBuilding = data);
       if (this.GetDataFromBuilding == 1) {
         this.store.dispatch(new SetBackToRoot(true));
-        this.navCtrl.popToRoot();
+        // this.navCtrl.popToRoot();
+        console.log("pass");
+        
       } else {
         // this.navCtrl.setRoot("UnitPage");
         this.store.dispatch(new SetBackToRoot(true));
-        this.navCtrl.popTo(this.navCtrl.getByIndex(3))
+        // this.navCtrl.popTo(this.navCtrl.getByIndex(3))
+        console.log("pass");
       }
     }
   }

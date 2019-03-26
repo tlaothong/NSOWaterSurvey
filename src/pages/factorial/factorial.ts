@@ -104,8 +104,8 @@ export class FactorialPage {
     });
   }
 
-  public setValueTrue() {
-    this.FactoryForm.get('hasWasteWaterTreatment').setValue(true);
+  public setValueNull() {
+    this.FactoryForm.get('hasWasteWaterTreatment').setValue(null);
   }
   public setValueFalse() {
     this.FactoryForm.get('hasWasteWaterTreatment').setValue(false);
