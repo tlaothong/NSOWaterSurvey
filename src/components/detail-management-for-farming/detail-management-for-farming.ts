@@ -23,10 +23,10 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable {
     return fb.group({
       'name': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'memberCount': [null, Validators],
-      'avgSurfaceWaterUse': [null, Validators],
-      'groundWaterCount': [null, Validators],
-      'avgGroundWaterUse': [null, Validators],
+      'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'avgSurfaceWaterUse': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'groundWaterCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'avgGroundWaterUse': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
     }, {
         validator: DetailManagementForFarmingComponent.checkAnyOrOther()
       });
@@ -42,7 +42,7 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable {
     if (name == 'name') {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.name && (ctrl.dirty || this.submitRequested);
-    } 
+    }
     if (name == 'memberCount') {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.memberCount && (ctrl.dirty || this.submitRequested);

@@ -12,6 +12,7 @@ export class FieldAreaComponent implements ISubmitRequestable {
   @Input("headline") public text: string;
   @Input("isAnimal") public isAnimal: boolean;
   @Input() public FormItem: FormGroup;
+  @Input("checkIsPool") public checkIsPool: boolean;
   private submitRequested: boolean;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
@@ -34,7 +35,8 @@ export class FieldAreaComponent implements ISubmitRequestable {
       {
         FormItem: this.FormItem,
         headline: this.text,
-        isAnimal: this.isAnimal
+        isAnimal: this.isAnimal,
+        checkIsPool: this.checkIsPool
       });
     modal.onDidDismiss(data => {
       if (data) {

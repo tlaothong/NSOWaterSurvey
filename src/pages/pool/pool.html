@@ -8,7 +8,7 @@
 
   <h3>5.4 น้ำจากสระน้ำส่วนบุคคล/หนองน้ำ/บึง</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f"  [rx-form-data]="(formData$ | async)?.waterUsage?.pool">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.waterUsage?.pool">
 
     <ion-card>
       <ion-card-content>
@@ -52,6 +52,12 @@
             <ion-item *ngIf="isValid('poolCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="f.get('poolCount').value > 10">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบจำนวนสระมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
 

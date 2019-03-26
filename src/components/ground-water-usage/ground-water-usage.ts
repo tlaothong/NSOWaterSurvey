@@ -43,7 +43,7 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
       'usageType': fb.group({
-        'groundWaterQuantity': [null, Validators.required],
+        'groundWaterQuantity': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
         'usageCubicMeters': [null, Validators.required],
         'waterBill': [null, Validators.required],
       }),

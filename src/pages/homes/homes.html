@@ -53,8 +53,8 @@
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
-    <ion-col>
-      <button ion-button block type="button">
+    <ion-col >
+      <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
       </button>
     </ion-col>
@@ -62,20 +62,20 @@
 
   <div>
     <ion-segment [(ngModel)]="office" mode="ios" color="secondary">
-      <ion-segment-button value="building" (click)="changeNum('1')">
+      <ion-segment-button value="building">
         สน.1 ข้อมูลอาคาร
       </ion-segment-button>
-      <ion-segment-button value="areayoi" (click)="changeNum('2')">
+      <ion-segment-button value="areayoi">
         สน.2 พื้นที่ย่อย
       </ion-segment-button>
-      <ion-segment-button value="fsedit" (click)="changeNum('3')">
+      <ion-segment-button value="fsedit">
         FS ให้แก้ไข
       </ion-segment-button>
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="office">
-    <div *ngSwitchCase="'building'">
+  <ng-container [ngSwitch]="office">
+    <ng-container *ngSwitchCase="'building'">
 
       <ion-row align-items-center>
         <ion-col col-11>
@@ -144,7 +144,7 @@
       <div *ngFor="let item of buildingList$ | async; let i = index;">
         <ion-row text-center align-items-center>
           <ion-col col-1 (click)="goEditBuildingInfo(item)">
-            <ion-icon disabled="false" name="{{item.status}}"></ion-icon>
+            <ion-icon disabled="false" [name]="item.status"></ion-icon>
           </ion-col>
           <ion-col col-1 (click)="goEditBuildingInfo(item)">
             {{i+1}}
@@ -168,19 +168,9 @@
           </ion-col>
         </ion-row>
       </div>
-    </div>
+    </ng-container>
 
-    <div *ngSwitchCase="'areayoi'">
-      <ion-row align-items-center>
-        <ion-col col-11>
-          <ion-searchbar></ion-searchbar>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button type="button" color="light">
-            <ion-icon name="md-search"></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
+    <div *ngSwitchCase="'areayoi'" style="padding-top: 10px">
 
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -220,7 +210,7 @@
       </div>
     </div>
 
-    <div *ngSwitchCase="'fsedit'">
+    <ng-container *ngSwitchCase="'fsedit'">
       <ion-row text-center align-items-center>
         <ion-col col-2>
           ลำดับที่
@@ -264,7 +254,7 @@
         <ion-col col-1> </ion-col>
       </ion-row>
       <hr>
-    </div>
-  </div>
+    </ng-container>
+  </ng-container>
 
 </ion-content>

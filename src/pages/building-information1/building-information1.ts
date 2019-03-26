@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SaveBuildingSuccess } from '../../states/building/building.actions';
@@ -28,7 +28,7 @@ export class BuildingInformation1Page {
   public access: number;
   public comment: string = '';
 
-  public checkFormButtonsForBuilding : boolean = true;
+  public checkFormButtonsForBuilding: boolean = true;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
@@ -48,11 +48,11 @@ export class BuildingInformation1Page {
       'latitude': [null, Validators.required],
       'longitude': [null, Validators.required],
       'buildingType': [null, Validators.required],
-      'other': [null],
+      'other': [null, Validators],
       'accessCount': [0],
       'access': fb.array([]),
-      'vacancyCount': null,
-      'abandonedCount': null,
+      'vacancyCount': [null, Validators],
+      'abandonedCount': [null, Validators],
       'comments': fb.array([]),
       'recCtrl': [null],
       'vacantRoomCount': [null],
@@ -69,7 +69,21 @@ export class BuildingInformation1Page {
       '_id': [null],
       'status': [null],
       'lastUpdate': null,
-    });
+    }, {
+        validator: BuildingInformation1Page.checkAnyOrOther()
+      });
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const buildingType = c.get('buildingType');
+      const other = c.get('other');
+
+      if (buildingType.value == 16 && (other.value == null || other.value.trim() == '')) {
+        return { 'other': true };
+      }
+      return null;
+    }
   }
 
   ionViewDidLoad() {
@@ -148,7 +162,7 @@ export class BuildingInformation1Page {
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
       // this.storage.set('key', this.f.value)
     }
-    else if (this.f.valid && (this.access == 2 || this.access == 3 || this.access == 4)) {
+    else if (this.f.valid && this.checkAccess4()) {
       this.dispatch();
       this.navCtrl.push("HomesPage", { f: this.f });
     }
@@ -220,8 +234,19 @@ export class BuildingInformation1Page {
     }
   }
 
+  public checkAccess4() {
+    return (this.access == 4) ? this.f.get('vacancyCount').value > 0 && this.f.get('abandonedCount').value > 0 : true;
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'other') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.other && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'vacancyCount' || name == 'abandonedCount') {
+      return (ctrl.value == null || ctrl.value <= 0) && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

@@ -72,13 +72,13 @@ export class GroundWaterPage {
     this.f = this.fb.group({
       'privateGroundWater': this.fb.group({
         'doing': [null, Validators.required],
-        'allCount': [null, [Validators.required, Validators.min(1)]],
+        'allCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
         'waterResourceCount': [null, Validators.required],
         'waterResources': this.fb.array([])
       }),
       'publicGroundWater': this.fb.group({
         'doing': [null, Validators.required],
-        'waterResourceCount': [null, [Validators.required, Validators.min(1)]],
+        'waterResourceCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
         'waterResources': this.fb.array([])
       })
     }, {
@@ -188,7 +188,7 @@ export class GroundWaterPage {
         ...this.appState.houseHoldUnit,
         waterUsage: ground,
       };
-      
+
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }

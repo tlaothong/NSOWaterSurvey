@@ -12,11 +12,16 @@ import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { BootupState } from "../bootup/bootup.reducer";
 import { getCurrentWorkingEA } from "../bootup";
 import { LoadHouseHoldList } from "../household/household.actions";
+import { HouseHoldState } from "../household/household.reducer";
+import { getHouseHoldUnitList } from "../household";
 
 
 @Injectable()
 export class BuildingEffects {
-    constructor(private action$: Actions, private store: Store<BuildingState>, private storeBoot: Store<BootupState>, private cloudSync: CloudSyncProvider, private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+    constructor(private action$: Actions, 
+        private store: Store<BuildingState>, private storeBoot: Store<BootupState>,
+        private storeUnit: Store<HouseHoldState>, private cloudSync: CloudSyncProvider, 
+        private dataStore: DataStoreProvider, private appState: AppStateProvider) {
     }
 
     @Effect()
@@ -48,7 +53,7 @@ export class BuildingEffects {
         ofType(BuildingTypes.SetCurrentWorkingBuilding),
         mergeMap((action: SetCurrentWorkingBuilding) => this.dataStore.getBuilding(action.buildingId)),
         tap(bld => {
-            this.appState.buildingId = bld._id;
+            this.appState.buildingId = bld ? bld._id : '';
         }),
         switchMap(bld => [ new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id) ]),
     );
@@ -80,7 +85,7 @@ export class BuildingEffects {
         map((action: DeleteBuilding) => action.payload),
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA)),
         mergeMap(([bld, lst, ea]) => {
-            let idx = lst.findIndex(it => it.buildingId == bld._id);
+            let idx = lst.findIndex(it => it.buildingId == bld.buildingId);
             lst.splice(idx, 1);
             return this.dataStore.saveBuildingList(ea.code, lst).mapTo(lst);
         }),
@@ -90,16 +95,17 @@ export class BuildingEffects {
     @Effect()
     public updateBuildingList$: Observable<Action> = this.action$.pipe(
         ofType(BuildingTypes.UpdateBuildingList),
-        filter((action: UpdateBuildingList, i) => action.payload),
+        filter((action: any, i) => action.payload),
         map((action: UpdateBuildingList) => action.payload),
-        withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA)),
-        mergeMap(([bld, lst, ea]) => {
+        withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
+            this.storeUnit.select(getHouseHoldUnitList)),
+        mergeMap(([bld, lst, ea, ulist]) => {
             let bInList = {
                 "buildingId": bld._id,
                 "houseNo": bld.houseNo,
                 "name": bld.name,
-                "status": "log-out",
-                "completedCount": 0,
+                "status": bld.status,
+                "completedCount": ulist ? ulist.length : 0,
                 "unitCount": bld.unitCount,
             };
             let idx = lst.findIndex(it => it.buildingId == bld._id);

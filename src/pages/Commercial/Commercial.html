@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-    <form (ngSubmit)="handleSubmit()" [formGroup]="f"  [rx-form-data]="(formData$ | async)?.commerce">
+    <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="(formData$ | async)?.commerce">
 
         <h3>ตอนที่ 4 การค้าและการบริการ</h3>
 
@@ -33,8 +33,8 @@
                     </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-input class="backgroundinput" type="text" placeholder="กรอกข้อมูล" formControlName="serviceType"
-                        [class.invalid]="isValid('serviceType')"></ion-input>
+                    <ion-input class="backgroundinput" type="text" placeholder="กรอกข้อมูล"
+                        formControlName="serviceType" [class.invalid]="isValid('serviceType')"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="isValid('serviceType')">
                     <span class="invalid-msg">
@@ -124,12 +124,18 @@
                         </ion-label>
                     </ion-item>
                     <ion-list>
-                        <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'" [FormItem]="f.get('questionForAcademy.preSchool')"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'" [FormItem]="f.get('questionForAcademy.kindergarten')"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'3. ประถมศึกษา'" [FormItem]="f.get('questionForAcademy.primarySchool')"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'4. มัธยมศึกษา'" [FormItem]="f.get('questionForAcademy.highSchool')"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'5. ปวช./ปวส.'" [FormItem]="f.get('questionForAcademy.vocational')"></table-check-item-count>
-                        <table-check-item-count unit="คน" [ititle]="'6. อุดมศึกษา'" [FormItem]="f.get('questionForAcademy.higherEducation')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'1. ก่อนวัยเรียน'"
+                            [FormItem]="f.get('questionForAcademy.preSchool')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'2. อนุบาล'"
+                            [FormItem]="f.get('questionForAcademy.kindergarten')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'3. ประถมศึกษา'"
+                            [FormItem]="f.get('questionForAcademy.primarySchool')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'4. มัธยมศึกษา'"
+                            [FormItem]="f.get('questionForAcademy.highSchool')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'5. ปวช./ปวส.'"
+                            [FormItem]="f.get('questionForAcademy.vocational')"></table-check-item-count>
+                        <table-check-item-count unit="คน" [ititle]="'6. อุดมศึกษา'"
+                            [FormItem]="f.get('questionForAcademy.higherEducation')"></table-check-item-count>
                     </ion-list>
                     <ion-item>
                         <ion-label>
@@ -138,12 +144,19 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="personnelCount"
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="personnelCount"
                             [class.invalid]="isValid('questionForAcademy.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('questionForAcademy.personnelCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('questionForAcademy.personnelCount').value > 100">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                 </div>
@@ -163,26 +176,41 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="roomCount"
-                            [class.invalid]="isValid('hotelsAndResorts.roomCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="roomCount" [class.invalid]="isValid('hotelsAndResorts.roomCount')">
+                        </ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hotelsAndResorts.roomCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
                         </span>
                     </ion-item>
+                    <ion-item *ngIf="f.get('hotelsAndResorts.roomCount').value > 100">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนห้องมีเยอะผิดปกติหรือไม่
+                        </span>
+                    </ion-item>
+
                     <ion-item>
                         <ion-label>
                             2) มีจำนวนบุคลากรรวมทั้งหมดทุกประเภทกี่คน
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="personnelCount"
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="personnelCount"
                             [class.invalid]="isValid('hotelsAndResorts.personnelCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hotelsAndResorts.personnelCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('hotelsAndResorts.personnelCount').value > 100">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                 </div>
@@ -201,12 +229,18 @@
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="bedCount"
-                            [class.invalid]="isValid('hospital.bedCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="bedCount" [class.invalid]="isValid('hospital.bedCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hospital.bedCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('hospital.bedCount').value > 300">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนเตียงมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                     <ion-item>
@@ -215,12 +249,19 @@
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="personnelCount"
-                            [class.invalid]="isValid('hospital.personnelCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="personnelCount" [class.invalid]="isValid('hospital.personnelCount')">
+                        </ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('hospital.personnelCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('hospital.personnelCount').value > 500">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                 </div>
@@ -240,12 +281,18 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="roomCount"
-                            [class.invalid]="isValid('building.roomCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="roomCount" [class.invalid]="isValid('building.roomCount')"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('building.roomCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('building.roomCount').value > 500">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนห้องมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                     <ion-item>
@@ -254,8 +301,9 @@
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="occupiedRoomCount"
-                            [class.invalid]="isValid('building.occupiedRoomCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="occupiedRoomCount" [class.invalid]="isValid('building.occupiedRoomCount')">
+                        </ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('building.occupiedRoomCount')">
                         <span class="invalid-msg">
@@ -268,12 +316,19 @@
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="personnelCount"
-                            [class.invalid]="isValid('building.personnelCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="personnelCount" [class.invalid]="isValid('building.personnelCount')">
+                        </ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('building.personnelCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('building.personnelCount').value > 100">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                 </div>
@@ -293,12 +348,19 @@
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="peopleCount"
-                            [class.invalid]="isValid('religious.peopleCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="peopleCount" [class.invalid]="isValid('religious.peopleCount')">
+                        </ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('religious.peopleCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="f.get('religious.peopleCount').value > 100">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนพระสงฆ์ สามเณร ชี เด็กวัด ผู้มาประกอบศาสนกิจมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
                 </div>
@@ -326,19 +388,27 @@
                         </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล" formControlName="personnelCount"
-                            [class.invalid]="isValid('otherBuilding.personnelCount')"></ion-input>
+                        <ion-input class="backgroundinput" type="number" placeholder="กรอกข้อมูล"
+                            formControlName="personnelCount" [class.invalid]="isValid('otherBuilding.personnelCount')">
+                        </ion-input>
                     </ion-item>
                     <ion-item *ngIf="isValid('otherBuilding.personnelCount')">
                         <span class="invalid-msg">
                             กรุณากรอกข้อมูล
                         </span>
                     </ion-item>
+                    <ion-item *ngIf="f.get('otherBuilding.personnelCount').value > 50">
+                        <ion-icon md="md-warning"></ion-icon>
+                        <span class="invalid-msg">
+                            กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
+                        </span>
+                    </ion-item>
                 </div>
             </ion-card-content>
         </ion-card>
 
-        <water-sources8-b headline="4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง" [FormItem]="f.get('waterSources')"></water-sources8-b>
+        <water-sources8-b headline="4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง" [FormItem]="f.get('waterSources')">
+        </water-sources8-b>
         <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
     </form>

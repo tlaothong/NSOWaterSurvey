@@ -124,14 +124,14 @@
 
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="isValid('factorialCategoryCode')">
+        <ion-item *ngIf="facCategoryUse == true && userInfo.get('factorialCategoryCode').value == null">
           <span class="invalid-msg">
             กรุณาเลือก
           </span>
         </ion-item>
       </div>
 
-      <div *ngIf="commercialServiceUse == true" >
+      <div *ngIf="commercialServiceUse == true " >
         <ion-item>
           <ion-label>
             ประเภทสถานประกอบการบริการ
@@ -291,7 +291,7 @@
           </ion-select>
         </ion-item>
 
-        <ion-item *ngIf="isValid('serviceTypeCode')">
+        <ion-item *ngIf="commercialServiceUse == true && userInfo.get('serviceTypeCode').value == null">
           <span class="invalid-msg">
             กรุณาเลือก
           </span>
