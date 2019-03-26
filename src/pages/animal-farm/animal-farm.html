@@ -66,7 +66,17 @@
             <table-check-item-count unit="เท่าไร" [ititle]="'10. อื่นๆ (เช่น
               ฟาร์มสุนัข แมว กระต่าย หนู นกกระจอกเทศ)'" [FormItem]="f.get('other')"></table-check-item-count>
           </ion-list>
-
+          <ion-item *ngIf="f.get('other.hasItem').value == true">
+            <ion-label>
+              โปรดระบุ
+            </ion-label>
+            <ion-input [class.invalid]="isValid('otherName')" formControlName="otherName"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="isValid('otherName')" class="invalid-msg">
+            <span>
+              กรุณากรอกข้อมูล
+            </span>
+          </ion-item>
         </ion-card>
 
         <water-sources9 [headline]="'2.8.3 การเลี้ยงสัตว์นี้ใช้น้ำจากแหล่งใดบ้าง

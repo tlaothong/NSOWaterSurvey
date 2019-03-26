@@ -25,7 +25,6 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
     var fg = fb.group({
       'hasItem': [false],
       'itemCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.min(1)])],
-      'animalName': [null]
     });
     return fg;
   }
