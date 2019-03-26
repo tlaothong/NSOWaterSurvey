@@ -31,14 +31,12 @@ export class DlgTableCheckItemCountPage {
 
   public okDialog() {
     // this.navCtrl.pop();
-    if (this.FormItem.get('hasItem').value == false && this.FormItem.get('itemCount').value != null) 
-    {
+    if (this.FormItem.get('hasItem').value == false && this.FormItem.get('itemCount').value != null) {
       this.FormItem.get('itemCount').setValue(null);
       this.FormItem.get('animalName').setValue(null);
       this.viewCtrl.dismiss(this.FormItem);
     }
-    else
-    {
+    else {
       this.viewCtrl.dismiss(this.FormItem);
     }
   }

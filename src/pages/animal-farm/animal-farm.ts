@@ -59,12 +59,17 @@ export class AnimalFarmPage {
     //     this.dataAni = data;
     //   }
     // })
+    
   }
 
   public handleSubmit() {
+
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+
+    console.log(this.f.valid);
+    
     if (this.f.valid || (this.f.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       let agri = {
