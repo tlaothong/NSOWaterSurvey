@@ -162,7 +162,7 @@ export class BuildingInformation1Page {
       this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
       // this.storage.set('key', this.f.value)
     }
-    else if (this.f.valid && this.checkAccess4()) {
+    else if (this.f.valid && this.checkAccess()) {
       this.dispatch();
       this.navCtrl.push("HomesPage", { f: this.f });
     }
@@ -234,12 +234,15 @@ export class BuildingInformation1Page {
     }
   }
 
-  public checkAccess4() {
-    return (this.access == 4) ?
-      (this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0)
-      && this.f.get('vacancyCount').value != null
-      && this.f.get('abandonedCount').value != null
-      : true;
+  public checkAccess() {
+    if (this.access != null) {
+      return (this.access == 4) ?
+        (this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0)
+        && this.f.get('vacancyCount').value != null
+        && this.f.get('abandonedCount').value != null
+        : true;
+    }
+    return false;
   }
 
   public isValid(name: string): boolean {
