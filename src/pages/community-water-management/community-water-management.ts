@@ -48,6 +48,7 @@ export class CommunityWaterManagementPage {
   public subDistrict: any;
   public MWA: boolean;
   public PWA: boolean;
+  public isCheckWarningBox : boolean;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>, private appState: AppStateProvider) {
     this.id = this.navParams.get('id')
@@ -228,6 +229,8 @@ export class CommunityWaterManagementPage {
     // console.log("checkHasDisaster"  + this.checkHasDisaster());
     // console.log("checkHasDisasterWarning " + this.checkHasDisasterWarning());
 
+    this.isCheckWarningBox = this.checkValid();
+
     if (this.checkValid()) {
       let key = this.formDataCom.get('_id').value
       this.storage.set(key, this.formDataCom.value)
@@ -273,6 +276,7 @@ export class CommunityWaterManagementPage {
       && this.checkHasDisaster()
       && this.checkHasDisasterWarning()
       && this.checkWater()
+      && this.checkHas()
   }
 
   public checkPublicWater(): boolean {
@@ -299,7 +303,7 @@ export class CommunityWaterManagementPage {
     let invalid = this.detailOrgWaterSupply.find(it => it.FormItem.invalid);
     return (this.CommunityWaterManagement.get('otherPlumbing').value == true) ?
       (this.CommunityWaterManagement.get('hasWaterService').value) ?
-        this.CommunityWaterManagement.get('waterServiceCount').value > 0 && !invalid && this.checkHas() : this.checkHas() : true;
+        this.CommunityWaterManagement.get('waterServiceCount').value > 0 && !invalid : true : true;
   }
 
   private checkHas(): boolean {
