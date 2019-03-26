@@ -34,6 +34,7 @@ export class DlgTableCheckItemCountPage {
     if (this.FormItem.get('hasItem').value == false && this.FormItem.get('itemCount').value != null) 
     {
       this.FormItem.get('itemCount').setValue(null);
+      this.FormItem.get('animalName').setValue(null);
       this.viewCtrl.dismiss(this.FormItem);
     }
     else
@@ -55,18 +56,13 @@ export class DlgTableCheckItemCountPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  public isDisabled() {
-    console.log(this.FormItem.get('animalName').value);
-    console.log();
-    
-    
-
-    if (this.FormItem.get('hasItem').value == true) {
-      return (
-        (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == null) ||
-        (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == 0)
-      );
-    }
-  }
+  // public isDisabled() {
+  //   if (this.FormItem.get('hasItem').value == true) {
+  //     return (
+  //       (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == null) ||
+  //       (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == 0)
+  //     );
+  //   }
+  // }
 }
 
