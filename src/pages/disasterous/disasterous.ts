@@ -78,7 +78,7 @@ export class DisasterousPage {
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
         ...originalHouseHold,
-        commerce: this.Disasterous.value,
+        disaster: this.Disasterous.value,
       };
       this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
