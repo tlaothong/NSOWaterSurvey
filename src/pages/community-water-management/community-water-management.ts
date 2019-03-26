@@ -219,6 +219,15 @@ export class CommunityWaterManagementPage {
       this.CommunityWaterManagement.get('hasWaterService').setValue(null);
       this.CommunityWaterManagement.get('waterServiceCount').setValue(null);
     }
+
+    // console.log("checkValid " + this.checkValid());
+    // console.log("checkPublicWater " + this.checkPublicWater());
+    // console.log("checkWater " + this.checkWater());
+    // console.log("checkOtherWater " + this.checkOtherWater());
+    // console.log("checkHas" + this.checkHas());
+    // console.log("checkHasDisaster"  + this.checkHasDisaster());
+    // console.log("checkHasDisasterWarning " + this.checkHasDisasterWarning());
+
     if (this.checkValid()) {
       let key = this.formDataCom.get('_id').value
       this.storage.set(key, this.formDataCom.value)
@@ -268,6 +277,8 @@ export class CommunityWaterManagementPage {
 
   public checkPublicWater(): boolean {
     let isCheckDetail = this.detailWaterManagement.find(it => it.FormItem.invalid) ? false : true;
+    console.log(isCheckDetail);
+    
     return (this.CommunityWaterManagement.get('hasPublicWater').value) ? isCheckDetail : true;
   }
 
