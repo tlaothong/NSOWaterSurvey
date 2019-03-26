@@ -57,7 +57,7 @@
           <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="isDisabled()">ตกลง</button>
+          <button ion-button block [disabled]="FormItem.invalid && FormItem.get('hasItem').value">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>
