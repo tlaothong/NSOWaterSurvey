@@ -133,10 +133,12 @@
           <frog-farming headline="3. กบ" [FormItem]="f.get('frog')"></frog-farming>
         </div>
         <div *ngIf="f.get('isCrocodile').value">
-          <crocodile-farming headline="4. จระเข้" [FormItem]="f.get('crocodile')" [isAnimal]="isAnimal"></crocodile-farming>
+          <crocodile-farming headline="4. จระเข้" [FormItem]="f.get('crocodile')" [isAnimal]="isAnimal">
+          </crocodile-farming>
         </div>
         <div *ngIf="f.get('isSnappingTurtle').value">
-          <crocodile-farming headline="5. ตะพาบน้ำ" [FormItem]="f.get('snappingTurtle')" [isAnimal]="isAnimal"></crocodile-farming>
+          <crocodile-farming headline="5. ตะพาบน้ำ" [FormItem]="f.get('snappingTurtle')" [isAnimal]="isAnimal">
+          </crocodile-farming>
         </div>
         <div *ngIf="f.get('isCrab').value">
           <fish-farming headline="6. ปู" [FormItem]="f.get('crab')" [isAnimal]="isAnimal"></fish-farming>
@@ -153,7 +155,7 @@
       </div>
     </div>
 
-    <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested">
+    <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested && f.get('doing').value == true">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
@@ -161,7 +163,7 @@
         <ion-icon name="warning" item-start></ion-icon>
         ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
       </ion-card-content>
-    </ion-card> 
+    </ion-card>
 
     <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
