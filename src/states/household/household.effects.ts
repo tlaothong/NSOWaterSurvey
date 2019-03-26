@@ -30,7 +30,7 @@ export class HouseHoldEffects {
         tap(_ => this.appState.houseHoldUnit = null),
         mergeMap((action: LoadHouseHoldList) => this.dataStore.listHouseHoldInBuilding(action.buildingId)),
         withLatestFrom(this.storeBuild.select(getBuildingSample)),
-        switchMap(([lst, bld]) => (lst && lst.length > 1 && bld.unitCount == 1)
+        switchMap(([lst, bld]) => (lst && lst.length >= 1 && bld.unitCount == 1)
             ? [ new LoadHouseHoldListSuccess(lst),
                 new SetCurrentWorkingHouseHold(lst[0].houseHoldId) ]
             : [ new LoadHouseHoldListSuccess(lst ? lst : []) ]),
