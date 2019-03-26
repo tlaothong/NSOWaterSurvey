@@ -275,6 +275,7 @@ export class CommunityWaterManagementPage {
 
   public checkPublicWater(): boolean {
     let invalid = this.detailWaterManagement.find(it => it.FormItem.invalid);
+    console.log(!invalid);
     return (this.CommunityWaterManagement.get('hasPublicWater').value) ? !invalid && this.checkWater() : this.checkWater();
   }
 

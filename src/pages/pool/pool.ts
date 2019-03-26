@@ -175,10 +175,10 @@ export class PoolPage {
   public checkValid(): boolean {
     // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
     if (this.f.get('doing').valid == true) {
-      if (this.f.get('doing').value == true && this.isCheckActivity() == true) {
+      if (this.f.get('doing').value && this.isCheckActivity()) {
         return this.isCheckPool() && this.isCheckWaterResources()
       }
-      if (!this.f.get('doing').value == true && !this.isCheckActivity()) {
+      if (!this.f.get('doing').value && !this.isCheckActivity()) {
         return true
       }
       else {

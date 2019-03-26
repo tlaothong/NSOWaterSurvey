@@ -200,11 +200,21 @@ export class GroundWaterPage {
 
   public isCheckBoth(): boolean {
     if (this.isCheckActivity()) {
+      console.log(this.f.get('publicGroundWater.waterResourceCount').value);
+      console.log(this.f.get('publicGroundWater.doing').value);
+      console.log(this.f.get('privateGroundWater.doing').value);
+      
       if (this.f.get('privateGroundWater.waterResourceCount').value > 0) {
         return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) || (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value);
       }
-      else if (this.f.get('privateGroundWater.waterResourceCount').value >= 0) {
-        return this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value;
+      else if (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value) {
+        console.log(222);
+        return this.f.get('privateGroundWater.waterResourceCount').value >= 0;
+      }
+      else if (this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value) {
+        console.log(111);
+        
+        return this.f.get('publicGroundWater.waterResourceCount').value > 0;
       }
     }
     else if (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) {
@@ -214,7 +224,7 @@ export class GroundWaterPage {
   }
 
   public isCheckActivity(): boolean {
-    return this.activityResidential || this.activityWateringRes || this.activityRice || this.activityAgiculture || this.activityFactory || this.activityCommercial
+    return (this.activityResidential || this.activityWateringRes || this.activityRice || this.activityAgiculture || this.activityFactory || this.activityCommercial) ? true : false;
   }
 
   public isCheckPrivate(): boolean {
