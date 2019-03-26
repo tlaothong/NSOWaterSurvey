@@ -53,7 +53,12 @@ export class HomesPage {
 
   public listMode: string = "recent";
 
-  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder, private storage: Storage, public alertController: AlertController, public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder, private storage: Storage, 
+      public alertController: AlertController, public navCtrl: NavController, 
+      public navParams: NavParams, private popoverCtrl: PopoverController, 
+      private store: Store<BootupState>, private storeLogging: Store<LoggingState>, 
+      private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, 
+      private appState: AppStateProvider) {
     this.initializeItems();
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);

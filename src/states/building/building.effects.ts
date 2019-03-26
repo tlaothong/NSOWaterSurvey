@@ -53,7 +53,7 @@ export class BuildingEffects {
         ofType(BuildingTypes.SetCurrentWorkingBuilding),
         mergeMap((action: SetCurrentWorkingBuilding) => this.dataStore.getBuilding(action.buildingId)),
         tap(bld => {
-            this.appState.buildingId = bld._id;
+            this.appState.buildingId = bld ? bld._id : '';
         }),
         switchMap(bld => [ new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id) ]),
     );
