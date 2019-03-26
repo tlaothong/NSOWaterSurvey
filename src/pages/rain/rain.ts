@@ -50,7 +50,9 @@ export class RainPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
-  constructor(public modalCtrl: ModalController,private storage: Storage, public local: LocalStorageProvider, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  public isCheckWarningBox: boolean;
+
+  constructor(public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([
         RainStorageComponent.CreateFormGroup(this.fb),
@@ -74,7 +76,7 @@ export class RainPage {
     //     this.formData = data;
     //   }
     // })
- 
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
@@ -126,6 +128,7 @@ export class RainPage {
     this.submitRequested = true;
     this.rainStorage.forEach(it => it.submitRequest());
     this.waterActivity5.forEach(it => it.submitRequest());
+    this.isCheckWarningBox = !this.waterActivity5.some(it => it.isCheck == false) && this.rainStorage.some(it => it.FormItem.valid);
     if (!this.waterActivity5.some(it => it.isCheck == false) && this.rainStorage.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
       let water = {
