@@ -101,7 +101,7 @@ export class SetSendDataBuilding implements Action {
 export class UpdateBuildingList implements Action {
     readonly type = BuildingTypes.UpdateBuildingList;
 
-    constructor(public payload: any) {
+    constructor(public payload: Building) {
     }
 }
 export class UpdateBuildingListSuccess implements Action {
@@ -142,3 +142,16 @@ export type BuildingActionsType =
     | DeleteBuilding
    
     ;
+
+export interface BuildingInList {
+    buildingId: string;
+    houseNo: string;
+    name: string;
+    completedCount: number;
+    unitCount: number;
+}
+
+export interface CommunityInList {
+    vil: string;
+    name: string;
+}

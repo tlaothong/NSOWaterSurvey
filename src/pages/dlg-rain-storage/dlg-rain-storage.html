@@ -55,7 +55,8 @@
           <ion-option>10,001 - 15,000</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="text == 'แท้งค์น้ำ โพลิเมอร์/พลาสติก' || FormItem.get('category').value == 'แท้งค์น้ำ โพลิเมอร์/พลาสติก'"
+      <ion-item
+        *ngIf="text == 'แท้งค์น้ำ โพลิเมอร์/พลาสติก' || FormItem.get('category').value == 'แท้งค์น้ำ โพลิเมอร์/พลาสติก'"
         [class.invalid]="isValid('size')">
         <ion-label>ขนาดลิตร</ion-label>
         <ion-select formControlName="size" interface="action-sheet">
@@ -116,6 +117,12 @@
       <ion-item *ngIf="isValid('count')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('count').value > 100">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบจำนวนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
     </ion-row>

@@ -15,7 +15,8 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="name" [class.invalid]="isValid('name')"></ion-input>
+        <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="name" [class.invalid]="isValid('name')">
+        </ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('name')">
         <span class="invalid-msg">
@@ -37,11 +38,18 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="memberCount" [class.invalid]="isValid('memberCount')"></ion-input>
+        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="memberCount"
+          [class.invalid]="isValid('memberCount')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('memberCount')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('memberCount').value > 100 ">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบจำนวนครัวเรือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
 
@@ -51,11 +59,18 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="avgSurfaceWaterUse" [class.invalid]="isValid('avgSurfaceWaterUse')"></ion-input>
+        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="avgSurfaceWaterUse"
+          [class.invalid]="isValid('avgSurfaceWaterUse')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('avgSurfaceWaterUse')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('avgSurfaceWaterUse').value > 100 ">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบปริมาณการใช้น้ำผิวดินเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
 
@@ -65,11 +80,18 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')"></ion-input>
+        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="groundWaterCount"
+          [class.invalid]="isValid('groundWaterCount')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('groundWaterCount')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('groundWaterCount').value > 20 ">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบจำนวนบ่อมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
 
@@ -79,11 +101,18 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="avgGroundWaterUse" [class.invalid]="isValid('avgGroundWaterUse')"></ion-input>
+        <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="avgGroundWaterUse"
+          [class.invalid]="isValid('avgGroundWaterUse')"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('avgGroundWaterUse')">
         <span class="invalid-msg">
           กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+      <ion-item *ngIf="FormItem.get('avgGroundWaterUse').value > 10000 ">
+        <ion-icon md="md-warning"></ion-icon>
+        <span class="invalid-msg">
+          กรุณาตรวจสอบปริมาณการใช้น้ำบาดาลเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
 

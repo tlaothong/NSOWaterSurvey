@@ -22,6 +22,12 @@
         กรุณากรอกข้อมูล
       </span>
     </ion-item>
+    <ion-item *ngIf="FormItem.get('count').value > 180">
+      <ion-icon md="md-warning"></ion-icon>
+      <span class="invalid-msg">
+        กรุณาตรวจสอบจำนวนครั้งที่เกิดอุกทภัยมีเยอะผิดปกติหรือไม่
+      </span>
+    </ion-item>
 
     <ion-item>
       <ion-label>ระยะเวลาที่เกิดน้ำท่วมเฉลี่ยนานกี่วัน</ion-label>
@@ -33,6 +39,12 @@
     <ion-item *ngIf="isValid('avgDay')">
       <span class="invalid-msg">
         กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
+    <ion-item *ngIf="FormItem.get('avgDay').value > 180">
+      <ion-icon md="md-warning"></ion-icon>
+      <span class="invalid-msg">
+        กรุณาตรวจสอบเวลาที่น้ำท่วมมีเยอะผิดปกติหรือไม่
       </span>
     </ion-item>
 
@@ -48,6 +60,7 @@
         กรุณากรอกข้อมูลในช่วง 1-23
       </span>
     </ion-item>
+
     <ion-item>
       <ion-label>ระดับความสูงเฉลี่ย (เซนติเมตร)</ion-label>
     </ion-item>
@@ -58,6 +71,12 @@
     <ion-item *ngIf="isValid('waterHeightCm')">
       <span class="invalid-msg">
         กรุณากรอกข้อมูล
+      </span>
+    </ion-item>
+    <ion-item *ngIf="FormItem.get('waterHeightCm').value > 500">
+      <ion-icon md="md-warning"></ion-icon>
+      <span class="invalid-msg">
+        กรุณาตรวจสอบความสูงของน้ำท่วมมีเยอะผิดปกติหรือไม่
       </span>
     </ion-item>
 

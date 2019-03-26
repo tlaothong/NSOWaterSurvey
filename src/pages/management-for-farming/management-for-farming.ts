@@ -46,7 +46,7 @@ export class ManagementForFarmingPage {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'doing': [null, Validators],
-      'projectCount': [0, Validators],
+      'projectCount': [0, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       'details': fb.array([]),
     }, {
         validator: ManagementForFarmingPage.checkAnyOrOther()

@@ -39,7 +39,7 @@ export class LocationComponent implements ISubmitRequestable {
           this.onChange1(this.FormItem.get('district').value);
         }
       }
-    }else{
+    } else {
       if (this.FormItem.get('province').value != 0) {
         this.onChange(this.FormItem.get('province').value);
         if (this.FormItem.get('district').value != 0) {
@@ -67,17 +67,19 @@ export class LocationComponent implements ISubmitRequestable {
   }
 
   onChange(name: any) {
-    let code = provinceData.find(it => it.name == name)
-    let order = LocationDataProvider.getDistric(code.codeProvince);
-    this.district = order.sort((a, b) => a.name.localeCompare(b.name))
-    console.log(code);
-    console.log(code.codeProvince);
+    let code = provinceData.find(it => it.name == name) || null;
+    if (code != null) {
+      let order = LocationDataProvider.getDistric(code.codeProvince);
+      this.district = order.sort((a, b) => a.name.localeCompare(b.name))
+    }
   }
 
   onChange1(name: any) {
-    var code = districtData.find(it => it.name == name)
-    let order = LocationDataProvider.getSubdistric(code.codeDistrict);
-    this.subDistrict = order.sort((a, b) => a.name.localeCompare(b.name))
+    var code = districtData.find(it => it.name == name) || null;
+    if (code != null) {
+      let order = LocationDataProvider.getSubdistric(code.codeDistrict);
+      this.subDistrict = order.sort((a, b) => a.name.localeCompare(b.name))
+    }
   }
 
 }

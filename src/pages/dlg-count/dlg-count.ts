@@ -22,7 +22,7 @@ export class DlgCountPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
     this.FormItem = fb.group({
-      'count': [null, [Validators.required, Validators.min(0)]]
+      'count': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required,Validators.min(0)])]
     })
   }
 

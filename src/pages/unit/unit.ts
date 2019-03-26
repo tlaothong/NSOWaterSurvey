@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold } from '../../states/household/household.actions';
+import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
@@ -125,11 +125,50 @@ export class UnitPage {
   }
 
   public continueUnit(unt: UnitInList) {
-    // if (unt.subUnit) {
-    // } else {      
-    // }
-    this.store.dispatch(new SetCurrentWorkingHouseHold(unt.houseHoldId));
-    this.navCtrl.push('WaterActivityUnitPage');
+    if (unt.lastAccess == 1) {
+      this.store.dispatch(new SetCurrentWorkingHouseHold(unt.houseHoldId));
+      this.navCtrl.push('WaterActivityUnitPage');
+      return;
+    } else if(unt.lastAccess == 2 || unt.lastAccess == 3) {
+      if (unt.accessCount < 3) {
+        // TODO: Remove this HACK!
+        let accessesFake = [];
+        for (let index = 0; index < unt.accessCount; index++) {
+          accessesFake.push(unt.lastAccess);
+        }
+        const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
+          subUnit: {
+            roomNumber: null,
+            accessCount: unt.accessCount,
+            accesses: accessesFake,
+            hasPlumbing: null,
+            hasPlumbingMeter: null,
+            isPlumbingMeterXWA: null,
+            hasGroundWater: null,
+            hasGroundWaterMeter: null,
+          }
+        }});
+        modal.onDidDismiss(data => {
+          if (data) {
+            this.store.dispatch(new SaveHouseHoldSubUnit(unt.houseHoldId, data.subUnit, data.comment));
+            let cnt = data.subUnit.accessCount;
+            let lastIndex = Math.max(0, cnt - 1);
+            if (data.subUnit.accesses && data.subUnit.accesses.length > 0 && data.subUnit.accesses[lastIndex] == 1) {
+              this.navCtrl.push('WaterActivityUnitPage');
+            }
+          }
+        });
+        modal.present();
+        return;
+      }
+    }
+
+    let alert = this.alertCtrl.create({
+      title: "กำลังดำเนินการ",
+      message: "กำลังปรับปรุงระบบงานส่วนนี้ตามความต้องการที่ได้รับ ความสามารถนี้จะใช้งานได้เร็วๆนี้",
+      buttons: [ "ตกลง" ],
+    });
+    alert.present();
   }
 
   public showComments() {

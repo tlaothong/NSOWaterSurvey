@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
 
 
 /**
@@ -24,11 +24,24 @@ import { Storage } from '@ionic/storage';
 export class CheckListPage {
   pages: Array<{ title: string, component: any, isCheck: boolean, isShow: boolean }>;
   private index: any;
-  private objSkipPage: any;
-  private arrayNextPage: any[];
+  // private objSkipPage: any;
+  // private arrayNextPage: any[];
   // private indexBack: any;
 
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<HouseHoldState>) {
+  private backToRoot: boolean;
+  private back: boolean;
+  private selectorIndex: number;
+  private arrayIsCheck: any[];
+  private arrayNextPageForHide: any[];
+
+  private backToRoot$ = this.store.select(getBackToRoot);
+  private back$ = this.store.select(getBack);
+  private selectorIndex$ = this.store.select(getSelectorIndex);
+  private arrayIsCheck$ = this.store.select(getArrayIsCheck);
+  private arrayNextPageForHide$ = this.store.select(getNextPageDirection);
+
+  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, 
+    public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
@@ -59,35 +72,52 @@ export class CheckListPage {
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter CheckListPage');
-    this.storage.get(this.navParams.get('id')).then((val) => {
-      console.log("get", val);
-      this.store.dispatch(new LoadHouseHoldSample(val));
-      this.arrayIsCheckMethod();
-      this.arrayNextPageMethod();
-    })
-    this.presentLoading();
-  }
-  presentLoading() {
-    const loader = this.loadingCtrl.create({
-      content: "กรุณารอสักครู่...",
-      duration: 1500
-    });
-    loader.present();
-  }
 
-  skipPageMedthod() {
-    let backToRoot: boolean;
-    let back: boolean;
-    let backToRoot$ = this.store.select(getBackToRoot).subscribe(data => backToRoot = data);
-    let back$ = this.store.select(getBack).subscribe(data => back = data);
+    Observable.combineLatest(
+      this.backToRoot$,
+      this.back$,
+      this.selectorIndex$,
+      this.arrayIsCheck$,
+      this.arrayNextPageForHide$
+    ).take(1).map(([backToRoot, back, selectorIndex, arrayIsCheck, arrayNextPageForHide]) => {
+      return {
+        backToRoot: backToRoot,
+        back: back,
+        selectorIndex: selectorIndex,
+        arrayIsCheck: arrayIsCheck,
+        arrayNextPageForHide: arrayNextPageForHide
+      }
+    }).subscribe(p => {
+      this.index = p.selectorIndex;
+      this.updatePagesStatus(p.arrayIsCheck, p.arrayNextPageForHide);
+      this.skipPageMedthod(p.backToRoot, p.back, p.arrayNextPageForHide);
+    });
+  
+    // this.storage.get(this.navParams.get('id')).then((val) => {
+    //   console.log("get", val);
+    //   this.store.dispatch(new LoadHouseHoldSample(val));
+    //   this.arrayIsCheckMethod();
+    //   this.arrayNextPageMethod();
+    // })
+    // this.presentLoading();
+  }
+  // presentLoading() {
+  //   const loader = this.loadingCtrl.create({
+  //     content: "กรุณารอสักครู่...",
+  //     duration: 1500
+  //   });
+  //   loader.present();
+  // }
+
+  skipPageMedthod(backToRoot, back, arrayNextPage) {
     if (!backToRoot) {
-      back ? this.goBackPage() : this.goNextPage();
+      back ? this.goBackPage(arrayNextPage) : this.goNextPage(arrayNextPage);
     }
   }
 
-  goNextPage() {
+  goNextPage(arrayNextPage) {
     for (let i = this.index + 1; i <= 23; i++) {
-      if (this.arrayNextPage[i]) {
+      if (arrayNextPage[i]) {
         console.log("goNextPage");
         this.store.dispatch(new SetSelectorIndex(i));
         console.log("i", i);
@@ -98,9 +128,9 @@ export class CheckListPage {
     }
   }
 
-  goBackPage() {
+  goBackPage(arrayNextPage) {
     for (let i = this.index - 1; i >= 0; i--) {
-      if (this.arrayNextPage[i]) {
+      if (arrayNextPage[i]) {
         console.log("goBackPage");
         this.store.dispatch(new SetSelectorIndex(i));
         this.store.dispatch(new SetBack(false));
@@ -110,55 +140,42 @@ export class CheckListPage {
     }
   }
 
-  arrayNextPageMethod() {
-    let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-    selectorIndex$.subscribe(data => this.index = data);
-    console.log("index select", this.index)
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    arrayNextPage$.subscribe(data => {
-      if (data != null) {
-        this.arrayNextPage = data
-        this.skipPageMedthod();
-        console.log("boolean arr", this.arrayNextPage);
+  // arrayNextPageMethod(arrayNextPage) {
+  //   // let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
+  //   // selectorIndex$.subscribe(data => this.index = data);
+  //   // console.log("index select", this.index)
+  //   // let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
+  //     if (arrayNextPage != null) {
+  //       this.skipPageMedthod();
+  //       console.log("boolean arr", this.arrayNextPage);
+  //     }
+  // }
+
+  updatePagesStatus(arrayIsCheck, arrayNextPageForHide) {
+    if (arrayIsCheck != null) {
+      console.log("arrayIsCheck", arrayIsCheck);
+
+      for (let i = 0; i < arrayIsCheck.length; i++) {
+        this.pages[arrayIsCheck[i]].isCheck = true;
       }
-    });
+    }
+
+    if (arrayNextPageForHide != null) {
+      for (let i = 0; i < arrayNextPageForHide.length; i++) {
+        if (arrayNextPageForHide[i] == false) {
+          this.pages[i].isShow = false;
+        } else
+          this.pages[i].isShow = true;
+      }
+    }
   }
 
-  arrayIsCheckMethod() {
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data
-        console.log("arrayIsCheck", arrayIsCheck);
-
-        for (let i = 0; i < arrayIsCheck.length; i++) {
-          this.pages[arrayIsCheck[i]].isCheck = true;
-        }
-      }
-    });
-
-    let arrayNextPageForHide$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    arrayNextPageForHide$.subscribe(data => {
-      if (data != null) {
-        let arrayNextPageForHide = data;
-
-        for (let i = 0; i < arrayNextPageForHide.length; i++) {
-          if (arrayNextPageForHide[i] == false) {
-            this.pages[i].isShow = false;
-          } else
-            this.pages[i].isShow = true;
-        }
-      }
-    });
-  }
-
-  public openPage(page, index) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.store.dispatch(new SetSelectorIndex(index));
-    this.store.dispatch(new SetBackToRoot(false));
-    this.store.dispatch(new SetBack(false));
-    this.navCtrl.push(page.component);
-  }
+  // public openPage(page, index) {
+  //   // Reset the content nav to have just this page
+  //   // we wouldn't want the back button to show in this scenario
+  //   this.store.dispatch(new SetSelectorIndex(index));
+  //   this.store.dispatch(new SetBackToRoot(false));
+  //   this.store.dispatch(new SetBack(false));
+  //   this.navCtrl.push(page.component);
+  // }
 }

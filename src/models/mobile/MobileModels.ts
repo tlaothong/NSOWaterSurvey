@@ -27,6 +27,8 @@ export interface Building {
     name: string;
     houseNo: string;
     unitCount: number;
+    // TODO: Need to re-consider this?
+    status: string;
 }
 
 export interface HouseHoldUnit {

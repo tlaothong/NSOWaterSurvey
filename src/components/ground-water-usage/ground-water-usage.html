@@ -69,6 +69,12 @@
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
+            <ion-item *ngIf="FormItem.get('usageType.usageCubicMeters').value > 1000">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบปริมาณน้ำมีจำนวนผิดปกติหรือไม่
+              </span>
+            </ion-item>
           </div>
           <div *ngSwitchCase="2">
             <ion-item>
@@ -83,6 +89,12 @@
             <ion-item *ngIf="isValid('usageType.waterBill')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
+              </span>
+            </ion-item>
+            <ion-item *ngIf="FormItem.get('usageType.waterBill').value > 100000">
+              <ion-icon md="md-warning"></ion-icon>
+              <span class="invalid-msg">
+                กรุณาตรวจสอบค่าน้ำมีจำนวนมากผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>

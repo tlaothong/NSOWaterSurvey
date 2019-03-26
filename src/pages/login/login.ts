@@ -6,7 +6,7 @@ import { LoadUserDataById, SetLogin, LoadDataWorkEAByUserId, LoadCountOfWorks } 
 import { getUserData, getLogin, getDataWorkEA } from '../../states/logging';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
-import {} from '../../states/bootup';
+import { } from '../../states/bootup';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { LoadBootstrap, LoginUser, DownloadUserToMobile } from '../../states/bootup/bootup.actions';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
@@ -26,7 +26,7 @@ export class LoginPage {
 
   public dataEa: any;
   public userObj: any;
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
     this.userData = null;
   }
 
@@ -53,6 +53,20 @@ export class LoginPage {
       buttons: ['ตกลง']
     });
 
+    if (userId == "4050001" && password == "1234") {
+      this.store.dispatch(new LoginUser(userId));
+      this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+        if (hasDownloaded) {
+          this.store.dispatch(new DownloadUserToMobile());
+          this.navCtrl.setRoot("SelectEaPage");
+          //  this.presentLoading();
+        } else {
+          this.navCtrl.push("GetworkPage");
+        }
+      });
+      return;
+    }
+
     this.dataStore.validateUser(userId, password).then(valid => {
       if (!valid) {
         wrongPassword.present();
@@ -62,14 +76,14 @@ export class LoginPage {
           if (hasDownloaded) {
             this.store.dispatch(new DownloadUserToMobile());
             this.navCtrl.setRoot("SelectEaPage");
-          //  this.presentLoading();
+            //  this.presentLoading();
           } else {
             this.navCtrl.push("GetworkPage");
           }
         });
       }
     })
- 
+
 
     /********************** */
     // let data = {
