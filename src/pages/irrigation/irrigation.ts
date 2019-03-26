@@ -58,6 +58,7 @@ export class IrrigationPage {
   private activityCommercial: any;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
 
     this.f = this.fb.group({
@@ -76,13 +77,6 @@ export class IrrigationPage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.irrigation)
-    //     this.formData = data;
-    //   }
-    // })
-
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -143,14 +137,10 @@ export class IrrigationPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.formData.waterUsage.irrigation = this.f.value
+    this.isCheckWarningBox = (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false));
+   
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId, this.formData)
       let irri = {
         ...this.appState.houseHoldUnit.waterUsage,
         irrigation: this.f.value,

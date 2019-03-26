@@ -857,7 +857,7 @@ function findWaterSourceAquticAnimals(water) {
 }
 
 function listPagesToCheck(state: HouseHoldState): Array<boolean> {
-    console.log("เช็คหน้าต่อไป", JSON.stringify(state));
+    // console.log("เช็คหน้าต่อไป", JSON.stringify(state));
 
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
