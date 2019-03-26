@@ -171,7 +171,6 @@ export class GroundWaterPage {
     console.log(this.isCheckPublic());
     console.log(this.isCheckBoth());
     console.log(this.isCheckActivity());
-    console.log(this.isCheckPrivate());
 
     this.isCheckWarnBox = this.isCheck();
     if (this.isCheck()) {
@@ -196,7 +195,8 @@ export class GroundWaterPage {
   }
 
   public isCheck(): boolean {
-    return this.isCheckPrivate() && this.isCheckPublic() && this.isCheckBoth();
+    let isCheckGround = (this.groundWaterUsage != null && this.groundWaterUsagePublic != null)
+    return isCheckGround ? this.isCheckPrivate() && this.isCheckPublic() && this.isCheckBoth() : true;
   }
 
   public isCheckBoth(): boolean {
@@ -210,7 +210,7 @@ export class GroundWaterPage {
       else if (this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value) {
         return this.f.get('publicGroundWater.waterResourceCount').value > 0;
       }
-      else if(!this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value){
+      else if (!this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value) {
         return false;
       }
     }
@@ -225,12 +225,12 @@ export class GroundWaterPage {
   }
 
   public isCheckPrivate(): boolean {
-    let ischeckGroundWater = this.groundWaterUsage.find(it => !it.checkValid()) ? false : true;
+    let isCheckGroundWater = this.groundWaterUsage.find(it => !it.checkValid()) ? false : true;
     return (this.f.get('privateGroundWater.doing').value) ?
       (this.f.get('privateGroundWater.allCount').valid
         && this.f.get('privateGroundWater.waterResourceCount').valid
-        && ischeckGroundWater
-        && this.checkvalid())
+        && isCheckGroundWater
+        && this.checkValid())
       : this.f.get('privateGroundWater.doing').valid;
   }
 
@@ -292,7 +292,7 @@ export class GroundWaterPage {
     });
   }
 
-  public checkvalid(): boolean {
+  public checkValid(): boolean {
     if ((this.activityResidential == true
       || this.activityWateringRes == true
       || this.activityRice == true
@@ -335,7 +335,7 @@ export class GroundWaterPage {
 
   private setupuseGroundWaterCountChanges() {
     const componentFormArray: string = "privateGroundWater.waterResources";
-    const componentCount: string = "privateGroundWater.waterResourceCount";
+    const componentCount: string = "privateGroundWater.allCount";
 
     var onComponentCountChanges = () => {
       var avgUsageWater = (this.f.get(componentFormArray) as FormArray).controls || [];
