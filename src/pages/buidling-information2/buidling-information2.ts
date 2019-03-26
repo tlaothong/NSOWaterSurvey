@@ -10,6 +10,7 @@ import { LoggingState } from '../../states/logging/logging.reducer';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
 import { Storage } from '@ionic/storage';
 import { CreateHouseHoldFor1UnitBuilding } from '../../states/household/household.actions';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,9 @@ export class BuidlingInformation2Page {
   @ViewChild("numOfUnits") private numOfUnits;
   checked: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
+      private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>,
+      private appState: AppStateProvider) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
     // this.dataHomeBuilding$.subscribe(data => {
     //   if (data != null) {
@@ -103,6 +106,7 @@ export class BuidlingInformation2Page {
   }
 
   public handleSubmit() {
+    console.log("House Hold Unit: " + this.appState.houseHoldUnit);
     this.submitRequested = true;
     this.count.forEach(it => it.submitRequest());
     console.log("data ยิง API", this.f.value);
