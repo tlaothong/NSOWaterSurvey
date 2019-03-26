@@ -5,7 +5,8 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="flowerCropFrm" (ngSubmit)="handleSubmit()" [rx-form-data]="(formData$ | async)?.agriculture?.flowerCrop">
+  <form [formGroup]="flowerCropFrm" (ngSubmit)="handleSubmit()"
+    [rx-form-data]="(formData$ | async)?.agriculture?.flowerCrop">
 
     <h3>2.6 ไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้</h3>
 
@@ -82,7 +83,8 @@
       </div>
     </div>
 
-    <ion-card class="invalid-msg" *ngIf="flowerCropFrm.invalid && submitRequested">
+    <ion-card class="invalid-msg"
+      *ngIf="flowerCropFrm.invalid && submitRequested && flowerCropFrm.get('doing').value == true">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
@@ -90,7 +92,7 @@
         <ion-icon name="warning" item-start></ion-icon>
         ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
       </ion-card-content>
-    </ion-card> 
+    </ion-card>
 
     <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 
