@@ -235,7 +235,11 @@ export class BuildingInformation1Page {
   }
 
   public checkAccess4() {
-    return (this.access == 4) ? this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0 : true;
+    return (this.access == 4) ?
+      (this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0)
+      && this.f.get('vacancyCount').value != null
+      && this.f.get('abandonedCount').value != null
+      : true;
   }
 
   public isValid(name: string): boolean {
@@ -247,7 +251,7 @@ export class BuildingInformation1Page {
     if (name == 'vacancyCount' || name == 'abandonedCount') {
       let vacancyCount = this.f.get('vacancyCount');
       let abandonedCount = this.f.get('abandonedCount');
-      return !(vacancyCount.value > 0 || abandonedCount.value > 0) && (ctrl.dirty || this.submitRequested);
+      return (!(vacancyCount.value > 0 || abandonedCount.value > 0) || ctrl.value == null) && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
