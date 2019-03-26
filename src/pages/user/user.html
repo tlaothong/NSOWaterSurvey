@@ -35,12 +35,11 @@
           <ion-item>
             {{ facCategory }}
           </ion-item>
-          <ion-item>
+          <ion-item [class.invalid]="isValid('factorialCategoryCode')">
             <ion-label>
               เลือกประเภท
             </ion-label>
-            <ion-select interface="action-sheet" formControlName="factorialCategoryCode"
-              [class.invalid]="isValid('factorialCategoryCode')">
+            <ion-select interface="action-sheet" formControlName="factorialCategoryCode">
               <ion-option [value]="1">
                 1. การผลิตผลิตภัณฑ์อาหาร
               </ion-option>
@@ -142,12 +141,11 @@
             {{ commercialServiceType }}
           </ion-item>
 
-          <ion-item>
+          <ion-item [class.invalid]="isValid('serviceTypeCode')">
             <ion-label>
               เลือกประเภท
             </ion-label>
-            <ion-select interface="action-sheet" formControlName="serviceTypeCode"
-              [class.invalid]="isValid('serviceTypeCode')">
+            <ion-select interface="action-sheet" formControlName="serviceTypeCode">
               <ion-option [value]="1">
                 1. การก่อสร้างอาคาร
               </ion-option>
