@@ -33,8 +33,8 @@ export class BuidlingInformation2Page {
   checked: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-      private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>,
-      private appState: AppStateProvider) {
+    private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>,
+    private appState: AppStateProvider) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
     // this.dataHomeBuilding$.subscribe(data => {
     //   if (data != null) {
@@ -138,11 +138,22 @@ export class BuidlingInformation2Page {
     }
   }
 
+  public isCheckValidate() {
+    switch (this.f.get('unitAccess').value) {
+      case 2:
+        return this.f.get('unitCount').value > 0 && this.isCheckValidAccess2();
+      case 3:
+        return this.f.get('unitCount').value > 0 && this.isCheckValidAccess3();
+      default:
+        return this.f.get('unitCount').value > 0;
+    }
+  }
+
   private saveThenSurveyUnit() {
     let unitCount = this.f.get('unitCount').value;
     // this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
     this.store.dispatch(new SaveBuilding(this.f.value));
-    
+
     if (unitCount == 1) {
       this.store.dispatch(new CreateHouseHoldFor1UnitBuilding());
       this.navCtrl.push("WaterActivityUnitPage");

@@ -273,6 +273,16 @@
       </ion-card-content>
     </ion-card>
 
+    <ion-card class="invalid-msg" *ngIf="!isCheckValidate() && submitRequested">
+      <ion-card-header>
+        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
+      </ion-card-header>
+      <ion-card-content>
+        <ion-icon name="warning" item-start></ion-icon>
+        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
+      </ion-card-content>
+    </ion-card> 
+
     <form-buttons-bar [isDisabled]="true" [checkFormButtonsForBuilding]="true"></form-buttons-bar>
 
   </form>

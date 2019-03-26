@@ -340,7 +340,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="invalid-msg" *ngIf="CommunityWaterManagement.invalid && submitRequested">
+    <ion-card class="invalid-msg" *ngIf="!checkValid() && submitRequested">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
