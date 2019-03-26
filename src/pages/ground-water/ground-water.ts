@@ -60,6 +60,7 @@ export class GroundWaterPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean;
+  public isCheckWarnBox: boolean;
 
   public static checkActivityResidential: any;
   public static checkActivityWateringRes: any;
@@ -172,7 +173,7 @@ export class GroundWaterPage {
     console.log(this.isCheckActivity());
     console.log(this.isCheckPrivate());
 
-
+    this.isCheckWarnBox = this.isCheck();
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
@@ -200,21 +201,17 @@ export class GroundWaterPage {
 
   public isCheckBoth(): boolean {
     if (this.isCheckActivity()) {
-      console.log(this.f.get('publicGroundWater.waterResourceCount').value);
-      console.log(this.f.get('publicGroundWater.doing').value);
-      console.log(this.f.get('privateGroundWater.doing').value);
-      
       if (this.f.get('privateGroundWater.waterResourceCount').value > 0) {
         return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) || (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value);
       }
       else if (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value) {
-        console.log(222);
         return this.f.get('privateGroundWater.waterResourceCount').value >= 0;
       }
       else if (this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value) {
-        console.log(111);
-        
         return this.f.get('publicGroundWater.waterResourceCount').value > 0;
+      }
+      else if(!this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value){
+        return false;
       }
     }
     else if (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) {

@@ -56,6 +56,10 @@ export class DlgTableCheckItemCountPage {
   }
 
   public isDisabled() {
+    console.log(this.FormItem.get('animalName').value);
+    console.log();
+    
+    
 
     if (this.FormItem.get('hasItem').value == true) {
       return (

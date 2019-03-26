@@ -152,7 +152,7 @@
       </div>
     </div>
 
-    <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested">
+    <ion-card class="invalid-msg" *ngIf="!isCheckWarnBox && submitRequested">
       <ion-card-header>
         กรุณาตรวจสอบข้อมูลในแบบสำรวจ
       </ion-card-header>
