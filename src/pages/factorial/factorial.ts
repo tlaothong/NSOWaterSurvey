@@ -22,9 +22,7 @@ export class FactorialPage {
   @ViewChildren(WaterSources8BComponent) private waterSources8B: WaterSources8BComponent[];
   private submitRequested: boolean;
   FactoryForm: FormGroup;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.factory));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any
   private frontNum: any;
   private backNum: any;
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
@@ -43,14 +41,6 @@ export class FactorialPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FactorialPage');
     this.countNumberPage();
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.FactoryForm.setValue(data.factory);
-    //     this.formData = data;
-    //     console.log(data);
-
-    //   }
-    // });
   }
 
   public handleSubmit() {
@@ -61,11 +51,6 @@ export class FactorialPage {
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId, this.formData)
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
         ...originalHouseHold,
@@ -119,21 +104,12 @@ export class FactorialPage {
     });
   }
 
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.FactoryForm.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.FactoryForm.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.FactoryForm.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.FactoryForm.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.FactoryForm.get('waterSources.buying').value));
-  }
-
   public setValueTrue() {
     this.FactoryForm.get('hasWasteWaterTreatment').setValue(true);
   }
   public setValueFalse() {
     this.FactoryForm.get('hasWasteWaterTreatment').setValue(false);
   }
-
 
   public isValid(name: string): boolean {
     var ctrl = this.FactoryForm.get(name);
