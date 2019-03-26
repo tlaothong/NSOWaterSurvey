@@ -63,12 +63,12 @@ export class ResidentialPage {
 
     // this.dataRes.residence = this.residentialFrm.value
     if (this.residentialFrm.valid && !(this.check())) {
+      this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
         ...originalHouseHold,
         residence: this.residentialFrm.value,
       };
-      this.arrayIsCheckMethod();
       // this.dispatchWaterSource();
       // this.store.dispatch(new SetHouseHold(this.dataRes));
       // this.storage.set('unit', this.dataRes)
