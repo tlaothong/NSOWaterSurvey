@@ -4,11 +4,11 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map, tap, withLatestFrom, switchMap, mapTo, filter } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileModels";
-import { getHouseHoldUnitList } from ".";
+import { getHouseHoldUnitList, getHouseHoldSample } from ".";
 import { HouseHoldState } from "./household.reducer";
 import { BuildingState } from "../building/building.reducer";
 import { getBuildingSample } from "../building";
@@ -69,6 +69,31 @@ export class HouseHoldEffects {
             this.createDefaultHouseHoldUnit(action.subUnit, action.comment))
         ),
     );
+
+    @Effect()
+    public saveHouseHoldSubUnit$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.SaveHouseHoldSubUnit),
+        withLatestFrom(this.store.select(getHouseHoldSample)),
+        map(([action, houseHold]) => this.updateHouseHoldSubUnit(houseHold,
+            (<SaveHouseHoldSubUnit>action).subUnit, (<SaveHouseHoldSubUnit>action).comment)),
+        map(it => new SaveHouseHold(it)),
+    );
+
+    private updateHouseHoldSubUnit(houseHold: HouseHoldUnit, subUnit: SubUnit, comment: string): HouseHoldUnit {
+        if (subUnit) {
+            let accCnt = 0;
+            if (subUnit && subUnit.accesses) {
+                accCnt = subUnit.accesses.length;
+            }
+            subUnit.accessCount = accCnt;
+        }
+
+        return {
+            ...houseHold,
+            subUnit: subUnit,
+            comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }]: [],
+        };
+    }
 
     private createDefaultHouseHoldUnit(subUnit: SubUnit, comment: string) {
         if (subUnit) {

@@ -13,6 +13,8 @@ export enum HouseHoldTypes {
 
     SetCurrentWorkingHouseHold = "[HH] Set Current Working House Hold",
 
+    SaveHouseHoldSubUnit = "[HH] Save the Updated SubUnit for House Hold",
+
     SaveHouseHold = "[HH] Save House Hold",
     SaveHouseHoldSuccess = "[HH] Save House Hold Success",
 
@@ -104,6 +106,13 @@ export class NewHouseHoldWithSubUnit implements Action {
     readonly type = HouseHoldTypes.NewHouseHoldWithSubUnit;
 
     constructor(public subUnit: SubUnit, public comment: string) {
+    }
+}
+
+export class SaveHouseHoldSubUnit implements Action {
+    readonly type = HouseHoldTypes.SaveHouseHoldSubUnit;
+
+    constructor(public houseHoldId: string, public subUnit: SubUnit, public comment: string) {
     }
 }
 
@@ -408,6 +417,7 @@ export type HouseHoldActionsType =
     | NewHouseHoldWithSubUnit
     | LoadSelectedHouseHold
     | SetCurrentWorkingHouseHold
+    | SaveHouseHoldSubUnit
     | SaveHouseHold
     | SaveHouseHoldSuccess
     | UpdateUnitList
