@@ -1,6 +1,6 @@
 import { SetArraySkipPageAgiculture, SetSelectorIndex, SaveHouseHold, } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -27,7 +27,11 @@ export class AgriculturePage {
   private backNum: any;
   public id: any;
 
-  constructor(private appState: AppStateProvider, public alertController: AlertController, public modalCtrl: ModalController, public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
+  constructor(private appState: AppStateProvider, public alertController: AlertController, 
+      private loadingCtrl: LoadingController,
+      public modalCtrl: ModalController, public navCtrl: NavController, 
+      public local: LocalStorageProvider, private store: Store<HouseHoldState>, 
+      public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": this.fb.group({
         'doing': [false, Validators.required],
@@ -233,7 +237,16 @@ export class AgriculturePage {
       };
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.arrayIsCheckMethod();
-      this.navCtrl.pop();
+
+      const loading = this.loadingCtrl.create({
+        content: 'กำลังบันทึก กรุณารอสักครู่',
+        enableBackdropDismiss: false,
+      });
+      loading.present();
+      setTimeout(() => {
+        loading.dismiss();
+        this.navCtrl.pop();
+      }, 654);
     }
   }
 
