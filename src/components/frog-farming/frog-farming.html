@@ -60,16 +60,18 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount" [class.invalid]="isValid('animalsCount')"></ion-input>
+          <ion-input type="number" placeholder="กรอกจำนวน" formControlName="animalsCount"
+            [class.invalid]="isValid('animalsCount')"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('animalsCount')">
           <span class="invalid-msg">
             กรุณากรอกจำนวน
           </span>
         </ion-item>
-        <ion-item *ngIf="FormItem.get('animalsCount').value > 1000 || FormItem.get('animalsCount').value < 20 && FormItem.get('animalsCount').value > 0">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+        <ion-item
+          *ngIf="FormItem.get('animalsCount').value > 1000 || FormItem.get('animalsCount').value < 20 && FormItem.get('animalsCount').value > 0">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบจำนวนที่เลี้ยงมีจำนวนผิดปกติหรือไม่
           </span>
         </ion-item>
@@ -79,7 +81,8 @@
   </ion-card>
 
   <div *ngIf="FormItem.get('depression').value || FormItem.get('stew').value || FormItem.get('hasOther').value">
-    <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง"></water-sources9>
+    <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="3) การเลี้ยงสัตว์น้ำใช้น้ำจากแหล่งใดบ้าง">
+    </water-sources9>
   </div>
 
 </div>

@@ -21,19 +21,19 @@
       </ion-item>
       <div *ngIf="isAnimal == true || checkIsPool == true">
         <ion-item *ngIf="FormItem.get('rai').value > 5">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบจำนวนไร่มีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
       <ion-item *ngIf="FormItem.get('rai').value > 50">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบจำนวนไร่มีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
-    
+
 
       <ion-item>
         <ion-label>งาน</ion-label>

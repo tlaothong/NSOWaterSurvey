@@ -21,8 +21,8 @@
     </ion-item>
     <ion-item
       *ngIf="FormItem.get('width').value > 100 || (FormItem.get('width').value < 0.5 &&  FormItem.get('width').value > 0)">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         กรุณาตรวจสอบความกว้างมีขนาดผิดปกติหรือไม่
       </span>
     </ion-item>
@@ -37,8 +37,8 @@
     </ion-item>
     <ion-item
       *ngIf="FormItem.get('length').value > 100 || (FormItem.get('length').value < 0.5 &&  FormItem.get('length').value > 0)">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         กรุณาตรวจสอบความยาวมีขนาดผิดปกติหรือไม่
       </span>
     </ion-item>

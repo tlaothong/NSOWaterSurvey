@@ -65,8 +65,8 @@
           </span>
         </ion-item>
         <ion-item *ngIf="FormItem.get('surfaceWaterPerMonth').value > 20000 ">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบจำนวนใช้น้ำผิวดินเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
@@ -128,8 +128,8 @@
           </span>
         </ion-item>
         <ion-item *ngIf="FormItem.get('groundWaterUsePerMonth').value > 20000 ">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบจำนวนบ่อบาดาลเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
@@ -150,8 +150,8 @@
         </span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('plumbingPrice').value > 100 ">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบจำนวนราคาต่อหน่วยมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
@@ -171,8 +171,8 @@
         </span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('meterRentalFee').value > 1000 ">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบจำนวนค่าเช่ามิเตอร์ต่อเดือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
