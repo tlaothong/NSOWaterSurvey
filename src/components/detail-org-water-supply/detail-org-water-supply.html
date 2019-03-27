@@ -64,10 +64,10 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-        <ion-item *ngIf="FormItem.get('surfaceWaterPerMonth').value > 5 ">
+        <ion-item *ngIf="FormItem.get('surfaceWaterPerMonth').value > 20000 ">
           <ion-icon md="md-warning"></ion-icon>
           <span class="invalid-msg">
-            กรุณาตรวจสอบจำนวนหน่วยงานมีเยอะผิดปกติหรือไม่
+            กรุณาตรวจสอบจำนวนใช้น้ำผิวดินเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
@@ -127,10 +127,10 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-        <ion-item *ngIf="FormItem.get('groundWaterUsePerMonth').value > 5 ">
+        <ion-item *ngIf="FormItem.get('groundWaterUsePerMonth').value > 20000 ">
           <ion-icon md="md-warning"></ion-icon>
           <span class="invalid-msg">
-            กรุณาตรวจสอบจำนวนหน่วยงานมีเยอะผิดปกติหรือไม่
+            กรุณาตรวจสอบจำนวนบ่อบาดาลเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
@@ -149,7 +149,7 @@
           กรุณากรอกข้อมูล
         </span>
       </ion-item>
-      <ion-item *ngIf="FormItem.get('groundWaterUsePerMonth').value > 100 ">
+      <ion-item *ngIf="FormItem.get('plumbingPrice').value > 100 ">
         <ion-icon md="md-warning"></ion-icon>
         <span class="invalid-msg">
           กรุณาตรวจสอบจำนวนราคาต่อหน่วยมีเยอะผิดปกติหรือไม่

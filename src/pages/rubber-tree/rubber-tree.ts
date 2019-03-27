@@ -26,11 +26,10 @@ export class RubberTreePage {
   public rubbertree: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  // private formData: any;
   public DataList = EX_RUBBER_LIST;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.rubbertree = this.fb.group({
@@ -44,28 +43,17 @@ export class RubberTreePage {
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.rubbertree.patchValue(data.agriculture.rubberTree)
-    //     this.formData = data;
-    //   }
-    // })
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.store.dispatch(new SetRubberTreeSelectPlant(this.DataList));
-    // this.store.dispatch(new SetAgiSelectRubber(true));
-    // this.formData.agriculture.rubberTree = this.rubbertree.value;
+    this.isCheckWarningBox = this.rubbertree.valid || (this.rubbertree.get('doing').value == false);
+   
     if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId, this.formData)
+   
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
         rubberTree: this.rubbertree.value,
@@ -74,9 +62,7 @@ export class RubberTreePage {
         ...this.appState.houseHoldUnit,
         agriculture: argi,
       };
-
       this.store.dispatch(new SaveHouseHold(houseHold));
-
       this.navCtrl.popTo("CheckListPage");
     }
   }

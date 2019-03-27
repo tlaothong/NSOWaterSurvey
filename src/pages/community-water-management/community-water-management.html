@@ -81,6 +81,12 @@
               กรุณากรอกข้อมูล
             </span>
           </ion-item>
+          <ion-item *ngIf="CommunityWaterManagement.get('publicWaterCount').value > 5">
+            <ion-icon md="md-warning"></ion-icon>
+            <span class="invalid-msg">
+              กรุณาตรวจสอบจำนวนแหล่งน้ำมีเยอะผิดปกติหรือไม่
+            </span>
+          </ion-item>
         </div>
 
       </ion-card-content>
@@ -226,10 +232,10 @@
                   กรุณากรอกข้อมูล
                 </span>
               </ion-item>
-              <ion-item *ngIf="FCommunityWaterManagementormItem.get('waterServiceCount').value > 5 ">
+              <ion-item *ngIf="CommunityWaterManagement.get('waterServiceCount').value > 5 ">
                 <ion-icon md="md-warning"></ion-icon>
                 <span class="invalid-msg">
-                  กรุณาตรวจสอบจำนวนหน่วยงานมีเยอะผิดปกติหรือไม่
+                  กรุณาตรวจสอบจำนวนแหล่งผลิตมีเยอะผิดปกติหรือไม่
                 </span>
               </ion-item>
             </div>
@@ -339,6 +345,17 @@
 
       </ion-card-content>
     </ion-card>
+
+    <ion-card class="invalid-msg" *ngIf="!isCheckWarningBox && submitRequested">
+      <ion-card-header>
+        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
+      </ion-card-header>
+      <ion-card-content>
+        <ion-icon name="warning" item-start></ion-icon>
+        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
+      </ion-card-content>
+    </ion-card> 
+
     <form-buttons-bar></form-buttons-bar>
   </form>
 

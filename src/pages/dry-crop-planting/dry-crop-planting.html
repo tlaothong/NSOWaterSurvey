@@ -6,7 +6,8 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant" [rx-form-data]="(formData$ | async)?.agriculture?.agronomyPlant">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="agronomyPlant"
+    [rx-form-data]="(formData$ | async)?.agriculture?.agronomyPlant">
     <h3>ตอนที่ 2.2 พืชไร่</h3>
     <ion-card>
       <ion-card-content>
@@ -82,6 +83,17 @@
         <field-dry-crop-planting [no]="i+1" [FormItem]="fdc"></field-dry-crop-planting>
       </div>
     </div>
+
+    <ion-card class=" invalid-msg" *ngIf="!isCheckWarningBox && submitRequested ">
+      <ion-card-header>
+        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
+      </ion-card-header>
+      <ion-card-content>
+        <ion-icon name="warning" item-start></ion-icon>
+        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
+      </ion-card-content>
+    </ion-card>
+
 
     <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 

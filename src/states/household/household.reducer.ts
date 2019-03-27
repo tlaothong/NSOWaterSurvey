@@ -597,8 +597,8 @@ function resetStatesForModel(model: any): any {
         waterSourcesCommercial: waterCom,
         riceDoing: model && model.agriculture && model.agriculture.ricePlant && model.agriculture.ricePlant.doing,
         agiSelectRice: model && model.agriculture && model.agriculture.ricePlant && model.agriculture.ricePlant.doing,
-        agiSelectRubber: model && model.agriculture && model.agriculture.rubberTree &&  model.agriculture.rubberTree.doing,
-        agiSelectPerennial: model && model.agriculture &&  model.agriculture.perennialPlant && model.agriculture.perennialPlant.doing,
+        agiSelectRubber: model && model.agriculture && model.agriculture.rubberTree && model.agriculture.rubberTree.doing,
+        agiSelectPerennial: model && model.agriculture && model.agriculture.perennialPlant && model.agriculture.perennialPlant.doing,
         factorialCategory: model && model.factory && model.factory.category,
         commercialServiceType: model && model.commerce && model.commerce.serviceType,
         checkWaterPlumbing: checkPlumbing,
@@ -857,6 +857,8 @@ function findWaterSourceAquticAnimals(water) {
 }
 
 function listPagesToCheck(state: HouseHoldState): Array<boolean> {
+    // console.log("เช็คหน้าต่อไป", JSON.stringify(state));
+
     let arr: Array<boolean> = state.nextPageDirection;
     arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
     arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;

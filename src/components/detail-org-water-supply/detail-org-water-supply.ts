@@ -21,12 +21,12 @@ export class DetailOrgWaterSupplyComponent implements ISubmitRequestable {
     return fb.group({
       'name': [null, Validators],
       'hasSurfaceWater': [null, Validators],
-      'surfaceWaterPerMonth': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'surfaceWaterPerMonth': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
       'useGroundWater': [null, Validators],
       'groundWaterCount': [null, Validators],
-      'groundWaterUsePerMonth': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
-      'plumbingPrice': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
-      'meterRentalFee': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'groundWaterUsePerMonth': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
+      'plumbingPrice': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
+      'meterRentalFee': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
       'disinfection': [0, Validators],
       'otherDisinfection': [null, Validators],
     }, {

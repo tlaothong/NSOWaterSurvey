@@ -35,25 +35,18 @@ export class UserPage {
   private GetDataFromBuilding: any;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
   private oldStatus: string;
   constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, private storeBuild: Store<BuildingState>, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
-      "factorialCategoryCode": [null, Validators],
-      "serviceTypeCode": [null, Validators]
+      "factorialCategoryCode": [null, Validators.required],
+      "serviceTypeCode": [null, Validators.required]
     });
   }
 
   ionViewDidLoad() {
     this.countNumberPage();
-    // this.formData$.subscribe((data) => {
-    //   if (data != null) {
-    //     this.userInfo.setValue(data.closing)
-    //     this.formData = data;
-    //   }
-
-    // })
-
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
@@ -62,7 +55,11 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    if (this.userInfo.valid) {
+    console.log("this.checkValidCommercialType()", this.checkValidCommercialType());
+    console.log("this.checkValidFactorialType()", this.checkValidFactorialType());
+
+    this.isCheckWarningBox = (this.userInfo.get('informer').valid && this.checkValidCommercialType() && this.checkValidFactorialType());
+    if (this.userInfo.get('informer').valid && this.checkValidCommercialType() && this.checkValidFactorialType()) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
@@ -83,6 +80,32 @@ export class UserPage {
     }
   }
 
+  public checkValidCommercialType(): boolean {
+    if (this.commercialServiceType == null) {
+      return true;
+    }
+    else {
+      if (this.userInfo.get('serviceTypeCode').valid) {
+        return true;
+      }
+      else
+        return false;
+    }
+  }
+
+  public checkValidFactorialType(): boolean {
+    // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
+    if (this.facCategory == null) {
+      return true;
+    }
+    else {
+      if (this.userInfo.get('factorialCategoryCode').valid) {
+        return true;
+      }
+      else
+        return false;
+    }
+  }
   // public updateUnitCountComplete() {
   //   this.storage.get(this.formData.buildingId).then((val) => {
   //     if (val != null) {

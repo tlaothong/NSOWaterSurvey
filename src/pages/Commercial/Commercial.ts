@@ -272,12 +272,4 @@ export class CommercialPage {
     });
   }
 
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
-  }
-
 }

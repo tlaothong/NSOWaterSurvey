@@ -35,6 +35,7 @@ export class BuyingPage {
   public getIsCommercial: boolean;
   private frontNum: any;
   private backNum: any;
+  public isCheckWarningBox: boolean;
 
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.BuyingForm = this.fb.group({
@@ -70,6 +71,7 @@ export class BuyingPage {
   public handleSubmit() {
     this.submitRequested = true;
     // this.formData.waterUsage.buying = this.BuyingForm.value;
+    this.isCheckWarningBox = this.BuyingForm.valid || (this.tableBuying.some(it => it.FormItem.valid)) || (this.tableBuyingOther.some(it => it.FormItem.valid));
     if (this.BuyingForm.valid
       || (this.tableBuying.some(it => it.FormItem.valid))
       || (this.tableBuyingOther.some(it => it.FormItem.valid))) {

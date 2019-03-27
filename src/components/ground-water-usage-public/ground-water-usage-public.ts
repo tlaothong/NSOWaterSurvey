@@ -59,7 +59,7 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
   }
 
   public checkValid(): boolean {
-    return this.isCheckCubicMeter() && this.isCheckValidwaterAct() && this.isCheckProblem();
+    return this.isCheckCubicMeter() && this.isCheckValidwaterAct() && this.isCheckProblem() && this.isCheckLocation();
   }
 
   public isCheckCubicMeter(): boolean {
@@ -84,6 +84,10 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
   public isCheckProblem(): boolean {
     return (this.FormItem.get('qualityProblem.hasProblem').value) ?
       this.FormItem.get('qualityProblem.problem').valid : this.FormItem.get('qualityProblem.hasProblem').valid;
+  }
+
+  public isCheckLocation(): boolean {
+    return !this.locationT.find(it => it.FormItem.invalid);
   }
 
   setDefult() {

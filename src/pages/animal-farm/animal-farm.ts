@@ -29,6 +29,7 @@ export class AnimalFarmPage {
   // public dataAni: any;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
 
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
@@ -43,7 +44,7 @@ export class AnimalFarmPage {
       'goose': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
-      // 'otherName': null,
+      'otherName': [null, Validators],
       'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
     }, {
         validator: AnimalFarmPage.checkAnyOrOther()
@@ -59,13 +60,17 @@ export class AnimalFarmPage {
     //     this.dataAni = data;
     //   }
     // })
+
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
+    this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
+
     if (this.f.valid || (this.f.get('doing').value == false)) {
+
       this.arrayIsCheckMethod();
       let agri = {
         ...this.appState.houseHoldUnit.agriculture,
@@ -134,6 +139,10 @@ export class AnimalFarmPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'otherName') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.otherName && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -149,12 +158,19 @@ export class AnimalFarmPage {
       const goose = c.get('goose');
       const silkWool = c.get('silkWool');
       const other = c.get('other');
+      const otherName = c.get('otherName');
       console.log(cow.value.itemCount);
+      console.log(otherName.value);
+
 
       if (!cow.value.itemCount && !buffalo.value.itemCount && !pig.value.itemCount && !goat.value.itemCount && !sheep.value.itemCount
         && !chicken.value.itemCount && !duck.value.itemCount && !goose.value.itemCount && !silkWool.value.itemCount && !other.value.itemCount) {
         return { 'anycheck': true };
       }
+      if (other.value.hasItem && (otherName.value == null || otherName.value.trim() == '')) {
+        return { 'otherName': true }
+      }
+
       return null;
     }
   }

@@ -34,7 +34,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
     return fb.group({
       'shape': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'depth': [null, Validators.compose([Validators.pattern('[0-9.]*'), Validators.required])],
+      'depth': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
       'rectangle': fb.group({
         'width': [null, Validators],
         'length': [null, Validators],
@@ -44,6 +44,19 @@ export class PoolAreaComponent implements ISubmitRequestable {
     }, {
         validator: PoolAreaComponent.checkAnyOrOther()
       });
+  }
+
+  public setArea() {
+    if (this.FormItem.get('shape').value == 1
+      && this.FormItem.get('area.rai').value == 0
+      && this.FormItem.get('area.ngan').value == 0
+      && this.FormItem.get('area.sqWa').value == 0) {
+      this.FormItem.get('area').reset();
+    } else if (this.FormItem.get('area').invalid) {
+      this.FormItem.get('area.rai').setValue(0);
+      this.FormItem.get('area.ngan').setValue(0);
+      this.FormItem.get('area.sqWa').setValue(0);
+    }
   }
 
   public static checkAnyOrOther(): ValidatorFn {

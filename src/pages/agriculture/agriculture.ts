@@ -1,6 +1,6 @@
-import { SetArraySkipPageAgiculture, SetSelectorIndex, } from './../../states/household/household.actions';
+import { SetArraySkipPageAgiculture, SetSelectorIndex, SaveHouseHold, } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getHouseHoldSample } from '../../states/household';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
 @IonicPage()
@@ -22,10 +23,15 @@ export class AgriculturePage {
   private formData$ = this.store.select(getHouseHoldSample);
   private formDatAgiculture$ = this.store.select(getArraySkipPageAgiculture).pipe(map(s => s));
   private frontNum: any;
+  private isCheckWarningBox: boolean;
   private backNum: any;
   public id: any;
-  
-  constructor(public alertController: AlertController,public modalCtrl: ModalController, public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public fb: FormBuilder, public navParams: NavParams) {
+
+  constructor(private appState: AppStateProvider, public alertController: AlertController, 
+      private loadingCtrl: LoadingController,
+      public modalCtrl: ModalController, public navCtrl: NavController, 
+      public local: LocalStorageProvider, private store: Store<HouseHoldState>, 
+      public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": this.fb.group({
         'doing': [false, Validators.required],
@@ -58,10 +64,10 @@ export class AgriculturePage {
         validator: AgriculturePage.checkAnyOrOther()
       });
   }
-  
-   presentAlert(Title: string) {
+
+  presentAlert(Title: string) {
     if (Title == "พืชไร่") {
-      
+
       const alert = this.alertController.create({
         title: 'ตัวอย่าง พืชไร่',
         subTitle: 'เช่น กก ข้าวโพดเลี้ยงสัตว์ ข้าวฟ่าง งา ถั่วทุกชนิด ทานตะวัน นุ่น ปอ ฝ้าย มันสำปะหลัง ยาสูบ ละหุ่ง <br> ลูกเดือย สาคู แห้ว อ้อย สัปปะรด กาแฟ เป็นต้น',
@@ -74,11 +80,11 @@ export class AgriculturePage {
           }
         ]
       });
-     alert.present();
+      alert.present();
     }
 
     if (Title == "พืชยืนต้น") {
-      
+
       const alert = this.alertController.create({
         title: 'ตัวอย่าง พืชยืนต้น',
         subTitle: '<b>พืชยืนต้น ไม้ผล</b> เช่น กระท้อน กล้วย แก้วมังกร จาก เงาะ ชมพู่ หมาก หวาย หม่อน มะม่วง มะนาว มังคุด ทุเรียน ลิ้นจี่ มะละกอ ลองกอง ลางสาด สะตอ สะเดา ส้มโอ ส้มเขียวหวาน น้อยหน่า องุ่น แอ๊ปเปิ้ล มะพร้าว แตงโม <br> ปาล์มน้ำมัน เป็นต้น <br> <b>สวนป่า</b> เช่น กระถินณรงค์ กฤษณา โกงกาง ชิงชัน แดง ตะเคียนทอง ทองหลาง ตีนเป็ด ประดู่ ไผ่ <br> มะค่าโมง ยางนา ยูคาลิปตัส สน สัก เป็นต้น',
@@ -91,11 +97,11 @@ export class AgriculturePage {
           }
         ]
       });
-     alert.present();
+      alert.present();
     }
 
     if (Title == "พืชผักสมุนไพร") {
-      
+
       const alert = this.alertController.create({
         title: 'ตัวอย่าง พืชผักสมุนไพร',
         subTitle: 'เช่น กะหล่ำปลี ข่า ขิง ขมิ้น คะน้า ชะอม ตะไคร้ แตงกวา บวบ บัวสาย ผักกาดขาว ผักชี เผือก พริก หอม มันเทศ โหระพา กะเพรา แมงลัก มะเขือเทศ มะเขือ พริกไทย กระวาน กานพลู กวาวเครือ สำรอง <br> หญ้าหวาน อบเชย อัญชัน <br> ข้าวโพดฝักอ่อน ข้าวโพดรับประทาน เป็นต้น',
@@ -108,11 +114,11 @@ export class AgriculturePage {
           }
         ]
       });
-     alert.present();
+      alert.present();
     }
 
     if (Title == "ไม้ดอกไม้ประดับ") {
-      
+
       const alert = this.alertController.create({
         title: 'ตัวอย่าง ไม้ดอกไม้ประดับ',
         subTitle: '<b>ไม้ดอก</b> เช่น กล้วยไม้ กุหลาบ คาร์เนชั่น จำปา จำปี ดอกกระดาษ ดอกรัก ดาวเรือง บานไม่รู้โรย เบญจมาศ มะลิ เยอร์บิรา หน้าวัว เป็นต้น <br> <b>ไม้ประดับ</b> เช่น โกสน เข็ม เตย ไทร เทียนทอง บอนไซ บอนสี เฟิร์นต่างๆ ปาล์มต่าง ๆ ไผ่ เฟื่องฟ้า ลิ้นมังกร วาสนา ว่าน ต่างๆ หญ้าปูสนาม เป็นต้น',
@@ -173,26 +179,74 @@ export class AgriculturePage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    this.isCheckWarningBox = !this.isValid('anycheck');
 
     if (!this.isValid('anycheck')) {
-      this.formData$.subscribe(data => {
-        if (data != null) {
-          data.agriculture.ricePlant.doing = this.f.get('ricePlant.doing').value;
-          data.agriculture.agronomyPlant.doing = this.f.get('agronomyPlant.doing').value;
-          data.agriculture.rubberTree.doing = this.f.get('rubberTree.doing').value;
-          data.agriculture.perennialPlant.doing = this.f.get('perennialPlant.doing').value;
-          data.agriculture.herbsPlant.doing = this.f.get('herbsPlant.doing').value;
-          data.agriculture.flowerCrop.doing = this.f.get('flowerCrop.doing').value;
-          data.agriculture.mushroomPlant.doing = this.f.get('mushroomPlant.doing').value;
-          data.agriculture.animalFarm.doing = this.f.get('animalFarm.doing').value;
-          data.agriculture.aquaticAnimals.doing = this.f.get('aquaticAnimals.doing').value;
-          console.log("plant", data);
-          this.storage.set(data._id, data)
-          this.local.updateListUnit(data.buildingId, data)
-        }
-      });
+      let argiRice = {
+        ...this.appState.houseHoldUnit.agriculture.ricePlant,
+        doing: this.f.get('ricePlant.doing').value,
+      }
+      let argiAgronomyPlant = {
+        ...this.appState.houseHoldUnit.agriculture.agronomyPlant,
+        doing: this.f.get('agronomyPlant.doing').value,
+      }
+      let argiRubberTree = {
+        ...this.appState.houseHoldUnit.agriculture.rubberTree,
+        doing: this.f.get('rubberTree.doing').value,
+      }
+      let argiPerennialPlant = {
+        ...this.appState.houseHoldUnit.agriculture.perennialPlant,
+        doing: this.f.get('perennialPlant.doing').value,
+      }
+      let argiHerbsPlant = {
+        ...this.appState.houseHoldUnit.agriculture.herbsPlant,
+        doing: this.f.get('herbsPlant.doing').value,
+      }
+      let argiFlowerCrop = {
+        ...this.appState.houseHoldUnit.agriculture.flowerCrop,
+        doing: this.f.get('flowerCrop.doing').value,
+      }
+      let argiMushroomPlant = {
+        ...this.appState.houseHoldUnit.agriculture.mushroomPlant,
+        doing: this.f.get('mushroomPlant.doing').value,
+      }
+      let argiAnimalFarm = {
+        ...this.appState.houseHoldUnit.agriculture.animalFarm,
+        doing: this.f.get('animalFarm.doing').value,
+      }
+      let argiAquaticAnimals = {
+        ...this.appState.houseHoldUnit.agriculture.aquaticAnimals,
+        doing: this.f.get('aquaticAnimals.doing').value,
+      }
+
+      let argi = {
+        ...this.appState.houseHoldUnit.agriculture,
+        ricePlant: argiRice,
+        agronomyPlant: argiAgronomyPlant,
+        rubberTree: argiRubberTree,
+        perennialPlant: argiPerennialPlant,
+        herbsPlant: argiHerbsPlant,
+        flowerCrop: argiFlowerCrop,
+        mushroomPlant: argiMushroomPlant,
+        animalFarm: argiAnimalFarm,
+        aquaticAnimals: argiAquaticAnimals,
+      };
+      let houseHold = {
+        ...this.appState.houseHoldUnit,
+        agriculture: argi,
+      };
+      this.store.dispatch(new SaveHouseHold(houseHold));
       this.arrayIsCheckMethod();
-      this.navCtrl.pop();
+
+      const loading = this.loadingCtrl.create({
+        content: 'กำลังบันทึก กรุณารอสักครู่',
+        enableBackdropDismiss: false,
+      });
+      loading.present();
+      setTimeout(() => {
+        loading.dismiss();
+        this.navCtrl.pop();
+      }, 654);
     }
   }
 

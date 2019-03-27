@@ -30,6 +30,7 @@ export class WaterAnimalPlantingPage {
   private submitRequested: boolean;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
@@ -72,6 +73,7 @@ export class WaterAnimalPlantingPage {
     this.frogFarming.forEach(it => it.submitRequest());
     this.crocodileFarming.forEach(it => it.submitRequest());
     // this.formData.agriculture.aquaticAnimals = this.f.value;
+    this.isCheckWarningBox = (this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid());
     if ((this.f.get('doing').value == false) || ((!this.isValid('anycheck')) && this.checkValid())) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
