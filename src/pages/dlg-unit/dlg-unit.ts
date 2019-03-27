@@ -23,6 +23,8 @@ export class DlgUnitPage {
   // public FormItem: FormGroup;
   public ff: FormGroup;
 
+  private replaceMode: boolean = false;
+
   // public index: number;
   // public access: number;
   public static accessValid: number;
@@ -44,11 +46,12 @@ export class DlgUnitPage {
         private viewCtrl: ViewController, public fb: FormBuilder,
         private appState: AppStateProvider) {
 
+    this.replaceMode = navParams.get('replaceMode');
     let unitInfo = navParams.get('unitInfo');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
     this.ff.patchValue(unitInfo);
 
-    this.count = Math.min(3, unitInfo.subUnit.accessCount + 1);
+    this.count = this.replaceMode ? unitInfo.subUnit.accessCount : Math.min(3, unitInfo.subUnit.accessCount + 1);
     // this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
 
     // this.setupAccessCountChanges();
@@ -106,8 +109,17 @@ export class DlgUnitPage {
     if (this.ff.valid) {
       let formValue = this.ff.value;
       let subUnit = formValue.subUnit;
-      subUnit.accessCount++;
-      subUnit.accesses.push(formValue.access);
+
+      if (this.replaceMode) {
+        if (subUnit.accesses.length > 0) {
+          subUnit.accesses[subUnit.accesses.length - 1] = formValue.access;
+        } else {
+          subUnit.accesses.push(formValue.access);
+        }
+      } else {
+        subUnit.accessCount++;
+        subUnit.accesses.push(formValue.access);
+      }
 
       console.log('ff formValue: ' + JSON.stringify(formValue));
 
