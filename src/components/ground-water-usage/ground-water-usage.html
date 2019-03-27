@@ -72,8 +72,8 @@
                 </span>
               </ion-item>
               <ion-item *ngIf="FormItem.get('usageType.usageCubicMeters').value > 1000">
-                <ion-icon md="md-warning"></ion-icon>
-                <span class="invalid-msg">
+                <ion-icon md="md-warning" class="warning"></ion-icon>
+                <span class="warning-msg">
                   กรุณาตรวจสอบปริมาณน้ำมีจำนวนผิดปกติหรือไม่
                 </span>
               </ion-item>
@@ -94,8 +94,8 @@
                 </span>
               </ion-item>
               <ion-item *ngIf="FormItem.get('usageType.waterBill').value > 100000">
-                <ion-icon md="md-warning"></ion-icon>
-                <span class="invalid-msg">
+                <ion-icon md="md-warning" class="warning"></ion-icon>
+                <span class="warning-msg">
                   กรุณาตรวจสอบค่าน้ำมีจำนวนมากผิดปกติหรือไม่
                 </span>
               </ion-item>

@@ -163,7 +163,7 @@
       && (FormItem.get('birthMonth').value == 2)">
         <span class="invalid-msg">วันเกิดและเดือนเกิดไม่สัมพันธ์กัน</span>
       </ion-item>
-      
+
       <ion-item [class.invalid]="isValid('birthMonth')">
         <ion-label>เดือน</ion-label>
         <ion-select interface="action-sheet" formControlName="birthMonth" (ionChange)="CalculateAge()">
@@ -334,15 +334,15 @@
 
     <ion-item
       *ngIf="(FormItem.get('relationship').value == 1) && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         หัวหน้าครัวเรือนต้องมีอายุ 13 ปีขึ้นไป
       </span>
     </ion-item>
     <ion-item
       *ngIf="FormItem.get('relationship').value == 2 && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         กรุณาตรวจสอบอายุของภรรยาหรือสามี
       </span>
     </ion-item>

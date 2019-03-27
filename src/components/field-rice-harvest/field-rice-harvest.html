@@ -141,7 +141,8 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterFillingCount" [class.invalid]="isValid('waterFillingCount')"></ion-input>
+      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterFillingCount"
+        [class.invalid]="isValid('waterFillingCount')"></ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('waterFillingCount')">
       <span class="invalid-msg">
@@ -149,8 +150,8 @@
       </span>
     </ion-item>
     <ion-item *ngIf="FormItem.get('waterFillingCount').value > 20">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         กรุณาตรวจสอบจำนวนครั้งที่ปล่อยน้ำเข้านามีเยอะผิดปกติหรือไม่
       </span>
     </ion-item>
@@ -161,7 +162,8 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterHeightCm" [class.invalid]="isValid('waterHeightCm')"></ion-input>
+      <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="waterHeightCm"
+        [class.invalid]="isValid('waterHeightCm')"></ion-input>
     </ion-item>
     <ion-item *ngIf="isValid('waterHeightCm')">
       <span class="invalid-msg">
@@ -169,8 +171,8 @@
       </span>
     </ion-item>
     <ion-item *ngIf="FormItem.get('waterHeightCm').value > 20">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         กรุณาตรวจสอบความสูงที่ปล่อยน้ำเข้านาโดยเฉลี่ยมีเยอะผิดปกติหรือไม่
       </span>
     </ion-item>

@@ -32,8 +32,8 @@
           </span>
         </ion-item>
         <ion-item *ngIf="f.get('unitCount').value > 99">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบจำนวนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
@@ -92,8 +92,8 @@
               </span>
             </ion-item>
             <ion-item *ngIf="f.get('floorCount').value > 100">
-              <ion-icon md="md-warning"></ion-icon>
-              <span class="invalid-msg">
+              <ion-icon md="md-warning" class="warning"></ion-icon>
+              <span class="warning-msg">
                 กรุณาตรวจสอบจำนวนชั้นของอาคารมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
@@ -220,8 +220,8 @@
               </span>
             </ion-item>
             <ion-item *ngIf="f.get('floorCount').value > 100">
-              <ion-icon md="md-warning"></ion-icon>
-              <span class="invalid-msg">
+              <ion-icon md="md-warning" class="warning"></ion-icon>
+              <span class="warning-msg">
                 กรุณาตรวจสอบจำนวนชั้นของอาคารมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
@@ -254,8 +254,8 @@
               </span>
             </ion-item>
             <ion-item *ngIf="f.get('floorCount').value > 100">
-              <ion-icon md="md-warning"></ion-icon>
-              <span class="invalid-msg">
+              <ion-icon md="md-warning" class="warning"></ion-icon>
+              <span class="warning-msg">
                 กรุณาตรวจสอบจำนวนชั้นของอาคารมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
@@ -281,7 +281,7 @@
         <ion-icon name="warning" item-start></ion-icon>
         ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
       </ion-card-content>
-    </ion-card> 
+    </ion-card>
 
     <form-buttons-bar [isDisabled]="true" [checkFormButtonsForBuilding]="true"></form-buttons-bar>
 
