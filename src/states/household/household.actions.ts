@@ -112,7 +112,7 @@ export class NewHouseHoldWithSubUnit implements Action {
 export class SaveHouseHoldSubUnit implements Action {
     readonly type = HouseHoldTypes.SaveHouseHoldSubUnit;
 
-    constructor(public houseHoldId: string, public subUnit: SubUnit, public comment: string) {
+    constructor(public houseHold: HouseHoldUnit, public subUnit: SubUnit, public comment: string) {
     }
 }
 

@@ -73,10 +73,9 @@ export class HouseHoldEffects {
     @Effect()
     public saveHouseHoldSubUnit$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SaveHouseHoldSubUnit),
-        withLatestFrom(this.store.select(getHouseHoldSample)),
-        map(([action, houseHold]) => this.updateHouseHoldSubUnit(houseHold,
-            (<SaveHouseHoldSubUnit>action).subUnit, (<SaveHouseHoldSubUnit>action).comment)),
-        map(it => new SaveHouseHold(it)),
+        map((action: SaveHouseHoldSubUnit) => this.updateHouseHoldSubUnit(action.houseHold,
+            action.subUnit, action.comment)),
+        map(it => new SaveHouseHold(it)),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     );
 
     private updateHouseHoldSubUnit(houseHold: HouseHoldUnit, subUnit: SubUnit, comment: string): HouseHoldUnit {
