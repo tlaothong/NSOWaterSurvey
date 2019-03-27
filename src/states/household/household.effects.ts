@@ -87,10 +87,15 @@ export class HouseHoldEffects {
             subUnit.accessCount = accCnt;
         }
 
+        let comments = [...houseHold.comments];
+        if (comment && comment != '') {
+            comments.push({ at: Date.now(), text: comment });
+        }
+
         return {
             ...houseHold,
             subUnit: subUnit,
-            comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }]: [],
+            comments: comments || [],
         };
     }
 
@@ -185,6 +190,7 @@ export class HouseHoldEffects {
                 "subUnit": unit.subUnit,
                 "accessCount": accCnt,
                 "lastAccess": lastAccess,
+                "comments": unit.comments,
                 "status": status,
             };
             let idx = lst.findIndex(it => it.houseHoldId == unit._id);

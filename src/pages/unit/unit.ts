@@ -166,9 +166,10 @@ export class UnitPage {
     alert.present();
   }
 
-  public showComments() {
+  public showComments(unit: UnitInList) {
+
     let alertUnderConstruction = this.alertCtrl.create({
-      message: "ความสามารถส่วนนี้กำลังปรับปรุง จะเปิดกลับมาให้ใช้งานได้เร็วๆนี้",
+      message: new Date(unit.comments[0].at) + '@ ' + unit.comments[0].text,
       title: "กำลังปรับปรุง",
       buttons: ["OK"],
     });

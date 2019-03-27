@@ -48,9 +48,6 @@ export class DlgUnitPage {
     this.ff = DlgUnitPage.CreateFormGroup(fb);
     this.ff.patchValue(unitInfo);
 
-    console.log("unitInfo: " + JSON.stringify(unitInfo));
-    console.log("Dlg ff: " + JSON.stringify(this.ff.value));
-
     this.count = Math.min(3, unitInfo.subUnit.accessCount + 1);
     // this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
 
@@ -111,6 +108,8 @@ export class DlgUnitPage {
       let subUnit = formValue.subUnit;
       subUnit.accessCount++;
       subUnit.accesses.push(formValue.access);
+
+      console.log('ff formValue: ' + JSON.stringify(formValue));
 
       this.viewCtrl.dismiss({
         subUnit: subUnit,
