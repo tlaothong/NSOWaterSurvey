@@ -45,6 +45,20 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
       });
   }
 
+  public setArea() {
+    if (this.FormItem.get('shape').value == '1') {
+      if (this.FormItem.get('area.rai').value == 0
+        && this.FormItem.get('area.ngan').value == 0
+        && this.FormItem.get('area.sqWa').value == 0) {
+        this.FormItem.get('area').reset();
+      }
+    } else if (this.FormItem.get('area').invalid) {
+      this.FormItem.get('area.rai').setValue(0);
+      this.FormItem.get('area.ngan').setValue(0);
+      this.FormItem.get('area.sqWa').setValue(0);
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     if (name == 'shape') {
