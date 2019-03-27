@@ -70,8 +70,7 @@ export class PopulationPage {
     // });
 
     // this.getIdHomes$.subscribe(data => this.str = data);
-
-    this.getIdHomes = this.appState.eaCode.substring(0, 2); // this.str.substring(0, 2); //10
+    this.getIdHomes = this.appState.eaCode.substr(1, 2); // this.str.substring(0, 2); //10
     this.pro = provinceData.find(it => it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;
     this.i = this.navParams.get('i');
