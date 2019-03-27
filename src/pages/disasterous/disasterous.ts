@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -30,7 +30,8 @@ export class DisasterousPage {
   private backNum: any;
   public isCheckWarningBox: boolean;
 
-  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>,
+    private appState: AppStateProvider, public alertController: AlertController) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -68,8 +69,8 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = this.Disasterous.valid || this.Disasterous.get('flooded').value == false 
-    || this.tableDisasterous.some(it => it.FormItem.valid);
+    this.isCheckWarningBox = this.Disasterous.valid || this.Disasterous.get('flooded').value == false
+      || this.tableDisasterous.some(it => it.FormItem.valid);
     // this.dataDis.disaster = this.Disasterous.value
     if (this.Disasterous.valid
       || this.Disasterous.get('flooded').value == false
@@ -136,9 +137,30 @@ export class DisasterousPage {
     this.submitRequested = true;
   }
 
+  presentAlertDisater(num) {
+    const alert = this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            let test = this.Disasterous.get('yearsDisasterous') as FormArray;
+            test.at(num).reset();
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   deleteData(num: number) {
-    let test = this.Disasterous.get('yearsDisasterous') as FormArray;
-    test.at(num).reset();
+    this.presentAlertDisater(num);
   }
 
   public isValid(name: string): boolean {
