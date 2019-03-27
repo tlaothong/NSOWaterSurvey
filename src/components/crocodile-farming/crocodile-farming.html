@@ -104,7 +104,7 @@
 
       <div *ngSwitchCase="false">
         <div *ngFor="let p of FormItem.get('fields').controls;let i= index">
-          <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [FormItem]="p"></pool-area>
+          <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [isAnimal]="isAnimal" [FormItem]="p"></pool-area>
         </div>
       </div>
     </div>

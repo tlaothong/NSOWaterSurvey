@@ -47,7 +47,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   }
 
   public setArea() {
-    if (this.FormItem.get('shape').value == 1) {
+    if (this.FormItem.get('shape').value == "1") {
       if (this.FormItem.get('area.rai').value == 0
         && this.FormItem.get('area.ngan').value == 0
         && this.FormItem.get('area.sqWa').value == 0) {
