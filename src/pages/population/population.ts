@@ -194,6 +194,8 @@ export class PopulationPage {
 
   deleteData(num: number) {
     let del = this.f.get('persons') as FormArray;
-    del.at(num).reset();
+    del.removeAt(num);
+    let count = this.f.get('personCount').value;
+    this.f.get('personCount').setValue(count);
   }
 }
