@@ -306,9 +306,8 @@
                   3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage">
-                <ion-row radio-group formControlName="waterQuantity"
-                  [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('other.plumbingUsage.waterQuantity')">
+                <ion-row radio-group formControlName="waterQuantity">
                   <ion-item *ngIf="isValid('other.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
