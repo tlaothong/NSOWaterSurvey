@@ -18,6 +18,7 @@ export interface UnitInList {
     subUnit: SubUnit;
     accessCount: number;
     lastAccess: number;
+    comments: CommentInList[];
     status: string; // formerly 'class'
 }
 
@@ -36,6 +37,7 @@ export interface HouseHoldUnit {
     ea: string;
     buildingId: string;
     subUnit: SubUnit;
+    comments: CommentInList[];
     [x: string]: any;
 }
 
@@ -43,6 +45,11 @@ export interface SubUnit {
     roomNumber: string;
     accessCount: number;
     [x: string]: any;
+}
+
+export interface CommentInList {
+    at: number;
+    text: string;
 }
 
 export interface EA {

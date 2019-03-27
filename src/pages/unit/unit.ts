@@ -11,6 +11,7 @@ import { getHouseHoldUnitList } from '../../states/household';
 import { Observable, Subject } from 'rxjs';
 import { UnitInList } from '../../models/mobile/MobileModels';
 import { getUnitCount } from '../../states/building';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @IonicPage()
 @Component({
@@ -36,7 +37,7 @@ export class UnitPage {
       public navParams: NavParams, private alertCtrl: AlertController,
       private modalCtrl: ModalController,
       private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
-      /* public fb: FormBuilder, */ private appState: AppStateProvider) {
+      private dataStore: DataStoreProvider, private appState: AppStateProvider) {
 
       let obs = this.unitList$.subscribe(_ => {
         console.log('TAKE TAKE');
@@ -132,33 +133,27 @@ export class UnitPage {
     } else if(unt.lastAccess == 2 || unt.lastAccess == 3) {
       if (unt.accessCount < 3) {
         // TODO: Remove this HACK!
-        let accessesFake = [];
-        for (let index = 0; index < unt.accessCount; index++) {
-          accessesFake.push(unt.lastAccess);
-        }
-        const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
-          subUnit: {
-            roomNumber: null,
-            accessCount: unt.accessCount,
-            accesses: accessesFake,
-            hasPlumbing: null,
-            hasPlumbingMeter: null,
-            isPlumbingMeterXWA: null,
-            hasGroundWater: null,
-            hasGroundWaterMeter: null,
-          }
-        }});
-        modal.onDidDismiss(data => {
-          if (data) {
-            this.store.dispatch(new SaveHouseHoldSubUnit(unt.houseHoldId, data.subUnit, data.comment));
-            let cnt = data.subUnit.accessCount;
-            let lastIndex = Math.max(0, cnt - 1);
-            if (data.subUnit.accesses && data.subUnit.accesses.length > 0 && data.subUnit.accesses[lastIndex] == 1) {
-              this.navCtrl.push('WaterActivityUnitPage');
-            }
-          }
-        });
-        modal.present();
+
+        this.dataStore.getHouseHold(unt.houseHoldId)
+          .take(1).subscribe(sample => {
+
+            const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
+              subUnit: sample.subUnit
+            }});
+            modal.onDidDismiss(data => {
+              if (data) {
+                this.store.dispatch(new SaveHouseHoldSubUnit(sample, data.subUnit, data.comment));
+                let cnt = data.subUnit.accessCount;
+                let lastIndex = Math.max(0, cnt - 1);
+                if (data.subUnit.accesses && data.subUnit.accesses.length > 0 && data.subUnit.accesses[lastIndex] == 1) {
+                  this.navCtrl.push('WaterActivityUnitPage');
+                }
+              }
+            });
+            modal.present();    
+
+          });
+
         return;
       }
     }
@@ -171,13 +166,17 @@ export class UnitPage {
     alert.present();
   }
 
-  public showComments() {
-    let alertUnderConstruction = this.alertCtrl.create({
-      message: "ความสามารถส่วนนี้กำลังปรับปรุง จะเปิดกลับมาให้ใช้งานได้เร็วๆนี้",
-      title: "กำลังปรับปรุง",
-      buttons: ["OK"],
-    });
-    alertUnderConstruction.present();
+  public showComments(unit: UnitInList) {
+
+    let showComments = this.modalCtrl.create("DlgCommentListPage", { comments: unit.comments });
+    showComments.present();
+
+    // let alertUnderConstruction = this.alertCtrl.create({
+    //   message: new Date(unit.comments[0].at) + '@ ' + unit.comments[0].text,
+    //   title: "กำลังปรับปรุง",
+    //   buttons: ["OK"],
+    // });
+    // alertUnderConstruction.present();
   }
 
   ionViewDidEnter() {

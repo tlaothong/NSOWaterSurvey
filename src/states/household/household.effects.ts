@@ -73,10 +73,9 @@ export class HouseHoldEffects {
     @Effect()
     public saveHouseHoldSubUnit$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.SaveHouseHoldSubUnit),
-        withLatestFrom(this.store.select(getHouseHoldSample)),
-        map(([action, houseHold]) => this.updateHouseHoldSubUnit(houseHold,
-            (<SaveHouseHoldSubUnit>action).subUnit, (<SaveHouseHoldSubUnit>action).comment)),
-        map(it => new SaveHouseHold(it)),
+        map((action: SaveHouseHoldSubUnit) => this.updateHouseHoldSubUnit(action.houseHold,
+            action.subUnit, action.comment)),
+        map(it => new SaveHouseHold(it)),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     );
 
     private updateHouseHoldSubUnit(houseHold: HouseHoldUnit, subUnit: SubUnit, comment: string): HouseHoldUnit {
@@ -88,10 +87,15 @@ export class HouseHoldEffects {
             subUnit.accessCount = accCnt;
         }
 
+        let comments = [...houseHold.comments];
+        if (comment && comment != '') {
+            comments.push({ at: Date.now(), text: comment });
+        }
+
         return {
             ...houseHold,
             subUnit: subUnit,
-            comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }]: [],
+            comments: comments || [],
         };
     }
 
@@ -186,6 +190,7 @@ export class HouseHoldEffects {
                 "subUnit": unit.subUnit,
                 "accessCount": accCnt,
                 "lastAccess": lastAccess,
+                "comments": unit.comments,
                 "status": status,
             };
             let idx = lst.findIndex(it => it.houseHoldId == unit._id);
