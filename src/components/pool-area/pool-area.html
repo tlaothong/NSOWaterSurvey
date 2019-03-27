@@ -8,7 +8,7 @@
           ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
         </ion-label>
       </ion-item>
-      <location [FormItem]="FormItem.get('location')" [checkIsPool]="checkIsPool"></location>
+      <location [FormItem]="FormItem.get('location')" [isAnimal]="false"></location>
     </div>
 
     <ion-item>
@@ -39,7 +39,7 @@
     <div [ngSwitch]="FormItem.get('shape').value">
 
       <div *ngSwitchCase="1">
-        <field-area [FormItem]="FormItem.get('area')" [isAnimal]="isAnimal" [checkIsPool]="checkIsPool"></field-area>
+        <field-area [FormItem]="FormItem.get('area')" [checkIsPool]="checkIsPool"></field-area>
       </div>
 
       <div *ngSwitchCase="2" formGroupName="rectangle">
