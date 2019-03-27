@@ -23,10 +23,10 @@ export class DetailManagementForFarmingComponent implements ISubmitRequestable {
     return fb.group({
       'name': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-      'avgSurfaceWaterUse': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-      'groundWaterCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-      'avgGroundWaterUse': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+      'avgSurfaceWaterUse': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+      'groundWaterCount': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+      'avgGroundWaterUse': [null, Validators.compose([Validators.pattern('[0-9]*')])],
     }, {
         validator: DetailManagementForFarmingComponent.checkAnyOrOther()
       });

@@ -8,7 +8,8 @@
 
   <h3>ตอนที่ 2.3 ยางพารา</h3>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="rubbertree" [rx-form-data]="(formData$ | async)?.agriculture?.rubberTree">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="rubbertree"
+    [rx-form-data]="(formData$ | async)?.agriculture?.rubberTree">
 
     <ion-card>
       <ion-card-content>
@@ -60,6 +61,16 @@
         <field-rebbertree [no]="i+1" [FormItem]="rubber"></field-rebbertree>
       </div>
     </div>
+
+    <ion-card class="invalid-msg" *ngIf="!isCheckWarningBox && submitRequested">
+      <ion-card-header>
+        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
+      </ion-card-header>
+      <ion-card-content>
+        <ion-icon name="warning" item-start></ion-icon>
+        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
+      </ion-card-content>
+    </ion-card>
 
     <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
 

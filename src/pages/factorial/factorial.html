@@ -114,7 +114,7 @@
             <ion-label>
               มี
             </ion-label>
-            <ion-radio [value]="true" item-left (ionSelect)="setValueTrue()"></ion-radio>
+            <ion-radio [value]="true" item-left (ionSelect)="setValueNull()"></ion-radio>
           </ion-item>
           <ion-item col-6>
             <ion-label>
@@ -182,6 +182,16 @@
             <ion-radio [value]="false" item-left></ion-radio>
           </ion-item>
         </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="invalid-msg" *ngIf="FactoryForm.invalid && submitRequested">
+      <ion-card-header>
+        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
+      </ion-card-header>
+      <ion-card-content>
+        <ion-icon name="warning" item-start></ion-icon>
+        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
       </ion-card-content>
     </ion-card>
 

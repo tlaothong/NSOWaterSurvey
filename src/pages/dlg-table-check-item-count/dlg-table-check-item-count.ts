@@ -31,13 +31,11 @@ export class DlgTableCheckItemCountPage {
 
   public okDialog() {
     // this.navCtrl.pop();
-    if (this.FormItem.get('hasItem').value == false && this.FormItem.get('itemCount').value != null) 
-    {
+    if (this.FormItem.get('hasItem').value == false && this.FormItem.get('itemCount').value != null) {
       this.FormItem.get('itemCount').setValue(null);
       this.viewCtrl.dismiss(this.FormItem);
     }
-    else
-    {
+    else {
       this.viewCtrl.dismiss(this.FormItem);
     }
   }
@@ -56,7 +54,6 @@ export class DlgTableCheckItemCountPage {
   }
 
   public isDisabled() {
-
     if (this.FormItem.get('hasItem').value == true) {
       return (
         (this.FormItem.get('hasItem').value == true) && (this.FormItem.get('itemCount').value == null) ||

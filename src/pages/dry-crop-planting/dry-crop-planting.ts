@@ -26,6 +26,7 @@ export class DryCropPlantingPage {
 
   public agronomyPlant: FormGroup;
   private submitRequested: boolean;
+  private isCheckWarningBox: boolean;
   shownData: string[];
   // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$ = this.store.select(getHouseHoldSample);
@@ -41,12 +42,6 @@ export class DryCropPlantingPage {
   }
 
   ionViewDidLoad() {
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.agronomyPlant.patchValue(data.agriculture.agronomyPlant);
-    //     this.formData = data;
-    //   }
-    // })
     this.countNumberPage();
   }
 
@@ -63,18 +58,10 @@ export class DryCropPlantingPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    console.log(selected);
 
-    // this.store.dispatch(new SetAgronomyPlantSelectPlant(selected));
-    // this.store.dispatch(new SetAgiSelectAgronomy(true));
-    // this.formData.agriculture.agronomyPlant = this.agronomyPlant.value;
+    this.isCheckWarningBox = this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false);
     if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId, this.formData)
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
         agronomyPlant: this.agronomyPlant.value,

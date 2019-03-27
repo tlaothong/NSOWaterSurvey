@@ -15,6 +15,7 @@ import { CountComponent } from '../count/count';
 export class GroundWaterUsageComponent implements ISubmitRequestable {
 
   @Input('no') public text: string;
+  @Input('using') public using: string;
   @Input() public FormItem: FormGroup;
   @Input('G') public G: boolean;
   @Input('usee') public gardeningUse: boolean;
@@ -64,7 +65,9 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
   }
 
   public checkValid(): boolean {
-    return this.isCheckUsageType() && this.isCheckValidwaterAct() && this.isCheckProblem();
+    return (this.using == "บ่อที่ใช้") ?
+      this.isCheckUsageType() && this.isCheckValidwaterAct() && this.isCheckProblem() && this.isCheckLocation()
+      : this.isCheckLocation();
   }
 
   public isCheckUsageType(): boolean {
@@ -94,18 +97,26 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
       this.FormItem.get('qualityProblem.problem').valid : this.FormItem.get('qualityProblem.hasProblem').valid;
   }
 
+  public isCheckLocation(): boolean {
+    return !this.locationT.find(it => it.FormItem.invalid);
+  }
+
   setDefult() {
     // this.FormItem.get('hasPump').setValue(null);
     // this.FormItem.get('pumpCount').setValue(null);
   }
 
   submitRequest() {
+    console.log(this.FormItem);
+    
     this.submitRequested = true;
-    this.pump.forEach(it => it.submitRequest());
-    this.waterProblem6.forEach(it => it.submitRequest());
-    this.waterActivity6.forEach(it => it.submitRequest());
     this.locationT.forEach(it => it.submitRequest());
-    this.count.forEach(it => it.submitRequest());
+    if (this.using == "บ่อที่ใช้") {
+      this.pump.forEach(it => it.submitRequest());
+      this.waterProblem6.forEach(it => it.submitRequest());
+      this.waterActivity6.forEach(it => it.submitRequest());
+      this.count.forEach(it => it.submitRequest());
+    }
   }
 
   public isValid(name: string): boolean {

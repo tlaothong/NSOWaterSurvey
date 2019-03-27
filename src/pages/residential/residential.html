@@ -48,9 +48,34 @@
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-        <ion-item *ngIf="residentialFrm.get('workingAge').value > residentialFrm.get('memberCount').value">
-          <span class="invalid-msg">
-            กรุณาเช็คจำนวน จากข้อ 1.1
+        <ion-item *ngIf="(checked)">
+          <span class="invalid-msg" style="color: orange">
+            กรุณาเช็คจำนวน จากข้อ 1.1 orange
+          </span>
+        </ion-item>
+        <ion-item *ngIf="(checked)">
+          <span class="invalid-msg" style="color: yellow">
+            กรุณาเช็คจำนวน จากข้อ 1.1 yellow
+          </span>
+        </ion-item>
+        <ion-item *ngIf="(checked)">
+          <span class="invalid-msg" style="color: green">
+            กรุณาเช็คจำนวน จากข้อ 1.1 green
+          </span>
+        </ion-item>
+        <ion-item *ngIf="(checked)">
+          <span class="invalid-msg" style="color: rgb(255, 0, 191)">
+            กรุณาเช็คจำนวน จากข้อ 1.1 pink
+          </span>
+        </ion-item>
+        <ion-item *ngIf="(checked)">
+          <span class="invalid-msg" style="color: blue">
+            กรุณาเช็คจำนวน จากข้อ 1.1 blue
+          </span>
+        </ion-item>
+        <ion-item *ngIf="(checked)">
+          <span class="invalid-msg" style="color: brown">
+            กรุณาเช็คจำนวน จากข้อ 1.1 brown
           </span>
         </ion-item>
       </ion-card-content>
@@ -85,6 +110,16 @@
             <ion-radio [value]="false" item-left></ion-radio>
           </ion-item>
         </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="invalid-msg" *ngIf="residentialFrm.invalid && submitRequested">
+      <ion-card-header>
+        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
+      </ion-card-header>
+      <ion-card-content>
+        <ion-icon name="warning" item-start></ion-icon>
+        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
       </ion-card-content>
     </ion-card>
 
