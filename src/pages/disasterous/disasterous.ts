@@ -28,6 +28,8 @@ export class DisasterousPage {
   public dataDis: any;
   private frontNum: any;
   private backNum: any;
+  public isCheckWarningBox: boolean;
+
   constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.Disasterous = this.fb.group({
       '_id': null,
@@ -66,6 +68,8 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
+    this.isCheckWarningBox = this.Disasterous.valid || this.Disasterous.get('flooded').value == false 
+    || this.tableDisasterous.some(it => it.FormItem.valid);
     // this.dataDis.disaster = this.Disasterous.value
     if (this.Disasterous.valid
       || this.Disasterous.get('flooded').value == false
