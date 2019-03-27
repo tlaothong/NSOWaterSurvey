@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -42,7 +42,8 @@ export class PopulationPage {
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider,
+    public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
     this.f = this.fb.group({
       'personCount': [null, [Validators.required, Validators.min(1)]],
       'persons': this.fb.array([])
@@ -192,10 +193,36 @@ export class PopulationPage {
     onComponentCountChanges();
   }
 
-  deleteData(num: number) {
-    let del = this.f.get('persons') as FormArray;
-    del.removeAt(num);
-    let count = this.f.get('personCount').value;
-    this.f.get('personCount').setValue(count);
+  presentAlertPopulation(num) {
+    const alert = this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            let del = this.f.get('persons') as FormArray;
+            del.removeAt(num);
+            let count = this.f.get('personCount').value;
+            this.f.get('personCount').setValue(count);
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    alert.present();
   }
+
+  deleteData(num: any) {
+    this.presentAlertPopulation(num);
+  }
+
+  // let del = this.f.get('persons') as FormArray;
+  //   del.removeAt(num);
+  //   let count = this.f.get('personCount').value;
+  //   this.f.get('personCount').setValue(count);
 }
