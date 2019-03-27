@@ -168,12 +168,15 @@ export class UnitPage {
 
   public showComments(unit: UnitInList) {
 
-    let alertUnderConstruction = this.alertCtrl.create({
-      message: new Date(unit.comments[0].at) + '@ ' + unit.comments[0].text,
-      title: "กำลังปรับปรุง",
-      buttons: ["OK"],
-    });
-    alertUnderConstruction.present();
+    let showComments = this.modalCtrl.create("DlgCommentListPage", { comments: unit.comments });
+    showComments.present();
+
+    // let alertUnderConstruction = this.alertCtrl.create({
+    //   message: new Date(unit.comments[0].at) + '@ ' + unit.comments[0].text,
+    //   title: "กำลังปรับปรุง",
+    //   buttons: ["OK"],
+    // });
+    // alertUnderConstruction.present();
   }
 
   ionViewDidEnter() {
