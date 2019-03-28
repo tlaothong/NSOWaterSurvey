@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit } from '../../states/household/household.actions';
+import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit, DeleteHouseHold } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
@@ -245,6 +245,7 @@ export class UnitPage {
   // }
 
   deleteUnit(HH: any) {
+    // this.store.dispatch(new DeleteHouseHold(HH))
     // let keyHH = HH._id;
     // let keyBD = "BL" + HH.buildingId;
     // this.storage.get(keyBD).then((val) => {

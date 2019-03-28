@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map, tap, withLatestFrom, switchMap, mapTo, filter } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit, DeleteHouseHold } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileModels";
@@ -222,6 +222,19 @@ export class HouseHoldEffects {
         ),
     );
 
+    @Effect()
+    public deleteHouseHold$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.DeleteHouseHold),
+        filter((action: DeleteHouseHold, i) => action.payload),
+        map((action: DeleteHouseHold) => action.payload),
+        withLatestFrom(this.store.select(getHouseHoldUnitList)),
+        mergeMap(([hld, lst]) => {
+            let idx = lst.findIndex(it => it.houseHoldId == hld._id);
+            lst.splice(idx, 1);
+            return this.dataStore.saveHouseHoldInBuiildingList(this.appState.buildingId, lst).mapTo(lst);
+        }),
+        map(hldList => new LoadHouseHoldListSuccess(hldList ? hldList : [])),
+    );
 }
 
 interface UnitExistence {
