@@ -13,6 +13,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
   @Input() InputList;
   @Input() InputLimit: any[];
   @Input() Title;
+  @Input() textTitleOnDialog: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -47,7 +48,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
 
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: this.Title, selected: this.FormItem.get('plants').value, list: this.InputList, limit: this.InputLimit });
+      { title: this.Title, selected: this.FormItem.get('plants').value, list: this.InputList, limit: this.InputLimit, textTitle: this.textTitleOnDialog });
     modal.onDidDismiss(data => {
       if (data) {
         var adata = data as Array<any>;
