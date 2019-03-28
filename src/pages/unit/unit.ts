@@ -299,7 +299,6 @@ export class UnitPage {
   // }
 
   // deleteUnit(HH: any) {
-    // this.store.dispatch(new DeleteHouseHold(HH))
     // let keyHH = HH._id;
     // let keyBD = "BL" + HH.buildingId;
     // this.storage.get(keyBD).then((val) => {

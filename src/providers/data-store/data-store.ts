@@ -91,9 +91,6 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.get('unt4' + buildingId)).map((lst: UnitInList[]) => lst ? lst : []);
   }
 
-   /**
-   * บันทึกรายการ house hold แบบบันทึกเป็น List
-   */
   public saveHouseHoldInBuiildingList(buildingId: string, unitsInBuilding: UnitInList[]) {
     return Observable.fromPromise(this.storage.set('unt4' + buildingId, unitsInBuilding));
   }

@@ -24,7 +24,6 @@ export enum HouseHoldTypes {
     LoadListSuccess = "[HH] Load List For Building Success",
 
     DeleteHouseHold = "[HH] Delete House Hold",
-
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
@@ -471,5 +470,5 @@ export type HouseHoldActionsType =
     | SetNumberRoom
     | SetUnitNo
     | SetMemberCount
-    |DeleteHouseHold
+    | DeleteHouseHold
     ;
