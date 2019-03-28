@@ -32,7 +32,8 @@ export class DlgFieldAreaPage {
 
   public okDialog() {
     this.submitRequested = true;
-    if (this.FormItem.valid) {
+    if (this.isCheckAny()) {
+      this.fillInZero();
       this.viewCtrl.dismiss(this.FormItem);
     }
   }
@@ -40,12 +41,29 @@ export class DlgFieldAreaPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgFieldAreaPage');
     console.log(this.isAnimal);
-    
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    return (!this.isCheckAny() && ctrl.invalid) && (ctrl.dirty || this.submitRequested);
+  }
+
+  public isCheckAny(): boolean {
+    return this.FormItem.get('rai').value > 0
+      || this.FormItem.get('ngan').value > 0
+      || this.FormItem.get('sqWa').value > 0
+  }
+
+  public fillInZero() {
+    if (this.FormItem.get('rai').value == null) {
+      this.FormItem.get('rai').setValue("0");
+    }
+    if (this.FormItem.get('ngan').value == null) {
+      this.FormItem.get('ngan').setValue("0");
+    }
+    if (this.FormItem.get('sqWa').value == null) {
+      this.FormItem.get('sqWa').setValue("0");
+    }
   }
 
 }
