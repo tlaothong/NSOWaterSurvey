@@ -23,6 +23,8 @@ export enum HouseHoldTypes {
     LoadList = "[HH] Load House Hold List For Building",
     LoadListSuccess = "[HH] Load List For Building Success",
 
+    DeleteHouseHold = "[HH] Delete House Hold",
+
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
@@ -408,6 +410,13 @@ export class SetMemberCount implements Action {
     }
 }
 
+export class DeleteHouseHold implements Action {
+    readonly type = HouseHoldTypes.DeleteHouseHold;
+
+    constructor(public payload: any) {
+    }
+}
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -462,4 +471,5 @@ export type HouseHoldActionsType =
     | SetNumberRoom
     | SetUnitNo
     | SetMemberCount
+    |DeleteHouseHold
     ;

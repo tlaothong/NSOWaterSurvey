@@ -193,7 +193,7 @@ export class PopulationPage {
     onComponentCountChanges();
   }
 
-  presentAlertPopulation(num) {
+  deleteData(num) {
     const alert = this.alertController.create({
       title: 'ต้องการจะลบใช่หรือไม่',
       buttons: [
@@ -217,9 +217,9 @@ export class PopulationPage {
     alert.present();
   }
 
-  deleteData(num: any) {
-    this.presentAlertPopulation(num);
-  }
+  // deleteData(num: any) {
+  //   this.presentAlertPopulation(num);
+  // }
 
   // let del = this.f.get('persons') as FormArray;
   //   del.removeAt(num);
