@@ -120,17 +120,17 @@ export class DisasterousPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(20));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 20)) {
-          arrayIsCheck.push(20);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 20)) {
+    //       arrayIsCheck.push(20);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   submitRequest() {

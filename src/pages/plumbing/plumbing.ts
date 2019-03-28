@@ -264,17 +264,17 @@ export class PlumbingPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(13));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 13)) {
-          arrayIsCheck.push(13);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 13)) {
+    //       arrayIsCheck.push(13);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public isValid(name: string): boolean {
