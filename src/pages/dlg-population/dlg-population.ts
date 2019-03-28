@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController, ActionSheetController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';
@@ -28,7 +28,8 @@ export class DlgPopulationPage {
 
   public dateTime: Date = new Date();
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController,
+    private fb: FormBuilder, public actionSheetCtrl: ActionSheetController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.proName = navParams.get('proName');
@@ -123,7 +124,7 @@ export class DlgPopulationPage {
     let birthDate = this.FormItem.get('birthDate').value || 99;
     let birthMonth = this.FormItem.get('birthMonth').value || 99;
     let birthYear = this.FormItem.get('birthYear').value + 1457;
-    
+
     let age = this.dateTime.getFullYear() - birthYear;
 
     if (birthDate == 99) birthDate = 0;
@@ -149,4 +150,38 @@ export class DlgPopulationPage {
     });
     modal.present();
   }
+
+  showActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'ช่วยจำ (3 สกุล)',
+      buttons: [
+        {
+          text: 'LastName1',
+          //role: 'lastName1',
+          handler: () => {
+            console.log('LastName1 clicked');
+          }
+        }, {
+          text: 'LastName2',
+          handler: () => {
+            console.log('LastName2 clicked');
+          }
+        }
+        , {
+          text: 'LastName3',
+          handler: () => {
+            console.log('LastName3 clicked');
+          }
+        }, {
+          text: 'Cancel',
+          // role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
 }
+
