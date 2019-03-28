@@ -20,6 +20,7 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
   @Input("pool") private poolText: string;
   @Input('no') public no: string;
   @Input() public FormItem: FormGroup;
+  @Input('isCommunity') public isCommunity: boolean;
   @ViewChildren(FieldAreaComponent) private fieldArea: FieldAreaComponent[];
   private submitRequested: boolean;
 
@@ -34,12 +35,12 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
     return fb.group({
       'shape': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'depth': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
+      'depth': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'rectangle': fb.group({
         'width': [null, Validators.compose([Validators.pattern('[0-9]*')])],
         'length': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       }),
-      'diameter': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
+      'diameter': [null, Validators.compose([Validators.pattern('[0-9]*')])],
     }, {
         validator: PoolAreaForCommuComponent.checkAnyOrOther()
       });
@@ -85,7 +86,7 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no, head: this.head });
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no, head: this.head, isCommunity: this.isCommunity });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;
