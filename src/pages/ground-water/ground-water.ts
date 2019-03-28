@@ -200,7 +200,7 @@ export class GroundWaterPage {
 
   public isCheckBoth(): boolean {
     if (this.isCheckActivity()) {
-      if ((this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) || (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value)) {
+      if ((this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value)) {
         return (this.f.get('privateGroundWater.waterResourceCount').value > 0);
       }
       else if (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value) {
