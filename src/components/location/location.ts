@@ -51,7 +51,7 @@ export class LocationComponent implements ISubmitRequestable {
     //   }
     // }
 
-    if (this.isAnimal && this.FormItem.get('province').value == 999) {
+    if (!this.isAnimal && this.FormItem.get('province').value == 999) {
       this.FormItem.reset();
     }
     else if (this.FormItem.get('province').value != 999) {

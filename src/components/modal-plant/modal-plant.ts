@@ -31,8 +31,11 @@ export class ModalPlantComponent implements ISubmitRequestable {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    if (name == "anycheck") {
+      let ctrl = this.FormItem.get('plants').value
+      let ctrls = this.FormItem.get('plants').value as Array<any>
+      return ctrls.length < 1 && (ctrl.dirty || this.submitRequested);
+    };
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -40,7 +43,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
       {
         'plantingCount': 0,
         'plants': fb.array([])
-      },
+      }
     );
     ModalPlantComponent.setupPlantCountChanges(fb, fg);
     return fg;

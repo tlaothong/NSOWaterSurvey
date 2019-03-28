@@ -55,9 +55,9 @@ export class PerennialPlantingPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.isCheckWarningBox = this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false);
+    this.isCheckWarningBox = ((this.PerennialPlantingFrm.valid && selected.length > 0) || this.PerennialPlantingFrm.get('doing').value == false);
 
-    if (this.PerennialPlantingFrm.valid || (this.PerennialPlantingFrm.get('doing').value == false)) {
+    if ((this.PerennialPlantingFrm.valid && selected.length > 0) || this.PerennialPlantingFrm.get('doing').value == false) {
       this.arrayIsCheckMethod();
       let perennial = {
         ...this.appState.houseHoldUnit.agriculture,

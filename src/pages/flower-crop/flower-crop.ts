@@ -140,14 +140,10 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.isCheckWarningBox = this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false);
+    this.isCheckWarningBox = (this.flowerCropFrm.valid && selected.length > 0 || (this.flowerCropFrm.get('doing').value == false));
 
-    if (this.flowerCropFrm.valid || (this.flowerCropFrm.get('doing').value == false)) {
+    if ((this.flowerCropFrm.valid && selected.length > 0) || this.flowerCropFrm.get('doing').value == false) {
       this.arrayIsCheckMethod();
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingIds,this.formData)
 
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,

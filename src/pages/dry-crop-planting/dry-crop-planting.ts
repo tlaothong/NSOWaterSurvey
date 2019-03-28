@@ -35,7 +35,7 @@ export class DryCropPlantingPage {
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+      "fieldCount": [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       "fields": this.fb.array([]),
     });
     this.setupFieldCountChanges();
@@ -59,8 +59,8 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
 
-    this.isCheckWarningBox = this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false);
-    if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
+    this.isCheckWarningBox = ((this.agronomyPlant.valid && selected.length > 0) || (this.agronomyPlant.get('doing').value == false));
+    if ((this.agronomyPlant.valid && selected.length > 0) || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
