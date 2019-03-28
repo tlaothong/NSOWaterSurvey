@@ -105,21 +105,21 @@ export class DryCropPlantingPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(3));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
 
-      if (data != null) {
-        arrayIsCheck = data;
+    //   if (data != null) {
+    //     arrayIsCheck = data;
 
-        if (arrayIsCheck.every(it => it != 3)) {
-          arrayIsCheck.push(3);
-        }
+    //     if (arrayIsCheck.every(it => it != 3)) {
+    //       arrayIsCheck.push(3);
+    //     }
 
-        console.log(arrayIsCheck);
-      }
+    //     console.log(arrayIsCheck);
+    //   }
 
-    });
+    // });
   }
 
   public isValid(name: string): boolean {
