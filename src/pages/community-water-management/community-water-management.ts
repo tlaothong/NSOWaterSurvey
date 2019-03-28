@@ -49,6 +49,7 @@ export class CommunityWaterManagementPage {
   public MWA: boolean;
   public PWA: boolean;
   public isCheckWarningBox : boolean;
+  public isCommunity : boolean;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>, private appState: AppStateProvider) {
     this.id = this.navParams.get('id')
