@@ -61,14 +61,7 @@ export class FlowerCropPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FlowerCropPage');
     this.countNumberPage();
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.flowerCropFrm.patchValue(data.agriculture.flowerCrop)
-    //     // this.formData = data;
-    //   }
-    // })
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
         this.listRiceData = data
