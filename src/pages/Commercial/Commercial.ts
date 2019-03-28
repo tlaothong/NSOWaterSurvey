@@ -167,7 +167,10 @@ export class CommercialPage {
       if (buildingCode.value == 6 && personnelCountHotelsAndResorts.value == null) {
         return { 'personnelCountHotelsAndResorts': true };
       }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null) {
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value == null && personnelCountHospital.value == null) {
+        return { 'bedCount': true, 'personnelCountHospital': true };
+      }
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value == null) {
         return { 'bedCount': true };
       }
       if ((buildingCode.value == 7 || buildingCode.value == 8) && personnelCountHospital.value == null) {
