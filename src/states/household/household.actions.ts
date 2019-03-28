@@ -413,7 +413,7 @@ export class SetMemberCount implements Action {
 export class DeleteHouseHold implements Action {
     readonly type = HouseHoldTypes.DeleteHouseHold;
 
-    constructor(public payload: any) {
+    constructor(public payload: UnitInList) {
     }
 }
 

@@ -136,7 +136,7 @@ export class UnitPage {
         {
           text: "ยืนยัน",
           handler: () => {
-
+            this.store.dispatch(new DeleteHouseHold(unit))
           }
         },
         "ยกเลิก"

@@ -18,9 +18,9 @@ import { UpdateBuildingList } from "../building/building.actions";
 @Injectable()
 export class HouseHoldEffects {
 
-    constructor(private action$: Actions, 
+    constructor(private action$: Actions,
         private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
-        private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider, 
+        private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider,
         private appState: AppStateProvider) {
     }
 
@@ -31,9 +31,9 @@ export class HouseHoldEffects {
         mergeMap((action: LoadHouseHoldList) => this.dataStore.listHouseHoldInBuilding(action.buildingId)),
         withLatestFrom(this.storeBuild.select(getBuildingSample)),
         switchMap(([lst, bld]) => (lst && lst.length >= 1 && bld.unitCount == 1)
-            ? [ new LoadHouseHoldListSuccess(lst),
-                new SetCurrentWorkingHouseHold(lst[0].houseHoldId) ]
-            : [ new LoadHouseHoldListSuccess(lst ? lst : []) ]),
+            ? [new LoadHouseHoldListSuccess(lst),
+            new SetCurrentWorkingHouseHold(lst[0].houseHoldId)]
+            : [new LoadHouseHoldListSuccess(lst ? lst : [])]),
     );
 
     @Effect()
@@ -56,7 +56,7 @@ export class HouseHoldEffects {
             ? Observable.of({ exists: true, data: this.appState.houseHoldUnit })
             : Observable.of<HouseHoldUnit>(
                 this.createDefaultHouseHoldUnit(null, null)
-            ).map(it => { return { exists: false, data: it }})),
+            ).map(it => { return { exists: false, data: it } })),
         mergeMap((x: UnitExistence) => Observable.if(() => x.exists,
             Observable.of(new SetCurrentWorkingHouseHold(x.data._id)),
             Observable.of(new SaveHouseHold(x.data)))),
@@ -75,7 +75,7 @@ export class HouseHoldEffects {
         ofType(HouseHoldTypes.SaveHouseHoldSubUnit),
         map((action: SaveHouseHoldSubUnit) => this.updateHouseHoldSubUnit(action.houseHold,
             action.subUnit, action.comment)),
-        map(it => new SaveHouseHold(it)),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+        map(it => new SaveHouseHold(it)),
     );
 
     private updateHouseHoldSubUnit(houseHold: HouseHoldUnit, subUnit: SubUnit, comment: string): HouseHoldUnit {
@@ -110,7 +110,7 @@ export class HouseHoldEffects {
 
         return {
             _id: this.appState.generateId('unt'),
-            ea: this.appState.eaCode, 
+            ea: this.appState.eaCode,
             buildingId: this.appState.buildingId,
             subUnit: subUnit,
             isHouseHold: null,
@@ -134,7 +134,7 @@ export class HouseHoldEffects {
             disaster: {},
             closing: {},
             population: {},
-            comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }]: [],
+            comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }] : [],
             recCtrl: {},
         }
     }
@@ -148,10 +148,10 @@ export class HouseHoldEffects {
             new SaveHouseHoldSuccess(action.payload),
             new UpdateUnitList(action.payload)
         ])
-            // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
-            //     map(data => new SetHouseHoldSuccess(data)),
-            // )
-            // ),
+        // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
+        //     map(data => new SetHouseHoldSuccess(data)),
+        // )
+        // ),
     );
 
     @Effect()
@@ -178,7 +178,7 @@ export class HouseHoldEffects {
                     break;
                 case 2:
                 case 3:
-                    status = (accCnt < 3) ? "return": "complete";
+                    status = (accCnt < 3) ? "return" : "complete";
                     break;
                 default:
                     status = "pause";
@@ -230,11 +230,10 @@ export class HouseHoldEffects {
     @Effect()
     public deleteHouseHold$: Observable<Action> = this.action$.pipe(
         ofType(HouseHoldTypes.DeleteHouseHold),
-        filter((action: DeleteHouseHold, i) => action.payload),
         map((action: DeleteHouseHold) => action.payload),
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([hld, lst]) => {
-            let idx = lst.findIndex(it => it.houseHoldId == hld._id);
+            let idx = lst.findIndex(it => it.houseHoldId == hld.houseHoldId);
             lst.splice(idx, 1);
             return this.dataStore.saveHouseHoldInBuiildingList(this.appState.buildingId, lst).mapTo(lst);
         }),
