@@ -38,8 +38,10 @@ export class UpdateAppPage {
       dismissOnPageChange: true,
       content: 'กำลังตรวจสอบเวอร์ชันอัพเดทล่าสุดจากคลาวด์',
     })
+    loading.present();
     const update = await Pro.deploy.checkForUpdate();
     this.updateAvailable = update.available;
+    loading.dismiss();
   }
 
   /**

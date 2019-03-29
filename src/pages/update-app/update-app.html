@@ -16,9 +16,17 @@
 <ion-content padding>
   <h1>อัพเดทโปรแกรม</h1>
 
+  <p *ngIf="updateAvailable == null">กำลังติดต่อผ่านอินเตอร์เน็ตกรุณารอสักครู่</p>
+
   <ng-container *ngIf="updateAvailable && downloadProgress < 100">
     <p>พบเวอร์ชันใหม่ที่อัพเดทกว่า</p>
     <p>กดปุ่ม 'อัพเดท' เพื่อเริ่มกระบวนการอัพเดทโปรแกรม</p>
+
+    <div class="progress-outer" *ngIf="downloadProgress > 0">
+      <div class="progress-inner" [style.width]="downloadProgress + '%'">
+        {{ downloadProgress }} / 100
+      </div>
+    </div>
   
     <button ion-button block (click)="performUpdate()">อัพเดท</button>
   </ng-container>
