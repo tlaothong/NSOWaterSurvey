@@ -29,6 +29,7 @@ export class BuildingInformation1Page {
   public comment: string = '';
 
   public checkFormButtonsForBuilding: boolean = true;
+  private isCheckWarningBox: boolean;
 
   private dataBuilding$ = this.store.select(getDataBuilding);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
@@ -156,6 +157,7 @@ export class BuildingInformation1Page {
     this.submitRequested = true;
     this.updateStatus();
     console.log("access", this.access);
+    this.isCheckWarningBox = this.f.valid;
 
     if (this.f.valid && this.access == 1) {
       this.dispatch();

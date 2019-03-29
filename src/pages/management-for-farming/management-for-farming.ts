@@ -26,6 +26,7 @@ export class ManagementForFarmingPage {
 
   public managementforfarming: FormGroup;
   private submitRequested: boolean;
+  private isCheckWarningBox: boolean;
 
   // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
 
@@ -70,6 +71,7 @@ export class ManagementForFarmingPage {
     this.count.forEach(it => it.submitRequest());
     this.formData.status = "done-all"
     this.formData.communityProject = this.managementforfarming.value;
+    this.isCheckWarningBox = this.managementforfarming.valid;
     if (this.managementforfarming.valid) {
       console.log("ewfew");
 

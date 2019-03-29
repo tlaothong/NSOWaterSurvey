@@ -23,6 +23,7 @@ export class WaterActivityUnitPage {
   public f: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
+  private isCheckWarningBox: boolean;
   // public dataHouseHold: any;
   // public unitCount: any;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
@@ -47,7 +48,7 @@ export class WaterActivityUnitPage {
     //     console.log(this.dataHouseHold);
 
     //     this.f.get('subUnit.accessCount').patchValue(this.dataHouseHold.subUnit.accessCount)
-        
+
     //     this.setupAccessCountChanges();
     //     this.setupAccessCountChangesForComments();
 
@@ -76,6 +77,8 @@ export class WaterActivityUnitPage {
     //   isCommercial: this.f.get('isCommercial').value,
     // }
 
+    this.isCheckWarningBox = this.f.valid;
+
     if (this.f.valid) {
       let houseHold = {
         ...this.appState.houseHoldUnit,
@@ -88,7 +91,7 @@ export class WaterActivityUnitPage {
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.push("CheckListPage", { id: houseHold._id });
     }
-    
+
     // let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
     // let pilot: any
     // arrayNextPage$.subscribe(data => {
