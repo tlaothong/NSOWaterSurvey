@@ -194,6 +194,9 @@ export const getMemberCount = createSelector(
     state => state.memberCount,
 );
 
-
+export const getProgress = createSelector(
+    getHouseHoldFeatureState,
+    state => state.progress,
+);
 
 
