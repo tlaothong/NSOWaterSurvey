@@ -16,7 +16,8 @@
 <ion-content padding>
   <h1>อัพเดทโปรแกรม</h1>
 
-  <p *ngIf="updateAvailable == null">กำลังติดต่อผ่านอินเตอร์เน็ตกรุณารอสักครู่</p>
+  <p>Current Channel: {{ channel }}</p>
+  <p *ngIf="!updateAvailable">ไม่พบการอัพเดทในขณะนี้</p>
 
   <ng-container *ngIf="updateAvailable && downloadProgress < 100">
     <p>พบเวอร์ชันใหม่ที่อัพเดทกว่า</p>
@@ -28,7 +29,7 @@
       </div>
     </div>
   
-    <button ion-button block (click)="performUpdate()">อัพเดท</button>
+    <button ion-button block (click)="performUpdate()" [disabled]="!updateAvailable || downloading">อัพเดท</button>
   </ng-container>
   <p *ngIf="downloadProgress == 100">การอัพเดทโปรแกรมสำเร็จเรียบร้อย กำลังเริ่มแอพใหม่ กรุณารอสักครู่...</p>
 </ion-content>

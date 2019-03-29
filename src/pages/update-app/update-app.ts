@@ -18,6 +18,8 @@ export class UpdateAppPage {
 
   public updateAvailable = false;
   public downloadProgress: number = 0;
+  public downloading = false;
+  public channel = '???';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
       private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
@@ -39,6 +41,9 @@ export class UpdateAppPage {
       content: 'กำลังตรวจสอบเวอร์ชันอัพเดทล่าสุดจากคลาวด์',
     })
     loading.present();
+    const config = await Pro.deploy.getConfiguration();
+    this.channel = config.channel;
+    Pro.deploy.configure(config);
     const update = await Pro.deploy.checkForUpdate();
     this.updateAvailable = update.available;
     loading.dismiss();
@@ -50,6 +55,7 @@ export class UpdateAppPage {
   public async performUpdate() {
     try {
       if (this.updateAvailable) {
+        this.downloading = true;
         this.downloadProgress = 0;
 
         await Pro.deploy.downloadUpdate((progress) => {
