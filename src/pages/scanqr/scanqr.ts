@@ -54,76 +54,77 @@ export class ScanqrPage {
 
   Scan() {
     if (this.platform.is('cordova')) {
-      this.qrScanner.prepare()
-        .then((status: QRScannerStatus) => {
-          if (status.authorized) {
-            // camera permission was granted
-            let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
+      // this.qrScanner.prepare()
+      //   .then((status: QRScannerStatus) => {
+      //     if (status.authorized) {
+      //       // camera permission was granted
+      //       let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
 
-            // start scanning
-            let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
-              //alert(text);
-              setTimeout(() => {
-                this.qrScanner.hide();
-              }, 60000);
-              if (text.length >= 7) {
-                let alert = this.alertCtrl.create({
-                  title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
-                });
-                alert.present();
+      //       // start scanning
+      //       let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
+      //         //alert(text);
+      //         setTimeout(() => {
+      //           this.qrScanner.hide();
+      //         }, 60000);
+      //         if (text.length >= 7) {
+      //           let alert = this.alertCtrl.create({
+      //             title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
+      //           });
+      //           alert.present();
 
-                this.appState.userId = text.substr(0, 7);
+      //           this.appState.userId = text.substr(0, 7);
 
-                setTimeout(() => {
-                  alert.dismiss();
-                  this.qrScanner.hide();
-                  this.navCtrl.push("ConfirmloginPage")
-                }, 900);
-              } else {
-                let alert = this.alertCtrl.create({
-                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
-                });
-                alert.present();
-              }
+      //           setTimeout(() => {
+      //             alert.dismiss();
+      //             this.qrScanner.hide();
+      //             this.navCtrl.push("ConfirmloginPage")
+      //           }, 900);
+      //         } else {
+      //           let alert = this.alertCtrl.create({
+      //             title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
+      //           });
+      //           alert.present();
+      //         }
 
-              // this.scanData = text;
-              this.qrScanner.hide(); // hide camera preview
-              scanSub.unsubscribe(); // stop scanning
-              ionApp.style.display = "block";
-            });
+      //         // this.scanData = text;
+      //         this.qrScanner.hide(); // hide camera preview
+      //         scanSub.unsubscribe(); // stop scanning
+      //         ionApp.style.display = "block";
+      //       });
 
-            // show camera preview
-            ionApp.style.display = "none";
-            this.qrScanner.show();
-            // setTimeout(() => {
-            //     ionApp.style.display = "block";
-            //     scanSub.unsubscribe(); // stop scanning
-            //     this.qrScanner.hide();
-            //   }, 5000);
-            // wait for user to scan something, then the observable callback will be called
+      //       // show camera preview
+      //       ionApp.style.display = "none";
+      //       this.qrScanner.show();
+      //       // setTimeout(() => {
+      //       //     ionApp.style.display = "block";
+      //       //     scanSub.unsubscribe(); // stop scanning
+      //       //     this.qrScanner.hide();
+      //       //   }, 5000);
+      //       // wait for user to scan something, then the observable callback will be called
 
-          } else if (status.denied) {
-            let alert = this.alertCtrl.create({
-              title: "status.denied",
-            });
-            alert.present();
-            // camera permission was permanently denied
-            // you must use QRScanner.openSettings() method to guide the user to the settings page
-            // then they can grant the permission from there
-          } else {
-            let alert = this.alertCtrl.create({
-              title: "Error",
-            });
-            alert.present();
-            // permission was denied, but not permanently. You can ask for permission again at a later time.
-          }
-        })
-        .catch((e: any) => {
-          let alert = this.alertCtrl.create({
-            title: "Error",
-          });
-          alert.present();
-        });
+      //     } else if (status.denied) {
+      //       let alert = this.alertCtrl.create({
+      //         title: "status.denied",
+      //       });
+      //       alert.present();
+      //       // camera permission was permanently denied
+      //       // you must use QRScanner.openSettings() method to guide the user to the settings page
+      //       // then they can grant the permission from there
+      //     } else {
+      //       let alert = this.alertCtrl.create({
+      //         title: "Error",
+      //       });
+      //       alert.present();
+      //       // permission was denied, but not permanently. You can ask for permission again at a later time.
+      //     }
+      //   })
+      //   .catch((e: any) => {
+      //     let alert = this.alertCtrl.create({
+      //       title: "Error",
+      //     });
+      //     alert.present();
+      //   });
+
 
       this.qrScanner.scan();
       this.qrScanner.show();
@@ -132,5 +133,18 @@ export class ScanqrPage {
 
     }
   }
+
+  // function displayContents(err, text){
+  //   if(err){
+  //     // an error occurred, or the scan was canceled (error code `6`)
+  //   } else {
+  //     // The scan completed, display the contents of the QR code:
+  //     alert(text);
+  //   }
+  // }
+
+
+
+
 
 }
