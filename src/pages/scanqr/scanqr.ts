@@ -126,6 +126,7 @@ export class ScanqrPage {
         });
 
       this.qrScanner.scan();
+      this.qrScanner.show();
 
     } else {
 
