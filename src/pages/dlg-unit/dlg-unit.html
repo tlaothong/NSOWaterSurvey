@@ -27,38 +27,39 @@
         </span>
       </ion-item>
     </div>
-  <!-- </form> -->
+    <!-- </form> -->
 
-  <ion-item>
-    <ion-label stacked>
-      ผลการเข้าพบ {{count}}/3
-    </ion-label>
-    <ion-select interface="action-sheet" formControlName="access" [class.invalid]="ff.get('access').invalid && submitRequested">
-      <ion-option [value]=1>
-        1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
-      </ion-option>
-      <ion-option [value]=2>
-        2. มีผู้ให้ข้อมูล แต่ไม่ให้ความร่วมมือ
-      </ion-option>
-      <ion-option [value]=3>
-        3. ไม่มี/ไม่พบผู้ให้ข้อมูล
-      </ion-option>
-      <ion-option [value]=4>
-        4. ห้อง/บ้าน/อาคาร ว่าง
-      </ion-option>
-      <ion-option [value]=5>
-        5. ห้อง/บ้าน/อาคาร ร้าง
-      </ion-option>
-    </ion-select>
-  </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 16px;color: black">
+        <B>ผลการเข้าพบ {{count}}/3</B>
+      </ion-label>
+      <ion-select interface="action-sheet" formControlName="access"
+        [class.invalid]="ff.get('access').invalid && submitRequested">
+        <ion-option [value]=1>
+          1. มีผู้ให้ข้อมูล และให้ความร่วมมือ
+        </ion-option>
+        <ion-option [value]=2>
+          2. มีผู้ให้ข้อมูล แต่ไม่ให้ความร่วมมือ
+        </ion-option>
+        <ion-option [value]=3>
+          3. ไม่มี/ไม่พบผู้ให้ข้อมูล
+        </ion-option>
+        <ion-option [value]=4>
+          4. ห้อง/บ้าน/อาคาร ว่าง
+        </ion-option>
+        <ion-option [value]=5>
+          5. ห้อง/บ้าน/อาคาร ร้าง
+        </ion-option>
+      </ion-select>
+    </ion-item>
 
-  <ion-item *ngIf="ff.get('access').invalid && submitRequested">
-    <span class="invalid-msg">
-      กรุณาเลือกการเข้าพบ
-    </span>
-  </ion-item>
+    <ion-item *ngIf="ff.get('access').invalid && submitRequested">
+      <span class="invalid-msg">
+        กรุณาเลือกการเข้าพบ
+      </span>
+    </ion-item>
 
-  <!-- <form [formGroup]="ff" (ngSubmit)="okDialog()"> -->
+    <!-- <form [formGroup]="ff" (ngSubmit)="okDialog()"> -->
     <div formGroupName="subUnit">
       <ion-list>
         <div *ngIf="ff.get('access').value == 1">
@@ -180,18 +181,18 @@
         </div>
       </ion-list>
     </div>
-  <!-- </form> -->
+    <!-- </form> -->
 
-  <div>
-    <ion-item>
-      <ion-label>ปัญหา/อุปสรรค</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" formControlName="comment"></ion-input>
-    </ion-item>
-  </div>
+    <div>
+      <ion-item>
+        <ion-label>ปัญหา/อุปสรรค</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" formControlName="comment"></ion-input>
+      </ion-item>
+    </div>
 
-  <!-- <form [formGroup]="FormItem" (ngSubmit)="okDialog()"> -->
+    <!-- <form [formGroup]="FormItem" (ngSubmit)="okDialog()"> -->
     <ion-grid>
       <ion-row>
         <ion-col>
