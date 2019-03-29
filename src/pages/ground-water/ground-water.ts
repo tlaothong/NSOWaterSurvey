@@ -275,17 +275,17 @@ export class GroundWaterPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(14));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 14)) {
-          arrayIsCheck.push(14);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 14)) {
+    //       arrayIsCheck.push(14);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public checkValid(): boolean {

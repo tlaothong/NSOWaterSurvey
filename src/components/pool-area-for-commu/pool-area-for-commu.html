@@ -43,12 +43,6 @@
             <ion-item *ngIf="isValid('rectangle.width')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
-            <ion-item *ngIf="FormItem.get('rectangle.width').value > 300 ">
-              <ion-icon md="md-warning" class="warning"></ion-icon>
-              <span class="warning-msg">
-                กรุณาตรวจสอบความกว้างมีเยอะผิดปกติหรือไม่
-              </span>
-            </ion-item>
           </ion-col>
 
           <ion-col col-6>
@@ -61,14 +55,7 @@
             <ion-item *ngIf="isValid('rectangle.length')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
-            <ion-item *ngIf="FormItem.get('rectangle.length').value > 300 ">
-              <ion-icon md="md-warning" class="warning"></ion-icon>
-              <span class="warning-msg">
-                กรุณาตรวจสอบความยาวมีเยอะผิดปกติหรือไม่
-              </span>
-            </ion-item>
           </ion-col>
-
         </ion-row>
       </div>
 
@@ -85,7 +72,7 @@
         <ion-item *ngIf="FormItem.get('diameter').value > 300 ">
           <ion-icon md="md-warning" class="warning"></ion-icon>
           <span class="warning-msg">
-            กรุณาตรวจสอบเส้นผ่านศูนย์กลางมีเยอะผิดปกติหรือไม่
+            กรุณาตรวจสอบเส้นผ่านศูนย์กลางมีขนาดผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
@@ -106,7 +93,7 @@
         *ngIf="FormItem.get('depth').value > 10 || (FormItem.get('depth').value < 0.5 &&  FormItem.get('depth').value > 0)">
         <ion-icon md="md-warning" class="warning"></ion-icon>
         <span class="warning-msg">
-          กรุณาตรวจสอบความลึกมีเยอะผิดปกติหรือไม่
+          กรุณาตรวจสอบความลึกมีขนาดผิดปกติหรือไม่
         </span>
       </ion-item>
     </div>

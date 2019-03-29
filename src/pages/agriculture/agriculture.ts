@@ -252,18 +252,18 @@ export class AgriculturePage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(1));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
 
-        if (arrayIsCheck.every(it => it != 1)) {
-          arrayIsCheck.push(1);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    //     if (arrayIsCheck.every(it => it != 1)) {
+    //       arrayIsCheck.push(1);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   countNumberPage() {

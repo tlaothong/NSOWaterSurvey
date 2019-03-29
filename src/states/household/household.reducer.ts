@@ -339,9 +339,19 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 arrayIsCheck: action.payload,
             };
         case HouseHoldTypes.SetSelectorIndex:
+            const index = action.payload;
+            let arrayIsCheck = state.arrayIsCheck;
+
+            if (index >= 0 && index < arrayIsCheck.length) {
+                if (arrayIsCheck.findIndex(index) < 0) {
+                    arrayIsCheck.push(index);
+                }
+            }
+
             return {
                 ...state,
                 selectorIndex: action.payload,
+                arrayIsCheck: arrayIsCheck,
             };
         case HouseHoldTypes.LoadUnitByIdBuildingSuccess:
             return {

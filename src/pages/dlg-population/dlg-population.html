@@ -55,10 +55,18 @@
     <ion-item>
       <ion-label>3) ชื่อสกุล</ion-label>
     </ion-item>
-    <ion-item>
-      <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="lastName" [class.invalid]="isValid('lastName')">
-      </ion-input>
-    </ion-item>
+    <ion-row>
+      <ion-item col-10>
+        <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="lastName"
+          [class.invalid]="isValid('lastName')">
+        </ion-input>
+      </ion-item>
+      <ion-item col-2>
+        <button ion-button clear icon-only (click)="showActionSheet()" type="button" color="dark">
+          <ion-icon name='ios-arrow-down'></ion-icon>
+        </button>
+      </ion-item>
+    </ion-row>
     <ion-item *ngIf="isValid('lastName')">
       <span class="invalid-msg">กรุณากรอกข้อมูล</span>
     </ion-item>

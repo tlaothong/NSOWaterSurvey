@@ -45,7 +45,7 @@ export class PumpComponent implements ISubmitRequestable {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'pumpAuto': [null, Validators],
-      'hoursPerPump': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
+      'hoursPerPump': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'numberOfPumpsPerYear': [null, Validators],
       'hasPumpRate': [null, Validators],
       'pumpRate': [null, Validators],
