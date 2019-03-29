@@ -112,7 +112,7 @@ export class HerbsPlantPage {
   }
 
   public handleSubmit() {
-    var checkSelectPrimaryPlant: boolean = true;
+    var checkSelectPrimaryPlant: boolean;
     this.submitRequested = true;
     this.fieldHerbsPlant.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
