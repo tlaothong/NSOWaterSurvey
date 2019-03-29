@@ -25,6 +25,7 @@ export class FactorialPage {
   private formData$ = this.store.select(getHouseHoldSample);
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
@@ -49,6 +50,7 @@ export class FactorialPage {
     this.store.dispatch(new SetFactorialCategory(this.FactoryForm.get('category').value));
     this.store.dispatch(new SetWaterSourcesFactory(this.FactoryForm.get('waterSources').value));
     console.log("waterFac", this.FactoryForm.get('waterSources').value);
+    this.isCheckWarningBox = this.FactoryForm.valid;
     if (this.FactoryForm.valid) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;

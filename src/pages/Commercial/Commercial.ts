@@ -28,6 +28,7 @@ export class CommercialPage {
   private f: FormGroup;
   private submitRequested: boolean;
   public otherBuildingType: any;
+  private isCheckWarningBox: boolean;
 
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formData$ = this.store.select(getHouseHoldSample);
@@ -117,6 +118,7 @@ export class CommercialPage {
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log(this.f);
+    this.isCheckWarningBox = this.f.valid;
 
     if (this.f.valid) {
       this.arrayIsCheckMethod();

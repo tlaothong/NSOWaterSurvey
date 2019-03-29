@@ -38,6 +38,7 @@ export class PopulationPage {
   public checkEnd: boolean;
   private frontNum: any;
   private backNum: any;
+  private isCheckWarningBox: boolean;
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
@@ -83,6 +84,7 @@ export class PopulationPage {
     this.count.forEach(it => it.submitRequest());
     // this.dataPop.population = this.f.value
     // this.dataPop.status = "complete"
+    this.isCheckWarningBox = this.f.valid && this.isCheckHaveHeadfamily();
     if (this.f.valid && this.isCheckHaveHeadfamily()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.dataPop)); 

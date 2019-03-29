@@ -52,6 +52,7 @@ import { InputNumberOfArrayComponent } from './input-number-of-array/input-numbe
 import { CountComponent } from './count/count';
 import { UnitButtonPopoverComponent } from './unit-button-popover/unit-button-popover';
 import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-commu';
+import { WarningComponent } from './warning/warning';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -107,6 +108,7 @@ import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-c
     CountComponent,
     UnitButtonPopoverComponent,
     PoolAreaForCommuComponent,
+    WarningComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -170,6 +172,7 @@ import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-c
     CountComponent,
     UnitButtonPopoverComponent,
     PoolAreaForCommuComponent,
+    WarningComponent,
   ]
 })
 export class ComponentsModule { }

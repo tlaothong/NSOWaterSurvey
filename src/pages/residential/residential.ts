@@ -30,6 +30,7 @@ export class ResidentialPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
@@ -62,6 +63,7 @@ export class ResidentialPage {
     // (this.residentialFrm.get('waterSources.buying').value)]));
 
     // this.dataRes.residence = this.residentialFrm.value
+    this.isCheckWarningBox = this.residentialFrm.valid && !(this.check());
     if (this.residentialFrm.valid && !(this.check())) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
