@@ -89,7 +89,7 @@ export class CommercialPage {
     //     console.log(this.numberRoom);
     //   }
     // });
-    this.countNumberPage();
+    
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data.commerce)
@@ -247,29 +247,6 @@ export class CommercialPage {
     }
 
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
-  }
-
-  countNumberPage() {
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-    });
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
   }
 
   arrayIsCheckMethod() {
