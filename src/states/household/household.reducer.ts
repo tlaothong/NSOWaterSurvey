@@ -44,6 +44,7 @@ export interface HouseHoldState {
     numberRoom: string,
     unitNo: string,
     memberCount: number,
+    progress: SurveyProgress,
 }
 
 const initialState: HouseHoldState = {
@@ -88,6 +89,7 @@ const initialState: HouseHoldState = {
     numberRoom: null,
     unitNo: null,
     memberCount: null,
+    progress: { progressCompleted: 0, progressToGo: 0 },
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -135,6 +137,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 checkWaterRain: s.checkWaterRain,
                 checkWaterBuying: s.checkWaterBuying,
                 numberRoom: s.numberRoom,
+                memberCount: action.payload.residence ? action.payload.residence.memberCount : null,
             };
 
             return {
@@ -142,6 +145,27 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 nextPageDirection: listPagesToCheck(hh),
             };
         }
+        case HouseHoldTypes.SetSelectorIndex:
+            const index = action.payload;
+            let arrayIsCheck = state.arrayIsCheck;
+            let nextPageDirection = state.nextPageDirection;
+
+            if (index >= 0 && arrayIsCheck.findIndex(it => it == index) < 0) {
+                arrayIsCheck.push(index);
+            }
+
+            const toGo = nextPageDirection.filter(it => it == true).length;
+            const completed = arrayIsCheck.length;
+
+            return {
+                ...state,
+                selectorIndex: action.payload,
+                arrayIsCheck: arrayIsCheck,
+                progress: {
+                    progressCompleted: completed,
+                    progressToGo: toGo,
+                }
+            };
 
         case HouseHoldTypes.LoadSelectedHouseHold:
             return {
@@ -337,21 +361,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 arrayIsCheck: action.payload,
-            };
-        case HouseHoldTypes.SetSelectorIndex:
-            const index = action.payload;
-            let arrayIsCheck = state.arrayIsCheck;
-
-            if (index >= 0 && index < arrayIsCheck.length) {
-                if (arrayIsCheck.findIndex(index) < 0) {
-                    arrayIsCheck.push(index);
-                }
-            }
-
-            return {
-                ...state,
-                selectorIndex: action.payload,
-                arrayIsCheck: arrayIsCheck,
             };
         case HouseHoldTypes.LoadUnitByIdBuildingSuccess:
             return {
@@ -917,4 +926,10 @@ function listPagesToCheck(state: HouseHoldState): Array<boolean> {
 
 function isCheckWater(checkWater: boolean, payload: boolean): boolean {
     return checkWater ? true : payload;
+}
+
+
+interface SurveyProgress {
+    progressToGo: number;
+    progressCompleted: number;
 }

@@ -81,7 +81,7 @@ export class ResidentialPage {
       // this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
 
       // this.store.dispatch(new SetHouseHold(newHouseHold))
-      this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
+      // this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
       this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
