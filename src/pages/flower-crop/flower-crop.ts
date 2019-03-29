@@ -127,7 +127,7 @@ export class FlowerCropPage {
   }
 
   public handleSubmit() {
-    var checkSelectPrimaryPlant: boolean = true;
+    var checkSelectPrimaryPlant: boolean;
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());

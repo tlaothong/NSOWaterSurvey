@@ -6,7 +6,6 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { LocationComponent } from '../location/location';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 
@@ -54,19 +53,20 @@ export class FieldHerbsPlantComponent {
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
-
-
   }
 
   public checkPrimaryPlant(): boolean {
-    if (this.FormItem.get('thisPlantOnly').value == false) {
-      if (this.FormItem.get('primaryPlant.plants').value == null) {
+    var arr = this.FormItem.get('primaryPlant.plants').value as any[]
+    console.log(arr);
+
+    if (!this.FormItem.get('thisPlantOnly').value && (this.getAgiSelectRice || this.getAgiSelectAgronomy || this.getAgiSelectRubber || this.getAgiSelectPerennial)) {
+      if (arr.length == 0) {
         return false;
       }
     }
     return true;
   }
-  
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     if (name == "thisPlantOnly") {

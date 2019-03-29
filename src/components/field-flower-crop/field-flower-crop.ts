@@ -7,7 +7,6 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 
@@ -58,8 +57,11 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   }
 
   public checkPrimaryPlant(): boolean {
-    if (this.FormItem.get('thisPlantOnly').value == false) {
-      if (this.FormItem.get('primaryPlant.plants').value == null) {
+    var arr = this.FormItem.get('primaryPlant.plants').value as any[]
+    console.log(arr);
+
+    if (!this.FormItem.get('thisPlantOnly').value && (this.getAgiSelectRice || this.getAgiSelectAgronomy || this.getAgiSelectRubber || this.getAgiSelectPerennial)) {
+      if (arr.length == 0) {
         return false;
       }
     }
