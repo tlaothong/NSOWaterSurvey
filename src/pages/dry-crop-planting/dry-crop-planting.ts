@@ -28,9 +28,7 @@ export class DryCropPlantingPage {
   private submitRequested: boolean;
   private isCheckWarningBox: boolean;
   shownData: string[];
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
 
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.agronomyPlant = this.fb.group({
@@ -105,21 +103,6 @@ export class DryCropPlantingPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(3));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-
-    //     if (arrayIsCheck.every(it => it != 3)) {
-    //       arrayIsCheck.push(3);
-    //     }
-
-    //     console.log(arrayIsCheck);
-    //   }
-
-    // });
   }
 
   public isValid(name: string): boolean {
