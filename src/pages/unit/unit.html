@@ -27,7 +27,7 @@
             <div text-center [class]="unt.status">
               <ion-grid no-padding>
                 <ion-row>
-                  <ion-col (click)="continueUnit(unt)" style="padding-top: 20px">
+                  <ion-col (click)="continueUnit(unt)" style="padding-top: 20px;font-size: 16px">
                     ห้องที่ {{ unt.roomNumber }}
                   </ion-col>
                   <ion-col col-3 no-padding *ngIf="unt.comments && unt.comments.length > 0">
@@ -46,7 +46,6 @@
       </ng-container>
 
       <ng-container>
-
         <ion-col col-4 *ngFor="let unitNo of emptyUnits$ | async">
           <button padding>
             <ion-row>
@@ -60,7 +59,7 @@
             <div text-center class="play">
               <ion-grid no-padding>
                 <ion-row>
-                  <ion-col (click)="newUnit()" style="padding-top: 20px">
+                  <ion-col (click)="newUnit()" style="padding-top: 20px;font-size: 16px">
                     ห้องยังไม่เริ่ม
                   </ion-col>
                 </ion-row>
