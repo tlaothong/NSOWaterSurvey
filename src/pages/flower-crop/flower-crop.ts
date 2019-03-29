@@ -127,6 +127,7 @@ export class FlowerCropPage {
   }
 
   public handleSubmit() {
+    var checkSelectPrimaryPlant: boolean = true;
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
@@ -140,9 +141,11 @@ export class FlowerCropPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.isCheckWarningBox = (this.flowerCropFrm.valid && selected.length > 0 || (this.flowerCropFrm.get('doing').value == false));
+    this.fieldFlowerCrop.forEach(it => checkSelectPrimaryPlant = it.checkPrimaryPlant());
+    console.log(checkSelectPrimaryPlant);
+    this.isCheckWarningBox = ((this.flowerCropFrm.valid && selected.length > 0 && checkSelectPrimaryPlant) || (this.flowerCropFrm.get('doing').value == false));
 
-    if ((this.flowerCropFrm.valid && selected.length > 0) || this.flowerCropFrm.get('doing').value == false) {
+    if ((this.flowerCropFrm.valid && selected.length > 0 && checkSelectPrimaryPlant) || this.flowerCropFrm.get('doing').value == false) {
       this.arrayIsCheckMethod();
 
       let argi = {

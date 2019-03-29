@@ -54,10 +54,24 @@ export class FieldHerbsPlantComponent {
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
+
+
   }
 
+  public checkPrimaryPlant(): boolean {
+    if (this.FormItem.get('thisPlantOnly').value == false) {
+      if (this.FormItem.get('primaryPlant.plants').value == null) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == "thisPlantOnly") {
+      return ctrl.value == null && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
