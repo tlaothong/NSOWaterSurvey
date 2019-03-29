@@ -16,7 +16,7 @@
 <ion-content padding>
   <h1>อัพเดทโปรแกรม</h1>
 
-  <p>Current Channel: {{ channel }}</p>
+  <p>Update Channel: {{ channel }}</p>
   <p *ngIf="!updateAvailable">ไม่พบการอัพเดทในขณะนี้</p>
 
   <ng-container *ngIf="updateAvailable && downloadProgress < 100">
