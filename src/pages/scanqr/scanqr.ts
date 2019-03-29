@@ -125,8 +125,11 @@ export class ScanqrPage {
           alert.present();
         });
 
+      this.qrScanner.scan();
+
     } else {
 
     }
   }
+
 }
