@@ -58,6 +58,13 @@ export class MyApp {
   public openManual() {
     window.open('http://water.surveydb.app/assets/fi.pdf', '_system', 'location=yes');
   }
+
+  /**
+   * updateApp
+   */
+  public updateApp() {
+    this.nav.push("UpdateAppPage");
+  }
   
   logOut() {
     this.menuCtrl.close();
