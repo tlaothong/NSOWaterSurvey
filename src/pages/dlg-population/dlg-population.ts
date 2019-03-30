@@ -1,10 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, state } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController, ActionSheetController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';
 import { Province, provinceData } from '../../models/ProvinceData';
 import { Select } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import { HouseHoldState } from '../../states/household/household.reducer';
+import { SaveLastName } from '../../states/household/household.actions';
+import { getLastName } from '../../states/household';
 
 @IonicPage()
 @Component({
@@ -25,20 +29,18 @@ export class DlgPopulationPage {
   public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
   public OtherNation: Nationality[] = nationalityData
   public Province: Province[] = provinceData;
-
+  public lastName: string[];
   public dateTime: Date = new Date();
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController,
-    private fb: FormBuilder, public actionSheetCtrl: ActionSheetController) {
+    private fb: FormBuilder, public actionSheetCtrl: ActionSheetController, private store: Store<HouseHoldState>) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.proName = navParams.get('proName');
     this.Province = this.Province.sort((a, b) => a.name.localeCompare(b.name));
-
     this.FormItem = TablePopulationComponent.CreateFormGroup(this.fb);
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
-
     this.FormArray = navParams.get('FormArray');
   }
 
@@ -152,34 +154,33 @@ export class DlgPopulationPage {
   }
 
   showActionSheet() {
+    let lastName$ = this.store.select(getLastName);
+    lastName$.subscribe(data => {
+      this.lastName = data;
+    });
+    let memo = 'จำ';
+    let use = 'ใช้';
+    let dc = '"';
+    let btn = [];
+    if ((this.FormItem.get('lastName').value != null) && (this.FormItem.get('lastName').value !== '')) {
+      btn.push({
+        text: memo.concat(dc).concat(this.FormItem.get('lastName').value).concat(dc),
+        handler: () => {
+          this.store.dispatch(new SaveLastName(this.FormItem.get('lastName').value));
+        }
+      })
+    }
+    this.lastName.reverse().forEach(element => {
+      btn.push({
+        text: use.concat(dc).concat(element).concat(dc),
+        handler: () => {
+          this.FormItem.get('lastName').setValue(element);
+        }
+      });
+    });
     const actionSheet = this.actionSheetCtrl.create({
       title: 'ช่วยจำ (3 สกุล)',
-      buttons: [
-        {
-          text: 'LastName1',
-          //role: 'lastName1',
-          handler: () => {
-            console.log('LastName1 clicked');
-          }
-        }, {
-          text: 'LastName2',
-          handler: () => {
-            console.log('LastName2 clicked');
-          }
-        }
-        , {
-          text: 'LastName3',
-          handler: () => {
-            console.log('LastName3 clicked');
-          }
-        }, {
-          text: 'Cancel',
-          // role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
+      buttons: btn
     });
     actionSheet.present();
   }
