@@ -152,23 +152,23 @@ export class CheckListPage {
   // }
 
   updatePagesStatus(arrayIsCheck, arrayNextPageForHide) {
-    if (arrayIsCheck != null) {
-      console.log("arrayIsCheck", arrayIsCheck);
+    // if (arrayIsCheck != null) {
+    //   console.log("arrayIsCheck", arrayIsCheck);
 
-      for (let i = 0; i < arrayIsCheck.length; i++) {
-        this.pages[arrayIsCheck[i]].isCheck = true;
-      }
-    }
-    console.log("next page",arrayNextPageForHide);
+    //   for (let i = 0; i < arrayIsCheck.length; i++) {
+    //     this.pages[arrayIsCheck[i]].isCheck = true;
+    //   }
+    // }
+    // console.log("next page",arrayNextPageForHide);
 
-    if (arrayNextPageForHide != null) {
-      for (let i = 0; i < arrayNextPageForHide.length; i++) {
-        if (arrayNextPageForHide[i] == false) {
-          this.pages[i].isShow = false;
-        } else
-          this.pages[i].isShow = true;
-      }
-    }
+    // if (arrayNextPageForHide != null) {
+    //   for (let i = 0; i < arrayNextPageForHide.length; i++) {
+    //     if (arrayNextPageForHide[i] == false) {
+    //       this.pages[i].isShow = false;
+    //     } else
+    //       this.pages[i].isShow = true;
+    //   }
+    // }
   }
 
   public openPage(page, index) {
