@@ -37,6 +37,7 @@ export interface HouseHoldUnit {
     ea: string;
     buildingId: string;
     subUnit: SubUnit;
+    surveyCompleted: SurveyCompletion[];
     comments: CommentInList[];
     [x: string]: any;
 }
@@ -45,6 +46,12 @@ export interface SubUnit {
     roomNumber: string;
     accessCount: number;
     [x: string]: any;
+}
+
+export interface SurveyCompletion {
+    name: string;
+    isNeed: boolean;
+    hasCompleted: boolean;
 }
 
 export interface CommentInList {

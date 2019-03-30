@@ -4,8 +4,8 @@ import { ModalController, NavController, AlertController, NavParams, FabButton, 
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getUnitByIdBuilding, getBack, getArrayIsCheck } from '../../states/household';
-import { SetArrayIsCheck, LoadHouseHoldSample, LoadHouseHoldSampleSuccess, SetUnitNo, LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
+import { getHouseHoldSample, getUnitByIdBuilding } from '../../states/household';
+import { LoadHouseHoldSample, SetUnitNo } from '../../states/household/household.actions';
 import { Guid } from "guid-typescript";
 // import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';

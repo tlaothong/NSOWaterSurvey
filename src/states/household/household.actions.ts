@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { HouseHoldUnit, SubUnit, UnitInList } from '../../models/mobile/MobileModels';
+import { HouseHoldState } from './household.reducer';
 
 export enum HouseHoldTypes {
     StateName = "HouseHold",
@@ -19,6 +20,8 @@ export enum HouseHoldTypes {
     SaveHouseHoldSuccess = "[HH] Save House Hold Success",
 
     UpdateUnitList = "[HH] Update the List of House Hold Units",
+
+    UpdateProgress = "[HH] Update the Survey Progress for House Hold",
 
     LoadList = "[HH] Load House Hold List For Building",
     LoadListSuccess = "[HH] Load List For Building Success",
@@ -69,6 +72,11 @@ export enum HouseHoldTypes {
     SetNumberRoom = "[HH] Set Number Room",
     SetUnitNo = "[HH] Set Unit No",
     SetMemberCount = "[HH] Set Count Member",
+}
+
+export interface SurveyProgress {
+    progressToGo: number;
+    progressCompleted: number;
 }
 
 export class LoadHouseHoldList implements Action {
@@ -141,7 +149,7 @@ export class SaveHouseHold implements Action {
 }
 export class SaveHouseHoldSuccess implements Action {
     readonly type = HouseHoldTypes.SaveHouseHoldSuccess;
-    constructor(public payload: HouseHoldUnit) {
+    constructor(public payload: HouseHoldUnit, public state: HouseHoldState) {
     }
 }
 
@@ -150,6 +158,13 @@ export class UpdateUnitList implements Action {
     constructor(public payload: HouseHoldUnit) {
     }
 }
+
+export class UpdateProgress implements Action {
+    readonly type = HouseHoldTypes.UpdateProgress;
+    constructor(public index: number, public progress: SurveyProgress) {
+    }
+}
+
 
 export class SetSelectG1234 implements Action {
     readonly type = HouseHoldTypes.SetSelectG1234;
@@ -444,6 +459,8 @@ export type HouseHoldActionsType =
     | SaveHouseHold
     | SaveHouseHoldSuccess
     | UpdateUnitList
+    | UpdateProgress
+
     | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
