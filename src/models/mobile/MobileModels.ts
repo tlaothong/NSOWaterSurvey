@@ -5,6 +5,7 @@ export interface BuildingInList {
     name: string;
     completedCount: number;
     unitCount: number;
+    lastUpdate: number;
 }
 
 export interface CommunityInList {
@@ -28,8 +29,10 @@ export interface Building {
     name: string;
     houseNo: string;
     unitCount: number;
+    accessCount: number;
     // TODO: Need to re-consider this?
     status: string;
+    [x: string]: any;
 }
 
 export interface HouseHoldUnit {

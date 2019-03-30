@@ -60,7 +60,8 @@ export class BuidlingInformation2Page {
       'buildingType': null,
       'other': null,
       'accessCount': 0,
-      'access': fb.array([]),
+      'accesses': fb.array([]),
+      'access': null,
       'vacancyCount': null,
       'abandonedCount': null,
       'comments': fb.array([
@@ -318,7 +319,7 @@ export class BuidlingInformation2Page {
   }
 
   private setupAccessCountChanges() {
-    const componentFormArray: string = "access";
+    const componentFormArray: string = "accesses";
     const componentCount: string = "accessCount";
 
     var onComponentCountChanges = () => {

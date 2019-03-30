@@ -114,7 +114,7 @@ export class HomesPage {
   initializeItems() {
     // this.listFilter = this.dataEa;
     this.buildingListAll$ = this.buildings$;
-    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort(it => -it.buildingId));
+    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort(it => -it.lastUpdate));
     this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
     this.buidlingListPaused$ = this.buildings$.map(lst => lst.filter(it => it.status == "pause"));
   }

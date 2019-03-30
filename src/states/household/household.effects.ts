@@ -257,7 +257,11 @@ export class HouseHoldEffects {
                     status = (accCnt < 3) ? "return" : "complete";
                     break;
                 default:
-                    status = "pause";
+                    const completedSurveys = unit.surveyCompleted;
+                    const countedOnSurveys = completedSurveys.filter(it => it.isNeed == true);
+                    const allCompleted = countedOnSurveys.length > 0
+                        && countedOnSurveys.every(it => it.hasCompleted);
+                    status = allCompleted == true ? "complete" : "pause";
                     break;
             }
             let untInList: UnitInList = {
@@ -276,7 +280,7 @@ export class HouseHoldEffects {
                 lst.push(untInList);
             }
             // TODO: Save the building list
-            return this.dataStore.saveHouseHoldInBuiildingList(this.appState.buildingId, lst)
+            return this.dataStore.saveHouseHoldInBuildingList(this.appState.buildingId, lst)
                 .mapTo(lst);
         }),
         withLatestFrom(this.storeBuild.select(getBuildingSample)),
@@ -315,7 +319,7 @@ export class HouseHoldEffects {
         mergeMap(([hld, lst]) => {
             let idx = lst.findIndex(it => it.houseHoldId == hld.houseHoldId);
             lst.splice(idx, 1);
-            return this.dataStore.saveHouseHoldInBuiildingList(this.appState.buildingId, lst).mapTo(lst);
+            return this.dataStore.saveHouseHoldInBuildingList(this.appState.buildingId, lst).mapTo(lst);
         }),
         map(hldList => new LoadHouseHoldListSuccess(hldList ? hldList : [])),
     );
