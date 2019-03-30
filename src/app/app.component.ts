@@ -41,14 +41,17 @@ export class MyApp {
 
   goGetworkPage() {
     // this.nav.pop();
+    this.menuCtrl.close();
     this.nav.setRoot("GetworkPage")
   }
 
   goSelectEaPage() {
+    this.menuCtrl.close();
     this.nav.setRoot("SelectEaPage")
   }
 
   goSendPage() {
+    this.menuCtrl.close();
     this.nav.push("SendPage")
   }
 

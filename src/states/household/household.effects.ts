@@ -1,14 +1,14 @@
 import { Observable } from "rxjs";
 import { Action, Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
-import { mergeMap, map, tap, withLatestFrom, switchMap, mapTo, filter } from "rxjs/operators";
+import { mergeMap, map, tap, withLatestFrom, switchMap, filter } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit, DeleteHouseHold } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit, DeleteHouseHold, SaveLastName, SaveLastNameSuccess } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileModels";
-import { getHouseHoldUnitList, getHouseHoldSample } from ".";
+import { getHouseHoldUnitList, getLastName } from ".";
 import { HouseHoldState } from "./household.reducer";
 import { BuildingState } from "../building/building.reducer";
 import { getBuildingSample } from "../building";
@@ -239,6 +239,22 @@ export class HouseHoldEffects {
         }),
         map(hldList => new LoadHouseHoldListSuccess(hldList ? hldList : [])),
     );
+
+    @Effect()
+    public saveLastName$: Observable<Action> = this.action$.pipe(
+        ofType(HouseHoldTypes.SaveLastName),
+        filter((action: any, i) => action.payload),
+        map((action: SaveLastName) => action.payload),// ค่าที่ส่งเข้ามา
+        withLatestFrom(this.store.select(getLastName)),
+        mergeMap(([lst, lnl]) => {
+            if (lnl.length >= 3) {
+                lnl.splice(0, 1)
+            }
+            lnl.push(lst);
+            return this.dataStore.saveLastName(this.appState.userId, lnl).mapTo(lnl)
+        }),
+        map(lnl => new SaveLastNameSuccess(lnl))
+    )
 }
 
 interface UnitExistence {

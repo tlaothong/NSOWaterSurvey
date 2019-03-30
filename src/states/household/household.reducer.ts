@@ -45,6 +45,7 @@ export interface HouseHoldState {
     unitNo: string,
     memberCount: number,
     progress: SurveyProgress,
+    lastName: Array<string>,
 }
 
 const initialState: HouseHoldState = {
@@ -90,6 +91,7 @@ const initialState: HouseHoldState = {
     unitNo: null,
     memberCount: null,
     progress: { progressCompleted: 0, progressToGo: 0 },
+    lastName: Array<string>(),
 };
 
 export function reducer(state: HouseHoldState = initialState, action: HouseHoldActionsType): HouseHoldState {
@@ -386,6 +388,11 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 unitNo: action.payload,
+            };
+        case HouseHoldTypes.SaveLastNameSuccess:
+            return {
+                ...state,
+                lastName: action.payload,
             };
         case HouseHoldTypes.LoadHouseHoldSampleSuccess:
             let s = resetStatesForModel(action.payload);

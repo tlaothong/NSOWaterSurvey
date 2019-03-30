@@ -83,9 +83,7 @@ export class CommercialPage {
     console.log('ionViewDidLoad CommercialPage');
     // this.numberRoom$.subscribe(data => {
     //   if (data != null) {
-    //     if(data == "-"){
-    //       this.numberRoom = true
-    //     }
+
     //     console.log(this.numberRoom);
     //   }
     // });
@@ -100,7 +98,11 @@ export class CommercialPage {
     // });
 
     this.getBuildingType$.subscribe(data => {
-      if (data != null) {
+      let roomno = this.appState.houseHoldUnit.subUnit.roomNumber
+      if (roomno == "-") {
+        this.numberRoom = true
+      }
+      if (data != null && roomno == '-') {
         this.f.get('buildingCode').setValue(data)
       }
     });
@@ -119,6 +121,7 @@ export class CommercialPage {
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
     console.log(this.f);
     this.isCheckWarningBox = this.f.valid;
+    console.log(JSON.stringify(this.f.errors));
 
     if (this.f.valid) {
       this.arrayIsCheckMethod();
@@ -195,7 +198,7 @@ export class CommercialPage {
       }
       if ((buildingCode.value == 1 || buildingCode.value == 2 || buildingCode.value == 3
         || buildingCode.value == 5 || buildingCode.value == 9 || buildingCode.value == 13 || buildingCode.value == 14
-        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value == null) {
+        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value <= 0) {
         return { 'personnelCountOtherBuilding': true };
       }
 

@@ -23,7 +23,10 @@ export enum HouseHoldTypes {
     LoadList = "[HH] Load House Hold List For Building",
     LoadListSuccess = "[HH] Load List For Building Success",
 
+    SaveLastName = "[HH] Set Last Name",
+    SaveLastNameSuccess = "[HH] Set Last Name Success",
     DeleteHouseHold = "[HH] Delete House Hold",
+
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
@@ -147,7 +150,6 @@ export class UpdateUnitList implements Action {
     constructor(public payload: HouseHoldUnit) {
     }
 }
-
 
 export class SetSelectG1234 implements Action {
     readonly type = HouseHoldTypes.SetSelectG1234;
@@ -416,6 +418,19 @@ export class DeleteHouseHold implements Action {
     }
 }
 
+export class SaveLastName implements Action {
+    readonly type = HouseHoldTypes.SaveLastName;
+
+    constructor(public payload: string) {
+    }
+}
+export class SaveLastNameSuccess implements Action {
+    readonly type = HouseHoldTypes.SaveLastNameSuccess;
+
+    constructor(public payload: string[]) {
+    }
+}
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -471,4 +486,6 @@ export type HouseHoldActionsType =
     | SetUnitNo
     | SetMemberCount
     | DeleteHouseHold
+    | SaveLastName
+    | SaveLastNameSuccess
     ;

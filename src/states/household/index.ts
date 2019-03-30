@@ -189,6 +189,7 @@ export const getUnitNo = createSelector(
     getHouseHoldFeatureState,
     state => state.unitNo,
 );
+
 export const getMemberCount = createSelector(
     getHouseHoldFeatureState,
     state => state.memberCount,
@@ -199,4 +200,7 @@ export const getProgress = createSelector(
     state => state.progress,
 );
 
-
+export const getLastName = createSelector(
+    getHouseHoldFeatureState,
+    state => state.lastName,
+);
