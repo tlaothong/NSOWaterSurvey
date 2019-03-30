@@ -41,7 +41,7 @@ export class CheckListPage {
   private arrayNextPageForHide$ = this.store.select(getNextPageDirection);
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
-    public navParams: NavParams, private store: Store<HouseHoldState>) {
+      public navParams: NavParams, private store: Store<HouseHoldState>) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
