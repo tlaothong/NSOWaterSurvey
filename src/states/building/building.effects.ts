@@ -100,13 +100,30 @@ export class BuildingEffects {
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
             this.storeUnit.select(getHouseHoldUnitList)),
         mergeMap(([bld, lst, ea, ulist]) => {
+            let status = "pause";
+            switch (bld.access) {
+                case 4:
+                    status = "eye-off";
+                    break;
+                case 2:
+                case 3:
+                    status = bld.accessCount < 3 ? "refresh" : "sad";
+                    break;
+                default:
+                    status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "return" || it.status == "pause")
+                        ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
+                        : (ulist.length == bld.unitCount ? "done-all" : "pause");
+                    break;
+            }
+            bld.status = status;
             let bInList = {
                 "buildingId": bld._id,
                 "houseNo": bld.houseNo,
                 "name": bld.name,
                 "status": bld.status,
-                "completedCount": ulist ? ulist.length : 0,
+                "completedCount": ulist.filter(it => it.status != "return" && it.status != "pause").length,
                 "unitCount": bld.unitCount,
+                "lastUpdate": Date.now(),
             };
             let idx = lst.findIndex(it => it.buildingId == bld._id);
             if (idx >= 0) {

@@ -5,11 +5,11 @@ import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SaveBuildingSuccess } from '../../states/building/building.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getDataBuilding } from '../../states/logging';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { Guid } from 'guid-typescript';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { getBuildingSample } from '../../states/building';
 
 @IonicPage()
 @Component({
@@ -31,9 +31,13 @@ export class BuildingInformation1Page {
   public checkFormButtonsForBuilding: boolean = true;
   private isCheckWarningBox: boolean;
 
-  private dataBuilding$ = this.store.select(getDataBuilding);
+  private dataBuilding$ = this.store.select(getBuildingSample);
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
+
+    this.setupAccessCountChanges();
+    this.setupAccessCountChangesForComments();
+
     this.f.get('ea').setValue(this.appState.eaCode);
     this.f.get('_id').setValue(navParams.get('id'));
   }
@@ -51,7 +55,8 @@ export class BuildingInformation1Page {
       'buildingType': [null, Validators.required],
       'other': [null, Validators],
       'accessCount': [0],
-      'access': fb.array([]),
+      'accesses': fb.array([]),
+      'access': [null, Validators.required],
       'vacancyCount': [null, Validators],
       'abandonedCount': [null, Validators],
       'comments': fb.array([]),
@@ -102,30 +107,50 @@ export class BuildingInformation1Page {
     this.setupCountChanges();
     console.log(id);
 
-    this.storage.get(id).then((data) => {
-      if (data != null) {
-        console.log("DATA: " + JSON.stringify(data));
-        this.f.patchValue(data);
-        this.f.get('accessCount').setValue(data.accessCount);
-        this.setupCountChanges();
-      } else {
-        this.storage.get('road').then((val) => {
-          if (val != null) {
-            this.f.get('road').setValue(val);
-          }
-        })
-        this.storage.get('alley').then((val) => {
-          if (val != null) {
-            this.f.get('alley').setValue(val);
-          }
-        })
-        this.storage.get('name').then((val) => {
-          if (val != null) {
-            this.f.get('name').setValue(val);
-          }
-        })
-      }
-    });
+    if (this.appState.buildingId == '') {
+      this.storage.get('road').then((val) => {
+        if (val != null) {
+          this.f.get('road').setValue(val);
+        }
+      })
+      this.storage.get('alley').then((val) => {
+        if (val != null) {
+          this.f.get('alley').setValue(val);
+        }
+      })
+      this.storage.get('name').then((val) => {
+        if (val != null) {
+          this.f.get('name').setValue(val);
+        }
+      })
+    } else {
+      this.setupCountChanges();
+    }
+
+    // this.storage.get(id).then((data) => {
+    //   if (data != null) {
+    //     console.log("DATA: " + JSON.stringify(data));
+    //     this.f.patchValue(data);
+    //     this.f.get('accessCount').setValue(data.accessCount);
+    //     this.setupCountChanges();
+    //   } else {
+    //     this.storage.get('road').then((val) => {
+    //       if (val != null) {
+    //         this.f.get('road').setValue(val);
+    //       }
+    //     })
+    //     this.storage.get('alley').then((val) => {
+    //       if (val != null) {
+    //         this.f.get('alley').setValue(val);
+    //       }
+    //     })
+    //     this.storage.get('name').then((val) => {
+    //       if (val != null) {
+    //         this.f.get('name').setValue(val);
+    //       }
+    //     })
+    //   }
+    // });
   }
 
   loadMap() {
@@ -173,7 +198,7 @@ export class BuildingInformation1Page {
   public dispatch() {
     let idBD = this.f.get('_id').value
     let listBD: any;
-    let fgac = this.f.get('access') as FormArray;
+    let fgac = this.f.get('accesses') as FormArray;
     let fgcm = this.f.get('comments') as FormArray;
     fgac.at(this.index).setValue(this.access);
     fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment });
@@ -218,6 +243,9 @@ export class BuildingInformation1Page {
   }
 
   public updateStatus() {
+    if (this.access)
+      this.f.get('access').setValue(this.access);
+
     switch (this.access) {
       case 1:
         if (this.f.get('status').value == null) {
@@ -274,22 +302,21 @@ export class BuildingInformation1Page {
 
   private setupCountChanges() {
     let status = this.f.get('status').value;
-    if (status == 'pause' || status == 'done-all') {
+    if (status == 'pause' || status == 'done-all' || status == 'refresh') {
       this.index = this.f.get('accessCount').value - 1;
-      this.access = this.f.get('access').value[this.index];
-      this.comment = this.f.get('comments').value[this.index].text;
+      this.access = this.f.get('accesses').value[this.index];
+      var comments = this.f.get('comments').value;
+      this.comment = (comments && comments[this.index] ? comments[this.index].text : '');
+       // this.f.get('comments').value[this.index].text;
     }
     else {
       this.index = this.f.get('accessCount').value;
     }
     this.f.get('accessCount').setValue(this.index + 1);
-
-    this.setupAccessCountChanges();
-    this.setupAccessCountChangesForComments();
   }
 
   private setupAccessCountChanges() {
-    const componentFormArray: string = "access";
+    const componentFormArray: string = "accesses";
     const componentCount: string = "accessCount";
 
     var onComponentCountChanges = () => {
