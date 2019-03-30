@@ -163,10 +163,10 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 selectG1234: action.payload,
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    selectG1234: action.payload
-                }),
+                // nextPageDirection: listPagesToCheck({
+                //     ...state,
+                //     selectG1234: action.payload
+                // }),
             };
         case HouseHoldTypes.SetIsHouseHold:
             return {
@@ -254,60 +254,60 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 agiSelectPerennial: action.payload,
             };
-        case HouseHoldTypes.SetArraySkipPageAgiculture:
-            return {
-                ...state,
-                arraySkipPageAgiculture: action.payload,
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    arraySkipPageAgiculture: action.payload,
-                }),
-            };
-        case HouseHoldTypes.SetCheckWaterPlumbing:
-            return {
-                ...state,
-                checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
-                }),
-            };
-        case HouseHoldTypes.SetCheckWaterRiver:
-            return {
-                ...state,
-                checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
-                }),
-            };
-        case HouseHoldTypes.SetCheckWaterIrrigation:
-            return {
-                ...state,
-                checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
-                }),
-            };
-        case HouseHoldTypes.SetCheckWaterRain:
-            return {
-                ...state,
-                checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
-                }),
-            };
-        case HouseHoldTypes.SetCheckWaterBuying:
-            return {
-                ...state,
-                checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
-                nextPageDirection: listPagesToCheck({
-                    ...state,
-                    checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
-                }),
-            };
+        // case HouseHoldTypes.SetArraySkipPageAgiculture:
+        //     return {
+        //         ...state,
+        //         arraySkipPageAgiculture: action.payload,
+        //         nextPageDirection: listPagesToCheck({
+        //             ...state,
+        //             // arraySkipPageAgiculture: action.payload,
+        //         }),
+        //     };
+        // case HouseHoldTypes.SetCheckWaterPlumbing:
+        //     return {
+        //         ...state,
+        //         checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
+        //         nextPageDirection: listPagesToCheck({
+        //             ...state,
+        //             checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
+        //         }),
+        //     };
+        // case HouseHoldTypes.SetCheckWaterRiver:
+        //     return {
+        //         ...state,
+        //         checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
+        //         nextPageDirection: listPagesToCheck({
+        //             ...state,
+        //             checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
+        //         }),
+        //     };
+        // case HouseHoldTypes.SetCheckWaterIrrigation:
+        //     return {
+        //         ...state,
+        //         checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
+        //         nextPageDirection: listPagesToCheck({
+        //             ...state,
+        //             checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
+        //         }),
+        //     };
+        // case HouseHoldTypes.SetCheckWaterRain:
+        //     return {
+        //         ...state,
+        //         checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
+        //         nextPageDirection: listPagesToCheck({
+        //             ...state,
+        //             checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
+        //         }),
+        //     };
+        // case HouseHoldTypes.SetCheckWaterBuying:
+        //     return {
+        //         ...state,
+        //         checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
+        //         nextPageDirection: listPagesToCheck({
+        //             ...state,
+        //             checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
+        //         }),
+        //     };
         case HouseHoldTypes.SetWateringResidential:
             return {
                 ...state,

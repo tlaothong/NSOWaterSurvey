@@ -212,47 +212,7 @@ export class HouseHoldEffects {
         withLatestFrom(this.store.select(getHouseHoldFeatureState)),
         map(([action, state]) => {
             const unit = action.payload;
-            const s = this.computeStatesForModel(unit);
-            const newState = {
-                ...state,
-                houseHoldSample: unit,
-                selectG1234: s.selectG1234,
-                isHouseHold: s.isHouseHold,
-                isAgriculture: s.isAgriculture,
-                isFactorial: s.isFactorial,
-                isCommercial: s.isCommercial,
-                residentialGardeningUse: s.residentialGardeningUse,
-                wateringResidential: s.wateringResidential,
-                waterSourcesResidential: s.waterSourcesResidential,
-                waterSourcesRice: s.waterSourcesRice,
-                waterSourcesAgiculture: s.waterSourcesAgiculture,
-                waterSourcesFactory: s.waterSourcesFactory,
-                waterSourcesCommercial: s.waterSourcesCommercial,
-                arraySkipPageAgiculture: s.agi,
-                riceDoing: s.riceDoing,
-                agiSelectRice: s.agiSelectRice,
-                agiSelectAgronomy: s.agiSelectAgronomy,
-                agiSelectRubber: s.agiSelectRubber,
-                agiSelectPerennial: s.agiSelectPerennial,
-                ricePlantSelectPlant: s.ricePlantSelectPlant,
-                agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
-                rubberTreeSelectPlant: s.rubberTreeSelectPlant,
-                perennialPlantSelectPlant: s.perennialPlantSelectPlant,
-                factorialCategory: s.factorialCategory,
-                commercialServiceType: s.commercialServiceType,
-                checkWaterPlumbing: s.checkWaterPlumbing,
-                checkWaterRiver: s.checkWaterRiver,
-                checkWaterIrrigation: s.checkWaterIrrigation,
-                checkWaterRain: s.checkWaterRain,
-                checkWaterBuying: s.checkWaterBuying,
-                numberRoom: s.numberRoom,
-                memberCount: action.payload.residence ? action.payload.residence.memberCount : null,
-            };
-            const pages2check = this.listPagesToCheck(newState);
-            const state2set = {
-                ...newState,
-                nextPageDirection: pages2check,
-            };
+            const state2set = this.deriveNewStateFromHouseHold(unit, state);
 
             return new SaveHouseHoldSuccess({
                 ...action.payload,
@@ -328,10 +288,14 @@ export class HouseHoldEffects {
 
     @Effect()
     public setCurrentWorkingHouseHold$: Observable<Action> = this.action$.pipe(
-        ofType(HouseHoldTypes.SetCurrentWorkingHouseHold),
-        mergeMap((action: SetCurrentWorkingHouseHold) => this.dataStore.getHouseHold(action.houseHoldId)),
+        ofType<SetCurrentWorkingHouseHold>(HouseHoldTypes.SetCurrentWorkingHouseHold),
+        mergeMap(action => this.dataStore.getHouseHold(action.houseHoldId)),
         tap(unt => this.appState.houseHoldUnit = unt),
-        map(unt => new SaveHouseHoldSuccess(unt)),
+        withLatestFrom(this.store.select(getHouseHoldFeatureState)),
+        map(([unt, state]) => {
+            const state2set = this.deriveNewStateFromHouseHold(unt, state);
+            return new SaveHouseHoldSuccess(unt, state2set);
+        }),
     );
 
     @Effect()
@@ -357,7 +321,72 @@ export class HouseHoldEffects {
     );
 
 
-    computeStatesForModel(model: HouseHoldUnit): any {
+    private deriveNewStateFromHouseHold(unit: HouseHoldUnit, state: HouseHoldState): HouseHoldState {
+        const s = this.computeStatesForModel(unit);
+        const newState = {
+            ...state,
+            houseHoldSample: unit,
+            selectG1234: s.selectG1234,
+            isHouseHold: s.isHouseHold,
+            isAgriculture: s.isAgriculture,
+            isFactorial: s.isFactorial,
+            isCommercial: s.isCommercial,
+            residentialGardeningUse: s.residentialGardeningUse,
+            wateringResidential: s.wateringResidential,
+            waterSourcesResidential: s.waterSourcesResidential,
+            waterSourcesRice: s.waterSourcesRice,
+            waterSourcesAgiculture: s.waterSourcesAgiculture,
+            waterSourcesFactory: s.waterSourcesFactory,
+            waterSourcesCommercial: s.waterSourcesCommercial,
+            arraySkipPageAgiculture: s.agi,
+            riceDoing: s.riceDoing,
+            agiSelectRice: s.agiSelectRice,
+            agiSelectAgronomy: s.agiSelectAgronomy,
+            agiSelectRubber: s.agiSelectRubber,
+            agiSelectPerennial: s.agiSelectPerennial,
+            ricePlantSelectPlant: s.ricePlantSelectPlant,
+            agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
+            rubberTreeSelectPlant: s.rubberTreeSelectPlant,
+            perennialPlantSelectPlant: s.perennialPlantSelectPlant,
+            factorialCategory: s.factorialCategory,
+            commercialServiceType: s.commercialServiceType,
+            checkWaterPlumbing: s.checkWaterPlumbing,
+            checkWaterRiver: s.checkWaterRiver,
+            checkWaterIrrigation: s.checkWaterIrrigation,
+            checkWaterRain: s.checkWaterRain,
+            checkWaterBuying: s.checkWaterBuying,
+            numberRoom: s.numberRoom,
+            memberCount: unit.residence ? unit.residence.memberCount : null,
+        };
+        const pages2check = this.listPagesToCheck(newState);
+        let surveys = unit.surveyCompleted;
+
+        for (let idx = 0; idx < pages2check.length; idx++) {
+            const shouldCheck = pages2check[idx];
+            const form = this.surveyForms[idx];
+
+            let survey = surveys.find(it => it.name == form.name);
+
+            if (survey) {
+                survey.isNeed = shouldCheck;
+            } else if (shouldCheck == true) {
+                const newSurvey = {
+                    ...form,
+                    isNeed: true,
+                };
+                surveys.push(newSurvey);
+            }
+        }
+        const state2set = {
+            ...newState,
+            houseHoldSample: unit,
+            nextPageDirection: pages2check,
+        };
+
+        return state2set;
+    }
+
+    private computeStatesForModel(model: HouseHoldUnit): any {
         let objG12345 = {};
         let garden: any;
         let numberRoomUnit: any;
