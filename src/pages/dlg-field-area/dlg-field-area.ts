@@ -32,8 +32,8 @@ export class DlgFieldAreaPage {
 
   public okDialog() {
     this.submitRequested = true;
-    if (this.isCheckAny()) {
-      this.fillInZero();
+    this.fillInZero();
+    if (this.isCheckAny() && this.FormItem.valid) {
       this.viewCtrl.dismiss(this.FormItem);
     }
   }
