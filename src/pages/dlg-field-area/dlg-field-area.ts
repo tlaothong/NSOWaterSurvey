@@ -45,7 +45,7 @@ export class DlgFieldAreaPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-    return (!this.isCheckAny() && ctrl.invalid) && (ctrl.dirty || this.submitRequested);
+    return (!this.isCheckAny() || ctrl.invalid) && (ctrl.dirty || this.submitRequested);
   }
 
   public isCheckAny(): boolean {
