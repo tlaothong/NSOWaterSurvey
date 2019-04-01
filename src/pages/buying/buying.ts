@@ -54,7 +54,6 @@ export class BuyingPage {
   }
 
   ionViewDidLoad() {
-    
     // this.formDataUnit$.subscribe(data => {
     //   if (data != null) {
     //     this.BuyingForm.patchValue(data.waterUsage.buying);
@@ -95,7 +94,11 @@ export class BuyingPage {
     }
   }
 
-  
+  public isValid(): boolean {
+    let isCheckBuying = this.tableBuying ? this.tableBuying.some(it => it.FormItem.valid) : false;
+    let isCheckBuyingOther = this.tableBuyingOther ? this.tableBuyingOther.some(it => it.FormItem.valid) : false;
+    return (!isCheckBuying && !isCheckBuyingOther) && this.submitRequested;
+  }
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(19));
