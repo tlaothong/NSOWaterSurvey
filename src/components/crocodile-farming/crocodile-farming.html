@@ -61,11 +61,11 @@
           </span>
         </ion-item>
         <ion-item *ngIf="FormItem.get('fieldCount').value > 20">
-            <ion-icon md="md-warning"></ion-icon>
-            <span class="invalid-msg">
-              กรุณาตรวจสอบจำนวนบ่อหรือร่องสวนมีเยอะผิดปกติหรือไม่
-            </span>
-          </ion-item>
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
+            กรุณาตรวจสอบจำนวนบ่อหรือร่องสวนมีเยอะผิดปกติหรือไม่
+          </span>
+        </ion-item>
 
         <ion-item>
           <ion-label>
@@ -104,7 +104,7 @@
 
       <div *ngSwitchCase="false">
         <div *ngFor="let p of FormItem.get('fields').controls;let i= index">
-          <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [FormItem]="p"></pool-area>
+          <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [isAnimal]="isAnimal" [FormItem]="p"></pool-area>
         </div>
       </div>
     </div>
@@ -128,9 +128,10 @@
             กรุณากรอกจำนวน
           </span>
         </ion-item>
-        <ion-item *ngIf="FormItem.get('animalsCount').value > 100 || (FormItem.get('animalsCount').value < 10 &&  FormItem.get('animalsCount').value > 0)">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+        <ion-item
+          *ngIf="FormItem.get('animalsCount').value > 100 || (FormItem.get('animalsCount').value < 10 &&  FormItem.get('animalsCount').value > 0)">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบจำนวนที่เลี้ยงมีจำนวนผิดปกติหรือไม่
           </span>
         </ion-item>

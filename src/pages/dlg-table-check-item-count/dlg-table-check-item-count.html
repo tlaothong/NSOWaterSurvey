@@ -34,8 +34,8 @@
         <ion-input type="number" formControlName="itemCount"></ion-input>
       </ion-item>
       <ion-item *ngIf="FormItem.get('itemCount').value > 200">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบจำนวน {{ unit }} มีจำนวนที่เยอะผิดปกติหรือไม่
         </span>
       </ion-item>

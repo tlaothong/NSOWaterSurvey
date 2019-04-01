@@ -20,7 +20,7 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 export class BuidlingInformation2Page {
   public f: FormGroup;
   private submitRequested: boolean;
-
+  private isCheckWarningBox: boolean;
   private formData$ = this.store.select(getBuildingSample);
   // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
 
@@ -60,7 +60,8 @@ export class BuidlingInformation2Page {
       'buildingType': null,
       'other': null,
       'accessCount': 0,
-      'access': fb.array([]),
+      'accesses': fb.array([]),
+      'access': null,
       'vacancyCount': null,
       'abandonedCount': null,
       'comments': fb.array([
@@ -115,6 +116,8 @@ export class BuidlingInformation2Page {
     console.log(this.f.get('lastUpdate').value);
     console.log(this.isCheckValidAccess2());
     console.log(this.isCheckValidAccess3());
+
+    this.isCheckWarningBox = this.isCheckValidate();
 
     if (this.f.get('unitCount').value > 0) {
       if (this.f.get('buildingType').value == 4 || this.f.get('buildingType').value == 5) {
@@ -316,7 +319,7 @@ export class BuidlingInformation2Page {
   }
 
   private setupAccessCountChanges() {
-    const componentFormArray: string = "access";
+    const componentFormArray: string = "accesses";
     const componentCount: string = "accessCount";
 
     var onComponentCountChanges = () => {

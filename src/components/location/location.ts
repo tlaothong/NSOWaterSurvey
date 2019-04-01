@@ -18,42 +18,55 @@ export class LocationComponent implements ISubmitRequestable {
   public district: any;
   public subDistrict: any
   @Input() public FormItem: FormGroup;
-  @Input() public checkIsPool: boolean;
+  @Input("isAnimal") public isAnimal: boolean;
   private submitRequested: boolean;
   public text: string;
 
   constructor(public fb: FormBuilder) {
     this.text = 'Hello World';
-    this.checkIsPool = false;
+    this.isAnimal = true;
     // this.getprovince();
     this.FormItem = LocationComponent.CreateFormGroup(this.fb);
   }
 
   ngOnInit() {
-    this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name))
-    if (this.checkIsPool && this.FormItem.get('province').value == 0) {
+    this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name));
+    // if (this.isAnimal) {
+    //   if (this.FormItem.get('province').value != 999) {
+    //     this.onChange(this.FormItem.get('province').value);
+    //     if (this.FormItem.get('district').value != 999) {
+    //       this.onChange1(this.FormItem.get('district').value);
+    //     }
+    //   }
+    // }
+    // else {
+    //   if (this.FormItem.get('province').value != 999) {
+    //     this.onChange(this.FormItem.get('province').value);
+    //     if (this.FormItem.get('district').value != 999) {
+    //       this.onChange1(this.FormItem.get('district').value);
+    //     }
+    //   }
+    //   else {
+    //     this.FormItem.reset();
+    //   }
+    // }
+
+    if (!this.isAnimal && this.FormItem.get('province').value == 999) {
       this.FormItem.reset();
-      if (this.FormItem.get('province').value != null) {
-        this.onChange(this.FormItem.get('province').value);
-        if (this.FormItem.get('district').value != null) {
-          this.onChange1(this.FormItem.get('district').value);
-        }
-      }
-    } else {
-      if (this.FormItem.get('province').value != 0) {
-        this.onChange(this.FormItem.get('province').value);
-        if (this.FormItem.get('district').value != 0) {
-          this.onChange1(this.FormItem.get('district').value);
-        }
+    }
+    else if (this.FormItem.get('province').value != 999) {
+      this.onChange(this.FormItem.get('province').value);
+      if (this.FormItem.get('district').value != 999) {
+        this.onChange1(this.FormItem.get('district').value);
       }
     }
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'province': [0, Validators.required],
-      'district': [0, Validators.required],
-      'subDistrict': [0, Validators.required]
+      'province': [999, Validators.required],
+      'district': [999, Validators.required],
+      'subDistrict': [999, Validators.required]
     });
   }
 

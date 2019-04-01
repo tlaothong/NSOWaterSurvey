@@ -28,21 +28,19 @@ export class DryCropPlantingPage {
   private submitRequested: boolean;
   private isCheckWarningBox: boolean;
   shownData: string[];
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
 
   constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+      "fieldCount": [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       "fields": this.fb.array([]),
     });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    this.countNumberPage();
+    
   }
 
   public handleSubmit() {
@@ -59,8 +57,8 @@ export class DryCropPlantingPage {
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
 
-    this.isCheckWarningBox = this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false);
-    if (this.agronomyPlant.valid || (this.agronomyPlant.get('doing').value == false)) {
+    this.isCheckWarningBox = ((this.agronomyPlant.valid && selected.length > 0) || (this.agronomyPlant.get('doing').value == false));
+    if ((this.agronomyPlant.valid && selected.length > 0) || (this.agronomyPlant.get('doing').value == false)) {
       this.arrayIsCheckMethod();
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
@@ -75,51 +73,10 @@ export class DryCropPlantingPage {
     }
   }
 
-  countNumberPage() {
-    console.log("onSubmit ");
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-
-    });
-    console.log("back", this.backNum);
-
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-    console.log("frontNum", this.frontNum);
-  }
+  
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(3));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data;
-
-        if (arrayIsCheck.every(it => it != 3)) {
-          arrayIsCheck.push(3);
-        }
-
-        console.log(arrayIsCheck);
-      }
-
-    });
   }
 
   public isValid(name: string): boolean {

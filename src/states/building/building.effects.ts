@@ -44,7 +44,16 @@ export class BuildingEffects {
         tap((action: NewBuilding) => {
             this.appState.buildingId = '';
         }),
-        switchMap((action: NewBuilding) => [ new SaveBuildingSuccess(null),
+        switchMap((action: NewBuilding) => [ new SaveBuildingSuccess({
+            _id: '',
+            accessCount: 0,
+            ea: this.appState.eaCode,
+            houseNo: null,
+            name: null,
+            status: null,
+            unitCount: null,
+            accesses: [],
+        }),
             new LoadHouseHoldList('no-building') ]),
     );
 
@@ -60,14 +69,33 @@ export class BuildingEffects {
 
     @Effect()
     public saveBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(BuildingTypes.SaveBuilding),
+        ofType<SaveBuilding>(BuildingTypes.SaveBuilding),
         filter((action: any, i) => action.payload),
-        tap((action: SaveBuilding) => {
+        tap(action => {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),
+        map(action => {
+            let bld = action.payload;
+            let status = "pause";
+            switch (bld.access) {
+                case 4:
+                    status = "eye-off";
+                    break;
+                case 2:
+                case 3:
+                    status = bld.accessCount < 3 ? "refresh" : "sad";
+                    break;
+                default:
+                    status = "pause";
+                    break;
+            }
+            bld.status = status;
+
+            return new SaveBuilding({ ...bld, status: status });
+        }),
         // TODO: Save the building to local storage
-        mergeMap((action: SaveBuilding) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
-        switchMap((action: SaveBuilding) => [
+        mergeMap(action => this.dataStore.saveBuilding(action.payload).mapTo(action)),
+        switchMap(action => [
             new SaveBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
         ]),
@@ -100,13 +128,30 @@ export class BuildingEffects {
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
             this.storeUnit.select(getHouseHoldUnitList)),
         mergeMap(([bld, lst, ea, ulist]) => {
+            let status = "pause";
+            switch (bld.access) {
+                case 4:
+                    status = "eye-off";
+                    break;
+                case 2:
+                case 3:
+                    status = bld.accessCount < 3 ? "refresh" : "sad";
+                    break;
+                default:
+                    status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
+                        ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
+                        : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh": "pause"));
+                    break;
+            }
+            bld.status = status;
             let bInList = {
                 "buildingId": bld._id,
                 "houseNo": bld.houseNo,
                 "name": bld.name,
                 "status": bld.status,
-                "completedCount": ulist ? ulist.length : 0,
+                "completedCount": ulist.filter(it => it.status != "return" && it.status != "pause").length,
                 "unitCount": bld.unitCount,
+                "lastUpdate": Date.now(),
             };
             let idx = lst.findIndex(it => it.buildingId == bld._id);
             if (idx >= 0) {

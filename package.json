@@ -42,7 +42,7 @@
     "cordova-plugin-ionic": "^5.3.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^2.2.0",
-    "cordova-plugin-qrscanner": "2.6.0",
+    "cordova-plugin-qrscanner": "^2.6.0",
     "cordova-plugin-secure-storage": "3.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
@@ -65,8 +65,8 @@
     "plugins": {
       "cordova-plugin-ionic": {
         "APP_ID": "051dd5e2",
-        "CHANNEL_NAME": "WShop1",
-        "UPDATE_METHOD": "auto"
+        "CHANNEL_NAME": "Dev",
+        "UPDATE_METHOD": "none"
       },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},

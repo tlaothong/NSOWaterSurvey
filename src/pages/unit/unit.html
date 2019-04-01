@@ -13,77 +13,64 @@
 
       <ng-container *ngFor="let unt of unitList$ | async; let i = index">
         <ion-col col-4 *ngIf="(unitCount$ | async) > i">
-            <button padding>
+          <button padding>
 
-              <ion-row>
-                <ion-col text-left>
-                  <h3># {{ i + 1 }}</h3>
-                </ion-col>
-                <ion-col text-right (click)="showUnitButtonPopover(unt, $event)">
-                  <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
-                </ion-col>
-              </ion-row>
-          
-              <div text-center [class]="unt.status">
-                <ion-grid no-padding>
-                  <ion-row>
-                    <ion-col (click)="continueUnit(unt)" style="padding-top: 20px">
-                      ห้องที่ {{ unt.roomNumber }}
-                    </ion-col>
-                    <ion-col col-3 no-padding *ngIf="allComment">
-                      <button ion-button clear (click)="showComments()"></button>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <button ion-button clear full style="height: 150px" (click)="continueUnit(unt)"></button>
-                  </ion-row>
-                </ion-grid>
-              </div>
-            </button>
+            <ion-row>
+              <ion-col text-left>
+                <h3># {{ i + 1 }}</h3>
+              </ion-col>
+              <ion-col text-right (click)="showUnitButtonPopover(unt, $event)">
+                <ion-icon name="settings" style="zoom: 1.5;"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+            <div text-center [class]="unt.status">
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col (click)="continueUnit(unt)" style="padding-top: 20px;font-size: 16px">
+                    ห้องที่ {{ unt.roomNumber }}
+                  </ion-col>
+                  <ion-col col-3 no-padding *ngIf="unt.comments && unt.comments.length > 0">
+                    <button ion-button clear icon-only (click)="showComments(unt)">
+                      <ion-icon name='information' is-active="false"></ion-icon>
+                    </button>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <button ion-button clear full style="height: 150px" (click)="continueUnit(unt)"></button>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </button>
         </ion-col>
       </ng-container>
 
-      <ion-col col-4 *ngFor="let unitNo of emptyUnits$ | async">
-
-        <button padding>
-
-          <ion-grid no-padding>
+      <ng-container>
+        <ion-col col-4 *ngFor="let unitNo of emptyUnits$ | async">
+          <button padding>
             <ion-row>
               <ion-col text-left>
                 <h3># {{unitNo}}</h3>
               </ion-col>
-            </ion-row>      
-          </ion-grid>
-      
-          <div text-center class="play">
-            <ion-grid no-padding>
-              <ion-row>
-                <ion-col (click)="newUnit()" style="padding-top: 20px">
-                  ห้องยังไม่เริ่ม
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <button ion-button clear full style="height: 150px" (click)="newUnit()"></button>
-              </ion-row>
-            </ion-grid>
-          </div>
-        </button>
-
-      </ion-col>
+              <ion-col text-right>
+                <ion-icon name="settings" style="zoom: 1.5;color: #dddddd"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <div text-center class="play">
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col (click)="newUnit()" style="padding-top: 20px;font-size: 16px">
+                    ห้องยังไม่เริ่ม
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <button ion-button clear full style="height: 150px" (click)="newUnit()"></button>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </button>
+        </ion-col>
+      </ng-container>
     </ion-row>
   </ion-grid>
-
-  <!-- <form [formGroup]="f">
-
-    <div *ngIf="f.get('unitCount').value > 0">
-      <ion-row text-center>
-        <ion-col col-4 *ngFor="let unit of f.get('units').controls; let i = index">
-          <unit-button [unitCount]="f.get('unitCount').value" [no]="i + 1" [FormItem]="unit"></unit-button>
-          
-        </ion-col>
-      </ion-row>
-    </div>
-
-  </form> -->
-
 </ion-content>

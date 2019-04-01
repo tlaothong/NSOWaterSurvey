@@ -34,7 +34,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
     return fb.group({
       'shape': [null, Validators],
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'depth': [null, Validators.compose([Validators.pattern('[0-9.]*')])],
+      'depth': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'rectangle': fb.group({
         'width': [null, Validators],
         'length': [null, Validators],
@@ -47,11 +47,12 @@ export class PoolAreaComponent implements ISubmitRequestable {
   }
 
   public setArea() {
-    if (this.FormItem.get('shape').value == 1
-      && this.FormItem.get('area.rai').value == 0
-      && this.FormItem.get('area.ngan').value == 0
-      && this.FormItem.get('area.sqWa').value == 0) {
-      this.FormItem.get('area').reset();
+    if (this.FormItem.get('shape').value == "1") {
+      if (this.FormItem.get('area.rai').value == 0
+        && this.FormItem.get('area.ngan').value == 0
+        && this.FormItem.get('area.sqWa').value == 0) {
+        this.FormItem.get('area').reset();
+      }
     } else if (this.FormItem.get('area').invalid) {
       this.FormItem.get('area.rai').setValue(0);
       this.FormItem.get('area.ngan').setValue(0);
@@ -70,23 +71,20 @@ export class PoolAreaComponent implements ISubmitRequestable {
       if (shape.value <= 0) {
         return { 'shape': true };
       }
+      if ((shape.value == 2) && width.value == null && length.value == null && depth.value == null) {
+        return { 'width': true, 'length': true, 'depth': true };
+      }
+      if ((shape.value == 2) && width.value != null && length.value != null && ((depth.value == null) || (depth.value <= 0))) {
+        return { 'depth': true };
+      }
       if ((shape.value == 1) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
-      if ((shape.value == 2) && ((width.value == null) || (width.value <= 0))) {
-        return { 'width': true };
+      if ((shape.value == 3) && diameter.value == null && depth.value == null) {
+        return { 'diameter': true, 'depth': true };
       }
-      if ((shape.value == 2) && ((length.value == null) || (length.value <= 0))) {
-        return { 'length': true };
-      }
-      if ((shape.value == 2) && ((depth.value == null) || (depth.value <= 0))) {
-        return { 'depth': true };
-      }
-      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value <= 0))) {
-        return { 'diameter': true };
-      }
-      if ((shape.value == 3) && ((depth.value == null) || (depth.value <= 0))) {
-        return { 'depth': true };
+      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value <= 0)) && ((depth.value == null) || (depth.value <= 0))) {
+        return { 'diameter': true, 'depth': true };
       }
       return null;
     }
@@ -118,7 +116,7 @@ export class PoolAreaComponent implements ISubmitRequestable {
   }
 
   public showModal() {
-    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no, head: this.head });
+    const modal = this.modalCtrl.create("DlgPoolAreaPage", { FormItem: this.FormItem, headline: this.no, head: this.head, isAnimal: this.isAnimal });
     modal.onDidDismiss(data => {
       if (data) {
         var fg = <FormGroup>data;

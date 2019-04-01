@@ -7,7 +7,6 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 
@@ -43,7 +42,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
       'irrigationField': [null, Validators.required],
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
-      'thisPlantOnly': [null],
+      'thisPlantOnly': [null, Validators],
       'primaryPlant': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     })
@@ -55,21 +54,26 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSource9.forEach(it => it.submitRequest());
-    // this.dispatchWaterSource();
   }
 
-  private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    console.log("dispatch flower can work");
+  public checkPrimaryPlant(): boolean {
+    var arr = this.FormItem.get('primaryPlant.plants').value as any[]
+    console.log(arr);
+
+    if (!this.FormItem.get('thisPlantOnly').value && (this.getAgiSelectRice || this.getAgiSelectAgronomy || this.getAgiSelectRubber || this.getAgiSelectPerennial)) {
+      if (arr.length == 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == "thisPlantOnly") {
+      return ctrl.value == null && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
-  
+
 }

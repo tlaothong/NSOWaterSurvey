@@ -14,7 +14,7 @@
           1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
         </ion-label>
       </ion-item>
-      <location [FormItem]="FormItem.get('location')"></location>
+      <location [FormItem]="FormItem.get('location')" [isAnimal]="false"></location>
 
       <ion-item>
         <ion-label>
@@ -54,7 +54,8 @@
           4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>พืชผัก สมุนไพร</b><br>ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
         </ion-label>
       </ion-item>
-      <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
+      <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"
+        textTitleOnDialog="ระบุได้หลายชนิด"></modal-plant>
 
       <div *ngIf="getAgiSelectRice || getAgiSelectAgronomy || getAgiSelectRubber || getAgiSelectPerennial ">
         <ion-item>
@@ -85,11 +86,13 @@
 
         <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
           <div *ngSwitchCase="false">
-            <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1" [FormItem]="FormItem.get('primaryPlant')"></modal-plant>
+            <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1"
+              [FormItem]="FormItem.get('primaryPlant')" textTitleOnDialog="ระบุได้ 1 ชนิด"></modal-plant>
           </div>
         </div>
       </div>
-      <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'" [FormItem]="FormItem.get('waterSources')"></water-sources9>
+      <water-sources9 [headline]="'6) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง (เลือกได้หลายข้อ)'"
+        [FormItem]="FormItem.get('waterSources')"></water-sources9>
 
     </ion-card-content>
   </ion-card>

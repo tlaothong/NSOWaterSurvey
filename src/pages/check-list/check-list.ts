@@ -7,6 +7,7 @@ import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../s
 import { map } from 'rxjs/operators';
 import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
 /**
@@ -41,7 +42,8 @@ export class CheckListPage {
   private arrayNextPageForHide$ = this.store.select(getNextPageDirection);
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
-    public navParams: NavParams, private store: Store<HouseHoldState>) {
+      public navParams: NavParams, private store: Store<HouseHoldState>,
+      private appState: AppStateProvider) {
     // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
@@ -152,23 +154,38 @@ export class CheckListPage {
   // }
 
   updatePagesStatus(arrayIsCheck, arrayNextPageForHide) {
-    if (arrayIsCheck != null) {
-      console.log("arrayIsCheck", arrayIsCheck);
+    if (this.appState && this.appState.houseHoldUnit) {
+      const completedSurveys = this.appState.houseHoldUnit.surveyCompleted;
+      
+      for (let idx = 0; idx < this.pages.length; idx++) {
+        const page = this.pages[idx];
+        const survey = completedSurveys.find(it => it.name == page.component);
 
-      for (let i = 0; i < arrayIsCheck.length; i++) {
-        this.pages[arrayIsCheck[i]].isCheck = true;
+        if (survey) {
+          page.isCheck = survey.hasCompleted;
+          page.isShow = survey.isNeed;
+        } else {
+          page.isShow = false;
+        }
       }
     }
-    console.log("next page",arrayNextPageForHide);
+    // if (arrayIsCheck != null) {
+    //   console.log("arrayIsCheck", arrayIsCheck);
 
-    if (arrayNextPageForHide != null) {
-      for (let i = 0; i < arrayNextPageForHide.length; i++) {
-        if (arrayNextPageForHide[i] == false) {
-          this.pages[i].isShow = false;
-        } else
-          this.pages[i].isShow = true;
-      }
-    }
+    //   for (let i = 0; i < arrayIsCheck.length; i++) {
+    //     this.pages[arrayIsCheck[i]].isCheck = true;
+    //   }
+    // }
+    // console.log("next page",arrayNextPageForHide);
+
+    // if (arrayNextPageForHide != null) {
+    //   for (let i = 0; i < arrayNextPageForHide.length; i++) {
+    //     if (arrayNextPageForHide[i] == false) {
+    //       this.pages[i].isShow = false;
+    //     } else
+    //       this.pages[i].isShow = true;
+    //   }
+    // }
   }
 
   public openPage(page, index) {

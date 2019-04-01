@@ -23,7 +23,7 @@ export class DataStoreProvider {
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
     let x = this.cloudSync.downloadCloudUpdate(userId).retry(3)
       .switchMap(update => Observable.of(this.storage.set('uea' + userId, update))
-      .mapTo(update));
+        .mapTo(update));
     return x;
   }
 
@@ -42,9 +42,9 @@ export class DataStoreProvider {
   }
   /*********** */
 
-   /**
-   * ชั่วคราว ๆ
-   */
+  /**
+  * ชั่วคราว ๆ
+  */
   public saveUser(userId: string, password: string) {
     this.storage.set('ulogin' + userId, password);
   }
@@ -56,13 +56,13 @@ export class DataStoreProvider {
 
   /*********** */
 
-   /**
-   * บันทึกข้อมูล Building 1 อาคาร
-   */
+  /**
+  * บันทึกข้อมูล Building 1 อาคาร
+  */
   public saveBuilding(dataBuilding: Building): Observable<any> {
     console.log(dataBuilding._id);
     console.log("BLD Data: " + JSON.stringify(dataBuilding));
-    
+
     return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }
 
@@ -91,7 +91,7 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.get('unt4' + buildingId)).map((lst: UnitInList[]) => lst ? lst : []);
   }
 
-  public saveHouseHoldInBuiildingList(buildingId: string, unitsInBuilding: UnitInList[]) {
+  public saveHouseHoldInBuildingList(buildingId: string, unitsInBuilding: UnitInList[]) {
     return Observable.fromPromise(this.storage.set('unt4' + buildingId, unitsInBuilding));
   }
 
@@ -109,6 +109,20 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.set(household._id, household));
   }
 
+  /**
+    * บันทึกสถานะการสำรวจของ User ใน EA นั้น
+    */
+  public saveUserEAStatus(eaCode: string, userId: string, status: string): Observable<any> {
+    return Observable.fromPromise(this.storage.set("eastate" + eaCode + userId, status));
+  }
+
+  /**
+    * บันทึกนามสกุล
+    */
+  public saveLastName(userId: string, lastname: String[]): Observable<any> {
+    return Observable.fromPromise(this.storage.set("user" + userId, lastname));
+  }
+
   /*********** */
 
   /**
@@ -116,34 +130,34 @@ export class DataStoreProvider {
    */
   public setEaForTest(userId: string): Observable<any> {
     return Observable.fromPromise(this.storage.set('uea' + userId, [{
-        code: "11001011000002",
-        "Area_Code": "100101",
-        "REG": "1",
-        "REG_NAME": "กรุงเทพมหานคร",
-        "CWT": "10",
-        "CWT_NAME": "กรุงเทพมหานคร",
-        "AMP": "01",
-        "AMP_NAME": "พระนคร",
-        "TAM": "01",
-        "TAM_NAME": "พระบรมมหาราชวัง",
-        "DISTRICT": 1,
-        "MUN": "000",
-        "MUN_NAME": "กรุงเทพมหานคร",
-        "TAO": "",
-        "TAO_NAME": "",
-        "EA": "002",
-        "VIL": "00",
-        "VIL_NAME": "",
-        "MAP_STATUS": 1,
-        "Building": 75,
-        "Household": 73,
-        "population": 405,
-        "Agricultural_HH": 0,
-        "ES_BUSI": "93",
-        "ES_INDUS": "5",
-        "ES_HOTEL": "",
-        "ES_PV_HOS": "",
-        "REMARK": "วัด 1 แห่ง  , สถานที่ราชการ 1 แห่ง ,โรงเรียน 1 แห่ง, มหาวิทยาลัย 1 แห่ง",
+      code: "11001011000002",
+      "Area_Code": "100101",
+      "REG": "1",
+      "REG_NAME": "กรุงเทพมหานคร",
+      "CWT": "10",
+      "CWT_NAME": "กรุงเทพมหานคร",
+      "AMP": "01",
+      "AMP_NAME": "พระนคร",
+      "TAM": "01",
+      "TAM_NAME": "พระบรมมหาราชวัง",
+      "DISTRICT": 1,
+      "MUN": "000",
+      "MUN_NAME": "กรุงเทพมหานคร",
+      "TAO": "",
+      "TAO_NAME": "",
+      "EA": "002",
+      "VIL": "00",
+      "VIL_NAME": "",
+      "MAP_STATUS": 1,
+      "Building": 75,
+      "Household": 73,
+      "population": 405,
+      "Agricultural_HH": 0,
+      "ES_BUSI": "93",
+      "ES_INDUS": "5",
+      "ES_HOTEL": "",
+      "ES_PV_HOS": "",
+      "REMARK": "วัด 1 แห่ง  , สถานที่ราชการ 1 แห่ง ,โรงเรียน 1 แห่ง, มหาวิทยาลัย 1 แห่ง",
     }])).switchMap(_ => this.listDownloadedEAs(userId));
   }
 }

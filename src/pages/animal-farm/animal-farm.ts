@@ -53,7 +53,7 @@ export class AnimalFarmPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
-    this.countNumberPage();
+    
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.f.patchValue(data.agriculture.animalFarm)
@@ -68,6 +68,7 @@ export class AnimalFarmPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
+    console.log(this.f);
 
     if (this.f.valid || (this.f.get('doing').value == false)) {
 
@@ -85,56 +86,21 @@ export class AnimalFarmPage {
     }
   }
 
-  countNumberPage() {
-    console.log("onSubmit ");
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-
-    });
-    console.log("back", this.backNum);
-
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-    console.log("frontNum", this.frontNum);
-  }
+  
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(9));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 9)) {
-          arrayIsCheck.push(9);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
-  }
-
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.f.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.f.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.f.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.f.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.f.get('waterSources.buying').value));
-    console.log("dispatch animalFarm can work");
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 9)) {
+    //       arrayIsCheck.push(9);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public isValid(name: string): boolean {

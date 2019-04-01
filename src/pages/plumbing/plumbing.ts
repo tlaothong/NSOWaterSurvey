@@ -108,7 +108,7 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
-    this.countNumberPage();
+    
     // this.formDataUnit$.subscribe(data => {
     //   if (data != null) {
     //     this.f.patchValue(data.waterUsage.plumbing);
@@ -234,47 +234,21 @@ export class PlumbingPage {
     }
   }
 
-  countNumberPage() {
-    console.log("onSubmit ");
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-
-    });
-    console.log("back", this.backNum);
-
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-    console.log("frontNum", this.frontNum);
-  }
+  
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(13));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 13)) {
-          arrayIsCheck.push(13);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 13)) {
+    //       arrayIsCheck.push(13);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public isValid(name: string): boolean {

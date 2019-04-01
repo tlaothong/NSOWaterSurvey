@@ -5,6 +5,7 @@ export interface BuildingInList {
     name: string;
     completedCount: number;
     unitCount: number;
+    lastUpdate: number;
 }
 
 export interface CommunityInList {
@@ -18,6 +19,7 @@ export interface UnitInList {
     subUnit: SubUnit;
     accessCount: number;
     lastAccess: number;
+    comments: CommentInList[];
     status: string; // formerly 'class'
 }
 
@@ -27,8 +29,10 @@ export interface Building {
     name: string;
     houseNo: string;
     unitCount: number;
+    accessCount: number;
     // TODO: Need to re-consider this?
     status: string;
+    [x: string]: any;
 }
 
 export interface HouseHoldUnit {
@@ -36,6 +40,8 @@ export interface HouseHoldUnit {
     ea: string;
     buildingId: string;
     subUnit: SubUnit;
+    surveyCompleted: SurveyCompletion[];
+    comments: CommentInList[];
     [x: string]: any;
 }
 
@@ -43,6 +49,17 @@ export interface SubUnit {
     roomNumber: string;
     accessCount: number;
     [x: string]: any;
+}
+
+export interface SurveyCompletion {
+    name: string;
+    isNeed: boolean;
+    hasCompleted: boolean;
+}
+
+export interface CommentInList {
+    at: number;
+    text: string;
 }
 
 export interface EA {

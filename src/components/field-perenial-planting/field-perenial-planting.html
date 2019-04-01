@@ -11,7 +11,7 @@
           1) ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
         </ion-label>
       </ion-item>
-      <location [FormItem]="FormItem.get('location')"></location>
+      <location [FormItem]="FormItem.get('location')" [isAnimal]="false"></location>
     </ion-list>
 
     <ion-item>
@@ -52,9 +52,11 @@
         4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูกพืชยืนต้น ไม้ผล <br>สวนป่า ชนิดใด(ระบุได้ไม่เกิน 5 ชนิด)
       </ion-label>
     </ion-item>
-    <modal-plant Title="พืชยืนต้น ไม้ผล สวนป่า" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"></modal-plant>
+    <modal-plant Title="พืชยืนต้น ไม้ผล สวนป่า" [InputList]="shownData" InputLimit="5"
+      [FormItem]="FormItem.get('plantings')" textTitleOnDialog="ระบุได้หลายชนิด"></modal-plant>
 
-    <water-sources9 [FormItem]="FormItem.get('waterSources')" headline="5) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
+    <water-sources9 [FormItem]="FormItem.get('waterSources')"
+      headline="5) ที่แปลงนี้ใช้น้ำจากแหล่งใดบ้าง(เลือกได้หลายข้อ)"></water-sources9>
 
   </ion-card-content>
 </ion-card>

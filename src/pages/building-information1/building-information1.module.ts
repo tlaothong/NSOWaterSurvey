@@ -7,6 +7,7 @@ import { BuildingTypes } from '../../states/building/building.actions';
 import { reducer } from '../../states/building/building.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { BuildingEffects } from '../../states/building/building.effects';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BuildingEffects } from '../../states/building/building.effects';
     EffectsModule.forFeature([
       BuildingEffects
     ]),
+    DirectivesModule,
   ],
 })
 export class BuildingInformation1PageModule {}

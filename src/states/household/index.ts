@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { HouseHoldState } from './household.reducer';
 import { HouseHoldTypes } from './household.actions';
 
-const getHouseHoldFeatureState = createFeatureSelector<HouseHoldState>(HouseHoldTypes.StateName);
+export const getHouseHoldFeatureState = createFeatureSelector<HouseHoldState>(HouseHoldTypes.StateName);
 
 export const getHouseHoldUnitList = createSelector(
     getHouseHoldFeatureState,
@@ -189,11 +189,18 @@ export const getUnitNo = createSelector(
     getHouseHoldFeatureState,
     state => state.unitNo,
 );
+
 export const getMemberCount = createSelector(
     getHouseHoldFeatureState,
     state => state.memberCount,
 );
 
+export const getProgress = createSelector(
+    getHouseHoldFeatureState,
+    state => state.progress,
+);
 
-
-
+export const getLastName = createSelector(
+    getHouseHoldFeatureState,
+    state => state.lastName,
+);

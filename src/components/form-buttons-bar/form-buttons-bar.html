@@ -10,10 +10,10 @@
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-col>
-    <ion-col col-3 *ngIf="backNum > 0">
-      <div class="progress-outer">
-        <div class="progress-inner" [style.width]="60 + '%'">
-          {{frontNum}} / {{backNum}}
+    <ion-col col-3 *ngIf="progress$ | async as p" >
+      <div class="progress-outer" *ngIf="p.progressToGo > 0">
+        <div class="progress-inner" [style.width]="(p.progressCompleted * 100 / p.progressToGo) + '%'">
+          {{ p.progressCompleted }} / {{ p.progressToGo }}
         </div>
       </div>
     </ion-col>

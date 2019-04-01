@@ -23,6 +23,8 @@ export class DlgUnitPage {
   // public FormItem: FormGroup;
   public ff: FormGroup;
 
+  private replaceMode: boolean = false;
+
   // public index: number;
   // public access: number;
   public static accessValid: number;
@@ -30,8 +32,9 @@ export class DlgUnitPage {
   public count: number;
   public oldStatus: string;
 
-  private fgac: FormArray;
-  private fgcm: FormArray;
+  // private fgac: FormArray;
+  // private fgcm: FormArray;
+
   // public id_BD: string;
 
   // private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
@@ -43,11 +46,12 @@ export class DlgUnitPage {
         private viewCtrl: ViewController, public fb: FormBuilder,
         private appState: AppStateProvider) {
 
+    this.replaceMode = navParams.get('replaceMode');
     let unitInfo = navParams.get('unitInfo');
     this.ff = DlgUnitPage.CreateFormGroup(fb);
     this.ff.patchValue(unitInfo);
 
-    this.count = Math.min(3, unitInfo.subUnit.accessCount + 1);
+    this.count = this.replaceMode ? unitInfo.subUnit.accessCount : Math.min(3, unitInfo.subUnit.accessCount + 1);
     // this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
 
     // this.setupAccessCountChanges();
@@ -70,7 +74,7 @@ export class DlgUnitPage {
       'subUnit': fb.group({
         'roomNumber': [null, Validators.required],
         'accessCount': 0,
-        'accesses': fb.array([]),
+        'accesses': null,
         'hasPlumbing': null,
         'hasPlumbingMeter': null,
         'isPlumbingMeterXWA': null,
@@ -105,8 +109,19 @@ export class DlgUnitPage {
     if (this.ff.valid) {
       let formValue = this.ff.value;
       let subUnit = formValue.subUnit;
-      subUnit.accessCount++;
-      subUnit.accesses.push(formValue.access);
+
+      if (this.replaceMode) {
+        if (subUnit.accesses.length > 0) {
+          subUnit.accesses[subUnit.accesses.length - 1] = formValue.access;
+        } else {
+          subUnit.accesses.push(formValue.access);
+        }
+      } else {
+        subUnit.accessCount++;
+        subUnit.accesses.push(formValue.access);
+      }
+
+      console.log('ff formValue: ' + JSON.stringify(formValue));
 
       this.viewCtrl.dismiss({
         subUnit: subUnit,
@@ -286,35 +301,35 @@ export class DlgUnitPage {
   // //   console.log(this.FormItem.value);
   // }
 
-  private setupAccessCountChanges() {
-    const componentFormArray: string = "subUnit.accesses";
-    const componentCount: string = "subUnit.accessCount";
+  // private setupAccessCountChanges() {
+  //   const componentFormArray: string = "subUnit.accesses";
+  //   const componentCount: string = "subUnit.accessCount";
 
-    var onComponentCountChanges = () => {
-      var accesses = (this.ff.get(componentFormArray) as FormArray).controls || [];
-      var accessCount = this.ff.get(componentCount).value || 0;
-      var farr = this.fb.array([]);
+  //   var onComponentCountChanges = () => {
+  //     var accesses = (this.ff.get(componentFormArray) as FormArray).controls || [];
+  //     var accessCount = this.ff.get(componentCount).value || 0;
+  //     var farr = this.fb.array([]);
 
-      accessCount = Math.max(0, accessCount);
+  //     accessCount = Math.max(0, accessCount);
 
-      for (let i = 0; i < accessCount; i++) {
-        var ctrl = null;
-        if (i < accesses.length) {
-          const fld = accesses[i];
-          ctrl = fld;
-        } else {
-          ctrl = new FormControl();
-        }
+  //     for (let i = 0; i < accessCount; i++) {
+  //       var ctrl = null;
+  //       if (i < accesses.length) {
+  //         const fld = accesses[i];
+  //         ctrl = fld;
+  //       } else {
+  //         ctrl = new FormControl();
+  //       }
 
-        farr.push(ctrl);
-      }
-      let fgrp = this.ff.get('subUnit') as FormGroup;
-      fgrp.setControl('accesses', farr);
-    };
+  //       farr.push(ctrl);
+  //     }
+  //     let fgrp = this.ff.get('subUnit') as FormGroup;
+  //     fgrp.setControl('accesses', farr);
+  //   };
 
-    this.ff.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+  //   this.ff.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
 
-    onComponentCountChanges();
-  }
+  //   onComponentCountChanges();
+  // }
 
 }

@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="f">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="f" [rx-form-data]="dataBuilding$ | async">
     <ion-card>
       <ion-card-content>
         <ion-item>
@@ -236,15 +236,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested">
-    <ion-card-header>
-      กรุณาตรวจสอบข้อมูลในแบบสำรวจ
-    </ion-card-header>
-    <ion-card-content>
-      <ion-icon name="warning" item-start></ion-icon>
-      ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
-    </ion-card-content>
-  </ion-card> 
+  <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="f">
     <form-buttons-bar [isDisabled]="true" [checkFormButtonsForBuilding]="true"></form-buttons-bar>

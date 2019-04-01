@@ -12,8 +12,9 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
 
   @ViewChildren(PoolAreaForCommuComponent) private poolAreaCommu: PoolAreaForCommuComponent[];
   @Input() public FormItem: FormGroup;
-
+  @Input('isCommunity') public isCommunity: boolean;
   @Input('no') public fieldNo: string;
+  
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {

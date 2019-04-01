@@ -1,9 +1,9 @@
 import { Component, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ActionSheetController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit } from '../../states/household/household.actions';
+import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit, DeleteHouseHold } from '../../states/household/household.actions';
 import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
@@ -11,6 +11,7 @@ import { getHouseHoldUnitList } from '../../states/household';
 import { Observable, Subject } from 'rxjs';
 import { UnitInList } from '../../models/mobile/MobileModels';
 import { getUnitCount } from '../../states/building';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @IonicPage()
 @Component({
@@ -30,13 +31,12 @@ export class UnitPage {
   public unitList$ = this.store.select(getHouseHoldUnitList);
   public unitCount$ = this.storeBuild.select(getUnitCount);
   public emptyUnits$ = Observable.of([]);
-  public terminator$ = new Subject<number>();
 
   constructor(public loadingCtrl: LoadingController,public navCtrl: NavController,
       public navParams: NavParams, private alertCtrl: AlertController,
-      private modalCtrl: ModalController,
+      private modalCtrl: ModalController, private actionSheetCtrl: ActionSheetController,
       private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
-      /* public fb: FormBuilder, */ private appState: AppStateProvider) {
+      private dataStore: DataStoreProvider, private appState: AppStateProvider) {
 
       let obs = this.unitList$.subscribe(_ => {
         console.log('TAKE TAKE');
@@ -86,16 +86,72 @@ export class UnitPage {
   }
 
   ngOnDestroy() {
-    this.terminator$.next(0);
   }
 
-  public showUnitButtonPopover() {
-    let alertUnderConstruction = this.alertCtrl.create({
-      message: "ความสามารถส่วนนี้กำลังปรับปรุง จะเปิดกลับมาให้ใช้งานได้เร็วๆนี้",
-      title: "กำลังปรับปรุง",
-      buttons: ["OK"],
+  public showUnitButtonPopover(unit: UnitInList) {
+    const actionSheet =  this.actionSheetCtrl.create({
+      title: "ดำเนินการกับข้อมูลหน่วยย่อย",
+      buttons: [
+        {
+          text: "แก้ไขการเข้าพบ/เลขที่",
+          handler: () => {
+            this.updateUnit(unit);
+          }
+        },
+        {
+          text: "ลบ",
+          role: "destructive",
+          handler: () => {
+            this.deleteUnit(unit);
+          }
+        }
+      ],
     });
-    alertUnderConstruction.present();
+    actionSheet.present();
+  }
+
+  private updateUnit(unit: UnitInList) {
+    this.dataStore.getHouseHold(unit.houseHoldId)
+    .take(1).subscribe(sample => {
+
+      const modal = this.modalCtrl.create("DlgUnitPage", { replaceMode: true, unitInfo: {
+        subUnit: sample.subUnit,
+        access: unit.lastAccess,
+      }});
+      modal.onDidDismiss(data => {
+        if (data) {
+          this.store.dispatch(new SaveHouseHoldSubUnit(sample, data.subUnit, data.comment));
+        }
+      });
+      modal.present();    
+
+    });
+  }
+
+  private deleteUnit(unit: UnitInList) {
+    const showConfirmation = this.alertCtrl.create({
+      title: "ยืนยันการลบข้อมูล",
+      message: "ท่านต้องการลบข้อมูลหน่วยย่อยหรือไม่ หากต้องการกรุณากดยืนยัน",
+      buttons: [
+        {
+          text: "ยืนยัน",
+          handler: () => {
+            this.store.dispatch(new DeleteHouseHold(unit))
+          }
+        },
+        "ยกเลิก"
+      ]
+    });
+    showConfirmation.present();
+    // let keyHH = HH._id;
+    // let keyBD = "BL" + HH.buildingId;
+    // this.storage.get(keyBD).then((val) => {
+    //   let BDList = val;
+    //   let index = BDList.findIndex(it => it._id == HH._id);
+    //   BDList.splice(index, 1);
+    //   this.storage.set(keyBD, BDList);
+    //   this.storage.remove(keyHH)
+    // })
   }
 
   public newUnit() {
@@ -132,52 +188,50 @@ export class UnitPage {
     } else if(unt.lastAccess == 2 || unt.lastAccess == 3) {
       if (unt.accessCount < 3) {
         // TODO: Remove this HACK!
-        let accessesFake = [];
-        for (let index = 0; index < unt.accessCount; index++) {
-          accessesFake.push(unt.lastAccess);
-        }
-        const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
-          subUnit: {
-            roomNumber: null,
-            accessCount: unt.accessCount,
-            accesses: accessesFake,
-            hasPlumbing: null,
-            hasPlumbingMeter: null,
-            isPlumbingMeterXWA: null,
-            hasGroundWater: null,
-            hasGroundWaterMeter: null,
-          }
-        }});
-        modal.onDidDismiss(data => {
-          if (data) {
-            this.store.dispatch(new SaveHouseHoldSubUnit(unt.houseHoldId, data.subUnit, data.comment));
-            let cnt = data.subUnit.accessCount;
-            let lastIndex = Math.max(0, cnt - 1);
-            if (data.subUnit.accesses && data.subUnit.accesses.length > 0 && data.subUnit.accesses[lastIndex] == 1) {
-              this.navCtrl.push('WaterActivityUnitPage');
-            }
-          }
-        });
-        modal.present();
+
+        this.dataStore.getHouseHold(unt.houseHoldId)
+          .take(1).subscribe(sample => {
+
+            const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
+              subUnit: sample.subUnit
+            }});
+            modal.onDidDismiss(data => {
+              if (data) {
+                this.store.dispatch(new SaveHouseHoldSubUnit(sample, data.subUnit, data.comment));
+                let cnt = data.subUnit.accessCount;
+                let lastIndex = Math.max(0, cnt - 1);
+                if (data.subUnit.accesses && data.subUnit.accesses.length > 0 && data.subUnit.accesses[lastIndex] == 1) {
+                  this.navCtrl.push('WaterActivityUnitPage');
+                }
+              }
+            });
+            modal.present();    
+
+          });
+
         return;
       }
     }
 
     let alert = this.alertCtrl.create({
-      title: "กำลังดำเนินการ",
-      message: "กำลังปรับปรุงระบบงานส่วนนี้ตามความต้องการที่ได้รับ ความสามารถนี้จะใช้งานได้เร็วๆนี้",
+      title: "ไม่สามารถดำเนินการ",
+      message: "ลักษณะการเข้าครัวเรือนไม่เหมาะสมกับการดำเนินการต่อ หากต้องการดำเนินการต่อ กรุณาแก้ไขการเข้าพบ",
       buttons: [ "ตกลง" ],
     });
     alert.present();
   }
 
-  public showComments() {
-    let alertUnderConstruction = this.alertCtrl.create({
-      message: "ความสามารถส่วนนี้กำลังปรับปรุง จะเปิดกลับมาให้ใช้งานได้เร็วๆนี้",
-      title: "กำลังปรับปรุง",
-      buttons: ["OK"],
-    });
-    alertUnderConstruction.present();
+  public showComments(unit: UnitInList) {
+
+    let showComments = this.modalCtrl.create("DlgCommentListPage", { comments: unit.comments });
+    showComments.present();
+
+    // let alertUnderConstruction = this.alertCtrl.create({
+    //   message: new Date(unit.comments[0].at) + '@ ' + unit.comments[0].text,
+    //   title: "กำลังปรับปรุง",
+    //   buttons: ["OK"],
+    // });
+    // alertUnderConstruction.present();
   }
 
   ionViewDidEnter() {
@@ -244,7 +298,7 @@ export class UnitPage {
   //   loader.present();
   // }
 
-  deleteUnit(HH: any) {
+  // deleteUnit(HH: any) {
     // let keyHH = HH._id;
     // let keyBD = "BL" + HH.buildingId;
     // this.storage.get(keyBD).then((val) => {
@@ -255,6 +309,6 @@ export class UnitPage {
     //   this.storage.remove(keyHH)
     // })
     
-  }
+  // }
 
 }

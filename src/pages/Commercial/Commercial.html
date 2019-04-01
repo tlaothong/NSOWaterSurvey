@@ -154,8 +154,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('questionForAcademy.personnelCount').value > 100">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -186,8 +186,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('hotelsAndResorts.roomCount').value > 100">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนห้องมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -208,8 +208,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('hotelsAndResorts.personnelCount').value > 100">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -238,8 +238,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('hospital.bedCount').value > 300">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนเตียงมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -259,8 +259,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('hospital.personnelCount').value > 500">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -290,8 +290,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('building.roomCount').value > 500">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนห้องมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -326,8 +326,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('building.personnelCount').value > 100">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -358,8 +358,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('religious.peopleCount').value > 100">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนพระสงฆ์ สามเณร ชี เด็กวัด ผู้มาประกอบศาสนกิจมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -398,8 +398,8 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('otherBuilding.personnelCount').value > 50">
-                        <ion-icon md="md-warning"></ion-icon>
-                        <span class="invalid-msg">
+                        <ion-icon md="md-warning" class="warning"></ion-icon>
+                        <span class="warning-msg">
                             กรุณาตรวจสอบจำนวนบุคลากรมีเยอะผิดปกติหรือไม่
                         </span>
                     </ion-item>
@@ -410,17 +410,9 @@
         <water-sources8-b headline="4.5 สถานประกอบการแห่งนี้ใช้น้ำจากแหล่งใดบ้าง" [FormItem]="f.get('waterSources')">
         </water-sources8-b>
 
-        <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested">
-            <ion-card-header>
-                กรุณาตรวจสอบข้อมูลในแบบสำรวจ
-            </ion-card-header>
-            <ion-card-content>
-                <ion-icon name="warning" item-start></ion-icon>
-                ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
-            </ion-card-content>
-        </ion-card>
+        <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-        <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
+        <form-buttons-bar ></form-buttons-bar>
 
     </form>
 </ion-content>

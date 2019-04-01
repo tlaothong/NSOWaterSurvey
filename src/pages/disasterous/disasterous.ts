@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -28,7 +28,10 @@ export class DisasterousPage {
   public dataDis: any;
   private frontNum: any;
   private backNum: any;
-  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  public isCheckWarningBox: boolean;
+
+  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>,
+    private appState: AppStateProvider, public alertController: AlertController) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -43,7 +46,7 @@ export class DisasterousPage {
   }
 
   ionViewDidLoad() {
-    this.countNumberPage();
+    
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.Disasterous.patchValue(data.disaster)
@@ -66,6 +69,8 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
+    this.isCheckWarningBox = this.Disasterous.valid || this.Disasterous.get('flooded').value == false
+      || this.tableDisasterous.some(it => it.FormItem.valid);
     // this.dataDis.disaster = this.Disasterous.value
     if (this.Disasterous.valid
       || this.Disasterous.get('flooded').value == false
@@ -85,56 +90,51 @@ export class DisasterousPage {
     }
   }
 
-  countNumberPage() {
-    console.log("onSubmit ");
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-
-    });
-    console.log("back", this.backNum);
-
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-    console.log("frontNum", this.frontNum);
-  }
+  
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(20));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 20)) {
-          arrayIsCheck.push(20);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 20)) {
+    //       arrayIsCheck.push(20);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   submitRequest() {
     this.submitRequested = true;
   }
 
+  presentAlertDisater(num) {
+    const alert = this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            let test = this.Disasterous.get('yearsDisasterous') as FormArray;
+            test.at(num).reset();
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   deleteData(num: number) {
-    let test = this.Disasterous.get('yearsDisasterous') as FormArray;
-    test.at(num).reset();
+    this.presentAlertDisater(num);
   }
 
   public isValid(name: string): boolean {

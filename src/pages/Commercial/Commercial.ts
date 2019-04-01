@@ -28,6 +28,7 @@ export class CommercialPage {
   private f: FormGroup;
   private submitRequested: boolean;
   public otherBuildingType: any;
+  private isCheckWarningBox: boolean;
 
   // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.commerce));
   private formData$ = this.store.select(getHouseHoldSample);
@@ -82,13 +83,11 @@ export class CommercialPage {
     console.log('ionViewDidLoad CommercialPage');
     // this.numberRoom$.subscribe(data => {
     //   if (data != null) {
-    //     if(data == "-"){
-    //       this.numberRoom = true
-    //     }
+
     //     console.log(this.numberRoom);
     //   }
     // });
-    this.countNumberPage();
+    
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.f.setValue(data.commerce)
@@ -99,7 +98,11 @@ export class CommercialPage {
     // });
 
     this.getBuildingType$.subscribe(data => {
-      if (data != null) {
+      let roomno = this.appState.houseHoldUnit.subUnit.roomNumber
+      if (roomno == "-") {
+        this.numberRoom = true
+      }
+      if (data != null && roomno == '-') {
         this.f.get('buildingCode').setValue(data)
       }
     });
@@ -116,14 +119,12 @@ export class CommercialPage {
     this.waterSources8B.forEach(it => it.submitRequest());
     this.store.dispatch(new SetCommercialServiceType(this.f.get('serviceType').value));
     this.store.dispatch(new SetWaterSourcesCommercial(this.f.get('waterSources').value));
-    // this.dispatchWaterSource();
-    // this.dataCom.commerce = this.f.value
+    console.log(this.f);
+    this.isCheckWarningBox = this.f.valid;
+    console.log(JSON.stringify(this.f.errors));
+
     if (this.f.valid) {
       this.arrayIsCheckMethod();
-      // this.storage.set('unit', this.dataCom)
-      // let id = this.dataCom._id
-      // this.storage.set(id, this.dataCom)
-      // this.local.updateListUnit(this.dataCom.buildingId, this.dataCom)
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
         ...originalHouseHold,
@@ -136,6 +137,12 @@ export class CommercialPage {
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
+      const preSchool = c.get('questionForAcademy.preSchool');
+      const kindergarten = c.get('questionForAcademy.kindergarten');
+      const primarySchool = c.get('questionForAcademy.primarySchool');
+      const highSchool = c.get('questionForAcademy.highSchool');
+      const vocational = c.get('questionForAcademy.vocational');
+      const higherEducation = c.get('questionForAcademy.higherEducation');
       const buildingCode = c.get('buildingCode');
       const personnelCountQuestionForAcademy = c.get('questionForAcademy.personnelCount');
       const roomCountHotelsAndResorts = c.get('hotelsAndResorts.roomCount');
@@ -148,6 +155,14 @@ export class CommercialPage {
       const peopleCount = c.get('religious.peopleCount');
       const personnelCountOtherBuilding = c.get('otherBuilding.personnelCount');
 
+      if (personnelCountQuestionForAcademy.value == null && (buildingCode.value == 11 || buildingCode.value == 12) && !preSchool.value.itemCount && !kindergarten.value.itemCount && !primarySchool.value.itemCount
+        && !highSchool.value.itemCount && !vocational.value.itemCount && !higherEducation.value.itemCount) {
+        return { 'anycheck': true, 'personnelCountQuestionForAcademy': true };
+      }
+      if ((buildingCode.value == 11 || buildingCode.value == 12) && !preSchool.value.itemCount && !kindergarten.value.itemCount && !primarySchool.value.itemCount
+        && !highSchool.value.itemCount && !vocational.value.itemCount && !higherEducation.value.itemCount) {
+        return { 'anycheck': true };
+      }
       if ((buildingCode.value == 11 || buildingCode.value == 12) && personnelCountQuestionForAcademy.value == null) {
         return { 'personnelCountQuestionForAcademy': true };
       }
@@ -157,7 +172,10 @@ export class CommercialPage {
       if (buildingCode.value == 6 && personnelCountHotelsAndResorts.value == null) {
         return { 'personnelCountHotelsAndResorts': true };
       }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount == null) {
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value == null && personnelCountHospital.value == null) {
+        return { 'bedCount': true, 'personnelCountHospital': true };
+      }
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value == null) {
         return { 'bedCount': true };
       }
       if ((buildingCode.value == 7 || buildingCode.value == 8) && personnelCountHospital.value == null) {
@@ -180,7 +198,7 @@ export class CommercialPage {
       }
       if ((buildingCode.value == 1 || buildingCode.value == 2 || buildingCode.value == 3
         || buildingCode.value == 5 || buildingCode.value == 9 || buildingCode.value == 13 || buildingCode.value == 14
-        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value == null) {
+        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value <= 0) {
         return { 'personnelCountOtherBuilding': true };
       }
 
@@ -234,42 +252,18 @@ export class CommercialPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  countNumberPage() {
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-
-    });
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-  }
-
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(12));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 12)) {
-          arrayIsCheck.push(12);
-        }
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 12)) {
+    //       arrayIsCheck.push(12);
+    //     }
+    //   }
+    // });
   }
 
 }

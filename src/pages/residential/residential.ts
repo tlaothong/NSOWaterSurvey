@@ -30,6 +30,7 @@ export class ResidentialPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean;
+  private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
@@ -40,7 +41,7 @@ export class ResidentialPage {
   }
 
   ionViewDidLoad() {
-    this.countNumberPage();
+    
   }
 
   check(): boolean {
@@ -54,14 +55,8 @@ export class ResidentialPage {
     this.submitRequested = true;
     this.waterSources8B.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // (this.residentialFrm.get('waterSources.underGround').value),
-    // (this.residentialFrm.get('waterSources.river').value),
-    // (this.residentialFrm.get('waterSources.pool').value),
-    // (this.residentialFrm.get('waterSources.irrigation').value),
-    // (this.residentialFrm.get('waterSources.rain').value),
-    // (this.residentialFrm.get('waterSources.buying').value)]));
-
-    // this.dataRes.residence = this.residentialFrm.value
+  
+    this.isCheckWarningBox = this.residentialFrm.valid && !(this.check());
     if (this.residentialFrm.valid && !(this.check())) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
@@ -69,74 +64,25 @@ export class ResidentialPage {
         ...originalHouseHold,
         residence: this.residentialFrm.value,
       };
-      // this.dispatchWaterSource();
-      // this.store.dispatch(new SetHouseHold(this.dataRes));
-      // this.storage.set('unit', this.dataRes)
-      // let id = newHouseHold._id
-      // this.storage.set(id, newHouseHold)
-      // console.log("set", newHouseHold);
-
-      // this.local.updateListUnit(newHouseHold.buildingId, newHouseHold)
-
-      // this.store.dispatch(new SetHouseHold(newHouseHold))
-      this.store.dispatch(new SetMemberCount(newHouseHold.residence.memberCount));
+    
       this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
   }
 
-  countNumberPage() {
-    console.log("onSubmit ");
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-    });
-    console.log("back", this.backNum);
-
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-    console.log("frontNum", this.frontNum);
-  }
-
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(0));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 0)) {
-          arrayIsCheck.push(0);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
-  }
-
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.residentialFrm.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.residentialFrm.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.residentialFrm.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.residentialFrm.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.residentialFrm.get('waterSources.buying').value));
-    this.store.dispatch(new SetWateringResidential(this.residentialFrm.get('gardeningUse').value));
-    this.store.dispatch(new SetResidentialGardeningUse(this.residentialFrm.get('gardeningUse').value));
-    this.store.dispatch(new SetWaterSourcesResidential(this.residentialFrm.get('waterSources').value));
-
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 0)) {
+    //       arrayIsCheck.push(0);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public isValid(name: string): boolean {

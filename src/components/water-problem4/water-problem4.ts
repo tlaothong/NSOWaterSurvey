@@ -45,7 +45,7 @@ export class WaterProblem4Component {
     }
     if (name == 'anycheck') {
       let ctrls = this.FormItem;
-      return ctrls.errors && ctrls.errors.anycheck && (ctrl.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.anycheck && (ctrls.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
