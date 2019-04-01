@@ -69,14 +69,33 @@ export class BuildingEffects {
 
     @Effect()
     public saveBuilding$: Observable<Action> = this.action$.pipe(
-        ofType(BuildingTypes.SaveBuilding),
+        ofType<SaveBuilding>(BuildingTypes.SaveBuilding),
         filter((action: any, i) => action.payload),
-        tap((action: SaveBuilding) => {
+        tap(action => {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),
+        map(action => {
+            let bld = action.payload;
+            let status = "pause";
+            switch (bld.access) {
+                case 4:
+                    status = "eye-off";
+                    break;
+                case 2:
+                case 3:
+                    status = bld.accessCount < 3 ? "refresh" : "sad";
+                    break;
+                default:
+                    status = "pause";
+                    break;
+            }
+            bld.status = status;
+
+            return new SaveBuilding({ ...bld, status: status });
+        }),
         // TODO: Save the building to local storage
-        mergeMap((action: SaveBuilding) => this.dataStore.saveBuilding(action.payload).mapTo(action)),
-        switchMap((action: SaveBuilding) => [
+        mergeMap(action => this.dataStore.saveBuilding(action.payload).mapTo(action)),
+        switchMap(action => [
             new SaveBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
         ]),
@@ -119,9 +138,9 @@ export class BuildingEffects {
                     status = bld.accessCount < 3 ? "refresh" : "sad";
                     break;
                 default:
-                    status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "return" || it.status == "pause")
+                    status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
                         ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
-                        : (ulist.length == bld.unitCount ? "done-all" : "pause");
+                        : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh": "pause"));
                     break;
             }
             bld.status = status;

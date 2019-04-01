@@ -91,8 +91,8 @@ export class BuildingInformation1Page {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BuildingInformation1Page');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter BuildingInformation1Page');
     this.loadMap()
     // this.dataBuilding$.subscribe(data => {
     //   if (data != null) {
@@ -177,8 +177,8 @@ export class BuildingInformation1Page {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.updateStatus();
-    // this.f.get('status').setValue('');
+    // this.updateStatus();
+    this.f.get('status').setValue('');
     console.log("access", this.access);
     this.isCheckWarningBox = this.f.valid;
 
