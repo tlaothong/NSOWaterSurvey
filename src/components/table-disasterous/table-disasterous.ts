@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalController, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'table-disasterous',
@@ -12,7 +12,7 @@ export class TableDisasterousComponent {
   @Input() public FormItem: FormGroup;
   private submitRequested: boolean;
 
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder, public alertController: AlertController) {
     this.year = 'Hello World';
 
     // TODO: Remove this
@@ -42,6 +42,31 @@ export class TableDisasterousComponent {
 
   submitRequest() {
     this.submitRequested = true;
+  }
+
+  presentAlertPopulation() {
+    const alert = this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.FormItem.reset();
+
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  deleteData() {
+    this.presentAlertPopulation()
   }
 
   public isValid(name: string): boolean {

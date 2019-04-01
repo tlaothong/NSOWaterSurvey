@@ -111,31 +111,31 @@ export class DisasterousPage {
     this.submitRequested = true;
   }
 
-  presentAlertDisater(num) {
-    const alert = this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
-      buttons: [
-        {
-          text: 'ยืนยัน',
-          handler: data => {
-            let test = this.Disasterous.get('yearsDisasterous') as FormArray;
-            test.at(num).reset();
-          }
-        },
-        {
-          text: 'ยกเลิก',
-          handler: data => {
+  // presentAlertDisater(num) {
+  //   const alert = this.alertController.create({
+  //     title: 'ต้องการจะลบใช่หรือไม่',
+  //     buttons: [
+  //       {
+  //         text: 'ยืนยัน',
+  //         handler: data => {
+  //           let test = this.Disasterous.get('yearsDisasterous') as FormArray;
+  //           test.at(num).reset();
+  //         }
+  //       },
+  //       {
+  //         text: 'ยกเลิก',
+  //         handler: data => {
 
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   alert.present();
+  // }
 
-  deleteData(num: number) {
-    this.presentAlertDisater(num);
-  }
+  // deleteData(num: number) {
+  //   this.presentAlertDisater(num);
+  // }
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);

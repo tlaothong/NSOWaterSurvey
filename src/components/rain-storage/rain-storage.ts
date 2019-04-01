@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ export class RainStorageComponent {
   @Input() public FormItem: FormGroup;
   private submitRequested: boolean;
 
-  constructor(public modalCtrl: ModalController, private fb: FormBuilder) {
+  constructor(public modalCtrl: ModalController, private fb: FormBuilder, public alertController: AlertController) {
     console.log('Hello RainStorageComponent Component');
     this.text = '';
     this.FormItem = RainStorageComponent.CreateFormGroup(fb);
@@ -45,6 +45,31 @@ export class RainStorageComponent {
       }
     });
     modal.present();
+  }
+
+  presentAlertPopulation() {
+    const alert = this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.FormItem.reset();
+
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  deleteData() {
+    this.presentAlertPopulation()
   }
 
 }
