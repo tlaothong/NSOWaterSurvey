@@ -76,8 +76,14 @@ export class BuildingEffects {
         }),
         map(action => {
             let bld = action.payload;
+            const accesses = bld.accesses;
+            let access = 0;
+
+            if (accesses && accesses.length > 0) {
+                access = accesses[accesses.length - 1];
+            }
             let status = "pause";
-            switch (bld.access) {
+            switch (access) {
                 case 4:
                     status = "eye-off";
                     break;
@@ -128,8 +134,14 @@ export class BuildingEffects {
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
             this.storeUnit.select(getHouseHoldUnitList)),
         mergeMap(([bld, lst, ea, ulist]) => {
+            const accesses = bld.accesses;
+            let access = 0;
+
+            if (accesses && accesses.length > 0) {
+                access = accesses[accesses.length - 1];
+            }
             let status = "pause";
-            switch (bld.access) {
+            switch (access) {
                 case 4:
                     status = "eye-off";
                     break;
