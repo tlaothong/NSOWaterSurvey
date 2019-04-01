@@ -100,6 +100,7 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             return {
                 ...state,
                 units: action.payload,
+                progress: { progressCompleted: 0, progressToGo: 0 },
             };
         case HouseHoldTypes.SaveHouseHoldSuccess: {
             return action.state;

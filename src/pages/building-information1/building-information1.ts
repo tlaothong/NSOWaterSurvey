@@ -24,7 +24,7 @@ export class BuildingInformation1Page {
   public lat: any;
   public long: any;
 
-  public index: number;
+  // public index: number;
   public access: number;
   public comment: string = '';
 
@@ -45,7 +45,7 @@ export class BuildingInformation1Page {
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
       'ea': null,
-      'ordering': [0],
+      'ordering': 0,
       'road': [null, Validators.required],
       'alley': [null, Validators.required],
       'name': [null, Validators.required],
@@ -54,26 +54,25 @@ export class BuildingInformation1Page {
       'longitude': [null, Validators.required],
       'buildingType': [null, Validators.required],
       'other': [null, Validators],
-      'accessCount': [0],
+      'accessCount': 0,
       'accesses': fb.array([]),
-      'access': [null, Validators.required],
       'vacancyCount': [null, Validators],
       'abandonedCount': [null, Validators],
       'comments': fb.array([]),
-      'recCtrl': [null],
-      'vacantRoomCount': [null],
+      'recCtrl': fb.array([]),
+      'vacantRoomCount': null,
       'unitCountComplete': 0,
       'unitCount': 0,
       'unitAccess': 0,
-      'occupiedRoomCount': [null],
+      'occupiedRoomCount': null,
       'waterQuantity': fb.group({
         "waterQuantity": 0,
         "cubicMeterPerMonth": null,
         "waterBill": null,
       }),
-      'floorCount': [null],
-      '_id': [null],
-      'status': [null],
+      'floorCount': null,
+      '_id': null,
+      'status': null,
       'lastUpdate': null,
     }, {
         validator: BuildingInformation1Page.checkAnyOrOther()
@@ -92,8 +91,8 @@ export class BuildingInformation1Page {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BuildingInformation1Page');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter BuildingInformation1Page');
     this.loadMap()
     // this.dataBuilding$.subscribe(data => {
     //   if (data != null) {
@@ -123,8 +122,6 @@ export class BuildingInformation1Page {
           this.f.get('name').setValue(val);
         }
       })
-    } else {
-      this.setupCountChanges();
     }
 
     // this.storage.get(id).then((data) => {
@@ -180,7 +177,8 @@ export class BuildingInformation1Page {
 
   public handleSubmit() {
     this.submitRequested = true;
-    this.updateStatus();
+    // this.updateStatus();
+    this.f.get('status').setValue('');
     console.log("access", this.access);
     this.isCheckWarningBox = this.f.valid;
 
@@ -200,8 +198,11 @@ export class BuildingInformation1Page {
     let listBD: any;
     let fgac = this.f.get('accesses') as FormArray;
     let fgcm = this.f.get('comments') as FormArray;
-    fgac.at(this.index).setValue(this.access);
-    fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment });
+    const index = this.f.get('accessCount').value - 1;
+    if (index >= 0) {
+      fgac.at(index).setValue(this.access);
+      fgcm.at(index).setValue({ 'at': Date.now(), 'text': this.comment });
+    }
     this.f.get('lastUpdate').setValue(Date.now())
     console.log(this.f.get('lastUpdate').value);
 
@@ -209,7 +210,7 @@ export class BuildingInformation1Page {
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
 
-    if (idBD == null) {
+    if (idBD == null || idBD == '') {
       this.f.get('_id').setValue(this.appState.generateId('bld'));
       // idBD = this.f.get('_id').value
     }
@@ -243,8 +244,9 @@ export class BuildingInformation1Page {
   }
 
   public updateStatus() {
-    if (this.access)
-      this.f.get('access').setValue(this.access);
+    const index = this.f.get('accessCount').value;
+    // if (this.access)
+    //   this.f.get('access').setValue(this.access);
 
     switch (this.access) {
       case 1:
@@ -254,7 +256,7 @@ export class BuildingInformation1Page {
         break;
       case 2:
       case 3:
-        (this.index < 2) ? this.f.get('status').setValue('refresh') : this.f.get('status').setValue('done-all')
+        (index < 2) ? this.f.get('status').setValue('refresh') : this.f.get('status').setValue('done-all')
         break;
       case 4:
         this.f.get('status').setValue('done-all')
@@ -301,18 +303,23 @@ export class BuildingInformation1Page {
   }
 
   private setupCountChanges() {
-    let status = this.f.get('status').value;
-    if (status == 'pause' || status == 'done-all' || status == 'refresh') {
-      this.index = this.f.get('accessCount').value - 1;
-      this.access = this.f.get('accesses').value[this.index];
-      var comments = this.f.get('comments').value;
-      this.comment = (comments && comments[this.index] ? comments[this.index].text : '');
-       // this.f.get('comments').value[this.index].text;
+    const accesses: number[] = this.f.get('accesses').value;
+    const lastAccess = accesses.length > 0 ? accesses[accesses.length - 1] : null;
+    const accessCount: number = this.f.get('accessCount').value;
+
+    if (accessCount > 0) {
+      this.access = lastAccess;
+      if (lastAccess == 2 || lastAccess == 3) {
+        if (accessCount < 3) {
+          this.f.get('accessCount').setValue(accessCount + 1);
+        }
+      }
+    } else {
+      this.access = null;
+      this.f.get('accessCount').setValue(accessCount + 1);
     }
-    else {
-      this.index = this.f.get('accessCount').value;
-    }
-    this.f.get('accessCount').setValue(this.index + 1);
+    // this.index = this.f.get('accessCount').value - 1;
+    // console.log('index', this.index);
   }
 
   private setupAccessCountChanges() {
