@@ -42,22 +42,27 @@
             </ion-label>
           </ion-col>
         </ion-row>
-
-        <rain-storage no="1." headline="แท้งค์น้ำ สแตนเลส" [FormItem]="RainFrm.get('rainContainers').at(0)">
-        </rain-storage>
-        <rain-storage no="2." headline="แท้งค์น้ำ โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(1)">
-        </rain-storage>
-        <rain-storage no="3." headline="แท้งค์น้ำ ไฟเบอร์กลาส" [FormItem]="RainFrm.get('rainContainers').at(2)">
-        </rain-storage>
-        <rain-storage no="4." headline="แท้งค์น้ำ ปูน/ซีเมนต์" [FormItem]="RainFrm.get('rainContainers').at(3)">
-        </rain-storage>
-        <rain-storage no="5." headline="โอ่ง ปูน/ดินเผา" [FormItem]="RainFrm.get('rainContainers').at(4)">
-        </rain-storage>
-        <rain-storage no="6." headline="ถัง โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(5)">
-        </rain-storage>
-        <rain-storage no="7." [FormItem]="RainFrm.get('rainContainers').at(6)"></rain-storage>
-        <rain-storage no="8." [FormItem]="RainFrm.get('rainContainers').at(7)"></rain-storage>
-
+        <div [class.invalid]="isValid()">
+          <ion-item *ngIf="isValid()">
+            <span class="invalid-msg">
+              กรุณากรอกข้อมูล
+            </span>
+          </ion-item>
+          <rain-storage no="1." headline="แท้งค์น้ำ สแตนเลส" [FormItem]="RainFrm.get('rainContainers').at(0)">
+          </rain-storage>
+          <rain-storage no="2." headline="แท้งค์น้ำ โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(1)">
+          </rain-storage>
+          <rain-storage no="3." headline="แท้งค์น้ำ ไฟเบอร์กลาส" [FormItem]="RainFrm.get('rainContainers').at(2)">
+          </rain-storage>
+          <rain-storage no="4." headline="แท้งค์น้ำ ปูน/ซีเมนต์" [FormItem]="RainFrm.get('rainContainers').at(3)">
+          </rain-storage>
+          <rain-storage no="5." headline="โอ่ง ปูน/ดินเผา" [FormItem]="RainFrm.get('rainContainers').at(4)">
+          </rain-storage>
+          <rain-storage no="6." headline="ถัง โพลิเมอร์/พลาสติก" [FormItem]="RainFrm.get('rainContainers').at(5)">
+          </rain-storage>
+          <rain-storage no="7." [FormItem]="RainFrm.get('rainContainers').at(6)"></rain-storage>
+          <rain-storage no="8." [FormItem]="RainFrm.get('rainContainers').at(7)"></rain-storage>
+        </div>
       </ion-card-content>
     </ion-card>
 
@@ -77,7 +82,7 @@
 
     <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar ></form-buttons-bar>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>

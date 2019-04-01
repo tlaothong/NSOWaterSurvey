@@ -58,7 +58,11 @@
         </ion-row>
 
         <div [class.invalid]="isValid()">
-
+          <ion-item *ngIf="isValid()">
+            <span class="invalid-msg">
+              กรุณากรอกข้อมูล
+            </span>
+          </ion-item>
           <table-buying getIsHouseHold="{{getIsHouseHold}}" getIsAgriculture="{{getIsAgriculture}}"
             getIsFactorial="{{getIsFactorial}}" getIsCommercial="{{getIsCommercial}}" headline="1. ขวด" size="350"
             volumn="มิลลิลิตร" [FormItem]="BuyingForm.get('package').at(0)"></table-buying>
