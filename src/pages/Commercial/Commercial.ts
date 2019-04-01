@@ -81,15 +81,15 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
-    this.getBuildingType$.subscribe(data => {
-      let roomno = this.appState.houseHoldUnit.subUnit.roomNumber
-      if (roomno == "-") {
-        this.numberRoom = true
-      }
-      if (data != null && roomno == '-') {
-        this.f.get('buildingCode').setValue(data)
-      }
-    });
+    let roomno = this.appState.houseHoldUnit.subUnit ? this.appState.houseHoldUnit.subUnit.roomNumber : null;
+    if (roomno == "-" || roomno == null) {
+      this.numberRoom = true;
+      this.getBuildingType$.subscribe(data => {
+        if (data != null) {
+          this.f.get('buildingCode').setValue(data);
+        }
+      });
+    }
     this.otherBuildingType$.subscribe(data => {
       if (data != null) {
         this.otherBuildingType = data
@@ -153,7 +153,7 @@ export class CommercialPage {
       if (buildingCode.value == 6 && roomCountHotelsAndResorts.value < 1 && personnelCountHotelsAndResorts.value < 1) {
         return { 'roomCountHotelsAndResorts': true, 'personnelCountHotelsAndResorts': true };
       }
-      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value < 1 ) {
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value < 1) {
         return { 'roomCountHotelsAndResorts': true };
       }
       if (buildingCode.value == 6 && personnelCountHotelsAndResorts.value < 1) {
