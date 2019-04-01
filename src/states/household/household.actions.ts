@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { HouseHoldUnit, SubUnit, UnitInList } from '../../models/mobile/MobileModels';
+import { HouseHoldState } from './household.reducer';
 
 export enum HouseHoldTypes {
     StateName = "HouseHold",
@@ -20,8 +21,14 @@ export enum HouseHoldTypes {
 
     UpdateUnitList = "[HH] Update the List of House Hold Units",
 
+    UpdateProgress = "[HH] Update the Survey Progress for House Hold",
+
     LoadList = "[HH] Load House Hold List For Building",
     LoadListSuccess = "[HH] Load List For Building Success",
+
+    SaveLastName = "[HH] Set Last Name",
+    SaveLastNameSuccess = "[HH] Set Last Name Success",
+    DeleteHouseHold = "[HH] Delete House Hold",
 
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
@@ -65,6 +72,11 @@ export enum HouseHoldTypes {
     SetNumberRoom = "[HH] Set Number Room",
     SetUnitNo = "[HH] Set Unit No",
     SetMemberCount = "[HH] Set Count Member",
+}
+
+export interface SurveyProgress {
+    progressToGo: number;
+    progressCompleted: number;
 }
 
 export class LoadHouseHoldList implements Action {
@@ -112,7 +124,7 @@ export class NewHouseHoldWithSubUnit implements Action {
 export class SaveHouseHoldSubUnit implements Action {
     readonly type = HouseHoldTypes.SaveHouseHoldSubUnit;
 
-    constructor(public houseHoldId: string, public subUnit: SubUnit, public comment: string) {
+    constructor(public houseHold: HouseHoldUnit, public subUnit: SubUnit, public comment: string) {
     }
 }
 
@@ -137,13 +149,19 @@ export class SaveHouseHold implements Action {
 }
 export class SaveHouseHoldSuccess implements Action {
     readonly type = HouseHoldTypes.SaveHouseHoldSuccess;
-    constructor(public payload: HouseHoldUnit) {
+    constructor(public payload: HouseHoldUnit, public state: HouseHoldState) {
     }
 }
 
 export class UpdateUnitList implements Action {
     readonly type = HouseHoldTypes.UpdateUnitList;
     constructor(public payload: HouseHoldUnit) {
+    }
+}
+
+export class UpdateProgress implements Action {
+    readonly type = HouseHoldTypes.UpdateProgress;
+    constructor(public index: number, public progress: SurveyProgress) {
     }
 }
 
@@ -408,6 +426,26 @@ export class SetMemberCount implements Action {
     }
 }
 
+export class DeleteHouseHold implements Action {
+    readonly type = HouseHoldTypes.DeleteHouseHold;
+
+    constructor(public payload: UnitInList) {
+    }
+}
+
+export class SaveLastName implements Action {
+    readonly type = HouseHoldTypes.SaveLastName;
+
+    constructor(public payload: string) {
+    }
+}
+export class SaveLastNameSuccess implements Action {
+    readonly type = HouseHoldTypes.SaveLastNameSuccess;
+
+    constructor(public payload: string[]) {
+    }
+}
+
 export type HouseHoldActionsType =
     LoadHouseHoldList
     | LoadHouseHoldListSuccess
@@ -421,6 +459,8 @@ export type HouseHoldActionsType =
     | SaveHouseHold
     | SaveHouseHoldSuccess
     | UpdateUnitList
+    | UpdateProgress
+
     | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
@@ -462,4 +502,7 @@ export type HouseHoldActionsType =
     | SetNumberRoom
     | SetUnitNo
     | SetMemberCount
+    | DeleteHouseHold
+    | SaveLastName
+    | SaveLastNameSuccess
     ;

@@ -8,7 +8,7 @@
           ตั้งอยู่ที่ใด (จังหวัด อำเภอ ตำบล)
         </ion-label>
       </ion-item>
-      <location [FormItem]="FormItem.get('location')" [checkIsPool]="checkIsPool"></location>
+      <location [FormItem]="FormItem.get('location')" [isAnimal]="false"></location>
     </div>
 
     <ion-item>
@@ -39,7 +39,7 @@
     <div [ngSwitch]="FormItem.get('shape').value">
 
       <div *ngSwitchCase="1">
-        <field-area [FormItem]="FormItem.get('area')" [isAnimal]="isAnimal" [checkIsPool]="checkIsPool"></field-area>
+        <field-area [FormItem]="FormItem.get('area')" [checkIsPool]="checkIsPool"></field-area>
       </div>
 
       <div *ngSwitchCase="2" formGroupName="rectangle">
@@ -81,8 +81,8 @@
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
         </ion-item>
         <ion-item *ngIf="FormItem.get('diameter').value > 100 || (FormItem.get('diameter').value < 0.5 &&  FormItem.get('diameter').value > 0)">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
             กรุณาตรวจสอบเส้นผ่านศูนย์กลางมีขนาดผิดปกติหรือไม่
           </span>
         </ion-item>
@@ -101,9 +101,9 @@
         <span class="invalid-msg">กรุณากรอกความลึก</span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('depth').value > 4 || (FormItem.get('depth').value < 0.5 &&  FormItem.get('depth').value > 0)">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
-          กรุณาตรวจสอบความลึกมีขนาดผิดปกติหรือไม่
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
+        กรุณาตรวจสอบความลึกมีขนาดผิดปกติหรือไม่
         </span>
       </ion-item>
     </div>

@@ -90,7 +90,7 @@ export class GroundWaterPage {
   }
 
   ionViewDidLoad() {
-    this.countNumberPage();
+    
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.f.patchValue(data.waterUsage.groundWater);
@@ -200,14 +200,11 @@ export class GroundWaterPage {
 
   public isCheckBoth(): boolean {
     if (this.isCheckActivity()) {
-      if (this.f.get('privateGroundWater.waterResourceCount').value > 0) {
-        return (this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value) || (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value);
+      if ((this.f.get('privateGroundWater.doing').value && !this.f.get('publicGroundWater.doing').value)) {
+        return (this.f.get('privateGroundWater.waterResourceCount').value > 0);
       }
       else if (this.f.get('privateGroundWater.doing').value && this.f.get('publicGroundWater.doing').value) {
         return this.f.get('privateGroundWater.waterResourceCount').value >= 0;
-      }
-      else if (this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value) {
-        return this.f.get('publicGroundWater.waterResourceCount').value > 0;
       }
       else if (!this.f.get('publicGroundWater.doing').value && !this.f.get('privateGroundWater.doing').value) {
         return false;
@@ -248,47 +245,21 @@ export class GroundWaterPage {
     return this.checked = false
   }
 
-  countNumberPage() {
-    console.log("onSubmit ");
-    let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-    let arrayNextPage: any[];
-    arrayNextPage$.subscribe(data => {
-
-      if (data != null) {
-        arrayNextPage = data;
-        let arrLength = arrayNextPage.filter((it) => it == true);
-        this.backNum = arrLength.length;
-      }
-
-    });
-    console.log("back", this.backNum);
-
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: any[];
-    arrayIsCheck$.subscribe(data => {
-
-      if (data != null) {
-        arrayIsCheck = data
-        this.frontNum = arrayIsCheck.length;
-      }
-
-    });
-    console.log("frontNum", this.frontNum);
-  }
+  
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(14));
-    let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    let arrayIsCheck: Array<number>;
-    arrayIsCheck$.subscribe(data => {
-      if (data != null) {
-        arrayIsCheck = data;
-        if (arrayIsCheck.every(it => it != 14)) {
-          arrayIsCheck.push(14);
-        }
-        console.log(arrayIsCheck);
-      }
-    });
+    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
+    // let arrayIsCheck: Array<number>;
+    // arrayIsCheck$.subscribe(data => {
+    //   if (data != null) {
+    //     arrayIsCheck = data;
+    //     if (arrayIsCheck.every(it => it != 14)) {
+    //       arrayIsCheck.push(14);
+    //     }
+    //     console.log(arrayIsCheck);
+    //   }
+    // });
   }
 
   public checkValid(): boolean {

@@ -45,13 +45,13 @@
 
         <div *ngIf="f.get('personCount').value > 0" [class.invalid]="!isCheckHaveHeadfamily()">
           <div *ngFor="let far of f.get('persons').controls; let i = index">
-            <ion-row>
+            <ion-row align-items-center>
               <ion-col col-11>
                 <table-population [no]="i + 1" [FormItem]="far" [FormArray]="f.get('persons')" [ProName]="proName">
                 </table-population>
               </ion-col>
               <ion-col col-1>
-                <button ion-button color="danger" (click)="deleteData(i)">ลบข้อมูล</button>
+                <button ion-button color="danger" type="button" (click)="deleteData(i)">ลบ</button>
               </ion-col>
             </ion-row>
           </div>
@@ -64,17 +64,9 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="invalid-msg" *ngIf="f.invalid && submitRequested">
-      <ion-card-header>
-        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
-      </ion-card-header>
-      <ion-card-content>
-        <ion-icon name="warning" item-start></ion-icon>
-        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
-      </ion-card-content>
-    </ion-card> 
+    <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
+    <form-buttons-bar ></form-buttons-bar>
 
   </form>
 </ion-content>

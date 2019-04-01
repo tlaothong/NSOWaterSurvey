@@ -41,14 +41,17 @@ export class MyApp {
 
   goGetworkPage() {
     // this.nav.pop();
+    this.menuCtrl.close();
     this.nav.setRoot("GetworkPage")
   }
 
   goSelectEaPage() {
+    this.menuCtrl.close();
     this.nav.setRoot("SelectEaPage")
   }
 
   goSendPage() {
+    this.menuCtrl.close();
     this.nav.push("SendPage")
   }
 
@@ -57,6 +60,13 @@ export class MyApp {
    */
   public openManual() {
     window.open('http://water.surveydb.app/assets/fi.pdf', '_system', 'location=yes');
+  }
+
+  /**
+   * updateApp
+   */
+  public updateApp() {
+    this.nav.push("UpdateAppPage");
   }
   
   logOut() {

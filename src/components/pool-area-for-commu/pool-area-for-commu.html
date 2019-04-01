@@ -8,7 +8,7 @@
       </ion-label>
     </ion-item>
 
-    <div radio-group formControlName="shape" [class.invalid]="isValid('shape')">
+    <div radio-group formControlName="shape" [class.invalid]="isValid('shape')" (ionChange)="setArea()">
       <ion-item *ngIf="isValid('shape')">
         <span class="invalid-msg">กรุณาเลือกลักษณะของ{{ poolText }}</span>
       </ion-item>
@@ -43,12 +43,6 @@
             <ion-item *ngIf="isValid('rectangle.width')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
-            <ion-item *ngIf="FormItem.get('rectangle.width').value > 300 ">
-              <ion-icon md="md-warning"></ion-icon>
-              <span class="invalid-msg">
-                กรุณาตรวจสอบความกว้างมีเยอะผิดปกติหรือไม่
-              </span>
-            </ion-item>
           </ion-col>
 
           <ion-col col-6>
@@ -61,14 +55,7 @@
             <ion-item *ngIf="isValid('rectangle.length')">
               <span class="invalid-msg">กรุณากรอกข้อมูล</span>
             </ion-item>
-            <ion-item *ngIf="FormItem.get('rectangle.length').value > 300 ">
-              <ion-icon md="md-warning"></ion-icon>
-              <span class="invalid-msg">
-                กรุณาตรวจสอบความยาวมีเยอะผิดปกติหรือไม่
-              </span>
-            </ion-item>
           </ion-col>
-
         </ion-row>
       </div>
 
@@ -83,9 +70,9 @@
           <span class="invalid-msg">กรุณากรอกข้อมูล</span>
         </ion-item>
         <ion-item *ngIf="FormItem.get('diameter').value > 300 ">
-          <ion-icon md="md-warning"></ion-icon>
-          <span class="invalid-msg">
-            กรุณาตรวจสอบเส้นผ่านศูนย์กลางมีเยอะผิดปกติหรือไม่
+          <ion-icon md="md-warning" class="warning"></ion-icon>
+          <span class="warning-msg">
+            กรุณาตรวจสอบเส้นผ่านศูนย์กลางมีขนาดผิดปกติหรือไม่
           </span>
         </ion-item>
       </div>
@@ -104,9 +91,9 @@
       </ion-item>
       <ion-item
         *ngIf="FormItem.get('depth').value > 10 || (FormItem.get('depth').value < 0.5 &&  FormItem.get('depth').value > 0)">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
-          กรุณาตรวจสอบความลึกมีเยอะผิดปกติหรือไม่
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
+          กรุณาตรวจสอบความลึกมีขนาดผิดปกติหรือไม่
         </span>
       </ion-item>
     </div>

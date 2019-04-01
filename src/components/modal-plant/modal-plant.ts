@@ -13,6 +13,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
   @Input() InputList;
   @Input() InputLimit: any[];
   @Input() Title;
+  @Input() textTitleOnDialog: string;
   @Input() public FormItem: FormGroup;
 
   private submitRequested: boolean;
@@ -30,8 +31,11 @@ export class ModalPlantComponent implements ISubmitRequestable {
   }
 
   public isValid(name: string): boolean {
-    var ctrl = this.FormItem.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    if (name == "anycheck") {
+      let ctrl = this.FormItem.get('plants').value
+      let ctrls = this.FormItem.get('plants').value as Array<any>
+      return ctrls.length < 1 && (ctrl.dirty || this.submitRequested);
+    };
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -39,7 +43,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
       {
         'plantingCount': 0,
         'plants': fb.array([])
-      },
+      }
     );
     ModalPlantComponent.setupPlantCountChanges(fb, fg);
     return fg;
@@ -47,7 +51,7 @@ export class ModalPlantComponent implements ISubmitRequestable {
 
   model() {
     const modal = this.modalCtrl.create("SearchDropdownPage",
-      { title: this.Title, selected: this.FormItem.get('plants').value, list: this.InputList, limit: this.InputLimit });
+      { title: this.Title, selected: this.FormItem.get('plants').value, list: this.InputList, limit: this.InputLimit, textTitle: this.textTitleOnDialog });
     modal.onDidDismiss(data => {
       if (data) {
         var adata = data as Array<any>;

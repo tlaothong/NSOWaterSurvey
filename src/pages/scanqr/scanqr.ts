@@ -22,12 +22,12 @@ export class ScanqrPage {
   fg: FormGroup;
   qrCode: string;
   private formDataUser$ = this.store.select(getUserData);
-  public userObj:any
+  public userObj: any
   private formData$ = this.store.select(getUserData).pipe(map(s => s));
-  constructor(public navCtrl: NavController, private storage: Storage, 
-      private alertCtrl: AlertController, private platform: Platform, 
-      private qrScanner: QRScanner, public navParams: NavParams, 
-      private store: Store<LoggingState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private storage: Storage,
+    private alertCtrl: AlertController, private platform: Platform,
+    private qrScanner: QRScanner, public navParams: NavParams,
+    private store: Store<LoggingState>, private appState: AppStateProvider) {
   }
 
   ionViewDidLoad() {
@@ -51,6 +51,33 @@ export class ScanqrPage {
 
   }
 
+  // Scan() {
+  //   this.qrScanner.prepare()
+  //     .then((status: QRScannerStatus) => {
+  //       if (status.authorized) {
+  //         // camera permission was granted
+
+
+  //         // start scanning
+  //         let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+  //           console.log('Scanned something', text);
+
+  //           this.qrScanner.hide(); // hide camera preview
+  //           scanSub.unsubscribe(); // stop scanning
+  //         });
+
+  //       } else if (status.denied) {
+  //         // camera permission was permanently denied
+  //         // you must use QRScanner.openSettings() method to guide the user to the settings page
+  //         // then they can grant the permission from there
+  //       } else {
+  //         // permission was denied, but not permanently. You can ask for permission again at a later time.
+  //       }
+  //     })
+  //     .catch((e: any) => console.log('Error is', e));
+  // }
+
+
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
@@ -62,6 +89,9 @@ export class ScanqrPage {
             // start scanning
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
               //alert(text);
+              setTimeout(() => {
+                this.qrScanner.hide();
+              }, 60000);
               if (text.length >= 7) {
                 let alert = this.alertCtrl.create({
                   title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
@@ -69,23 +99,12 @@ export class ScanqrPage {
                 alert.present();
 
                 this.appState.userId = text.substr(0, 7);
-                // this.store.dispatch(new LoadUserDataByQRCode(text));
-                // this.store.dispatch(new LoadUserDataById("4050084"));
-                // this.formDataUser$.subscribe(data => {
-                //   if (data != null) {
-                //     this.userObj = data
-                //     console.log(this.userObj);
-                //     this.storage.set('UserInfo', this.userObj);
-                //   }
 
-                // });
                 setTimeout(() => {
                   alert.dismiss();
-                  // this.navCtrl.push("ConfirmloginPage");
                   this.qrScanner.hide();
                   this.navCtrl.push("ConfirmloginPage")
                 }, 900);
-                // this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
               } else {
                 let alert = this.alertCtrl.create({
                   title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
@@ -94,12 +113,9 @@ export class ScanqrPage {
               }
 
               // this.scanData = text;
-              // let userID = this.scanData.slice(0, 7);
-              // let password = this.scanData.slice(7);
               this.qrScanner.hide(); // hide camera preview
               scanSub.unsubscribe(); // stop scanning
               ionApp.style.display = "block";
-              // this.navCtrl.push('createpassword', { 'userID': userID, 'password': password }, { animate: false });
             });
 
             // show camera preview

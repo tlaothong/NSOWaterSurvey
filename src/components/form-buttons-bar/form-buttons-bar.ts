@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { NavController, AlertController, ViewController } from 'ionic-angular';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getRecieveDataFromBuilding } from '../../states/building';
+import { getProgress } from '../../states/household';
 
 @Component({
   selector: 'form-buttons-bar',
@@ -19,13 +20,17 @@ export class FormButtonsBarComponent {
   @Input("frontNum") public frontNum: any;
   @Input("backNum") public backNum: any;
   @Input("checkFormButtonsForBuilding") public checkFormButtonsForBuilding: boolean;
+
   public unitCount: number;
   private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
 
+  public progress$ = this.store.select(getProgress);
 
-  constructor(public alertCtrl: AlertController, public viewCtrl: ViewController, public navCtrl: NavController, private storeBuild: Store<BuildingState>, private store: Store<HouseHoldState>) {
+
+  constructor(public alertCtrl: AlertController, public viewCtrl: ViewController, public navCtrl: NavController,
+      private storeBuild: Store<BuildingState>, private store: Store<HouseHoldState>) {
     this.text = 'Hello World';
-    this.GetDataFromBuilding$.subscribe(data => this.unitCount = data);
+    this.GetDataFromBuilding$.take(1).subscribe(data => this.unitCount = data);
   }
 
   backToHome() {

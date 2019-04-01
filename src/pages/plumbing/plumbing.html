@@ -101,8 +101,8 @@
                       </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('mwa.plumbingUsage.cubicMeterPerMonth').value > 1000">
-                      <ion-icon md="md-warning"></ion-icon>
-                      <span class="invalid-msg">
+                      <ion-icon md="md-warning" class="warning"></ion-icon>
+                      <span class="warning-msg">
                         กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
                       </span>
                     </ion-item>
@@ -124,8 +124,8 @@
                       </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('mwa.plumbingUsage.waterBill').value > 50000">
-                      <ion-icon md="md-warning"></ion-icon>
-                      <span class="invalid-msg">
+                      <ion-icon md="md-warning" class="warning"></ion-icon>
+                      <span class="warning-msg">
                         กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
                       </span>
                     </ion-item>
@@ -230,11 +230,11 @@
                       </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('pwa.plumbingUsage.cubicMeterPerMonth').value > 1000">
-                      <ion-icon md="md-warning"></ion-icon>
-                      <span class="invalid-msg">
-                          กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
+                      <ion-icon md="md-warning" class="warning"></ion-icon>
+                      <span class="warning-msg">
+                        กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
                       </span>
-                  </ion-item>
+                    </ion-item>
                   </div>
 
                   <div *ngSwitchCase="2">
@@ -253,11 +253,11 @@
                       </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('pwa.plumbingUsage.waterBill').value > 50000">
-                      <ion-icon md="md-warning"></ion-icon>
-                      <span class="invalid-msg">
-                          กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
+                      <ion-icon md="md-warning" class="warning"></ion-icon>
+                      <span class="warning-msg">
+                        กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
                       </span>
-                  </ion-item>
+                    </ion-item>
                   </div>
                 </div>
 
@@ -306,9 +306,8 @@
                   3.3 ปริมาณน้ำประปาที่ใช้เฉลี่ยเดือนละเท่าไร
                 </ion-label>
               </ion-item>
-              <div formGroupName="plumbingUsage">
-                <ion-row radio-group formControlName="waterQuantity"
-                  [class.invalid]="isValid('mwa.plumbingUsage.waterQuantity')">
+              <div formGroupName="plumbingUsage" [class.invalid]="isValid('other.plumbingUsage.waterQuantity')">
+                <ion-row radio-group formControlName="waterQuantity">
                   <ion-item *ngIf="isValid('other.plumbingUsage.waterQuantity')">
                     <span class="invalid-msg">
                       กรุณาเลือก
@@ -360,11 +359,11 @@
                       </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('other.plumbingUsage.cubicMeterPerMonth').value > 1000">
-                      <ion-icon md="md-warning"></ion-icon>
-                      <span class="invalid-msg">
-                          กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
+                      <ion-icon md="md-warning" class="warning"></ion-icon>
+                      <span class="warning-msg">
+                        กรุณาตรวจสอบจำนวนปริมาณน้ำมีเยอะผิดปกติหรือไม่
                       </span>
-                  </ion-item>
+                    </ion-item>
                   </div>
 
                   <div *ngSwitchCase="2">
@@ -383,11 +382,11 @@
                       </span>
                     </ion-item>
                     <ion-item *ngIf="f.get('other.plumbingUsage.cubicMeterPerMonth').value > 50000">
-                      <ion-icon md="md-warning"></ion-icon>
-                      <span class="invalid-msg">
-                          กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
+                      <ion-icon md="md-warning" class="warning"></ion-icon>
+                      <span class="warning-msg">
+                        กรุณาตรวจสอบจำนวนค่าน้ำมีเยอะผิดปกติหรือไม่
                       </span>
-                  </ion-item>
+                    </ion-item>
                   </div>
                 </div>
 
@@ -489,8 +488,8 @@
                 </span>
               </ion-item>
               <ion-item *ngIf="f.get('waterNotRunningCount').value > 12">
-                <ion-icon md="md-warning"></ion-icon>
-                <span class="invalid-msg">
+                <ion-icon md="md-warning" class="warning"></ion-icon>
+                <span class="warning-msg">
                   กรุณาตรวจสอบจำนวนเดือนมีเยอะผิดปกติหรือไม่
                 </span>
               </ion-item>
@@ -501,17 +500,9 @@
       </ion-card>
     </div>
 
-    <ion-card class="invalid-msg" *ngIf="!isCheckWarningBox && submitRequested">
-      <ion-card-header>
-        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
-      </ion-card-header>
-      <ion-card-content>
-        <ion-icon name="warning" item-start></ion-icon>
-        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
-      </ion-card-content>
-    </ion-card>
+    <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar frontNum="{{frontNum}}" backNum="{{backNum}}"></form-buttons-bar>
+    <form-buttons-bar ></form-buttons-bar>
 
   </form>
 

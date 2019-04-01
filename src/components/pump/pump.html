@@ -38,9 +38,10 @@
       <ion-item *ngIf="isValid('hoursPerPump')">
         <span class="invalid-msg">กรุณากรอกข้อมูล</span>
       </ion-item>
-      <ion-item *ngIf="FormItem.get('hoursPerPump').value > 24 || (FormItem.get('hoursPerPump').value < 0.1 &&  FormItem.get('hoursPerPump').value > 0)">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+      <ion-item
+        *ngIf="FormItem.get('hoursPerPump').value > 24 || (FormItem.get('hoursPerPump').value < 0.1 &&  FormItem.get('hoursPerPump').value > 0)">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบระยะเวลาในการสูบน้ำมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
@@ -58,8 +59,8 @@
         <span class="invalid-msg">กรุณากรอกข้อมูล</span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('numberOfPumpsPerYear').value > 365">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบระยะเวลา 1 ปีสูบน้ำกี่ครั้งมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
@@ -98,8 +99,8 @@
             <span class="invalid-msg">กรุณากรอกข้อมูล</span>
           </ion-item>
           <ion-item *ngIf="FormItem.get('pumpRate').value > 50">
-            <ion-icon md="md-warning"></ion-icon>
-            <span class="invalid-msg">
+            <ion-icon md="md-warning" class="warning"></ion-icon>
+            <span class="warning-msg">
               กรุณาตรวจสอบอัตราการสูบน้ำมีเยอะผิดปกติหรือไม่
             </span>
           </ion-item>

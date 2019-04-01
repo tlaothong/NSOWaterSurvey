@@ -47,8 +47,8 @@
         </span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('memberCount').value > 100 ">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบจำนวนครัวเรือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
@@ -67,9 +67,9 @@
           กรุณากรอกข้อมูล
         </span>
       </ion-item>
-      <ion-item *ngIf="FormItem.get('avgSurfaceWaterUse').value > 100 ">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+      <ion-item *ngIf="FormItem.get('avgSurfaceWaterUse').value > 10000 ">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบปริมาณการใช้น้ำผิวดินเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
@@ -89,8 +89,8 @@
         </span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('groundWaterCount').value > 20 ">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบจำนวนบ่อมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>
@@ -110,8 +110,8 @@
         </span>
       </ion-item>
       <ion-item *ngIf="FormItem.get('avgGroundWaterUse').value > 10000 ">
-        <ion-icon md="md-warning"></ion-icon>
-        <span class="invalid-msg">
+        <ion-icon md="md-warning" class="warning"></ion-icon>
+        <span class="warning-msg">
           กรุณาตรวจสอบปริมาณการใช้น้ำบาดาลเฉลี่ยต่อเดือนมีเยอะผิดปกติหรือไม่
         </span>
       </ion-item>

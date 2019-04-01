@@ -82,8 +82,8 @@
             </span>
           </ion-item>
           <ion-item *ngIf="CommunityWaterManagement.get('publicWaterCount').value > 5">
-            <ion-icon md="md-warning"></ion-icon>
-            <span class="invalid-msg">
+            <ion-icon md="md-warning" class="warning"></ion-icon>
+            <span class="warning-msg">
               กรุณาตรวจสอบจำนวนแหล่งน้ำมีเยอะผิดปกติหรือไม่
             </span>
           </ion-item>
@@ -95,7 +95,7 @@
     <div
       *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0 && CommunityWaterManagement.get('hasPublicWater').value ">
       <div *ngFor="let p of CommunityWaterManagement.get('details').controls; let i = index">
-        <detail-water-management [no]="i + 1" [FormItem]="p"></detail-water-management>
+        <detail-water-management [no]="i + 1" [FormItem]="p" [isCommunity] = "true"></detail-water-management>
       </div>
     </div>
 
@@ -232,9 +232,9 @@
                   กรุณากรอกข้อมูล
                 </span>
               </ion-item>
-              <ion-item *ngIf="CommunityWaterManagement.get('waterServiceCount').value > 5 ">
-                <ion-icon md="md-warning"></ion-icon>
-                <span class="invalid-msg">
+              <ion-item *ngIf="CommunityWaterManagement.get('waterServiceCount').value > 5">
+                <ion-icon md="md-warning" class="warning"></ion-icon>
+                <span class="warning-msg">
                   กรุณาตรวจสอบจำนวนแหล่งผลิตมีเยอะผิดปกติหรือไม่
                 </span>
               </ion-item>
@@ -346,15 +346,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="invalid-msg" *ngIf="!isCheckWarningBox && submitRequested">
-      <ion-card-header>
-        กรุณาตรวจสอบข้อมูลในแบบสำรวจ
-      </ion-card-header>
-      <ion-card-content>
-        <ion-icon name="warning" item-start></ion-icon>
-        ไม่สามารถบันทึกข้อมูลในฟอร์มสำรวจได้ โปรดตรวจแก้ไขข้อผิดพลาดด้านบนให้เรียบร้อยแล้วลองบันทึกอีกครั้ง
-      </ion-card-content>
-    </ion-card> 
+    <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
     <form-buttons-bar></form-buttons-bar>
   </form>

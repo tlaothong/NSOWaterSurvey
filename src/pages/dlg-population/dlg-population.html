@@ -55,10 +55,16 @@
     <ion-item>
       <ion-label>3) ชื่อสกุล</ion-label>
     </ion-item>
-    <ion-item>
-      <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="lastName" [class.invalid]="isValid('lastName')">
-      </ion-input>
-    </ion-item>
+    <ion-row>
+      <ion-item>
+        <ion-input type="text" placeholder="กรอกข้อมูล" formControlName="lastName"
+          [class.invalid]="isValid('lastName')">
+        </ion-input>
+        <button ion-button clear icon-only (click)="showActionSheet()" type="button" color="dark" item-end>
+          <ion-icon name='md-star-outline'></ion-icon>
+        </button>
+      </ion-item>
+    </ion-row>
     <ion-item *ngIf="isValid('lastName')">
       <span class="invalid-msg">กรุณากรอกข้อมูล</span>
     </ion-item>
@@ -163,7 +169,7 @@
       && (FormItem.get('birthMonth').value == 2)">
         <span class="invalid-msg">วันเกิดและเดือนเกิดไม่สัมพันธ์กัน</span>
       </ion-item>
-      
+
       <ion-item [class.invalid]="isValid('birthMonth')">
         <ion-label>เดือน</ion-label>
         <ion-select interface="action-sheet" formControlName="birthMonth" (ionChange)="CalculateAge()">
@@ -334,15 +340,15 @@
 
     <ion-item
       *ngIf="(FormItem.get('relationship').value == 1) && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         หัวหน้าครัวเรือนต้องมีอายุ 13 ปีขึ้นไป
       </span>
     </ion-item>
     <ion-item
       *ngIf="FormItem.get('relationship').value == 2 && ((FormItem.get('age').value < 13 )&& (FormItem.get('age').value != null))">
-      <ion-icon md="md-warning"></ion-icon>
-      <span class="invalid-msg">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
         กรุณาตรวจสอบอายุของภรรยาหรือสามี
       </span>
     </ion-item>

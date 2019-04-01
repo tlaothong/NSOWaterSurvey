@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class SearchDropdownPage {
   public type: string;
   public limit: number;
+  public textTitle: string;
   public treeDisplay = '';
   public searchDisplay: Array<any>;
   public searchTerm: string;
@@ -22,6 +23,7 @@ export class SearchDropdownPage {
     this.treeDisplay = navParams.get('title');
     this.listData = navParams.get('selected');
     this.searchListData = navParams.get('list');
+    this.textTitle = navParams.get('textTitle');
     this.searchTerm = "";
     this.setFilteredItems();
   }
