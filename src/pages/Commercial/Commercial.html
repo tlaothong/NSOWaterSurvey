@@ -46,11 +46,10 @@
                         4.3 ประเภทบ้าน/อาคาร/สิ่งปลูกสร้าง
                     </ion-label>
                 </ion-item>
-                <ion-item>
+                <ion-item [class.invalid]="isValid('buildingCode')">
                     <ion-label>
                         เลือกประเภท
                     </ion-label>
-
                     <ion-select formControlName="buildingCode" interface="action-sheet" [disabled]="numberRoom">
                         <ion-option [value]="1">
                             1.บ้านเดี่ยว
@@ -101,6 +100,11 @@
                             16.อื่นๆ
                         </ion-option>
                     </ion-select>
+                </ion-item>
+                <ion-item *ngIf="isValid('buildingCode')">
+                    <span class="invalid-msg">
+                        กรุณาเลือก
+                    </span>
                 </ion-item>
                 <ion-item text-right *ngIf="f.get('buildingCode').value == 16">
                     {{ otherBuildingType }}
@@ -412,7 +416,7 @@
 
         <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-        <form-buttons-bar ></form-buttons-bar>
+        <form-buttons-bar></form-buttons-bar>
 
     </form>
 </ion-content>
