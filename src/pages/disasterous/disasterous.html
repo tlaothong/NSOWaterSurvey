@@ -77,59 +77,66 @@
               </ion-col>
             </ion-row>
 
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2561" [FormItem]="Disasterous.get('yearsDisasterous').at(0)">
-                </table-disasterous>
-              </ion-col>
-              <ion-col col-1>
-                <button ion-button color="danger" type="button"  (click)="deleteData(0)">ลบ</button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2560" [FormItem]="Disasterous.get('yearsDisasterous').at(1)">
-                </table-disasterous>
-              </ion-col>
-              <ion-col col-1>
-                <button ion-button color="danger" type="button"  (click)="deleteData(1)">ลบ</button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2559" [FormItem]="Disasterous.get('yearsDisasterous').at(2)">
-                </table-disasterous>
-              </ion-col>
-              <ion-col col-1>
-                <button ion-button color="danger" type="button"  (click)="deleteData(2)">ลบ</button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2558" [FormItem]="Disasterous.get('yearsDisasterous').at(3)">
-                </table-disasterous>
-              </ion-col>
-              <ion-col col-1>
-                <button ion-button color="danger" type="button"  (click)="deleteData(3)">ลบ</button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2557" [FormItem]="Disasterous.get('yearsDisasterous').at(4)">
-                </table-disasterous>
-              </ion-col>
-              <ion-col col-1>
-                <button ion-button color="danger" type="button" (click)="deleteData(4)">ลบ</button>
-              </ion-col>
-            </ion-row>
+            <div [class.invalid]="isValid('isCheckTableDisasterous')">
+              <ion-item *ngIf="isValid('isCheckTableDisasterous')">
+                <span class="invalid-msg">
+                  กรุณากรอกข้อมูล
+                </span>
+              </ion-item>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2561" [FormItem]="Disasterous.get('yearsDisasterous').at(0)">
+                  </table-disasterous>
+                </ion-col>
+                <ion-col col-1>
+                  <button ion-button color="danger" type="button" (click)="deleteData(0)">ลบ</button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2560" [FormItem]="Disasterous.get('yearsDisasterous').at(1)">
+                  </table-disasterous>
+                </ion-col>
+                <ion-col col-1>
+                  <button ion-button color="danger" type="button" (click)="deleteData(1)">ลบ</button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2559" [FormItem]="Disasterous.get('yearsDisasterous').at(2)">
+                  </table-disasterous>
+                </ion-col>
+                <ion-col col-1>
+                  <button ion-button color="danger" type="button" (click)="deleteData(2)">ลบ</button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2558" [FormItem]="Disasterous.get('yearsDisasterous').at(3)">
+                  </table-disasterous>
+                </ion-col>
+                <ion-col col-1>
+                  <button ion-button color="danger" type="button" (click)="deleteData(3)">ลบ</button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2557" [FormItem]="Disasterous.get('yearsDisasterous').at(4)">
+                  </table-disasterous>
+                </ion-col>
+                <ion-col col-1>
+                  <button ion-button color="danger" type="button" (click)="deleteData(4)">ลบ</button>
+                </ion-col>
+              </ion-row>
+            </div>
           </ion-card-content>
         </ion-card>
       </div>
     </div>
 
-    <warning *ngIf="!isCheckWarningBox && submitRequested"></warning> 
+    <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar ></form-buttons-bar>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>

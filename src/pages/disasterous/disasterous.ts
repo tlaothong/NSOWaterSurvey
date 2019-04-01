@@ -46,7 +46,7 @@ export class DisasterousPage {
   }
 
   ionViewDidLoad() {
-    
+
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.Disasterous.patchValue(data.disaster)
@@ -90,7 +90,7 @@ export class DisasterousPage {
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(20));
@@ -139,6 +139,10 @@ export class DisasterousPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
+    var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
+    if (name == 'isCheckTableDisasterous') {
+      return !isCheckTableDisasterous && this.submitRequested;
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }
