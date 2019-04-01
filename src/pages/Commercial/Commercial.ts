@@ -180,7 +180,7 @@ export class CommercialPage {
       if (buildingCode.value == 4 && personnelCountBuilding.value < 1) {
         return { 'personnelCountBuilding': true };
       }
-      if (buildingCode.value == 10 && peopleCount.value < 0 || peopleCount.value == null || peopleCount.value.trim() == '' ) {
+      if (buildingCode.value == 10 && (peopleCount.value < 0 || peopleCount.value == null || peopleCount.value.trim() == '')) {
         return { 'peopleCount': true };
       }
       if ((buildingCode.value == 1 || buildingCode.value == 2 || buildingCode.value == 3
