@@ -44,7 +44,16 @@ export class BuildingEffects {
         tap((action: NewBuilding) => {
             this.appState.buildingId = '';
         }),
-        switchMap((action: NewBuilding) => [ new SaveBuildingSuccess(null),
+        switchMap((action: NewBuilding) => [ new SaveBuildingSuccess({
+            _id: '',
+            accessCount: 0,
+            ea: this.appState.eaCode,
+            houseNo: null,
+            name: null,
+            status: null,
+            unitCount: null,
+            accesses: [],
+        }),
             new LoadHouseHoldList('no-building') ]),
     );
 
