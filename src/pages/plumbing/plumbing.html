@@ -399,7 +399,7 @@
     </div>
 
     <div
-      *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true">
+      *ngIf="(residenceUse$ | async) == true || (gardeningUse$ | async) == true || (agricultureUse$ | async) == true || (factoryUse$ | async) == true || (commerceUse$ | async) == true">
       <div *ngIf="f.get('mwa.doing').value == 1 || f.get('pwa.doing').value == 1 || f.get('other.doing').value == 1">
         <h5>5.1.2 ใช้น้ำเพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร</h5>
       </div>

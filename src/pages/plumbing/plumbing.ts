@@ -14,6 +14,7 @@ import { subDistrictData } from '../../models/SubDistrictData';
 import { Storage } from '@ionic/storage';
 import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -33,15 +34,15 @@ export class PlumbingPage {
   // private formData: any;
 
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
-  public gardeningUse: boolean;
+  // public gardeningUse: boolean;
   private commerceUse$ = this.store.select(getIsCommercial);
-  public commerceUse: boolean;
+  // public commerceUse: boolean;
   private factoryUse$ = this.store.select(getIsFactorial);
-  public factoryUse: boolean;
+  // public factoryUse: boolean;
   private residenceUse$ = this.store.select(getIsHouseHold);
-  public residenceUse: boolean;
+  // public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
-  public agricultureUse: boolean;
+  // public agricultureUse: boolean;
   private activityResidential$ = this.store.select(getWaterSourcesResidential);
   private activityResidential: any;
   private activityWateringRes$ = this.store.select(getWateringResidential);
@@ -116,33 +117,74 @@ export class PlumbingPage {
     //   }
     // })
 
-    this.gardeningUse$.subscribe(data => this.gardeningUse = data);
-    this.commerceUse$.subscribe(data => this.commerceUse = data);
-    this.factoryUse$.subscribe(data => this.factoryUse = data);
-    this.residenceUse$.subscribe(data => this.residenceUse = data);
-    this.agricultureUse$.subscribe(data => this.agricultureUse = data);
-    this.activityResidential$.subscribe(data => {
-      this.activityResidential = (data != null) ? data.plumbing : null;
-    });
-    this.activityWateringRes$.subscribe(data => {
-      this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
-    });
-    this.activityAgiculture$.subscribe(data => {
-      this.activityAgiculture = (data != null) ? data.plumbing : null;
-    });
-    this.activityFactory$.subscribe(data => {
-      this.activityFactory = (data != null) ? data.plumbing : null;
-    });
-    this.activityCommercial$.subscribe(data => {
-      this.activityCommercial = (data != null) ? data.plumbing : null;
-    });
-    this.changeValueActivity();
+    // this.gardeningUse$.subscribe(data => this.gardeningUse = data);
+    // this.commerceUse$.subscribe(data => this.commerceUse = data);
+    // this.factoryUse$.subscribe(data => this.factoryUse = data);
+    // this.residenceUse$.subscribe(data => this.residenceUse = data);
+    // this.agricultureUse$.subscribe(data => this.agricultureUse = data);
 
-    var cwtamptam = this.appState.eaCode.substr(1, 6);
-    console.log(cwtamptam);
-    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(cwtamptam));
-    this.MWA = this.subDistrict.MWA;
-    this.PWA = this.subDistrict.PWA;
+    Observable.combineLatest(
+      this.activityResidential$,
+      this.activityWateringRes$,
+      this.activityAgiculture$,
+      this.activityFactory$,
+      this.activityCommercial$,
+      this.formData$
+    ).map(([res, garden, agri, fac, commerce, hh]) => {
+      return {
+        residential: res ? res.plumbing : null,
+        gardening: garden ? garden : null,
+        agriculture: agri ? agri.plumbing : null,
+        factorial: fac ? fac.plumbing : null,
+        commercial: commerce ? commerce.plumbing : null,
+        subUnit: hh.subUnit,
+      };
+    }).take(1).subscribe(it => {
+      this.activityResidential = it.residential;
+      this.activityWateringRes = it.gardening;
+      this.activityAgiculture = it.agriculture;
+      this.activityFactory = it.factorial;
+      this.activityCommercial = it.commercial;
+
+      var cwtamptam = this.appState.eaCode.substr(1, 6);
+      console.log(cwtamptam);
+      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(cwtamptam));
+      this.MWA = this.subDistrict.MWA;
+      this.PWA = this.subDistrict.PWA;
+
+      const subUnit = it.subUnit;  
+      if (subUnit && subUnit.hasPlumbingMeter == false) {
+        const pwa = this.f.get('pwa.plumbingUsage.waterQuantity');
+        const mwa = this.f.get('mwa.plumbingUsage.waterQuantity');
+        const owa = this.f.get('other.plumbingUsage.waterQuantity');
+
+        if (this.PWA)
+          pwa.setValue(3);
+        if (this.MWA)
+          mwa.setValue(3);
+          
+        owa.setValue(3);
+      }
+
+      this.changeValueActivity();
+    });
+    // this.activityResidential$.subscribe(data => {
+    //   this.activityResidential = (data != null) ? data.plumbing : null;
+    // });
+    // this.activityWateringRes$.subscribe(data => {
+    //   this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
+    // });
+    // this.activityAgiculture$.subscribe(data => {
+    //   this.activityAgiculture = (data != null) ? data.plumbing : null;
+    // });
+    // this.activityFactory$.subscribe(data => {
+    //   this.activityFactory = (data != null) ? data.plumbing : null;
+    // });
+    // this.activityCommercial$.subscribe(data => {
+    //   this.activityCommercial = (data != null) ? data.plumbing : null;
+    // });
+
+
     // this.getIdHomes$.subscribe(data => {
     //   this.getIdHomes = data
     //   console.log(this.getIdHomes);
