@@ -55,7 +55,7 @@ export class CommunityEffects {
     public newCommunity$: Observable<Action> = this.action$.pipe(
         ofType(CommunityTypes.NewCommunity),
         tap((action: NewCommunity) => {
-            this.appState.communityId = '';
+            this.appState.communityId = null;
         }),
         map((action: NewCommunity) => new SaveCommunitySuccess({
             _id: null,
