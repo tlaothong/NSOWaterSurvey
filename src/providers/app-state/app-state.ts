@@ -21,6 +21,8 @@ export class AppStateProvider {
   public eaCode: string;
   public buildingId: string;
 
+  public communityId: string;
+
   public houseHoldUnit: HouseHoldUnit;
 
   /**

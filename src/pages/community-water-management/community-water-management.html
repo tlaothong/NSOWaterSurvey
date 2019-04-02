@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <h1><b>ตอนที่ 1 การจัดการน้ำในหมู่บ้าน/ชุมชน</b></h1>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="CommunityWaterManagement">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="CommunityWaterManagement" [rx-form-data]="(formData$ | async)?.management">
 
     <ion-card>
       <ion-card-content>
