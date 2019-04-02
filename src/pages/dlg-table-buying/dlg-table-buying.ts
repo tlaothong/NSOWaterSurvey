@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 
@@ -19,7 +19,7 @@ export class DlgTableBuyingPage {
   public getIsFactorial: any;
   public getIsCommercial: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private fb: FormBuilder, public alertController: AlertController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("headline");
     this.size = navParams.get("size");
@@ -32,10 +32,6 @@ export class DlgTableBuyingPage {
     const datain = navParams.get('FormItem') as FormGroup;
     this.FormItem.setValue(datain.value);
     console.log(this.getIsHouseHold);
-
-
-    
-
   }
 
   public closeDialog() {
@@ -51,14 +47,14 @@ export class DlgTableBuyingPage {
     if (this.getIsHouseHold == 'false') {
       this.FormItem.get('drink').setValue(0);
     }
-    if(this.getIsAgriculture == 'false'){
+    if (this.getIsAgriculture == 'false') {
       this.FormItem.get('agriculture').setValue(0);
     }
-    if(this.getIsFactorial == 'false'){
+    if (this.getIsFactorial == 'false') {
 
       this.FormItem.get('factory').setValue(0);
     }
-    if(this.getIsCommercial == 'false'){
+    if (this.getIsCommercial == 'false') {
       this.FormItem.get('service').setValue(0);
     }
     console.log(this.FormItem.value);
@@ -70,6 +66,33 @@ export class DlgTableBuyingPage {
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.dirty);
+  }
+
+  presentAlertPopulation() {
+    const alert = this.alertController.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.FormItem.reset();
+            this.FormItem.get('size').setValue(this.size);
+            this.okDialog();
+          }
+        },
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  deleteData() {
+    this.presentAlertPopulation();
+    
   }
 
 }

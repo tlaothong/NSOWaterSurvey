@@ -46,7 +46,7 @@ export class DisasterousPage {
   }
 
   ionViewDidLoad() {
-    
+
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.Disasterous.patchValue(data.disaster)
@@ -90,7 +90,7 @@ export class DisasterousPage {
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(20));
@@ -111,34 +111,38 @@ export class DisasterousPage {
     this.submitRequested = true;
   }
 
-  presentAlertDisater(num) {
-    const alert = this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
-      buttons: [
-        {
-          text: 'ยืนยัน',
-          handler: data => {
-            let test = this.Disasterous.get('yearsDisasterous') as FormArray;
-            test.at(num).reset();
-          }
-        },
-        {
-          text: 'ยกเลิก',
-          handler: data => {
+  // presentAlertDisater(num) {
+  //   const alert = this.alertController.create({
+  //     title: 'ต้องการจะลบใช่หรือไม่',
+  //     buttons: [
+  //       {
+  //         text: 'ยืนยัน',
+  //         handler: data => {
+  //           let test = this.Disasterous.get('yearsDisasterous') as FormArray;
+  //           test.at(num).reset();
+  //         }
+  //       },
+  //       {
+  //         text: 'ยกเลิก',
+  //         handler: data => {
 
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   alert.present();
+  // }
 
-  deleteData(num: number) {
-    this.presentAlertDisater(num);
-  }
+  // deleteData(num: number) {
+  //   this.presentAlertDisater(num);
+  // }
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
+    var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
+    if (name == 'isCheckTableDisasterous') {
+      return !isCheckTableDisasterous && this.submitRequested;
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 }
