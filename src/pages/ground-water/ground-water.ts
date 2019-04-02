@@ -60,7 +60,7 @@ export class GroundWaterPage {
   private frontNum: any;
   private backNum: any;
   public checked: boolean;
-  public isCheckWarnBox: boolean;
+  public isCheckWarningBox: boolean;
 
   public static checkActivityResidential: any;
   public static checkActivityWateringRes: any;
@@ -172,7 +172,7 @@ export class GroundWaterPage {
     console.log(this.isCheckBoth());
     console.log(this.isCheckActivity());
 
-    this.isCheckWarnBox = this.isCheck();
+    this.isCheckWarningBox = this.isCheck();
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
       // this.store.dispatch(new SetHouseHold(this.formData));
