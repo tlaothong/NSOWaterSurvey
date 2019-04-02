@@ -4,14 +4,12 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { getCommunitySample, getSetCommunity } from '../../states/community';
-import { SetNextPageDirection } from '../../states/household/household.actions';
-import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
-import { SetCommunity } from '../../states/community/community.actions';
-import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
-import { Storage } from '@ionic/storage';
 import { CountComponent } from '../../components/count/count';
+import { map } from 'rxjs/operators';
+import { getCommunitySample } from '../../states/community';
+import { SaveCommunity } from '../../states/community/community.actions';
+import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -30,18 +28,19 @@ export class ManagementForFarmingPage {
 
   // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
 
-  // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.communityProject));
+  private formData$ = this.store.select(getCommunitySample);
   // private dataCommunuty$ = this.store.select(getSetCommunity);
-  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
-  private DataStoreWorkEaOneRecord: any;
+  // private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  // private DataStoreWorkEaOneRecord: any;
 
-  private getSetCommunity$ = this.store.select(getSetCommunity);
+  // private getSetCommunity$ = this.store.select(getSetCommunity);
   public getSetCommunity: FormGroup;
 
   private formData: any;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, 
-      private storage: Storage, public navParams: NavParams, public fb: FormBuilder, 
-      private store: Store<CommunityState>, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, 
+    public fb: FormBuilder, private store: Store<CommunityState>, private alertCtrl: AlertController,
+    private appState: AppStateProvider) {
+    this.formData = CommunityWaterManagementPage.CreateMainFormGroup(fb);
     this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
     this.setupprojectcountChanges();
   }
@@ -57,13 +56,13 @@ export class ManagementForFarmingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagementForFarmingPage');
-    this.formData = this.navParams.get('formData');
-    console.log("ก่อนส่ง: ", this.formData);
+    // console.log('ionViewDidLoad ManagementForFarmingPage');
+    // this.formData = this.navParams.get('formData');
+    // console.log("ก่อนส่ง: ", this.formData);
 
-    if (this.formData.communityProject) {
-      this.managementforfarming.setValue(this.formData.communityProject)
-    }
+    // if (this.formData.communityProject) {
+    //   this.managementforfarming.setValue(this.formData.communityProject)
+    // }
 
   }
 
@@ -72,35 +71,42 @@ export class ManagementForFarmingPage {
     this.detailManagementForFarming.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.formData.status = "done-all"
-    this.formData.communityProject = this.managementforfarming.value;
+    this.formData.get('communityProject').setValue(this.managementforfarming.value);
     this.isCheckWarningBox = this.managementforfarming.valid;
     if (this.managementforfarming.valid) {
       console.log("ewfew");
+      let originalCommunity = this.appState.communityData;
+      let newCommunity = {
+        ...originalCommunity,
+        communityProject: this.managementforfarming.value,
+      };
+      console.log(newCommunity);
+      
+      this.store.dispatch(new SaveCommunity(newCommunity))
+      // let key = this.formData._id
+      // this.storage.set(key, this.formData)
 
-      let key = this.formData._id
-      this.storage.set(key, this.formData)
-
-      let keyEA = "CL" + this.formData.ea
-      this.storage.get(keyEA).then((data) => {
-        let listBD = data
-        if (listBD != null) {
-          let fin = listBD.find(it => it._id == key)
-          if (fin == null) {
-            listBD.push(this.formData)
-            this.storage.set(keyEA, listBD)
-          } else {
-            let index = listBD.findIndex(it => it._id == key)
-            listBD.splice(index, 1, this.formData);
-            // listBD.push(this.formData);
-            this.storage.set(keyEA, listBD)
-          }
-        } else {
-          listBD = []
-          listBD.push(this.formData)
-          this.storage.set(keyEA, listBD)
-        }
-      })
-      console.log("หลังส่ง: ", this.formData);
+      // let keyEA = "CL" + this.formData.ea
+      // this.storage.get(keyEA).then((data) => {
+      //   let listBD = data
+      //   if (listBD != null) {
+      //     let fin = listBD.find(it => it._id == key)
+      //     if (fin == null) {
+      //       listBD.push(this.formData)
+      //       this.storage.set(keyEA, listBD)
+      //     } else {
+      //       let index = listBD.findIndex(it => it._id == key)
+      //       listBD.splice(index, 1, this.formData);
+      //       // listBD.push(this.formData);
+      //       this.storage.set(keyEA, listBD)
+      //     }
+      //   } else {
+      //     listBD = []
+      //     listBD.push(this.formData)
+      //     this.storage.set(keyEA, listBD)
+      //   }
+      // })
+      // console.log("หลังส่ง: ", this.formData);
       this.navCtrl.popToRoot();
     } else {
       const doing = this.managementforfarming.get('doing').value;

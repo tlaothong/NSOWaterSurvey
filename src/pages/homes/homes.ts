@@ -4,19 +4,18 @@ import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit, LoadCommunityForEditSuccess } from '../../states/logging/logging.actions';
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
-import { SwithStateProvider } from '../../providers/swith-state/swith-state';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
-import { LoadUnitByIdBuildingSuccess } from '../../states/household/household.actions';
-import { shiftInitState } from '@angular/core/src/view';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getBuildingList } from '../../states/building';
-import { BuildingInList } from '../../models/mobile/MobileModels';
+import { BuildingInList, CommunityInList } from '../../models/mobile/MobileModels';
+import { CommunityState } from '../../states/community/community.reducer';
+import { SetCurrentWorkingCommunity, NewCommunity, DeleteCommunity } from '../../states/community/community.actions';
+import { getCommunityList } from '../../states/community';
 
 
 
@@ -38,9 +37,9 @@ export class HomesPage {
   // public num: string = "1";
   public listFilter: any;
   private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
-  private dataBuilding$ = this.storeLogging.select(getHomeBuilding);
-  private dataCommunity$ = this.storeLogging.select(getLoadCommunity);
-  private dataCommunity: any;
+  private dataBuilding$ = this.storeBuild.select(getHomeBuilding);
+  private dataCommunity$ = this.storeCom.select(getCommunityList);
+  // private dataCommunity: any;
   public statusEa: any = 1;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
@@ -53,12 +52,12 @@ export class HomesPage {
 
   public listMode: string = "recent";
 
-  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder, private storage: Storage, 
-      public alertController: AlertController, public navCtrl: NavController, 
-      public navParams: NavParams, private popoverCtrl: PopoverController, 
-      private store: Store<BootupState>, private storeLogging: Store<LoggingState>, 
-      private swith: SwithStateProvider, private storeBuild: Store<BuildingState>, 
-      private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder, private storage: Storage,
+    public alertController: AlertController, public navCtrl: NavController,
+    public navParams: NavParams, private popoverCtrl: PopoverController,
+    private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
+    private storeCom: Store<CommunityState>, private storeBuild: Store<BuildingState>,
+    private appState: AppStateProvider) {
     this.initializeItems();
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
@@ -90,12 +89,12 @@ export class HomesPage {
 
     let eaCode = this.appState.eaCode;
 
-    this.storage.get("CL" + eaCode).then((val) => {
-      if (val != null) {
-        this.dataCommunity = val
-        console.log(this.dataCommunity);
-      }
-    })
+    // this.storage.get("CL" + eaCode).then((val) => {
+    //   if (val != null) {
+    //     this.dataCommunity = val
+    //     console.log(this.dataCommunity);
+    //   }
+    // })
   }
   presentLoading() {
     const loader = this.loadingCtrl.create({
@@ -147,9 +146,9 @@ export class HomesPage {
       this.storeBuild.dispatch(new NewBuilding());
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.office == 'areayoi') {
-      let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
-      this.storeLogging.dispatch(new LoadCommunityForEditSuccess(null));
-      this.navCtrl.push("CommunityTestPage", { id: null, no: no.toString() })
+      // let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
+      this.storeCom.dispatch(new NewCommunity());
+      this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: null })
     }
   }
 
@@ -186,6 +185,13 @@ export class HomesPage {
     // this.presentLoading();
   }
 
+  goEditCommunityInfo(item: CommunityInList) {
+    console.log(item.communityId);
+    
+    this.storeCom.dispatch(new SetCurrentWorkingCommunity(item.communityId));
+    this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: item.communityId })
+  }
+
   async presentAlertBD(item) {
     const alert = await this.alertController.create({
       title: 'ต้องการจะลบใช่หรือไม่',
@@ -207,33 +213,14 @@ export class HomesPage {
     await alert.present();
   }
 
-  async presentAlertCM(id) {
+  async presentAlertCM(item) {
     const alert = await this.alertController.create({
       title: 'ต้องการจะลบใช่หรือไม่',
       buttons: [
         {
           text: 'ยืนยัน',
           handler: data => {
-            console.log(id);
-            console.log("CL" + this.appState.eaCode);
-            this.storage.get("CL" + this.appState.eaCode).then((val) => {
-              if (val != null) {
-                let list = val
-                let index = list.findIndex(it => it._id == id)
-                list.splice(index, 1)
-                if (val == []) {
-                  this.storage.remove("CL" + this.appState.eaCode);
-                }
-                this.storage.set("CL" + this.appState.eaCode, list)
-              }
-            });
-            this.storage.remove(id);
-            this.storage.get("CL" + this.appState.eaCode).then((val) => {
-              if (val != null) {
-                this.dataCommunity = val
-              }
-            })
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            this.storeCom.dispatch(new DeleteCommunity(item))
           }
         },
         {

@@ -9,7 +9,7 @@
 
   <h1><b>ตอนที่ 2 โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ</b></h1>
 
-  <form (ngSubmit)="handleSubmit()" [formGroup]="managementforfarming">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="managementforfarming" [rx-form-data]="(formData$ | async)?.communityProject">
     <ion-card>
       <ion-card-content>
         <ion-item>

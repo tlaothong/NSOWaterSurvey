@@ -8,16 +8,13 @@ import { DisasterWarningMethodsComponent } from '../../components/disaster-warni
 import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { SetCommunity } from '../../states/community/community.actions';
-import { getStoreWorkEaOneRecord, getLoadCommunityForEdit } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getCommunitySample } from '../../states/community';
-import { LoadCommunityForEdit } from '../../states/logging/logging.actions';
-import { Guid } from 'guid-typescript';
 import { Storage } from '@ionic/storage';
 import { subDistrictData } from '../../models/SubDistrictData';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
+import { SaveCommunity } from '../../states/community/community.actions';
 
 @IonicPage()
 @Component({
@@ -36,23 +33,27 @@ export class CommunityWaterManagementPage {
   public CommunityWaterManagement: FormGroup;
   private submitRequested: boolean;
 
-  // private formData$ = this.store.select(getCommunitySample).pipe(map(s => s.management));
-  private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s));
+  private formData$ = this.store.select(getCommunitySample);
+  // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s));
   private formDataCom: FormGroup;
-  private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
-  private DataStoreWorkEaOneRecord: any;
+  // private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
+  // private DataStoreWorkEaOneRecord: any;
   public id: string;
 
   // private getIdHomes$ = this.store.select(getIdEsWorkHomes);
-  private getIdHomes: any;
+  // private getIdHomes: any;
   public subDistrict: any;
   public MWA: boolean;
   public PWA: boolean;
-  public isCheckWarningBox : boolean;
-  public isCommunity : boolean;
+  public isCheckWarningBox: boolean;
+  public isCommunity: boolean;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, private store: Store<LoggingState>, private appState: AppStateProvider) {
-    this.id = this.navParams.get('id')
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController,
+    private storage: Storage, public navParams: NavParams, private fb: FormBuilder,
+    private storeCom: Store<CommunityState>, private store: Store<LoggingState>,
+    private appState: AppStateProvider) {
+    this.id = this.navParams.get('id');
+    this.formDataCom = CommunityWaterManagementPage.CreateMainFormGroup(fb);
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
     this.setupPublicWaterCountChanges();
     this.setupWaterServiceCountChanges();
@@ -81,29 +82,40 @@ export class CommunityWaterManagementPage {
       });
   }
 
-  ionViewDidLoad() {
-    this.formDataCom = this.fb.group({
-      '_id': [null],
-      'ea': [null],
+  public static CreateMainFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      '_id': null,
+      'ea': null,
       'management': null,
-      'communityProject': [null],
+      'communityProject': null,
       'status': null
-    })
-
-    this.formDataCom$.subscribe(data => {
-      if (data != null) {
-        this.formDataCom.setValue(data);
-        this.CommunityWaterManagement.setValue(data.management);
-      }
     });
+  };
 
-    this.DataStoreWorkEaOneRecord$.subscribe(data => {
-      if (data != null) {
-        this.DataStoreWorkEaOneRecord = data;
-        console.log(this.DataStoreWorkEaOneRecord);
+  ionViewDidLoad() {
 
-      }
-    });
+    // this.formDataCom = this.fb.group({
+    //   '_id': null,
+    //   'ea': null,
+    //   'management': null,
+    //   'communityProject': null,
+    //   'status': null
+    // })
+
+    // this.formDataCom$.subscribe(data => {
+    //   if (data != null) {
+    //     this.formDataCom.setValue(data);
+    //     this.CommunityWaterManagement.setValue(data.management);
+    //   }
+    // });
+
+    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
+    //   if (data != null) {
+    //     this.DataStoreWorkEaOneRecord = data;
+    //     console.log(this.DataStoreWorkEaOneRecord);
+
+    //   }
+    // });
 
     var cwtamptam = this.appState.eaCode.substr(1, 6);
     console.log(cwtamptam);
@@ -117,29 +129,6 @@ export class CommunityWaterManagementPage {
       this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
     }
 
-    // this.getIdHomes$.subscribe(data => {
-    //   this.getIdHomes = data
-    //   console.log(this.getIdHomes);
-
-    //   this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
-    //   console.log(this.subDistrict);
-
-    //   this.MWA = this.subDistrict.MWA;
-    //   this.PWA = this.subDistrict.PWA;
-    //   if (this.MWA == false) {
-    //     this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
-    //   }
-    //   if (this.PWA == false) {
-    //     this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
-    //   }
-    // })
-
-
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.CommunityWaterManagement.setValue(data)
-    //   }
-    // });
   }
 
   private setupPublicWaterCountChanges() {
@@ -209,63 +198,28 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
+    this.formDataCom.setValue(this.appState.communityData);
 
-    if (this.formDataCom.get('_id').value == null) {
-      this.formDataCom.get('_id').setValue(Guid.create().toString());
+    if (this.formDataCom.get('_id').value == null || this.formDataCom.get('_id').value == '') {
+      this.formDataCom.get('_id').setValue(this.appState.generateId('com'));
     }
 
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
     this.formDataCom.get('ea').setValue(this.appState.eaCode);
     this.formDataCom.get('status').setValue("pause");
+
     if (this.CommunityWaterManagement.get('otherPlumbing').value == false) {
       this.CommunityWaterManagement.get('hasWaterService').setValue(null);
       this.CommunityWaterManagement.get('waterServiceCount').setValue(null);
     }
 
-    // console.log("checkValid " + this.checkValid());
-    // console.log("checkPublicWater " + this.checkPublicWater());
-    // console.log("checkWater " + this.checkWater());
-    // console.log("checkOtherWater " + this.checkOtherWater());
-    // console.log("checkHas" + this.checkHas());
-    // console.log("checkHasDisaster"  + this.checkHasDisaster());
-    // console.log("checkHasDisasterWarning " + this.checkHasDisasterWarning());
-
     this.isCheckWarningBox = this.checkValid();
 
     if (this.checkValid()) {
-      let key = this.formDataCom.get('_id').value
-      this.storage.set(key, this.formDataCom.value)
 
-      console.log(this.formDataCom.value);
+      this.storeCom.dispatch(new SaveCommunity(this.formDataCom.value));
 
-      let keyEA = "CL" + this.formDataCom.get('ea').value
-      this.storage.get(keyEA).then((data) => {
-        console.log(data);
-
-        let listBD = data
-        if (listBD != null) {
-          let fin = listBD.find(it => it._id == key)
-          if (fin == null) {
-            console.log("1");
-
-            listBD.push(this.formDataCom.value)
-            this.storage.set(keyEA, listBD)
-          } else {
-            console.log("2");
-            let index = listBD.findIndex(it => it._id == key)
-            listBD.splice(index, 1, this.formDataCom.value);
-            // listBD.push(this.formDataCom.value);
-            this.storage.set(keyEA, listBD)
-          }
-        } else {
-          console.log("3");
-          listBD = []
-          listBD.push(this.formDataCom.value)
-          this.storage.set(keyEA, listBD)
-        }
-      })
-
-      this.navCtrl.push("ManagementForFarmingPage", { formData: this.formDataCom.value });
+      this.navCtrl.push("ManagementForFarmingPage");
     }
   }
 
@@ -283,7 +237,7 @@ export class CommunityWaterManagementPage {
   public checkPublicWater(): boolean {
     let isCheckDetail = this.detailWaterManagement.find(it => it.FormItem.invalid) ? false : true;
     console.log(isCheckDetail);
-    
+
     return (this.CommunityWaterManagement.get('hasPublicWater').value) ? isCheckDetail : true;
   }
 

@@ -187,22 +187,22 @@
       </ion-row>
 
       <hr>
-      <div *ngFor="let itemCom of dataCommunity; let i=index">
+      <div *ngFor="let itemCom of dataCommunity$ | async; let i=index">
         <ion-row text-center align-items-center>
-          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id,i+1)">
+          <ion-col col-1 (click)="goEditCommunityInfo(itemCom)">
             <ion-icon disabled="false" name="{{itemCom.status}}"></ion-icon>
           </ion-col>
-          <ion-col col-1 (click)="goEditBuildingInfo(itemCom._id,i+1)">
+          <ion-col col-1 (click)="goEditCommunityInfo(itemCom)">
             {{i+1}}
           </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(itemCom._id,i+1)">
-            {{ itemCom.management.vil }}
+          <ion-col col-2 (click)="goEditCommunityInfo(itemCom)">
+            {{ itemCom.vil }}
           </ion-col>
-          <ion-col col-7 (click)="goEditBuildingInfo(itemCom._id,i+1)">
-            {{ itemCom.management.vil_name }}
+          <ion-col col-7 (click)="goEditCommunityInfo(itemCom)">
+            {{ itemCom.name }}
           </ion-col>
           <ion-col col-1>
-            <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom._id)">
+            <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom)">
               ลบ
             </button>
           </ion-col>

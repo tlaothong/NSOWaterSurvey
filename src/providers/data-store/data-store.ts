@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
-import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA, CommunityInList } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the DataStoreProvider provider.
@@ -119,10 +119,37 @@ export class DataStoreProvider {
   /**
     * บันทึกนามสกุล
     */
-  public saveLastName(userId: string, lastname: String[]): Observable<any> {
+  public saveLastName(userId: string, lastname: string[]): Observable<any> {
     return Observable.fromPromise(this.storage.set("user" + userId, lastname));
   }
 
+  /**
+     * บันทึก Community 1 Community
+     */
+  public saveCommunity(dataCommunity: any): Observable<any> {
+    return Observable.fromPromise(this.storage.set(dataCommunity._id, dataCommunity));
+  }
+
+  /**
+    * บันทึก Community แบบ เป็น List
+    */
+  public saveCommunityList(eaCode: string, community: CommunityInList[]): Observable<any> {
+    return Observable.fromPromise(this.storage.set("comlst" + eaCode, community));
+  }
+
+  /**
+    * เรียกข้อมูล Community
+    */
+  public loadCommunity(communityId:string): Observable<any> {
+    return Observable.fromPromise(this.storage.get(communityId));
+  }
+
+  /**
+    * เรียกข้อมูล Community แบบ เป็น List
+    */
+  public loadCommunityList(eaCode: string): Observable<any> {
+    return Observable.fromPromise(this.storage.get("comlst" + eaCode));
+  }
   /*********** */
 
   /**
