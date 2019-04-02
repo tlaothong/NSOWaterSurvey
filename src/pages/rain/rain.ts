@@ -69,7 +69,7 @@ export class RainPage {
   }
 
   ionViewDidLoad() {
-    
+
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.RainFrm.patchValue(data.waterUsage.rain);
@@ -144,7 +144,7 @@ export class RainPage {
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(18));
@@ -163,7 +163,11 @@ export class RainPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.RainFrm.get(name);
-    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+    var isCheckRainStorage = this.rainStorage ? (this.rainStorage.some(it => it.FormItem.valid)) : false;
+    // var isCheckWaterActivity5 = this.waterActivity5 ? (this.waterActivity5.some(it => it.isCheck == false)) : false;
+    console.log(isCheckRainStorage);
+    
+    return (!isCheckRainStorage) && this.submitRequested;
   }
 
   submitRequest() {

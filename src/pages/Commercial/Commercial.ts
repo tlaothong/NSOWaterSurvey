@@ -81,31 +81,15 @@ export class CommercialPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommercialPage');
-    // this.numberRoom$.subscribe(data => {
-    //   if (data != null) {
-
-    //     console.log(this.numberRoom);
-    //   }
-    // });
-    
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data.commerce)
-    //     this.dataCom = data;
-    //     console.log(data);
-
-    //   }
-    // });
-
-    this.getBuildingType$.subscribe(data => {
-      let roomno = this.appState.houseHoldUnit.subUnit.roomNumber
-      if (roomno == "-") {
-        this.numberRoom = true
-      }
-      if (data != null && roomno == '-') {
-        this.f.get('buildingCode').setValue(data)
-      }
-    });
+    let roomno = this.appState.houseHoldUnit.subUnit ? this.appState.houseHoldUnit.subUnit.roomNumber : null;
+    if (roomno == "-" || roomno == null) {
+      this.numberRoom = true;
+      this.getBuildingType$.subscribe(data => {
+        if (data != null) {
+          this.f.get('buildingCode').setValue(data);
+        }
+      });
+    }
     this.otherBuildingType$.subscribe(data => {
       if (data != null) {
         this.otherBuildingType = data
@@ -155,7 +139,7 @@ export class CommercialPage {
       const peopleCount = c.get('religious.peopleCount');
       const personnelCountOtherBuilding = c.get('otherBuilding.personnelCount');
 
-      if (personnelCountQuestionForAcademy.value == null && (buildingCode.value == 11 || buildingCode.value == 12) && !preSchool.value.itemCount && !kindergarten.value.itemCount && !primarySchool.value.itemCount
+      if (personnelCountQuestionForAcademy.value < 1 && (buildingCode.value == 11 || buildingCode.value == 12) && !preSchool.value.itemCount && !kindergarten.value.itemCount && !primarySchool.value.itemCount
         && !highSchool.value.itemCount && !vocational.value.itemCount && !higherEducation.value.itemCount) {
         return { 'anycheck': true, 'personnelCountQuestionForAcademy': true };
       }
@@ -163,42 +147,45 @@ export class CommercialPage {
         && !highSchool.value.itemCount && !vocational.value.itemCount && !higherEducation.value.itemCount) {
         return { 'anycheck': true };
       }
-      if ((buildingCode.value == 11 || buildingCode.value == 12) && personnelCountQuestionForAcademy.value == null) {
+      if ((buildingCode.value == 11 || buildingCode.value == 12) && personnelCountQuestionForAcademy.value < 1) {
         return { 'personnelCountQuestionForAcademy': true };
       }
-      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value == null) {
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value < 1 && personnelCountHotelsAndResorts.value < 1) {
+        return { 'roomCountHotelsAndResorts': true, 'personnelCountHotelsAndResorts': true };
+      }
+      if (buildingCode.value == 6 && roomCountHotelsAndResorts.value < 1) {
         return { 'roomCountHotelsAndResorts': true };
       }
-      if (buildingCode.value == 6 && personnelCountHotelsAndResorts.value == null) {
+      if (buildingCode.value == 6 && personnelCountHotelsAndResorts.value < 1) {
         return { 'personnelCountHotelsAndResorts': true };
       }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value == null && personnelCountHospital.value == null) {
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value < 1 && personnelCountHospital.value < 1) {
         return { 'bedCount': true, 'personnelCountHospital': true };
       }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value == null) {
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && bedCount.value < 1) {
         return { 'bedCount': true };
       }
-      if ((buildingCode.value == 7 || buildingCode.value == 8) && personnelCountHospital.value == null) {
+      if ((buildingCode.value == 7 || buildingCode.value == 8) && personnelCountHospital.value < 1) {
         return { 'personnelCountHospital': true };
       }
-      if (buildingCode.value == 4 && roomCountBuilding.value == null && occupiedRoomCount.value == null && personnelCountBuilding.value == null) {
+      if (buildingCode.value == 4 && roomCountBuilding.value < 1 && occupiedRoomCount.value < 1 && personnelCountBuilding.value < 1) {
         return { 'roomCountBuilding': true, 'occupiedRoomCount': true, 'personnelCountBuilding': true };
       }
-      if (buildingCode.value == 4 && roomCountBuilding.value == null) {
+      if (buildingCode.value == 4 && roomCountBuilding.value < 1) {
         return { 'roomCountBuilding': true };
       }
-      if (buildingCode.value == 4 && occupiedRoomCount.value == null) {
+      if (buildingCode.value == 4 && occupiedRoomCount.value < 1) {
         return { 'occupiedRoomCount': true };
       }
-      if (buildingCode.value == 4 && personnelCountBuilding.value == null) {
+      if (buildingCode.value == 4 && personnelCountBuilding.value < 1) {
         return { 'personnelCountBuilding': true };
       }
-      if (buildingCode.value == 10 && peopleCount.value == null) {
+      if (buildingCode.value == 10 && (peopleCount.value < 0 || peopleCount.value == null || peopleCount.value.trim() == '')) {
         return { 'peopleCount': true };
       }
       if ((buildingCode.value == 1 || buildingCode.value == 2 || buildingCode.value == 3
         || buildingCode.value == 5 || buildingCode.value == 9 || buildingCode.value == 13 || buildingCode.value == 14
-        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value <= 0) {
+        || buildingCode.value == 15 || buildingCode.value == 16) && personnelCountOtherBuilding.value < 1) {
         return { 'personnelCountOtherBuilding': true };
       }
 

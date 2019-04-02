@@ -1,19 +1,22 @@
-<ion-row (click)="showModal()" [formGroup]="FormItem">
+<ion-row  [formGroup]="FormItem">
   <ion-col col-3>
     <ion-item>
       <ion-label>{{ year }}</ion-label>
     </ion-item>
   </ion-col>
-  <ion-col>
+  <ion-col (click)="showModal()">
     <ion-input type="number" disabled="true" item-left formControlName="count"></ion-input>
   </ion-col>
-  <ion-col>
+  <ion-col (click)="showModal()">
     <ion-input type="number" disabled="true" item-left formControlName="avgDay"></ion-input>
   </ion-col>
-  <ion-col>
+  <ion-col (click)="showModal()">
     <ion-input type="number" disabled="true" item-left formControlName="avgHour"></ion-input>
   </ion-col>
-  <ion-col>
+  <ion-col (click)="showModal()">
     <ion-input type="number" disabled="true" item-left formControlName="waterHeightCm"></ion-input>
+  </ion-col>
+  <ion-col col-1>
+    <button ion-button color="danger" type="button" (click)="deleteData()">ลบ</button>
   </ion-col>
 </ion-row>
