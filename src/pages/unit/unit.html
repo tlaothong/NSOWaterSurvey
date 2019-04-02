@@ -13,7 +13,7 @@
 
       <ng-container *ngFor="let unt of unitList$ | async; let i = index">
         <ion-col col-4 *ngIf="(unitCount$ | async) > i">
-          <button padding>
+          <button padding style=" transform: scale(0.8)">
 
             <ion-row>
               <ion-col text-left>
@@ -47,7 +47,7 @@
 
       <ng-container>
         <ion-col col-4 *ngFor="let unitNo of emptyUnits$ | async">
-          <button padding>
+          <button padding style=" transform: scale(0.8)">
             <ion-row>
               <ion-col text-left>
                 <h3># {{unitNo}}</h3>
