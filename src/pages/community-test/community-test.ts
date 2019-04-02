@@ -19,7 +19,7 @@ export class CommunityTestPage {
       { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },
     ];
 
-    // this.store.dispatch(new LoadCommunitySample);
+    // this.store.dispatch(new LoadCommunitySample());
   }
 
   ionViewDidLoad() {

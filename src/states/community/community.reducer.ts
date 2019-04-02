@@ -34,7 +34,7 @@ export function reducer(state: CommunityState = initialState, action: CommunityA
         case CommunityTypes.SaveCommunitySuccess:
             return {
                 ...state,
-                saveCommunity: action.payload,
+                communitySample: action.payload,
             };
         case CommunityTypes.SetComNo:
             return {

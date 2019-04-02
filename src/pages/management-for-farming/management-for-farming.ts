@@ -4,12 +4,12 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
-import { Storage } from '@ionic/storage';
 import { CountComponent } from '../../components/count/count';
 import { map } from 'rxjs/operators';
 import { getCommunitySample } from '../../states/community';
 import { SaveCommunity } from '../../states/community/community.actions';
 import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
+import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
 @Component({
@@ -37,9 +37,9 @@ export class ManagementForFarmingPage {
   public getSetCommunity: FormGroup;
 
   private formData: any;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, 
-      private storage: Storage, public navParams: NavParams, public fb: FormBuilder, 
-      private store: Store<CommunityState>, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, 
+    public fb: FormBuilder, private store: Store<CommunityState>, private alertCtrl: AlertController,
+    private appState: AppStateProvider) {
     this.formData = CommunityWaterManagementPage.CreateMainFormGroup(fb);
     this.managementforfarming = ManagementForFarmingPage.CreateFormGroup(fb);
     this.setupprojectcountChanges();
@@ -75,7 +75,14 @@ export class ManagementForFarmingPage {
     this.isCheckWarningBox = this.managementforfarming.valid;
     if (this.managementforfarming.valid) {
       console.log("ewfew");
-      this.store.dispatch(new SaveCommunity(this.formData.value))
+      let originalCommunity = this.appState.communityData;
+      let newCommunity = {
+        ...originalCommunity,
+        communityProject: this.managementforfarming.value,
+      };
+      console.log(newCommunity);
+      
+      this.store.dispatch(new SaveCommunity(newCommunity))
       // let key = this.formData._id
       // this.storage.set(key, this.formData)
 

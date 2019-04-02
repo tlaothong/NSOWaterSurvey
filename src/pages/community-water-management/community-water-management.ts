@@ -93,6 +93,7 @@ export class CommunityWaterManagementPage {
   };
 
   ionViewDidLoad() {
+
     // this.formDataCom = this.fb.group({
     //   '_id': null,
     //   'ea': null,
@@ -128,29 +129,6 @@ export class CommunityWaterManagementPage {
       this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
     }
 
-    // this.getIdHomes$.subscribe(data => {
-    //   this.getIdHomes = data
-    //   console.log(this.getIdHomes);
-
-    //   this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
-    //   console.log(this.subDistrict);
-
-    //   this.MWA = this.subDistrict.MWA;
-    //   this.PWA = this.subDistrict.PWA;
-    //   if (this.MWA == false) {
-    //     this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
-    //   }
-    //   if (this.PWA == false) {
-    //     this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
-    //   }
-    // })
-
-
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.CommunityWaterManagement.setValue(data)
-    //   }
-    // });
   }
 
   private setupPublicWaterCountChanges() {
@@ -220,6 +198,7 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
+    this.formDataCom.setValue(this.appState.communityData);
 
     if (this.formDataCom.get('_id').value == null || this.formDataCom.get('_id').value == '') {
       this.formDataCom.get('_id').setValue(this.appState.generateId('com'));
@@ -228,6 +207,7 @@ export class CommunityWaterManagementPage {
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);
     this.formDataCom.get('ea').setValue(this.appState.eaCode);
     this.formDataCom.get('status').setValue("pause");
+
     if (this.CommunityWaterManagement.get('otherPlumbing').value == false) {
       this.CommunityWaterManagement.get('hasWaterService').setValue(null);
       this.CommunityWaterManagement.get('waterServiceCount').setValue(null);
@@ -236,38 +216,8 @@ export class CommunityWaterManagementPage {
     this.isCheckWarningBox = this.checkValid();
 
     if (this.checkValid()) {
-      // let key = this.formDataCom.get('_id').value
-      // this.storage.set(key, this.formDataCom.value)
+
       this.storeCom.dispatch(new SaveCommunity(this.formDataCom.value));
-
-      // console.log(this.formDataCom.value);
-
-      // let keyEA = "CL" + this.formDataCom.get('ea').value
-      // this.storage.get(keyEA).then((data) => {
-      //   console.log(data);
-
-      //   let listBD = data
-      //   if (listBD != null) {
-      //     let fin = listBD.find(it => it._id == key)
-      //     if (fin == null) {
-      //       console.log("1");
-
-      //       listBD.push(this.formDataCom.value)
-      //       this.storage.set(keyEA, listBD)
-      //     } else {
-      //       console.log("2");
-      //       let index = listBD.findIndex(it => it._id == key)
-      //       listBD.splice(index, 1, this.formDataCom.value);
-      //       // listBD.push(this.formDataCom.value);
-      //       this.storage.set(keyEA, listBD)
-      //     }
-      //   } else {
-      //     console.log("3");
-      //     listBD = []
-      //     listBD.push(this.formDataCom.value)
-      //     this.storage.set(keyEA, listBD)
-      //   }
-      // })
 
       this.navCtrl.push("ManagementForFarmingPage");
     }

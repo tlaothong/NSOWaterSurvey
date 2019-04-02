@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { CommunityTypes, LoadCommunityListSuccess, LoadCommunitySampleSuccess, SaveCommunitySuccess, UpdateCommunityList, LoadCommunityList, DeleteCommunity, NewCommunity, SetCurrentWorkingCommunity } from "./community.actions";
+import { CommunityTypes, LoadCommunityListSuccess, LoadCommunitySampleSuccess, SaveCommunitySuccess, UpdateCommunityList, LoadCommunityList, DeleteCommunity, NewCommunity, SetCurrentWorkingCommunity, LoadCommunitySample, SaveCommunity } from "./community.actions";
 import { mergeMap, map, filter, switchMap, withLatestFrom, tap } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
@@ -23,16 +23,18 @@ export class CommunityEffects {
     @Effect()
     public loadCommunitySample$: Observable<Action> = this.action$.pipe(
         ofType(CommunityTypes.Load),
-        mergeMap(action => this.cloudSync.loadCommunitySampleTestData().pipe(
-            map(data => new LoadCommunitySampleSuccess(data)),
-        )
-        ),
+        mergeMap((action: LoadCommunitySample) => this.dataStore.loadCommunity(action.payload)),
+        map(comData => new LoadCommunitySampleSuccess(comData)),
+        // mergeMap(action => this.cloudSync.loadCommunitySampleTestData().pipe(
+        //     map(data => new LoadCommunitySampleSuccess(data)),
+        // )
+        // ),
     );
 
     @Effect()
     public loadCommunityList$: Observable<Action> = this.action$.pipe(
         ofType(CommunityTypes.LoadList),
-        mergeMap((action: LoadCommunityList) => this.dataStore.loadCommunityList(action.payload)),
+        mergeMap((action: LoadCommunityList) => this.dataStore.loadCommunityList(action.eaCode)),
         map(comList => new LoadCommunityListSuccess(comList ? comList : [])),
     );
 
@@ -42,24 +44,37 @@ export class CommunityEffects {
         mergeMap((action: SetCurrentWorkingCommunity) => this.dataStore.loadCommunity(action.communityId)),
         tap(com => {
             this.appState.communityId = com ? com._id : '';
+            this.appState.communityData = com ? com : null;
+            console.log(com);
+            
         }),
-        map(bld =>  new SaveCommunitySuccess(bld)),
+        map(bld => new LoadCommunitySampleSuccess(bld)),
     );
 
     @Effect()
     public newCommunity$: Observable<Action> = this.action$.pipe(
         ofType(CommunityTypes.NewCommunity),
-        map((action: NewCommunity) => new SaveCommunitySuccess(action),
-    ));
+        tap((action: NewCommunity) => {
+            this.appState.communityId = '';
+        }),
+        map((action: NewCommunity) => new SaveCommunitySuccess({
+            _id: null,
+            ea: this.appState.eaCode,
+            management: {},
+            communityProject: {},
+            status: null
+        }),
+        ));
 
     @Effect()
     public saveCommunity$: Observable<Action> = this.action$.pipe(
         ofType(CommunityTypes.SaveCommunity),
-        filter((action: any, i) => action.payload),
+        filter((action: SaveCommunity, i) => action.payload),
         tap(action => {
             this.appState.communityId = action.payload ? action.payload._id : '';
+            this.appState.communityData = action.payload ? action.payload : null;
         }),
-        mergeMap(action => this.dataStore.saveCommunity(action).mapTo(action)),
+        mergeMap((action: SaveCommunity) => this.dataStore.saveCommunity(action.payload).mapTo(action)),
         switchMap(action => [
             new SaveCommunitySuccess(action.payload),
             new UpdateCommunityList(action.payload),
@@ -78,13 +93,16 @@ export class CommunityEffects {
         withLatestFrom(this.storeCom.select(getCommunityList), this.storeBoot.select(getCurrentWorkingEA)),
         mergeMap(([com, lst, ea]) => {
             console.log(com);
+            console.log(lst);
             
             let comlst = {
                 "communityId": com._id,
                 "vil": com.management.vil,
                 "name": com.management.vil_name
             };
-            let idx = lst.findIndex(it => it._id == com._id);
+            let idx = lst.findIndex(it => it.communityId == com._id);
+            console.log(idx);
+            
             if (idx >= 0) {
                 lst[idx] = comlst;
             } else {

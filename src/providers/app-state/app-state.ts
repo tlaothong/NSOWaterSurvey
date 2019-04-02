@@ -22,6 +22,7 @@ export class AppStateProvider {
   public buildingId: string;
 
   public communityId: string;
+  public communityData: any;
 
   public houseHoldUnit: HouseHoldUnit;
 

@@ -126,7 +126,7 @@ export class DataStoreProvider {
   /**
      * บันทึก Community 1 Community
      */
-  public saveCommunity(dataCommunity): Observable<any> {
+  public saveCommunity(dataCommunity: any): Observable<any> {
     return Observable.fromPromise(this.storage.set(dataCommunity._id, dataCommunity));
   }
 

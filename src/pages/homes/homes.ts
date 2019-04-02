@@ -4,7 +4,6 @@ import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { LoadHomeBuilding, DeleteHomeBuilding, LoadCommunity, LoadCommunityForEdit, LoadCommunityForEditSuccess } from '../../states/logging/logging.actions';
 import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
@@ -148,7 +147,7 @@ export class HomesPage {
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.office == 'areayoi') {
       // let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
-      this.storeLogging.dispatch(new NewCommunity());
+      this.storeCom.dispatch(new NewCommunity());
       this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: null })
     }
   }

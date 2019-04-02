@@ -26,7 +26,7 @@ export enum CommunityTypes {
 export class LoadCommunityList implements Action {
     readonly type = CommunityTypes.LoadList;
 
-    constructor(public payload: string) {
+    constructor(public eaCode: string) {
     }
 }
 
