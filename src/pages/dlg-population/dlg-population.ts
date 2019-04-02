@@ -25,7 +25,7 @@ export class DlgPopulationPage {
   public checkHead: boolean;
   public clickCheckHead: boolean;
   public proName: any;
-
+  dataxxx: any[] = [];
   public Nation: Nationality[] = nationalityData.filter(it => it.Tag == true);
   public OtherNation: Nationality[] = nationalityData
   public Province: Province[] = provinceData;
@@ -155,13 +155,13 @@ export class DlgPopulationPage {
 
   showActionSheet() {
     let lastName$ = this.store.select(getLastName);
-    lastName$.subscribe(data => {
-      this.lastName = data;
-    });
     let memo = 'จำ';
     let use = 'ใช้';
     let dc = '"';
     let btn = [];
+    lastName$.subscribe(data => {
+      this.lastName = data;
+    });
     if ((this.FormItem.get('lastName').value != null) && (this.FormItem.get('lastName').value !== '')) {
       btn.push({
         text: memo.concat(dc).concat(this.FormItem.get('lastName').value).concat(dc),
@@ -183,6 +183,7 @@ export class DlgPopulationPage {
       buttons: btn
     });
     actionSheet.present();
+    this.lastName.reverse()
   }
 }
 
