@@ -77,6 +77,7 @@ export class DlgTableBuyingPage {
           handler: data => {
             this.FormItem.reset();
             this.FormItem.get('size').setValue(this.size);
+            this.closeDialog();
           }
         },
         {
@@ -90,7 +91,8 @@ export class DlgTableBuyingPage {
     alert.present();
   }
   deleteData() {
-    this.presentAlertPopulation()
+    this.presentAlertPopulation();
+    
   }
 
 }
