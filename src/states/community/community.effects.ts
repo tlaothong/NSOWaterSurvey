@@ -46,7 +46,7 @@ export class CommunityEffects {
             this.appState.communityId = com ? com._id : '';
             this.appState.communityData = com ? com : null;
             console.log(com);
-            
+
         }),
         map(bld => new LoadCommunitySampleSuccess(bld)),
     );
@@ -55,7 +55,8 @@ export class CommunityEffects {
     public newCommunity$: Observable<Action> = this.action$.pipe(
         ofType(CommunityTypes.NewCommunity),
         tap((action: NewCommunity) => {
-            this.appState.communityId = null;
+            this.appState.communityId = null,
+                this.appState.communityData = null
         }),
         map((action: NewCommunity) => new SaveCommunitySuccess({
             _id: null,
@@ -94,15 +95,16 @@ export class CommunityEffects {
         mergeMap(([com, lst, ea]) => {
             console.log(com);
             console.log(lst);
-            
+
             let comlst = {
                 "communityId": com._id,
                 "vil": com.management.vil,
-                "name": com.management.vil_name
+                "name": com.management.vil_name,
+                "status": com.status,
             };
             let idx = lst.findIndex(it => it.communityId == com._id);
             console.log(idx);
-            
+
             if (idx >= 0) {
                 lst[idx] = comlst;
             } else {
