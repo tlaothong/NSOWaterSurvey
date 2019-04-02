@@ -187,6 +187,7 @@ export class HomesPage {
 
   goEditCommunityInfo(item: CommunityInList) {
     console.log(item.communityId);
+    console.log(item);
     
     this.storeCom.dispatch(new SetCurrentWorkingCommunity(item.communityId));
     this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: item.communityId })

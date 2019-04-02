@@ -187,10 +187,10 @@
       </ion-row>
 
       <hr>
-      <div *ngFor="let itemCom of dataCommunity$ | async; let i=index">
+      <div *ngFor="let itemCom of dataCommunity$ | async; let i = index">
         <ion-row text-center align-items-center>
           <ion-col col-1 (click)="goEditCommunityInfo(itemCom)">
-            <ion-icon disabled="false" name="{{itemCom.status}}"></ion-icon>
+            <ion-icon disabled="false" [name]="itemCom.status"></ion-icon>
           </ion-col>
           <ion-col col-1 (click)="goEditCommunityInfo(itemCom)">
             {{i+1}}

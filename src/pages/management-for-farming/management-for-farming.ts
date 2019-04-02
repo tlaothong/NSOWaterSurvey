@@ -79,6 +79,7 @@ export class ManagementForFarmingPage {
       let newCommunity = {
         ...originalCommunity,
         communityProject: this.managementforfarming.value,
+        status: "done-all"
       };
       console.log(newCommunity);
       
