@@ -76,7 +76,9 @@ export class DlgTableBuyingPage {
           text: 'ยืนยัน',
           handler: data => {
             this.FormItem.reset();
-            this.FormItem.get('size').setValue(this.size);
+            if (this.size != null) {
+              this.FormItem.get('size').setValue(this.size);
+            }
             this.okDialog();
           }
         },
@@ -92,7 +94,7 @@ export class DlgTableBuyingPage {
   }
   deleteData() {
     this.presentAlertPopulation();
-    
+
   }
 
 }
