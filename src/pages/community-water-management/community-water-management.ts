@@ -198,7 +198,10 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
-    this.formDataCom.setValue(this.appState.communityData);
+    
+    if(this.appState.communityData != null){
+      this.formDataCom.setValue(this.appState.communityData);
+    }
 
     if (this.formDataCom.get('_id').value == null || this.formDataCom.get('_id').value == '') {
       this.formDataCom.get('_id').setValue(this.appState.generateId('com'));
