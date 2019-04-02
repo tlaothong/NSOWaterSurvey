@@ -46,18 +46,18 @@ export class TableDisasterousComponent {
 
   presentAlertPopulation() {
     const alert = this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: 'คุณต้องการจะลบข้อมูลหรือไม่',
       buttons: [
         {
-          text: 'ยืนยัน',
+          text: 'ยกเลิก',
           handler: data => {
-            this.FormItem.reset();
 
           }
         },
         {
-          text: 'ยกเลิก',
+          text: 'ยืนยัน',
           handler: data => {
+            this.FormItem.reset();
 
           }
         }

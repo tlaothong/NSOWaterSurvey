@@ -59,7 +59,7 @@ export class PopulationPage {
 
   ionViewDidLoad() {
     this.storage.get("user" + this.appState.userId).then((val) => {
-      if(val != null){
+      if (val != null) {
         this.store.dispatch(new SaveLastNameSuccess(val))
       }
     })
@@ -154,8 +154,13 @@ export class PopulationPage {
 
   presentAlertPopulation(num) {
     const alert = this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: 'คุณต้องการจะลบข้อมูลหรือไม่',
       buttons: [
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+          }
+        },
         {
           text: 'ยืนยัน',
           handler: data => {
@@ -163,12 +168,6 @@ export class PopulationPage {
             del.removeAt(num);
             let count = this.f.get('personCount').value;
             this.f.get('personCount').setValue(count);
-          }
-        },
-        {
-          text: 'ยกเลิก',
-          handler: data => {
-
           }
         }
       ]
