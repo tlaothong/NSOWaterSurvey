@@ -12,7 +12,7 @@ export class TableDisasterousComponent {
   @Input() public FormItem: FormGroup;
   private submitRequested: boolean;
 
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder, public alertController: AlertController) {
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {
     this.year = 'Hello World';
 
     // TODO: Remove this
@@ -42,31 +42,6 @@ export class TableDisasterousComponent {
 
   submitRequest() {
     this.submitRequested = true;
-  }
-
-  presentAlertPopulation() {
-    const alert = this.alertController.create({
-      title: 'คุณต้องการจะลบข้อมูลหรือไม่',
-      buttons: [
-        {
-          text: 'ยกเลิก',
-          handler: data => {
-
-          }
-        },
-        {
-          text: 'ยืนยัน',
-          handler: data => {
-            this.FormItem.reset();
-
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-  deleteData() {
-    this.presentAlertPopulation()
   }
 
   public isValid(name: string): boolean {
