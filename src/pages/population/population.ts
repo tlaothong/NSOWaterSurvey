@@ -42,19 +42,21 @@ export class PopulationPage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider,
     public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
     this.f = this.fb.group({
-      'personCount': [null, [Validators.required, Validators.min(1)]],
+      'personCount': [0, [Validators.required, Validators.min(1)]],
       'persons': this.fb.array([])
     });
+    this.setupPersonCountChanges();
     console.log(this.getMemberCount$);
     this.getMember();
   }
 
   getMember() {
     let count = 0;
-    this.getMemberCount$.subscribe((data) => count = data);
-    this.f.get('personCount').setValue(count);
-    console.log(this.f.get('personCount').value);
-    this.setupPersonCountChanges();
+    this.getMemberCount$.take(1).subscribe((data) => {
+      count = data
+      this.f.get('personCount').setValue(count);
+      console.log(this.f.get('personCount').value);
+    });
   }
 
   ionViewDidLoad() {
