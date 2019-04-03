@@ -57,7 +57,7 @@ export class LoginPage {
       this.store.dispatch(new LoginUser(userId));
       this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
         if (hasDownloaded) {
-          this.store.dispatch(new DownloadUserToMobile());
+          // this.store.dispatch(new DownloadUserToMobile());
           this.navCtrl.setRoot("SelectEaPage");
           //  this.presentLoading();
         } else {
@@ -74,7 +74,7 @@ export class LoginPage {
         this.store.dispatch(new LoginUser(userId));
         this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
           if (hasDownloaded) {
-            this.store.dispatch(new DownloadUserToMobile());
+            // this.store.dispatch(new DownloadUserToMobile());
             this.navCtrl.setRoot("SelectEaPage");
             //  this.presentLoading();
           } else {
