@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Alert, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Alert, AlertController, LoadingController } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
 import { getUserData, getDataWorkEA } from '../../states/logging';
@@ -24,8 +24,16 @@ export class GetworkPage {
   public userInfo: any;
   public eaList$ = this.cloudSync.downloadCloudUpdate(this.appState.userId).delay(99).retry(3);
   public isWork: boolean = false;
+  public loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>, private storage: Storage, public alertController: AlertController, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+      private loadingCtrl: LoadingController,
+      private store: Store<BootupState>, private storage: Storage, public alertController: AlertController, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+
+    this.loading = this.loadingCtrl.create({
+      enableBackdropDismiss: false,
+    });
+    this.loading.present();
   }
 
   async presentAlert() {
@@ -60,6 +68,14 @@ export class GetworkPage {
     //     });
     //   }
     // });
+  }
+
+  hideLoading() {
+    if (this.loading) {
+      const loading = this.loading;
+      this.loading = null;
+      loading.dismiss();
+    }
   }
 
   goConfirmDownLoadPage() {

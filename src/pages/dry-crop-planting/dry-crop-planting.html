@@ -59,17 +59,11 @@
               </ion-label>
             </ion-item>
 
-            <count [title]="'จำนวนแปลง'" [FormItem]="agronomyPlant" [count]="'fieldCount'"></count>
+            <count [title]="'จำนวนแปลง'" [bePlant]="true" [FormItem]="agronomyPlant" [count]="'fieldCount'"></count>
 
             <ion-item *ngIf="isValid('fieldCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
-              </span>
-            </ion-item>
-            <ion-item *ngIf="agronomyPlant.get('fieldCount').value > 20">
-              <ion-icon md="md-warning" class="warning"></ion-icon>
-              <span class="warning-msg">
-                กรุณาตรวจสอบจำนวนแปลงมีเยอะผิดปกติหรือไม่
               </span>
             </ion-item>
           </div>

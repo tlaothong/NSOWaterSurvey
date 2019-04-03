@@ -52,8 +52,15 @@ export class TablePopulationComponent {
       });
     modal.onDidDismiss(data => {
       if (data) {
-        var fg = <FormGroup>data;
-        this.FormItem.setValue(fg.value);
+        if (data == 'delete') {
+          const count = this.FormArray.length;
+          this.FormArray.removeAt(+this.personNo - 1);
+          const f = this.FormArray.parent;
+          f.get('personCount').setValue(count);
+        } else {
+          var fg = <FormGroup>data;
+          this.FormItem.setValue(fg.value);
+        }
       }
     });
     modal.present();

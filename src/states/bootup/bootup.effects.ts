@@ -2,7 +2,7 @@ import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BootupTypes, LoadBootstrapSuccess, LoginUserSuccess, LoginUser, DownloadUserToMobile, DownloadUserToMobileSuccess, SetCurrentWorkingEA, CurrentWorkingEaChanged } from "./bootup.actions";
-import { mergeMap, map, withLatestFrom, tap, switchMap } from "rxjs/operators";
+import { mergeMap, map, withLatestFrom, tap, switchMap, zip } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
@@ -30,9 +30,13 @@ export class BootupEffects {
 
     @Effect()
     public loginUser$: Observable<Action> = this.action$.pipe(
-        ofType(BootupTypes.Login),
-        tap((action: LoginUser) => this.appState.userId = action.userId),
-        mergeMap((action: LoginUser) => Observable.of(new LoginUserSuccess(action.userId))),
+        ofType<LoginUser>(BootupTypes.Login),
+        tap(action => this.appState.userId = action.userId),
+        mergeMap(action => this.dataStore.listDownloadedEAs(action.userId)
+            .map((aes, i) => { return { action: action, aes: aes }})),
+        switchMap(it => it.aes 
+            ? [ new LoginUserSuccess(it.action.userId), new DownloadUserToMobileSuccess(it.aes) ]
+            : [ new LoginUserSuccess(it.action.userId)]),
     );
 
     @Effect()

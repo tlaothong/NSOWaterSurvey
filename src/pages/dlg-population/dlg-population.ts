@@ -94,8 +94,9 @@ export class DlgPopulationPage {
         {
           text: 'ยืนยัน',
           handler: data => {
-            this.FormItem.reset();
-            this.viewCtrl.dismiss(this.FormItem);
+            // this.FormItem.reset();
+            // this.viewCtrl.dismiss(this.FormItem);
+            this.viewCtrl.dismiss('delete');
           }
         }
       ]
