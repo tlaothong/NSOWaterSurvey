@@ -117,12 +117,13 @@
     </ion-card-content>
   </ion-card>
 
+  <div>
+    <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน" head="ขนาดบ่อหรือร่องสวนที่ "
+      [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
+  </div>
+  
   <div *ngIf="FormItem.get('depression').value || FormItem.get('gardenGroove').value">
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
-      <div *ngSwitchCase="true">
-        <pool-area *ngIf="FormItem.get('fields').length > 0" headline="ขนาดบ่อหรือร่องสวน" head="ขนาดบ่อหรือร่องสวนที่ "
-          [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
-      </div>
       <div *ngSwitchCase="false">
         <div *ngFor="let pool of FormItem.get('fields').controls; let i= index">
           <pool-area headline="ขนาดบ่อหรือร่องสวนที่" head="ขนาดบ่อหรือร่องสวนที่ " [no]="i + 1" [FormItem]="pool">
