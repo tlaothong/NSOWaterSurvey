@@ -22,13 +22,20 @@
       </span>
     </ion-item>
 
+    <ion-item *ngIf="FormItem.get('count').value > 20">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
+        กรุณาตรวจสอบจำนวนแปลงมีเยอะผิดปกติหรือไม่
+      </span>
+    </ion-item>
+
     <ion-grid>
       <ion-row>
         <ion-col>
           <button ion-button type="button" block color="light" (click)="closeDialog()">ยกเลิก</button>
         </ion-col>
         <ion-col>
-          <button ion-button type="submit" block [disabled]="FormItem.invalid">ตกลง</button>
+          <button ion-button type="submit" block [disabled]="FormItem.invalid || FormItem.get('count').value > 20 ">ตกลง</button>
         </ion-col>
       </ion-row>
     </ion-grid>
