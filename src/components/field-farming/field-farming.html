@@ -44,20 +44,20 @@
     </ion-item>
 
     <ion-row radio-group formControlName="plantingArea" [class.invalid]="isValid('plantingArea')"
-      (ionChange)="setArea()">
+      >
       <ion-item *ngIf="isValid('plantingArea')">
         <span class="invalid-msg">
           กรุณาเลือก
         </span>
       </ion-item>
       <ion-item>
-        <ion-radio [value]="1" item-left></ion-radio>
+        <ion-radio [value]="1" item-left (ionChange)="setArea()"></ion-radio>
         <ion-label>
           ทำทั้งแปลงทุกครั้ง
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-radio [value]="2" item-left></ion-radio>
+        <ion-radio [value]="2" item-left ></ion-radio>
         <ion-label>
           ไม่ได้ทำทั้งแปลง แต่ทำ<b>เท่ากัน</b>ทุกครั้ง
         </ion-label>
