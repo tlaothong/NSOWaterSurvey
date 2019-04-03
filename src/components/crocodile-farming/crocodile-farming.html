@@ -66,42 +66,43 @@
             กรุณาตรวจสอบจำนวนบ่อหรือร่องสวนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
-
-        <ion-item>
-          <ion-label>
-            2.1) ขนาดบ่อทั้งหมดเท่ากันหรือไม่
-          </ion-label>
-        </ion-item>
-        <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
-          <ion-item *ngIf="isValid('fieldsAreSameSize')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="true" item-left></ion-radio>
+        <div *ngIf="FormItem.get('fieldCount').value > 1">
+          <ion-item>
             <ion-label>
-              เท่ากัน
+              2.1) ขนาดบ่อทั้งหมดเท่ากันหรือไม่
             </ion-label>
           </ion-item>
-          <ion-item col-6>
-            <ion-radio [value]="false" item-left></ion-radio>
-            <ion-label>
-              ไม่เท่ากัน
-            </ion-label>
-          </ion-item>
-        </ion-row>
+          <ion-row radio-group formControlName="fieldsAreSameSize" [class.invalid]="isValid('fieldsAreSameSize')">
+            <ion-item *ngIf="isValid('fieldsAreSameSize')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio [value]="true" item-left></ion-radio>
+              <ion-label>
+                เท่ากัน
+              </ion-label>
+            </ion-item>
+            <ion-item col-6>
+              <ion-radio [value]="false" item-left></ion-radio>
+              <ion-label>
+                ไม่เท่ากัน
+              </ion-label>
+            </ion-item>
+          </ion-row>
+        </div>
       </div>
     </ion-card-content>
   </ion-card>
+  
+  <div>
+    <pool-area *ngIf="FormItem.get('fields').length> 0" headline="ขนาดบ่อ" head="บ่อที่ "
+      [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
+  </div>
 
   <div *ngIf="FormItem.get('depression').value">
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
-      <div *ngSwitchCase="true">
-        <pool-area *ngIf="FormItem.get('fields').length> 0" headline="ขนาดบ่อ" head="บ่อที่ "
-          [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
-      </div>
-
       <div *ngSwitchCase="false">
         <div *ngFor="let p of FormItem.get('fields').controls;let i= index">
           <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [isAnimal]="isAnimal" [FormItem]="p"></pool-area>
