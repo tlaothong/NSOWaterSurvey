@@ -90,7 +90,7 @@ export class UnitPage {
 
   public showUnitButtonPopover(unit: UnitInList) {
     const actionSheet =  this.actionSheetCtrl.create({
-      title: "ดำเนินการกับข้อมูลหน่วยย่อย",
+      title: "ดำเนินการกับข้อมูลห้องที่ / เลขที่ " + unit.roomNumber,
       buttons: [
         {
           text: "แก้ไขการเข้าพบ/เลขที่",

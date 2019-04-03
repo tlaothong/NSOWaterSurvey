@@ -19,10 +19,11 @@ export class DlgCountPage {
   public title: string
   public FormItem: FormGroup;
   public submitRequested: boolean;
+  public bePlant: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
     this.FormItem = fb.group({
-      'count': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required,Validators.min(0)])]
+      'count': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(0)])]
     })
   }
 
@@ -32,6 +33,8 @@ export class DlgCountPage {
     if (count == 0) count = null;
     this.FormItem.get('count').setValue(count);
     this.title = this.navParams.get('title');
+    this.bePlant = this.navParams.get('bePlant');
+
   }
 
   public isValid(name: string): boolean {

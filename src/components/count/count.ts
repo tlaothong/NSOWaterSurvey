@@ -15,6 +15,7 @@ import { FormGroup } from '@angular/forms';
 export class CountComponent {
 
   @Input() title: string;
+  @Input() bePlant: boolean = false;
   @Input() FormItem: FormGroup;
   @Input() count: string;
 
@@ -33,7 +34,7 @@ export class CountComponent {
     console.log(this.FormItem.value);
     console.log(this.count);
     console.log(this.FormItem.get(this.count).value);
-    
+
     let st = this.count.split(".");
     console.log(st);
     this.isGroup = (st.length > 1);
@@ -51,7 +52,7 @@ export class CountComponent {
   }
 
   presentModalCount() {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(this.count).value, title: this.title });
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(this.count).value, title: this.title, bePlant: this.bePlant });
     modal.onDidDismiss(data => {
       if (data) {
         this.FormItem.get(this.count).setValue(data);

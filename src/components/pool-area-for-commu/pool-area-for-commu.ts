@@ -70,11 +70,11 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.depth && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'width') {
+    if (name == 'rectangle.width') {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.width && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'length') {
+    if (name == 'rectangle.length') {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.length && (ctrl.dirty || this.submitRequested);
     }
@@ -112,23 +112,35 @@ export class PoolAreaForCommuComponent implements ISubmitRequestable {
       if (shape.value <= 0) {
         return { 'shape': true };
       }
+      if ((shape.value == 2) && width.value == null && length.value == null && depth.value == null) {
+        return { 'width': true, 'length': true, 'depth': true };
+      }
+      if ((shape.value == 2) && width.value == null && length.value == null && depth.value != null) {
+        return { 'width': true, 'length': true };
+      }
+      if ((shape.value == 2) && width.value == null && length.value != null && depth.value != null) {
+        return { 'width': true };
+      }
+      if ((shape.value == 2) && width.value != null && length.value == null && depth.value != null) {
+        return { 'length': true };
+      }
+      if ((shape.value == 2) && width.value != null && length.value != null && ((depth.value == null) || (depth.value <= 0))) {
+        return { 'depth': true };
+      }
       if ((shape.value == 1) && ((depth.value == null) || (depth.value <= 0))) {
         return { 'depth': true };
       }
-      if ((shape.value == 2) && ((width.value == null) || (width.value <= 0))) {
-        return { 'width': true };
+      if ((shape.value == 3) && (diameter.value == null || diameter.value.trim() == '') && (depth.value == null || depth.value.trim() == '')) {
+        return { 'diameter': true, 'depth': true };
       }
-      if ((shape.value == 2) && ((length.value == null) || (length.value <= 0))) {
-        return { 'length': true };
-      }
-      if ((shape.value == 2) && ((depth.value == null) || (depth.value <= 0))) {
+      if ((shape.value == 3) && (diameter.value != null || diameter.value.trim() != '') && (depth.value == null || depth.value.trim() == '')) {
         return { 'depth': true };
       }
-      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value <= 0))) {
+      if ((shape.value == 3) && (diameter.value == null || diameter.value.trim() == '') && (depth.value != null || depth.value.trim() != '')) {
         return { 'diameter': true };
       }
-      if ((shape.value == 3) && ((depth.value == null) || (depth.value <= 0))) {
-        return { 'depth': true };
+      if ((shape.value == 3) && ((diameter.value == null) || (diameter.value <= 0)) && ((depth.value == null) || (depth.value <= 0))) {
+        return { 'diameter': true, 'depth': true };
       }
       return null;
     }

@@ -14,7 +14,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
   @Input() public FormItem: FormGroup;
   @Input('isCommunity') public isCommunity: boolean;
   @Input('no') public fieldNo: string;
-  
+
   private submitRequested: boolean;
 
   constructor(public fb: FormBuilder) {
@@ -40,6 +40,8 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
   submitRequest() {
     this.submitRequested = true;
     this.poolAreaCommu.forEach(it => it.submitRequest());
+    console.log(this.FormItem.get('projectArea'));
+
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -60,7 +62,7 @@ export class DetailWaterManagementComponent implements ISubmitRequestable {
       } else if (useForOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
-      
+
       return null;
     }
   }

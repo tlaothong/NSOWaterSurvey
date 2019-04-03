@@ -22,8 +22,10 @@
         {{ ea.CWT_NAME }}
         {{ ea.AMP_NAME }}
         {{ ea.TAM_NAME }}
+        {{ (ea.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
+        {{ ea.MUN_NAME }}{{ ea.TAO_NAME }}
         &nbsp;
-        {{ ea.code.substr(0, 11) }} <b>{{ ea.EA }}</b>
+        <b>{{ ea.EA }}</b>
       </ion-label>
     </ion-item>
 
