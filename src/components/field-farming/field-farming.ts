@@ -56,38 +56,29 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.waterSources8A.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
+    console.log(this.FormItem);
 
-
-    console.log("waterRice", this.FormItem.get('waterSources').value);
-    // this.dispatchWaterSource();
   }
 
   public setArea() {
     let val = this.FormItem.get('areaUsed').value
     switch (this.FormItem.get('plantingArea').value) {
-      case "1":
+      case 1:
         for (let index = 0; index < val.length; index++) {
           val[index] = this.FormItem.get('area').value;
         }
         break;
-      case "2":
+      case 2:
         for (let index = 0; index < val.length; index++) {
           val[index] = val[0];
+          console.log("areaUsed", val[index]);
+
         }
         break;
       default:
         break;
     }
     this.FormItem.get('areaUsed').setValue(val);
-  }
-
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    console.log("dispatch rice can work");
   }
 
   public isValid(name: string): boolean {
