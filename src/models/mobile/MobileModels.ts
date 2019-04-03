@@ -9,8 +9,10 @@ export interface BuildingInList {
 }
 
 export interface CommunityInList {
+    communityId: string;
     vil: string;
     name: string;
+    status: string;
 }
 
 export interface UnitInList {

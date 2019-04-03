@@ -9,9 +9,14 @@ export const getCommunitySample = createSelector(
     state => state.communitySample,
 );
 
-export const getSetCommunity = createSelector(
+export const getCommunityList = createSelector(
     getCommunityFeatureState,
-    state => state.setCommunity,
+    state => state.communitys,
+);
+
+export const getCommunity = createSelector(
+    getCommunityFeatureState,
+    state => state.saveCommunity,
 );
 
 export const getComNo = createSelector(

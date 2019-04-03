@@ -10,6 +10,7 @@ import { BootupState } from "./bootup.reducer";
 import { getUserId } from ".";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { LoadBuildingList } from "../building/building.actions";
+import { LoadCommunityList } from "../community/community.actions";
 
 
 @Injectable()
@@ -53,7 +54,8 @@ export class BootupEffects {
         switchMap((action: SetCurrentWorkingEA) => 
             [
                 new CurrentWorkingEaChanged(action.payload),
-                new LoadBuildingList(action.payload)
+                new LoadBuildingList(action.payload),
+                new LoadCommunityList(action.payload)
             ])
     );
 
