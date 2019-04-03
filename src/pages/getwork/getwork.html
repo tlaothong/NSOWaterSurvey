@@ -35,6 +35,7 @@
       </ion-col>
     </ion-row>
  
+    <ng-container *ngIf="eaList$ | async">{{ hideLoading() }}</ng-container>
     <!-- รอ blind ข้อมูล -->
     <ion-row *ngFor="let item of eaList$ | async" text-center align-items-center>
         <ion-col col-2>
@@ -47,7 +48,7 @@
           {{ item.TAM_NAME }}
         </ion-col>
         <ion-col col-2>
-          {{ item.DISTRICT }}
+          {{ (item.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
         </ion-col>
         <ion-col col-2>
           {{ item.MUN_NAME }}{{ item.TAO_NAME }}
