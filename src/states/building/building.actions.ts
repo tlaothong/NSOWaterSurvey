@@ -151,7 +151,3 @@ export interface BuildingInList {
     unitCount: number;
 }
 
-export interface CommunityInList {
-    vil: string;
-    name: string;
-}

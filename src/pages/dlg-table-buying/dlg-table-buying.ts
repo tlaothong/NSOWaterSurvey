@@ -70,20 +70,21 @@ export class DlgTableBuyingPage {
 
   presentAlertPopulation() {
     const alert = this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: 'คุณต้องการจะลบข้อมูลหรือไม่',
       buttons: [
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+          }
+        },
         {
           text: 'ยืนยัน',
           handler: data => {
             this.FormItem.reset();
-            this.FormItem.get('size').setValue(this.size);
+            if (this.size != null) {
+              this.FormItem.get('size').setValue(this.size);
+            }
             this.okDialog();
-          }
-        },
-        {
-          text: 'ยกเลิก',
-          handler: data => {
-
           }
         }
       ]
@@ -92,7 +93,7 @@ export class DlgTableBuyingPage {
   }
   deleteData() {
     this.presentAlertPopulation();
-    
+
   }
 
 }

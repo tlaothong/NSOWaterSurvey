@@ -133,13 +133,13 @@ export class UnitPage {
       title: "ยืนยันการลบข้อมูล",
       message: "ท่านต้องการลบข้อมูลหน่วยย่อยหรือไม่ หากต้องการกรุณากดยืนยัน",
       buttons: [
+        "ยกเลิก",
         {
           text: "ยืนยัน",
           handler: () => {
             this.store.dispatch(new DeleteHouseHold(unit))
           }
-        },
-        "ยกเลิก"
+        }
       ]
     });
     showConfirmation.present();

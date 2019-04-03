@@ -1,5 +1,5 @@
 import { Component, ViewChild, state } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';
@@ -33,7 +33,7 @@ export class DlgPopulationPage {
   public dateTime: Date = new Date();
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private viewCtrl: ViewController,
-    private fb: FormBuilder, public actionSheetCtrl: ActionSheetController, private store: Store<HouseHoldState>) {
+    private fb: FormBuilder, public actionSheetCtrl: ActionSheetController, private store: Store<HouseHoldState>, public alertController: AlertController) {
     this.FormItem = navParams.get('FormItem');
     this.text = navParams.get("iTitle");
     this.proName = navParams.get('proName');
@@ -79,6 +79,31 @@ export class DlgPopulationPage {
     if (this.FormItem.valid && !this.isCheckHeadfamily()) {
       this.viewCtrl.dismiss(this.FormItem);
     }
+  }
+
+  presentAlertPopulation() {
+    const alert = this.alertController.create({
+      title: 'คุณต้องการจะลบข้อมูลหรือไม่',
+      buttons: [
+        {
+          text: 'ยกเลิก',
+          handler: data => {
+
+          }
+        },
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.FormItem.reset();
+            this.viewCtrl.dismiss(this.FormItem);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  deleteData() {
+    this.presentAlertPopulation()
   }
 
   public isValid(name: string): boolean {

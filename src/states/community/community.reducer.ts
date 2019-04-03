@@ -1,20 +1,20 @@
-import { CommunityActionsType, CommunityTypes } from "./community.actions";
+import { CommunityActionsType, CommunityTypes, LoadCommunityListSuccess } from "./community.actions";
 
 
 export interface CommunityState {
-    units: any,
+    communitys: any,
     communitySample: any,
     getWorkEA: any,
-    setCommunity: any,
+    saveCommunity: any,
     communityList: any,
     comNo: string;
 }
 
 const initialState: CommunityState = {
-    units: [],
+    communitys: [],
     communitySample: null,
     getWorkEA: [],
-    setCommunity: null,
+    saveCommunity: null,
     communityList: [],
     comNo: null,
 };
@@ -24,16 +24,17 @@ export function reducer(state: CommunityState = initialState, action: CommunityA
         case CommunityTypes.LoadListSuccess:
             return {
                 ...state,
+                communitys: (<LoadCommunityListSuccess>action).payload,
             };
         case CommunityTypes.LoadSuccess:
             return {
                 ...state,
                 communitySample: action.payload,
             };
-        case CommunityTypes.SetCommunitySuccess:
+        case CommunityTypes.SaveCommunitySuccess:
             return {
                 ...state,
-                setCommunity: action.payload,
+                communitySample: action.payload,
             };
         case CommunityTypes.SetComNo:
             return {
