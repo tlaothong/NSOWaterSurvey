@@ -198,15 +198,15 @@ export class HomesPage {
       title: 'ต้องการจะลบใช่หรือไม่',
       buttons: [
         {
-          text: 'ยืนยัน',
-          handler: data => {
-            this.store.dispatch(new DeleteBuilding(item))
-          }
-        },
-        {
           text: 'ยกเลิก',
           handler: data => {
 
+          }
+        },
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.store.dispatch(new DeleteBuilding(item))
           }
         }
       ]
@@ -219,15 +219,15 @@ export class HomesPage {
       title: 'ต้องการจะลบใช่หรือไม่',
       buttons: [
         {
-          text: 'ยืนยัน',
-          handler: data => {
-            this.storeCom.dispatch(new DeleteCommunity(item))
-          }
-        },
-        {
           text: 'ยกเลิก',
           handler: data => {
 
+          }
+        },
+        {
+          text: 'ยืนยัน',
+          handler: data => {
+            this.storeCom.dispatch(new DeleteCommunity(item))
           }
         }
       ]
