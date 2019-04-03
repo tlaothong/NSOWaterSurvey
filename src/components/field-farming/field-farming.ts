@@ -56,11 +56,12 @@ export class FieldFarmingComponent implements ISubmitRequestable {
     this.waterSources8A.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.store.dispatch(new SetWaterSourcesRice(this.FormItem.get('waterSources').value));
-    if (this.FormItem.get('plantingArea').value == 2) {
+    let valuePlantingArea = this.FormItem.get('plantingArea').value
+    if (valuePlantingArea == 2 || valuePlantingArea == 1) {
       this.setArea()
     }
     console.log(this.FormItem);
-
+    
   }
 
   public setArea() {
