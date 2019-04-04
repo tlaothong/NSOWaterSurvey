@@ -8,4641 +8,4641 @@ export const districtData: District[] = [
     {
         codeProvince: 10,
         codeDistrict: 1001,
-        name: 'เขตพระนคร'
+        name: 'พระนคร'
     },
     {
         codeProvince: 10,
         codeDistrict: 1002,
-        name: 'เขตดุสิต'
+        name: 'ดุสิต'
     },
     {
         codeProvince: 10,
         codeDistrict: 1003,
-        name: 'เขตหนองจอก'
+        name: 'หนองจอก'
     },
     {
         codeProvince: 10,
         codeDistrict: 1004,
-        name: 'เขตบางรัก'
+        name: 'บางรัก'
     },
     {
         codeProvince: 10,
         codeDistrict: 1005,
-        name: 'เขตบางเขน'
+        name: 'บางเขน'
     },
     {
         codeProvince: 10,
         codeDistrict: 1006,
-        name: 'เขตบางกะปิ'
+        name: 'บางกะปิ'
     },
     {
         codeProvince: 10,
         codeDistrict: 1007,
-        name: 'เขตปทุมวัน'
+        name: 'ปทุมวัน'
     },
     {
         codeProvince: 10,
         codeDistrict: 1008,
-        name: 'เขตป้อมปราบศัตรูพ่าย'
+        name: 'ป้อมปราบศัตรูพ่าย'
     },
     {
         codeProvince: 10,
         codeDistrict: 1009,
-        name: 'เขตพระโขนง'
+        name: 'พระโขนง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1010,
-        name: 'เขตมีนบุรี'
+        name: 'มีนบุรี'
     },
     {
         codeProvince: 10,
         codeDistrict: 1011,
-        name: 'เขตลาดกระบัง'
+        name: 'ลาดกระบัง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1012,
-        name: 'เขตยานนาวา'
+        name: 'ยานนาวา'
     },
     {
         codeProvince: 10,
         codeDistrict: 1013,
-        name: 'เขตสัมพันธวงศ์'
+        name: 'สัมพันธวงศ์'
     },
     {
         codeProvince: 10,
         codeDistrict: 1014,
-        name: 'เขตพญาไท'
+        name: 'พญาไท'
     },
     {
         codeProvince: 10,
         codeDistrict: 1015,
-        name: 'เขตธนบุรี'
+        name: 'ธนบุรี'
     },
     {
         codeProvince: 10,
         codeDistrict: 1016,
-        name: 'เขตบางกอกใหญ่'
+        name: 'บางกอกใหญ่'
     },
     {
         codeProvince: 10,
         codeDistrict: 1017,
-        name: 'เขตห้วยขวาง'
+        name: 'ห้วยขวาง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1018,
-        name: 'เขตคลองสาน'
+        name: 'คลองสาน'
     },
     {
         codeProvince: 10,
         codeDistrict: 1019,
-        name: 'เขตตลิ่งชัน'
+        name: 'ตลิ่งชัน'
     },
     {
         codeProvince: 10,
         codeDistrict: 1020,
-        name: 'เขตบางกอกน้อย'
+        name: 'บางกอกน้อย'
     },
     {
         codeProvince: 10,
         codeDistrict: 1021,
-        name: 'เขตบางขุนเทียน'
+        name: 'บางขุนเทียน'
     },
     {
         codeProvince: 10,
         codeDistrict: 1022,
-        name: 'เขตภาษีเจริญ'
+        name: 'ภาษีเจริญ'
     },
     {
         codeProvince: 10,
         codeDistrict: 1023,
-        name: 'เขตหนองแขม'
+        name: 'หนองแขม'
     },
     {
         codeProvince: 10,
         codeDistrict: 1024,
-        name: 'เขตราษฎร์บูรณะ'
+        name: 'ราษฎร์บูรณะ'
     },
     {
         codeProvince: 10,
         codeDistrict: 1025,
-        name: 'เขตบางพลัด'
+        name: 'บางพลัด'
     },
     {
         codeProvince: 10,
         codeDistrict: 1026,
-        name: 'เขตดินแดง'
+        name: 'ดินแดง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1027,
-        name: 'เขตบึงกุ่ม'
+        name: 'บึงกุ่ม'
     },
     {
         codeProvince: 10,
         codeDistrict: 1028,
-        name: 'เขตสาทร'
+        name: 'สาทร'
     },
     {
         codeProvince: 10,
         codeDistrict: 1029,
-        name: 'เขตบางซื่อ'
+        name: 'บางซื่อ'
     },
     {
         codeProvince: 10,
         codeDistrict: 1030,
-        name: 'เขตจตุจักร'
+        name: 'จตุจักร'
     },
     {
         codeProvince: 10,
         codeDistrict: 1031,
-        name: 'เขตบางคอแหลม'
+        name: 'บางคอแหลม'
     },
     {
         codeProvince: 10,
         codeDistrict: 1032,
-        name: 'เขตประเวศ'
+        name: 'ประเวศ'
     },
     {
         codeProvince: 10,
         codeDistrict: 1033,
-        name: 'เขตคลองเตย'
+        name: 'คลองเตย'
     },
     {
         codeProvince: 10,
         codeDistrict: 1034,
-        name: 'เขตสวนหลวง'
+        name: 'สวนหลวง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1035,
-        name: 'เขตจอมทอง'
+        name: 'จอมทอง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1036,
-        name: 'เขตดอนเมือง'
+        name: 'ดอนเมือง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1037,
-        name: 'เขตราชเทวี'
+        name: 'ราชเทวี'
     },
     {
         codeProvince: 10,
         codeDistrict: 1038,
-        name: 'เขตลาดพร้าว'
+        name: 'ลาดพร้าว'
     },
     {
         codeProvince: 10,
         codeDistrict: 1039,
-        name: 'เขตวัฒนา'
+        name: 'วัฒนา'
     },
     {
         codeProvince: 10,
         codeDistrict: 1040,
-        name: 'เขตบางแค'
+        name: 'บางแค'
     },
     {
         codeProvince: 10,
         codeDistrict: 1041,
-        name: 'เขตหลักสี่'
+        name: 'หลักสี่'
     },
     {
         codeProvince: 10,
         codeDistrict: 1042,
-        name: 'เขตสายไหม'
+        name: 'สายไหม'
     },
     {
         codeProvince: 10,
         codeDistrict: 1043,
-        name: 'เขตคันนายาว'
+        name: 'คันนายาว'
     },
     {
         codeProvince: 10,
         codeDistrict: 1044,
-        name: 'เขตสะพานสูง'
+        name: 'สะพานสูง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1045,
-        name: 'เขตวังทองหลาง'
+        name: 'วังทองหลาง'
     },
     {
         codeProvince: 10,
         codeDistrict: 1046,
-        name: 'เขตคลองสามวา'
+        name: 'คลองสามวา'
     },
     {
         codeProvince: 10,
         codeDistrict: 1047,
-        name: 'เขตบางนา'
+        name: 'บางนา'
     },
     {
         codeProvince: 10,
         codeDistrict: 1048,
-        name: 'เขตทวีวัฒนา'
+        name: 'ทวีวัฒนา'
     },
     {
         codeProvince: 10,
         codeDistrict: 1049,
-        name: 'เขตทุ่งครุ'
+        name: 'ทุ่งครุ'
     },
     {
         codeProvince: 10,
         codeDistrict: 1050,
-        name: 'เขตบางบอน'
+        name: 'บางบอน'
     },
     {
         codeProvince: 11,
         codeDistrict: 1101,
-        name: 'อำเภอเมืองสมุทรปราการ'
+        name: 'เมืองสมุทรปราการ'
     },
     {
         codeProvince: 11,
         codeDistrict: 1102,
-        name: 'อำเภอบางบ่อ'
+        name: 'บางบ่อ'
     },
     {
         codeProvince: 11,
         codeDistrict: 1103,
-        name: 'อำเภอบางพลี'
+        name: 'บางพลี'
     },
     {
         codeProvince: 11,
         codeDistrict: 1104,
-        name: 'อำเภอพระประแดง'
+        name: 'พระประแดง'
     },
     {
         codeProvince: 11,
         codeDistrict: 1105,
-        name: 'อำเภอพระสมุทรเจดีย์'
+        name: 'พระสมุทรเจดีย์'
     },
     {
         codeProvince: 11,
         codeDistrict: 1106,
-        name: 'อำเภอบางเสาธง'
+        name: 'บางเสาธง'
     },
     {
         codeProvince: 12,
         codeDistrict: 1201,
-        name: 'อำเภอเมืองนนทบุรี'
+        name: 'เมืองนนทบุรี'
     },
     {
         codeProvince: 12,
         codeDistrict: 1202,
-        name: 'อำเภอบางกรวย'
+        name: 'บางกรวย'
     },
     {
         codeProvince: 12,
         codeDistrict: 1203,
-        name: 'อำเภอบางใหญ่'
+        name: 'บางใหญ่'
     },
     {
         codeProvince: 12,
         codeDistrict: 1204,
-        name: 'อำเภอบางบัวทอง'
+        name: 'บางบัวทอง'
     },
     {
         codeProvince: 12,
         codeDistrict: 1205,
-        name: 'อำเภอไทรน้อย'
+        name: 'ไทรน้อย'
     },
     {
         codeProvince: 12,
         codeDistrict: 1206,
-        name: 'อำเภอปากเกร็ด'
+        name: 'ปากเกร็ด'
     },
     {
         codeProvince: 13,
         codeDistrict: 1301,
-        name: 'อำเภอเมืองปทุมธานี'
+        name: 'เมืองปทุมธานี'
     },
     {
         codeProvince: 13,
         codeDistrict: 1302,
-        name: 'อำเภอคลองหลวง'
+        name: 'คลองหลวง'
     },
     {
         codeProvince: 13,
         codeDistrict: 1303,
-        name: 'อำเภอธัญบุรี'
+        name: 'ธัญบุรี'
     },
     {
         codeProvince: 13,
         codeDistrict: 1304,
-        name: 'อำเภอหนองเสือ'
+        name: 'หนองเสือ'
     },
     {
         codeProvince: 13,
         codeDistrict: 1305,
-        name: 'อำเภอลาดหลุมแก้ว'
+        name: 'ลาดหลุมแก้ว'
     },
     {
         codeProvince: 13,
         codeDistrict: 1306,
-        name: 'อำเภอลำลูกกา'
+        name: 'ลำลูกกา'
     },
     {
         codeProvince: 13,
         codeDistrict: 1307,
-        name: 'อำเภอสามโคก'
+        name: 'สามโคก'
     },
     {
         codeProvince: 14,
         codeDistrict: 1401,
-        name: 'อำเภอพระนครศรีอยุธยา'
+        name: 'พระนครศรีอยุธยา'
     },
     {
         codeProvince: 14,
         codeDistrict: 1402,
-        name: 'อำเภอท่าเรือ'
+        name: 'ท่าเรือ'
     },
     {
         codeProvince: 14,
         codeDistrict: 1403,
-        name: 'อำเภอนครหลวง'
+        name: 'นครหลวง'
     },
     {
         codeProvince: 14,
         codeDistrict: 1404,
-        name: 'อำเภอบางไทร'
+        name: 'บางไทร'
     },
     {
         codeProvince: 14,
         codeDistrict: 1405,
-        name: 'อำเภอบางบาล'
+        name: 'บางบาล'
     },
     {
         codeProvince: 14,
         codeDistrict: 1406,
-        name: 'อำเภอบางปะอิน'
+        name: 'บางปะอิน'
     },
     {
         codeProvince: 14,
         codeDistrict: 1407,
-        name: 'อำเภอบางปะหัน'
+        name: 'บางปะหัน'
     },
     {
         codeProvince: 14,
         codeDistrict: 1408,
-        name: 'อำเภอผักไห่'
+        name: 'ผักไห่'
     },
     {
         codeProvince: 14,
         codeDistrict: 1409,
-        name: 'อำเภอภาชี'
+        name: 'ภาชี'
     },
     {
         codeProvince: 14,
         codeDistrict: 1410,
-        name: 'อำเภอลาดบัวหลวง'
+        name: 'ลาดบัวหลวง'
     },
     {
         codeProvince: 14,
         codeDistrict: 1411,
-        name: 'อำเภอวังน้อย'
+        name: 'วังน้อย'
     },
     {
         codeProvince: 14,
         codeDistrict: 1412,
-        name: 'อำเภอเสนา'
+        name: 'เสนา'
     },
     {
         codeProvince: 14,
         codeDistrict: 1413,
-        name: 'อำเภอบางซ้าย'
+        name: 'บางซ้าย'
     },
     {
         codeProvince: 14,
         codeDistrict: 1414,
-        name: 'อำเภออุทัย'
+        name: 'อุทัย'
     },
     {
         codeProvince: 14,
         codeDistrict: 1415,
-        name: 'อำเภอมหาราช'
+        name: 'มหาราช'
     },
     {
         codeProvince: 14,
         codeDistrict: 1416,
-        name: 'อำเภอบ้านแพรก'
+        name: 'บ้านแพรก'
     },
     {
         codeProvince: 15,
         codeDistrict: 1501,
-        name: 'อำเภอเมืองอ่างทอง'
+        name: 'เมืองอ่างทอง'
     },
     {
         codeProvince: 15,
         codeDistrict: 1502,
-        name: 'อำเภอไชโย'
+        name: 'ไชโย'
     },
     {
         codeProvince: 15,
         codeDistrict: 1503,
-        name: 'อำเภอป่าโมก'
+        name: 'ป่าโมก'
     },
     {
         codeProvince: 15,
         codeDistrict: 1504,
-        name: 'อำเภอโพธิ์ทอง'
+        name: 'โพธิ์ทอง'
     },
     {
         codeProvince: 15,
         codeDistrict: 1505,
-        name: 'อำเภอแสวงหา'
+        name: 'แสวงหา'
     },
     {
         codeProvince: 15,
         codeDistrict: 1506,
-        name: 'อำเภอวิเศษชัยชาญ'
+        name: 'วิเศษชัยชาญ'
     },
     {
         codeProvince: 15,
         codeDistrict: 1507,
-        name: 'อำเภอสามโก้'
+        name: 'สามโก้'
     },
     {
         codeProvince: 16,
         codeDistrict: 1601,
-        name: 'อำเภอเมืองลพบุรี'
+        name: 'เมืองลพบุรี'
     },
     {
         codeProvince: 16,
         codeDistrict: 1602,
-        name: 'อำเภอพัฒนานิคม'
+        name: 'พัฒนานิคม'
     },
     {
         codeProvince: 16,
         codeDistrict: 1603,
-        name: 'อำเภอโคกสำโรง'
+        name: 'โคกสำโรง'
     },
     {
         codeProvince: 16,
         codeDistrict: 1604,
-        name: 'อำเภอชัยบาดาล'
+        name: 'ชัยบาดาล'
     },
     {
         codeProvince: 16,
         codeDistrict: 1605,
-        name: 'อำเภอท่าวุ้ง'
+        name: 'ท่าวุ้ง'
     },
     {
         codeProvince: 16,
         codeDistrict: 1606,
-        name: 'อำเภอบ้านหมี่'
+        name: 'บ้านหมี่'
     },
     {
         codeProvince: 16,
         codeDistrict: 1607,
-        name: 'อำเภอท่าหลวง'
+        name: 'ท่าหลวง'
     },
     {
         codeProvince: 16,
         codeDistrict: 1608,
-        name: 'อำเภอสระโบสถ์'
+        name: 'สระโบสถ์'
     },
     {
         codeProvince: 16,
         codeDistrict: 1609,
-        name: 'อำเภอโคกเจริญ'
+        name: 'โคกเจริญ'
     },
     {
         codeProvince: 16,
         codeDistrict: 1610,
-        name: 'อำเภอลำสนธิ'
+        name: 'ลำสนธิ'
     },
     {
         codeProvince: 16,
         codeDistrict: 1611,
-        name: 'อำเภอหนองม่วง'
+        name: 'หนองม่วง'
     },
     {
         codeProvince: 17,
         codeDistrict: 1701,
-        name: 'อำเภอเมืองสิงห์บุรี'
+        name: 'เมืองสิงห์บุรี'
     },
     {
         codeProvince: 17,
         codeDistrict: 1702,
-        name: 'อำเภอบางระจัน'
+        name: 'บางระจัน'
     },
     {
         codeProvince: 17,
         codeDistrict: 1703,
-        name: 'อำเภอค่ายบางระจัน'
+        name: 'ค่ายบางระจัน'
     },
     {
         codeProvince: 17,
         codeDistrict: 1704,
-        name: 'อำเภอพรหมบุรี'
+        name: 'พรหมบุรี'
     },
     {
         codeProvince: 17,
         codeDistrict: 1705,
-        name: 'อำเภอท่าช้าง'
+        name: 'ท่าช้าง'
     },
     {
         codeProvince: 17,
         codeDistrict: 1706,
-        name: 'อำเภออินทร์บุรี'
+        name: 'อินทร์บุรี'
     },
     {
         codeProvince: 18,
         codeDistrict: 1801,
-        name: 'อำเภอเมืองชัยนาท'
+        name: 'เมืองชัยนาท'
     },
     {
         codeProvince: 18,
         codeDistrict: 1802,
-        name: 'อำเภอมโนรมย์'
+        name: 'มโนรมย์'
     },
     {
         codeProvince: 18,
         codeDistrict: 1803,
-        name: 'อำเภอวัดสิงห์'
+        name: 'วัดสิงห์'
     },
     {
         codeProvince: 18,
         codeDistrict: 1804,
-        name: 'อำเภอสรรพยา'
+        name: 'สรรพยา'
     },
     {
         codeProvince: 18,
         codeDistrict: 1805,
-        name: 'อำเภอสรรคบุรี'
+        name: 'สรรคบุรี'
     },
     {
         codeProvince: 18,
         codeDistrict: 1806,
-        name: 'อำเภอหันคา'
+        name: 'หันคา'
     },
     {
         codeProvince: 18,
         codeDistrict: 1807,
-        name: 'อำเภอหนองมะโมง'
+        name: 'หนองมะโมง'
     },
     {
         codeProvince: 18,
         codeDistrict: 1808,
-        name: 'อำเภอเนินขาม'
+        name: 'เนินขาม'
     },
     {
         codeProvince: 19,
         codeDistrict: 1901,
-        name: 'อำเภอเมืองสระบุรี'
+        name: 'เมืองสระบุรี'
     },
     {
         codeProvince: 19,
         codeDistrict: 1902,
-        name: 'อำเภอแก่งคอย'
+        name: 'แก่งคอย'
     },
     {
         codeProvince: 19,
         codeDistrict: 1903,
-        name: 'อำเภอหนองแค'
+        name: 'หนองแค'
     },
     {
         codeProvince: 19,
         codeDistrict: 1904,
-        name: 'อำเภอวิหารแดง'
+        name: 'วิหารแดง'
     },
     {
         codeProvince: 19,
         codeDistrict: 1905,
-        name: 'อำเภอหนองแซง'
+        name: 'หนองแซง'
     },
     {
         codeProvince: 19,
         codeDistrict: 1906,
-        name: 'อำเภอบ้านหมอ'
+        name: 'บ้านหมอ'
     },
     {
         codeProvince: 19,
         codeDistrict: 1907,
-        name: 'อำเภอดอนพุด'
+        name: 'ดอนพุด'
     },
     {
         codeProvince: 19,
         codeDistrict: 1908,
-        name: 'อำเภอหนองโดน'
+        name: 'หนองโดน'
     },
     {
         codeProvince: 19,
         codeDistrict: 1909,
-        name: 'อำเภอพระพุทธบาท'
+        name: 'พระพุทธบาท'
     },
     {
         codeProvince: 19,
         codeDistrict: 1910,
-        name: 'อำเภอเสาไห้'
+        name: 'เสาไห้'
     },
     {
         codeProvince: 19,
         codeDistrict: 1911,
-        name: 'อำเภอมวกเหล็ก'
+        name: 'มวกเหล็ก'
     },
     {
         codeProvince: 19,
         codeDistrict: 1912,
-        name: 'อำเภอวังม่วง'
+        name: 'วังม่วง'
     },
     {
         codeProvince: 19,
         codeDistrict: 1913,
-        name: 'อำเภอเฉลิมพระเกียรติ'
+        name: 'เฉลิมพระเกียรติ'
     },
     {
         codeProvince: 20,
         codeDistrict: 2001,
-        name: 'อำเภอเมืองชลบุรี'
+        name: 'เมืองชลบุรี'
     },
     {
         codeProvince: 20,
         codeDistrict: 2002,
-        name: 'อำเภอบ้านบึง'
+        name: 'บ้านบึง'
     },
     {
         codeProvince: 20,
         codeDistrict: 2003,
-        name: 'อำเภอหนองใหญ่'
+        name: 'หนองใหญ่'
     },
     {
         codeProvince: 20,
         codeDistrict: 2004,
-        name: 'อำเภอบางละมุง'
+        name: 'บางละมุง'
     },
     {
         codeProvince: 20,
         codeDistrict: 2005,
-        name: 'อำเภอพานทอง'
+        name: 'พานทอง'
     },
     {
         codeProvince: 20,
         codeDistrict: 2006,
-        name: 'อำเภอพนัสนิคม'
+        name: 'พนัสนิคม'
     },
     {
         codeProvince: 20,
         codeDistrict: 2007,
-        name: 'อำเภอศรีราชา'
+        name: 'ศรีราชา'
     },
     {
         codeProvince: 20,
         codeDistrict: 2008,
-        name: 'อำเภอเกาะสีชัง'
+        name: 'เกาะสีชัง'
     },
     {
         codeProvince: 20,
         codeDistrict: 2009,
-        name: 'อำเภอสัตหีบ'
+        name: 'สัตหีบ'
     },
     {
         codeProvince: 20,
         codeDistrict: 2010,
-        name: 'อำเภอบ่อทอง'
+        name: 'บ่อทอง'
     },
     {
         codeProvince: 20,
         codeDistrict: 2011,
-        name: 'อำเภอเกาะจันทร์'
+        name: 'เกาะจันทร์'
     },
     {
         codeProvince: 21,
         codeDistrict: 2101,
-        name: 'อำเภอเมืองระยอง'
+        name: 'เมืองระยอง'
     },
     {
         codeProvince: 21,
         codeDistrict: 2102,
-        name: 'อำเภอบ้านฉาง'
+        name: 'บ้านฉาง'
     },
     {
         codeProvince: 21,
         codeDistrict: 2103,
-        name: 'อำเภอแกลง'
+        name: 'แกลง'
     },
     {
         codeProvince: 21,
         codeDistrict: 2104,
-        name: 'อำเภอวังจันทร์'
+        name: 'วังจันทร์'
     },
     {
         codeProvince: 21,
         codeDistrict: 2105,
-        name: 'อำเภอบ้านค่าย'
+        name: 'บ้านค่าย'
     },
     {
         codeProvince: 21,
         codeDistrict: 2106,
-        name: 'อำเภอปลวกแดง'
+        name: 'ปลวกแดง'
     },
     {
         codeProvince: 21,
         codeDistrict: 2107,
-        name: 'อำเภอเขาชะเมา'
+        name: 'เขาชะเมา'
     },
     {
         codeProvince: 21,
         codeDistrict: 2108,
-        name: 'อำเภอนิคมพัฒนา'
+        name: 'นิคมพัฒนา'
     },
     {
         codeProvince: 22,
         codeDistrict: 2201,
-        name: 'อำเภอเมืองจันทบุรี'
+        name: 'เมืองจันทบุรี'
     },
     {
         codeProvince: 22,
         codeDistrict: 2202,
-        name: 'อำเภอขลุง'
+        name: 'ขลุง'
     },
     {
         codeProvince: 22,
         codeDistrict: 2203,
-        name: 'อำเภอท่าใหม่'
+        name: 'ท่าใหม่'
     },
     {
         codeProvince: 22,
         codeDistrict: 2204,
-        name: 'อำเภอโป่งน้ำร้อน'
+        name: 'โป่งน้ำร้อน'
     },
     {
         codeProvince: 22,
         codeDistrict: 2205,
-        name: 'อำเภอมะขาม'
+        name: 'มะขาม'
     },
     {
         codeProvince: 22,
         codeDistrict: 2206,
-        name: 'อำเภอแหลมสิงห์'
+        name: 'แหลมสิงห์'
     },
     {
         codeProvince: 22,
         codeDistrict: 2207,
-        name: 'อำเภอสอยดาว'
+        name: 'สอยดาว'
     },
     {
         codeProvince: 22,
         codeDistrict: 2208,
-        name: 'อำเภอแก่งหางแมว'
+        name: 'แก่งหางแมว'
     },
     {
         codeProvince: 22,
         codeDistrict: 2209,
-        name: 'อำเภอนายายอาม'
+        name: 'นายายอาม'
     },
     {
         codeProvince: 22,
         codeDistrict: 2210,
-        name: 'อำเภอเขาคิชฌกูฏ'
+        name: 'เขาคิชฌกูฏ'
     },
     {
         codeProvince: 23,
         codeDistrict: 2301,
-        name: 'อำเภอเมืองตราด'
+        name: 'เมืองตราด'
     },
     {
         codeProvince: 23,
         codeDistrict: 2302,
-        name: 'อำเภอคลองใหญ่'
+        name: 'คลองใหญ่'
     },
     {
         codeProvince: 23,
         codeDistrict: 2303,
-        name: 'อำเภอเขาสมิง'
+        name: 'เขาสมิง'
     },
     {
         codeProvince: 23,
         codeDistrict: 2304,
-        name: 'อำเภอบ่อไร่'
+        name: 'บ่อไร่'
     },
     {
         codeProvince: 23,
         codeDistrict: 2305,
-        name: 'อำเภอแหลมงอบ'
+        name: 'แหลมงอบ'
     },
     {
         codeProvince: 23,
         codeDistrict: 2306,
-        name: 'อำเภอเกาะกูด'
+        name: 'เกาะกูด'
     },
     {
         codeProvince: 23,
         codeDistrict: 2307,
-        name: 'อำเภอเกาะช้าง'
+        name: 'เกาะช้าง'
     },
     {
         codeProvince: 24,
         codeDistrict: 2401,
-        name: 'อำเภอเมืองฉะเชิงเทรา'
+        name: 'เมืองฉะเชิงเทรา'
     },
     {
         codeProvince: 24,
         codeDistrict: 2402,
-        name: 'อำเภอบางคล้า'
+        name: 'บางคล้า'
     },
     {
         codeProvince: 24,
         codeDistrict: 2403,
-        name: 'อำเภอบางน้ำเปรี้ยว'
+        name: 'บางน้ำเปรี้ยว'
     },
     {
         codeProvince: 24,
         codeDistrict: 2404,
-        name: 'อำเภอบางปะกง'
+        name: 'บางปะกง'
     },
     {
         codeProvince: 24,
         codeDistrict: 2405,
-        name: 'อำเภอบ้านโพธิ์'
+        name: 'บ้านโพธิ์'
     },
     {
         codeProvince: 24,
         codeDistrict: 2406,
-        name: 'อำเภอพนมสารคาม'
+        name: 'พนมสารคาม'
     },
     {
         codeProvince: 24,
         codeDistrict: 2407,
-        name: 'อำเภอราชสาส์น'
+        name: 'ราชสาส์น'
     },
     {
         codeProvince: 24,
         codeDistrict: 2408,
-        name: 'อำเภอสนามชัยเขต'
+        name: 'สนามชัยเขต'
     },
     {
         codeProvince: 24,
         codeDistrict: 2409,
-        name: 'อำเภอแปลงยาว'
+        name: 'แปลงยาว'
     },
     {
         codeProvince: 24,
         codeDistrict: 2410,
-        name: 'อำเภอท่าตะเกียบ'
+        name: 'ท่าตะเกียบ'
     },
     {
         codeProvince: 24,
         codeDistrict: 2411,
-        name: 'อำเภอคลองเขื่อน'
+        name: 'คลองเขื่อน'
     },
     {
         codeProvince: 25,
         codeDistrict: 2501,
-        name: 'อำเภอเมืองปราจีนบุรี'
+        name: 'เมืองปราจีนบุรี'
     },
     {
         codeProvince: 25,
         codeDistrict: 2502,
-        name: 'อำเภอกบินทร์บุรี'
+        name: 'กบินทร์บุรี'
     },
     {
         codeProvince: 25,
         codeDistrict: 2503,
-        name: 'อำเภอนาดี'
+        name: 'นาดี'
     },
     {
         codeProvince: 25,
         codeDistrict: 2506,
-        name: 'อำเภอบ้านสร้าง'
+        name: 'บ้านสร้าง'
     },
     {
         codeProvince: 25,
         codeDistrict: 2507,
-        name: 'อำเภอประจันตคาม'
+        name: 'ประจันตคาม'
     },
     {
         codeProvince: 25,
         codeDistrict: 2508,
-        name: 'อำเภอศรีมหาโพธิ'
+        name: 'ศรีมหาโพธิ'
     },
     {
         codeProvince: 25,
         codeDistrict: 2509,
-        name: 'อำเภอศรีมโหสถ'
+        name: 'ศรีมโหสถ'
     },
     {
         codeProvince: 26,
         codeDistrict: 2601,
-        name: 'อำเภอเมืองนครนายก'
+        name: 'เมืองนครนายก'
     },
     {
         codeProvince: 26,
         codeDistrict: 2602,
-        name: 'อำเภอปากพลี'
+        name: 'ปากพลี'
     },
     {
         codeProvince: 26,
         codeDistrict: 2603,
-        name: 'อำเภอบ้านนา'
+        name: 'บ้านนา'
     },
     {
         codeProvince: 26,
         codeDistrict: 2604,
-        name: 'อำเภอองครักษ์'
+        name: 'องครักษ์'
     },
     {
         codeProvince: 27,
         codeDistrict: 2701,
-        name: 'อำเภอเมืองสระแก้ว'
+        name: 'เมืองสระแก้ว'
     },
     {
         codeProvince: 27,
         codeDistrict: 2702,
-        name: 'อำเภอคลองหาด'
+        name: 'คลองหาด'
     },
     {
         codeProvince: 27,
         codeDistrict: 2703,
-        name: 'อำเภอตาพระยา'
+        name: 'ตาพระยา'
     },
     {
         codeProvince: 27,
         codeDistrict: 2704,
-        name: 'อำเภอวังน้ำเย็น'
+        name: 'วังน้ำเย็น'
     },
     {
         codeProvince: 27,
         codeDistrict: 2705,
-        name: 'อำเภอวัฒนานคร'
+        name: 'วัฒนานคร'
     },
     {
         codeProvince: 27,
         codeDistrict: 2706,
-        name: 'อำเภออรัญประเทศ'
+        name: 'อรัญประเทศ'
     },
     {
         codeProvince: 27,
         codeDistrict: 2707,
-        name: 'อำเภอเขาฉกรรจ์'
+        name: 'เขาฉกรรจ์'
     },
     {
         codeProvince: 27,
         codeDistrict: 2708,
-        name: 'อำเภอโคกสูง'
+        name: 'โคกสูง'
     },
     {
         codeProvince: 27,
         codeDistrict: 2709,
-        name: 'อำเภอวังสมบูรณ์'
+        name: 'วังสมบูรณ์'
     },
     {
         codeProvince: 30,
         codeDistrict: 3001,
-        name: 'อำเภอเมืองนครราชสีมา'
+        name: 'เมืองนครราชสีมา'
     },
     {
         codeProvince: 30,
         codeDistrict: 3002,
-        name: 'อำเภอครบุรี'
+        name: 'ครบุรี'
     },
     {
         codeProvince: 30,
         codeDistrict: 3003,
-        name: 'อำเภอเสิงสาง'
+        name: 'เสิงสาง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3004,
-        name: 'อำเภอคง'
+        name: 'คง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3005,
-        name: 'อำเภอบ้านเหลื่อม'
+        name: 'บ้านเหลื่อม'
     },
     {
         codeProvince: 30,
         codeDistrict: 3006,
-        name: 'อำเภอจักราช'
+        name: 'จักราช'
     },
     {
         codeProvince: 30,
         codeDistrict: 3007,
-        name: 'อำเภอโชคชัย'
+        name: 'โชคชัย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3008,
-        name: 'อำเภอด่านขุนทด'
+        name: 'ด่านขุนทด'
     },
     {
         codeProvince: 30,
         codeDistrict: 3009,
-        name: 'อำเภอโนนไทย'
+        name: 'โนนไทย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3010,
-        name: 'อำเภอโนนสูง'
+        name: 'โนนสูง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3011,
-        name: 'อำเภอขามสะแกแสง'
+        name: 'ขามสะแกแสง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3012,
-        name: 'อำเภอบัวใหญ่'
+        name: 'บัวใหญ่'
     },
     {
         codeProvince: 30,
         codeDistrict: 3013,
-        name: 'อำเภอประทาย'
+        name: 'ประทาย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3014,
-        name: 'อำเภอปักธงชัย'
+        name: 'ปักธงชัย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3015,
-        name: 'อำเภอพิมาย'
+        name: 'พิมาย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3016,
-        name: 'อำเภอห้วยแถลง'
+        name: 'ห้วยแถลง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3017,
-        name: 'อำเภอชุมพวง'
+        name: 'ชุมพวง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3018,
-        name: 'อำเภอสูงเนิน'
+        name: 'สูงเนิน'
     },
     {
         codeProvince: 30,
         codeDistrict: 3019,
-        name: 'อำเภอขามทะเลสอ'
+        name: 'ขามทะเลสอ'
     },
     {
         codeProvince: 30,
         codeDistrict: 3020,
-        name: 'อำเภอสีคิ้ว'
+        name: 'สีคิ้ว'
     },
     {
         codeProvince: 30,
         codeDistrict: 3021,
-        name: 'อำเภอปากช่อง'
+        name: 'ปากช่อง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3022,
-        name: 'อำเภอหนองบุญมาก'
+        name: 'หนองบุญมาก'
     },
     {
         codeProvince: 30,
         codeDistrict: 3023,
-        name: 'อำเภอแก้งสนามนาง'
+        name: 'แก้งสนามนาง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3024,
-        name: 'อำเภอโนนแดง'
+        name: 'โนนแดง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3025,
-        name: 'อำเภอวังน้ำเขียว'
+        name: 'วังน้ำเขียว'
     },
     {
         codeProvince: 30,
         codeDistrict: 3026,
-        name: 'อำเภอเทพารักษ์'
+        name: 'เทพารักษ์'
     },
     {
         codeProvince: 30,
         codeDistrict: 3027,
-        name: 'อำเภอเมืองยาง'
+        name: 'เมืองยาง'
     },
     {
         codeProvince: 30,
         codeDistrict: 3028,
-        name: 'อำเภอพระทองคำ'
+        name: 'พระทองคำ'
     },
     {
         codeProvince: 30,
         codeDistrict: 3029,
-        name: 'อำเภอลำทะเมนชัย'
+        name: 'ลำทะเมนชัย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3030,
-        name: 'อำเภอบัวลาย'
+        name: 'บัวลาย'
     },
     {
         codeProvince: 30,
         codeDistrict: 3031,
-        name: 'อำเภอสีดา'
+        name: 'สีดา'
     },
     {
         codeProvince: 30,
         codeDistrict: 3032,
-        name: 'อำเภอเฉลิมพระเกียรติ'
+        name: 'เฉลิมพระเกียรติ'
     },
     {
         codeProvince: 31,
         codeDistrict: 3101,
-        name: 'อำเภอเมืองบุรีรัมย์'
+        name: 'เมืองบุรีรัมย์'
     },
     {
         codeProvince: 31,
         codeDistrict: 3102,
-        name: 'อำเภอคูเมือง'
+        name: 'คูเมือง'
     },
     {
         codeProvince: 31,
         codeDistrict: 3103,
-        name: 'อำเภอกระสัง'
+        name: 'กระสัง'
     },
     {
         codeProvince: 31,
         codeDistrict: 3104,
-        name: 'อำเภอนางรอง'
+        name: 'นางรอง'
     },
     {
         codeProvince: 31,
         codeDistrict: 3105,
-        name: 'อำเภอหนองกี่'
+        name: 'หนองกี่'
     },
     {
         codeProvince: 31,
         codeDistrict: 3106,
-        name: 'อำเภอละหานทราย'
+        name: 'ละหานทราย'
     },
     {
         codeProvince: 31,
         codeDistrict: 3107,
-        name: 'อำเภอประโคนชัย'
+        name: 'ประโคนชัย'
     },
     {
         codeProvince: 31,
         codeDistrict: 3108,
-        name: 'อำเภอบ้านกรวด'
+        name: 'บ้านกรวด'
     },
     {
         codeProvince: 31,
         codeDistrict: 3109,
-        name: 'อำเภอพุทไธสง'
+        name: 'พุทไธสง'
     },
     {
         codeProvince: 31,
         codeDistrict: 3110,
-        name: 'อำเภอลำปลายมาศ'
+        name: 'ลำปลายมาศ'
     },
     {
         codeProvince: 31,
         codeDistrict: 3111,
-        name: 'อำเภอสตึก'
+        name: 'สตึก'
     },
     {
         codeProvince: 31,
         codeDistrict: 3112,
-        name: 'อำเภอปะคำ'
+        name: 'ปะคำ'
     },
     {
         codeProvince: 31,
         codeDistrict: 3113,
-        name: 'อำเภอนาโพธิ์'
+        name: 'นาโพธิ์'
     },
     {
         codeProvince: 31,
         codeDistrict: 3114,
-        name: 'อำเภอหนองหงส์'
+        name: 'หนองหงส์'
     },
     {
         codeProvince: 31,
         codeDistrict: 3115,
-        name: 'อำเภอพลับพลาชัย'
+        name: 'พลับพลาชัย'
     },
     {
         codeProvince: 31,
         codeDistrict: 3116,
-        name: 'อำเภอห้วยราช'
+        name: 'ห้วยราช'
     },
     {
         codeProvince: 31,
         codeDistrict: 3117,
-        name: 'อำเภอโนนสุวรรณ'
+        name: 'โนนสุวรรณ'
     },
     {
         codeProvince: 31,
         codeDistrict: 3118,
-        name: 'อำเภอชำนิ'
+        name: 'ชำนิ'
     },
     {
         codeProvince: 31,
         codeDistrict: 3119,
-        name: 'อำเภอบ้านใหม่ไชยพจน์'
+        name: 'บ้านใหม่ไชยพจน์'
     },
     {
         codeProvince: 31,
         codeDistrict: 3120,
-        name: 'อำเภอโนนดินแดง'
+        name: 'โนนดินแดง'
     },
     {
         codeProvince: 31,
         codeDistrict: 3121,
-        name: 'อำเภอบ้านด่าน'
+        name: 'บ้านด่าน'
     },
     {
         codeProvince: 31,
         codeDistrict: 3122,
-        name: 'อำเภอแคนดง'
+        name: 'แคนดง'
     },
     {
         codeProvince: 31,
         codeDistrict: 3123,
-        name: 'อำเภอเฉลิมพระเกียรติ'
+        name: 'เฉลิมพระเกียรติ'
     },
     {
         codeProvince: 32,
         codeDistrict: 3201,
-        name: 'อำเภอเมืองสุรินทร์'
+        name: 'เมืองสุรินทร์'
     },
     {
         codeProvince: 32,
         codeDistrict: 3202,
-        name: 'อำเภอชุมพลบุรี'
+        name: 'ชุมพลบุรี'
     },
     {
         codeProvince: 32,
         codeDistrict: 3203,
-        name: 'อำเภอท่าตูม'
+        name: 'ท่าตูม'
     },
     {
         codeProvince: 32,
         codeDistrict: 3204,
-        name: 'อำเภอจอมพระ'
+        name: 'จอมพระ'
     },
     {
         codeProvince: 32,
         codeDistrict: 3205,
-        name: 'อำเภอปราสาท'
+        name: 'ปราสาท'
     },
     {
         codeProvince: 32,
         codeDistrict: 3206,
-        name: 'อำเภอกาบเชิง'
+        name: 'กาบเชิง'
     },
     {
         codeProvince: 32,
         codeDistrict: 3207,
-        name: 'อำเภอรัตนบุรี'
+        name: 'รัตนบุรี'
     },
     {
         codeProvince: 32,
         codeDistrict: 3208,
-        name: 'อำเภอสนม'
+        name: 'สนม'
     },
     {
         codeProvince: 32,
         codeDistrict: 3209,
-        name: 'อำเภอศีขรภูมิ'
+        name: 'ศีขรภูมิ'
     },
     {
         codeProvince: 32,
         codeDistrict: 3210,
-        name: 'อำเภอสังขะ'
+        name: 'สังขะ'
     },
     {
         codeProvince: 32,
         codeDistrict: 3211,
-        name: 'อำเภอลำดวน'
+        name: 'ลำดวน'
     },
     {
         codeProvince: 32,
         codeDistrict: 3212,
-        name: 'อำเภอสำโรงทาบ'
+        name: 'สำโรงทาบ'
     },
     {
         codeProvince: 32,
         codeDistrict: 3213,
-        name: 'อำเภอบัวเชด'
+        name: 'บัวเชด'
     },
     {
         codeProvince: 32,
         codeDistrict: 3214,
-        name: 'อำเภอพนมดงรัก'
+        name: 'พนมดงรัก'
     },
     {
         codeProvince: 32,
         codeDistrict: 3215,
-        name: 'อำเภอศรีณรงค์'
+        name: 'ศรีณรงค์'
     },
     {
         codeProvince: 32,
         codeDistrict: 3216,
-        name: 'อำเภอเขวาสินรินทร์'
+        name: 'เขวาสินรินทร์'
     },
     {
         codeProvince: 32,
         codeDistrict: 3217,
-        name: 'อำเภอโนนนารายณ์'
+        name: 'โนนนารายณ์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3301,
-        name: 'อำเภอเมืองศรีสะเกษ'
+        name: 'เมืองศรีสะเกษ'
     },
     {
         codeProvince: 33,
         codeDistrict: 3302,
-        name: 'อำเภอยางชุมน้อย'
+        name: 'ยางชุมน้อย'
     },
     {
         codeProvince: 33,
         codeDistrict: 3303,
-        name: 'อำเภอกันทรารมย์'
+        name: 'กันทรารมย์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3304,
-        name: 'อำเภอกันทรลักษ์'
+        name: 'กันทรลักษ์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3305,
-        name: 'อำเภอขุขันธ์'
+        name: 'ขุขันธ์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3306,
-        name: 'อำเภอไพรบึง'
+        name: 'ไพรบึง'
     },
     {
         codeProvince: 33,
         codeDistrict: 3307,
-        name: 'อำเภอปรางค์กู่'
+        name: 'ปรางค์กู่'
     },
     {
         codeProvince: 33,
         codeDistrict: 3308,
-        name: 'อำเภอขุนหาญ'
+        name: 'ขุนหาญ'
     },
     {
         codeProvince: 33,
         codeDistrict: 3309,
-        name: 'อำเภอราษีไศล'
+        name: 'ราษีไศล'
     },
     {
         codeProvince: 33,
         codeDistrict: 3310,
-        name: 'อำเภออุทุมพรพิสัย'
+        name: 'อุทุมพรพิสัย'
     },
     {
         codeProvince: 33,
         codeDistrict: 3311,
-        name: 'อำเภอบึงบูรพ์'
+        name: 'บึงบูรพ์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3312,
-        name: 'อำเภอห้วยทับทัน'
+        name: 'ห้วยทับทัน'
     },
     {
         codeProvince: 33,
         codeDistrict: 3313,
-        name: 'อำเภอโนนคูณ'
+        name: 'โนนคูณ'
     },
     {
         codeProvince: 33,
         codeDistrict: 3314,
-        name: 'อำเภอศรีรัตนะ'
+        name: 'ศรีรัตนะ'
     },
     {
         codeProvince: 33,
         codeDistrict: 3315,
-        name: 'อำเภอน้ำเกลี้ยง'
+        name: 'น้ำเกลี้ยง'
     },
     {
         codeProvince: 33,
         codeDistrict: 3316,
-        name: 'อำเภอวังหิน'
+        name: 'วังหิน'
     },
     {
         codeProvince: 33,
         codeDistrict: 3317,
-        name: 'อำเภอภูสิงห์'
+        name: 'ภูสิงห์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3318,
-        name: 'อำเภอเมืองจันทร์'
+        name: 'เมืองจันทร์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3319,
-        name: 'อำเภอเบญจลักษ์'
+        name: 'เบญจลักษ์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3320,
-        name: 'อำเภอพยุห์'
+        name: 'พยุห์'
     },
     {
         codeProvince: 33,
         codeDistrict: 3321,
-        name: 'อำเภอโพธิ์ศรีสุวรรณ'
+        name: 'โพธิ์ศรีสุวรรณ'
     },
     {
         codeProvince: 33,
         codeDistrict: 3322,
-        name: 'อำเภอศิลาลาด'
+        name: 'ศิลาลาด'
     },
     {
         codeProvince: 34,
         codeDistrict: 3401,
-        name: 'อำเภอเมืองอุบลราชธานี'
+        name: 'เมืองอุบลราชธานี'
     },
     {
         codeProvince: 34,
         codeDistrict: 3402,
-        name: 'อำเภอศรีเมืองใหม่'
+        name: 'ศรีเมืองใหม่'
     },
     {
         codeProvince: 34,
         codeDistrict: 3403,
-        name: 'อำเภอโขงเจียม'
+        name: 'โขงเจียม'
     },
     {
         codeProvince: 34,
         codeDistrict: 3404,
-        name: 'อำเภอเขื่องใน'
+        name: 'เขื่องใน'
     },
     {
         codeProvince: 34,
         codeDistrict: 3405,
-        name: 'อำเภอเขมราฐ'
+        name: 'เขมราฐ'
     },
     {
         codeProvince: 34,
         codeDistrict: 3407,
-        name: 'อำเภอเดชอุดม'
+        name: 'เดชอุดม'
     },
     {
         codeProvince: 34,
         codeDistrict: 3408,
-        name: 'อำเภอนาจะหลวย'
+        name: 'นาจะหลวย'
     },
     {
         codeProvince: 34,
         codeDistrict: 3409,
-        name: 'อำเภอน้ำยืน'
+        name: 'น้ำยืน'
     },
     {
         codeProvince: 34,
         codeDistrict: 3410,
-        name: 'อำเภอบุณฑริก'
+        name: 'บุณฑริก'
     },
     {
         codeProvince: 34,
         codeDistrict: 3411,
-        name: 'อำเภอตระการพืชผล'
+        name: 'ตระการพืชผล'
     },
     {
         codeProvince: 34,
         codeDistrict: 3412,
-        name: 'อำเภอกุดข้าวปุ้น'
+        name: 'กุดข้าวปุ้น'
     },
     {
         codeProvince: 34,
         codeDistrict: 3414,
-        name: 'อำเภอม่วงสามสิบ'
+        name: 'ม่วงสามสิบ'
     },
     {
         codeProvince: 34,
         codeDistrict: 3415,
-        name: 'อำเภอวารินชำราบ'
+        name: 'วารินชำราบ'
     },
     {
         codeProvince: 34,
         codeDistrict: 3419,
-        name: 'อำเภอพิบูลมังสาหาร'
+        name: 'พิบูลมังสาหาร'
     },
     {
         codeProvince: 34,
         codeDistrict: 3420,
-        name: 'อำเภอตาลสุม'
+        name: 'ตาลสุม'
     },
     {
         codeProvince: 34,
         codeDistrict: 3421,
-        name: 'อำเภอโพธิ์ไทร'
+        name: 'โพธิ์ไทร'
     },
     {
         codeProvince: 34,
         codeDistrict: 3422,
-        name: 'อำเภอสำโรง'
+        name: 'สำโรง'
     },
     {
         codeProvince: 34,
         codeDistrict: 3424,
-        name: 'อำเภอดอนมดแดง'
+        name: 'ดอนมดแดง'
     },
     {
         codeProvince: 34,
         codeDistrict: 3425,
-        name: 'อำเภอสิรินธร'
+        name: 'สิรินธร'
     },
     {
         codeProvince: 34,
         codeDistrict: 3426,
-        name: 'อำเภอทุ่งศรีอุดม'
+        name: 'ทุ่งศรีอุดม'
     },
     {
         codeProvince: 34,
         codeDistrict: 3429,
-        name: 'อำเภอนาเยีย'
+        name: 'นาเยีย'
     },
     {
         codeProvince: 34,
         codeDistrict: 3430,
-        name: 'อำเภอนาตาล'
+        name: 'นาตาล'
     },
     {
         codeProvince: 34,
         codeDistrict: 3431,
-        name: 'อำเภอเหล่าเสือโก้ก'
+        name: 'เหล่าเสือโก้ก'
     },
     {
         codeProvince: 34,
         codeDistrict: 3432,
-        name: 'อำเภอสว่างวีระวงศ์'
+        name: 'สว่างวีระวงศ์'
     },
     {
         codeProvince: 34,
         codeDistrict: 3433,
-        name: 'อำเภอน้ำขุ่น'
+        name: 'น้ำขุ่น'
     },
     {
         codeProvince: 35,
         codeDistrict: 3501,
-        name: 'อำเภอเมืองยโสธร'
+        name: 'เมืองยโสธร'
     },
     {
         codeProvince: 35,
         codeDistrict: 3502,
-        name: 'อำเภอทรายมูล'
+        name: 'ทรายมูล'
     },
     {
         codeProvince: 35,
         codeDistrict: 3503,
-        name: 'อำเภอกุดชุม'
+        name: 'กุดชุม'
     },
     {
         codeProvince: 35,
         codeDistrict: 3504,
-        name: 'อำเภอคำเขื่อนแก้ว'
+        name: 'คำเขื่อนแก้ว'
     },
     {
         codeProvince: 35,
         codeDistrict: 3505,
-        name: 'อำเภอป่าติ้ว'
+        name: 'ป่าติ้ว'
     },
     {
         codeProvince: 35,
         codeDistrict: 3506,
-        name: 'อำเภอมหาชนะชัย'
+        name: 'มหาชนะชัย'
     },
     {
         codeProvince: 35,
         codeDistrict: 3507,
-        name: 'อำเภอค้อวัง'
+        name: 'ค้อวัง'
     },
     {
         codeProvince: 35,
         codeDistrict: 3508,
-        name: 'อำเภอเลิงนกทา'
+        name: 'เลิงนกทา'
     },
     {
         codeProvince: 35,
         codeDistrict: 3509,
-        name: 'อำเภอไทยเจริญ'
+        name: 'ไทยเจริญ'
     },
     {
         codeProvince: 36,
         codeDistrict: 3601,
-        name: 'อำเภอเมืองชัยภูมิ'
+        name: 'เมืองชัยภูมิ'
     },
     {
         codeProvince: 36,
         codeDistrict: 3602,
-        name: 'อำเภอบ้านเขว้า'
+        name: 'บ้านเขว้า'
     },
     {
         codeProvince: 36,
         codeDistrict: 3603,
-        name: 'อำเภอคอนสวรรค์'
+        name: 'คอนสวรรค์'
     },
     {
         codeProvince: 36,
         codeDistrict: 3604,
-        name: 'อำเภอเกษตรสมบูรณ์'
+        name: 'เกษตรสมบูรณ์'
     },
     {
         codeProvince: 36,
         codeDistrict: 3605,
-        name: 'อำเภอหนองบัวแดง'
+        name: 'หนองบัวแดง'
     },
     {
         codeProvince: 36,
         codeDistrict: 3606,
-        name: 'อำเภอจัตุรัส'
+        name: 'จัตุรัส'
     },
     {
         codeProvince: 36,
         codeDistrict: 3607,
-        name: 'อำเภอบำเหน็จณรงค์'
+        name: 'บำเหน็จณรงค์'
     },
     {
         codeProvince: 36,
         codeDistrict: 3608,
-        name: 'อำเภอหนองบัวระเหว'
+        name: 'หนองบัวระเหว'
     },
     {
         codeProvince: 36,
         codeDistrict: 3609,
-        name: 'อำเภอเทพสถิต'
+        name: 'เทพสถิต'
     },
     {
         codeProvince: 36,
         codeDistrict: 3610,
-        name: 'อำเภอภูเขียว'
+        name: 'ภูเขียว'
     },
     {
         codeProvince: 36,
         codeDistrict: 3611,
-        name: 'อำเภอบ้านแท่น'
+        name: 'บ้านแท่น'
     },
     {
         codeProvince: 36,
         codeDistrict: 3612,
-        name: 'อำเภอแก้งคร้อ'
+        name: 'แก้งคร้อ'
     },
     {
         codeProvince: 36,
         codeDistrict: 3613,
-        name: 'อำเภอคอนสาร'
+        name: 'คอนสาร'
     },
     {
         codeProvince: 36,
         codeDistrict: 3614,
-        name: 'อำเภอภักดีชุมพล'
+        name: 'ภักดีชุมพล'
     },
     {
         codeProvince: 36,
         codeDistrict: 3615,
-        name: 'อำเภอเนินสง่า'
+        name: 'เนินสง่า'
     },
     {
         codeProvince: 36,
         codeDistrict: 3616,
-        name: 'อำเภอซับใหญ่'
+        name: 'ซับใหญ่'
     },
     {
         codeProvince: 37,
         codeDistrict: 3701,
-        name: 'อำเภอเมืองอำนาจเจริญ'
+        name: 'เมืองอำนาจเจริญ'
     },
     {
         codeProvince: 37,
         codeDistrict: 3702,
-        name: 'อำเภอชานุมาน'
+        name: 'ชานุมาน'
     },
     {
         codeProvince: 37,
         codeDistrict: 3703,
-        name: 'อำเภอปทุมราชวงศา'
+        name: 'ปทุมราชวงศา'
     },
     {
         codeProvince: 37,
         codeDistrict: 3704,
-        name: 'อำเภอพนา'
+        name: 'พนา'
     },
     {
         codeProvince: 37,
         codeDistrict: 3705,
-        name: 'อำเภอเสนางคนิคม'
+        name: 'เสนางคนิคม'
     },
     {
         codeProvince: 37,
         codeDistrict: 3706,
-        name: 'อำเภอหัวตะพาน'
+        name: 'หัวตะพาน'
     },
     {
         codeProvince: 37,
         codeDistrict: 3707,
-        name: 'อำเภอลืออำนาจ'
+        name: 'ลืออำนาจ'
     },
     {
         codeProvince: 38,
         codeDistrict: 3801,
-        name: 'อำเภอเมืองบึงกาฬ'
+        name: 'เมืองบึงกาฬ'
     },
     {
         codeProvince: 38,
         codeDistrict: 3802,
-        name: 'อำเภอพรเจริญ'
+        name: 'พรเจริญ'
     },
     {
         codeProvince: 38,
         codeDistrict: 3803,
-        name: 'อำเภอโซ่พิสัย'
+        name: 'โซ่พิสัย'
     },
     {
         codeProvince: 38,
         codeDistrict: 3804,
-        name: 'อำเภอเซกา'
+        name: 'เซกา'
     },
     {
         codeProvince: 38,
         codeDistrict: 3805,
-        name: 'อำเภอปากคาด'
+        name: 'ปากคาด'
     },
     {
         codeProvince: 38,
         codeDistrict: 3806,
-        name: 'อำเภอบึงโขงหลง'
+        name: 'บึงโขงหลง'
     },
     {
         codeProvince: 38,
         codeDistrict: 3807,
-        name: 'อำเภอศรีวิไล'
+        name: 'ศรีวิไล'
     },
     {
         codeProvince: 38,
         codeDistrict: 3808,
-        name: 'อำเภอบุ่งคล้า'
+        name: 'บุ่งคล้า'
     },
     {
         codeProvince: 39,
         codeDistrict: 3901,
-        name: 'อำเภอเมืองหนองบัวลำภู'
+        name: 'เมืองหนองบัวลำภู'
     },
     {
         codeProvince: 39,
         codeDistrict: 3902,
-        name: 'อำเภอนากลาง'
+        name: 'นากลาง'
     },
     {
         codeProvince: 39,
         codeDistrict: 3903,
-        name: 'อำเภอโนนสัง'
+        name: 'โนนสัง'
     },
     {
         codeProvince: 39,
         codeDistrict: 3904,
-        name: 'อำเภอศรีบุญเรือง'
+        name: 'ศรีบุญเรือง'
     },
     {
         codeProvince: 39,
         codeDistrict: 3905,
-        name: 'อำเภอสุวรรณคูหา'
+        name: 'สุวรรณคูหา'
     },
     {
         codeProvince: 39,
         codeDistrict: 3906,
-        name: 'อำเภอนาวัง'
+        name: 'นาวัง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4001,
-        name: 'อำเภอเมืองขอนแก่น'
+        name: 'เมืองขอนแก่น'
     },
     {
         codeProvince: 40,
         codeDistrict: 4002,
-        name: 'อำเภอบ้านฝาง'
+        name: 'บ้านฝาง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4003,
-        name: 'อำเภอพระยืน'
+        name: 'พระยืน'
     },
     {
         codeProvince: 40,
         codeDistrict: 4004,
-        name: 'อำเภอหนองเรือ'
+        name: 'หนองเรือ'
     },
     {
         codeProvince: 40,
         codeDistrict: 4005,
-        name: 'อำเภอชุมแพ'
+        name: 'ชุมแพ'
     },
     {
         codeProvince: 40,
         codeDistrict: 4006,
-        name: 'อำเภอสีชมพู'
+        name: 'สีชมพู'
     },
     {
         codeProvince: 40,
         codeDistrict: 4007,
-        name: 'อำเภอน้ำพอง'
+        name: 'น้ำพอง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4008,
-        name: 'อำเภออุบลรัตน์'
+        name: 'อุบลรัตน์'
     },
     {
         codeProvince: 40,
         codeDistrict: 4009,
-        name: 'อำเภอกระนวน'
+        name: 'กระนวน'
     },
     {
         codeProvince: 40,
         codeDistrict: 4010,
-        name: 'อำเภอบ้านไผ่'
+        name: 'บ้านไผ่'
     },
     {
         codeProvince: 40,
         codeDistrict: 4011,
-        name: 'อำเภอเปือยน้อย'
+        name: 'เปือยน้อย'
     },
     {
         codeProvince: 40,
         codeDistrict: 4012,
-        name: 'อำเภอพล'
+        name: 'พล'
     },
     {
         codeProvince: 40,
         codeDistrict: 4013,
-        name: 'อำเภอแวงใหญ่'
+        name: 'แวงใหญ่'
     },
     {
         codeProvince: 40,
         codeDistrict: 4014,
-        name: 'อำเภอแวงน้อย'
+        name: 'แวงน้อย'
     },
     {
         codeProvince: 40,
         codeDistrict: 4015,
-        name: 'อำเภอหนองสองห้อง'
+        name: 'หนองสองห้อง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4016,
-        name: 'อำเภอภูเวียง'
+        name: 'ภูเวียง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4017,
-        name: 'อำเภอมัญจาคีรี'
+        name: 'มัญจาคีรี'
     },
     {
         codeProvince: 40,
         codeDistrict: 4018,
-        name: 'อำเภอชนบท'
+        name: 'ชนบท'
     },
     {
         codeProvince: 40,
         codeDistrict: 4019,
-        name: 'อำเภอเขาสวนกวาง'
+        name: 'เขาสวนกวาง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4020,
-        name: 'อำเภอภูผาม่าน'
+        name: 'ภูผาม่าน'
     },
     {
         codeProvince: 40,
         codeDistrict: 4021,
-        name: 'อำเภอซำสูง'
+        name: 'ซำสูง'
     },
     {
         codeProvince: 40,
         codeDistrict: 4022,
-        name: 'อำเภอโคกโพธิ์ไชย'
+        name: 'โคกโพธิ์ไชย'
     },
     {
         codeProvince: 40,
         codeDistrict: 4023,
-        name: 'อำเภอหนองนาคำ'
+        name: 'หนองนาคำ'
     },
     {
         codeProvince: 40,
         codeDistrict: 4024,
-        name: 'อำเภอบ้านแฮด'
+        name: 'บ้านแฮด'
     },
     {
         codeProvince: 40,
         codeDistrict: 4025,
-        name: 'อำเภอโนนศิลา'
+        name: 'โนนศิลา'
     },
     {
         codeProvince: 40,
         codeDistrict: 4029,
-        name: 'อำเภอเวียงเก่า'
+        name: 'เวียงเก่า'
     },
     {
         codeProvince: 41,
         codeDistrict: 4101,
-        name: 'อำเภอเมืองอุดรธานี'
+        name: 'เมืองอุดรธานี'
     },
     {
         codeProvince: 41,
         codeDistrict: 4102,
-        name: 'อำเภอกุดจับ'
+        name: 'กุดจับ'
     },
     {
         codeProvince: 41,
         codeDistrict: 4103,
-        name: 'อำเภอหนองวัวซอ'
+        name: 'หนองวัวซอ'
     },
     {
         codeProvince: 41,
         codeDistrict: 4104,
-        name: 'อำเภอกุมภวาปี'
+        name: 'กุมภวาปี'
     },
     {
         codeProvince: 41,
         codeDistrict: 4105,
-        name: 'อำเภอโนนสะอาด'
+        name: 'โนนสะอาด'
     },
     {
         codeProvince: 41,
         codeDistrict: 4106,
-        name: 'อำเภอหนองหาน'
+        name: 'หนองหาน'
     },
     {
         codeProvince: 41,
         codeDistrict: 4107,
-        name: 'อำเภอทุ่งฝน'
+        name: 'ทุ่งฝน'
     },
     {
         codeProvince: 41,
         codeDistrict: 4108,
-        name: 'อำเภอไชยวาน'
+        name: 'ไชยวาน'
     },
     {
         codeProvince: 41,
         codeDistrict: 4109,
-        name: 'อำเภอศรีธาตุ'
+        name: 'ศรีธาตุ'
     },
     {
         codeProvince: 41,
         codeDistrict: 4110,
-        name: 'อำเภอวังสามหมอ'
+        name: 'วังสามหมอ'
     },
     {
         codeProvince: 41,
         codeDistrict: 4111,
-        name: 'อำเภอบ้านดุง'
+        name: 'บ้านดุง'
     },
     {
         codeProvince: 41,
         codeDistrict: 4117,
-        name: 'อำเภอบ้านผือ'
+        name: 'บ้านผือ'
     },
     {
         codeProvince: 41,
         codeDistrict: 4118,
-        name: 'อำเภอน้ำโสม'
+        name: 'น้ำโสม'
     },
     {
         codeProvince: 41,
         codeDistrict: 4119,
-        name: 'อำเภอเพ็ญ'
+        name: 'เพ็ญ'
     },
     {
         codeProvince: 41,
         codeDistrict: 4120,
-        name: 'อำเภอสร้างคอม'
+        name: 'สร้างคอม'
     },
     {
         codeProvince: 41,
         codeDistrict: 4121,
-        name: 'อำเภอหนองแสง'
+        name: 'หนองแสง'
     },
     {
         codeProvince: 41,
         codeDistrict: 4122,
-        name: 'อำเภอนายูง'
+        name: 'นายูง'
     },
     {
         codeProvince: 41,
         codeDistrict: 4123,
-        name: 'อำเภอพิบูลย์รักษ์'
+        name: 'พิบูลย์รักษ์'
     },
     {
         codeProvince: 41,
         codeDistrict: 4124,
-        name: 'อำเภอกู่แก้ว'
+        name: 'กู่แก้ว'
     },
     {
         codeProvince: 41,
         codeDistrict: 4125,
-        name: 'อำเภอประจักษ์ศิลปาคม'
+        name: 'ประจักษ์ศิลปาคม'
     },
     {
         codeProvince: 42,
         codeDistrict: 4201,
-        name: 'อำเภอเมืองเลย'
+        name: 'เมืองเลย'
     },
     {
         codeProvince: 42,
         codeDistrict: 4202,
-        name: 'อำเภอนาด้วง'
+        name: 'นาด้วง'
     },
     {
         codeProvince: 42,
         codeDistrict: 4203,
-        name: 'อำเภอเชียงคาน'
+        name: 'เชียงคาน'
     },
     {
         codeProvince: 42,
         codeDistrict: 4204,
-        name: 'อำเภอปากชม'
+        name: 'ปากชม'
     },
     {
         codeProvince: 42,
         codeDistrict: 4205,
-        name: 'อำเภอด่านซ้าย'
+        name: 'ด่านซ้าย'
     },
     {
         codeProvince: 42,
         codeDistrict: 4206,
-        name: 'อำเภอนาแห้ว'
+        name: 'นาแห้ว'
     },
     {
         codeProvince: 42,
         codeDistrict: 4207,
-        name: 'อำเภอภูเรือ'
+        name: 'ภูเรือ'
     },
     {
         codeProvince: 42,
         codeDistrict: 4208,
-        name: 'อำเภอท่าลี่'
+        name: 'ท่าลี่'
     },
     {
         codeProvince: 42,
         codeDistrict: 4209,
-        name: 'อำเภอวังสะพุง'
+        name: 'วังสะพุง'
     },
     {
         codeProvince: 42,
         codeDistrict: 4210,
-        name: 'อำเภอภูกระดึง'
+        name: 'ภูกระดึง'
     },
     {
         codeProvince: 42,
         codeDistrict: 4211,
-        name: 'อำเภอภูหลวง'
+        name: 'ภูหลวง'
     },
     {
         codeProvince: 42,
         codeDistrict: 4212,
-        name: 'อำเภอผาขาว'
+        name: 'ผาขาว'
     },
     {
         codeProvince: 42,
         codeDistrict: 4213,
-        name: 'อำเภอเอราวัณ'
+        name: 'เอราวัณ'
     },
     {
         codeProvince: 42,
         codeDistrict: 4214,
-        name: 'อำเภอหนองหิน'
+        name: 'หนองหิน'
     },
     {
         codeProvince: 43,
         codeDistrict: 4301,
-        name: 'อำเภอเมืองหนองคาย'
+        name: 'เมืองหนองคาย'
     },
     {
         codeProvince: 43,
         codeDistrict: 4302,
-        name: 'อำเภอท่าบ่อ'
+        name: 'ท่าบ่อ'
     },
     {
         codeProvince: 43,
         codeDistrict: 4305,
-        name: 'อำเภอโพนพิสัย'
+        name: 'โพนพิสัย'
     },
     {
         codeProvince: 43,
         codeDistrict: 4307,
-        name: 'อำเภอศรีเชียงใหม่'
+        name: 'ศรีเชียงใหม่'
     },
     {
         codeProvince: 43,
         codeDistrict: 4308,
-        name: 'อำเภอสังคม'
+        name: 'สังคม'
     },
     {
         codeProvince: 43,
         codeDistrict: 4314,
-        name: 'อำเภอสระใคร'
+        name: 'สระใคร'
     },
     {
         codeProvince: 43,
         codeDistrict: 4315,
-        name: 'อำเภอเฝ้าไร่'
+        name: 'เฝ้าไร่'
     },
     {
         codeProvince: 43,
         codeDistrict: 4316,
-        name: 'อำเภอรัตนวาปี'
+        name: 'รัตนวาปี'
     },
     {
         codeProvince: 43,
         codeDistrict: 4317,
-        name: 'อำเภอโพธิ์ตาก'
+        name: 'โพธิ์ตาก'
     },
     {
         codeProvince: 44,
         codeDistrict: 4401,
-        name: 'อำเภอเมืองมหาสารคาม'
+        name: 'เมืองมหาสารคาม'
     },
     {
         codeProvince: 44,
         codeDistrict: 4402,
-        name: 'อำเภอแกดำ'
+        name: 'แกดำ'
     },
     {
         codeProvince: 44,
         codeDistrict: 4403,
-        name: 'อำเภอโกสุมพิสัย'
+        name: 'โกสุมพิสัย'
     },
     {
         codeProvince: 44,
         codeDistrict: 4404,
-        name: 'อำเภอกันทรวิชัย'
+        name: 'กันทรวิชัย'
     },
     {
         codeProvince: 44,
         codeDistrict: 4405,
-        name: 'อำเภอเชียงยืน'
+        name: 'เชียงยืน'
     },
     {
         codeProvince: 44,
         codeDistrict: 4406,
-        name: 'อำเภอบรบือ'
+        name: 'บรบือ'
     },
     {
         codeProvince: 44,
         codeDistrict: 4407,
-        name: 'อำเภอนาเชือก'
+        name: 'นาเชือก'
     },
     {
         codeProvince: 44,
         codeDistrict: 4408,
-        name: 'อำเภอพยัคฆภูมิพิสัย'
+        name: 'พยัคฆภูมิพิสัย'
     },
     {
         codeProvince: 44,
         codeDistrict: 4409,
-        name: 'อำเภอวาปีปทุม'
+        name: 'วาปีปทุม'
     },
     {
         codeProvince: 44,
         codeDistrict: 4410,
-        name: 'อำเภอนาดูน'
+        name: 'นาดูน'
     },
     {
         codeProvince: 44,
         codeDistrict: 4411,
-        name: 'อำเภอยางสีสุราช'
+        name: 'ยางสีสุราช'
     },
     {
         codeProvince: 44,
         codeDistrict: 4412,
-        name: 'อำเภอกุดรัง'
+        name: 'กุดรัง'
     },
     {
         codeProvince: 44,
         codeDistrict: 4413,
-        name: 'อำเภอชื่นชม'
+        name: 'ชื่นชม'
     },
     {
         codeProvince: 45,
         codeDistrict: 4501,
-        name: 'อำเภอเมืองร้อยเอ็ด'
+        name: 'เมืองร้อยเอ็ด'
     },
     {
         codeProvince: 45,
         codeDistrict: 4502,
-        name: 'อำเภอเกษตรวิสัย'
+        name: 'เกษตรวิสัย'
     },
     {
         codeProvince: 45,
         codeDistrict: 4503,
-        name: 'อำเภอปทุมรัตต์'
+        name: 'ปทุมรัตต์'
     },
     {
         codeProvince: 45,
         codeDistrict: 4504,
-        name: 'อำเภอจตุรพักตรพิมาน'
+        name: 'จตุรพักตรพิมาน'
     },
     {
         codeProvince: 45,
         codeDistrict: 4505,
-        name: 'อำเภอธวัชบุรี'
+        name: 'ธวัชบุรี'
     },
     {
         codeProvince: 45,
         codeDistrict: 4506,
-        name: 'อำเภอพนมไพร'
+        name: 'พนมไพร'
     },
     {
         codeProvince: 45,
         codeDistrict: 4507,
-        name: 'อำเภอโพนทอง'
+        name: 'โพนทอง'
     },
     {
         codeProvince: 45,
         codeDistrict: 4508,
-        name: 'อำเภอโพธิ์ชัย'
+        name: 'โพธิ์ชัย'
     },
     {
         codeProvince: 45,
         codeDistrict: 4509,
-        name: 'อำเภอหนองพอก'
+        name: 'หนองพอก'
     },
     {
         codeProvince: 45,
         codeDistrict: 4510,
-        name: 'อำเภอเสลภูมิ'
+        name: 'เสลภูมิ'
     },
     {
         codeProvince: 45,
         codeDistrict: 4511,
-        name: 'อำเภอสุวรรณภูมิ'
+        name: 'สุวรรณภูมิ'
     },
     {
         codeProvince: 45,
         codeDistrict: 4512,
-        name: 'อำเภอเมืองสรวง'
+        name: 'เมืองสรวง'
     },
     {
         codeProvince: 45,
         codeDistrict: 4513,
-        name: 'อำเภอโพนทราย'
+        name: 'โพนทราย'
     },
     {
         codeProvince: 45,
         codeDistrict: 4514,
-        name: 'อำเภออาจสามารถ'
+        name: 'อาจสามารถ'
     },
     {
         codeProvince: 45,
         codeDistrict: 4515,
-        name: 'อำเภอเมยวดี'
+        name: 'เมยวดี'
     },
     {
         codeProvince: 45,
         codeDistrict: 4516,
-        name: 'อำเภอศรีสมเด็จ'
+        name: 'ศรีสมเด็จ'
     },
     {
         codeProvince: 45,
         codeDistrict: 4517,
-        name: 'อำเภอจังหาร'
+        name: 'จังหาร'
     },
     {
         codeProvince: 45,
         codeDistrict: 4518,
-        name: 'อำเภอเชียงขวัญ'
+        name: 'เชียงขวัญ'
     },
     {
         codeProvince: 45,
         codeDistrict: 4519,
-        name: 'อำเภอหนองฮี'
+        name: 'หนองฮี'
     },
     {
         codeProvince: 45,
         codeDistrict: 4520,
-        name: 'อำเภอทุ่งเขาหลวง'
+        name: 'ทุ่งเขาหลวง'
     },
     {
         codeProvince: 46,
         codeDistrict: 4601,
-        name: 'อำเภอเมืองกาฬสินธุ์'
+        name: 'เมืองกาฬสินธุ์'
     },
     {
         codeProvince: 46,
         codeDistrict: 4602,
-        name: 'อำเภอนามน'
+        name: 'นามน'
     },
     {
         codeProvince: 46,
         codeDistrict: 4603,
-        name: 'อำเภอกมลาไสย'
+        name: 'กมลาไสย'
     },
     {
         codeProvince: 46,
         codeDistrict: 4604,
-        name: 'อำเภอร่องคำ'
+        name: 'ร่องคำ'
     },
     {
         codeProvince: 46,
         codeDistrict: 4605,
-        name: 'อำเภอกุฉินารายณ์'
+        name: 'กุฉินารายณ์'
     },
     {
         codeProvince: 46,
         codeDistrict: 4606,
-        name: 'อำเภอเขาวง'
+        name: 'เขาวง'
     },
     {
         codeProvince: 46,
         codeDistrict: 4607,
-        name: 'อำเภอยางตลาด'
+        name: 'ยางตลาด'
     },
     {
         codeProvince: 46,
         codeDistrict: 4608,
-        name: 'อำเภอห้วยเม็ก'
+        name: 'ห้วยเม็ก'
     },
     {
         codeProvince: 46,
         codeDistrict: 4609,
-        name: 'อำเภอสหัสขันธ์'
+        name: 'สหัสขันธ์'
     },
     {
         codeProvince: 46,
         codeDistrict: 4610,
-        name: 'อำเภอคำม่วง'
+        name: 'คำม่วง'
     },
     {
         codeProvince: 46,
         codeDistrict: 4611,
-        name: 'อำเภอท่าคันโท'
+        name: 'ท่าคันโท'
     },
     {
         codeProvince: 46,
         codeDistrict: 4612,
-        name: 'อำเภอหนองกุงศรี'
+        name: 'หนองกุงศรี'
     },
     {
         codeProvince: 46,
         codeDistrict: 4613,
-        name: 'อำเภอสมเด็จ'
+        name: 'สมเด็จ'
     },
     {
         codeProvince: 46,
         codeDistrict: 4614,
-        name: 'อำเภอห้วยผึ้ง'
+        name: 'ห้วยผึ้ง'
     },
     {
         codeProvince: 46,
         codeDistrict: 4615,
-        name: 'อำเภอสามชัย'
+        name: 'สามชัย'
     },
     {
         codeProvince: 46,
         codeDistrict: 4616,
-        name: 'อำเภอนาคู'
+        name: 'นาคู'
     },
     {
         codeProvince: 46,
         codeDistrict: 4617,
-        name: 'อำเภอดอนจาน'
+        name: 'ดอนจาน'
     },
     {
         codeProvince: 46,
         codeDistrict: 4618,
-        name: 'อำเภอฆ้องชัย'
+        name: 'ฆ้องชัย'
     },
     {
         codeProvince: 47,
         codeDistrict: 4701,
-        name: 'อำเภอเมืองสกลนคร'
+        name: 'เมืองสกลนคร'
     },
     {
         codeProvince: 47,
         codeDistrict: 4702,
-        name: 'อำเภอกุสุมาลย์'
+        name: 'กุสุมาลย์'
     },
     {
         codeProvince: 47,
         codeDistrict: 4703,
-        name: 'อำเภอกุดบาก'
+        name: 'กุดบาก'
     },
     {
         codeProvince: 47,
         codeDistrict: 4704,
-        name: 'อำเภอพรรณานิคม'
+        name: 'พรรณานิคม'
     },
     {
         codeProvince: 47,
         codeDistrict: 4705,
-        name: 'อำเภอพังโคน'
+        name: 'พังโคน'
     },
     {
         codeProvince: 47,
         codeDistrict: 4706,
-        name: 'อำเภอวาริชภูมิ'
+        name: 'วาริชภูมิ'
     },
     {
         codeProvince: 47,
         codeDistrict: 4707,
-        name: 'อำเภอนิคมน้ำอูน'
+        name: 'นิคมน้ำอูน'
     },
     {
         codeProvince: 47,
         codeDistrict: 4708,
-        name: 'อำเภอวานรนิวาส'
+        name: 'วานรนิวาส'
     },
     {
         codeProvince: 47,
         codeDistrict: 4709,
-        name: 'อำเภอคำตากล้า'
+        name: 'คำตากล้า'
     },
     {
         codeProvince: 47,
         codeDistrict: 4710,
-        name: 'อำเภอบ้านม่วง'
+        name: 'บ้านม่วง'
     },
     {
         codeProvince: 47,
         codeDistrict: 4711,
-        name: 'อำเภออากาศอำนวย'
+        name: 'อากาศอำนวย'
     },
     {
         codeProvince: 47,
         codeDistrict: 4712,
-        name: 'อำเภอสว่างแดนดิน'
+        name: 'สว่างแดนดิน'
     },
     {
         codeProvince: 47,
         codeDistrict: 4713,
-        name: 'อำเภอส่องดาว'
+        name: 'ส่องดาว'
     },
     {
         codeProvince: 47,
         codeDistrict: 4714,
-        name: 'อำเภอเต่างอย'
+        name: 'เต่างอย'
     },
     {
         codeProvince: 47,
         codeDistrict: 4715,
-        name: 'อำเภอโคกศรีสุพรรณ'
+        name: 'โคกศรีสุพรรณ'
     },
     {
         codeProvince: 47,
         codeDistrict: 4716,
-        name: 'อำเภอเจริญศิลป์'
+        name: 'เจริญศิลป์'
     },
     {
         codeProvince: 47,
         codeDistrict: 4717,
-        name: 'อำเภอโพนนาแก้ว'
+        name: 'โพนนาแก้ว'
     },
     {
         codeProvince: 47,
         codeDistrict: 4718,
-        name: 'อำเภอภูพาน'
+        name: 'ภูพาน'
     },
     {
         codeProvince: 48,
         codeDistrict: 4801,
-        name: 'อำเภอเมืองนครพนม'
+        name: 'เมืองนครพนม'
     },
     {
         codeProvince: 48,
         codeDistrict: 4802,
-        name: 'อำเภอปลาปาก'
+        name: 'ปลาปาก'
     },
     {
         codeProvince: 48,
         codeDistrict: 4803,
-        name: 'อำเภอท่าอุเทน'
+        name: 'ท่าอุเทน'
     },
     {
         codeProvince: 48,
         codeDistrict: 4804,
-        name: 'อำเภอบ้านแพง'
+        name: 'บ้านแพง'
     },
     {
         codeProvince: 48,
         codeDistrict: 4805,
-        name: 'อำเภอธาตุพนม'
+        name: 'ธาตุพนม'
     },
     {
         codeProvince: 48,
         codeDistrict: 4806,
-        name: 'อำเภอเรณูนคร'
+        name: 'เรณูนคร'
     },
     {
         codeProvince: 48,
         codeDistrict: 4807,
-        name: 'อำเภอนาแก'
+        name: 'นาแก'
     },
     {
         codeProvince: 48,
         codeDistrict: 4808,
-        name: 'อำเภอศรีสงคราม'
+        name: 'ศรีสงคราม'
     },
     {
         codeProvince: 48,
         codeDistrict: 4809,
-        name: 'อำเภอนาหว้า'
+        name: 'นาหว้า'
     },
     {
         codeProvince: 48,
         codeDistrict: 4810,
-        name: 'อำเภอโพนสวรรค์'
+        name: 'โพนสวรรค์'
     },
     {
         codeProvince: 48,
         codeDistrict: 4811,
-        name: 'อำเภอนาทม'
+        name: 'นาทม'
     },
     {
         codeProvince: 48,
         codeDistrict: 4812,
-        name: 'อำเภอวังยาง'
+        name: 'วังยาง'
     },
     {
         codeProvince: 49,
         codeDistrict: 4901,
-        name: 'อำเภอเมืองมุกดาหาร'
+        name: 'เมืองมุกดาหาร'
     },
     {
         codeProvince: 49,
         codeDistrict: 4902,
-        name: 'อำเภอนิคมคำสร้อย'
+        name: 'นิคมคำสร้อย'
     },
     {
         codeProvince: 49,
         codeDistrict: 4903,
-        name: 'อำเภอดอนตาล'
+        name: 'ดอนตาล'
     },
     {
         codeProvince: 49,
         codeDistrict: 4904,
-        name: 'อำเภอดงหลวง'
+        name: 'ดงหลวง'
     },
     {
         codeProvince: 49,
         codeDistrict: 4905,
-        name: 'อำเภอคำชะอี'
+        name: 'คำชะอี'
     },
     {
         codeProvince: 49,
         codeDistrict: 4906,
-        name: 'อำเภอหว้านใหญ่'
+        name: 'หว้านใหญ่'
     },
     {
         codeProvince: 49,
         codeDistrict: 4907,
-        name: 'อำเภอหนองสูง'
+        name: 'หนองสูง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5001,
-        name: 'อำเภอเมืองเชียงใหม่'
+        name: 'เมืองเชียงใหม่'
     },
     {
         codeProvince: 50,
         codeDistrict: 5002,
-        name: 'อำเภอจอมทอง'
+        name: 'จอมทอง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5003,
-        name: 'อำเภอแม่แจ่ม'
+        name: 'แม่แจ่ม'
     },
     {
         codeProvince: 50,
         codeDistrict: 5004,
-        name: 'อำเภอเชียงดาว'
+        name: 'เชียงดาว'
     },
     {
         codeProvince: 50,
         codeDistrict: 5005,
-        name: 'อำเภอดอยสะเก็ด'
+        name: 'ดอยสะเก็ด'
     },
     {
         codeProvince: 50,
         codeDistrict: 5006,
-        name: 'อำเภอแม่แตง'
+        name: 'แม่แตง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5007,
-        name: 'อำเภอแม่ริม'
+        name: 'แม่ริม'
     },
     {
         codeProvince: 50,
         codeDistrict: 5008,
-        name: 'อำเภอสะเมิง'
+        name: 'สะเมิง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5009,
-        name: 'อำเภอฝาง'
+        name: 'ฝาง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5010,
-        name: 'อำเภอแม่อาย'
+        name: 'แม่อาย'
     },
     {
         codeProvince: 50,
         codeDistrict: 5011,
-        name: 'อำเภอพร้าว'
+        name: 'พร้าว'
     },
     {
         codeProvince: 50,
         codeDistrict: 5012,
-        name: 'อำเภอสันป่าตอง'
+        name: 'สันป่าตอง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5013,
-        name: 'อำเภอสันกำแพง'
+        name: 'สันกำแพง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5014,
-        name: 'อำเภอสันทราย'
+        name: 'สันทราย'
     },
     {
         codeProvince: 50,
         codeDistrict: 5015,
-        name: 'อำเภอหางดง'
+        name: 'หางดง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5016,
-        name: 'อำเภอฮอด'
+        name: 'ฮอด'
     },
     {
         codeProvince: 50,
         codeDistrict: 5017,
-        name: 'อำเภอดอยเต่า'
+        name: 'ดอยเต่า'
     },
     {
         codeProvince: 50,
         codeDistrict: 5018,
-        name: 'อำเภออมก๋อย'
+        name: 'อมก๋อย'
     },
     {
         codeProvince: 50,
         codeDistrict: 5019,
-        name: 'อำเภอสารภี'
+        name: 'สารภี'
     },
     {
         codeProvince: 50,
         codeDistrict: 5020,
-        name: 'อำเภอเวียงแหง'
+        name: 'เวียงแหง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5021,
-        name: 'อำเภอไชยปราการ'
+        name: 'ไชยปราการ'
     },
     {
         codeProvince: 50,
         codeDistrict: 5022,
-        name: 'อำเภอแม่วาง'
+        name: 'แม่วาง'
     },
     {
         codeProvince: 50,
         codeDistrict: 5023,
-        name: 'อำเภอแม่ออน'
+        name: 'แม่ออน'
     },
     {
         codeProvince: 50,
         codeDistrict: 5024,
-        name: 'อำเภอดอยหล่อ'
+        name: 'ดอยหล่อ'
     },
     {
         codeProvince: 50,
         codeDistrict: 5025,
-        name: 'อำเภอกัลยาณิวัฒนา'
+        name: 'กัลยาณิวัฒนา'
     },
     {
         codeProvince: 51,
         codeDistrict: 5101,
-        name: 'อำเภอเมืองลำพูน'
+        name: 'เมืองลำพูน'
     },
     {
         codeProvince: 51,
         codeDistrict: 5102,
-        name: 'อำเภอแม่ทา'
+        name: 'แม่ทา'
     },
     {
         codeProvince: 51,
         codeDistrict: 5103,
-        name: 'อำเภอบ้านโฮ่ง'
+        name: 'บ้านโฮ่ง'
     },
     {
         codeProvince: 51,
         codeDistrict: 5104,
-        name: 'อำเภอลี้'
+        name: 'ลี้'
     },
     {
         codeProvince: 51,
         codeDistrict: 5105,
-        name: 'อำเภอทุ่งหัวช้าง'
+        name: 'ทุ่งหัวช้าง'
     },
     {
         codeProvince: 51,
         codeDistrict: 5106,
-        name: 'อำเภอป่าซาง'
+        name: 'ป่าซาง'
     },
     {
         codeProvince: 51,
         codeDistrict: 5107,
-        name: 'อำเภอบ้านธิ'
+        name: 'บ้านธิ'
     },
     {
         codeProvince: 51,
         codeDistrict: 5108,
-        name: 'อำเภอเวียงหนองล่อง'
+        name: 'เวียงหนองล่อง'
     },
     {
         codeProvince: 52,
         codeDistrict: 5201,
-        name: 'อำเภอเมืองลำปาง'
+        name: 'เมืองลำปาง'
     },
     {
         codeProvince: 52,
         codeDistrict: 5202,
-        name: 'อำเภอแม่เมาะ'
+        name: 'แม่เมาะ'
     },
     {
         codeProvince: 52,
         codeDistrict: 5203,
-        name: 'อำเภอเกาะคา'
+        name: 'เกาะคา'
     },
     {
         codeProvince: 52,
         codeDistrict: 5204,
-        name: 'อำเภอเสริมงาม'
+        name: 'เสริมงาม'
     },
     {
         codeProvince: 52,
         codeDistrict: 5205,
-        name: 'อำเภองาว'
+        name: 'งาว'
     },
     {
         codeProvince: 52,
         codeDistrict: 5206,
-        name: 'อำเภอแจ้ห่ม'
+        name: 'แจ้ห่ม'
     },
     {
         codeProvince: 52,
         codeDistrict: 5207,
-        name: 'อำเภอวังเหนือ'
+        name: 'วังเหนือ'
     },
     {
         codeProvince: 52,
         codeDistrict: 5208,
-        name: 'อำเภอเถิน'
+        name: 'เถิน'
     },
     {
         codeProvince: 52,
         codeDistrict: 5209,
-        name: 'อำเภอแม่พริก'
+        name: 'แม่พริก'
     },
     {
         codeProvince: 52,
         codeDistrict: 5210,
-        name: 'อำเภอแม่ทะ'
+        name: 'แม่ทะ'
     },
     {
         codeProvince: 52,
         codeDistrict: 5211,
-        name: 'อำเภอสบปราบ'
+        name: 'สบปราบ'
     },
     {
         codeProvince: 52,
         codeDistrict: 5212,
-        name: 'อำเภอห้างฉัตร'
+        name: 'ห้างฉัตร'
     },
     {
         codeProvince: 52,
         codeDistrict: 5213,
-        name: 'อำเภอเมืองปาน'
+        name: 'เมืองปาน'
     },
     {
         codeProvince: 53,
         codeDistrict: 5301,
-        name: 'อำเภอเมืองอุตรดิตถ์'
+        name: 'เมืองอุตรดิตถ์'
     },
     {
         codeProvince: 53,
         codeDistrict: 5302,
-        name: 'อำเภอตรอน'
+        name: 'ตรอน'
     },
     {
         codeProvince: 53,
         codeDistrict: 5303,
-        name: 'อำเภอท่าปลา'
+        name: 'ท่าปลา'
     },
     {
         codeProvince: 53,
         codeDistrict: 5304,
-        name: 'อำเภอน้ำปาด'
+        name: 'น้ำปาด'
     },
     {
         codeProvince: 53,
         codeDistrict: 5305,
-        name: 'อำเภอฟากท่า'
+        name: 'ฟากท่า'
     },
     {
         codeProvince: 53,
         codeDistrict: 5306,
-        name: 'อำเภอบ้านโคก'
+        name: 'บ้านโคก'
     },
     {
         codeProvince: 53,
         codeDistrict: 5307,
-        name: 'อำเภอพิชัย'
+        name: 'พิชัย'
     },
     {
         codeProvince: 53,
         codeDistrict: 5308,
-        name: 'อำเภอลับแล'
+        name: 'ลับแล'
     },
     {
         codeProvince: 53,
         codeDistrict: 5309,
-        name: 'อำเภอทองแสนขัน'
+        name: 'ทองแสนขัน'
     },
     {
         codeProvince: 54,
         codeDistrict: 5401,
-        name: 'อำเภอเมืองแพร่'
+        name: 'เมืองแพร่'
     },
     {
         codeProvince: 54,
         codeDistrict: 5402,
-        name: 'อำเภอร้องกวาง'
+        name: 'ร้องกวาง'
     },
     {
         codeProvince: 54,
         codeDistrict: 5403,
-        name: 'อำเภอลอง'
+        name: 'ลอง'
     },
     {
         codeProvince: 54,
         codeDistrict: 5404,
-        name: 'อำเภอสูงเม่น'
+        name: 'สูงเม่น'
     },
     {
         codeProvince: 54,
         codeDistrict: 5405,
-        name: 'อำเภอเด่นชัย'
+        name: 'เด่นชัย'
     },
     {
         codeProvince: 54,
         codeDistrict: 5406,
-        name: 'อำเภอสอง'
+        name: 'สอง'
     },
     {
         codeProvince: 54,
         codeDistrict: 5407,
-        name: 'อำเภอวังชิ้น'
+        name: 'วังชิ้น'
     },
     {
         codeProvince: 54,
         codeDistrict: 5408,
-        name: 'อำเภอหนองม่วงไข่'
+        name: 'หนองม่วงไข่'
     },
     {
         codeProvince: 55,
         codeDistrict: 5501,
-        name: 'อำเภอเมืองน่าน'
+        name: 'เมืองน่าน'
     },
     {
         codeProvince: 55,
         codeDistrict: 5502,
-        name: 'อำเภอแม่จริม'
+        name: 'แม่จริม'
     },
     {
         codeProvince: 55,
         codeDistrict: 5503,
-        name: 'อำเภอบ้านหลวง'
+        name: 'บ้านหลวง'
     },
     {
         codeProvince: 55,
         codeDistrict: 5504,
-        name: 'อำเภอนาน้อย'
+        name: 'นาน้อย'
     },
     {
         codeProvince: 55,
         codeDistrict: 5505,
-        name: 'อำเภอปัว'
+        name: 'ปัว'
     },
     {
         codeProvince: 55,
         codeDistrict: 5506,
-        name: 'อำเภอท่าวังผา'
+        name: 'ท่าวังผา'
     },
     {
         codeProvince: 55,
         codeDistrict: 5507,
-        name: 'อำเภอเวียงสา'
+        name: 'เวียงสา'
     },
     {
         codeProvince: 55,
         codeDistrict: 5508,
-        name: 'อำเภอทุ่งช้าง'
+        name: 'ทุ่งช้าง'
     },
     {
         codeProvince: 55,
         codeDistrict: 5509,
-        name: 'อำเภอเชียงกลาง'
+        name: 'เชียงกลาง'
     },
     {
         codeProvince: 55,
         codeDistrict: 5510,
-        name: 'อำเภอนาหมื่น'
+        name: 'นาหมื่น'
     },
     {
         codeProvince: 55,
         codeDistrict: 5511,
-        name: 'อำเภอสันติสุข'
+        name: 'สันติสุข'
     },
     {
         codeProvince: 55,
         codeDistrict: 5512,
-        name: 'อำเภอบ่อเกลือ'
+        name: 'บ่อเกลือ'
     },
     {
         codeProvince: 55,
         codeDistrict: 5513,
-        name: 'อำเภอสองแคว'
+        name: 'สองแคว'
     },
     {
         codeProvince: 55,
         codeDistrict: 5514,
-        name: 'อำเภอภูเพียง'
+        name: 'ภูเพียง'
     },
     {
         codeProvince: 55,
         codeDistrict: 5515,
-        name: 'อำเภอเฉลิมพระเกียรติ'
+        name: 'เฉลิมพระเกียรติ'
     },
     {
         codeProvince: 56,
         codeDistrict: 5601,
-        name: 'อำเภอเมืองพะเยา'
+        name: 'เมืองพะเยา'
     },
     {
         codeProvince: 56,
         codeDistrict: 5602,
-        name: 'อำเภอจุน'
+        name: 'จุน'
     },
     {
         codeProvince: 56,
         codeDistrict: 5603,
-        name: 'อำเภอเชียงคำ'
+        name: 'เชียงคำ'
     },
     {
         codeProvince: 56,
         codeDistrict: 5604,
-        name: 'อำเภอเชียงม่วน'
+        name: 'เชียงม่วน'
     },
     {
         codeProvince: 56,
         codeDistrict: 5605,
-        name: 'อำเภอดอกคำใต้'
+        name: 'ดอกคำใต้'
     },
     {
         codeProvince: 56,
         codeDistrict: 5606,
-        name: 'อำเภอปง'
+        name: 'ปง'
     },
     {
         codeProvince: 56,
         codeDistrict: 5607,
-        name: 'อำเภอแม่ใจ'
+        name: 'แม่ใจ'
     },
     {
         codeProvince: 56,
         codeDistrict: 5608,
-        name: 'อำเภอภูซาง'
+        name: 'ภูซาง'
     },
     {
         codeProvince: 56,
         codeDistrict: 5609,
-        name: 'อำเภอภูกามยาว'
+        name: 'ภูกามยาว'
     },
     {
         codeProvince: 57,
         codeDistrict: 5701,
-        name: 'อำเภอเมืองเชียงราย'
+        name: 'เมืองเชียงราย'
     },
     {
         codeProvince: 57,
         codeDistrict: 5702,
-        name: 'อำเภอเวียงชัย'
+        name: 'เวียงชัย'
     },
     {
         codeProvince: 57,
         codeDistrict: 5703,
-        name: 'อำเภอเชียงของ'
+        name: 'เชียงของ'
     },
     {
         codeProvince: 57,
         codeDistrict: 5704,
-        name: 'อำเภอเทิง'
+        name: 'เทิง'
     },
     {
         codeProvince: 57,
         codeDistrict: 5705,
-        name: 'อำเภอพาน'
+        name: 'พาน'
     },
     {
         codeProvince: 57,
         codeDistrict: 5706,
-        name: 'อำเภอป่าแดด'
+        name: 'ป่าแดด'
     },
     {
         codeProvince: 57,
         codeDistrict: 5707,
-        name: 'อำเภอแม่จัน'
+        name: 'แม่จัน'
     },
     {
         codeProvince: 57,
         codeDistrict: 5708,
-        name: 'อำเภอเชียงแสน'
+        name: 'เชียงแสน'
     },
     {
         codeProvince: 57,
         codeDistrict: 5709,
-        name: 'อำเภอแม่สาย'
+        name: 'แม่สาย'
     },
     {
         codeProvince: 57,
         codeDistrict: 5710,
-        name: 'อำเภอแม่สรวย'
+        name: 'แม่สรวย'
     },
     {
         codeProvince: 57,
         codeDistrict: 5711,
-        name: 'อำเภอเวียงป่าเป้า'
+        name: 'เวียงป่าเป้า'
     },
     {
         codeProvince: 57,
         codeDistrict: 5712,
-        name: 'อำเภอพญาเม็งราย'
+        name: 'พญาเม็งราย'
     },
     {
         codeProvince: 57,
         codeDistrict: 5713,
-        name: 'อำเภอเวียงแก่น'
+        name: 'เวียงแก่น'
     },
     {
         codeProvince: 57,
         codeDistrict: 5714,
-        name: 'อำเภอขุนตาล'
+        name: 'ขุนตาล'
     },
     {
         codeProvince: 57,
         codeDistrict: 5715,
-        name: 'อำเภอแม่ฟ้าหลวง'
+        name: 'แม่ฟ้าหลวง'
     },
     {
         codeProvince: 57,
         codeDistrict: 5716,
-        name: 'อำเภอแม่ลาว'
+        name: 'แม่ลาว'
     },
     {
         codeProvince: 57,
         codeDistrict: 5717,
-        name: 'อำเภอเวียงเชียงรุ้ง'
+        name: 'เวียงเชียงรุ้ง'
     },
     {
         codeProvince: 57,
         codeDistrict: 5718,
-        name: 'อำเภอดอยหลวง'
+        name: 'ดอยหลวง'
     },
     {
         codeProvince: 58,
         codeDistrict: 5801,
-        name: 'อำเภอเมืองแม่ฮ่องสอน'
+        name: 'เมืองแม่ฮ่องสอน'
     },
     {
         codeProvince: 58,
         codeDistrict: 5802,
-        name: 'อำเภอขุนยวม'
+        name: 'ขุนยวม'
     },
     {
         codeProvince: 58,
         codeDistrict: 5803,
-        name: 'อำเภอปาย'
+        name: 'ปาย'
     },
     {
         codeProvince: 58,
         codeDistrict: 5804,
-        name: 'อำเภอแม่สะเรียง'
+        name: 'แม่สะเรียง'
     },
     {
         codeProvince: 58,
         codeDistrict: 5805,
-        name: 'อำเภอแม่ลาน้อย'
+        name: 'แม่ลาน้อย'
     },
     {
         codeProvince: 58,
         codeDistrict: 5806,
-        name: 'อำเภอสบเมย'
+        name: 'สบเมย'
     },
     {
         codeProvince: 58,
         codeDistrict: 5807,
-        name: 'อำเภอปางมะผ้า'
+        name: 'ปางมะผ้า'
     },
     {
         codeProvince: 60,
         codeDistrict: 6001,
-        name: 'อำเภอเมืองนครสวรรค์'
+        name: 'เมืองนครสวรรค์'
     },
     {
         codeProvince: 60,
         codeDistrict: 6002,
-        name: 'อำเภอโกรกพระ'
+        name: 'โกรกพระ'
     },
     {
         codeProvince: 60,
         codeDistrict: 6003,
-        name: 'อำเภอชุมแสง'
+        name: 'ชุมแสง'
     },
     {
         codeProvince: 60,
         codeDistrict: 6004,
-        name: 'อำเภอหนองบัว'
+        name: 'หนองบัว'
     },
     {
         codeProvince: 60,
         codeDistrict: 6005,
-        name: 'อำเภอบรรพตพิสัย'
+        name: 'บรรพตพิสัย'
     },
     {
         codeProvince: 60,
         codeDistrict: 6006,
-        name: 'อำเภอเก้าเลี้ยว'
+        name: 'เก้าเลี้ยว'
     },
     {
         codeProvince: 60,
         codeDistrict: 6007,
-        name: 'อำเภอตาคลี'
+        name: 'ตาคลี'
     },
     {
         codeProvince: 60,
         codeDistrict: 6008,
-        name: 'อำเภอท่าตะโก'
+        name: 'ท่าตะโก'
     },
     {
         codeProvince: 60,
         codeDistrict: 6009,
-        name: 'อำเภอไพศาลี'
+        name: 'ไพศาลี'
     },
     {
         codeProvince: 60,
         codeDistrict: 6010,
-        name: 'อำเภอพยุหะคีรี'
+        name: 'พยุหะคีรี'
     },
     {
         codeProvince: 60,
         codeDistrict: 6011,
-        name: 'อำเภอลาดยาว'
+        name: 'ลาดยาว'
     },
     {
         codeProvince: 60,
         codeDistrict: 6012,
-        name: 'อำเภอตากฟ้า'
+        name: 'ตากฟ้า'
     },
     {
         codeProvince: 60,
         codeDistrict: 6013,
-        name: 'อำเภอแม่วงก์'
+        name: 'แม่วงก์'
     },
     {
         codeProvince: 60,
         codeDistrict: 6014,
-        name: 'อำเภอแม่เปิน'
+        name: 'แม่เปิน'
     },
     {
         codeProvince: 60,
         codeDistrict: 6015,
-        name: 'อำเภอชุมตาบง'
+        name: 'ชุมตาบง'
     },
     {
         codeProvince: 61,
         codeDistrict: 6101,
-        name: 'อำเภอเมืองอุทัยธานี'
+        name: 'เมืองอุทัยธานี'
     },
     {
         codeProvince: 61,
         codeDistrict: 6102,
-        name: 'อำเภอทัพทัน'
+        name: 'ทัพทัน'
     },
     {
         codeProvince: 61,
         codeDistrict: 6103,
-        name: 'อำเภอสว่างอารมณ์'
+        name: 'สว่างอารมณ์'
     },
     {
         codeProvince: 61,
         codeDistrict: 6104,
-        name: 'อำเภอหนองฉาง'
+        name: 'หนองฉาง'
     },
     {
         codeProvince: 61,
         codeDistrict: 6105,
-        name: 'อำเภอหนองขาหย่าง'
+        name: 'หนองขาหย่าง'
     },
     {
         codeProvince: 61,
         codeDistrict: 6106,
-        name: 'อำเภอบ้านไร่'
+        name: 'บ้านไร่'
     },
     {
         codeProvince: 61,
         codeDistrict: 6107,
-        name: 'อำเภอลานสัก'
+        name: 'ลานสัก'
     },
     {
         codeProvince: 61,
         codeDistrict: 6108,
-        name: 'อำเภอห้วยคต'
+        name: 'ห้วยคต'
     },
     {
         codeProvince: 62,
         codeDistrict: 6201,
-        name: 'อำเภอเมืองกำแพงเพชร'
+        name: 'เมืองกำแพงเพชร'
     },
     {
         codeProvince: 62,
         codeDistrict: 6202,
-        name: 'อำเภอไทรงาม'
+        name: 'ไทรงาม'
     },
     {
         codeProvince: 62,
         codeDistrict: 6203,
-        name: 'อำเภอคลองลาน'
+        name: 'คลองลาน'
     },
     {
         codeProvince: 62,
         codeDistrict: 6204,
-        name: 'อำเภอขาณุวรลักษบุรี'
+        name: 'ขาณุวรลักษบุรี'
     },
     {
         codeProvince: 62,
         codeDistrict: 6205,
-        name: 'อำเภอคลองขลุง'
+        name: 'คลองขลุง'
     },
     {
         codeProvince: 62,
         codeDistrict: 6206,
-        name: 'อำเภอพรานกระต่าย'
+        name: 'พรานกระต่าย'
     },
     {
         codeProvince: 62,
         codeDistrict: 6207,
-        name: 'อำเภอลานกระบือ'
+        name: 'ลานกระบือ'
     },
     {
         codeProvince: 62,
         codeDistrict: 6208,
-        name: 'อำเภอทรายทองวัฒนา'
+        name: 'ทรายทองวัฒนา'
     },
     {
         codeProvince: 62,
         codeDistrict: 6209,
-        name: 'อำเภอปางศิลาทอง'
+        name: 'ปางศิลาทอง'
     },
     {
         codeProvince: 62,
         codeDistrict: 6210,
-        name: 'อำเภอบึงสามัคคี'
+        name: 'บึงสามัคคี'
     },
     {
         codeProvince: 62,
         codeDistrict: 6211,
-        name: 'อำเภอโกสัมพีนคร'
+        name: 'โกสัมพีนคร'
     },
     {
         codeProvince: 63,
         codeDistrict: 6301,
-        name: 'อำเภอเมืองตาก'
+        name: 'เมืองตาก'
     },
     {
         codeProvince: 63,
         codeDistrict: 6302,
-        name: 'อำเภอบ้านตาก'
+        name: 'บ้านตาก'
     },
     {
         codeProvince: 63,
         codeDistrict: 6303,
-        name: 'อำเภอสามเงา'
+        name: 'สามเงา'
     },
     {
         codeProvince: 63,
         codeDistrict: 6304,
-        name: 'อำเภอแม่ระมาด'
+        name: 'แม่ระมาด'
     },
     {
         codeProvince: 63,
         codeDistrict: 6305,
-        name: 'อำเภอท่าสองยาง'
+        name: 'ท่าสองยาง'
     },
     {
         codeProvince: 63,
         codeDistrict: 6306,
-        name: 'อำเภอแม่สอด'
+        name: 'แม่สอด'
     },
     {
         codeProvince: 63,
         codeDistrict: 6307,
-        name: 'อำเภอพบพระ'
+        name: 'พบพระ'
     },
     {
         codeProvince: 63,
         codeDistrict: 6308,
-        name: 'อำเภออุ้มผาง'
+        name: 'อุ้มผาง'
     },
     {
         codeProvince: 63,
         codeDistrict: 6309,
-        name: 'อำเภอวังเจ้า'
+        name: 'วังเจ้า'
     },
     {
         codeProvince: 64,
         codeDistrict: 6401,
-        name: 'อำเภอเมืองสุโขทัย'
+        name: 'เมืองสุโขทัย'
     },
     {
         codeProvince: 64,
         codeDistrict: 6402,
-        name: 'อำเภอบ้านด่านลานหอย'
+        name: 'บ้านด่านลานหอย'
     },
     {
         codeProvince: 64,
         codeDistrict: 6403,
-        name: 'อำเภอคีรีมาศ'
+        name: 'คีรีมาศ'
     },
     {
         codeProvince: 64,
         codeDistrict: 6404,
-        name: 'อำเภอกงไกรลาศ'
+        name: 'กงไกรลาศ'
     },
     {
         codeProvince: 64,
         codeDistrict: 6405,
-        name: 'อำเภอศรีสัชนาลัย'
+        name: 'ศรีสัชนาลัย'
     },
     {
         codeProvince: 64,
         codeDistrict: 6406,
-        name: 'อำเภอศรีสำโรง'
+        name: 'ศรีสำโรง'
     },
     {
         codeProvince: 64,
         codeDistrict: 6407,
-        name: 'อำเภอสวรรคโลก'
+        name: 'สวรรคโลก'
     },
     {
         codeProvince: 64,
         codeDistrict: 6408,
-        name: 'อำเภอศรีนคร'
+        name: 'ศรีนคร'
     },
     {
         codeProvince: 64,
         codeDistrict: 6409,
-        name: 'อำเภอทุ่งเสลี่ยม'
+        name: 'ทุ่งเสลี่ยม'
     },
     {
         codeProvince: 65,
         codeDistrict: 6501,
-        name: 'อำเภอเมืองพิษณุโลก'
+        name: 'เมืองพิษณุโลก'
     },
     {
         codeProvince: 65,
         codeDistrict: 6502,
-        name: 'อำเภอนครไทย'
+        name: 'นครไทย'
     },
     {
         codeProvince: 65,
         codeDistrict: 6503,
-        name: 'อำเภอชาติตระการ'
+        name: 'ชาติตระการ'
     },
     {
         codeProvince: 65,
         codeDistrict: 6504,
-        name: 'อำเภอบางระกำ'
+        name: 'บางระกำ'
     },
     {
         codeProvince: 65,
         codeDistrict: 6505,
-        name: 'อำเภอบางกระทุ่ม'
+        name: 'บางกระทุ่ม'
     },
     {
         codeProvince: 65,
         codeDistrict: 6506,
-        name: 'อำเภอพรหมพิราม'
+        name: 'พรหมพิราม'
     },
     {
         codeProvince: 65,
         codeDistrict: 6507,
-        name: 'อำเภอวัดโบสถ์'
+        name: 'วัดโบสถ์'
     },
     {
         codeProvince: 65,
         codeDistrict: 6508,
-        name: 'อำเภอวังทอง'
+        name: 'วังทอง'
     },
     {
         codeProvince: 65,
         codeDistrict: 6509,
-        name: 'อำเภอเนินมะปราง'
+        name: 'เนินมะปราง'
     },
     {
         codeProvince: 66,
         codeDistrict: 6601,
-        name: 'อำเภอเมืองพิจิตร'
+        name: 'เมืองพิจิตร'
     },
     {
         codeProvince: 66,
         codeDistrict: 6602,
-        name: 'อำเภอวังทรายพูน'
+        name: 'วังทรายพูน'
     },
     {
         codeProvince: 66,
         codeDistrict: 6603,
-        name: 'อำเภอโพธิ์ประทับช้าง'
+        name: 'โพธิ์ประทับช้าง'
     },
     {
         codeProvince: 66,
         codeDistrict: 6604,
-        name: 'อำเภอตะพานหิน'
+        name: 'ตะพานหิน'
     },
     {
         codeProvince: 66,
         codeDistrict: 6605,
-        name: 'อำเภอบางมูลนาก'
+        name: 'บางมูลนาก'
     },
     {
         codeProvince: 66,
         codeDistrict: 6606,
-        name: 'อำเภอโพทะเล'
+        name: 'โพทะเล'
     },
     {
         codeProvince: 66,
         codeDistrict: 6607,
-        name: 'อำเภอสามง่าม'
+        name: 'สามง่าม'
     },
     {
         codeProvince: 66,
         codeDistrict: 6608,
-        name: 'อำเภอทับคล้อ'
+        name: 'ทับคล้อ'
     },
     {
         codeProvince: 66,
         codeDistrict: 6609,
-        name: 'อำเภอสากเหล็ก'
+        name: 'สากเหล็ก'
     },
     {
         codeProvince: 66,
         codeDistrict: 6610,
-        name: 'อำเภอบึงนาราง'
+        name: 'บึงนาราง'
     },
     {
         codeProvince: 66,
         codeDistrict: 6611,
-        name: 'อำเภอดงเจริญ'
+        name: 'ดงเจริญ'
     },
     {
         codeProvince: 66,
         codeDistrict: 6612,
-        name: 'อำเภอวชิรบารมี'
+        name: 'วชิรบารมี'
     },
     {
         codeProvince: 67,
         codeDistrict: 6701,
-        name: 'อำเภอเมืองเพชรบูรณ์'
+        name: 'เมืองเพชรบูรณ์'
     },
     {
         codeProvince: 67,
         codeDistrict: 6702,
-        name: 'อำเภอชนแดน'
+        name: 'ชนแดน'
     },
     {
         codeProvince: 67,
         codeDistrict: 6703,
-        name: 'อำเภอหล่มสัก'
+        name: 'หล่มสัก'
     },
     {
         codeProvince: 67,
         codeDistrict: 6704,
-        name: 'อำเภอหล่มเก่า'
+        name: 'หล่มเก่า'
     },
     {
         codeProvince: 67,
         codeDistrict: 6705,
-        name: 'อำเภอวิเชียรบุรี'
+        name: 'วิเชียรบุรี'
     },
     {
         codeProvince: 67,
         codeDistrict: 6706,
-        name: 'อำเภอศรีเทพ'
+        name: 'ศรีเทพ'
     },
     {
         codeProvince: 67,
         codeDistrict: 6707,
-        name: 'อำเภอหนองไผ่'
+        name: 'หนองไผ่'
     },
     {
         codeProvince: 67,
         codeDistrict: 6708,
-        name: 'อำเภอบึงสามพัน'
+        name: 'บึงสามพัน'
     },
     {
         codeProvince: 67,
         codeDistrict: 6709,
-        name: 'อำเภอน้ำหนาว'
+        name: 'น้ำหนาว'
     },
     {
         codeProvince: 67,
         codeDistrict: 6710,
-        name: 'อำเภอวังโป่ง'
+        name: 'วังโป่ง'
     },
     {
         codeProvince: 67,
         codeDistrict: 6711,
-        name: 'อำเภอเขาค้อ'
+        name: 'เขาค้อ'
     },
     {
         codeProvince: 70,
         codeDistrict: 7001,
-        name: 'อำเภอเมืองราชบุรี'
+        name: 'เมืองราชบุรี'
     },
     {
         codeProvince: 70,
         codeDistrict: 7002,
-        name: 'อำเภอจอมบึง'
+        name: 'จอมบึง'
     },
     {
         codeProvince: 70,
         codeDistrict: 7003,
-        name: 'อำเภอสวนผึ้ง'
+        name: 'สวนผึ้ง'
     },
     {
         codeProvince: 70,
         codeDistrict: 7004,
-        name: 'อำเภอดำเนินสะดวก'
+        name: 'ดำเนินสะดวก'
     },
     {
         codeProvince: 70,
         codeDistrict: 7005,
-        name: 'อำเภอบ้านโป่ง'
+        name: 'บ้านโป่ง'
     },
     {
         codeProvince: 70,
         codeDistrict: 7006,
-        name: 'อำเภอบางแพ'
+        name: 'บางแพ'
     },
     {
         codeProvince: 70,
         codeDistrict: 7007,
-        name: 'อำเภอโพธาราม'
+        name: 'โพธาราม'
     },
     {
         codeProvince: 70,
         codeDistrict: 7008,
-        name: 'อำเภอปากท่อ'
+        name: 'ปากท่อ'
     },
     {
         codeProvince: 70,
         codeDistrict: 7009,
-        name: 'อำเภอวัดเพลง'
+        name: 'วัดเพลง'
     },
     {
         codeProvince: 70,
         codeDistrict: 7010,
-        name: 'อำเภอบ้านคา'
+        name: 'บ้านคา'
     },
     {
         codeProvince: 71,
         codeDistrict: 7101,
-        name: 'อำเภอเมืองกาญจนบุรี'
+        name: 'เมืองกาญจนบุรี'
     },
     {
         codeProvince: 71,
         codeDistrict: 7102,
-        name: 'อำเภอไทรโยค'
+        name: 'ไทรโยค'
     },
     {
         codeProvince: 71,
         codeDistrict: 7103,
-        name: 'อำเภอบ่อพลอย'
+        name: 'บ่อพลอย'
     },
     {
         codeProvince: 71,
         codeDistrict: 7104,
-        name: 'อำเภอศรีสวัสดิ์'
+        name: 'ศรีสวัสดิ์'
     },
     {
         codeProvince: 71,
         codeDistrict: 7105,
-        name: 'อำเภอท่ามะกา'
+        name: 'ท่ามะกา'
     },
     {
         codeProvince: 71,
         codeDistrict: 7106,
-        name: 'อำเภอท่าม่วง'
+        name: 'ท่าม่วง'
     },
     {
         codeProvince: 71,
         codeDistrict: 7107,
-        name: 'อำเภอทองผาภูมิ'
+        name: 'ทองผาภูมิ'
     },
     {
         codeProvince: 71,
         codeDistrict: 7108,
-        name: 'อำเภอสังขละบุรี'
+        name: 'สังขละบุรี'
     },
     {
         codeProvince: 71,
         codeDistrict: 7109,
-        name: 'อำเภอพนมทวน'
+        name: 'พนมทวน'
     },
     {
         codeProvince: 71,
         codeDistrict: 7110,
-        name: 'อำเภอเลาขวัญ'
+        name: 'เลาขวัญ'
     },
     {
         codeProvince: 71,
         codeDistrict: 7111,
-        name: 'อำเภอด่านมะขามเตี้ย'
+        name: 'ด่านมะขามเตี้ย'
     },
     {
         codeProvince: 71,
         codeDistrict: 7112,
-        name: 'อำเภอหนองปรือ'
+        name: 'หนองปรือ'
     },
     {
         codeProvince: 71,
         codeDistrict: 7113,
-        name: 'อำเภอห้วยกระเจา'
+        name: 'ห้วยกระเจา'
     },
     {
         codeProvince: 72,
         codeDistrict: 7201,
-        name: 'อำเภอเมืองสุพรรณบุรี'
+        name: 'เมืองสุพรรณบุรี'
     },
     {
         codeProvince: 72,
         codeDistrict: 7202,
-        name: 'อำเภอเดิมบางนางบวช'
+        name: 'เดิมบางนางบวช'
     },
     {
         codeProvince: 72,
         codeDistrict: 7203,
-        name: 'อำเภอด่านช้าง'
+        name: 'ด่านช้าง'
     },
     {
         codeProvince: 72,
         codeDistrict: 7204,
-        name: 'อำเภอบางปลาม้า'
+        name: 'บางปลาม้า'
     },
     {
         codeProvince: 72,
         codeDistrict: 7205,
-        name: 'อำเภอศรีประจันต์'
+        name: 'ศรีประจันต์'
     },
     {
         codeProvince: 72,
         codeDistrict: 7206,
-        name: 'อำเภอดอนเจดีย์'
+        name: 'ดอนเจดีย์'
     },
     {
         codeProvince: 72,
         codeDistrict: 7207,
-        name: 'อำเภอสองพี่น้อง'
+        name: 'สองพี่น้อง'
     },
     {
         codeProvince: 72,
         codeDistrict: 7208,
-        name: 'อำเภอสามชุก'
+        name: 'สามชุก'
     },
     {
         codeProvince: 72,
         codeDistrict: 7209,
-        name: 'อำเภออู่ทอง'
+        name: 'อู่ทอง'
     },
     {
         codeProvince: 72,
         codeDistrict: 7210,
-        name: 'อำเภอหนองหญ้าไซ'
+        name: 'หนองหญ้าไซ'
     },
     {
         codeProvince: 73,
         codeDistrict: 7301,
-        name: 'อำเภอเมืองนครปฐม'
+        name: 'เมืองนครปฐม'
     },
     {
         codeProvince: 73,
         codeDistrict: 7302,
-        name: 'อำเภอกำแพงแสน'
+        name: 'กำแพงแสน'
     },
     {
         codeProvince: 73,
         codeDistrict: 7303,
-        name: 'อำเภอนครชัยศรี'
+        name: 'นครชัยศรี'
     },
     {
         codeProvince: 73,
         codeDistrict: 7304,
-        name: 'อำเภอดอนตูม'
+        name: 'ดอนตูม'
     },
     {
         codeProvince: 73,
         codeDistrict: 7305,
-        name: 'อำเภอบางเลน'
+        name: 'บางเลน'
     },
     {
         codeProvince: 73,
         codeDistrict: 7306,
-        name: 'อำเภอสามพราน'
+        name: 'สามพราน'
     },
     {
         codeProvince: 73,
         codeDistrict: 7307,
-        name: 'อำเภอพุทธมณฑล'
+        name: 'พุทธมณฑล'
     },
     {
         codeProvince: 74,
         codeDistrict: 7401,
-        name: 'อำเภอเมืองสมุทรสาคร'
+        name: 'เมืองสมุทรสาคร'
     },
     {
         codeProvince: 74,
         codeDistrict: 7402,
-        name: 'อำเภอกระทุ่มแบน'
+        name: 'กระทุ่มแบน'
     },
     {
         codeProvince: 74,
         codeDistrict: 7403,
-        name: 'อำเภอบ้านแพ้ว'
+        name: 'บ้านแพ้ว'
     },
     {
         codeProvince: 75,
         codeDistrict: 7501,
-        name: 'อำเภอเมืองสมุทรสงคราม'
+        name: 'เมืองสมุทรสงคราม'
     },
     {
         codeProvince: 75,
         codeDistrict: 7502,
-        name: 'อำเภอบางคนที'
+        name: 'บางคนที'
     },
     {
         codeProvince: 75,
         codeDistrict: 7503,
-        name: 'อำเภออัมพวา'
+        name: 'อัมพวา'
     },
     {
         codeProvince: 76,
         codeDistrict: 7601,
-        name: 'อำเภอเมืองเพชรบุรี'
+        name: 'เมืองเพชรบุรี'
     },
     {
         codeProvince: 76,
         codeDistrict: 7602,
-        name: 'อำเภอเขาย้อย'
+        name: 'เขาย้อย'
     },
     {
         codeProvince: 76,
         codeDistrict: 7603,
-        name: 'อำเภอหนองหญ้าปล้อง'
+        name: 'หนองหญ้าปล้อง'
     },
     {
         codeProvince: 76,
         codeDistrict: 7604,
-        name: 'อำเภอชะอำ'
+        name: 'ชะอำ'
     },
     {
         codeProvince: 76,
         codeDistrict: 7605,
-        name: 'อำเภอท่ายาง'
+        name: 'ท่ายาง'
     },
     {
         codeProvince: 76,
         codeDistrict: 7606,
-        name: 'อำเภอบ้านลาด'
+        name: 'บ้านลาด'
     },
     {
         codeProvince: 76,
         codeDistrict: 7607,
-        name: 'อำเภอบ้านแหลม'
+        name: 'บ้านแหลม'
     },
     {
         codeProvince: 76,
         codeDistrict: 7608,
-        name: 'อำเภอแก่งกระจาน'
+        name: 'แก่งกระจาน'
     },
     {
         codeProvince: 77,
         codeDistrict: 7701,
-        name: 'อำเภอเมืองประจวบคีรีขันธ์'
+        name: 'เมืองประจวบคีรีขันธ์'
     },
     {
         codeProvince: 77,
         codeDistrict: 7702,
-        name: 'อำเภอกุยบุรี'
+        name: 'กุยบุรี'
     },
     {
         codeProvince: 77,
         codeDistrict: 7703,
-        name: 'อำเภอทับสะแก'
+        name: 'ทับสะแก'
     },
     {
         codeProvince: 77,
         codeDistrict: 7704,
-        name: 'อำเภอบางสะพาน'
+        name: 'บางสะพาน'
     },
     {
         codeProvince: 77,
         codeDistrict: 7705,
-        name: 'อำเภอบางสะพานน้อย'
+        name: 'บางสะพานน้อย'
     },
     {
         codeProvince: 77,
         codeDistrict: 7706,
-        name: 'อำเภอปราณบุรี'
+        name: 'ปราณบุรี'
     },
     {
         codeProvince: 77,
         codeDistrict: 7707,
-        name: 'อำเภอหัวหิน'
+        name: 'หัวหิน'
     },
     {
         codeProvince: 77,
         codeDistrict: 7708,
-        name: 'อำเภอสามร้อยยอด'
+        name: 'สามร้อยยอด'
     },
     {
         codeProvince: 80,
         codeDistrict: 8001,
-        name: 'อำเภอเมืองนครศรีธรรมราช'
+        name: 'เมืองนครศรีธรรมราช'
     },
     {
         codeProvince: 80,
         codeDistrict: 8002,
-        name: 'อำเภอพรหมคีรี'
+        name: 'พรหมคีรี'
     },
     {
         codeProvince: 80,
         codeDistrict: 8003,
-        name: 'อำเภอลานสกา'
+        name: 'ลานสกา'
     },
     {
         codeProvince: 80,
         codeDistrict: 8004,
-        name: 'อำเภอฉวาง'
+        name: 'ฉวาง'
     },
     {
         codeProvince: 80,
         codeDistrict: 8005,
-        name: 'อำเภอพิปูน'
+        name: 'พิปูน'
     },
     {
         codeProvince: 80,
         codeDistrict: 8006,
-        name: 'อำเภอเชียรใหญ่'
+        name: 'เชียรใหญ่'
     },
     {
         codeProvince: 80,
         codeDistrict: 8007,
-        name: 'อำเภอชะอวด'
+        name: 'ชะอวด'
     },
     {
         codeProvince: 80,
         codeDistrict: 8008,
-        name: 'อำเภอท่าศาลา'
+        name: 'ท่าศาลา'
     },
     {
         codeProvince: 80,
         codeDistrict: 8009,
-        name: 'อำเภอทุ่งสง'
+        name: 'ทุ่งสง'
     },
     {
         codeProvince: 80,
         codeDistrict: 8010,
-        name: 'อำเภอนาบอน'
+        name: 'นาบอน'
     },
     {
         codeProvince: 80,
         codeDistrict: 8011,
-        name: 'อำเภอทุ่งใหญ่'
+        name: 'ทุ่งใหญ่'
     },
     {
         codeProvince: 80,
         codeDistrict: 8012,
-        name: 'อำเภอปากพนัง'
+        name: 'ปากพนัง'
     },
     {
         codeProvince: 80,
         codeDistrict: 8013,
-        name: 'อำเภอร่อนพิบูลย์'
+        name: 'ร่อนพิบูลย์'
     },
     {
         codeProvince: 80,
         codeDistrict: 8014,
-        name: 'อำเภอสิชล'
+        name: 'สิชล'
     },
     {
         codeProvince: 80,
         codeDistrict: 8015,
-        name: 'อำเภอขนอม'
+        name: 'ขนอม'
     },
     {
         codeProvince: 80,
         codeDistrict: 8016,
-        name: 'อำเภอหัวไทร'
+        name: 'หัวไทร'
     },
     {
         codeProvince: 80,
         codeDistrict: 8017,
-        name: 'อำเภอบางขัน'
+        name: 'บางขัน'
     },
     {
         codeProvince: 80,
         codeDistrict: 8018,
-        name: 'อำเภอถ้ำพรรณรา'
+        name: 'ถ้ำพรรณรา'
     },
     {
         codeProvince: 80,
         codeDistrict: 8019,
-        name: 'อำเภอจุฬาภรณ์'
+        name: 'จุฬาภรณ์'
     },
     {
         codeProvince: 80,
         codeDistrict: 8020,
-        name: 'อำเภอพระพรหม'
+        name: 'พระพรหม'
     },
     {
         codeProvince: 80,
         codeDistrict: 8021,
-        name: 'อำเภอนบพิตำ'
+        name: 'นบพิตำ'
     },
     {
         codeProvince: 80,
         codeDistrict: 8022,
-        name: 'อำเภอช้างกลาง'
+        name: 'ช้างกลาง'
     },
     {
         codeProvince: 80,
         codeDistrict: 8023,
-        name: 'อำเภอเฉลิมพระเกียรติ'
+        name: 'เฉลิมพระเกียรติ'
     },
     {
         codeProvince: 81,
         codeDistrict: 8101,
-        name: 'อำเภอเมืองกระบี่'
+        name: 'เมืองกระบี่'
     },
     {
         codeProvince: 81,
         codeDistrict: 8102,
-        name: 'อำเภอเขาพนม'
+        name: 'เขาพนม'
     },
     {
         codeProvince: 81,
         codeDistrict: 8103,
-        name: 'อำเภอเกาะลันตา'
+        name: 'เกาะลันตา'
     },
     {
         codeProvince: 81,
         codeDistrict: 8104,
-        name: 'อำเภอคลองท่อม'
+        name: 'คลองท่อม'
     },
     {
         codeProvince: 81,
         codeDistrict: 8105,
-        name: 'อำเภออ่าวลึก'
+        name: 'อ่าวลึก'
     },
     {
         codeProvince: 81,
         codeDistrict: 8106,
-        name: 'อำเภอปลายพระยา'
+        name: 'ปลายพระยา'
     },
     {
         codeProvince: 81,
         codeDistrict: 8107,
-        name: 'อำเภอลำทับ'
+        name: 'ลำทับ'
     },
     {
         codeProvince: 81,
         codeDistrict: 8108,
-        name: 'อำเภอเหนือคลอง'
+        name: 'เหนือคลอง'
     },
     {
         codeProvince: 82,
         codeDistrict: 8201,
-        name: 'อำเภอเมืองพังงา'
+        name: 'เมืองพังงา'
     },
     {
         codeProvince: 82,
         codeDistrict: 8202,
-        name: 'อำเภอเกาะยาว'
+        name: 'เกาะยาว'
     },
     {
         codeProvince: 82,
         codeDistrict: 8203,
-        name: 'อำเภอกะปง'
+        name: 'กะปง'
     },
     {
         codeProvince: 82,
         codeDistrict: 8204,
-        name: 'อำเภอตะกั่วทุ่ง'
+        name: 'ตะกั่วทุ่ง'
     },
     {
         codeProvince: 82,
         codeDistrict: 8205,
-        name: 'อำเภอตะกั่วป่า'
+        name: 'ตะกั่วป่า'
     },
     {
         codeProvince: 82,
         codeDistrict: 8206,
-        name: 'อำเภอคุระบุรี'
+        name: 'คุระบุรี'
     },
     {
         codeProvince: 82,
         codeDistrict: 8207,
-        name: 'อำเภอทับปุด'
+        name: 'ทับปุด'
     },
     {
         codeProvince: 82,
         codeDistrict: 8208,
-        name: 'อำเภอท้ายเหมือง'
+        name: 'ท้ายเหมือง'
     },
     {
         codeProvince: 83,
         codeDistrict: 8301,
-        name: 'อำเภอเมืองภูเก็ต'
+        name: 'เมืองภูเก็ต'
     },
     {
         codeProvince: 83,
         codeDistrict: 8302,
-        name: 'อำเภอกะทู้'
+        name: 'กะทู้'
     },
     {
         codeProvince: 83,
         codeDistrict: 8303,
-        name: 'อำเภอถลาง'
+        name: 'ถลาง'
     },
     {
         codeProvince: 84,
         codeDistrict: 8401,
-        name: 'อำเภอเมืองสุราษฎร์ธานี'
+        name: 'เมืองสุราษฎร์ธานี'
     },
     {
         codeProvince: 84,
         codeDistrict: 8402,
-        name: 'อำเภอกาญจนดิษฐ์'
+        name: 'กาญจนดิษฐ์'
     },
     {
         codeProvince: 84,
         codeDistrict: 8403,
-        name: 'อำเภอดอนสัก'
+        name: 'ดอนสัก'
     },
     {
         codeProvince: 84,
         codeDistrict: 8404,
-        name: 'อำเภอเกาะสมุย'
+        name: 'เกาะสมุย'
     },
     {
         codeProvince: 84,
         codeDistrict: 8405,
-        name: 'อำเภอเกาะพะงัน'
+        name: 'เกาะพะงัน'
     },
     {
         codeProvince: 84,
         codeDistrict: 8406,
-        name: 'อำเภอไชยา'
+        name: 'ไชยา'
     },
     {
         codeProvince: 84,
         codeDistrict: 8407,
-        name: 'อำเภอท่าชนะ'
+        name: 'ท่าชนะ'
     },
     {
         codeProvince: 84,
         codeDistrict: 8408,
-        name: 'อำเภอคีรีรัฐนิคม'
+        name: 'คีรีรัฐนิคม'
     },
     {
         codeProvince: 84,
         codeDistrict: 8409,
-        name: 'อำเภอบ้านตาขุน'
+        name: 'บ้านตาขุน'
     },
     {
         codeProvince: 84,
         codeDistrict: 8410,
-        name: 'อำเภอพนม'
+        name: 'พนม'
     },
     {
         codeProvince: 84,
         codeDistrict: 8411,
-        name: 'อำเภอท่าฉาง'
+        name: 'ท่าฉาง'
     },
     {
         codeProvince: 84,
         codeDistrict: 8412,
-        name: 'อำเภอบ้านนาสาร'
+        name: 'บ้านนาสาร'
     },
     {
         codeProvince: 84,
         codeDistrict: 8413,
-        name: 'อำเภอบ้านนาเดิม'
+        name: 'บ้านนาเดิม'
     },
     {
         codeProvince: 84,
         codeDistrict: 8414,
-        name: 'อำเภอเคียนซา'
+        name: 'เคียนซา'
     },
     {
         codeProvince: 84,
         codeDistrict: 8415,
-        name: 'อำเภอเวียงสระ'
+        name: 'เวียงสระ'
     },
     {
         codeProvince: 84,
         codeDistrict: 8416,
-        name: 'อำเภอพระแสง'
+        name: 'พระแสง'
     },
     {
         codeProvince: 84,
         codeDistrict: 8417,
-        name: 'อำเภอพุนพิน'
+        name: 'พุนพิน'
     },
     {
         codeProvince: 84,
         codeDistrict: 8418,
-        name: 'อำเภอชัยบุรี'
+        name: 'ชัยบุรี'
     },
     {
         codeProvince: 84,
         codeDistrict: 8419,
-        name: 'อำเภอวิภาวดี'
+        name: 'วิภาวดี'
     },
     {
         codeProvince: 85,
         codeDistrict: 8501,
-        name: 'อำเภอเมืองระนอง'
+        name: 'เมืองระนอง'
     },
     {
         codeProvince: 85,
         codeDistrict: 8502,
-        name: 'อำเภอละอุ่น'
+        name: 'ละอุ่น'
     },
     {
         codeProvince: 85,
         codeDistrict: 8503,
-        name: 'อำเภอกะเปอร์'
+        name: 'กะเปอร์'
     },
     {
         codeProvince: 85,
         codeDistrict: 8504,
-        name: 'อำเภอกระบุรี'
+        name: 'กระบุรี'
     },
     {
         codeProvince: 85,
         codeDistrict: 8505,
-        name: 'อำเภอสุขสำราญ'
+        name: 'สุขสำราญ'
     },
     {
         codeProvince: 86,
         codeDistrict: 8601,
-        name: 'อำเภอเมืองชุมพร'
+        name: 'เมืองชุมพร'
     },
     {
         codeProvince: 86,
         codeDistrict: 8602,
-        name: 'อำเภอท่าแซะ'
+        name: 'ท่าแซะ'
     },
     {
         codeProvince: 86,
         codeDistrict: 8603,
-        name: 'อำเภอปะทิว'
+        name: 'ปะทิว'
     },
     {
         codeProvince: 86,
         codeDistrict: 8604,
-        name: 'อำเภอหลังสวน'
+        name: 'หลังสวน'
     },
     {
         codeProvince: 86,
         codeDistrict: 8605,
-        name: 'อำเภอละแม'
+        name: 'ละแม'
     },
     {
         codeProvince: 86,
         codeDistrict: 8606,
-        name: 'อำเภอพะโต๊ะ'
+        name: 'พะโต๊ะ'
     },
     {
         codeProvince: 86,
         codeDistrict: 8607,
-        name: 'อำเภอสวี'
+        name: 'สวี'
     },
     {
         codeProvince: 86,
         codeDistrict: 8608,
-        name: 'อำเภอทุ่งตะโก'
+        name: 'ทุ่งตะโก'
     },
     {
         codeProvince: 90,
         codeDistrict: 9001,
-        name: 'อำเภอเมืองสงขลา'
+        name: 'เมืองสงขลา'
     },
     {
         codeProvince: 90,
         codeDistrict: 9002,
-        name: 'อำเภอสทิงพระ'
+        name: 'สทิงพระ'
     },
     {
         codeProvince: 90,
         codeDistrict: 9003,
-        name: 'อำเภอจะนะ'
+        name: 'จะนะ'
     },
     {
         codeProvince: 90,
         codeDistrict: 9004,
-        name: 'อำเภอนาทวี'
+        name: 'นาทวี'
     },
     {
         codeProvince: 90,
         codeDistrict: 9005,
-        name: 'อำเภอเทพา'
+        name: 'เทพา'
     },
     {
         codeProvince: 90,
         codeDistrict: 9006,
-        name: 'อำเภอสะบ้าย้อย'
+        name: 'สะบ้าย้อย'
     },
     {
         codeProvince: 90,
         codeDistrict: 9007,
-        name: 'อำเภอระโนด'
+        name: 'ระโนด'
     },
     {
         codeProvince: 90,
         codeDistrict: 9008,
-        name: 'อำเภอกระแสสินธุ์'
+        name: 'กระแสสินธุ์'
     },
     {
         codeProvince: 90,
         codeDistrict: 9009,
-        name: 'อำเภอรัตภูมิ'
+        name: 'รัตภูมิ'
     },
     {
         codeProvince: 90,
         codeDistrict: 9010,
-        name: 'อำเภอสะเดา'
+        name: 'สะเดา'
     },
     {
         codeProvince: 90,
         codeDistrict: 9011,
-        name: 'อำเภอหาดใหญ่'
+        name: 'หาดใหญ่'
     },
     {
         codeProvince: 90,
         codeDistrict: 9012,
-        name: 'อำเภอนาหม่อม'
+        name: 'นาหม่อม'
     },
     {
         codeProvince: 90,
         codeDistrict: 9013,
-        name: 'อำเภอควนเนียง'
+        name: 'ควนเนียง'
     },
     {
         codeProvince: 90,
         codeDistrict: 9014,
-        name: 'อำเภอบางกล่ำ'
+        name: 'บางกล่ำ'
     },
     {
         codeProvince: 90,
         codeDistrict: 9015,
-        name: 'อำเภอสิงหนคร'
+        name: 'สิงหนคร'
     },
     {
         codeProvince: 90,
         codeDistrict: 9016,
-        name: 'อำเภอคลองหอยโข่ง'
+        name: 'คลองหอยโข่ง'
     },
     {
         codeProvince: 91,
         codeDistrict: 9101,
-        name: 'อำเภอเมืองสตูล'
+        name: 'เมืองสตูล'
     },
     {
         codeProvince: 91,
         codeDistrict: 9102,
-        name: 'อำเภอควนโดน'
+        name: 'ควนโดน'
     },
     {
         codeProvince: 91,
         codeDistrict: 9103,
-        name: 'อำเภอควนกาหลง'
+        name: 'ควนกาหลง'
     },
     {
         codeProvince: 91,
         codeDistrict: 9104,
-        name: 'อำเภอท่าแพ'
+        name: 'ท่าแพ'
     },
     {
         codeProvince: 91,
         codeDistrict: 9105,
-        name: 'อำเภอละงู'
+        name: 'ละงู'
     },
     {
         codeProvince: 91,
         codeDistrict: 9106,
-        name: 'อำเภอทุ่งหว้า'
+        name: 'ทุ่งหว้า'
     },
     {
         codeProvince: 91,
         codeDistrict: 9107,
-        name: 'อำเภอมะนัง'
+        name: 'มะนัง'
     },
     {
         codeProvince: 92,
         codeDistrict: 9201,
-        name: 'อำเภอเมืองตรัง'
+        name: 'เมืองตรัง'
     },
     {
         codeProvince: 92,
         codeDistrict: 9202,
-        name: 'อำเภอกันตัง'
+        name: 'กันตัง'
     },
     {
         codeProvince: 92,
         codeDistrict: 9203,
-        name: 'อำเภอย่านตาขาว'
+        name: 'ย่านตาขาว'
     },
     {
         codeProvince: 92,
         codeDistrict: 9204,
-        name: 'อำเภอปะเหลียน'
+        name: 'ปะเหลียน'
     },
     {
         codeProvince: 92,
         codeDistrict: 9205,
-        name: 'อำเภอสิเกา'
+        name: 'สิเกา'
     },
     {
         codeProvince: 92,
         codeDistrict: 9206,
-        name: 'อำเภอห้วยยอด'
+        name: 'ห้วยยอด'
     },
     {
         codeProvince: 92,
         codeDistrict: 9207,
-        name: 'อำเภอวังวิเศษ'
+        name: 'วังวิเศษ'
     },
     {
         codeProvince: 92,
         codeDistrict: 9208,
-        name: 'อำเภอนาโยง'
+        name: 'นาโยง'
     },
     {
         codeProvince: 92,
         codeDistrict: 9209,
-        name: 'อำเภอรัษฎา'
+        name: 'รัษฎา'
     },
     {
         codeProvince: 92,
         codeDistrict: 9210,
-        name: 'อำเภอหาดสำราญ'
+        name: 'หาดสำราญ'
     },
     {
         codeProvince: 93,
         codeDistrict: 9301,
-        name: 'อำเภอเมืองพัทลุง'
+        name: 'เมืองพัทลุง'
     },
     {
         codeProvince: 93,
         codeDistrict: 9302,
-        name: 'อำเภอกงหรา'
+        name: 'กงหรา'
     },
     {
         codeProvince: 93,
         codeDistrict: 9303,
-        name: 'อำเภอเขาชัยสน'
+        name: 'เขาชัยสน'
     },
     {
         codeProvince: 93,
         codeDistrict: 9304,
-        name: 'อำเภอตะโหมด'
+        name: 'ตะโหมด'
     },
     {
         codeProvince: 93,
         codeDistrict: 9305,
-        name: 'อำเภอควนขนุน'
+        name: 'ควนขนุน'
     },
     {
         codeProvince: 93,
         codeDistrict: 9306,
-        name: 'อำเภอปากพะยูน'
+        name: 'ปากพะยูน'
     },
     {
         codeProvince: 93,
         codeDistrict: 9307,
-        name: 'อำเภอศรีบรรพต'
+        name: 'ศรีบรรพต'
     },
     {
         codeProvince: 93,
         codeDistrict: 9308,
-        name: 'อำเภอป่าบอน'
+        name: 'ป่าบอน'
     },
     {
         codeProvince: 93,
         codeDistrict: 9309,
-        name: 'อำเภอบางแก้ว'
+        name: 'บางแก้ว'
     },
     {
         codeProvince: 93,
         codeDistrict: 9310,
-        name: 'อำเภอป่าพะยอม'
+        name: 'ป่าพะยอม'
     },
     {
         codeProvince: 93,
         codeDistrict: 9311,
-        name: 'อำเภอศรีนครินทร์'
+        name: 'ศรีนครินทร์'
     },
     {
         codeProvince: 94,
         codeDistrict: 9401,
-        name: 'อำเภอเมืองปัตตานี'
+        name: 'เมืองปัตตานี'
     },
     {
         codeProvince: 94,
         codeDistrict: 9402,
-        name: 'อำเภอโคกโพธิ์'
+        name: 'โคกโพธิ์'
     },
     {
         codeProvince: 94,
         codeDistrict: 9403,
-        name: 'อำเภอหนองจิก'
+        name: 'หนองจิก'
     },
     {
         codeProvince: 94,
         codeDistrict: 9404,
-        name: 'อำเภอปะนาเระ'
+        name: 'ปะนาเระ'
     },
     {
         codeProvince: 94,
         codeDistrict: 9405,
-        name: 'อำเภอมายอ'
+        name: 'มายอ'
     },
     {
         codeProvince: 94,
         codeDistrict: 9406,
-        name: 'อำเภอทุ่งยางแดง'
+        name: 'ทุ่งยางแดง'
     },
     {
         codeProvince: 94,
         codeDistrict: 9407,
-        name: 'อำเภอสายบุรี'
+        name: 'สายบุรี'
     },
     {
         codeProvince: 94,
         codeDistrict: 9408,
-        name: 'อำเภอไม้แก่น'
+        name: 'ไม้แก่น'
     },
     {
         codeProvince: 94,
         codeDistrict: 9409,
-        name: 'อำเภอยะหริ่ง'
+        name: 'ยะหริ่ง'
     },
     {
         codeProvince: 94,
         codeDistrict: 9410,
-        name: 'อำเภอยะรัง'
+        name: 'ยะรัง'
     },
     {
         codeProvince: 94,
         codeDistrict: 9411,
-        name: 'อำเภอกะพ้อ'
+        name: 'กะพ้อ'
     },
     {
         codeProvince: 94,
         codeDistrict: 9412,
-        name: 'อำเภอแม่ลาน'
+        name: 'แม่ลาน'
     },
     {
         codeProvince: 95,
         codeDistrict: 9501,
-        name: 'อำเภอเมืองยะลา'
+        name: 'เมืองยะลา'
     },
     {
         codeProvince: 95,
         codeDistrict: 9502,
-        name: 'อำเภอเบตง'
+        name: 'เบตง'
     },
     {
         codeProvince: 95,
         codeDistrict: 9503,
-        name: 'อำเภอบันนังสตา'
+        name: 'บันนังสตา'
     },
     {
         codeProvince: 95,
         codeDistrict: 9504,
-        name: 'อำเภอธารโต'
+        name: 'ธารโต'
     },
     {
         codeProvince: 95,
         codeDistrict: 9505,
-        name: 'อำเภอยะหา'
+        name: 'ยะหา'
     },
     {
         codeProvince: 95,
         codeDistrict: 9506,
-        name: 'อำเภอรามัน'
+        name: 'รามัน'
     },
     {
         codeProvince: 95,
         codeDistrict: 9507,
-        name: 'อำเภอกาบัง'
+        name: 'กาบัง'
     },
     {
         codeProvince: 95,
         codeDistrict: 9508,
-        name: 'อำเภอกรงปินัง'
+        name: 'กรงปินัง'
     },
     {
         codeProvince: 96,
         codeDistrict: 9601,
-        name: 'อำเภอเมืองนราธิวาส'
+        name: 'เมืองนราธิวาส'
     },
     {
         codeProvince: 96,
         codeDistrict: 9602,
-        name: 'อำเภอตากใบ'
+        name: 'ตากใบ'
     },
     {
         codeProvince: 96,
         codeDistrict: 9603,
-        name: 'อำเภอบาเจาะ'
+        name: 'บาเจาะ'
     },
     {
         codeProvince: 96,
         codeDistrict: 9604,
-        name: 'อำเภอยี่งอ'
+        name: 'ยี่งอ'
     },
     {
         codeProvince: 96,
         codeDistrict: 9605,
-        name: 'อำเภอระแงะ'
+        name: 'ระแงะ'
     },
     {
         codeProvince: 96,
         codeDistrict: 9606,
-        name: 'อำเภอรือเสาะ'
+        name: 'รือเสาะ'
     },
     {
         codeProvince: 96,
         codeDistrict: 9607,
-        name: 'อำเภอศรีสาคร'
+        name: 'ศรีสาคร'
     },
     {
         codeProvince: 96,
         codeDistrict: 9608,
-        name: 'อำเภอแว้ง'
+        name: 'แว้ง'
     },
     {
         codeProvince: 96,
         codeDistrict: 9609,
-        name: 'อำเภอสุคิริน'
+        name: 'สุคิริน'
     },
     {
         codeProvince: 96,
         codeDistrict: 9610,
-        name: 'อำเภอสุไหงโกลก'
+        name: 'สุไหงโกลก'
     },
     {
         codeProvince: 96,
         codeDistrict: 9611,
-        name: 'อำเภอสุไหงปาดี'
+        name: 'สุไหงปาดี'
     },
     {
         codeProvince: 96,
         codeDistrict: 9612,
-        name: 'อำเภอจะแนะ'
+        name: 'จะแนะ'
     },
     {
         codeProvince: 96,
         codeDistrict: 9613,
-        name: 'อำเภอเจาะไอร้อง'
+        name: 'เจาะไอร้อง'
     },
 ]
