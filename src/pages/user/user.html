@@ -86,7 +86,7 @@
                 15. การผลิตโลหะขั้นมูลฐาน
               </ion-option>
               <ion-option [value]="16">
-                16.การผลิตผลิตภัณฑ์ที่ทำจากโลหะประดิษฐ์ (ยกเว้นเครื่องจักรและอุปกรณ์)
+                16. การผลิตผลิตภัณฑ์ที่ทำจากโลหะประดิษฐ์ (ยกเว้นเครื่องจักรและอุปกรณ์)
               </ion-option>
               <ion-option [value]="17">
                 17. การผลิตผลิตภัณฑ์คอมพิวเตอร์อิเล็กทรอนิกส์ และอุปกรณ์ที่ใช้ในทางทัศนศาสตร์
@@ -107,7 +107,7 @@
                 22. การผลิตเฟอร์นิจอร์
               </ion-option>
               <ion-option [value]="23">
-                23. ารผลิตผลิตภัณฑ์ประเภทอื่นๆ
+                23. การผลิตผลิตภัณฑ์ประเภทอื่นๆ
               </ion-option>
               <ion-option [value]="24">
                 24. การซ่อมและการติดตั้งเครื่องจักรและอุปกรณ์
@@ -120,6 +120,15 @@
               </ion-option>
               <ion-option [value]="27">
                 27. กิจกรรมการบำบัดและบริการจัดการของเสียอื่นๆ
+              </ion-option>
+              <ion-option [value]="28">
+                28. การทำเหมืองถ่านหินและลิกไนต์
+              </ion-option>
+              <ion-option [value]="29">
+                29. การทำเหมืองสินแร่โลหะ
+              </ion-option>
+              <ion-option [value]="30">
+                30. การทำเหมืองแร่และเหมืองหินอื่นๆ
               </ion-option>
             </ion-select>
           </ion-item>
@@ -288,6 +297,9 @@
               <ion-option [value]="47">
                 47. ศาสนสถาน
               </ion-option>
+              <ion-option [value]="48">
+                48. การราชการ การป้องกันประเทศ และการประกันสังคมภาคบังคับ
+              </ion-option>
             </ion-select>
           </ion-item>
 
@@ -302,7 +314,7 @@
 
     <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar [checkEnd]="false" ></form-buttons-bar>
+    <form-buttons-bar [checkEnd]="false"></form-buttons-bar>
   </form>
 
 </ion-content>
