@@ -35,6 +35,11 @@
           <ion-item>
             {{ facCategory }}
           </ion-item>
+          <ion-item *ngIf="isValid('factorialCategoryCode')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
           <ion-item [class.invalid]="isValid('factorialCategoryCode')">
             <ion-label>
               เลือกประเภท
@@ -132,11 +137,6 @@
               </ion-option>
             </ion-select>
           </ion-item>
-          <ion-item *ngIf="isValid('factorialCategoryCode')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
-          </ion-item>
         </div>
 
         <div *ngIf="commercialServiceUse == true ">
@@ -149,7 +149,11 @@
           <ion-item>
             {{ commercialServiceType }}
           </ion-item>
-
+          <ion-item *ngIf="isValid('serviceTypeCode')">
+            <span class="invalid-msg">
+              กรุณาเลือก
+            </span>
+          </ion-item>
           <ion-item [class.invalid]="isValid('serviceTypeCode')">
             <ion-label>
               เลือกประเภท
@@ -301,12 +305,6 @@
                 48. การราชการ การป้องกันประเทศ และการประกันสังคมภาคบังคับ
               </ion-option>
             </ion-select>
-          </ion-item>
-
-          <ion-item *ngIf="isValid('serviceTypeCode')">
-            <span class="invalid-msg">
-              กรุณาเลือก
-            </span>
           </ion-item>
         </div>
       </ion-card-content>
