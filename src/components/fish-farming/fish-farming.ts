@@ -67,7 +67,6 @@ export class FishFarmingComponent implements ISubmitRequestable {
       this.FormItem.get('waterSources.hasOther').setValue(true);
       this.FormItem.get('waterSources.other').setValue('-');
     }
-    // this.dispatchWaterSource();
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -90,7 +89,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
       if ((depression.value || gardenGroove.value) && (fieldCount.value == null || fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
-      if ((depression.value || gardenGroove.value) && (fieldsAreSameSize.value == null)) {
+      if ((depression.value || gardenGroove.value) && (fieldsAreSameSize.value == null && fieldCount.value != 1)) {
         return { 'fieldsAreSameSize': true };
       }
       if ((depression.value || gardenGroove.value) && (animalsCount.value == null || animalsCount.value <= 0)) {
@@ -98,15 +97,6 @@ export class FishFarmingComponent implements ISubmitRequestable {
       }
       return null;
     }
-  }
-
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    console.log("dispatch fish can work");
   }
 
   public isValid(name: string): boolean {
