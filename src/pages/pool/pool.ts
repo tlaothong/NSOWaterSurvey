@@ -81,14 +81,6 @@ export class PoolPage {
   }
 
   ionViewDidLoad() {
-    
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.pool);
-    //     this.formData = data;
-    //   }
-    // })
-
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -149,17 +141,10 @@ export class PoolPage {
       }
       this.f.get('poolSizes').setValue(val)
     }
-    // this.formData.waterUsage.pool = this.f.value
     this.isCheckWarningBox = this.checkValid();
+    let isCheckPoolUsage = !this.poolUsage.some(it => it.checkValid() == false);
     if (this.checkValid()) {
       this.arrayIsCheckMethod();
-
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId, this.formData)
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
         pool: this.f.value,
@@ -193,7 +178,8 @@ export class PoolPage {
   }
 
   public isCheckWaterResources(): boolean {
-    let isCheckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
+    // let isCheckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
+    let isCheckPoolUsage = !this.poolUsage.some(it => it.checkValid() == false);;
     let isCheckWaterResourceCount = this.isCheckActivity() ? this.f.get('waterResourceCount').value > 0 : this.f.get('waterResourceCount').valid;
     return this.f.get('waterResourceCount').value <= this.f.get('poolCount').value && isCheckPoolUsage && isCheckWaterResourceCount;
   }
@@ -252,7 +238,7 @@ export class PoolPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(16));
