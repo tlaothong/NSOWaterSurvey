@@ -13,6 +13,8 @@ export class CountComponent {
   @Input() FormItem: FormGroup;
   @Input() count: string;
   @Input() beUnitCount: boolean;
+  @Input() beResidential: boolean;
+  @Input() beWater: boolean;
 
   public item: string;
   public group: string;
@@ -47,7 +49,7 @@ export class CountComponent {
   }
 
   presentModalCount() {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(this.count).value, title: this.title, bePlant: this.bePlant, beUnitCount: this.beUnitCount });
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(this.count).value, title: this.title, bePlant: this.bePlant, beUnitCount: this.beUnitCount, beResidential: this.beResidential, beWater: this.beWater });
     modal.onDidDismiss(data => {
       if (data) {
         this.FormItem.get(this.count).setValue(data);

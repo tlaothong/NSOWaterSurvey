@@ -18,19 +18,19 @@
           </ion-label>
         </ion-item>
 
-        <count [title]="'จำนวนสมาชิก'" [FormItem]="residentialFrm" [count]="'memberCount'"></count>
+        <count [title]="'จำนวนสมาชิก'" [beResidential]="true" [FormItem]="residentialFrm" [count]="'memberCount'"></count>
 
         <ion-item *ngIf="isValid('memberCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-        <ion-item *ngIf="residentialFrm.get('memberCount').value > 20">
+        <!-- <ion-item *ngIf="residentialFrm.get('memberCount').value > 20">
           <ion-icon md="md-warning" class="warning"></ion-icon>
           <span class="warning-msg">
             กรุณาตรวจสอบจำนวนสมาชิกมีเยอะผิดปกติหรือไม่
           </span>
-        </ion-item>
+        </ion-item> -->
 
 
 
