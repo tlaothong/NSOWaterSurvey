@@ -39,7 +39,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
       'hasOther': [false, Validators],
       'other': [null, Validators],
       'fieldCount': [null, Validators],
-      'fieldsAreSameSize': [null, Validators],
+      'fieldsAreSameSize': [true, Validators],
       'fields': fb.array([]),
       'animalsCount': [null, Validators],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
