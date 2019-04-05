@@ -83,7 +83,16 @@ export class HouseHoldEffects {
         mergeMap((action: CreateHouseHoldFor1UnitBuilding) => (this.appState.houseHoldUnit)
             ? Observable.of({ exists: true, data: this.appState.houseHoldUnit })
             : Observable.of<HouseHoldUnit>(
-                this.createDefaultHouseHoldUnit(null, null)
+                this.createDefaultHouseHoldUnit({
+                    roomNumber: null,
+                    accessCount: 1,
+                    accesses: [1],
+                    hasPlumbing: null,
+                    hasPlumbingMeter: null,
+                    isPlumbingMeterXWA: null,
+                    hasGroundWater: null,
+                    hasGroundWaterMeter: null,
+                }, null)
             ).map(it => { return { exists: false, data: it } })),
         mergeMap((x: UnitExistence) => Observable.if(() => x.exists,
             Observable.of(new SetCurrentWorkingHouseHold(x.data._id)),
