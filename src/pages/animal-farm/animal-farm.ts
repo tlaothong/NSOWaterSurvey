@@ -45,6 +45,7 @@ export class AnimalFarmPage {
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'otherName': [null, Validators],
+      'lowPiority': [null, Validators],
       'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
     }, {
         validator: AnimalFarmPage.checkAnyOrOther()
@@ -109,6 +110,10 @@ export class AnimalFarmPage {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.otherName && (ctrl.dirty || this.submitRequested);
     }
+    if (name == 'lowPiority') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.lowPiority && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -125,8 +130,8 @@ export class AnimalFarmPage {
       const silkWool = c.get('silkWool');
       const other = c.get('other');
       const otherName = c.get('otherName');
-      console.log(cow.value.itemCount);
-      console.log(otherName.value);
+      const lowPiority = c.get('lowPiority');
+  
 
 
       if (!cow.value.itemCount && !buffalo.value.itemCount && !pig.value.itemCount && !goat.value.itemCount && !sheep.value.itemCount
@@ -135,6 +140,9 @@ export class AnimalFarmPage {
       }
       if (other.value.hasItem && (otherName.value == null || otherName.value.trim() == '')) {
         return { 'otherName': true }
+      }
+      if (other.value.hasItem && (lowPiority.value == null || lowPiority.value.trim() == '')) {
+        return { 'lowPiority': true }
       }
 
       return null;
