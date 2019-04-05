@@ -45,7 +45,7 @@ export class AnimalFarmPage {
       'silkWool': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'other': TableCheckItemCountComponent.CreateFormGroup(this.fb),
       'otherName': [null, Validators],
-      'lowPiority': [null, Validators],
+      'animalUnit': [null, Validators],
       'waterSources': WaterSources9Component.CreateFormGroup(this.fb)
     }, {
         validator: AnimalFarmPage.checkAnyOrOther()
@@ -54,7 +54,7 @@ export class AnimalFarmPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
-    
+
     // this.formData$.subscribe(data => {
     //   if (data != null) {
     //     this.f.patchValue(data.agriculture.animalFarm)
@@ -87,7 +87,7 @@ export class AnimalFarmPage {
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(9));
@@ -110,9 +110,9 @@ export class AnimalFarmPage {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.otherName && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'lowPiority') {
+    if (name == 'animalUnit') {
       let ctrls = this.f;
-      return ctrls.errors && ctrls.errors.lowPiority && (ctrl.dirty || this.submitRequested);
+      return ctrls.errors && ctrls.errors.animalUnit && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
@@ -130,19 +130,22 @@ export class AnimalFarmPage {
       const silkWool = c.get('silkWool');
       const other = c.get('other');
       const otherName = c.get('otherName');
-      const lowPiority = c.get('lowPiority');
-  
+      const animalUnit = c.get('animalUnit');
+
 
 
       if (!cow.value.itemCount && !buffalo.value.itemCount && !pig.value.itemCount && !goat.value.itemCount && !sheep.value.itemCount
         && !chicken.value.itemCount && !duck.value.itemCount && !goose.value.itemCount && !silkWool.value.itemCount && !other.value.itemCount) {
         return { 'anycheck': true };
       }
+      if (other.value.hasItem && (otherName.value == null || otherName.value.trim() == '') && (animalUnit.value == null || animalUnit.value.trim() == '')) {
+        return { 'otherName': true, 'animalUnit': true }
+      }
       if (other.value.hasItem && (otherName.value == null || otherName.value.trim() == '')) {
         return { 'otherName': true }
       }
-      if (other.value.hasItem && (lowPiority.value == null || lowPiority.value.trim() == '')) {
-        return { 'lowPiority': true }
+      if (other.value.hasItem && (animalUnit.value == null || animalUnit.value.trim() == '')) {
+        return { 'animalUnit': true }
       }
 
       return null;
