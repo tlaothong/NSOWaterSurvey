@@ -11,6 +11,7 @@ import { getCommunityList } from ".";
 import { BootupState } from "../bootup/bootup.reducer";
 import { getCurrentWorkingEA } from "../bootup";
 import { AppStateProvider } from "../../providers/app-state/app-state";
+import { LoadHouseHoldListSuccess } from "../household/household.actions";
 
 
 @Injectable()
@@ -48,7 +49,10 @@ export class CommunityEffects {
             console.log(com);
 
         }),
-        map(bld => new LoadCommunitySampleSuccess(bld)),
+        switchMap(bld => [
+            new LoadCommunitySampleSuccess(bld),
+            new LoadHouseHoldListSuccess([]),
+        ]),
     );
 
     @Effect()
@@ -58,14 +62,17 @@ export class CommunityEffects {
             this.appState.communityId = null,
                 this.appState.communityData = null
         }),
-        map((action: NewCommunity) => new SaveCommunitySuccess({
-            _id: null,
-            ea: this.appState.eaCode,
-            management: {},
-            communityProject: {},
-            status: null
-        }),
-        ));
+        switchMap((action: NewCommunity) => [
+            new SaveCommunitySuccess({
+                _id: null,
+                ea: this.appState.eaCode,
+                management: {},
+                communityProject: {},
+                status: null
+            }),
+            new LoadHouseHoldListSuccess([]),
+        ]
+    ));
 
     @Effect()
     public saveCommunity$: Observable<Action> = this.action$.pipe(

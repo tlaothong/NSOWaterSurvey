@@ -18,14 +18,14 @@
       </div>
     </ion-col>
     <ion-col>
-      <div *ngIf="checkEnd == null">
+      <div *ngIf="checkEnd != true">
         <button ion-button block icon-end type="submit">
           บันทึก และ ถามข้อต่อไป
           <ion-icon name="ios-arrow-forward"></ion-icon>
         </button>
       </div>
 
-      <div *ngIf="checkEnd == false">
+      <div *ngIf="checkEnd == true">
         <button ion-button block icon-end type="submit">
           บันทึก และ สิ้นสุดการสัมภาษณ์
           <ion-icon name="ios-arrow-forward"></ion-icon>
