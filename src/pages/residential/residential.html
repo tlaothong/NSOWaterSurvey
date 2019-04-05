@@ -14,25 +14,19 @@
       <ion-card-content>
         <ion-item>
           <ion-label>
-            1.1 จำนวนสมาชิกในครัวเรือนที่<b>อยู่ประจำ</b>ติดต่อกันตั้งแต่ 3 เดือนขึ้นไป<br>หรือผู้ที่อยู่ไม่ครบ 3 เดือน แต่มีวัตถุประสงค์จะอยู่ต่อไปมีกี่คน
+            1.1 จำนวนสมาชิกในครัวเรือนที่<b>อยู่ประจำ</b>ติดต่อกันตั้งแต่ 3 เดือนขึ้นไป<br>หรือผู้ที่อยู่ไม่ครบ 3 เดือน
+            แต่มีวัตถุประสงค์จะอยู่ต่อไปมีกี่คน
           </ion-label>
         </ion-item>
 
-        <count [title]="'จำนวนสมาชิก'" [beResidential]="true" [FormItem]="residentialFrm" [count]="'memberCount'"></count>
+        <count [title]="'จำนวนสมาชิก'" [beResidential]="true" [FormItem]="residentialFrm" [count]="'memberCount'">
+        </count>
 
         <ion-item *ngIf="isValid('memberCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
           </span>
         </ion-item>
-        <!-- <ion-item *ngIf="residentialFrm.get('memberCount').value > 20">
-          <ion-icon md="md-warning" class="warning"></ion-icon>
-          <span class="warning-msg">
-            กรุณาตรวจสอบจำนวนสมาชิกมีเยอะผิดปกติหรือไม่
-          </span>
-        </ion-item> -->
-
-
 
         <ion-item>
           <ion-label>
@@ -90,7 +84,7 @@
 
     <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar ></form-buttons-bar>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>
