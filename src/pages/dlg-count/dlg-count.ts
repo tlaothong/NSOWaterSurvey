@@ -2,13 +2,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the DlgCountPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-dlg-count',
@@ -20,6 +13,7 @@ export class DlgCountPage {
   public FormItem: FormGroup;
   public submitRequested: boolean;
   public bePlant: boolean;
+  public beUnitCount: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
     this.FormItem = fb.group({
@@ -34,7 +28,7 @@ export class DlgCountPage {
     this.FormItem.get('count').setValue(count);
     this.title = this.navParams.get('title');
     this.bePlant = this.navParams.get('bePlant');
-
+    this.beUnitCount = this.navParams.get('beUnitCount');
   }
 
   public isValid(name: string): boolean {
