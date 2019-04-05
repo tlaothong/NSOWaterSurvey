@@ -47,19 +47,19 @@
               </ion-label>
             </ion-item>
 
-            <count [title]="'จำนวนสระ'" [FormItem]="f" [count]="'poolCount'"></count>
+            <count [title]="'จำนวนสระ'" [beWater]="true" [FormItem]="f" [count]="'poolCount'"></count>
 
             <ion-item *ngIf="isValid('poolCount')">
               <span class="invalid-msg">
                 กรุณากรอกข้อมูล
               </span>
             </ion-item>
-            <ion-item *ngIf="f.get('poolCount').value > 10">
+            <!-- <ion-item *ngIf="f.get('poolCount').value > 10">
               <ion-icon md="md-warning" class="warning"></ion-icon>
               <span class="warning-msg">
                 กรุณาตรวจสอบจำนวนสระมีเยอะผิดปกติหรือไม่
               </span>
-            </ion-item>
+            </ion-item> -->
 
             <div *ngIf="f.get('poolCount').value > 1">
               <ion-item>

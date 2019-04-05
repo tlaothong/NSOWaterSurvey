@@ -14,6 +14,8 @@ export class DlgCountPage {
   public submitRequested: boolean;
   public bePlant: boolean;
   public beUnitCount: boolean;
+  public beResidential: boolean;
+  public beWater: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController) {
     this.FormItem = fb.group({
@@ -29,6 +31,8 @@ export class DlgCountPage {
     this.title = this.navParams.get('title');
     this.bePlant = this.navParams.get('bePlant');
     this.beUnitCount = this.navParams.get('beUnitCount');
+    this.beResidential = this.navParams.get('beResidential');
+    this.beWater = this.navParams.get('beWater');
   }
 
   public isValid(name: string): boolean {
