@@ -37,7 +37,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       'hasOther': [false, Validators],
       'other': [null, Validators],
       'fieldCount': [null, Validators],
-      'fieldsAreSameSize': [null, Validators],
+      'fieldsAreSameSize': [true, Validators],
       'fields': fb.array([]),
       'animalsCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
