@@ -2,12 +2,6 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 
-/**
- * Generated class for the CountComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'count',
   templateUrl: 'count.html'
@@ -18,6 +12,9 @@ export class CountComponent {
   @Input() bePlant: boolean = false;
   @Input() FormItem: FormGroup;
   @Input() count: string;
+  @Input() beUnitCount: boolean;
+  @Input() beResidential: boolean;
+  @Input() beWater: boolean;
 
   public item: string;
   public group: string;
@@ -52,7 +49,7 @@ export class CountComponent {
   }
 
   presentModalCount() {
-    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(this.count).value, title: this.title, bePlant: this.bePlant });
+    const modal = this.modalCtrl.create("DlgCountPage", { count: this.FormItem.get(this.count).value, title: this.title, bePlant: this.bePlant, beUnitCount: this.beUnitCount, beResidential: this.beResidential, beWater: this.beWater });
     modal.onDidDismiss(data => {
       if (data) {
         this.FormItem.get(this.count).setValue(data);

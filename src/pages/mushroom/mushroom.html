@@ -62,7 +62,9 @@
 
     <div *ngIf="f.get('doing').value && f.get('fieldCount').value > 0">
       <div *ngFor="let far of f.get('fields').controls; let i = index">
-        <field-mushroom [no]="i + 1" [FormItem]="far"></field-mushroom>
+        <field-mushroom [no]="i + 1" [FormItem]="far" 
+            [showCopy]="f.get('fieldCount').value > i + 1" 
+            (copyRequested)="copyToTheRest($event)"></field-mushroom>
       </div>
     </div>
 

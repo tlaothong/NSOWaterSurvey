@@ -154,32 +154,32 @@ export class PopulationPage {
     onComponentCountChanges();
   }
 
-  presentAlertPopulation(num) {
-    const alert = this.alertController.create({
-      title: 'คุณต้องการจะลบข้อมูลหรือไม่',
-      buttons: [
-        {
-          text: 'ยกเลิก',
-          handler: data => {
-          }
-        },
-        {
-          text: 'ยืนยัน',
-          handler: data => {
-            let del = this.f.get('persons') as FormArray;
-            del.removeAt(num);
-            let count = this.f.get('personCount').value;
-            this.f.get('personCount').setValue(count);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+  // presentAlertPopulation(num) {
+  //   const alert = this.alertController.create({
+  //     title: 'คุณต้องการจะลบข้อมูลหรือไม่',
+  //     buttons: [
+  //       {
+  //         text: 'ยกเลิก',
+  //         handler: data => {
+  //         }
+  //       },
+  //       {
+  //         text: 'ยืนยัน',
+  //         handler: data => {
+  //           let del = this.f.get('persons') as FormArray;
+  //           del.removeAt(num);
+  //           let count = this.f.get('personCount').value;
+  //           this.f.get('personCount').setValue(count);
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   alert.present();
+  // }
 
-  deleteData(num: any) {
-    this.presentAlertPopulation(num);
-  }
+  // deleteData(num: any) {
+  //   this.presentAlertPopulation(num);
+  // }
 
   // let del = this.f.get('persons') as FormArray;
   //   del.removeAt(num);
