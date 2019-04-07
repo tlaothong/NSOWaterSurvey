@@ -95,14 +95,17 @@
       </div>
     </ion-card-content>
   </ion-card>
-  
-  <div>
-    <pool-area *ngIf="FormItem.get('fields').length> 0" headline="ขนาดบ่อ" head="บ่อที่ "
-      [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
-  </div>
+
+
 
   <div *ngIf="FormItem.get('depression').value">
     <div [ngSwitch]="FormItem.get('fieldsAreSameSize').value">
+      <div *ngSwitchCase="true">
+        <div>
+          <pool-area *ngIf="FormItem.get('fields').length> 0" headline="ขนาดบ่อ" head="บ่อที่ "
+            [FormItem]="FormItem.get('fields').at(0)" [isAnimal]="isAnimal"></pool-area>
+        </div>
+      </div>
       <div *ngSwitchCase="false">
         <div *ngFor="let p of FormItem.get('fields').controls;let i= index">
           <pool-area headline="บ่อ" [no]="i+1" head="บ่อที่ " [isAnimal]="isAnimal" [FormItem]="p"></pool-area>

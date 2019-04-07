@@ -31,8 +31,8 @@
                     ห้องที่ {{ unt.roomNumber }}
                   </ion-col>
                   <ion-col col-3 no-padding *ngIf="unt.comments && unt.comments.length > 0">
-                    <button ion-button clear icon-only (click)="showComments(unt)">
-                      <ion-icon name='information' is-active="false"></ion-icon>
+                    <button ion-button clear icon-only color="dark" (click)="showComments(unt)">
+                      <ion-icon name='information-circle' is-active="false"></ion-icon>
                     </button>
                   </ion-col>
                 </ion-row>

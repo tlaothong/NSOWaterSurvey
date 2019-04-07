@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren } from '@angular/core';
+import { Component, Input, ViewChildren, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationComponent } from '../location/location';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
@@ -14,6 +14,10 @@ export class FieldMushroomComponent {
 
   @Input() public FormItem: FormGroup;
   @Input('no') public no: string;
+  @Input() public showCopy: boolean;
+
+  @Output() copyRequested = new EventEmitter<number>();
+
   private submitRequested: boolean;
   @ViewChildren(LocationComponent) private locationT: LocationComponent[];
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
@@ -50,6 +54,10 @@ export class FieldMushroomComponent {
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+  }
+
+  public copyToRest() {
+    this.copyRequested.emit(+this.no - 1);
   }
 
 }

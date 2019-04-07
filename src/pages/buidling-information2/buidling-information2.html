@@ -18,7 +18,7 @@
           </ion-label>
         </ion-item>
 
-        <count [title]="'จำนวนทั้งหมด'" [FormItem]="f" [count]="'unitCount'"></count>
+        <count [title]="'จำนวนทั้งหมด'" [beUnitCount]="true" [FormItem]="f" [count]="'unitCount'"></count>
 
         <!-- <ion-item>
           <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="unitCount"
@@ -29,12 +29,6 @@
         <ion-item *ngIf="isValid('unitCount')">
           <span class="invalid-msg">
             กรุณากรอกข้อมูล
-          </span>
-        </ion-item>
-        <ion-item *ngIf="f.get('unitCount').value > 99">
-          <ion-icon md="md-warning" class="warning"></ion-icon>
-          <span class="warning-msg">
-            กรุณาตรวจสอบจำนวนมีเยอะผิดปกติหรือไม่
           </span>
         </ion-item>
       </ion-card-content>

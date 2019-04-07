@@ -37,9 +37,9 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       'hasOther': [false, Validators],
       'other': [null, Validators],
       'fieldCount': [null, Validators],
-      'fieldsAreSameSize': [null, Validators],
+      'fieldsAreSameSize': [true, Validators],
       'fields': fb.array([]),
-      'animalsCount': [null,  Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
+      'animalsCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
     }, {
         validator: CrocodileFarmingComponent.checkAnyOrOther()
@@ -77,16 +77,6 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
     this.poolArea.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    // this.dispatchWaterSource();
-  }
-
-  private dispatchWaterSource() {
-    this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-    this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-    this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-    this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-    this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    console.log("dispatch crocodile can work");
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -106,7 +96,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       if (depression.value && (fieldCount.value <= 0)) {
         return { 'fieldCount': true };
       }
-      if (depression.value && fieldsAreSameSize.value == null) {
+      if (depression.value && (fieldsAreSameSize.value == null && fieldCount.value != 1)) {
         return { 'fieldsAreSameSize': true };
       }
       // if ((depression.value || hasOther.value) && (animalsCount.value == null)) {

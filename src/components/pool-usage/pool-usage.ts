@@ -84,14 +84,12 @@ export class PoolUsageComponent implements ISubmitRequestable {
 
   public isCheckValidwaterAct(): boolean {
     let isCheckWaterAct = !this.waterActivity6.some(it => it.isCheck == false);
-    // let isCheckWaterAct = this.waterActivity6.find(it => it.totalSum != 100) ? false : true;
     return (this.gardeningUse || this.riceDoing || this.commerceUse || this.factoryUse || this.residenceUse || this.agricultureUse) ?
       isCheckWaterAct : true;
   }
 
   public isCheckProblem(): boolean {
-    return (this.FormItem.get('qualityProblem.hasProblem').value) ?
-      this.FormItem.get('qualityProblem.problem').valid : this.FormItem.get('qualityProblem.hasProblem').valid;
+    return !this.waterProblem4.some(it => it.FormItem.valid == false);
   }
 
   public static checkAnyOrOther(): ValidatorFn {
