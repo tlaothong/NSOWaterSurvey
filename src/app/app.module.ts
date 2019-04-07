@@ -1,7 +1,7 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { IonicStorageModule } from '@ionic/storage';
@@ -27,6 +27,7 @@ import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 import { DirectivesModule } from '../directives/directives.module';
 import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AppStateProvider } from '../providers/app-state/app-state';
+import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-error-handler';
 
 
 @NgModule({
@@ -60,7 +61,9 @@ import { AppStateProvider } from '../providers/app-state/app-state';
     SplashScreen,
     QRScanner,
     Geolocation,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    IonicErrorHandler,
+    // { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: ErrorHandler, useClass: AppErrorHandlerProvider },
     CloudSyncProvider,
     PumpDataProvider,
     LocationDataProvider,
