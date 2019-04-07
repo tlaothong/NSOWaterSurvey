@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController, FabButton } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
@@ -79,6 +79,22 @@ export class MushroomPage {
     //     console.log(arrayIsCheck);
     //   }
     // });
+  }
+
+  public copyToTheRest(srcIndex: number) {
+    const componentFormArray: string = "fields";
+    const componentCount: string = "fieldCount";
+
+    let fields = (this.f.get(componentFormArray) as FormArray);
+    let fieldCount = this.f.get(componentCount).value || 0;
+
+    const fsrc = fields.at(srcIndex).value;
+
+    for (let index = srcIndex + 1; index < fieldCount; index++) {
+      const copy = FieldMushroomComponent.CreateFormGroup(this.fb);
+      copy.setValue(fsrc);
+      fields.setControl(index, copy);
+    }
   }
 
   public isValid(name: string): boolean {

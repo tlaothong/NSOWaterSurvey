@@ -29,6 +29,27 @@
       </span>
     </ion-item>
 
+    <ion-item *ngIf="FormItem.get('count').value > 99 && beUnitCount">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
+        กรุณาตรวจสอบจำนวนมีเยอะผิดปกติหรือไม่
+      </span>
+    </ion-item>
+
+    <ion-item *ngIf="FormItem.get('count').value > 20 && beResidential">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
+        กรุณาตรวจสอบจำนวนสมาชิกมีเยอะผิดปกติหรือไม่
+      </span>
+    </ion-item>
+
+    <ion-item *ngIf="FormItem.get('count').value > 10 && beWater">
+      <ion-icon md="md-warning" class="warning"></ion-icon>
+      <span class="warning-msg">
+        กรุณาตรวจสอบจำนวนบ่อมีเยอะผิดปกติหรือไม่
+      </span>
+    </ion-item>
+
     <ion-grid>
       <ion-row>
         <ion-col>
