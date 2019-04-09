@@ -2,6 +2,7 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavParams, Content, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { EX_TREETON_LIST, EX_TREERAI_LIST, EX_TREEVET_LIST, EX_TREEDOK_LIST, EX_RICH_LIST, EX_RUBBER_LIST } from '../../models/tree';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,7 @@ export class SearchDropdownPage {
     this.searchListData = navParams.get('list');
     this.textTitle = navParams.get('textTitle');
     this.searchTerm = "";
-    this.setFilteredItems();
+    this.searchDisplay = this.searchListData;
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -72,15 +73,48 @@ export class SearchDropdownPage {
       alert.present();
     }
   }
+
   setFilteredItems() {
+    let ricePlant = EX_RICH_LIST;
+    let dryPlant = EX_TREERAI_LIST;
+    let rubberPlant = EX_RUBBER_LIST;
+    let perenialPlant = EX_TREETON_LIST;
+    let herbPlant = EX_TREEVET_LIST;
+    let flowerPlant = EX_TREEDOK_LIST;
+
     this.searchDisplay = this.searchListData.filter((tree) => {
       let temp = '' + tree.code + tree.name;
-      return temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
     });
+
+    if (this.searchDisplay.length == 0) {
+      this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้" }];
+      if (ricePlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดข้าว)" }];
+      }
+      if (dryPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดพืชไร่)" }];
+      }
+      if (rubberPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดยางพารา)" }];
+      }
+      if (perenialPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดพืชยืนต้น)" }];
+      }
+      if (herbPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดพืชผัก สมุนไพร)" }];
+      }
+      if (flowerPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้)" }];
+      }
+    }
   }
+
   deselect(index) {
     this.listData.splice(index, 1)
   }
+
   range(min, max, step) {
     step = step || 1;
     let input = [];
