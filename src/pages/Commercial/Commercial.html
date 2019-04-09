@@ -106,6 +106,12 @@
                         กรุณาเลือก
                     </span>
                 </ion-item>
+                <ion-item *ngIf="f.get('buildingCode').value == 4 || f.get('buildingCode').value == 5">
+                    <ion-icon md="md-warning" class="warning"></ion-icon>
+                    <span class="warning-msg">
+                        เฉพาะที่เป็นส่วนกลาง /นิติบุคคลของอาคารเท่านั้น
+                    </span>
+                  </ion-item>
                 <ion-item text-right *ngIf="f.get('buildingCode').value == 16">
                     {{ otherBuildingType }}
                 </ion-item>
