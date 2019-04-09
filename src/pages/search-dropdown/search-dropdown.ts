@@ -81,14 +81,12 @@ export class SearchDropdownPage {
     let perenialPlant = EX_TREETON_LIST;
     let herbPlant = EX_TREEVET_LIST;
     let flowerPlant = EX_TREEDOK_LIST;
-    let listPlant = [ricePlant, dryPlant, rubberPlant, perenialPlant, herbPlant, flowerPlant];
 
     this.searchDisplay = this.searchListData.filter((tree) => {
       let temp = '' + tree.code + tree.name;
       let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       return textReturn;
     });
-    console.log("before", this.searchDisplay);
 
     if (this.searchDisplay.length == 0) {
       this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้" }];
@@ -111,8 +109,6 @@ export class SearchDropdownPage {
         this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้)" }];
       }
     }
-    console.log("after", this.searchDisplay);
-
   }
 
   deselect(index) {
