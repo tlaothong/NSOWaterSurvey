@@ -25,7 +25,7 @@ export class SearchDropdownPage {
     this.searchListData = navParams.get('list');
     this.textTitle = navParams.get('textTitle');
     this.searchTerm = "";
-    this.setFilteredItems();
+    this.searchDisplay = this.searchListData;
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -72,15 +72,27 @@ export class SearchDropdownPage {
       alert.present();
     }
   }
+
   setFilteredItems() {
     this.searchDisplay = this.searchListData.filter((tree) => {
       let temp = '' + tree.code + tree.name;
-      return temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
     });
+    console.log("before", this.searchDisplay);
+
+    if (this.searchDisplay.length == 0) {
+      console.log("เข้า");
+      this.searchDisplay = [{  name: "พืชที่ search ไม่มีอยู่ในหมวดนี้" }]
+    }
+    console.log("after", this.searchDisplay);
+
   }
+
   deselect(index) {
     this.listData.splice(index, 1)
   }
+
   range(min, max, step) {
     step = step || 1;
     let input = [];
