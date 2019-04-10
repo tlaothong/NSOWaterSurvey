@@ -18,6 +18,19 @@ export class SearchDropdownPage {
   public searchTerm: string;
   public listData: Array<any>;
   public searchListData: Array<any>;
+  public searchDisplayOtherPlantRice: Array<any>;
+  public searchDisplayOtherPlantDry: Array<any>;
+  public searchDisplayOtherPlantRub: Array<any>;
+  public searchDisplayOtherPlantPeren: Array<any>;
+  public searchDisplayOtherPlantHerb: Array<any>;
+  public searchDisplayOtherPlantFlower: Array<any>;
+  public isSearch: boolean = false;
+  public ricePlant: Array<any>;
+  public dryPlant: Array<any>;
+  public rubberPlant: Array<any>;
+  public perenialPlant: Array<any>;
+  public herbPlant: Array<any>;
+  public flowerPlant: Array<any>;
   @ViewChild(Content) content: Content;
   constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.limit = navParams.get('limit');
@@ -27,6 +40,12 @@ export class SearchDropdownPage {
     this.textTitle = navParams.get('textTitle');
     this.searchTerm = "";
     this.searchDisplay = this.searchListData;
+    this.ricePlant = EX_RICH_LIST;
+    this.dryPlant = EX_TREERAI_LIST;
+    this.rubberPlant = EX_RUBBER_LIST;
+    this.perenialPlant = EX_TREETON_LIST;
+    this.herbPlant = EX_TREEVET_LIST;
+    this.flowerPlant = EX_TREEDOK_LIST;
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -75,40 +94,54 @@ export class SearchDropdownPage {
   }
 
   setFilteredItems() {
-    let ricePlant = EX_RICH_LIST;
-    let dryPlant = EX_TREERAI_LIST;
-    let rubberPlant = EX_RUBBER_LIST;
-    let perenialPlant = EX_TREETON_LIST;
-    let herbPlant = EX_TREEVET_LIST;
-    let flowerPlant = EX_TREEDOK_LIST;
-
+    this.searchDisplayOtherPlantRice = []
+    this.searchDisplayOtherPlantDry = []
+    this.searchDisplayOtherPlantRub = []
+    this.searchDisplayOtherPlantPeren = []
+    this.searchDisplayOtherPlantHerb = []
+    this.searchDisplayOtherPlantFlower = []
     this.searchDisplay = this.searchListData.filter((tree) => {
       let temp = '' + tree.code + tree.name;
       let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       return textReturn;
     });
+    this.isSearch = true;
+  }
 
-    if (this.searchDisplay.length == 0) {
-      this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้" }];
-      if (ricePlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดข้าว)" }];
-      }
-      if (dryPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดพืชไร่)" }];
-      }
-      if (rubberPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดยางพารา)" }];
-      }
-      if (perenialPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดพืชยืนต้น)" }];
-      }
-      if (herbPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดพืชผัก สมุนไพร)" }];
-      }
-      if (flowerPlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-        this.searchDisplay = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้)" }];
-      }
-    }
+  searchOtherPlant() {
+    this.searchDisplayOtherPlantRice = this.ricePlant.filter((tree) => {
+      let temp = '' + tree.code + tree.name;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
+    });
+    this.searchDisplayOtherPlantDry = this.dryPlant.filter((tree) => {
+      let temp = '' + tree.code + tree.name;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
+    });
+    this.searchDisplayOtherPlantRub = this.rubberPlant.filter((tree) => {
+      let temp = '' + tree.code + tree.name;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
+    });
+    this.searchDisplayOtherPlantPeren = this.perenialPlant.filter((tree) => {
+      let temp = '' + tree.code + tree.name;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
+    });
+    this.searchDisplayOtherPlantHerb = this.herbPlant.filter((tree) => {
+      let temp = '' + tree.code + tree.name;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
+    });
+    this.searchDisplayOtherPlantFlower = this.flowerPlant.filter((tree) => {
+      let temp = '' + tree.code + tree.name;
+      let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return textReturn;
+    });
+    // if (ricePlant.some(it => it.name == this.searchTerm.toLowerCase())) {
+    //   this.searchDisplayOtherPlant = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดข้าว)" }];
+    // }
   }
 
   deselect(index) {
