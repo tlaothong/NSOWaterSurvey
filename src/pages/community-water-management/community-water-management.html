@@ -6,7 +6,8 @@
 
 <ion-content padding>
   <h1><b>ตอนที่ 1 การจัดการน้ำในหมู่บ้าน/ชุมชน</b></h1>
-  <form (ngSubmit)="handleSubmit()" [formGroup]="CommunityWaterManagement" [rx-form-data]="(formData$ | async)?.management">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="CommunityWaterManagement"
+    [rx-form-data]="(formData$ | async)?.management">
 
     <ion-card>
       <ion-card-content>
@@ -95,7 +96,7 @@
     <div
       *ngIf=" CommunityWaterManagement.get('publicWaterCount').value > 0 && CommunityWaterManagement.get('hasPublicWater').value ">
       <div *ngFor="let p of CommunityWaterManagement.get('details').controls; let i = index">
-        <detail-water-management [no]="i + 1" [FormItem]="p" [isCommunity] = "true"></detail-water-management>
+        <detail-water-management [no]="i + 1" [FormItem]="p" [isCommunity]="true"></detail-water-management>
       </div>
     </div>
 
@@ -284,7 +285,7 @@
 
         <ion-item>
           <ion-label>
-            7. ในช่วงเวลา 5 ปีที่ผ่านมา (พ.ศ.2557-2561) หมู่บ้าน/ชุมชนแห่งนี้เคยเกิดภัยธรรมชาติ
+            7. ในช่วงเวลา 5 ปีที่ผ่านมา (พ.ศ.2557-2561) หมู่บ้าน/ชุมชนแห่งนี้<br>เคยเกิดภัยธรรมชาติ
           </ion-label>
         </ion-item>
         <ion-row radio-group formControlName="hasDisaster" [class.invalid]="isValid('hasDisaster')">
