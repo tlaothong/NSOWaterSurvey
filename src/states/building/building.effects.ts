@@ -91,9 +91,10 @@ export class BuildingEffects {
                 case 3:
                     status = bld.accessCount < 3 ? "refresh" : "sad";
                     break;
-                default:
+                default: {
                     status = "pause";
                     break;
+                }
             }
             bld.status = status;
 
@@ -149,11 +150,24 @@ export class BuildingEffects {
                 case 3:
                     status = bld.accessCount < 3 ? "refresh" : "sad";
                     break;
-                default:
-                    status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
-                        ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
-                        : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh": "pause"));
+                default: {
+                    if (status != "done-all") {
+                        const uacc = bld.unitAccess;
+                        switch (uacc) {
+                            case 2:
+                            case 3:
+                                status = "checkmark";
+                                break;
+                        
+                            default:
+                                status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
+                                ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
+                                : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh": "pause"));
+                                break;
+                        }
+                    }
                     break;
+                }
             }
             bld.status = status;
             let bInList = {
