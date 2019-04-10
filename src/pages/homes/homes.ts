@@ -88,6 +88,7 @@ export class HomesPage {
     // });
 
     let eaCode = this.appState.eaCode;
+    this.switchListMode();
 
     // this.storage.get("CL" + eaCode).then((val) => {
     //   if (val != null) {
@@ -96,6 +97,7 @@ export class HomesPage {
     //   }
     // })
   }
+
   presentLoading() {
     const loader = this.loadingCtrl.create({
       content: "กรุณารอสักครู่...",
@@ -112,13 +114,14 @@ export class HomesPage {
   // TODO: Will be handled this
   initializeItems() {
     // this.listFilter = this.dataEa;
-    this.buildingListAll$ = this.buildings$;
-    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort(it => -it.lastUpdate));
+    this.buildingListAll$ = this.buildings$.map(lst => lst.sort((l, r) => +l.buildingId.substring(3) - +r.buildingId.substring(3)));
+    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort((l, r) => r.lastUpdate - l.lastUpdate));
     this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
     this.buidlingListPaused$ = this.buildings$.map(lst => lst.filter(it => it.status == "pause"));
   }
 
   switchListMode() {
+    this.buildingList$ = this.buildings$;
     switch (this.listMode) {
       case "recent":
         this.buildingList$ = this.buildingListRecentlyUse$;
