@@ -31,6 +31,8 @@ export class SearchDropdownPage {
   public perenialPlant: Array<any>;
   public herbPlant: Array<any>;
   public flowerPlant: Array<any>;
+  public isNotFound: boolean = false;
+
   @ViewChild(Content) content: Content;
   constructor(public viewCtrl: ViewController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.limit = navParams.get('limit');
@@ -94,6 +96,8 @@ export class SearchDropdownPage {
   }
 
   setFilteredItems() {
+    this.isNotFound = false
+    this.isSearch = false;
     this.searchDisplayOtherPlantRice = []
     this.searchDisplayOtherPlantDry = []
     this.searchDisplayOtherPlantRub = []
@@ -109,6 +113,7 @@ export class SearchDropdownPage {
   }
 
   searchOtherPlant() {
+    this.isNotFound = true;
     this.searchDisplayOtherPlantRice = this.ricePlant.filter((tree) => {
       let temp = '' + tree.code + tree.name;
       let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
@@ -139,9 +144,42 @@ export class SearchDropdownPage {
       let textReturn = temp.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       return textReturn;
     });
+
+    var isRice = this.searchDisplayOtherPlantRice.length != 0;
+    var isDry = this.searchDisplayOtherPlantDry.length != 0;
+    var isRub = this.searchDisplayOtherPlantRub.length != 0;
+    var isPeren = this.searchDisplayOtherPlantPeren.length != 0;
+    var isHerb = this.searchDisplayOtherPlantHerb.length != 0;
+    var isFlower = this.searchDisplayOtherPlantFlower.length != 0;
+
+    if (isRice || isDry || isRub || isPeren || isHerb || isFlower) {
+      this.isNotFound = true;
+    }
     // if (ricePlant.some(it => it.name == this.searchTerm.toLowerCase())) {
     //   this.searchDisplayOtherPlant = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดข้าว)" }];
     // }
+  }
+
+  alertNotFoundPlant() {
+    const notFoundPlant = this.alertCtrl.create({
+      title: 'ระบุชื่อพืชอื่นๆที่ต้องการเพิ่ม',
+      inputs: [
+        {
+          name: 'username',
+          placeholder: 'Username'
+        },
+      ],
+      buttons: [
+        {
+          text: "ยืนยัน",
+          handler: () => {
+            //TODO
+          },
+        },
+        "ยกเลิก",
+      ]
+    });
+    notFoundPlant.present();
   }
 
   deselect(index) {

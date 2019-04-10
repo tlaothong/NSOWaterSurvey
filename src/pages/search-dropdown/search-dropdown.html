@@ -58,6 +58,9 @@
         <ion-label>{{treeOther.name}}(หมวดไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้)</ion-label>
       </ion-item>
     </div>
+    <ion-buttons *ngIf="isNotFound">
+      <button ion-button block (click)="alertNotFoundPlant()">อื่นๆ</button>
+    </ion-buttons>
   </ion-list>
 
 </ion-content>
