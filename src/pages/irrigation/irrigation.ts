@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
@@ -59,7 +59,7 @@ export class IrrigationPage {
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, private alertCtrl: AlertController) {
 
     this.f = this.fb.group({
       'hasCubicMeterPerMonth': [null, Validators],
@@ -76,7 +76,7 @@ export class IrrigationPage {
   }
 
   ionViewDidLoad() {
-    
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -138,7 +138,7 @@ export class IrrigationPage {
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.isCheckWarningBox = (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false));
-   
+
     if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
       this.arrayIsCheckMethod();
       let irri = {
@@ -151,6 +151,27 @@ export class IrrigationPage {
       }
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
+    } else {
+      const hasPump = this.f.get('hasPump').value;
+      const pumpsValid = this.f.get('pumps').invalid;
+      const pumpCountValid = this.f.get('pumpCount').valid;
+
+      if (hasPump == false && pumpsValid && pumpCountValid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.f.get('pumpCount').setValue(0);
+              },
+            },
+            "ยกเลิก",
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 
@@ -208,7 +229,7 @@ export class IrrigationPage {
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(17));
