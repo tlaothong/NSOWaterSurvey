@@ -174,12 +174,33 @@ export class SearchDropdownPage {
           text: "ยืนยัน",
           handler: data => {
             console.log("name other plant", data.userName);
+            var firstCodeOtherPlant;
+            this.dryPlant = EX_TREERAI_LIST;
+            this.perenialPlant = EX_TREETON_LIST;
+            this.herbPlant = EX_TREEVET_LIST;
+            this.flowerPlant = EX_TREEDOK_LIST;
+            if (this.searchListData == this.dryPlant) {
+              firstCodeOtherPlant = 3000;
+            }
+            else if (this.searchListData == this.perenialPlant) {
+              firstCodeOtherPlant = 4000;
+            }
+            else if (this.searchListData == this.herbPlant) {
+              firstCodeOtherPlant = 5000;
+            }
+            else if (this.searchListData == this.flowerPlant) {
+              firstCodeOtherPlant = 6000;
+            }
+
             let sortArrayFindMaxCode = this.searchListData.sort(function (a, b) {
               return Number(b.code) - Number(a.code);
             });
 
-            if (Number(sortArrayFindMaxCode[0].code < 3000)) {
-              let maxCodePlant = 3000;
+            console.log(sortArrayFindMaxCode);
+            console.log(firstCodeOtherPlant);
+
+            if (Number(sortArrayFindMaxCode[0].code < firstCodeOtherPlant)) {
+              let maxCodePlant = firstCodeOtherPlant;
               this.searchListData.sort(function (a, b) {
                 return Number(a.code) - Number(b.code);
               });
