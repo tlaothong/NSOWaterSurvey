@@ -173,47 +173,7 @@ export class SearchDropdownPage {
         {
           text: "ยืนยัน",
           handler: data => {
-            console.log("name other plant", data.userName);
-            var firstCodeOtherPlant;
-            this.dryPlant = EX_TREERAI_LIST;
-            this.perenialPlant = EX_TREETON_LIST;
-            this.herbPlant = EX_TREEVET_LIST;
-            this.flowerPlant = EX_TREEDOK_LIST;
-            if (this.searchListData == this.dryPlant) {
-              firstCodeOtherPlant = 3000;
-            }
-            else if (this.searchListData == this.perenialPlant) {
-              firstCodeOtherPlant = 4000;
-            }
-            else if (this.searchListData == this.herbPlant) {
-              firstCodeOtherPlant = 5000;
-            }
-            else if (this.searchListData == this.flowerPlant) {
-              firstCodeOtherPlant = 6000;
-            }
-
-            let sortArrayFindMaxCode = this.searchListData.sort(function (a, b) {
-              return Number(b.code) - Number(a.code);
-            });
-
-            console.log(sortArrayFindMaxCode);
-            console.log(firstCodeOtherPlant);
-
-            if (Number(sortArrayFindMaxCode[0].code < firstCodeOtherPlant)) {
-              let maxCodePlant = firstCodeOtherPlant;
-              this.searchListData.sort(function (a, b) {
-                return Number(a.code) - Number(b.code);
-              });
-              this.searchListData.push({ code: maxCodePlant.toString(), name: data.userName });
-            } else {
-              let maxCodePlant = Number(sortArrayFindMaxCode[0].code) + 1;
-              this.searchListData.sort(function (a, b) {
-                return Number(a.code) - Number(b.code);
-              });
-              this.searchListData.push({ code: maxCodePlant.toString(), name: data.userName });
-            }
-            console.log("after push", this.searchListData);
-
+            this.addOtherPlantMedthod(data.userName, this.searchListData);
             this.viewCtrl.dismiss();
           },
         },
@@ -221,6 +181,43 @@ export class SearchDropdownPage {
       ]
     });
     notFoundPlant.present();
+  }
+
+  private addOtherPlantMedthod(nameOtherPlant: string, listPlant: any[]) {
+    var firstCodeOtherPlant = this.findFirstCode(listPlant, firstCodeOtherPlant);
+    let sortArrayFindMaxCode = listPlant.sort(function (a, b) {
+      return Number(b.code) - Number(a.code);
+    });
+    if (Number(sortArrayFindMaxCode[0].code < firstCodeOtherPlant)) {
+      let maxCodePlant = firstCodeOtherPlant;
+      listPlant.sort(function (a, b) {
+        return Number(a.code) - Number(b.code);
+      });
+      listPlant.push({ code: maxCodePlant.toString(), name: nameOtherPlant });
+    }
+    else {
+      let maxCodePlant = Number(sortArrayFindMaxCode[0].code) + 1;
+      listPlant.sort(function (a, b) {
+        return Number(a.code) - Number(b.code);
+      });
+      listPlant.push({ code: maxCodePlant.toString(), name: nameOtherPlant });
+    }
+  }
+
+  private findFirstCode(listPlant: any[], firstCodeOtherPlant: any) {
+    if (listPlant == this.dryPlant) {
+      firstCodeOtherPlant = 3000;
+    }
+    else if (listPlant == this.perenialPlant) {
+      firstCodeOtherPlant = 4000;
+    }
+    else if (listPlant == this.herbPlant) {
+      firstCodeOtherPlant = 5000;
+    }
+    else if (listPlant == this.flowerPlant) {
+      firstCodeOtherPlant = 6000;
+    }
+    return firstCodeOtherPlant;
   }
 
   deselect(index) {
