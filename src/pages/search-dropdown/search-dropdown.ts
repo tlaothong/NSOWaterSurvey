@@ -165,21 +165,59 @@ export class SearchDropdownPage {
       title: 'ระบุชื่อพืชอื่นๆที่ต้องการเพิ่ม',
       inputs: [
         {
-          name: 'username',
+          name: 'userName',
           placeholder: 'Username'
         },
       ],
       buttons: [
         {
           text: "ยืนยัน",
-          handler: () => {
-            //TODO
+          handler: data => {
+            this.addOtherPlantMedthod(data.userName, this.searchListData);
+            this.viewCtrl.dismiss();
           },
         },
         "ยกเลิก",
       ]
     });
     notFoundPlant.present();
+  }
+
+  private addOtherPlantMedthod(nameOtherPlant: string, listPlant: any[]) {
+    var firstCodeOtherPlant = this.findFirstCode(listPlant, firstCodeOtherPlant);
+    let sortArrayFindMaxCode = listPlant.sort(function (a, b) {
+      return Number(b.code) - Number(a.code);
+    });
+    if (Number(sortArrayFindMaxCode[0].code < firstCodeOtherPlant)) {
+      let maxCodePlant = firstCodeOtherPlant;
+      listPlant.sort(function (a, b) {
+        return Number(a.code) - Number(b.code);
+      });
+      listPlant.push({ code: maxCodePlant.toString(), name: nameOtherPlant });
+    }
+    else {
+      let maxCodePlant = Number(sortArrayFindMaxCode[0].code) + 1;
+      listPlant.sort(function (a, b) {
+        return Number(a.code) - Number(b.code);
+      });
+      listPlant.push({ code: maxCodePlant.toString(), name: nameOtherPlant });
+    }
+  }
+
+  private findFirstCode(listPlant: any[], firstCodeOtherPlant: any) {
+    if (listPlant == this.dryPlant) {
+      firstCodeOtherPlant = 3000;
+    }
+    else if (listPlant == this.perenialPlant) {
+      firstCodeOtherPlant = 4000;
+    }
+    else if (listPlant == this.herbPlant) {
+      firstCodeOtherPlant = 5000;
+    }
+    else if (listPlant == this.flowerPlant) {
+      firstCodeOtherPlant = 6000;
+    }
+    return firstCodeOtherPlant;
   }
 
   deselect(index) {
