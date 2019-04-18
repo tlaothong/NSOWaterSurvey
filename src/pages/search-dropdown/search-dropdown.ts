@@ -165,15 +165,35 @@ export class SearchDropdownPage {
       title: 'ระบุชื่อพืชอื่นๆที่ต้องการเพิ่ม',
       inputs: [
         {
-          name: 'username',
+          name: 'userName',
           placeholder: 'Username'
         },
       ],
       buttons: [
         {
           text: "ยืนยัน",
-          handler: () => {
-            //TODO
+          handler: data => {
+            console.log("name other plant", data.userName);
+            let sortArrayFindMaxCode = this.searchListData.sort(function (a, b) {
+              return Number(b.code) - Number(a.code);
+            });
+
+            if (Number(sortArrayFindMaxCode[0].code < 3000)) {
+              let maxCodePlant = 3000;
+              this.searchListData.sort(function (a, b) {
+                return Number(a.code) - Number(b.code);
+              });
+              this.searchListData.push({ code: maxCodePlant.toString(), name: data.userName });
+            } else {
+              let maxCodePlant = Number(sortArrayFindMaxCode[0].code) + 1;
+              this.searchListData.sort(function (a, b) {
+                return Number(a.code) - Number(b.code);
+              });
+              this.searchListData.push({ code: maxCodePlant.toString(), name: data.userName });
+            }
+            console.log("after push", this.searchListData);
+
+            this.viewCtrl.dismiss();
           },
         },
         "ยกเลิก",
