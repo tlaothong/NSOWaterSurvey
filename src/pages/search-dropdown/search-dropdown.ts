@@ -170,14 +170,13 @@ export class SearchDropdownPage {
         },
       ],
       buttons: [
+        "ยกเลิก",
         {
           text: "ยืนยัน",
           handler: data => {
             this.addOtherPlantMedthod(data.userName, this.searchListData);
-            this.viewCtrl.dismiss();
           },
         },
-        "ยกเลิก",
       ]
     });
     notFoundPlant.present();
@@ -194,6 +193,7 @@ export class SearchDropdownPage {
         return Number(a.code) - Number(b.code);
       });
       listPlant.push({ code: maxCodePlant.toString(), name: nameOtherPlant });
+      this.select(maxCodePlant.toString(), nameOtherPlant);
     }
     else {
       let maxCodePlant = Number(sortArrayFindMaxCode[0].code) + 1;
@@ -201,6 +201,7 @@ export class SearchDropdownPage {
         return Number(a.code) - Number(b.code);
       });
       listPlant.push({ code: maxCodePlant.toString(), name: nameOtherPlant });
+      this.select(maxCodePlant.toString(), nameOtherPlant);
     }
   }
 
