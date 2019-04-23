@@ -119,13 +119,13 @@ export class ManagementForFarmingPage {
           title: 'แก้ไขข้อมูลให้ถูกต้อง',
           message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
           buttons: [
+            "ยกเลิก",
             {
               text: "ยืนยัน",
               handler: () => {
                 this.managementforfarming.get('projectCount').setValue(0);
               },
             },
-            "ยกเลิก",
           ]
         });
         confirmChanged.present();
