@@ -5,7 +5,7 @@ import { Component, ViewChildren } from '@angular/core';
 import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
 import { SetRubberTreeSelectPlant, SetAgiSelectRubber, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
 import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
@@ -36,13 +36,16 @@ export class RubberTreePage {
       "doing": [null, Validators.required],
       "fieldCount": [null, [Validators.required, Validators.min(1)]],
       'fields': fb.array([]),
-    });
+    },
+      {
+        validator: RubberTreePage.checkAnyOrOther()
+      });
 
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    
+
   }
 
   public handleSubmit() {
@@ -50,10 +53,10 @@ export class RubberTreePage {
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.isCheckWarningBox = this.rubbertree.valid || (this.rubbertree.get('doing').value == false);
-   
-    if (this.rubbertree.valid || (this.rubbertree.get('doing').value == false)) {
+
+    if (this.rubbertree.valid) {
       this.arrayIsCheckMethod();
-   
+
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
         rubberTree: this.rubbertree.value,
@@ -67,7 +70,7 @@ export class RubberTreePage {
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(4));
@@ -87,9 +90,32 @@ export class RubberTreePage {
     // });
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
+  }
 
   public isValid(name: string): boolean {
     var ctrl = this.rubbertree.get(name);
+    if (name == 'doing') {
+      let ctrls = this.rubbertree;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldCount') {
+      let ctrls = this.rubbertree;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
