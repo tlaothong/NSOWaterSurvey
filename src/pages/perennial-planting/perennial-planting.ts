@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -33,6 +33,8 @@ export class PerennialPlantingPage {
       "doing": [null, Validators.required],
       "fieldCount": [null, [Validators.required, Validators.min(1)]],
       "fields": fb.array([]),
+    }, {
+      validator: PerennialPlantingPage.checkAnyOrOther()
     });
     this.setupFieldCountChanges();
   }
@@ -57,7 +59,7 @@ export class PerennialPlantingPage {
     selectedMap.forEach(v => selected.push(v));
     this.isCheckWarningBox = ((this.PerennialPlantingFrm.valid && selected.length > 0) || this.PerennialPlantingFrm.get('doing').value == false);
 
-    if ((this.PerennialPlantingFrm.valid && selected.length > 0) || this.PerennialPlantingFrm.get('doing').value == false) {
+    if (this.PerennialPlantingFrm.valid) {
       this.arrayIsCheckMethod();
       let perennial = {
         ...this.appState.houseHoldUnit.agriculture,
@@ -88,6 +90,22 @@ export class PerennialPlantingPage {
     //     console.log(arrayIsCheck);
     //   }
     // });
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
   }
 
   public isValid(name: string): boolean {
