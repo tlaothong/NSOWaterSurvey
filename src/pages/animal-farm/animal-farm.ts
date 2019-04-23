@@ -5,11 +5,8 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -31,7 +28,7 @@ export class AnimalFarmPage {
   private backNum: any;
   private isCheckWarningBox: boolean;
 
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -71,7 +68,7 @@ export class AnimalFarmPage {
     this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
     console.log(this.f);
 
-    if (this.f.valid || (this.f.get('doing').value == false)) {
+    if (this.f.valid) {
 
       this.arrayIsCheckMethod();
       let agri = {

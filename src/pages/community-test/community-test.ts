@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommunityState } from '../../states/community/community.reducer';
-import { LoadCommunitySample, SetComNo } from '../../states/community/community.actions';
+import { SetComNo } from '../../states/community/community.actions';
 
 @IonicPage()
 @Component({

@@ -22,8 +22,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CloudSyncProvider } from '../providers/cloud-sync/cloud-sync';
 import { PumpDataProvider } from '../providers/pump-data/pump-data';
 import { LocationDataProvider } from '../providers/location-data/location-data';
-import { SwithStateProvider } from '../providers/swith-state/swith-state';
-import { LocalStorageProvider } from '../providers/local-storage/local-storage';
 import { DirectivesModule } from '../directives/directives.module';
 import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AppStateProvider } from '../providers/app-state/app-state';
@@ -67,8 +65,6 @@ import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-erro
     CloudSyncProvider,
     PumpDataProvider,
     LocationDataProvider,
-    SwithStateProvider,
-    LocalStorageProvider,
     DataStoreProvider,
     AppStateProvider,
   ]

@@ -2,7 +2,6 @@ import { Component, Input, ViewChildren } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-import { FieldFarmingComponent } from '../field-farming/field-farming';
 
 @Component({
   selector: 'detail-management-for-farming',

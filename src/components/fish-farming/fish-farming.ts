@@ -3,9 +3,6 @@ import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationE
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
 import { ModalController } from 'ionic-angular';
 import { CountComponent } from '../count/count';
 
@@ -24,7 +21,7 @@ export class FishFarmingComponent implements ISubmitRequestable {
   @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.type = 'กก.';
   }

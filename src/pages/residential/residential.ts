@@ -1,5 +1,5 @@
 import { CountComponent } from './../../components/count/count';
-import { SetWaterSourcesResidential, SetSelectorIndex, SetMemberCount, SaveHouseHold } from './../../states/household/household.actions';
+import { SetSelectorIndex, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -7,8 +7,6 @@ import { WaterSources8BComponent } from '../../components/water-sources8-b/water
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample } from '../../states/household';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -26,7 +24,7 @@ export class ResidentialPage {
   private formData$ = this.store.select(getHouseHoldSample);
   public checked: boolean;
   private isCheckWarningBox: boolean;
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
       'memberCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],
       'workingAge': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],

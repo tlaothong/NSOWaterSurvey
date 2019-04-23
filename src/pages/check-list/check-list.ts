@@ -1,11 +1,10 @@
-import { getBackToRoot, getHouseHoldSample, getBack } from './../../states/household/index';
+import { getBackToRoot, getBack } from './../../states/household/index';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SetBackToRoot, SetBack, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, LoadHouseHoldSampleSuccess } from '../../states/household/household.actions';
+import { SetSelectorIndex, SetBackToRoot, SetBack } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -94,22 +93,7 @@ export class CheckListPage {
       this.updatePagesStatus(p.arrayIsCheck, p.arrayNextPageForHide);
       this.skipPageMedthod(p.backToRoot, p.back, p.arrayNextPageForHide);
     });
-
-    // this.storage.get(this.navParams.get('id')).then((val) => {
-    //   console.log("get", val);
-    //   this.store.dispatch(new LoadHouseHoldSample(val));
-    //   this.arrayIsCheckMethod();
-    //   this.arrayNextPageMethod();
-    // })
-    // this.presentLoading();
   }
-  // presentLoading() {
-  //   const loader = this.loadingCtrl.create({
-  //     content: "กรุณารอสักครู่...",
-  //     duration: 1500
-  //   });
-  //   loader.present();
-  // }
 
   skipPageMedthod(backToRoot, back, arrayNextPage) {
     if (!backToRoot) {

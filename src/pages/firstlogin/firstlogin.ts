@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { getUserData } from '../../states/logging';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SetUserPassword } from '../../states/logging/logging.actions';
 import { AlertController } from 'ionic-angular';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { DataStoreProvider } from '../../providers/data-store/data-store';

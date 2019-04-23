@@ -4,12 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getMemberCount } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetSelectorIndex, SaveHouseHold, SaveLastNameSuccess } from '../../states/household/household.actions';
+import { getHouseHoldSample, getMemberCount } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold, SaveLastNameSuccess, LoadLastName } from '../../states/household/household.actions';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
 
@@ -39,7 +37,7 @@ export class PopulationPage {
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider,
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage,
     public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
     this.f = this.fb.group({
       'personCount': [0, [Validators.required, Validators.min(1)]],
@@ -60,11 +58,7 @@ export class PopulationPage {
   }
 
   ionViewDidLoad() {
-    this.storage.get("user" + this.appState.userId).then((val) => {
-      if (val != null) {
-        this.store.dispatch(new SaveLastNameSuccess(val))
-      }
-    })
+    this.store.dispatch(new LoadLastName(this.appState.userId));
     this.getIdHomes = this.appState.eaCode.substr(1, 2); // this.str.substring(0, 2); //10
     this.pro = provinceData.find(it => it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;

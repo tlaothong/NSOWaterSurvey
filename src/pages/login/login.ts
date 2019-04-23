@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { LoadUserDataById, SetLogin, LoadDataWorkEAByUserId, LoadCountOfWorks } from '../../states/logging/logging.actions';
-import { getUserData, getLogin, getDataWorkEA } from '../../states/logging';
+import { getUserData, getLogin } from '../../states/logging';
 import { map } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
 import { } from '../../states/bootup';
 import { BootupState } from '../../states/bootup/bootup.reducer';
-import { LoadBootstrap, LoginUser, DownloadUserToMobile } from '../../states/bootup/bootup.actions';
+import { LoginUser } from '../../states/bootup/bootup.actions';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @IonicPage()
@@ -26,7 +24,10 @@ export class LoginPage {
 
   public dataEa: any;
   public userObj: any;
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>, private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
+
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
+    public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
+    private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
     this.userData = null;
   }
 

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { PoolAreaComponent } from '../../components/pool-area/pool-area';
 
 @IonicPage()
 @Component({

@@ -1,14 +1,12 @@
 import { CountComponent } from './../../components/count/count';
-import { Component, ViewChildren, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Option } from 'ionic-angular';
+import { Component, ViewChildren, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getBuildingSample, getSendBuildingType, setHomeBuilding } from '../../states/building';
-import { SetRecieveDataFromBuilding, SaveBuilding, SaveBuildingSuccess } from '../../states/building/building.actions';
-import { LoggingState } from '../../states/logging/logging.reducer';
+import { getBuildingSample } from '../../states/building';
+import { SaveBuilding } from '../../states/building/building.actions';
 import { BuildingInformation1Page } from '../building-information1/building-information1';
-import { Storage } from '@ionic/storage';
 import { CreateHouseHoldFor1UnitBuilding } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -32,8 +30,7 @@ export class BuidlingInformation2Page {
   @ViewChild("numOfUnits") private numOfUnits;
   checked: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-    private fb: FormBuilder, private storeLog: Store<LoggingState>, private store: Store<BuildingState>,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>,
     private appState: AppStateProvider) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
     // this.dataHomeBuilding$.subscribe(data => {

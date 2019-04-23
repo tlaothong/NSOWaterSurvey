@@ -1,7 +1,6 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
-import { PoolAreaComponent } from '../pool-area/pool-area';
 import { PoolAreaForCommuComponent } from '../pool-area-for-commu/pool-area-for-commu';
 
 @Component({

@@ -1,14 +1,11 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, FabButton, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { FieldMushroomComponent } from '../../components/field-mushroom/field-mushroom';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { CountComponent } from '../../components/count/count';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -30,7 +27,7 @@ export class MushroomPage {
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public modalCtrl: ModalController, private store: Store<HouseHoldState>, public navParams: NavParams, private fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'fieldCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],

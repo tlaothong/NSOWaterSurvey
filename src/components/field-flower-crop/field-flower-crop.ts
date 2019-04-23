@@ -7,8 +7,6 @@ import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'field-flower-crop',
@@ -30,7 +28,7 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   private submitRequested: boolean;
   public shownData = EX_TREEDOK_LIST;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.FormItem = FieldFlowerCropComponent.CreateFormGroup(this.fb);
   }

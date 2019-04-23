@@ -1,15 +1,12 @@
-import { SetWaterSourcesFactory, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesFactory, SetSelectorIndex, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetFactorialCategory, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample } from '../../states/household';
+import { SetFactorialCategory } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -26,7 +23,8 @@ export class FactorialPage {
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, 
+    private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.FactoryForm = this.fb.group({
       'name': ['', Validators.required],
       'category': ['', Validators.required],

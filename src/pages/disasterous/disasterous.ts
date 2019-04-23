@@ -1,14 +1,11 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -30,8 +27,8 @@ export class DisasterousPage {
   private backNum: any;
   public isCheckWarningBox: boolean;
 
-  constructor(private modalCtrl: ModalController, public local: LocalStorageProvider, private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>,
-    private appState: AppStateProvider, public alertController: AlertController) {
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, 
+    private store: Store<HouseHoldState>,private appState: AppStateProvider, public alertController: AlertController) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -76,10 +73,6 @@ export class DisasterousPage {
       || this.Disasterous.get('flooded').value == false
       || this.tableDisasterous.some(it => it.FormItem.valid)) {
       this.arrayIsCheckMethod();
-      // this.storage.set('unit', this.dataDis)
-      // let id = this.dataDis._id
-      // this.storage.set(id, this.dataDis)
-      // this.local.updateListUnit(this.dataDis.buildingId, this.dataDis)
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
         ...originalHouseHold,
