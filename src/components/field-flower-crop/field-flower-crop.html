@@ -52,7 +52,7 @@
     <modal-plant Title="พืชไร่" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')" textTitleOnDialog="ระบุได้หลายชนิด">
     </modal-plant>
 
-    <div *ngIf="getAgiSelectRice || getAgiSelectAgronomy  || getAgiSelectRubber  || getAgiSelectPerennial ">
+    <div *ngIf="getAgiSelectRice == true || getAgiSelectAgronomy == true  || getAgiSelectRubber == true  || getAgiSelectPerennial == true ">
       <ion-item>
         <ion-label>
           5) ลักษณะการปลูกเป็นแบบใด
