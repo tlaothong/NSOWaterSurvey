@@ -4,11 +4,8 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { map } from 'rxjs/operators';
-import { SetAgronomyPlantSelectPlant, SetAgiSelectAgronomy, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
+import { getHouseHoldSample } from '../../states/household';
 import { CountComponent } from '../../components/count/count';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -30,7 +27,7 @@ export class DryCropPlantingPage {
   shownData: string[];
   private formData$ = this.store.select(getHouseHoldSample);
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.agronomyPlant = this.fb.group({
       "doing": [null, Validators.required],
       "fieldCount": [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1)])],

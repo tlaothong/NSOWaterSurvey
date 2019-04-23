@@ -2,13 +2,10 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
-import { LoadUserDataByQRCode, LoadUserDataById } from '../../states/logging/logging.actions';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getUserData } from '../../states/logging';
-import { map, delay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
-import { Storage } from '@ionic/storage';
-import { stringify } from '@angular/core/src/render3/util';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -24,7 +21,7 @@ export class ScanqrPage {
   private formDataUser$ = this.store.select(getUserData);
   public userObj: any
   private formData$ = this.store.select(getUserData).pipe(map(s => s));
-  constructor(public navCtrl: NavController, private storage: Storage,
+  constructor(public navCtrl: NavController,
     private alertCtrl: AlertController, private platform: Platform,
     private qrScanner: QRScanner, public navParams: NavParams,
     private store: Store<LoggingState>, private appState: AppStateProvider) {

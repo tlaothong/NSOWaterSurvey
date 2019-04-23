@@ -6,12 +6,8 @@ import { RainStorageComponent } from '../../components/rain-storage/rain-storage
 import { WaterActivity5Component } from '../../components/water-activity5/water-activity5';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { DlgRainPicturePage } from '../dlg-rain-picture/dlg-rain-picture';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture, getWaterSourcesResidential, getWateringResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -52,7 +48,7 @@ export class RainPage {
   private backNum: any;
   public isCheckWarningBox: boolean;
 
-  constructor(public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.RainFrm = this.fb.group({
       'rainContainers': this.fb.array([
         RainStorageComponent.CreateFormGroup(this.fb),

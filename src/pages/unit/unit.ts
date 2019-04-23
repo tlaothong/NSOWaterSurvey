@@ -1,14 +1,12 @@
-import { Component, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ActionSheetController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { LoadUnitByIdBuildingSuccess, NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit, DeleteHouseHold } from '../../states/household/household.actions';
-import { Guid } from 'guid-typescript';
-import { Storage } from '@ionic/storage';
+import { NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUnit, DeleteHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getHouseHoldUnitList } from '../../states/household';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UnitInList } from '../../models/mobile/MobileModels';
 import { getUnitCount } from '../../states/building';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
@@ -32,18 +30,18 @@ export class UnitPage {
   public unitCount$ = this.storeBuild.select(getUnitCount);
   public emptyUnits$ = Observable.of([]);
 
-  constructor(public loadingCtrl: LoadingController,public navCtrl: NavController,
-      public navParams: NavParams, private alertCtrl: AlertController,
-      private modalCtrl: ModalController, private actionSheetCtrl: ActionSheetController,
-      private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
-      private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
+    public navParams: NavParams, private alertCtrl: AlertController,
+    private modalCtrl: ModalController, private actionSheetCtrl: ActionSheetController,
+    private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
+    private dataStore: DataStoreProvider, private appState: AppStateProvider) {
 
-      let obs = this.unitList$.subscribe(_ => {
-        console.log('TAKE TAKE');
-      });
+    let obs = this.unitList$.subscribe(_ => {
+      console.log('TAKE TAKE');
+    });
 
-  
-        
+
+
     // this.emptyUnits$ = this.unitList$
     //   .withLatestFrom(this.store.select(getUnitCount))
     //   .map(([it, untCnt]) => {
@@ -61,7 +59,7 @@ export class UnitPage {
     //   });
 
 
-      // this.f = this.fb.group({
+    // this.f = this.fb.group({
     //   'unitCount': null,
     //   'units': this.fb.array([]),
     // });
@@ -70,26 +68,25 @@ export class UnitPage {
   public updateTheEmptyList() {
     this.emptyUnits$ = Observable.combineLatest(
       this.unitList$, this.unitCount$)
-    .map(([it, untCnt]) => {
-      const start = it.length + 1;
-      const len = untCnt - it.length;
-      if(len > 0)
-      {
-        let arr: number[] = [];
-        for (let idx = 0; idx < len; ++idx) {
-          arr.push(idx + start);
+      .map(([it, untCnt]) => {
+        const start = it.length + 1;
+        const len = untCnt - it.length;
+        if (len > 0) {
+          let arr: number[] = [];
+          for (let idx = 0; idx < len; ++idx) {
+            arr.push(idx + start);
+          }
+          return arr;
         }
-        return arr;
-      }
-      else return [];
-    });
+        else return [];
+      });
   }
 
   ngOnDestroy() {
   }
 
   public showUnitButtonPopover(unit: UnitInList) {
-    const actionSheet =  this.actionSheetCtrl.create({
+    const actionSheet = this.actionSheetCtrl.create({
       title: "ดำเนินการกับข้อมูลห้องที่ / เลขที่ " + unit.roomNumber,
       buttons: [
         {
@@ -112,20 +109,22 @@ export class UnitPage {
 
   private updateUnit(unit: UnitInList) {
     this.dataStore.getHouseHold(unit.houseHoldId)
-    .take(1).subscribe(sample => {
+      .take(1).subscribe(sample => {
 
-      const modal = this.modalCtrl.create("DlgUnitPage", { replaceMode: true, unitInfo: {
-        subUnit: sample.subUnit,
-        access: unit.lastAccess,
-      }});
-      modal.onDidDismiss(data => {
-        if (data) {
-          this.store.dispatch(new SaveHouseHoldSubUnit(sample, data.subUnit, data.comment));
-        }
+        const modal = this.modalCtrl.create("DlgUnitPage", {
+          replaceMode: true, unitInfo: {
+            subUnit: sample.subUnit,
+            access: unit.lastAccess,
+          }
+        });
+        modal.onDidDismiss(data => {
+          if (data) {
+            this.store.dispatch(new SaveHouseHoldSubUnit(sample, data.subUnit, data.comment));
+          }
+        });
+        modal.present();
+
       });
-      modal.present();    
-
-    });
   }
 
   private deleteUnit(unit: UnitInList) {
@@ -155,18 +154,20 @@ export class UnitPage {
   }
 
   public newUnit() {
-    const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
-      subUnit: {
-        roomNumber: null,
-        accessCount: 0,
-        accesses: [],
-        hasPlumbing: null,
-        hasPlumbingMeter: null,
-        isPlumbingMeterXWA: null,
-        hasGroundWater: null,
-        hasGroundWaterMeter: null,
+    const modal = this.modalCtrl.create("DlgUnitPage", {
+      unitInfo: {
+        subUnit: {
+          roomNumber: null,
+          accessCount: 0,
+          accesses: [],
+          hasPlumbing: null,
+          hasPlumbingMeter: null,
+          isPlumbingMeterXWA: null,
+          hasGroundWater: null,
+          hasGroundWaterMeter: null,
+        }
       }
-    }});
+    });
     modal.onDidDismiss(data => {
       if (data) {
         this.store.dispatch(new NewHouseHoldWithSubUnit(data.subUnit, data.comment));
@@ -185,16 +186,18 @@ export class UnitPage {
       this.store.dispatch(new SetCurrentWorkingHouseHold(unt.houseHoldId));
       this.navCtrl.push('WaterActivityUnitPage');
       return;
-    } else if(unt.lastAccess == 2 || unt.lastAccess == 3) {
+    } else if (unt.lastAccess == 2 || unt.lastAccess == 3) {
       if (unt.accessCount < 3) {
         // TODO: Remove this HACK!
 
         this.dataStore.getHouseHold(unt.houseHoldId)
           .take(1).subscribe(sample => {
 
-            const modal = this.modalCtrl.create("DlgUnitPage", { unitInfo: {
-              subUnit: sample.subUnit
-            }});
+            const modal = this.modalCtrl.create("DlgUnitPage", {
+              unitInfo: {
+                subUnit: sample.subUnit
+              }
+            });
             modal.onDidDismiss(data => {
               if (data) {
                 this.store.dispatch(new SaveHouseHoldSubUnit(sample, data.subUnit, data.comment));
@@ -205,7 +208,7 @@ export class UnitPage {
                 }
               }
             });
-            modal.present();    
+            modal.present();
 
           });
 
@@ -216,7 +219,7 @@ export class UnitPage {
     let alert = this.alertCtrl.create({
       title: "ไม่สามารถดำเนินการ",
       message: "ลักษณะการเข้าครัวเรือนไม่เหมาะสมกับการดำเนินการต่อ หากต้องการดำเนินการต่อ กรุณาแก้ไขการเข้าพบ",
-      buttons: [ "ตกลง" ],
+      buttons: ["ตกลง"],
     });
     alert.present();
   }
@@ -299,16 +302,16 @@ export class UnitPage {
   // }
 
   // deleteUnit(HH: any) {
-    // let keyHH = HH._id;
-    // let keyBD = "BL" + HH.buildingId;
-    // this.storage.get(keyBD).then((val) => {
-    //   let BDList = val;
-    //   let index = BDList.findIndex(it => it._id == HH._id);
-    //   BDList.splice(index, 1);
-    //   this.storage.set(keyBD, BDList);
-    //   this.storage.remove(keyHH)
-    // })
-    
+  // let keyHH = HH._id;
+  // let keyBD = "BL" + HH.buildingId;
+  // this.storage.get(keyBD).then((val) => {
+  //   let BDList = val;
+  //   let index = BDList.findIndex(it => it._id == HH._id);
+  //   BDList.splice(index, 1);
+  //   this.storage.set(keyBD, BDList);
+  //   this.storage.remove(keyHH)
+  // })
+
   // }
 
 }

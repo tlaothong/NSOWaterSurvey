@@ -1,16 +1,10 @@
-import { getNextPageDirection } from './../../states/household/index';
-import { SetWaterSourcesAgiculture, SetSelectorIndex, SetBackToRoot, LoadHouseHoldSample, SetSelectG1234, SetNextPageDirection, SetBack, LoadHouseHoldSampleSuccess, SaveHouseHold } from './../../states/household/household.actions';
-import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { SetSelectorIndex, SetBackToRoot, SetNextPageDirection, SetBack, SaveHouseHold } from './../../states/household/household.actions';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { SetIsHouseHold, SetIsAgriculture, SetIsFactorial, SetIsCommercial } from '../../states/household/household.actions';
 import { getHouseHoldSample } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { UnitButtonComponent } from '../../components/unit-button/unit-button';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -26,7 +20,7 @@ export class WaterActivityUnitPage {
   private isCheckWarningBox: boolean;
   // public dataHouseHold: any;
   // public unitCount: any;
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, public navParams: NavParams, private storage: Storage, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = fb.group({
       'isHouseHold': [null, Validators.required],
       'isAgriculture': [null, Validators.required],

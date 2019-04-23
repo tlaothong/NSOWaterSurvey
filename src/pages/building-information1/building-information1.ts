@@ -3,11 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SaveBuildingSuccess } from '../../states/building/building.actions';
-import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType } from '../../states/building/building.actions';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
-import { Guid } from 'guid-typescript';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getBuildingSample } from '../../states/building';
 
@@ -32,7 +30,10 @@ export class BuildingInformation1Page {
   private isCheckWarningBox: boolean;
 
   private dataBuilding$ = this.store.select(getBuildingSample);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, 
+    private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, 
+    private store: Store<BuildingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
 
     this.setupAccessCountChanges();

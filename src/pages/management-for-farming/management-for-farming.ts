@@ -5,7 +5,6 @@ import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractCon
 import { DetailManagementForFarmingComponent } from '../../components/detail-management-for-farming/detail-management-for-farming';
 import { Store } from '@ngrx/store';
 import { CountComponent } from '../../components/count/count';
-import { map } from 'rxjs/operators';
 import { getCommunitySample } from '../../states/community';
 import { SaveCommunity } from '../../states/community/community.actions';
 import { CommunityWaterManagementPage } from '../community-water-management/community-water-management';
@@ -37,6 +36,7 @@ export class ManagementForFarmingPage {
   public getSetCommunity: FormGroup;
 
   private formData: any;
+  
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, 
     public fb: FormBuilder, private store: Store<CommunityState>, private alertCtrl: AlertController,
     private appState: AppStateProvider) {
@@ -84,30 +84,6 @@ export class ManagementForFarmingPage {
       console.log(newCommunity);
       
       this.store.dispatch(new SaveCommunity(newCommunity))
-      // let key = this.formData._id
-      // this.storage.set(key, this.formData)
-
-      // let keyEA = "CL" + this.formData.ea
-      // this.storage.get(keyEA).then((data) => {
-      //   let listBD = data
-      //   if (listBD != null) {
-      //     let fin = listBD.find(it => it._id == key)
-      //     if (fin == null) {
-      //       listBD.push(this.formData)
-      //       this.storage.set(keyEA, listBD)
-      //     } else {
-      //       let index = listBD.findIndex(it => it._id == key)
-      //       listBD.splice(index, 1, this.formData);
-      //       // listBD.push(this.formData);
-      //       this.storage.set(keyEA, listBD)
-      //     }
-      //   } else {
-      //     listBD = []
-      //     listBD.push(this.formData)
-      //     this.storage.set(keyEA, listBD)
-      //   }
-      // })
-      // console.log("หลังส่ง: ", this.formData);
       this.navCtrl.popToRoot();
     } else {
       const doing = this.managementforfarming.get('doing').value;

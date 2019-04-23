@@ -3,13 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
-import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
+import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial } from '../../states/household';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -37,7 +34,8 @@ export class BuyingPage {
   private backNum: any;
   public isCheckWarningBox: boolean;
 
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>,
+    private appState: AppStateProvider) {
     this.BuyingForm = this.fb.group({
       'package': this.fb.array([
         TableBuyingComponent.CreateFormGruop(this.fb),
@@ -75,11 +73,6 @@ export class BuyingPage {
       || (this.tableBuying.some(it => it.FormItem.valid))
       || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
       this.arrayIsCheckMethod();
-      // this.store.dispatch(new SetHouseHold(this.formData));
-      // this.storage.set('unit', this.formData)
-      // let id = this.formData._id
-      // this.storage.set(id, this.formData)
-      // this.local.updateListUnit(this.formData.buildingId,this.formData)  
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
         buying: this.BuyingForm.value,

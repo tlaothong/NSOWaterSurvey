@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavController } from 'ionic-angular';
-import { Store } from '@ngrx/store';
-import { LoggingState } from '../../states/logging/logging.reducer';
-
 
 @Component({
   selector: 'ea',
@@ -12,7 +9,7 @@ import { LoggingState } from '../../states/logging/logging.reducer';
 export class EaComponent {
   @Input() public FormItem: FormGroup;
 
-  constructor(private fb: FormBuilder, public navCtrl: NavController, private store: Store<LoggingState>) {
+  constructor(private fb: FormBuilder, public navCtrl: NavController) {
     this.FormItem = EaComponent.CreateFormGroup(this.fb);
   }
 

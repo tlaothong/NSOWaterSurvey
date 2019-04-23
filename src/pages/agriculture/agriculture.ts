@@ -1,13 +1,11 @@
-import { SetArraySkipPageAgiculture, SetSelectorIndex, SaveHouseHold, } from './../../states/household/household.actions';
-import { Component, ViewChildren } from '@angular/core';
+import { SetSelectorIndex, SaveHouseHold, } from './../../states/household/household.actions';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getHouseHoldSample } from '../../states/household';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getArraySkipPageAgiculture, getHouseHoldSample } from '../../states/household';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
@@ -29,8 +27,7 @@ export class AgriculturePage {
 
   constructor(private appState: AppStateProvider, public alertController: AlertController, 
       private loadingCtrl: LoadingController,
-      public modalCtrl: ModalController, public navCtrl: NavController, 
-      public local: LocalStorageProvider, private store: Store<HouseHoldState>, 
+      public modalCtrl: ModalController, public navCtrl: NavController, private store: Store<HouseHoldState>, 
       public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
       "ricePlant": this.fb.group({

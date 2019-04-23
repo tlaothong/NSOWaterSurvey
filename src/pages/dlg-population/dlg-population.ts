@@ -1,5 +1,5 @@
-import { Component, ViewChild, state } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, DateTime, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { Nationality, nationalityData } from '../../models/Nationality';

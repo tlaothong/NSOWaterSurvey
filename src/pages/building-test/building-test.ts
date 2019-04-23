@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BuildingState } from '../../states/building/building.reducer';
 import { Store } from '@ngrx/store';
-import { LoadBuildingSample, SetRecieveDataFromBuilding, SaveBuilding, SaveBuildingSuccess } from '../../states/building/building.actions';
-import { Storage } from '@ionic/storage';
+import { LoadBuildingSample, SetRecieveDataFromBuilding, SaveBuildingSuccess } from '../../states/building/building.actions';
 
 @IonicPage()
 @Component({
@@ -14,7 +13,7 @@ export class BuildingTestPage {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public navParams: NavParams, private store: Store<BuildingState>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BuildingState>) {
     this.pages = [
       { title: 'Homes', component: "HomesPage" },
       { title: 'Building Info Page 1', component: "BuildingInformation1Page" },
@@ -37,7 +36,6 @@ export class BuildingTestPage {
         case 'pause':
           this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
           // this.store.dispatch(new SetHomeBuilding(item));
-          // this.storage.set(item._id, item)
           this.store.dispatch(new SaveBuildingSuccess(item));
           this.navCtrl.push("HouseHoldTestPage");
           break;

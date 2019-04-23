@@ -4,12 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection, getMemberCount } from '../../states/household';
-import { map } from 'rxjs/operators';
+import { getHouseHoldSample, getMemberCount } from '../../states/household';
 import { SetSelectorIndex, SaveHouseHold, SaveLastNameSuccess } from '../../states/household/household.actions';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
 
@@ -39,7 +37,7 @@ export class PopulationPage {
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider,
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage,
     public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
     this.f = this.fb.group({
       'personCount': [0, [Validators.required, Validators.min(1)]],

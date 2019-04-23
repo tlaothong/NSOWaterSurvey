@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ModalController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ModalController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'table-disasterous',

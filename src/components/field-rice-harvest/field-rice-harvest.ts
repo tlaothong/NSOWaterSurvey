@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
-import { text } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'field-rice-harvest',

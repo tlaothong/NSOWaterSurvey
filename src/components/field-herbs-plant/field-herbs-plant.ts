@@ -6,8 +6,6 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { LocationComponent } from '../location/location';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'field-herbs-plant',
@@ -30,7 +28,7 @@ export class FieldHerbsPlantComponent {
   @ViewChildren(WaterSources9Component) private waterSources9: WaterSources9Component[];
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController, public navParams: NavParams) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams) {
     this.FormItem = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
   }
 

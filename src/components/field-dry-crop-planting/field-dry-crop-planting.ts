@@ -7,9 +7,6 @@ import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
 import { EX_TREERAI_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { HouseHoldState } from '../../states/household/household.reducer';
-import { Store } from '@ngrx/store';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @Component({
   selector: 'field-dry-crop-planting',
@@ -26,7 +23,7 @@ export class FieldDryCropPlantingComponent implements ISubmitRequestable {
   @ViewChildren(ModalPlantComponent) private modalPlant: FieldAreaComponent[];
   public DataList = EX_TREERAI_LIST;
 
-  constructor(public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.FormItem = FieldDryCropPlantingComponent.CreateFormGroup(this.fb);
   }
