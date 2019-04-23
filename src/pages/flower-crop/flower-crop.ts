@@ -1,7 +1,7 @@
 import { FieldFlowerCropComponent } from './../../components/field-flower-crop/field-flower-crop';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -56,12 +56,14 @@ export class FlowerCropPage {
       'fieldCount': [null, [Validators.required, Validators.min(1)]],
       'fields': fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
-    });
+    }, {
+        validator: FlowerCropPage.checkAnyOrOther()
+      });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    
+
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
         this.listRiceData = data
@@ -145,7 +147,7 @@ export class FlowerCropPage {
     console.log(checkSelectPrimaryPlant);
     this.isCheckWarningBox = ((this.flowerCropFrm.valid && selected.length > 0 && checkSelectPrimaryPlant) || (this.flowerCropFrm.get('doing').value == false));
 
-    if ((this.flowerCropFrm.valid && selected.length > 0 && checkSelectPrimaryPlant) || this.flowerCropFrm.get('doing').value == false) {
+    if (this.flowerCropFrm.valid) {
       this.arrayIsCheckMethod();
 
       let argi = {
@@ -161,7 +163,7 @@ export class FlowerCropPage {
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(7));
@@ -176,6 +178,22 @@ export class FlowerCropPage {
     //     console.log(arrayIsCheck);
     //   }
     // });
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
   }
 
   public isValid(name: string): boolean {
