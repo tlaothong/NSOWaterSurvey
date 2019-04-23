@@ -1,8 +1,8 @@
 import { CountComponent } from './../../components/count/count';
 import { SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -34,28 +34,30 @@ export class RicePage {
   // private data: any
   // formData$: any;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, [Validators.required, Validators.min(1)]],
+      'fieldCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
       'fields': this.fb.array([]),
-    });
+    }, {
+        validator: RicePage.checkAnyOrOther()
+      });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    
+
   }
 
   public handleSubmit() {
     this.submitRequested = true;
     this.fieldFarmings.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-  
-    this.store.dispatch(new SetAgiSelectRice(true));
-    this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
 
-    if (this.f.valid || (this.f.get('doing').value == false)) {
+    this.store.dispatch(new SetAgiSelectRice(true));
+    this.isCheckWarningBox = this.f.valid;
+
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
@@ -68,6 +70,28 @@ export class RicePage {
 
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
+    }
+    else {
+      const doing = this.f.get('doing').value;
+      const fieldsInvalid = this.f.get('fields').invalid;
+      const fieldCountValid = this.f.get('fieldCount').valid;
+
+      if (doing == false && fieldCountValid && fieldsInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.f.get('fieldCount').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 
@@ -86,10 +110,35 @@ export class RicePage {
     // });
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'doing') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
+
 
   public setupFieldCountChanges() {
     const componentFormArray: string = "fields";
