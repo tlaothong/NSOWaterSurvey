@@ -1,19 +1,12 @@
-<div [class.invalid]="isValid('anycheck')">
-  <br/>
-  <ion-list [formGroup]="FormItem">
-    <div *ngFor="let p of FormItem.get('plants').value; let i = index" text-center>
-      <span>
-        {{p.code}} {{p.name}}
-      </span>
-    </div>
-  </ion-list>
+<br />
+<ion-list [formGroup]="FormItem">
+  <div *ngFor="let p of FormItem.get('plants').value; let i = index" text-center>
+    <span>
+      {{p.code}} {{p.name}}
+    </span>
+  </div>
+</ion-list>
 
-    <ion-item *ngIf="isValid('anycheck')">
-      <span class="invalid-msg">
-        อย่างน้อยต้องเลือก1ชนิด
-      </span>
-    </ion-item>
-    <ion-item>
-      <ion-label ion-button (click)="model()">เลือก</ion-label>
-    </ion-item>
-</div>
+<ion-item>
+  <ion-label ion-button (click)="model()">เลือก</ion-label>
+</ion-item>

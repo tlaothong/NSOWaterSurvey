@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FieldPerenialPlantingComponent } from '../../components/field-perenial-planting/field-perenial-planting';
 import { Store } from '@ngrx/store';
@@ -28,19 +28,15 @@ export class PerennialPlantingPage {
   @ViewChildren(FieldPerenialPlantingComponent) private fieldPerenialPlanting: FieldPerenialPlantingComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.PerennialPlantingFrm = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, [Validators.required, Validators.min(1)]],
+      "fieldCount": [0, Validators.compose([Validators.pattern('[0-9]*')])],
       "fields": fb.array([]),
     }, {
-      validator: PerennialPlantingPage.checkAnyOrOther()
-    });
+        validator: PerennialPlantingPage.checkAnyOrOther()
+      });
     this.setupFieldCountChanges();
-  }
-
-  ionViewDidLoad() {
-    
   }
 
   public handleSubmit() {
@@ -57,7 +53,7 @@ export class PerennialPlantingPage {
     });
     let selected = [];
     selectedMap.forEach(v => selected.push(v));
-    this.isCheckWarningBox = ((this.PerennialPlantingFrm.valid && selected.length > 0) || this.PerennialPlantingFrm.get('doing').value == false);
+    this.isCheckWarningBox = this.PerennialPlantingFrm.valid;
 
     if (this.PerennialPlantingFrm.valid) {
       this.arrayIsCheckMethod();
@@ -73,9 +69,29 @@ export class PerennialPlantingPage {
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
     }
-  }
+    else {
+      const doing = this.PerennialPlantingFrm.get('doing').value;
+      const fieldsInvalid = this.PerennialPlantingFrm.get('fields').invalid;
+      const fieldCountValid = this.PerennialPlantingFrm.get('fieldCount').valid;
 
-  
+      if (doing == false && fieldCountValid && fieldsInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.PerennialPlantingFrm.get('fieldCount').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
+    }
+  }
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(5));
@@ -110,6 +126,14 @@ export class PerennialPlantingPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.PerennialPlantingFrm.get(name);
+    if (name == 'doing') {
+      let ctrls = this.PerennialPlantingFrm;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldCount') {
+      let ctrls = this.PerennialPlantingFrm;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
