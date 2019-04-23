@@ -2,7 +2,7 @@ import { CountComponent } from './../../components/count/count';
 import { SetRicePlantSelectPlant, SetRiceDoing, SetAgiSelectRice, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FieldFarmingComponent } from '../../components/field-farming/field-farming';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -39,7 +39,9 @@ export class RicePage {
       'doing': [null, Validators.required],
       'fieldCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
       'fields': this.fb.array([]),
-    });
+    }, {
+        validator: RicePage.checkAnyOrOther()
+      });
     this.setupFieldCountChanges();
   }
 
@@ -108,10 +110,35 @@ export class RicePage {
     // });
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'doing') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
+
 
   public setupFieldCountChanges() {
     const componentFormArray: string = "fields";
