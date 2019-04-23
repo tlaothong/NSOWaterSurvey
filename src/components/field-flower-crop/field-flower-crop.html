@@ -49,10 +49,11 @@
         4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>ไม้ดอก ไม้ประดับ <br>เพาะพันธุ์ไม้</b> ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
       </ion-label>
     </ion-item>
-    <modal-plant Title="พืชไร่" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')" textTitleOnDialog="ระบุได้หลายชนิด">
+    <modal-plant Title="พืชไร่" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"
+      textTitleOnDialog="ระบุได้หลายชนิด">
     </modal-plant>
 
-    <div *ngIf="getAgiSelectRice == true || getAgiSelectAgronomy == true  || getAgiSelectRubber == true  || getAgiSelectPerennial == true ">
+    <div *ngIf="getAgiSelectRice || getAgiSelectAgronomy   || getAgiSelectRubber   || getAgiSelectPerennial  ">
       <ion-item>
         <ion-label>
           5) ลักษณะการปลูกเป็นแบบใด
