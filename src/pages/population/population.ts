@@ -5,7 +5,7 @@ import { TablePopulationComponent } from '../../components/table-population/tabl
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getHouseHoldSample, getMemberCount } from '../../states/household';
-import { SetSelectorIndex, SaveHouseHold, SaveLastNameSuccess } from '../../states/household/household.actions';
+import { SetSelectorIndex, SaveHouseHold, SaveLastNameSuccess, LoadLastName } from '../../states/household/household.actions';
 import { provinceData, Province } from '../../models/ProvinceData';
 import { Storage } from '@ionic/storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
@@ -58,11 +58,7 @@ export class PopulationPage {
   }
 
   ionViewDidLoad() {
-    this.storage.get("user" + this.appState.userId).then((val) => {
-      if (val != null) {
-        this.store.dispatch(new SaveLastNameSuccess(val))
-      }
-    })
+    this.store.dispatch(new LoadLastName(this.appState.userId));
     this.getIdHomes = this.appState.eaCode.substr(1, 2); // this.str.substring(0, 2); //10
     this.pro = provinceData.find(it => it.codeProvince == this.getIdHomes);
     this.proName = this.pro.name;

@@ -187,29 +187,31 @@ export class DlgPopulationPage {
     let btn = [];
     lastName$.subscribe(data => {
       this.lastName = data;
-    });
-    if ((this.FormItem.get('lastName').value != null) && (this.FormItem.get('lastName').value !== '')) {
-      btn.push({
-        text: memo.concat(dc).concat(this.FormItem.get('lastName').value).concat(dc),
-        handler: () => {
-          this.store.dispatch(new SaveLastName(this.FormItem.get('lastName').value));
-        }
-      })
-    }
-    this.lastName.reverse().forEach(element => {
-      btn.push({
-        text: use.concat(dc).concat(element).concat(dc),
-        handler: () => {
-          this.FormItem.get('lastName').setValue(element);
-        }
+      console.log(this.lastName);
+      
+      if ((this.FormItem.get('lastName').value != null) && (this.FormItem.get('lastName').value !== '')) {
+        btn.push({
+          text: memo.concat(dc).concat(this.FormItem.get('lastName').value).concat(dc),
+          handler: () => {
+            this.store.dispatch(new SaveLastName(this.FormItem.get('lastName').value));
+          }
+        })
+      }
+      this.lastName.reverse().forEach(element => {
+        btn.push({
+          text: use.concat(dc).concat(element).concat(dc),
+          handler: () => {
+            this.FormItem.get('lastName').setValue(element);
+          }
+        });
       });
+      const actionSheet = this.actionSheetCtrl.create({
+        title: 'ช่วยจำ (3 สกุล)',
+        buttons: btn
+      });
+      actionSheet.present();
+      this.lastName.reverse()
     });
-    const actionSheet = this.actionSheetCtrl.create({
-      title: 'ช่วยจำ (3 สกุล)',
-      buttons: btn
-    });
-    actionSheet.present();
-    this.lastName.reverse()
   }
 }
 

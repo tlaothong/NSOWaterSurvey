@@ -28,6 +28,7 @@ export enum HouseHoldTypes {
 
     SaveLastName = "[HH] Set Last Name",
     SaveLastNameSuccess = "[HH] Set Last Name Success",
+    LoadLastName = "[HH] Load Last Name",
     DeleteHouseHold = "[HH] Delete House Hold",
 
     SetRiceDoing = "[HH] Set Rice Donig",
@@ -439,10 +440,18 @@ export class SaveLastName implements Action {
     constructor(public payload: string) {
     }
 }
+
 export class SaveLastNameSuccess implements Action {
     readonly type = HouseHoldTypes.SaveLastNameSuccess;
 
     constructor(public payload: string[]) {
+    }
+}
+
+export class LoadLastName implements Action {
+    readonly type = HouseHoldTypes.LoadLastName;
+
+    constructor(public payload: string) {
     }
 }
 
@@ -505,4 +514,5 @@ export type HouseHoldActionsType =
     | DeleteHouseHold
     | SaveLastName
     | SaveLastNameSuccess
+    | LoadLastName
     ;
