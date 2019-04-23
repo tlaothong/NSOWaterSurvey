@@ -74,8 +74,8 @@
     <div *ngIf="f.get('doing').value && f.get('fieldCount').value > 0">
       <div *ngFor="let far of f.get('fields').controls; let i = index">
         <field-herbs-plant [no]="i + 1" [forwardListPlant]="listSumData" [FormItem]="far"
-          agiselectrice="{{getAgiSelectRice}}" agiselectagronomy="{{getAgiSelectAgronomy}}"
-          agiselectrubber="{{getAgiSelectRubber}}" agiselectperennial="{{getAgiSelectPerennial}}"></field-herbs-plant>
+          [agiselectrice]="getAgiSelectRice" [agiselectagronomy]="getAgiSelectAgronomy"
+          [agiselectrubber]="getAgiSelectRubber" [agiselectperennial]="getAgiSelectPerennial"></field-herbs-plant>
       </div>
     </div>
 
