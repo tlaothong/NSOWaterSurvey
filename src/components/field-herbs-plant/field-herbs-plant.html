@@ -49,15 +49,22 @@
         </ion-item>
       </ion-row>
 
-      <ion-item>
-        <ion-label>
-          4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>พืชผัก สมุนไพร</b><br>ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-        </ion-label>
-      </ion-item>
-      <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5" [FormItem]="FormItem.get('plantings')"
-        textTitleOnDialog="ระบุได้หลายชนิด"></modal-plant>
+      <div [class.invalid]="isValid('plantings')">
+        <ion-item>
+          <ion-label>
+            4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>พืชผัก สมุนไพร</b><br>ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
+          </ion-label>
+        </ion-item>
+        <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5"
+          [FormItem]="FormItem.get('plantings')" textTitleOnDialog="ระบุได้หลายชนิด"></modal-plant>
+        <ion-item *ngIf="isValid('plantings')">
+          <span class="invalid-msg">
+            อย่างน้อยต้องเลือก1ชนิด
+          </span>
+        </ion-item>
+      </div>
 
-      <div *ngIf="getAgiSelectRice || getAgiSelectAgronomy || getAgiSelectRubber || getAgiSelectPerennial ">
+      <div *ngIf="getAgiSelectRice || getAgiSelectAgronomy || getAgiSelectRubber || getAgiSelectPerennial " >
         <ion-item>
           <ion-label>
             5) ลักษณะการปลูกเป็นแบบใด
@@ -85,9 +92,14 @@
         </ion-row>
 
         <div [ngSwitch]="FormItem.get('thisPlantOnly').value">
-          <div *ngSwitchCase="false">
+          <div *ngSwitchCase="false" [class.invalid]="isValid('primaryPlant')">
             <modal-plant Title="พืชที่ปลูกหลัก ชนิดใด" [InputList]="forwardListPlant" InputLimit="1"
               [FormItem]="FormItem.get('primaryPlant')" textTitleOnDialog="ระบุได้ 1 ชนิด"></modal-plant>
+            <ion-item *ngIf="isValid('primaryPlant')">
+              <span class="invalid-msg">
+                อย่างน้อยต้องเลือก1ชนิด
+              </span>
+            </ion-item>
           </div>
         </div>
       </div>

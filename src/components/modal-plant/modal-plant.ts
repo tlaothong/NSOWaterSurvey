@@ -30,14 +30,6 @@ export class ModalPlantComponent implements ISubmitRequestable {
     this.submitRequested = true
   }
 
-  public isValid(name: string): boolean {
-    if (name == "anycheck") {
-      let ctrl = this.FormItem.get('plants').value
-      let ctrls = this.FormItem.get('plants').value as Array<any>
-      return ctrls.length < 1 && (ctrl.dirty || this.submitRequested);
-    };
-  }
-
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group(
       {

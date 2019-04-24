@@ -1,5 +1,5 @@
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { ModalController, NavParams } from 'ionic-angular';
 import { EX_TREEVET_LIST } from '../../models/tree';
 import { FieldAreaComponent } from '../field-area/field-area';
@@ -36,13 +36,15 @@ export class FieldHerbsPlantComponent {
     return fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': ['', Validators.required],
+      'irrigationField': [null, Validators.required],
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'primaryPlant': ModalPlantComponent.CreateFormGroup(fb),
       'thisPlantOnly': [null, Validators],
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    });
+    }, {
+        validator: FieldHerbsPlantComponent.checkAnyOrOther()
+      });
   }
 
   submitRequest() {
@@ -51,6 +53,9 @@ export class FieldHerbsPlantComponent {
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
+    console.log(this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
+    console.log();
+
   }
 
   public checkPrimaryPlant(): boolean {
@@ -65,10 +70,48 @@ export class FieldHerbsPlantComponent {
     return true;
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const plantings = c.get('plantings.plants').value as Array<any>;
+      const primaryPlant = c.get('primaryPlant.plants').value as Array<any>;
+      const thisPlantOnly = c.get('thisPlantOnly')
+      // const getAgiSelectRice = getAgiSelectRice
+      // const getAgiSelectAgronomy = c.get('getAgiSelectAgronomy');
+      // const getAgiSelectRubber = c.get('getAgiSelectRubber');
+      // const getAgiSelectPerennial = c.get('getAgiSelectPerennial');
+
+      // console.log("check data", getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial);
+
+      if (plantings.length <= 0 && thisPlantOnly.value == null) {
+        return { 'plantings': true, 'thisPlantOnly': true };
+      }
+      if (plantings.length <= 0) {
+        return { 'plantings': true };
+      }
+      if (thisPlantOnly.value == null) {
+        return { 'thisPlantOnly': true };
+      }
+      if (!thisPlantOnly.value && primaryPlant.length <= 0) {
+        return { 'primaryPlant': true };
+      }
+
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == "plantings") {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.plantings && (ctrl.dirty || this.submitRequested);
+    };
+    if (name == "primaryPlant") {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.primaryPlant && (ctrl.dirty || this.submitRequested);
+    }
     if (name == "thisPlantOnly") {
-      return ctrl.value == null && (ctrl.dirty || this.submitRequested);
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.thisPlantOnly && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }

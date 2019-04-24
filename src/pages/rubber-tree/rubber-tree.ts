@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { EX_RUBBER_LIST } from './../../models/tree';
 import { Component, ViewChildren } from '@angular/core';
 import { getHouseHoldSample } from '../../states/household';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FieldRebbertreeComponent } from '../../components/field-rebbertree/field-rebbertree';
@@ -27,10 +27,10 @@ export class RubberTreePage {
   private backNum: any;
   private isCheckWarningBox: boolean;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public modalCtrl: ModalController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.rubbertree = this.fb.group({
       "doing": [null, Validators.required],
-      "fieldCount": [null, [Validators.required, Validators.min(1)]],
+      "fieldCount": [0, Validators.compose([Validators.pattern('[0-9]*')])],
       'fields': fb.array([]),
     },
       {
@@ -48,7 +48,7 @@ export class RubberTreePage {
     this.submitRequested = true;
     this.fieldrebbertree.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = this.rubbertree.valid || (this.rubbertree.get('doing').value == false);
+    this.isCheckWarningBox = this.rubbertree.valid;
 
     if (this.rubbertree.valid) {
       this.arrayIsCheckMethod();
@@ -63,6 +63,27 @@ export class RubberTreePage {
       };
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
+    } else {
+      const doing = this.rubbertree.get('doing').value;
+      const fieldsInvalid = this.rubbertree.get('fields').invalid;
+      const fieldCountValid = this.rubbertree.get('fieldCount').valid;
+
+      if (doing == false && fieldCountValid && fieldsInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.rubbertree.get('fieldCount').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 

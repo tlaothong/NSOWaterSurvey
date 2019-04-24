@@ -90,8 +90,6 @@ export class DryCropPlantingPage {
     }
   }
 
-
-
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(3));
   }
