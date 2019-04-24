@@ -43,7 +43,7 @@
           </ion-col>
         </ion-row>
 
-        <div *ngIf="f.get('personCount').value > 0" [class.invalid]="!isCheckHaveHeadfamily()">
+        <div *ngIf="f.get('personCount').value > 0" [class.invalid]="isValid('headFamily')">
           <div *ngFor="let far of f.get('persons').controls; let i = index">
             <ion-row align-items-center>
               <ion-col>
@@ -52,7 +52,7 @@
               </ion-col>
             </ion-row>
           </div>
-          <ion-item *ngIf="!isCheckHaveHeadfamily()">
+          <ion-item *ngIf="isValid('headFamily')">
             <span class="invalid-msg" item-right>
               ครัวเรือนนี้ยังไม่มีหัวหน้าครัวเรือน
             </span>
