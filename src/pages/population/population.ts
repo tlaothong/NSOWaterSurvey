@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TablePopulationComponent } from '../../components/table-population/table-population';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
@@ -39,13 +39,35 @@ export class PopulationPage {
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage,
     public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
-    this.f = this.fb.group({
-      'personCount': [0, [Validators.required, Validators.min(1)]],
-      'persons': this.fb.array([])
-    });
+    this.f = PopulationPage.CreateFormGroup(this.fb);
     this.setupPersonCountChanges();
     console.log(this.getMemberCount$);
     this.getMember();
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'personCount': [0, [Validators.required, Validators.min(1)]],
+      'persons': fb.array([])
+    }, {
+        validator: PopulationPage.checkAnyOrOther()
+      });
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const persons = c.get('persons') as FormArray;
+
+      let headFamily = 0;
+      for (let i = 0; i < persons.length; i++) {
+        if (persons.at(i).get('relationship').value == "1") headFamily++;
+      };
+
+      if (headFamily == 0) {
+        return { 'headFamily': true };
+      }
+      return null;
+    }
   }
 
   getMember() {
@@ -71,8 +93,10 @@ export class PopulationPage {
     this.count.forEach(it => it.submitRequest());
     // this.dataPop.population = this.f.value
     // this.dataPop.status = "complete"
-    this.isCheckWarningBox = this.f.valid && this.isCheckHaveHeadfamily();
-    if (this.f.valid && this.isCheckHaveHeadfamily()) {
+    this.isCheckWarningBox = this.f.valid;
+    console.log(this.f);
+
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
@@ -83,7 +107,6 @@ export class PopulationPage {
       this.navCtrl.popTo("CheckListPage");
     }
   }
-
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(21));
@@ -100,18 +123,11 @@ export class PopulationPage {
     // });
   }
 
-  public isCheckHaveHeadfamily(): boolean {
-    if (this.submitRequested == true) {
-      let persons = this.f.get('persons') as FormArray;
-      for (let i = 0; i < persons.length; i++) {
-        if (persons.at(i).get('relationship').value == "1") return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
   public isValid(name: string): boolean {
+    if (name == 'headFamily') {
+      var ctrls = this.f;
+      return ctrls.errors && ctrls.errors.headFamily && (ctrls.dirty || this.submitRequested);
+    }
     var ctrl = this.f.get(name);
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
