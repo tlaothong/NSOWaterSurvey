@@ -1,7 +1,5 @@
 <ion-header>
-
   <back-to-root title="ปัญหาอุทกภัย"></back-to-root>
-
 </ion-header>
 
 <ion-content padding>
@@ -101,7 +99,6 @@
                 </table-disasterous>
               </ion-col>
             </ion-row>
-
             <ion-row>
               <ion-col>
                 <table-disasterous headline="พ.ศ. 2557" [FormItem]="Disasterous.get('yearsDisasterous').at(4)">
@@ -114,7 +111,6 @@
     </div>
 
     <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
-
     <form-buttons-bar></form-buttons-bar>
 
   </form>
