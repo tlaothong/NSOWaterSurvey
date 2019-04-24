@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, AbstractControl, ValidationErrors, FormArray } from '@angular/forms';
 import { TableBuyingComponent } from '../../components/table-buying/table-buying';
 import { TableBuyingOtherComponent } from '../../components/table-buying-other/table-buying-other';
 import { getHouseHoldSample, getIsHouseHold, getIsAgriculture, getIsFactorial, getIsCommercial } from '../../states/household';
@@ -36,19 +36,46 @@ export class BuyingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>,
     private appState: AppStateProvider) {
-    this.BuyingForm = this.fb.group({
-      'package': this.fb.array([
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingComponent.CreateFormGruop(this.fb),
-        TableBuyingOtherComponent.CreateFormGroup(this.fb),
+    this.BuyingForm = BuyingPage.CreateFormGroup(this.fb)
+  }
+
+  public static CreateFormGroup(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'package': fb.array([
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingComponent.CreateFormGruop(fb),
+        TableBuyingOtherComponent.CreateFormGroup(fb),
       ]),
-    });
+    }, {
+        validator: BuyingPage.checkAnyOrOther()
+      });
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const packages = c.get('package') as FormArray;
+
+      let anyCheck = 0;
+      for (let i = 0; i < packages.length; i++) {
+        let pack = packages.at(i);
+        if (pack.get('name').value != null && pack.get('size').value != null &&
+          (pack.get('drink').value != null || pack.get('agriculture').value != null ||
+            pack.get('factory').value != null || pack.get('service').value != null)) {
+          anyCheck++;
+        }
+      }
+
+      if (anyCheck == 0) {
+        return { 'anyCheck': true };
+      }
+      return null;
+    }
   }
 
   ionViewDidLoad() {
@@ -68,10 +95,11 @@ export class BuyingPage {
   public handleSubmit() {
     this.submitRequested = true;
     // this.formData.waterUsage.buying = this.BuyingForm.value;
-    this.isCheckWarningBox = this.BuyingForm.valid || (this.tableBuying.some(it => it.FormItem.valid)) || (this.tableBuyingOther.some(it => it.FormItem.valid));
-    if (this.BuyingForm.valid
-      || (this.tableBuying.some(it => it.FormItem.valid))
-      || (this.tableBuyingOther.some(it => it.FormItem.valid))) {
+    this.isCheckWarningBox = this.BuyingForm.valid;
+
+    console.log(this.BuyingForm);
+
+    if (this.BuyingForm.valid) {
       this.arrayIsCheckMethod();
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
@@ -87,10 +115,13 @@ export class BuyingPage {
     }
   }
 
-  public isValid(): boolean {
-    let isCheckBuying = this.tableBuying ? this.tableBuying.some(it => it.FormItem.valid) : false;
-    let isCheckBuyingOther = this.tableBuyingOther ? this.tableBuyingOther.some(it => it.FormItem.valid) : false;
-    return (!isCheckBuying && !isCheckBuyingOther) && this.submitRequested;
+  public isValid(name: string): boolean {
+    if (name == 'anyCheck') {
+      var ctrls = this.BuyingForm;
+      return ctrls.errors && ctrls.errors.anyCheck && (ctrls.dirty || this.submitRequested);
+    }
+    var ctrl = this.BuyingForm.get(name);
+    return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   arrayIsCheckMethod() {
