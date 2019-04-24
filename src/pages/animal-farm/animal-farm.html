@@ -43,12 +43,17 @@
     <div [ngSwitch]="f.get('doing').value">
       <div *ngSwitchCase="true">
         <ion-card>
-          <ion-card-content>
+          <ion-card-content [class.invalid]="isValid('anycheck')">
             <ion-item>
               <ion-label>
                 2.8.2 ถ้า "มี" เลี้ยงสัตว์ชนิดใดบ้าง ในรอบ 12 เดือนที่ผ่านมา
                 <br>เลี้ยงสัตว์แต่ละชนิด<b>เฉลี่ยเดือนละกี่ตัว</b>
               </ion-label>
+            </ion-item>
+            <ion-item *ngIf="isValid('anycheck')">
+              <span class="invalid-msg">
+                กรุณาเลือก
+              </span>
             </ion-item>
             <ion-list>
               <table-check-item-count unit="ตัว" [ititle]="'1. วัว'" [FormItem]="f.get('cow')"></table-check-item-count>
