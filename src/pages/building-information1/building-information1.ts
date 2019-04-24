@@ -191,9 +191,8 @@ export class BuildingInformation1Page {
     this.submitRequested = true;
     // this.updateStatus();
     this.f.get('status').setValue('');
-    console.log("access", this.access);
-    this.isCheckWarningBox = this.f.valid;
     this.dispatch();
+    this.isCheckWarningBox = this.f.valid;
     console.log(this.f);
 
     if (this.f.valid) {
