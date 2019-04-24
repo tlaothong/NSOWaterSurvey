@@ -1,6 +1,6 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
@@ -27,8 +27,8 @@ export class DisasterousPage {
   private backNum: any;
   public isCheckWarningBox: boolean;
 
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, 
-    private store: Store<HouseHoldState>,private appState: AppStateProvider, public alertController: AlertController) {
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder,
+    private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
     this.Disasterous = this.fb.group({
       '_id': null,
       'flooded': [null, Validators.required],
@@ -39,17 +39,13 @@ export class DisasterousPage {
         TableDisasterousComponent.CreateFormGroup(this.fb),
         TableDisasterousComponent.CreateFormGroup(this.fb),
       ]),
-    })
+    }, {
+        validator: DisasterousPage.checkAnyOrOther()
+      })
   }
 
   ionViewDidLoad() {
 
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.Disasterous.patchValue(data.disaster)
-    //     this.dataDis = data;
-    //   }
-    // })
   }
 
   public showModal() {
@@ -82,57 +78,32 @@ export class DisasterousPage {
       this.navCtrl.popTo("CheckListPage");
     }
   }
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const flooded = c.get('flooded');
 
+      if (flooded.value == null) {
+        return { 'flooded': true };
+      }
 
+      return null;
+    }
+  }
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(20));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 20)) {
-    //       arrayIsCheck.push(20);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   submitRequest() {
     this.submitRequested = true;
   }
 
-  // presentAlertDisater(num) {
-  //   const alert = this.alertController.create({
-  //     title: 'ต้องการจะลบใช่หรือไม่',
-  //     buttons: [
-  //       {
-  //         text: 'ยืนยัน',
-  //         handler: data => {
-  //           let test = this.Disasterous.get('yearsDisasterous') as FormArray;
-  //           test.at(num).reset();
-  //         }
-  //       },
-  //       {
-  //         text: 'ยกเลิก',
-  //         handler: data => {
-
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   alert.present();
-  // }
-
-  // deleteData(num: number) {
-  //   this.presentAlertDisater(num);
-  // }
-
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
     var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
+    if (name == 'flooded') {
+      return ctrl.errors && ctrl.errors.flooded && (ctrl.dirty || this.submitRequested);
+    }
     if (name == 'isCheckTableDisasterous') {
       return !isCheckTableDisasterous && this.submitRequested;
     }
