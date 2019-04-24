@@ -63,18 +63,18 @@ export class BuidlingInformation2Page {
       'abandonedCount': null,
       'comments': fb.array([
       ]),
-      'recCtrl': [null, Validators.required],
-      'vacantRoomCount': [null, Validators.required],
+      'recCtrl': [null, Validators],
+      'vacantRoomCount': [null, Validators],
       'unitCountComplete': 0,
-      'unitCount': [0, Validators.required],
-      'unitAccess': [null, Validators.required],
-      'occupiedRoomCount': [null, Validators.required],
+      'unitCount': [0, Validators],
+      'unitAccess': [null, Validators],
+      'occupiedRoomCount': [null, Validators],
       'waterQuantity': fb.group({
-        'waterQuantity': [null, Validators.required],
-        'cubicMeterPerMonth': [null, Validators.required],
-        'waterBill': [null, Validators.required],
+        'waterQuantity': [null, Validators],
+        'cubicMeterPerMonth': [null, Validators],
+        'waterBill': [null, Validators],
       }),
-      'floorCount': [null, [Validators.required, Validators.min(1)]],
+      'floorCount': [null, [Validators, Validators.min(1)]],
       '_id': [null],
       'status': [null],
       'lastUpdate': null,
@@ -107,45 +107,14 @@ export class BuidlingInformation2Page {
     console.log("House Hold Unit: " + this.appState.houseHoldUnit);
     this.submitRequested = true;
     this.count.forEach(it => it.submitRequest());
-    console.log("data ยิง API", this.f.value);
-    console.log("f.valid", this.f.valid);
     this.f.get('lastUpdate').setValue(Date.now())
-    console.log(this.f.get('lastUpdate').value);
-    console.log(this.isCheckValidAccess2());
-    console.log(this.isCheckValidAccess3());
 
-    this.isCheckWarningBox = this.isCheckValidate();
+    console.log(this.f);
+    this.isCheckWarningBox = this.f.valid;
 
-    if (this.f.get('unitCount').value > 0) {
-      if (this.f.get('buildingType').value == 4 || this.f.get('buildingType').value == 5) {
-        if (this.f.get('floorCount').valid) {
-          if (this.f.get('unitAccess').value == 1) {
-            this.saveThenSurveyUnit();
-          }
-          else {
-            if (this.f.get('unitAccess').value == 2 && this.isCheckValidAccess2()) {
-              this.saveThenGoHome();
-            }
-            else if (this.f.get('unitAccess').value == 3 && this.isCheckValidAccess3()) {
-              this.saveThenGoHome();
-            }
-          }
-        }
-      }
-      else {
-        this.saveThenSurveyUnit();
-      }
-    }
-  }
-
-  public isCheckValidate() {
-    switch (this.f.get('unitAccess').value) {
-      case 2:
-        return this.f.get('unitCount').value > 0 && this.isCheckValidAccess2();
-      case 3:
-        return this.f.get('unitCount').value > 0 && this.isCheckValidAccess3();
-      default:
-        return this.f.get('unitCount').value > 0;
+    if (this.f.valid) {
+      (this.f.get('buildingType').value == 4 || this.f.get('buildingType').value == 5) && (this.f.get('unitAccess').value != 1) ?
+        this.saveThenGoHome() : this.saveThenSurveyUnit();
     }
   }
 
@@ -169,22 +138,6 @@ export class BuidlingInformation2Page {
     // this.localStorage();
     this.store.dispatch(new SaveBuilding(this.f.value));
     this.navCtrl.popToRoot();
-  }
-
-  public isCheckValidAccess2(): boolean {
-    if (this.f.get('occupiedRoomCount').valid && this.f.get('vacantRoomCount').valid) {
-      if (this.f.get('waterQuantity.waterQuantity').value == 1) {
-        return this.f.get('waterQuantity.cubicMeterPerMonth').valid && this.f.get('floorCount').valid
-      }
-      else {
-        return this.f.get('waterQuantity.waterBill').valid && this.f.get('floorCount').valid
-      }
-    }
-    return false;
-  }
-
-  public isCheckValidAccess3(): boolean {
-    return this.f.get('floorCount').valid;
   }
 
   // localStorage() {
