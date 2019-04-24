@@ -20,9 +20,7 @@ export class ResidentialPage {
   @ViewChildren(CountComponent) private count: CountComponent[];
   public residentialFrm: FormGroup;
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.residence));
   private formData$ = this.store.select(getHouseHoldSample);
-  // public checked: boolean;
   private isCheckWarningBox: boolean;
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.residentialFrm = this.fb.group({
