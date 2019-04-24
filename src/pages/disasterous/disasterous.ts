@@ -1,6 +1,6 @@
 import { Component, Input, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray } from '@angular/forms';
 import { TableDisasterousComponent } from '../../components/table-disasterous/table-disasterous';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
@@ -81,12 +81,26 @@ export class DisasterousPage {
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const flooded = c.get('flooded');
+      const yearsDisasterous = c.get('yearsDisasterous') as FormArray;
 
-      if (flooded.value == null) {
-        return { 'flooded': true };
+      let checkYearsDisasterous = 0;
+      for (let i = 0; i < yearsDisasterous.length; i++) {
+        let years = yearsDisasterous.at(i);
+        if (years.get('count').value != null && years.get('avgDay').value != null &&
+          (years.get('avgHour').value != null || years.get('waterHeightCm').value != null)) {
+          checkYearsDisasterous++;
+        }
+
+        if (checkYearsDisasterous == 0) {
+          return { 'checkYearsDisasterous': true }
+        }
+
+        if (flooded.value == null) {
+          return { 'flooded': true };
+        }
+
+        return null;
       }
-
-      return null;
     }
   }
 
@@ -103,6 +117,10 @@ export class DisasterousPage {
     var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
     if (name == 'flooded') {
       return ctrl.errors && ctrl.errors.flooded && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'checkYearsDisasterous') {
+      var ctrls = this.Disasterous;
+      return ctrls.errors && ctrls.errors.checkYearsDisasterous && (ctrls.dirty || this.submitRequested);
     }
     if (name == 'isCheckTableDisasterous') {
       return !isCheckTableDisasterous && this.submitRequested;
