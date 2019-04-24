@@ -1,6 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FieldHerbsPlantComponent } from '../../components/field-herbs-plant/field-herbs-plant';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
@@ -50,18 +50,20 @@ export class HerbsPlantPage {
   @ViewChildren(FieldHerbsPlantComponent) private fieldHerbsPlant: FieldHerbsPlantComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, [Validators.required, Validators.min(1)]],
+      'fieldCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
       'fields': this.fb.array([]),
-    });
+    }, {
+        validator: HerbsPlantPage.checkAnyOrOther()
+      });
     this.setupPlantingCountChanges();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HerbsPlantPage');
-    
+
 
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
@@ -128,9 +130,11 @@ export class HerbsPlantPage {
     this.fieldHerbsPlant.forEach(it => checkSelectPrimaryPlant = it.checkPrimaryPlant());
     console.log(checkSelectPrimaryPlant);
 
-    this.isCheckWarningBox = ((this.f.valid && selected.length > 0 && checkSelectPrimaryPlant) || this.f.get('doing').value == false);
+    this.isCheckWarningBox = ((this.f.valid));
+    console.log(this.f);
 
-    if ((this.f.valid && selected.length > 0 && checkSelectPrimaryPlant) || this.f.get('doing').value == false) {
+
+    if ((this.f.valid)) {
       this.arrayIsCheckMethod();
       let argi = {
         ...this.appState.houseHoldUnit.agriculture,
@@ -142,10 +146,31 @@ export class HerbsPlantPage {
       };
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
+    } else {
+      const doing = this.f.get('doing').value;
+      const fieldsInvalid = this.f.get('fields').invalid;
+      const fieldCountValid = this.f.get('fieldCount').valid;
+
+      if (doing == false && fieldCountValid && fieldsInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.f.get('fieldCount').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(6));
@@ -162,8 +187,32 @@ export class HerbsPlantPage {
     // });
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'doing') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

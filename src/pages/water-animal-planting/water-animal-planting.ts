@@ -201,4 +201,59 @@ export class WaterAnimalPlantingPage {
       return null;
     }
   }
+  // public static checkAnyOrOther(): ValidatorFn {
+  //   return (c: AbstractControl): ValidationErrors | null => {
+  //     const isFish = c.get('isFish');
+  //     const isShrimp = c.get('isShrimp');
+  //     const isFrog = c.get('isFrog');
+  //     const isSnappingTurtle = c.get('isSnappingTurtle');
+  //     const isCrocodile = c.get('isCrocodile');
+  //     const isCrab = c.get('isCrab');
+  //     const isShellFish = c.get('isShellFish');
+  //     const isTurtle = c.get('isTurtle');
+  //     const isReddish = c.get('isReddish');
+  //     const fish = c.get('fish');
+  //     const shrimp = c.get('shrimp');
+  //     const frog = c.get('frog');
+  //     const snappingTurtle = c.get('snappingTurtle');
+  //     const crocodile = c.get('crocodile');
+  //     const crab = c.get('crab');
+  //     const shellFish = c.get('shellFish');
+  //     const turtle = c.get('turtle');
+  //     const reddish = c.get('reddish');
+
+  //     if (!isFish.value && !isShrimp.value && !isFrog.value && !isCrocodile.value && !isCrab.value
+  //       && !isShellFish.value && !isTurtle.value && !isReddish.value && !isSnappingTurtle.value) {
+  //       return { 'anycheck': true };
+  //     }
+  //     if (isFish.value && fish.invalid) {
+  //       return { 'fish': true };
+  //     }
+  //     if (isShrimp.value && shrimp.invalid) {
+  //       return { 'shrimp': true };
+  //     }
+  //     if (isFrog.value && frog.invalid) {
+  //       return { 'frog': true };
+  //     }
+  //     if (isSnappingTurtle.value && snappingTurtle.invalid) {
+  //       return { 'snappingTurtle': true };
+  //     }
+  //     if (isCrocodile.value && crocodile.invalid) {
+  //       return { 'crocodile': true };
+  //     }
+  //     if (isCrab.value && crab.invalid) {
+  //       return { 'crab': true };
+  //     }
+  //     if (isShellFish.value && shellFish.invalid) {
+  //       return { 'shellFish': true };
+  //     }
+  //     if (isReddish.value && turtle.invalid) {
+  //       return { 'turtle': true };
+  //     }
+  //     if (isShrimp.value && reddish.invalid) {
+  //       return { 'reddish': true };
+  //     }
+  //     return null;
+  //   }
+  // }
 }
