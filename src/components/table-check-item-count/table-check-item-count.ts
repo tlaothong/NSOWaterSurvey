@@ -23,7 +23,7 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     var fg = fb.group({
-      'hasItem': [false],
+      'hasItem': [null],
       'itemCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.min(1)])],
     });
     return fg;
