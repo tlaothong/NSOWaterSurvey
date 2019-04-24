@@ -1,5 +1,7 @@
 <ion-header>
+
   <back-to-root title="ปัญหาอุทกภัย"></back-to-root>
+
 </ion-header>
 
 <ion-content padding>
@@ -42,75 +44,85 @@
       <div *ngSwitchCase="true">
         <ion-card>
           <ion-card-content>
-            <ion-item>
-              <ion-label>
-                6.2 ถ้า “มี” แต่ละปีเกิดอุทกภัยกี่ครั้ง ระยะเวลาที่น้ำท่วมขัง<br>โดยเฉลี่ย
-                นานกี่วัน กี่ชั่วโมง และระดับความสูงของน้ำท่วม <br>สูงกี่เซนติเมตร
-              </ion-label>
-            </ion-item>
+            <div [class.invalid]="isValid('checkYearsDisasterous')">
+              <ion-item *ngIf="isValid('checkYearsDisasterous')">
+                <span class="invalid-msg">
+                  กรุณากรอกข้อมูล
+                </span>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  6.2 ถ้า “มี” แต่ละปีเกิดอุทกภัยกี่ครั้ง ระยะเวลาที่น้ำท่วมขัง<br>โดยเฉลี่ย
+                  นานกี่วัน กี่ชั่วโมง และระดับความสูงของน้ำท่วม <br>สูงกี่เซนติเมตร
+                </ion-label>
+              </ion-item>
 
-            <ion-row text-center>
-              <ion-col col-3></ion-col>
-              <ion-col>
-                <b>ระยะเวลาที่น้ำท่วมขังโดยเฉลี่ย</b>
-              </ion-col>
-            </ion-row>
+              <ion-row text-center>
+                <ion-col col-3></ion-col>
+                <ion-col>
+                  <b>ระยะเวลาที่น้ำท่วมขังโดยเฉลี่ย</b>
+                </ion-col>
+              </ion-row>
 
-            <ion-row text-center>
-              <ion-col col-2>
-                <b>ปี</b>
-              </ion-col>
-              <ion-col col-3>
-                <b>จำนวนครั้งที่<br>เกิดอุทกภัย</b>
-              </ion-col>
-              <ion-col col-2>
-                <b>จำนวนวัน</b>
-              </ion-col>
-              <ion-col col-2>
-                <b>จำนวนชั่วโมง</b>
-                <br><b>(มีค่า 1-23)</b>
-              </ion-col>
-              <ion-col col-2>
-                <b>ระดับความสูงเฉลี่ย<br>(เซนติเมตร)</b>
-              </ion-col>
-            </ion-row>
+              <ion-row text-center>
+                <ion-col col-2>
+                  <b>ปี</b>
+                </ion-col>
+                <ion-col col-3>
+                  <b>จำนวนครั้งที่<br>เกิดอุทกภัย</b>
+                </ion-col>
+                <ion-col col-2>
+                  <b>จำนวนวัน</b>
+                </ion-col>
+                <ion-col col-2>
+                  <b>จำนวนชั่วโมง</b>
+                  <br><b>(มีค่า 1-23)</b>
+                </ion-col>
+                <ion-col col-2>
+                  <b>ระดับความสูงเฉลี่ย<br>(เซนติเมตร)</b>
+                </ion-col>
+              </ion-row>
 
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2561" [FormItem]="Disasterous.get('yearsDisasterous').at(0)">
-                </table-disasterous>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2560" [FormItem]="Disasterous.get('yearsDisasterous').at(1)">
-                </table-disasterous>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2559" [FormItem]="Disasterous.get('yearsDisasterous').at(2)">
-                </table-disasterous>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2558" [FormItem]="Disasterous.get('yearsDisasterous').at(3)">
-                </table-disasterous>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <table-disasterous headline="พ.ศ. 2557" [FormItem]="Disasterous.get('yearsDisasterous').at(4)">
-                </table-disasterous>
-              </ion-col>
-            </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2561" [FormItem]="Disasterous.get('yearsDisasterous').at(0)">
+                  </table-disasterous>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2560" [FormItem]="Disasterous.get('yearsDisasterous').at(1)">
+                  </table-disasterous>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2559" [FormItem]="Disasterous.get('yearsDisasterous').at(2)">
+                  </table-disasterous>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2558" [FormItem]="Disasterous.get('yearsDisasterous').at(3)">
+                  </table-disasterous>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <table-disasterous headline="พ.ศ. 2557" [FormItem]="Disasterous.get('yearsDisasterous').at(4)">
+                  </table-disasterous>
+                </ion-col>
+              </ion-row>
+
+            </div>
           </ion-card-content>
         </ion-card>
       </div>
     </div>
 
     <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
+
     <form-buttons-bar></form-buttons-bar>
 
   </form>
