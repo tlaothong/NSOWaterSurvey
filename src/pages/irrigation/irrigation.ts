@@ -58,7 +58,7 @@ export class IrrigationPage {
   private isCheckWarningBox: boolean;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
-    public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, 
+    public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>,
     private appState: AppStateProvider, private alertCtrl: AlertController) {
 
     this.f = this.fb.group({
@@ -137,9 +137,9 @@ export class IrrigationPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false));
+    this.isCheckWarningBox = this.f.valid;
 
-    if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
       let irri = {
         ...this.appState.houseHoldUnit.waterUsage,
@@ -151,12 +151,15 @@ export class IrrigationPage {
       }
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
-    } else {
+    }
+    else {
       const hasPump = this.f.get('hasPump').value;
       const pumpsValid = this.f.get('pumps').invalid;
       const pumpCountValid = this.f.get('pumpCount').valid;
+      const waterActivitiesValid = this.f.get('waterActivities').valid;
+      const qualityProblemValid = this.f.get('qualityProblem').valid;
 
-      if (hasPump == false && pumpsValid && pumpCountValid) { // เข้าเงื่อนไขที่ยกเว้นได้
+      if (hasPump == false && pumpsValid && pumpCountValid && waterActivitiesValid && qualityProblemValid) { // เข้าเงื่อนไขที่ยกเว้นได้
         const confirmChanged = this.alertCtrl.create({
           title: 'แก้ไขข้อมูลให้ถูกต้อง',
           message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
