@@ -8,11 +8,16 @@
 
   <ion-navbar>
     <ion-title>แผนที่ EA</ion-title>
+    <ion-buttons end>
+      <button style="zoom: 0.8;" (click)="markCurrentLocation()" ion-item>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <div #map id="map"></div>  
+  <div #map id="map"></div>
 </ion-content>
