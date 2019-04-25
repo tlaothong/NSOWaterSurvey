@@ -107,8 +107,6 @@ export class FlowerCropPage {
 
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
     this.listSumData = sum;
-    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
-    console.log(this.listSumData);
   }
 
   model() {
@@ -126,22 +124,10 @@ export class FlowerCropPage {
   }
 
   public handleSubmit() {
-    var checkSelectPrimaryPlant: boolean;
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     console.log(this.flowerCropFrm.value);
-    let fields = this.flowerCropFrm.get('fields').value as Array<any>;
-    let selectedMap = new Map<string, any>();
-    fields.forEach(f => {
-      if (f.plantings && f.plantings.plants) {
-        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
-      }
-    });
-    let selected = [];
-    selectedMap.forEach(v => selected.push(v));
-    this.fieldFlowerCrop.forEach(it => checkSelectPrimaryPlant = it.checkPrimaryPlant());
-    console.log(checkSelectPrimaryPlant);
     this.isCheckWarningBox = this.flowerCropFrm.valid;
 
     if (this.flowerCropFrm.valid) {

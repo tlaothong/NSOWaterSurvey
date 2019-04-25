@@ -65,21 +65,6 @@ export class FieldHerbsPlantComponent {
     this.locationT.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
-    console.log(this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
-    console.log();
-
-  }
-
-  public checkPrimaryPlant(): boolean {
-    var arr = this.FormItem.get('primaryPlant.plants').value as any[]
-    console.log(arr);
-
-    if (!this.FormItem.get('thisPlantOnly').value && (this.getAgiSelectRice || this.getAgiSelectAgronomy || this.getAgiSelectRubber || this.getAgiSelectPerennial)) {
-      if (arr.length == 0) {
-        return false;
-      }
-    }
-    return true;
   }
 
   public static checkAnyOrOther(): ValidatorFn {
@@ -87,22 +72,20 @@ export class FieldHerbsPlantComponent {
       const plantings = c.get('plantings.plants').value as Array<any>;
       const primaryPlant = c.get('primaryPlant.plants').value as Array<any>;
       const thisPlantOnly = c.get('thisPlantOnly')
-      console.log(thisPlantOnly.value);
-      console.log(primaryPlant.length <= 0);
 
-
-      console.log("check data", FieldHerbsPlantComponent.checkSelectRice, FieldHerbsPlantComponent.checkSelectAgronomy, FieldHerbsPlantComponent.checkSelectRubber, FieldHerbsPlantComponent.checkSelectPerennial);
-
-      if (plantings.length <= 0 && thisPlantOnly.value == null && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
+      if (plantings.length < 1 && thisPlantOnly.value == null && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
         return { 'plantings': true, 'thisPlantOnly': true };
       }
-      if (plantings.length <= 0) {
+      if (plantings.length < 1 && (thisPlantOnly.value == false && primaryPlant.length < 1 && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true))) {
+        return { 'plantings': true, 'primaryPlant': true };
+      }
+      if (plantings.length < 1) {
         return { 'plantings': true };
       }
       if (thisPlantOnly.value == null && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
         return { 'thisPlantOnly': true };
       }
-      if (thisPlantOnly.value == false && primaryPlant.length <= 0 && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
+      if (thisPlantOnly.value == false && primaryPlant.length < 1 && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
         return { 'primaryPlant': true };
       }
 

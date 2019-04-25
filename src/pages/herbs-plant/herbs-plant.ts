@@ -115,18 +115,16 @@ export class HerbsPlantPage {
     this.submitRequested = true;
     this.fieldHerbsPlant.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    let fields = this.f.get('fields').value as Array<any>;
-    let selectedMap = new Map<string, any>();
-    fields.forEach(f => {
-      if (f.plantings && f.plantings.plants) {
-        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
-      }
-    });
-    let selected = [];
-    selectedMap.forEach(v => selected.push(v));
-    this.fieldHerbsPlant.forEach(it => checkSelectPrimaryPlant = it.checkPrimaryPlant());
-    console.log(checkSelectPrimaryPlant);
-
+    // let fields = this.f.get('fields').value as Array<any>;
+    // let selectedMap = new Map<string, any>();
+    // fields.forEach(f => {
+    //   if (f.plantings && f.plantings.plants) {
+    //     f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
+    //   }
+    // });
+    // let selected = [];
+    // selectedMap.forEach(v => selected.push(v));
+    
     this.isCheckWarningBox = ((this.f.valid));
     console.log(this.f);
 

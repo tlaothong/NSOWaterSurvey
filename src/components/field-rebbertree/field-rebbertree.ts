@@ -44,15 +44,5 @@ export class FieldRebbertreeComponent implements ISubmitRequestable {
     this.locationT.forEach(it => it.submitRequest());
     this.fieldArea.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    // this.dispatchWaterSource();
-  }
-
-  private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    console.log("dispatch rubber can work");
   }
 }
