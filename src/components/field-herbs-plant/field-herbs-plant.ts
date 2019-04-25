@@ -20,6 +20,10 @@ export class FieldHerbsPlantComponent {
   @Input('agiselectagronomy') public getAgiSelectAgronomy: boolean;
   @Input('agiselectrubber') public getAgiSelectRubber: boolean;
   @Input('agiselectperennial') public getAgiSelectPerennial: boolean;
+  private static checkSelectRice: boolean;
+  private static checkSelectAgronomy: boolean;
+  private static checkSelectRubber: boolean;
+  private static checkSelectPerennial: boolean;
   public shownData = EX_TREEVET_LIST;
   private submitRequested: boolean;
 
@@ -30,6 +34,7 @@ export class FieldHerbsPlantComponent {
 
   constructor(public fb: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams) {
     this.FormItem = FieldHerbsPlantComponent.CreateFormGroup(this.fb);
+
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -45,6 +50,13 @@ export class FieldHerbsPlantComponent {
     }, {
         validator: FieldHerbsPlantComponent.checkAnyOrOther()
       });
+  }
+
+  ngOnInit() {
+    FieldHerbsPlantComponent.checkSelectRice = this.getAgiSelectRice;
+    FieldHerbsPlantComponent.checkSelectAgronomy = this.getAgiSelectAgronomy;
+    FieldHerbsPlantComponent.checkSelectRubber = this.getAgiSelectRubber;
+    FieldHerbsPlantComponent.checkSelectPerennial = this.getAgiSelectPerennial;
   }
 
   submitRequest() {
@@ -75,23 +87,22 @@ export class FieldHerbsPlantComponent {
       const plantings = c.get('plantings.plants').value as Array<any>;
       const primaryPlant = c.get('primaryPlant.plants').value as Array<any>;
       const thisPlantOnly = c.get('thisPlantOnly')
-      // const getAgiSelectRice = getAgiSelectRice
-      // const getAgiSelectAgronomy = c.get('getAgiSelectAgronomy');
-      // const getAgiSelectRubber = c.get('getAgiSelectRubber');
-      // const getAgiSelectPerennial = c.get('getAgiSelectPerennial');
+      console.log(thisPlantOnly.value);
+      console.log(primaryPlant.length <= 0);
 
-      // console.log("check data", getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial);
 
-      if (plantings.length <= 0 && thisPlantOnly.value == null) {
+      console.log("check data", FieldHerbsPlantComponent.checkSelectRice, FieldHerbsPlantComponent.checkSelectAgronomy, FieldHerbsPlantComponent.checkSelectRubber, FieldHerbsPlantComponent.checkSelectPerennial);
+
+      if (plantings.length <= 0 && thisPlantOnly.value == null && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
         return { 'plantings': true, 'thisPlantOnly': true };
       }
       if (plantings.length <= 0) {
         return { 'plantings': true };
       }
-      if (thisPlantOnly.value == null) {
+      if (thisPlantOnly.value == null && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
         return { 'thisPlantOnly': true };
       }
-      if (!thisPlantOnly.value && primaryPlant.length <= 0) {
+      if (thisPlantOnly.value == false && primaryPlant.length <= 0 && (FieldHerbsPlantComponent.checkSelectRice == true || FieldHerbsPlantComponent.checkSelectAgronomy == true || FieldHerbsPlantComponent.checkSelectRubber == true || FieldHerbsPlantComponent.checkSelectPerennial == true)) {
         return { 'primaryPlant': true };
       }
 
