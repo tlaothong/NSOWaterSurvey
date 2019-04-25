@@ -62,12 +62,10 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = this.Disasterous.valid /* || this.Disasterous.get('flooded').value == false
-      || this.tableDisasterous.some(it => it.FormItem.valid)*/;
+    this.isCheckWarningBox = this.Disasterous.valid;
     console.log(this.Disasterous);
 
-    if (this.Disasterous.valid /*|| this.Disasterous.get('flooded').value == false
-      || this.tableDisasterous.some(it => it.FormItem.valid)*/) {
+    if (this.Disasterous.valid) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
@@ -80,7 +78,6 @@ export class DisasterousPage {
     else {
       const flooded = this.Disasterous.get('flooded').value;
       const yearsDisasterousInvalid = this.Disasterous.get('yearsDisasterous').invalid;
-      //const fieldCountValid = this.Disasterous.get('fieldCount').valid;
 
       if (flooded == false && yearsDisasterousInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
         const confirmChanged = this.alertController.create({
@@ -139,10 +136,6 @@ export class DisasterousPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
-    // var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
-    // if (name == 'isCheckTableDisasterous') {
-    //   return !isCheckTableDisasterous && this.submitRequested;
-    // }
     if (name == 'flooded') {
       var ctrls = this.Disasterous;
       return ctrls.errors && ctrls.errors.flooded && (ctrls.dirty || this.submitRequested);
