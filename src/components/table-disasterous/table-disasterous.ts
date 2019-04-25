@@ -21,10 +21,10 @@ export class TableDisasterousComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'count': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-      'avgDay': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'count': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+      'avgDay': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'avgHour': [null, [Validators, Validators.min(1), Validators.max(23)]],
-      'waterHeightCm': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'waterHeightCm': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'year': [null],
     });
   }

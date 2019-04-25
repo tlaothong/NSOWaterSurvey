@@ -44,12 +44,7 @@
       <div *ngSwitchCase="true">
         <ion-card>
           <ion-card-content>
-            <div [class.invalid]="isValid('checkYearsDisasterous')">
-              <ion-item *ngIf="isValid('checkYearsDisasterous')">
-                <span class="invalid-msg">
-                  กรุณากรอกข้อมูล
-                </span>
-              </ion-item>
+            
               <ion-item>
                 <ion-label>
                   6.2 ถ้า “มี” แต่ละปีเกิดอุทกภัยกี่ครั้ง ระยะเวลาที่น้ำท่วมขัง<br>โดยเฉลี่ย
@@ -83,6 +78,12 @@
                 </ion-col>
               </ion-row>
 
+              <div [class.invalid]="isValid('checkYearsDisasterous')">
+                <ion-item *ngIf="isValid('checkYearsDisasterous')">
+                  <span class="invalid-msg">
+                    กรุณากรอกข้อมูล
+                  </span>
+                </ion-item>
               <ion-row>
                 <ion-col>
                   <table-disasterous headline="พ.ศ. 2561" [FormItem]="Disasterous.get('yearsDisasterous').at(0)">

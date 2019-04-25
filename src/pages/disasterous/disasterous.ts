@@ -62,12 +62,12 @@ export class DisasterousPage {
   public handleSubmit() {
     this.submitRequested = true;
     this.tableDisasterous.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = this.Disasterous.valid || this.Disasterous.get('flooded').value == false
-      || this.tableDisasterous.some(it => it.FormItem.valid);
-    // this.dataDis.disaster = this.Disasterous.value
-    if (this.Disasterous.valid
-      || this.Disasterous.get('flooded').value == false
-      || this.tableDisasterous.some(it => it.FormItem.valid)) {
+    this.isCheckWarningBox = this.Disasterous.valid /* || this.Disasterous.get('flooded').value == false
+      || this.tableDisasterous.some(it => it.FormItem.valid)*/;
+    console.log(this.Disasterous);
+
+    if (this.Disasterous.valid /*|| this.Disasterous.get('flooded').value == false
+      || this.tableDisasterous.some(it => it.FormItem.valid)*/) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
@@ -77,7 +77,31 @@ export class DisasterousPage {
       this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
     }
+    else {
+      const flooded = this.Disasterous.get('flooded').value;
+      const yearsDisasterousInvalid = this.Disasterous.get('yearsDisasterous').invalid;
+      //const fieldCountValid = this.Disasterous.get('fieldCount').valid;
+
+      if (flooded == false && yearsDisasterousInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertController.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.Disasterous.get('yearsDisasterous').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
+    }
+    console.log(this.Disasterous.valid);
   }
+
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const flooded = c.get('flooded');
@@ -86,17 +110,18 @@ export class DisasterousPage {
       let checkYearsDisasterous = 0;
       for (let i = 0; i < yearsDisasterous.length; i++) {
         let years = yearsDisasterous.at(i);
-        if (years.get('count').value != null && years.get('avgDay').value != null &&
+        if (years.get('count').value != null || years.get('avgDay').value != null ||
           (years.get('avgHour').value != null || years.get('waterHeightCm').value != null)) {
-          checkYearsDisasterous++;
-        }
 
-        if (checkYearsDisasterous == 0) {
-          return { 'checkYearsDisasterous': true }
+          checkYearsDisasterous++;
         }
 
         if (flooded.value == null) {
           return { 'flooded': true };
+        }
+
+        if (flooded.value && checkYearsDisasterous == 0) {
+          return { 'checkYearsDisasterous': true }
         }
 
         return null;
@@ -114,17 +139,21 @@ export class DisasterousPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.Disasterous.get(name);
-    var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
+    // var isCheckTableDisasterous = this.tableDisasterous ? this.tableDisasterous.some(it => it.FormItem.valid) : false;
+    // if (name == 'isCheckTableDisasterous') {
+    //   return !isCheckTableDisasterous && this.submitRequested;
+    // }
     if (name == 'flooded') {
-      return ctrl.errors && ctrl.errors.flooded && (ctrl.dirty || this.submitRequested);
+      var ctrls = this.Disasterous;
+      return ctrls.errors && ctrls.errors.flooded && (ctrls.dirty || this.submitRequested);
     }
     if (name == 'checkYearsDisasterous') {
       var ctrls = this.Disasterous;
       return ctrls.errors && ctrls.errors.checkYearsDisasterous && (ctrls.dirty || this.submitRequested);
     }
-    if (name == 'isCheckTableDisasterous') {
-      return !isCheckTableDisasterous && this.submitRequested;
-    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+
+
+
   }
 }
