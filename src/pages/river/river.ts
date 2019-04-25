@@ -132,9 +132,11 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = this.f.valid && !this.waterActivity6.some(it => it.isCheck == false);
+    this.isCheckWarningBox = this.f.valid;
+    console.log(this.f);
 
-    if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
+
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
@@ -149,9 +151,11 @@ export class RiverPage {
     }
     else {
       const doing = this.f.get('hasPump').value;
-      const detaisInvalid = this.f.get('pumps').invalid;
-      const projectCountValid = this.f.get('pumpCount').valid;
-      if (doing == false && projectCountValid && detaisInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+      const pumpsInvalid = this.f.get('pumps').invalid;
+      const pumpCountValid = this.f.get('pumpCount').valid;
+      const waterActivitiesValid = this.f.get('waterActivities').valid;
+      const qualityProblemValid = this.f.get('qualityProblem').valid;
+      if (doing == false && pumpCountValid && pumpsInvalid && waterActivitiesValid && qualityProblemValid) { // เข้าเงื่อนไขที่ยกเว้นได้
         const confirmChanged = this.alertCtrl.create({
           title: 'แก้ไขข้อมูลให้ถูกต้อง',
           message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
@@ -180,6 +184,10 @@ export class RiverPage {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.pumpCount && (ctrl.dirty || this.submitRequested);
     }
+    // if (name == 'waterActivities') {
+    //   let ctrls = this.f;
+    //   return ctrls.errors && ctrls.errors.waterActivities && (ctrl.dirty || this.submitRequested);
+    // }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -187,6 +195,8 @@ export class RiverPage {
     return (c: AbstractControl): ValidationErrors | null => {
       const hasPump = c.get('hasPump');
       const pumpCount = c.get('pumpCount');
+      // const waterActivities = c.get('waterActivities');
+      const qualityProblem = c.get('qualityProblem');
 
       if (hasPump.value == null) {
         return { 'hasPump': true };
@@ -194,6 +204,9 @@ export class RiverPage {
       if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
+      // if (waterActivities.  ) {
+      //   return { 'waterActivities': true };
+      // }
       return null;
     }
   }

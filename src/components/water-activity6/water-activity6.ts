@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, ValidationErrors, AbstractControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'water-activity6',
@@ -51,20 +51,50 @@ export class WaterActivity6Component {
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
-
+    if (name == 'checkActivity') {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.checkActivity && (ctrls.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'drink': null,
-      'plant': null,
-      'farm': null,
-      'agriculture': null,
-      'product': null,
-      'service': null,
-    });
+      'drink': [null, Validators],
+      'plant': [null, Validators],
+      'farm': [null, Validators],
+      'agriculture': [null, Validators],
+      'product': [null, Validators],
+      'service': [null, Validators],
+    }, {
+        validator: WaterActivity6Component.checkAnyOrOther()
+      });
   }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const drink = c.get('drink');
+      const plant = c.get('plant');
+      const farm = c.get('farm');
+      const agriculture = c.get('agriculture');
+      const product = c.get('product');
+      const service = c.get('service');
+
+      if ((drink.value == null || (drink.value.trim() == '') &&
+        (plant.value == null || (plant.value.trim() == '')) &&
+        (farm.value == null || (farm.value.trim() == '')) &&
+        (agriculture.value == null || (agriculture.value.trim() == '')) &&
+        (product.value == null || (product.value.trim() == '')) &&
+        (service.value == null || (service.value.trim() == '')))) {
+        return { 'checkActivity': true };
+      }
+      if ((+drink.value) + (+plant.value) + (+farm.value) + (+agriculture.value) + (+product.value) + (+service.value) == 100) {
+        return { 'checkActivitySum': true };
+      }
+      return null;
+    }
+  }
+
 
   checkValid(): boolean {
     let isDrink = true;
