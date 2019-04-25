@@ -5,96 +5,103 @@
       {{text}}<br>{{text2}}
     </ion-label>
   </ion-item>
-  <div *ngIf="activeRes">
-    <ion-item>
-      <ion-label col-8>
-        เพื่ออุปโภคบริโภค
-      </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="drink" [class.invalid]="isValid('drink')"
-        (ionChange)="onChangeValue()"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="isValid('drink')" text-right>
+  <div  [class.invalid]="isValid('waterActivities')">
+    <ion-item *ngIf="isValid('waterActivities')">
       <span class="invalid-msg">
         กรุณากรอกข้อมูล
       </span>
     </ion-item>
-  </div>
+    <div *ngIf="activeRes">
+      <ion-item>
+        <ion-label col-8>
+          เพื่ออุปโภคบริโภค
+        </ion-label>
+        <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="drink" [class.invalid]="isValid('drink')"
+          (ionChange)="onChangeValue()"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('drink')" text-right>
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+    </div>
 
-  <div *ngIf="activeWateringRes">
-    <ion-item>
-      <ion-label col-8>
-        เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
-      </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="plant" [class.invalid]="isValid('plant')"
-        (ionChange)="onChangeValue()"></ion-input>
-    </ion-item>
+    <div *ngIf="activeWateringRes">
+      <ion-item>
+        <ion-label col-8>
+          เพื่อรดน้ำพืชในบริเวณที่อยู่อาศัย
+        </ion-label>
+        <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="plant" [class.invalid]="isValid('plant')"
+          (ionChange)="onChangeValue()"></ion-input>
+      </ion-item>
 
-    <ion-item *ngIf="isValid('plant')" text-right>
-      <span class="invalid-msg">
-        กรุณากรอกข้อมูล
-      </span>
-    </ion-item>
-  </div>
+      <ion-item *ngIf="isValid('plant')" text-right>
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+    </div>
 
-  <div *ngIf="activRice">
-    <ion-item>
-      <ion-label col-8>
-        เพื่อทำนา
-      </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="farm" [class.invalid]="isValid('farm')"
-        (ionChange)="onChangeValue()"></ion-input>
-    </ion-item>
+    <div *ngIf="activRice">
+      <ion-item>
+        <ion-label col-8>
+          เพื่อทำนา
+        </ion-label>
+        <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="farm" [class.invalid]="isValid('farm')"
+          (ionChange)="onChangeValue()"></ion-input>
+      </ion-item>
 
-    <ion-item *ngIf="isValid('farm')" text-right>
-      <span class="invalid-msg">
-        กรุณากรอกข้อมูล
-      </span>
-    </ion-item>
-  </div>
+      <ion-item *ngIf="isValid('farm')" text-right>
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+    </div>
 
-  <div *ngIf="activeAgi">
-    <ion-item>
-      <ion-label col-8>
-        เพื่อทำเกษตร
-      </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="agriculture"
-        [class.invalid]="isValid('agriculture')" (ionChange)="onChangeValue()"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="isValid('agriculture')" text-right>
-      <span class="invalid-msg">
-        กรุณากรอกข้อมูล
-      </span>
-    </ion-item>
-  </div>
+    <div *ngIf="activeAgi">
+      <ion-item>
+        <ion-label col-8>
+          เพื่อทำเกษตร
+        </ion-label>
+        <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="agriculture"
+          [class.invalid]="isValid('agriculture')" (ionChange)="onChangeValue()"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('agriculture')" text-right>
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+    </div>
 
-  <div *ngIf="activeFac">
-    <ion-item>
-      <ion-label col-8>
-        เพื่อผลิตสินค้า
-      </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="product" [class.invalid]="isValid('product')"
-        (ionChange)="onChangeValue()"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="isValid('product')" text-right>
-      <span class="invalid-msg">
-        กรุณากรอกข้อมูล
-      </span>
-    </ion-item>
-  </div>
+    <div *ngIf="activeFac">
+      <ion-item>
+        <ion-label col-8>
+          เพื่อผลิตสินค้า
+        </ion-label>
+        <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="product"
+          [class.invalid]="isValid('product')" (ionChange)="onChangeValue()"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('product')" text-right>
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+    </div>
 
-  <div *ngIf="activeCom">
-    <ion-item>
-      <ion-label col-8>
-        เพื่อการบริการ
-      </ion-label>
-      <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="service" [class.invalid]="isValid('service')"
-        (ionChange)="onChangeValue()"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="isValid('service')" text-right>
-      <span class="invalid-msg">
-        กรุณากรอกข้อมูล
-      </span>
-    </ion-item>
+    <div *ngIf="activeCom">
+      <ion-item>
+        <ion-label col-8>
+          เพื่อการบริการ
+        </ion-label>
+        <ion-input type="number" placeholder="กรอกข้อมูล " formControlName="service"
+          [class.invalid]="isValid('service')" (ionChange)="onChangeValue()"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isValid('service')" text-right>
+        <span class="invalid-msg">
+          กรุณากรอกข้อมูล
+        </span>
+      </ion-item>
+    </div>
   </div>
 
   <ion-item>
@@ -113,5 +120,5 @@
       ยังขาดอีก {{100 - totalSum}} %
     </span>
   </ion-item>
-  
+
 </div>
