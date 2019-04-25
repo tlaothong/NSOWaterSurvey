@@ -40,8 +40,8 @@ export class UserPage {
   constructor(public navCtrl: NavController, private appState: AppStateProvider, private storeBuild: Store<BuildingState>, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
-      "factorialCategoryCode": [null, Validators.required],
-      "serviceTypeCode": [null, Validators.required]
+      "factorialCategoryCode": [null, Validators],
+      "serviceTypeCode": [null, Validators]
     }, {
         validator: UserPage.checkAnyOrOther()
       });
@@ -59,6 +59,8 @@ export class UserPage {
 
   public handleSubmit() {
     this.submitRequested = true;
+    console.log(this.userInfo);
+
 
     this.isCheckWarningBox = this.userInfo.valid;
     if (this.userInfo.valid) {
@@ -75,7 +77,6 @@ export class UserPage {
         this.store.dispatch(new SetBackToRoot(true));
         this.navCtrl.popToRoot();
       } else {
-        // this.navCtrl.setRoot("UnitPage");
         this.store.dispatch(new SetBackToRoot(true));
         this.navCtrl.popTo(this.navCtrl.getByIndex(3))
       }
@@ -88,14 +89,24 @@ export class UserPage {
       const factorialCategoryCode = c.get('factorialCategoryCode');
       const serviceTypeCode = c.get('serviceTypeCode');
 
-      if (informer.value == null) {
+      if ((informer.value == null || (informer.value.trim() == '')) && (UserPage.checkFactorail == true && factorialCategoryCode.value == null) && (UserPage.checkCommerc == true && serviceTypeCode.value == null)) {
+        return { 'informer': true, 'factorialCategoryCode': true, 'serviceTypeCode': true }
+      }
+      if ((informer.value == null || (informer.value.trim() == '')) && (UserPage.checkFactorail == true && factorialCategoryCode.value == null)) {
+        return { 'informer': true, 'factorialCategoryCode': true }
+      }
+      if ((informer.value == null || (informer.value.trim() == '')) && (UserPage.checkCommerc == true && serviceTypeCode.value == null)) {
+        return { 'informer': true, 'serviceTypeCode': true }
+      }
+      if ((informer.value == null || (informer.value.trim() == ''))) {
         return { 'informer': true }
       }
-
+      if ((UserPage.checkFactorail == true && factorialCategoryCode.value == null) && (UserPage.checkCommerc == true && serviceTypeCode.value == null)) {
+        return { 'factorialCategoryCode': true, 'serviceTypeCode': true };
+      }
       if (UserPage.checkFactorail == true && factorialCategoryCode.value == null) {
         return { 'factorialCategoryCode': true };
       }
-      
       if (UserPage.checkCommerc == true && serviceTypeCode.value == null) {
         return { 'serviceTypeCode': true };
       }

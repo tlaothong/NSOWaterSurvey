@@ -138,6 +138,7 @@ export class IrrigationPage {
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.isCheckWarningBox = this.f.valid;
+    console.log(this.f);
 
     if (this.f.valid) {
       this.arrayIsCheckMethod();
@@ -154,23 +155,23 @@ export class IrrigationPage {
     }
     else {
       const hasPump = this.f.get('hasPump').value;
-      const pumpsValid = this.f.get('pumps').invalid;
+      const pumpsInValid = this.f.get('pumps').invalid;
       const pumpCountValid = this.f.get('pumpCount').valid;
       const waterActivitiesValid = this.f.get('waterActivities').valid;
       const qualityProblemValid = this.f.get('qualityProblem').valid;
 
-      if (hasPump == false && pumpsValid && pumpCountValid && waterActivitiesValid && qualityProblemValid) { // เข้าเงื่อนไขที่ยกเว้นได้
+      if (hasPump == false && pumpsInValid && pumpCountValid && waterActivitiesValid && qualityProblemValid) { // เข้าเงื่อนไขที่ยกเว้นได้
         const confirmChanged = this.alertCtrl.create({
           title: 'แก้ไขข้อมูลให้ถูกต้อง',
           message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
           buttons: [
+            "ยกเลิก",
             {
               text: "ยืนยัน",
               handler: () => {
                 this.f.get('pumpCount').setValue(0);
               },
             },
-            "ยกเลิก",
           ]
         });
         confirmChanged.present();
