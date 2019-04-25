@@ -64,12 +64,13 @@ export class WaterSources9Component {
       const rain = c.get('rain');
       const buying = c.get('buying');
       const rainingAsIs = c.get('rainingAsIs');
-      const doing = c.parent ? c.parent.get('doing') : new FormControl;
+      const doing = (c.root && c.root.get('doing')) ? c.root.get('doing') : new FormControl;
 
       if (doing.value && !plumbing.value && !underGround.value && !pool.value && !river.value && !hasOther.value && !irrigation.value
         && !rain.value && !buying.value && !rainingAsIs.value) {
         return { 'anycheck': true };
-      } else if (doing.value && hasOther.value == true && (!other.value || other.value.trim() == '')) {
+      }
+      else if (doing.value && hasOther.value == true && (!other.value || other.value.trim() == '')) {
         return { 'other': true };
       }
       return null;

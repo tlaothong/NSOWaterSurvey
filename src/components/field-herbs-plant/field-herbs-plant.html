@@ -15,14 +15,12 @@
         </ion-label>
       </ion-item>
       <location [FormItem]="FormItem.get('location')" [isAnimal]="false"></location>
-
       <ion-item>
         <ion-label>
           2) ขนาดพื้นที่เท่าไร กี่ไร่ กี่งาน กี่ตารางวา
         </ion-label>
       </ion-item>
       <field-area [FormItem]="FormItem.get('area')"></field-area>
-
       <ion-item>
         <ion-label>
           3) ที่แปลงนี้ตั้งอยู่ในเขตชลประทานหรือไม่
@@ -49,12 +47,12 @@
         </ion-item>
       </ion-row>
 
+      <ion-item>
+        <ion-label>
+          4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>พืชผัก สมุนไพร</b><br>ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
+        </ion-label>
+      </ion-item>
       <div [class.invalid]="isValid('plantings')">
-        <ion-item>
-          <ion-label>
-            4) ในรอบ 12 เดือนที่ผ่านมาที่แปลงนี้ปลูก<b>พืชผัก สมุนไพร</b><br>ชนิดใด (ระบุได้ไม่เกิน 5 ชนิด)
-          </ion-label>
-        </ion-item>
         <modal-plant Title="พืชผัก สมุนไพร" [InputList]="shownData" InputLimit="5"
           [FormItem]="FormItem.get('plantings')" textTitleOnDialog="ระบุได้หลายชนิด"></modal-plant>
         <ion-item *ngIf="isValid('plantings')">
