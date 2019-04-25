@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getFactorialCategory, getCommercialServiceType, getIsFactorial, getIsCommercial } from '../../states/household';
@@ -34,30 +34,34 @@ export class UserPage {
   private backNum: any;
   private isCheckWarningBox: boolean;
   private oldStatus: string;
+  private static checkCommerc: boolean;
+  private static checkFactorail: boolean;
 
   constructor(public navCtrl: NavController, private appState: AppStateProvider, private storeBuild: Store<BuildingState>, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>) {
     this.userInfo = this.fb.group({
       "informer": [null, Validators.required],
       "factorialCategoryCode": [null, Validators.required],
       "serviceTypeCode": [null, Validators.required]
-    });
+    }, {
+        validator: UserPage.checkAnyOrOther()
+      });
   }
 
   ionViewDidLoad() {
-    
+
     this.factorialCategory$.subscribe(data => this.facCategory = data);
     this.commercialServiceType$.subscribe(data => this.commercialServiceType = data);
     this.facCategoryUse$.subscribe(data => this.facCategoryUse = data);
     this.commercialServiceUse$.subscribe(data => this.commercialServiceUse = data);
+    UserPage.checkCommerc = this.commercialServiceUse;
+    UserPage.checkFactorail = this.facCategoryUse;
   }
 
   public handleSubmit() {
     this.submitRequested = true;
-    console.log("this.checkValidCommercialType()", this.checkValidCommercialType());
-    console.log("this.checkValidFactorialType()", this.checkValidFactorialType());
 
-    this.isCheckWarningBox = (this.userInfo.get('informer').valid && this.checkValidCommercialType() && this.checkValidFactorialType());
-    if (this.userInfo.get('informer').valid && this.checkValidCommercialType() && this.checkValidFactorialType()) {
+    this.isCheckWarningBox = this.userInfo.valid;
+    if (this.userInfo.valid) {
       this.arrayIsCheckMethod();
       let originalHouseHold = this.appState.houseHoldUnit;
       let newHouseHold = {
@@ -78,79 +82,75 @@ export class UserPage {
     }
   }
 
-  public checkValidCommercialType(): boolean {
-    if (this.commercialServiceType == null) {
-      return true;
-    }
-    else {
-      if (this.userInfo.get('serviceTypeCode').valid) {
-        return true;
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const informer = c.get('informer');
+      const factorialCategoryCode = c.get('factorialCategoryCode');
+      const serviceTypeCode = c.get('serviceTypeCode');
+
+      if (informer.value == null) {
+        return { 'informer': true }
       }
-      else
-        return false;
+
+      if (UserPage.checkFactorail == true && factorialCategoryCode.value == null) {
+        return { 'factorialCategoryCode': true };
+      }
+      
+      if (UserPage.checkCommerc == true && serviceTypeCode.value == null) {
+        return { 'serviceTypeCode': true };
+      }
+      return null;
     }
   }
 
-  public checkValidFactorialType(): boolean {
-    // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
-    if (this.facCategory == null) {
-      return true;
-    }
-    else {
-      if (this.userInfo.get('factorialCategoryCode').valid) {
-        return true;
-      }
-      else
-        return false;
-    }
-  }
-  // public updateUnitCountComplete() {
-  //   this.storage.get(this.formData.buildingId).then((val) => {
-  //     if (val != null) {
-  //       let building = val;
-  //       if (this.formData.status == "complete" && this.oldStatus != "complete") {
-  //         building.unitCountComplete++;
-  //         if (building.unitCountComplete == building.unitCount) {
-  //           building.status = "done-all";
-  //         }
-  //       }
-  //       else if (this.formData.status != "complete" && this.oldStatus == "complete") {
-  //         building.unitCountComplete--;
-  //         if (building.status == "done-all") {
-  //           building.status = "pause";
-  //         }
-  //       }
-  //       this.storage.set(this.formData.buildingId, building);
-  //       this.storage.get(building.ea).then((val) => {
-  //         let BDlist = val
-  //         let index = BDlist.findIndex(it => it._id == building._id)
-  //         BDlist.splice(index, 1, building);
-  //         // BDlist.push(building)
-  //         this.storage.set(building.ea, BDlist)
-  //       })
+  // public checkValidCommercialType(): boolean {
+  //   if (this.commercialServiceType == null) {
+  //     return true;
+  //   }
+  //   else {
+  //     if (this.userInfo.get('serviceTypeCode').valid) {
+  //       return true;
   //     }
-  //   });
+  //     else
+  //       return false;
+  //   }
   // }
 
-  
+  // public checkValidFactorialType(): boolean {
+  //   // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
+  //   if (this.facCategory == null) {
+  //     return true;
+  //   }
+  //   else {
+  //     if (this.userInfo.get('factorialCategoryCode').valid) {
+  //       return true;
+  //     }
+  //     else
+  //       return false;
+  //   }
+  // }
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(22));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 22)) {
-    //       arrayIsCheck.push(22);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.userInfo.get(name);
+
+    if (name == 'informer') {
+      var ctrls = this.userInfo;
+      return ctrls.errors && ctrls.errors.informer && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'factorialCategoryCode') {
+      var ctrls = this.userInfo;
+      return ctrls.errors && ctrls.errors.factorialCategoryCode && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'serviceTypeCode') {
+      var ctrls = this.userInfo;
+      return ctrls.errors && ctrls.errors.serviceTypeCode && (ctrl.dirty || this.submitRequested);
+    }
+
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
+
   }
 }
