@@ -18,7 +18,8 @@ export class WaterActivity6Component {
   @Input('activeCom') public activeCom: any;
 
   public waterActivitiesWhichToUse: any;
-  public totalSum: number
+  public totalSum: number;
+  public isCheck: boolean;
 
   private static activeRes: boolean;
   private static activeWateringRes: boolean;
@@ -34,6 +35,7 @@ export class WaterActivity6Component {
 
   submitRequest() {
     this.submitRequested = true;
+    this.isCheck = this.FormItem.valid;
   }
 
   ngOnInit() {
