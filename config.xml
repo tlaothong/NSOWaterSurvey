@@ -95,5 +95,4 @@
         <variable name="CHANNEL_NAME" value="Production" />
         <variable name="UPDATE_METHOD" value="none" />
     </plugin>
-    <plugin name="cordova-plugin-appcenter-push" spec="^0.3.3" />
 </widget>
