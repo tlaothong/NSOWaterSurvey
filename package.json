@@ -20,6 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/app-center-push": "^4.20.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/geolocation": "^4.20.0",
     "@ionic-native/qr-scanner": "^4.20.0",
@@ -35,6 +36,7 @@
     "@ngrx/store-devtools": "^5.2.0",
     "circular-json": "^0.5.9",
     "cordova-android": "7.0.0",
+    "cordova-plugin-appcenter-push": "^0.3.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-file-transfer": "^1.7.1",
@@ -81,7 +83,8 @@
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate the buildings and units during survey."
       },
-      "cordova-plugin-secure-storage": {}
+      "cordova-plugin-secure-storage": {},
+      "cordova-plugin-appcenter-push": {}
     },
     "platforms": [
       "android"
