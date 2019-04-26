@@ -1,4 +1,4 @@
-import { SetWaterSourcesCommercial, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from './../../states/household/household.actions';
+import { SetWaterSourcesCommercial, SetSelectorIndex, SaveHouseHold } from './../../states/household/household.actions';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
@@ -6,13 +6,10 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources8BComponent } from '../../components/water-sources8-b/water-sources8-b';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetCommercialServiceType, SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
+import { getHouseHoldSample } from '../../states/household';
+import { SetCommercialServiceType } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
 import { getSendBuildingType, getOtherBuildingType } from '../../states/building';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -40,7 +37,9 @@ export class CommercialPage {
   private backNum: any;
   private otherBuildingType$ = this.storeBuild.select(getOtherBuildingType);
 
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private store: Store<HouseHoldState>, private storage: Storage, private storeBuild: Store<BuildingState>, public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>, 
+    public navParams: NavParams, public alertCtrl: AlertController, private fb: FormBuilder, 
+    private appState: AppStateProvider) {
     this.f = this.fb.group({
       'name': [null, Validators.required],
       'serviceType': [null, Validators.required],

@@ -5,11 +5,8 @@ import { TableCheckItemCountComponent } from '../../components/table-check-item-
 import { WaterSources9Component } from '../../components/water-sources9/water-sources9';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -31,7 +28,7 @@ export class AnimalFarmPage {
   private backNum: any;
   private isCheckWarningBox: boolean;
 
-  constructor(public navCtrl: NavController, public local: LocalStorageProvider, private storage: Storage, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public alertCtrl: AlertController, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'cow': TableCheckItemCountComponent.CreateFormGroup(this.fb),
@@ -69,9 +66,11 @@ export class AnimalFarmPage {
     this.tableCheckItemCount.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
     this.isCheckWarningBox = this.f.valid || (this.f.get('doing').value == false);
+
+    this.f.get('waterSources').updateValueAndValidity();
     console.log(this.f);
 
-    if (this.f.valid || (this.f.get('doing').value == false)) {
+    if (this.f.valid) {
 
       this.arrayIsCheckMethod();
       let agri = {
@@ -86,8 +85,6 @@ export class AnimalFarmPage {
       this.navCtrl.popTo("CheckListPage");
     }
   }
-
-
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(9));
@@ -106,6 +103,10 @@ export class AnimalFarmPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
+    if (name == 'anycheck') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.anycheck && (ctrls.dirty || this.submitRequested);
+    }
     if (name == 'otherName') {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.otherName && (ctrl.dirty || this.submitRequested);
@@ -131,23 +132,21 @@ export class AnimalFarmPage {
       const other = c.get('other');
       const otherName = c.get('otherName');
       const animalUnit = c.get('animalUnit');
+      const doing = c.get('doing');
 
-
-
-      if (!cow.value.itemCount && !buffalo.value.itemCount && !pig.value.itemCount && !goat.value.itemCount && !sheep.value.itemCount
-        && !chicken.value.itemCount && !duck.value.itemCount && !goose.value.itemCount && !silkWool.value.itemCount && !other.value.itemCount) {
+      if (doing.value && cow.value.itemCount == null && buffalo.value.itemCount == null && pig.value.itemCount == null && goat.value.itemCount == null && sheep.value.itemCount == null
+        && chicken.value.itemCount == null && duck.value.itemCount == null && goose.value.itemCount == null && silkWool.value.itemCount == null && other.value.itemCount == null) {
         return { 'anycheck': true };
       }
-      if (other.value.hasItem && (otherName.value == null || otherName.value.trim() == '') && (animalUnit.value == null || animalUnit.value.trim() == '')) {
+      if (doing.value && other.value.hasItem && (otherName.value == null || otherName.value.trim() == '') && (animalUnit.value == null || animalUnit.value.trim() == '')) {
         return { 'otherName': true, 'animalUnit': true }
       }
-      if (other.value.hasItem && (otherName.value == null || otherName.value.trim() == '')) {
+      if (doing.value && other.value.hasItem && (otherName.value == null || otherName.value.trim() == '')) {
         return { 'otherName': true }
       }
-      if (other.value.hasItem && (animalUnit.value == null || animalUnit.value.trim() == '')) {
+      if (doing.value && other.value.hasItem && (animalUnit.value == null || animalUnit.value.trim() == '')) {
         return { 'animalUnit': true }
       }
-
       return null;
     }
   }

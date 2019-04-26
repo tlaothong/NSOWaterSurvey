@@ -8,7 +8,7 @@ import { LocationComponent } from '../location/location';
 import { WaterSources8AComponent } from '../water-sources8-a/water-sources8-a';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying, SetWaterSourcesRice } from '../../states/household/household.actions';
+import { SetWaterSourcesRice } from '../../states/household/household.actions';
 import { ModalController } from 'ionic-angular';
 import { CountComponent } from '../count/count';
 

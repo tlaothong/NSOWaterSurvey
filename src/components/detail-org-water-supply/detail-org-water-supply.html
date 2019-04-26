@@ -57,7 +57,7 @@
         </ion-item>
         <ion-item>
           <ion-input formControlName="surfaceWaterPerMonth" [class.invalid]="isValid('surfaceWaterPerMonth')"
-            type="text" placeholder="กรอกข้อมูล"></ion-input>
+            type="number" placeholder="กรอกข้อมูล"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('surfaceWaterPerMonth')">
           <span class="invalid-msg">
@@ -104,7 +104,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')" type="text"
+          <ion-input formControlName="groundWaterCount" [class.invalid]="isValid('groundWaterCount')" type="number"
             placeholder="กรอกข้อมูล"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('groundWaterCount')">
@@ -120,7 +120,7 @@
         </ion-item>
         <ion-item>
           <ion-input formControlName="groundWaterUsePerMonth" [class.invalid]="isValid('groundWaterUsePerMonth')"
-            type="text" placeholder="กรอกข้อมูล"></ion-input>
+            type="number" placeholder="กรอกข้อมูล"></ion-input>
         </ion-item>
         <ion-item *ngIf="isValid('groundWaterUsePerMonth')">
           <span class="invalid-msg">
@@ -137,11 +137,11 @@
 
       <ion-item>
         <ion-label>
-          5.5 น้ำประปาราคาขายต่อหน่วยเท่าไหร่
+          5.5 น้ำประปาราคาขายต่อหน่วยเท่าไร
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="plumbingPrice" [class.invalid]="isValid('plumbingPrice')" type="text"
+        <ion-input formControlName="plumbingPrice" [class.invalid]="isValid('plumbingPrice')" type="number"
           placeholder="กรอกข้อมูล"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('plumbingPrice')">
@@ -162,7 +162,7 @@
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="meterRentalFee" [class.invalid]="isValid('meterRentalFee')" type="text"
+        <ion-input formControlName="meterRentalFee" [class.invalid]="isValid('meterRentalFee')" type="number"
           placeholder="กรอกข้อมูล"></ion-input>
       </ion-item>
       <ion-item *ngIf="isValid('meterRentalFee')">
@@ -179,7 +179,7 @@
 
       <ion-item>
         <ion-label>
-          5.7 การผลิตน้ำประปา มีระบบการฆ่าโรคเชื้อหรือไม่
+          5.7 การผลิตน้ำประปา มีระบบการฆ่าเชื้อโรคหรือไม่
         </ion-label>
       </ion-item>
       <ion-row radio-group formControlName="disinfection" [class.invalid]="isValid('disinfection')">

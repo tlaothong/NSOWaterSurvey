@@ -1,13 +1,12 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, AlertController, LoadingController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoggingState } from '../../states/logging/logging.reducer';
-import { getHomeBuilding, getStoreWorkEaOneRecord, getLoadCommunity, getLoadCommunityForEdit } from '../../states/logging';
+import { getHomeBuilding, getStoreWorkEaOneRecord } from '../../states/logging';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetRecieveDataFromBuilding, SaveBuilding, NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
-import { Storage } from '@ionic/storage';
+import { NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
@@ -52,7 +51,7 @@ export class HomesPage {
 
   public listMode: string = "recent";
 
-  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder, private storage: Storage,
+  constructor(public loadingCtrl: LoadingController, private fb: FormBuilder,
     public alertController: AlertController, public navCtrl: NavController,
     public navParams: NavParams, private popoverCtrl: PopoverController,
     private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
@@ -72,30 +71,10 @@ export class HomesPage {
   }
 
   ionViewDidEnter() {
-    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataWorkEARow = data
-    // this.statusEa = data.properties.ea_type;
-    // console.log(this.dataWorkEARow);
-    // console.log(this.statusEa);
-
-    // this.str = data._id.substring(1, 7);
-    // console.log(this.str);
-
-    // this.store.dispatch(new SetIdEaWorkHomes(this.str));
-    //   }
-    // });
-
     let eaCode = this.appState.eaCode;
-
-    // this.storage.get("CL" + eaCode).then((val) => {
-    //   if (val != null) {
-    //     this.dataCommunity = val
-    //     console.log(this.dataCommunity);
-    //   }
-    // })
+    this.switchListMode();
   }
+
   presentLoading() {
     const loader = this.loadingCtrl.create({
       content: "กรุณารอสักครู่...",
@@ -112,13 +91,14 @@ export class HomesPage {
   // TODO: Will be handled this
   initializeItems() {
     // this.listFilter = this.dataEa;
-    this.buildingListAll$ = this.buildings$;
-    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort(it => -it.lastUpdate));
+    this.buildingListAll$ = this.buildings$.map(lst => lst.sort((l, r) => +l.buildingId.substring(3) - +r.buildingId.substring(3)));
+    this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort((l, r) => r.lastUpdate - l.lastUpdate));
     this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
     this.buidlingListPaused$ = this.buildings$.map(lst => lst.filter(it => it.status == "pause"));
   }
 
   switchListMode() {
+    this.buildingList$ = this.buildings$;
     switch (this.listMode) {
       case "recent":
         this.buildingList$ = this.buildingListRecentlyUse$;
@@ -156,31 +136,9 @@ export class HomesPage {
     if (this.office == 'building') {
       this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
       this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
-
-      // //this.swith.updateBuildingState(item._id);
-      // this.storage.get(item.buildingId).then((val) => {
-      //   console.log(val);
-      //   this.storeBuild.dispatch(new SaveBuilding(val));
-      //   this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
-      //   // switch (val.status) {
-      //   //   case 'refresh':
-      //   //     this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: val._id });
-      //   //     break;
-      //   //   case 'pause':
-      //   //     this.navCtrl.push("UnitPage");
-      //   //     break;
-      //   //   default:
-      //   //     break;
-      //   // }
-      // })
     }
     else if (this.office == 'areayoi') {
-      console.log(item);
-      // this.storage.get(item).then((val) => {
-      //   console.log(val);
-      //   this.storeLogging.dispatch(new LoadCommunityForEditSuccess(val));
-      //   this.navCtrl.push("CommunityTestPage", { no: no.toString() })
-      // });
+    
     }
     // this.presentLoading();
   }

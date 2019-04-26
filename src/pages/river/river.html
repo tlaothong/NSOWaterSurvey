@@ -67,18 +67,19 @@
     <ion-card
       *ngIf="residenceUse == true || gardeningUse == true || agricultureUse == true || factoryUse == true || commerceUse == true || riceDoing == true">
       <ion-card-content>
-        <water-activity6 headline="5.3.3 ใช้น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ "
-          headline2="เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร " [FormItem]="f.get('waterActivities')"
-          activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}" activRice="{{activityRice}}"
-          activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}">
-        </water-activity6>
+          <water-activity6 headline="5.3.3 ใช้น้ำจากแม่น้ำ/ลำคลอง/แหล่งน้ำสาธารณะ "
+            headline2="เพื่อทำกิจกรรมใดบ้างคิดเป็นสัดส่วนเท่าไร " [FormItem]="f.get('waterActivities')"
+            activeRes="{{activityResidential}}" activeWateringRes="{{activityWateringRes}}" activRice="{{activityRice}}"
+            activeAgi="{{activityAgiculture}}" activeFac="{{activityFactory}}" activeCom="{{activityCommercial}}">
+          </water-activity6>
+          
         <water-problem4 headline="5.3.4 มีปัญหาคุณภาพน้ำ หรือไม่" [FormItem]="f.get('qualityProblem')"></water-problem4>
       </ion-card-content>
     </ion-card>
 
     <warning *ngIf="!isCheckWarningBox && submitRequested"></warning>
 
-    <form-buttons-bar ></form-buttons-bar>
+    <form-buttons-bar></form-buttons-bar>
 
   </form>
 </ion-content>

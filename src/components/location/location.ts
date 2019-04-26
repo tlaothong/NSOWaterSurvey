@@ -1,10 +1,9 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, Input, Directive } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { provinceData } from '../../models/ProvinceData';
 import { LocationDataProvider } from '../../providers/location-data/location-data';
-import { districtData, District } from '../../models/DistrictData';
-import { subDistrictData } from '../../models/SubDistrictData';
+import { districtData } from '../../models/DistrictData';
 
 @Component({
   selector: 'location',

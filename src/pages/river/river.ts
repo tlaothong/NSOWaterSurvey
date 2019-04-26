@@ -1,16 +1,13 @@
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { PumpComponent } from '../../components/pump/pump';
 import { WaterActivity6Component } from '../../components/water-activity6/water-activity6';
 import { WaterProblem4Component } from '../../components/water-problem4/water-problem4';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getArrayIsCheck, getNextPageDirection, } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample, getResidentialGardeningUse, getRiceDoing, getIsCommercial, getIsFactorial, getIsAgriculture, getIsHouseHold, getWaterSourcesResidential, getWateringResidential, getWaterSourcesRice, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { CountComponent } from '../../components/count/count';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -60,7 +57,7 @@ export class RiverPage {
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, private alertCtrl: AlertController) {
     this.f = this.fb.group({
       'hasPump': [null, Validators],
       'pumpCount': [null, Validators],
@@ -74,7 +71,7 @@ export class RiverPage {
   }
 
   ionViewDidLoad() {
-    
+
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -135,9 +132,11 @@ export class RiverPage {
     this.waterActivity6.forEach(it => it.submitRequest());
     this.waterProblem4.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    this.isCheckWarningBox = this.f.valid && !this.waterActivity6.some(it => it.isCheck == false);
+    this.isCheckWarningBox = this.f.valid;
+    console.log(this.f);
 
-    if (this.f.valid && !this.waterActivity6.some(it => it.isCheck == false)) {
+
+    if (this.f.valid) {
       this.arrayIsCheckMethod();
       let water = {
         ...this.appState.houseHoldUnit.waterUsage,
@@ -146,9 +145,32 @@ export class RiverPage {
       let houseHold = {
         ...this.appState.houseHoldUnit,
         waterUsage: water,
-      };  
+      };
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
+    }
+    else {
+      const doing = this.f.get('hasPump').value;
+      const pumpsInvalid = this.f.get('pumps').invalid;
+      const pumpCountValid = this.f.get('pumpCount').valid;
+      const waterActivitiesValid = this.f.get('waterActivities').valid;
+      const qualityProblemValid = this.f.get('qualityProblem').valid;
+      if (doing == false && pumpCountValid && pumpsInvalid && waterActivitiesValid && qualityProblemValid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.f.get('pumpCount').setValue(0);
+              },
+            },
+            "ยกเลิก",
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 
@@ -162,6 +184,10 @@ export class RiverPage {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.pumpCount && (ctrl.dirty || this.submitRequested);
     }
+    // if (name == 'waterActivities') {
+    //   let ctrls = this.f;
+    //   return ctrls.errors && ctrls.errors.waterActivities && (ctrl.dirty || this.submitRequested);
+    // }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -169,6 +195,8 @@ export class RiverPage {
     return (c: AbstractControl): ValidationErrors | null => {
       const hasPump = c.get('hasPump');
       const pumpCount = c.get('pumpCount');
+      // const waterActivities = c.get('waterActivities');
+      const qualityProblem = c.get('qualityProblem');
 
       if (hasPump.value == null) {
         return { 'hasPump': true };
@@ -176,6 +204,9 @@ export class RiverPage {
       if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
+      // if (waterActivities.  ) {
+      //   return { 'waterActivities': true };
+      // }
       return null;
     }
   }

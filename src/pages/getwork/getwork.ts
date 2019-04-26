@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Alert, AlertController, LoadingController } from 'ionic-angular';
-import { LoggingState } from '../../states/logging/logging.reducer';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
-import { getUserData, getDataWorkEA } from '../../states/logging';
-import { LoadDataWorkEAByUserId, LoadCountOfWorks } from '../../states/logging/logging.actions';
-import { Storage } from '@ionic/storage';
+import { getDataWorkEA } from '../../states/logging';
 import { DownloadUserToMobile } from '../../states/bootup/bootup.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
@@ -28,7 +25,7 @@ export class GetworkPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
       private loadingCtrl: LoadingController,
-      private store: Store<BootupState>, private storage: Storage, public alertController: AlertController, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
+      private store: Store<BootupState>, public alertController: AlertController, private cloudSync: CloudSyncProvider, private appState: AppStateProvider) {
 
     this.loading = this.loadingCtrl.create({
       enableBackdropDismiss: false,
@@ -53,21 +50,7 @@ export class GetworkPage {
   }
 
   ionViewDidEnter() {
-    // console.log('ionViewDidLoad GetworkPage');
-    // this.storage.get('UserInfo').then((val) => {
-    //   if(val != null){
-    //     this.userInfo = val;
-    //     this.eaList = this.userInfo.eaList;
-    //     console.log(this.userInfo);
-        
-    //     this.storage.get(val.idUser).then((val) => {
-    //       if (val != null) {
-    //         this.isWork = true;
-    //         this.presentAlert();
-    //       }
-    //     });
-    //   }
-    // });
+ 
   }
 
   hideLoading() {
@@ -83,15 +66,6 @@ export class GetworkPage {
     this.navCtrl.setRoot("SelectEaPage");
     // this.store.dispatch(new LoadDataWorkEAByUserId(this.userInfo));
     // this.store.dispatch(new LoadCountOfWorks(this.userInfo));
-    // this.formDataEa$.subscribe(data => {
-    //   console.log(data);
-      
-    //   if (data != null) {
-    //     this.dataEa = data
-    //     console.log(this.dataEa);
-    //     this.storage.set(this.userInfo.idUser, this.dataEa);
-    //     this.navCtrl.setRoot("SelectEaPage");
-    //   }
-    // });
+  
   }
 }

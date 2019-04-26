@@ -2,15 +2,12 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { CrocodileFarmingComponent } from '../../components/crocodile-farming/crocodile-farming';
 import { FrogFarmingComponent } from '../../components/frog-farming/frog-farming';
 import { FishFarmingComponent } from '../../components/fish-farming/fish-farming';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { getHouseHoldSample, getArrayIsCheck, getNextPageDirection } from '../../states/household';
+import { getHouseHoldSample } from '../../states/household';
 import { Component, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 @IonicPage()
@@ -31,7 +28,8 @@ export class WaterAnimalPlantingPage {
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder, private appState: AppStateProvider) {
+
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>, public navParams: NavParams, public fb: FormBuilder, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'doing': [null, Validators.required],
       'isFish': [false, Validators.required],
@@ -201,4 +199,59 @@ export class WaterAnimalPlantingPage {
       return null;
     }
   }
+  // public static checkAnyOrOther(): ValidatorFn {
+  //   return (c: AbstractControl): ValidationErrors | null => {
+  //     const isFish = c.get('isFish');
+  //     const isShrimp = c.get('isShrimp');
+  //     const isFrog = c.get('isFrog');
+  //     const isSnappingTurtle = c.get('isSnappingTurtle');
+  //     const isCrocodile = c.get('isCrocodile');
+  //     const isCrab = c.get('isCrab');
+  //     const isShellFish = c.get('isShellFish');
+  //     const isTurtle = c.get('isTurtle');
+  //     const isReddish = c.get('isReddish');
+  //     const fish = c.get('fish');
+  //     const shrimp = c.get('shrimp');
+  //     const frog = c.get('frog');
+  //     const snappingTurtle = c.get('snappingTurtle');
+  //     const crocodile = c.get('crocodile');
+  //     const crab = c.get('crab');
+  //     const shellFish = c.get('shellFish');
+  //     const turtle = c.get('turtle');
+  //     const reddish = c.get('reddish');
+
+  //     if (!isFish.value && !isShrimp.value && !isFrog.value && !isCrocodile.value && !isCrab.value
+  //       && !isShellFish.value && !isTurtle.value && !isReddish.value && !isSnappingTurtle.value) {
+  //       return { 'anycheck': true };
+  //     }
+  //     if (isFish.value && fish.invalid) {
+  //       return { 'fish': true };
+  //     }
+  //     if (isShrimp.value && shrimp.invalid) {
+  //       return { 'shrimp': true };
+  //     }
+  //     if (isFrog.value && frog.invalid) {
+  //       return { 'frog': true };
+  //     }
+  //     if (isSnappingTurtle.value && snappingTurtle.invalid) {
+  //       return { 'snappingTurtle': true };
+  //     }
+  //     if (isCrocodile.value && crocodile.invalid) {
+  //       return { 'crocodile': true };
+  //     }
+  //     if (isCrab.value && crab.invalid) {
+  //       return { 'crab': true };
+  //     }
+  //     if (isShellFish.value && shellFish.invalid) {
+  //       return { 'shellFish': true };
+  //     }
+  //     if (isReddish.value && turtle.invalid) {
+  //       return { 'turtle': true };
+  //     }
+  //     if (isShrimp.value && reddish.invalid) {
+  //       return { 'reddish': true };
+  //     }
+  //     return null;
+  //   }
+  // }
 }

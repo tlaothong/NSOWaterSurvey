@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, DateTime } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { setHomeBuilding } from '../../states/building';
-import { LoadHouseHoldSample, SaveHouseHold, LoadHouseHoldSampleSuccess, SetNumberRoom } from '../../states/household/household.actions';
-import { getHouseHoldSample } from '../../states/household';
-import { SwithStateProvider } from '../../providers/swith-state/swith-state';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
-import { UnitButtonComponent } from '../../components/unit-button/unit-button';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 // import { Guid } from "guid-typescript";
@@ -40,11 +33,10 @@ export class DlgUnitPage {
   // private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
   // public dataHouseHold$ = this.store.select(getHouseHoldSample);
 
-  constructor(private swithHouseHold: SwithStateProvider, public local: LocalStorageProvider,
-        private storage: Storage, public navCtrl: NavController, private store: Store<HouseHoldState>,
-        private storeBuilding: Store<HouseHoldState>, public navParams: NavParams, 
-        private viewCtrl: ViewController, public fb: FormBuilder,
-        private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, private store: Store<HouseHoldState>,
+    private storeBuilding: Store<HouseHoldState>, public navParams: NavParams,
+    private viewCtrl: ViewController, public fb: FormBuilder,
+    private appState: AppStateProvider) {
 
     this.replaceMode = navParams.get('replaceMode');
     let unitInfo = navParams.get('unitInfo');
@@ -56,7 +48,7 @@ export class DlgUnitPage {
 
     // this.setupAccessCountChanges();
 
-// this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
+    // this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
 
     // this.dataHomeBuilding$.subscribe(data => {
     //   if (data != null) {
@@ -269,67 +261,9 @@ export class DlgUnitPage {
 
   // AddUnit() {
   //   let id = this.FormItem.get('_id').value;
-  //   this.storage.set(id, this.FormItem.value);
   //   this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
   //   let key = this.appState.buildingId;
   //   console.log(this.appState.buildingId);
 
   //   this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value);
-
-  // //   let fin: any
-  // //   let list: any[]
-  // //   this.storage.get(key).then((val) => {
-  // //     list = val
-  // //     console.log(list);
-  // //     if (list != null) {
-  // //       fin = list.find(it => it._id == id)
-  // //       if (fin == null) {
-  // //         list.push(this.FormItem.value);
-  // //         this.storage.set(key, list)
-  // //       } else {
-  // //         let index = list.findIndex(it => it._id == id)
-  // //         list.splice(index, 1, this.FormItem.value);
-  // //         // list.push(this.FormItem.value);
-  // //         this.storage.set(key, list)
-  // //       }
-  // //     } else {
-  // //       list = []
-  // //       list.push(this.FormItem.value);
-  // //       this.storage.set(key, list)
-  // //     }
-  // //   })
-  // //   console.log(this.FormItem.value);
-  // }
-
-  // private setupAccessCountChanges() {
-  //   const componentFormArray: string = "subUnit.accesses";
-  //   const componentCount: string = "subUnit.accessCount";
-
-  //   var onComponentCountChanges = () => {
-  //     var accesses = (this.ff.get(componentFormArray) as FormArray).controls || [];
-  //     var accessCount = this.ff.get(componentCount).value || 0;
-  //     var farr = this.fb.array([]);
-
-  //     accessCount = Math.max(0, accessCount);
-
-  //     for (let i = 0; i < accessCount; i++) {
-  //       var ctrl = null;
-  //       if (i < accesses.length) {
-  //         const fld = accesses[i];
-  //         ctrl = fld;
-  //       } else {
-  //         ctrl = new FormControl();
-  //       }
-
-  //       farr.push(ctrl);
-  //     }
-  //     let fgrp = this.ff.get('subUnit') as FormGroup;
-  //     fgrp.setControl('accesses', farr);
-  //   };
-
-  //   this.ff.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-  //   onComponentCountChanges();
-  // }
-
 }

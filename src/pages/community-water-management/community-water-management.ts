@@ -7,10 +7,8 @@ import { NaturalDisasterComponent } from '../../components/natural-disaster/natu
 import { DisasterWarningMethodsComponent } from '../../components/disaster-warning-methods/disaster-warning-methods';
 import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getCommunitySample } from '../../states/community';
-import { Storage } from '@ionic/storage';
 import { subDistrictData } from '../../models/SubDistrictData';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
@@ -49,9 +47,8 @@ export class CommunityWaterManagementPage {
   public isCommunity: boolean;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
-    private storage: Storage, public navParams: NavParams, private fb: FormBuilder,
-    private storeCom: Store<CommunityState>, private store: Store<LoggingState>,
-    private appState: AppStateProvider) {
+    public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, 
+    private store: Store<LoggingState>, private appState: AppStateProvider) {
     this.id = this.navParams.get('id');
     this.formDataCom = CommunityWaterManagementPage.CreateMainFormGroup(fb);
     this.CommunityWaterManagement = CommunityWaterManagementPage.CreateFormGroup(fb);
@@ -198,8 +195,8 @@ export class CommunityWaterManagementPage {
     this.naturalDisaster.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     this.disasterWarningMethods.forEach(it => it.submitRequest());
-     
-    if(this.appState.communityData != null && this.appState.communityId != null){
+
+    if (this.appState.communityData != null && this.appState.communityId != null) {
       this.formDataCom.setValue(this.appState.communityData);
     }
 

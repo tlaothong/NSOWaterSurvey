@@ -1,13 +1,11 @@
-import { SetArraySkipPageAgiculture, SetSelectorIndex, SaveHouseHold, } from './../../states/household/household.actions';
-import { Component, ViewChildren } from '@angular/core';
+import { SetSelectorIndex, SaveHouseHold, } from './../../states/household/household.actions';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { map } from 'rxjs/operators';
-import { getArraySkipPageAgiculture, getArrayIsCheck, getNextPageDirection, getHouseHoldSample } from '../../states/household';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getArraySkipPageAgiculture, getHouseHoldSample } from '../../states/household';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
 
@@ -29,36 +27,35 @@ export class AgriculturePage {
 
   constructor(private appState: AppStateProvider, public alertController: AlertController, 
       private loadingCtrl: LoadingController,
-      public modalCtrl: ModalController, public navCtrl: NavController, 
-      public local: LocalStorageProvider, private store: Store<HouseHoldState>, 
+      public modalCtrl: ModalController, public navCtrl: NavController, private store: Store<HouseHoldState>, 
       public fb: FormBuilder, public navParams: NavParams) {
     this.f = this.fb.group({
-      "ricePlant": this.fb.group({
-        'doing': [false, Validators.required],
+      'ricePlant': this.fb.group({
+        'doing': [false, Validators],
       }),
       'agronomyPlant': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'rubberTree': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'perennialPlant': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'herbsPlant': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'flowerCrop': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'mushroomPlant': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'animalFarm': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
       'aquaticAnimals': this.fb.group({
-        'doing': [false, Validators.required],
+        'doing': [false, Validators],
       }),
     }, {
         validator: AgriculturePage.checkAnyOrOther()
@@ -148,8 +145,8 @@ export class AgriculturePage {
       const animalFarm = c.get('animalFarm');
       const aquaticAnimals = c.get('aquaticAnimals');
 
-      if (!ricePlant.value && !agronomyPlant.value && !rubberTree.value && !perennialPlant.value && !herbsPlant.value && !flowerCrop.value && !mushroomPlant.value
-        && !animalFarm.value && !aquaticAnimals.value) {
+      if (!ricePlant.value.doing && !agronomyPlant.value.doing && !rubberTree.value.doing && !perennialPlant.value.doing && !herbsPlant.value.doing && !flowerCrop.value.doing && !mushroomPlant.value.doing
+        && !animalFarm.value.doing && !aquaticAnimals.value.doing) {
         return { 'anycheck': true };
       }
       return null;
@@ -181,7 +178,7 @@ export class AgriculturePage {
     this.submitRequested = true;
     this.isCheckWarningBox = !this.isValid('anycheck');
 
-    if (!this.isValid('anycheck')) {
+    if (this.f.valid) {
       let argiRice = {
         ...this.appState.houseHoldUnit.agriculture.ricePlant,
         doing: this.f.get('ricePlant.doing').value,

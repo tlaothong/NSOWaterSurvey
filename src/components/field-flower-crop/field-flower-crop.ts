@@ -1,14 +1,12 @@
 import { FieldAreaComponent } from './../field-area/field-area';
 import { LocationComponent } from './../location/location';
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { ModalController } from 'ionic-angular';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
 
 @Component({
   selector: 'field-flower-crop',
@@ -28,9 +26,13 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
   @Input('agiselectrubber') public getAgiSelectRubber: boolean;
   @Input('agiselectperennial') public getAgiSelectPerennial: boolean;
   private submitRequested: boolean;
+  private static checkSelectRice: boolean;
+  private static checkSelectAgronomy: boolean;
+  private static checkSelectRubber: boolean;
+  private static checkSelectPerennial: boolean;
   public shownData = EX_TREEDOK_LIST;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     this.text = 'Hello World';
     this.FormItem = FieldFlowerCropComponent.CreateFormGroup(this.fb);
   }
@@ -45,7 +47,9 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
       'thisPlantOnly': [null, Validators],
       'primaryPlant': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    })
+    }, {
+        validator: FieldFlowerCropComponent.checkAnyOrOther()
+      })
   }
 
   submitRequest() {
@@ -56,22 +60,52 @@ export class FieldFlowerCropComponent implements ISubmitRequestable {
     this.waterSource9.forEach(it => it.submitRequest());
   }
 
-  public checkPrimaryPlant(): boolean {
-    var arr = this.FormItem.get('primaryPlant.plants').value as any[]
-    console.log(arr);
+  ngOnInit() {
+    FieldFlowerCropComponent.checkSelectRice = this.getAgiSelectRice;
+    FieldFlowerCropComponent.checkSelectAgronomy = this.getAgiSelectAgronomy;
+    FieldFlowerCropComponent.checkSelectRubber = this.getAgiSelectRubber;
+    FieldFlowerCropComponent.checkSelectPerennial = this.getAgiSelectPerennial;
+  }
 
-    if (!this.FormItem.get('thisPlantOnly').value && (this.getAgiSelectRice || this.getAgiSelectAgronomy || this.getAgiSelectRubber || this.getAgiSelectPerennial)) {
-      if (arr.length == 0) {
-        return false;
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const plantings = c.get('plantings.plants').value as Array<any>;
+      const primaryPlant = c.get('primaryPlant.plants').value as Array<any>;
+      const thisPlantOnly = c.get('thisPlantOnly')
+
+      if (plantings.length < 1 && thisPlantOnly.value == null && (FieldFlowerCropComponent.checkSelectRice == true || FieldFlowerCropComponent.checkSelectAgronomy == true || FieldFlowerCropComponent.checkSelectRubber == true || FieldFlowerCropComponent.checkSelectPerennial == true)) {
+        return { 'plantings': true, 'thisPlantOnly': true };
       }
+      if (plantings.length < 1 && (thisPlantOnly.value == false && primaryPlant.length < 1 && (FieldFlowerCropComponent.checkSelectRice == true || FieldFlowerCropComponent.checkSelectAgronomy == true || FieldFlowerCropComponent.checkSelectRubber == true || FieldFlowerCropComponent.checkSelectPerennial == true))) {
+        return { 'plantings': true, 'primaryPlant': true };
+      }
+      if (plantings.length < 1) {
+        return { 'plantings': true };
+      }
+      if (thisPlantOnly.value == null && (FieldFlowerCropComponent.checkSelectRice == true || FieldFlowerCropComponent.checkSelectAgronomy == true || FieldFlowerCropComponent.checkSelectRubber == true || FieldFlowerCropComponent.checkSelectPerennial == true)) {
+        return { 'thisPlantOnly': true };
+      }
+      if (thisPlantOnly.value == false && primaryPlant.length < 1 && (FieldFlowerCropComponent.checkSelectRice == true || FieldFlowerCropComponent.checkSelectAgronomy == true || FieldFlowerCropComponent.checkSelectRubber == true || FieldFlowerCropComponent.checkSelectPerennial == true)) {
+        return { 'primaryPlant': true };
+      }
+
+      return null;
     }
-    return true;
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == "plantings") {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.plantings && (ctrl.dirty || this.submitRequested);
+    };
+    if (name == "primaryPlant") {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.primaryPlant && (ctrl.dirty || this.submitRequested);
+    }
     if (name == "thisPlantOnly") {
-      return ctrl.value == null && (ctrl.dirty || this.submitRequested);
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.thisPlantOnly && (ctrl.dirty || this.submitRequested);
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }

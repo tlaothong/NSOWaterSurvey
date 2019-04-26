@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { NavParams, AlertController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { NavController } from 'ionic-angular/navigation/nav-controller';

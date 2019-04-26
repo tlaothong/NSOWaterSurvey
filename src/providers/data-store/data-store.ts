@@ -123,6 +123,13 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.set("user" + userId, lastname));
   }
 
+   /**
+    * เรียกนามสกุลที่บันทึกไว้
+    */
+  public loadLastName(userId: string): Observable<any> {
+    return Observable.fromPromise(this.storage.get("user" + userId));
+  }
+
   /**
      * บันทึก Community 1 Community
      */

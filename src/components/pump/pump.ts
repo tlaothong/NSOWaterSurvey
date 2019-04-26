@@ -93,6 +93,12 @@ export class PumpComponent implements ISubmitRequestable {
       }
       if ((pumpAuto.value == false)
         && ((hoursPerPump.value == null)
+          || (hoursPerPump.value.trim() == '')) && ((numberOfPumpsPerYear.value == null)
+            || (numberOfPumpsPerYear.value.trim() == '')) && hasPumpRate.value == null) {
+        return { 'hoursPerPump': true, 'numberOfPumpsPerYear': true, 'hasPumpRate': true };
+      }
+      if ((pumpAuto.value == false)
+        && ((hoursPerPump.value == null)
           || (hoursPerPump.value.trim() == ''))) {
         return { 'hoursPerPump': true, };
       }

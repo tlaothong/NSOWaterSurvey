@@ -40,7 +40,6 @@ export class DlgTableBuyingOtherPage {
     this.viewCtrl.dismiss(this.FormItem);
   }
 
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad DlgTableBuyingPage');
     if (this.getIsHouseHold == 'false') {
@@ -50,16 +49,18 @@ export class DlgTableBuyingOtherPage {
       this.FormItem.get('agriculture').setValue(0);
     }
     if (this.getIsFactorial == 'false') {
-
       this.FormItem.get('factory').setValue(0);
     }
     if (this.getIsCommercial == 'false') {
       this.FormItem.get('service').setValue(0);
     }
-    console.log(this.FormItem.value);
-    if (this.FormItem.get('size').invalid) {
+    if (this.FormItem.get('name').value == null) {
+      this.FormItem.get('name').setValue(this.text);
+    }
+    if (this.FormItem.get('size').value == null) {
       this.FormItem.get('size').setValue(this.size);
     }
+    console.log(this.FormItem.value);
   }
 
   public isValid(name: string): boolean {

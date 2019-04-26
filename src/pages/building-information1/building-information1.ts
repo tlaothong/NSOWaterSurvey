@@ -3,11 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType, SaveBuildingSuccess } from '../../states/building/building.actions';
-import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetSendBuildingType, SaveBuilding, SetOtherBuildingType } from '../../states/building/building.actions';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
-import { Guid } from 'guid-typescript';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getBuildingSample } from '../../states/building';
 
@@ -32,7 +30,10 @@ export class BuildingInformation1Page {
   private isCheckWarningBox: boolean;
 
   private dataBuilding$ = this.store.select(getBuildingSample);
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, private store: Store<BuildingState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, 
+    private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, 
+    private store: Store<BuildingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
 
     this.setupAccessCountChanges();
@@ -83,9 +84,20 @@ export class BuildingInformation1Page {
     return (c: AbstractControl): ValidationErrors | null => {
       const buildingType = c.get('buildingType');
       const other = c.get('other');
+      const accesses = c.get('accesses');
+      const accessCount = c.get('accessCount');
+      const vacancyCount = c.get('vacancyCount');
+      const abandonedCount = c.get('abandonedCount');
 
       if (buildingType.value == 16 && (other.value == null || other.value.trim() == '')) {
         return { 'other': true };
+      }
+      if (accesses.value[accessCount.value - 1] == null) {
+        return { 'access': true };
+      }
+      if (accesses.value[accessCount.value - 1] == 4 && (vacancyCount.value == null || abandonedCount.value == null
+        || (vacancyCount.value == 0 && abandonedCount.value == 0))) {
+        return { 'access4': true };
       }
       return null;
     }
@@ -179,18 +191,22 @@ export class BuildingInformation1Page {
     this.submitRequested = true;
     // this.updateStatus();
     this.f.get('status').setValue('');
-    console.log("access", this.access);
+    this.dispatch();
     this.isCheckWarningBox = this.f.valid;
+    console.log(this.f);
 
-    if (this.f.valid && this.access == 1) {
-      this.dispatch();
-      this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
-      // this.storage.set('key', this.f.value)
+    if (this.f.valid) {
+      (this.access == 1) ? this.navCtrl.push("BuidlingInformation2Page", { f: this.f }) : this.navCtrl.push("HomesPage", { f: this.f });
     }
-    else if (this.f.valid && this.checkAccess()) {
-      this.dispatch();
-      this.navCtrl.push("HomesPage", { f: this.f });
-    }
+
+    // if (this.f.valid && this.access == 1) {
+    //   this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
+    //   // this.storage.set('key', this.f.value)
+    // }
+    // else if (this.f.valid && this.checkAccess()) {
+    //   // this.dispatch();
+    //   this.navCtrl.push("HomesPage", { f: this.f });
+    // }
   }
 
   public dispatch() {
@@ -266,16 +282,16 @@ export class BuildingInformation1Page {
     }
   }
 
-  public checkAccess() {
-    if (this.access != null) {
-      return (this.access == 4) ?
-        (this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0)
-        && this.f.get('vacancyCount').value != null
-        && this.f.get('abandonedCount').value != null
-        : true;
-    }
-    return false;
-  }
+  // public checkAccess() {
+  //   if (this.access != null) {
+  //     return (this.access == 4) ?
+  //       (this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0)
+  //       && this.f.get('vacancyCount').value != null
+  //       && this.f.get('abandonedCount').value != null
+  //       : true;
+  //   }
+  //   return false;
+  // }
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
@@ -283,11 +299,15 @@ export class BuildingInformation1Page {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.other && (ctrl.dirty || this.submitRequested);
     }
-    if (name == 'vacancyCount' || name == 'abandonedCount') {
-      let vacancyCount = this.f.get('vacancyCount');
-      let abandonedCount = this.f.get('abandonedCount');
-      return (!(vacancyCount.value > 0 || abandonedCount.value > 0) || ctrl.value == null) && (ctrl.dirty || this.submitRequested);
+    if (name == 'access4') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.access4 && (ctrls.dirty || this.submitRequested);
     }
+    // if (name == 'vacancyCount' || name == 'abandonedCount') {
+    //   let vacancyCount = this.f.get('vacancyCount');
+    //   let abandonedCount = this.f.get('abandonedCount');
+    //   return (!(vacancyCount.value > 0 || abandonedCount.value > 0) || ctrl.value == null) && (ctrl.dirty || this.submitRequested);
+    // }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

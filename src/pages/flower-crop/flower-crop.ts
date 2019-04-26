@@ -1,15 +1,12 @@
 import { FieldFlowerCropComponent } from './../../components/field-flower-crop/field-flower-crop';
 import { Component, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { EX_TREEDOK_LIST } from '../../models/tree';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial, getArrayIsCheck, getNextPageDirection } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
+import { getHouseHoldSample, getPerennialPlantSelectPlant, getAgronomyPlantSelectPlant, getRicePlantSelectPlant, getRubberTreeSelectPlant, getAgiSelectRice, getAgiSelectAgronomy, getAgiSelectRubber, getAgiSelectPerennial } from '../../states/household';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { CountComponent } from '../../components/count/count';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -50,18 +47,20 @@ export class FlowerCropPage {
   private backNum: any;
   private isCheckWarningBox: boolean;
 
-  constructor(public navCtrl: NavController, private appState: AppStateProvider, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private appState: AppStateProvider, public navParams: NavParams, public fb: FormBuilder, public modalCtrl: ModalController, private store: Store<HouseHoldState>) {
     this.flowerCropFrm = this.fb.group({
       'doing': [null, Validators.required],
-      'fieldCount': [null, [Validators.required, Validators.min(1)]],
+      'fieldCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
       'fields': fb.array([
         FieldFlowerCropComponent.CreateFormGroup(fb)]),
-    });
+    }, {
+        validator: FlowerCropPage.checkAnyOrOther()
+      });
     this.setupFieldCountChanges();
   }
 
   ionViewDidLoad() {
-    
+
     this.GetPlantRice$.subscribe(data => {
       if (data != null) {
         this.listRiceData = data
@@ -108,8 +107,6 @@ export class FlowerCropPage {
 
     var sum = this.listDryCropData.concat(this.listPerenialData).concat(this.listRiceData).concat(this.listRubberData)
     this.listSumData = sum;
-    console.log("rice agronomy rubber peren ", this.getAgiSelectRice, this.getAgiSelectAgronomy, this.getAgiSelectRubber, this.getAgiSelectPerennial);
-    console.log(this.listSumData);
   }
 
   model() {
@@ -127,25 +124,13 @@ export class FlowerCropPage {
   }
 
   public handleSubmit() {
-    var checkSelectPrimaryPlant: boolean;
     this.submitRequested = true;
     this.fieldFlowerCrop.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
     console.log(this.flowerCropFrm.value);
-    let fields = this.flowerCropFrm.get('fields').value as Array<any>;
-    let selectedMap = new Map<string, any>();
-    fields.forEach(f => {
-      if (f.plantings && f.plantings.plants) {
-        f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
-      }
-    });
-    let selected = [];
-    selectedMap.forEach(v => selected.push(v));
-    this.fieldFlowerCrop.forEach(it => checkSelectPrimaryPlant = it.checkPrimaryPlant());
-    console.log(checkSelectPrimaryPlant);
-    this.isCheckWarningBox = ((this.flowerCropFrm.valid && selected.length > 0 && checkSelectPrimaryPlant) || (this.flowerCropFrm.get('doing').value == false));
+    this.isCheckWarningBox = this.flowerCropFrm.valid;
 
-    if ((this.flowerCropFrm.valid && selected.length > 0 && checkSelectPrimaryPlant) || this.flowerCropFrm.get('doing').value == false) {
+    if (this.flowerCropFrm.valid) {
       this.arrayIsCheckMethod();
 
       let argi = {
@@ -158,10 +143,31 @@ export class FlowerCropPage {
       };
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
+    } else {
+      const doing = this.flowerCropFrm.get('doing').value;
+      const fieldsInvalid = this.flowerCropFrm.get('fields').invalid;
+      const fieldCountValid = this.flowerCropFrm.get('fieldCount').valid;
+
+      if (doing == false && fieldCountValid && fieldsInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.flowerCropFrm.get('fieldCount').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 
-  
+
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(7));
@@ -178,8 +184,32 @@ export class FlowerCropPage {
     // });
   }
 
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const doing = c.get('doing');
+      const fieldCount = c.get('fieldCount');
+
+      if (doing.value == null) {
+        return { 'doing': true };
+      }
+      if (doing.value != null && doing.value == true && fieldCount.value <= 0) {
+        return { 'fieldCount': true };
+      }
+
+      return null;
+    }
+  }
+
   public isValid(name: string): boolean {
     var ctrl = this.flowerCropFrm.get(name);
+    if (name == 'doing') {
+      let ctrls = this.flowerCropFrm;
+      return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
+    }
+    if (name == 'fieldCount') {
+      let ctrls = this.flowerCropFrm;
+      return ctrls.errors && ctrls.errors.fieldCount && (ctrl.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

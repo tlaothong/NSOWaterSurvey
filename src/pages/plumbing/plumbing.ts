@@ -1,4 +1,4 @@
-import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential, getArrayIsCheck, getNextPageDirection } from './../../states/household/index';
+import { getWaterSourcesResidential, getWaterSourcesAgiculture, getWaterSourcesFactory, getWaterSourcesCommercial, getWateringResidential } from './../../states/household/index';
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -7,12 +7,8 @@ import { WaterActivity5Component } from '../../components/water-activity5/water-
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
-import { map } from 'rxjs/operators';
-import { SetSelectorIndex, LoadHouseHoldSample, SaveHouseHold } from '../../states/household/household.actions';
-import { LoggingState } from '../../states/logging/logging.reducer';
+import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { subDistrictData } from '../../models/SubDistrictData';
-import { Storage } from '@ionic/storage';
-import { LocalStorageProvider } from '../../providers/local-storage/local-storage';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { Observable } from 'rxjs';
 
@@ -62,7 +58,7 @@ export class PlumbingPage {
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
-  constructor(public navCtrl: NavController, private storage: Storage, public local: LocalStorageProvider, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private storeLog: Store<LoggingState>, private appState: AppStateProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({
       'mwa': this.fb.group({
         'doing': [null, Validators.required],

@@ -25,6 +25,42 @@
     <ion-item *ngFor="let tree of searchDisplay">
       <ion-label (click)="select(tree.code,tree.name)">{{tree.code}} {{tree.name}}</ion-label>
     </ion-item>
+    <ion-buttons *ngIf="isSearch">
+      <button ion-button block (click)="searchOtherPlant()">ค้นหาในหมวดอื่น</button>
+    </ion-buttons>
+    <div *ngIf="searchListData != ricePlant">
+      <ion-item *ngFor="let treeOther of searchDisplayOtherPlantRice;">
+        <ion-label>{{treeOther.name}}(หมวดข้าว)</ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="searchListData != dryPlant">
+      <ion-item *ngFor="let treeOther of searchDisplayOtherPlantDry;">
+        <ion-label>{{treeOther.name}}(หมวดพืชไร่)</ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="searchListData != rubberPlant">
+      <ion-item *ngFor="let treeOther of searchDisplayOtherPlantRub;">
+        <ion-label>{{treeOther.name}}(หมวดยางพารา)</ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="searchListData != perenialPlant">
+      <ion-item *ngFor="let treeOther of searchDisplayOtherPlantPeren;">
+        <ion-label>{{treeOther.name}}(หมวดพืชยืนต้น ไม้ผล สวนป่า)</ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="searchListData != herbPlant">
+      <ion-item *ngFor="let treeOther of searchDisplayOtherPlantHerb;">
+        <ion-label>{{treeOther.name}}(หมวดพืชผัก สมุนไพร)</ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="searchListData != flowerPlant">
+      <ion-item *ngFor="let treeOther of searchDisplayOtherPlantFlower;">
+        <ion-label>{{treeOther.name}}(หมวดไม้ดอก ไม้ประดับ การเพาะพันธุ์ไม้)</ion-label>
+      </ion-item>
+    </div>
+    <ion-buttons *ngIf="isNotFound">
+      <button ion-button block (click)="alertNotFoundPlant()">อื่นๆ</button>
+    </ion-buttons>
   </ion-list>
 
 </ion-content>

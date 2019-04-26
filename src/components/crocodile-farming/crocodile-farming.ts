@@ -5,9 +5,6 @@ import { FormGroup, FormBuilder, Validators, FormArray, ValidatorFn, ValidationE
 import { PoolAreaComponent } from '../pool-area/pool-area';
 import { ISubmitRequestable } from '../../shared/ISubmitRequestable';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
-import { Store } from '@ngrx/store';
-import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @Component({
   selector: 'crocodile-farming',
@@ -25,7 +22,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
 
   private submitRequested: boolean;
 
-  constructor(public fb: FormBuilder, private store: Store<HouseHoldState>, public modalCtrl: ModalController) {
+  constructor(public fb: FormBuilder, public modalCtrl: ModalController) {
     console.log('Hello CrocodileFarmingComponent Component');
     this.text = 'Hello World';
   }

@@ -1,7 +1,7 @@
 import { WaterSources9Component } from './../water-sources9/water-sources9';
 import { ISubmitRequestable } from './../../shared/ISubmitRequestable';
 import { Component, Input, ViewChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { LocationComponent } from '../location/location';
 import { FieldAreaComponent } from '../field-area/field-area';
 import { ModalController } from 'ionic-angular';
@@ -36,16 +36,34 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     var fg = fb.group({
       'location': LocationComponent.CreateFormGroup(fb),
       'area': FieldAreaComponent.CreateFormGroup(fb),
-      'irrigationField': ['', Validators.required],
+      'irrigationField': [null, Validators.required],
       'plantings': ModalPlantComponent.CreateFormGroup(fb),
       'otherPlantings': ModalPlantComponent.CreateFormGroup(fb),
       'waterSources': WaterSources9Component.CreateFormGroup(fb)
-    });
+    }, {
+        validator: FieldPerenialPlantingComponent.checkAnyOrOther()
+      });
     return fg;
+  }
+
+  public static checkAnyOrOther(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => {
+      const plantings = c.get('plantings.plants').value as Array<any>;
+
+      if (plantings.length <= 0) {
+        return { 'plantings': true };
+      }
+
+      return null;
+    }
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.FormItem.get(name);
+    if (name == "plantings") {
+      let ctrls = this.FormItem;
+      return ctrls.errors && ctrls.errors.plantings && (ctrl.dirty || this.submitRequested);
+    };
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -55,17 +73,5 @@ export class FieldPerenialPlantingComponent implements ISubmitRequestable {
     this.fieldArea.forEach(it => it.submitRequest());
     this.modalPlant.forEach(it => it.submitRequest());
     this.waterSources9.forEach(it => it.submitRequest());
-    // this.dispatchWaterSource();
   }
-  
-  private dispatchWaterSource() {
-      this.store.dispatch(new SetCheckWaterPlumbing(this.FormItem.get('waterSources.plumbing').value));
-      this.store.dispatch(new SetCheckWaterRiver(this.FormItem.get('waterSources.river').value));
-      this.store.dispatch(new SetCheckWaterIrrigation(this.FormItem.get('waterSources.irrigation').value));
-      this.store.dispatch(new SetCheckWaterRain(this.FormItem.get('waterSources.rain').value));
-      this.store.dispatch(new SetCheckWaterBuying(this.FormItem.get('waterSources.buying').value));
-    console.log("dispatch perenial can work");
-  }
-
-
 }

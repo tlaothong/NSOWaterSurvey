@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ModalController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ModalController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'table-disasterous',
@@ -21,10 +21,10 @@ export class TableDisasterousComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'count': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-      'avgDay': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'count': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+      'avgDay': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'avgHour': [null, [Validators, Validators.min(1), Validators.max(23)]],
-      'waterHeightCm': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
+      'waterHeightCm': [null, Validators.compose([Validators.pattern('[0-9]*')])],
       'year': [null],
     });
   }

@@ -23,15 +23,11 @@ export class CountComponent {
   public submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController) {
-    console.log('Hello CountComponent Component');
 
   }
 
   ngOnInit() {
-    console.log(this.FormItem.value);
-    console.log(this.count);
-    console.log(this.FormItem.get(this.count).value);
-
+  
     let st = this.count.split(".");
     console.log(st);
     this.isGroup = (st.length > 1);
