@@ -100,7 +100,7 @@ export class PlumbingPage {
       'waterActivityPWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
       'hasWaterNotRunning': [null, Validators.required],
-      'waterNotRunningCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required])]
+      'waterNotRunningCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required,  Validators.min(1), Validators.max(12)])]
     });
   }
 
