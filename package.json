@@ -65,7 +65,7 @@
     "plugins": {
       "cordova-plugin-ionic": {
         "APP_ID": "051dd5e2",
-        "CHANNEL_NAME": "Dev",
+        "CHANNEL_NAME": "WShop1",
         "UPDATE_METHOD": "none"
       },
       "cordova-plugin-whitelist": {},
