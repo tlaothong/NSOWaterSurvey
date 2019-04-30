@@ -30,14 +30,12 @@ export class PopulationPage {
   public pro: Province;
   public proName: any;
   public checkEnd: boolean;
-  private frontNum: any;
-  private backNum: any;
   private isCheckWarningBox: boolean;
 
   @ViewChildren(TablePopulationComponent) private persons: TablePopulationComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private storage: Storage,
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public modalCtrl: ModalController, private storage: Storage,
     public navParams: NavParams, private fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider, public alertController: AlertController) {
     this.f = PopulationPage.CreateFormGroup(this.fb);
     this.setupPersonCountChanges();
@@ -47,7 +45,8 @@ export class PopulationPage {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'personCount': [0, [Validators.required, Validators.min(1)]],
+      'skip': [null, Validators.required],
+      'personCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
       'persons': fb.array([])
     }, {
         validator: PopulationPage.checkAnyOrOther()
@@ -56,14 +55,19 @@ export class PopulationPage {
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
+      const skip = c.get('skip');
       const persons = c.get('persons') as FormArray;
+      const personCount = c.get('personCount');
 
       let headFamily = 0;
       for (let i = 0; i < persons.length; i++) {
         if (persons.at(i).get('relationship').value == "1") headFamily++;
       };
 
-      if (headFamily == 0) {
+      if (personCount.value <= 0 && skip.value == false) {
+        return { 'personCount': true };
+      }
+      if (headFamily == 0 && skip.value == false) {
         return { 'headFamily': true };
       }
       return null;
@@ -105,6 +109,27 @@ export class PopulationPage {
       };
       this.store.dispatch(new SaveHouseHold(newHouseHold));
       this.navCtrl.popTo("CheckListPage");
+    } else {
+      const skip = this.f.get('skip').value;
+      const personsInvalid = this.f.get('persons').invalid;
+      const personCountValid = this.f.get('personCount').valid;
+
+      if (skip == true && personCountValid && personsInvalid) { // เข้าเงื่อนไขที่ยกเว้นได้
+        const confirmChanged = this.alertCtrl.create({
+          title: 'แก้ไขข้อมูลให้ถูกต้อง',
+          message: 'ไม่สามารถบันทึกรายการได้ เพราะมีข้อมูลรายละเอียดที่ไม่สมบูรณ์ <p>กด<b>ยืนยัน</b>หากท่านต้องการให้ระบบลบข้อมูลที่กรอกไว้เหล่านั้นทิ้ง แล้วกดบันทึกอีกครั้ง</p> <p>หรือกด<b>ยกเลิก</b>เพื่อกลับไปปรับปรุงข้อมูลด้วยตัวท่านเอง</p>',
+          buttons: [
+            "ยกเลิก",
+            {
+              text: "ยืนยัน",
+              handler: () => {
+                this.f.get('personCount').setValue(0);
+              },
+            },
+          ]
+        });
+        confirmChanged.present();
+      }
     }
   }
 
@@ -113,11 +138,15 @@ export class PopulationPage {
   }
 
   public isValid(name: string): boolean {
+    var ctrl = this.f.get(name);
     if (name == 'headFamily') {
-      var ctrls = this.f;
+      let ctrls = this.f;
       return ctrls.errors && ctrls.errors.headFamily && (ctrls.dirty || this.submitRequested);
     }
-    var ctrl = this.f.get(name);
+    if (name == 'personCount') {
+      let ctrls = this.f;
+      return ctrls.errors && ctrls.errors.personCount && (ctrls.dirty || this.submitRequested);
+    }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
