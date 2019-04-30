@@ -25,13 +25,22 @@ export class ConfirmloginPage {
   constructor(private fb: FormBuilder, private navCtrl: NavController, private navParams: NavParams, private store: Store<LoggingState>,
     private appState: AppStateProvider, private cloud: CloudSyncProvider) {
 
+    this.fg = fb.group({
+      '_idqr': null,
+      'idUser': null,
+      'password': null,
+      'name': null,
+      'email': null,
+      'idEA': null
+    });
+
     let username = this.navParams.data.username;
     this.cloud.getUserInfo(username).subscribe((response: any) => {
       this.fg = fb.group({
         '_idqr': null,
-        'idUser': response.idUser,
+        'idUser': response._id,
         'password': null,
-        'name': response.name,
+        'name': response.titleName + response.firstName + " " + response.lastName,
         'email': response.email,
         'idEA': null
       });

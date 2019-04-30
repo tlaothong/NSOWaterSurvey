@@ -58,12 +58,12 @@ export class FirstloginPage {
     });
 
     if (password == confirmPassword) {
-
-      var deviceId = this.device.serial;
+      
+      let deviceId = this.device.serial;
       this.cloud.saveUserInfo({
-        username: this.f.get('idUser').value,
+        userId: this.f.get('idUser').value,
         deviceId: deviceId,
-        guid: this.guid
+        guidId: this.guid
       }).subscribe((response: any) => {
 
         // TODO: Check decode encription token

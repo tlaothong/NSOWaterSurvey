@@ -7,6 +7,7 @@ import { EA } from '../../models/mobile/MobileModels';
 export class CloudSyncProvider {
 
   private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
+  private readonly baseDevUrl: string = "https://nso-manage-dev.azurewebsites.net/api/";
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
@@ -110,21 +111,11 @@ export class CloudSyncProvider {
   }
 
   public getUserInfo(username: string): Observable<any> {
-    // TODO: Get user info from Server
-    // Hack: Fix return data
-    return Observable.of({
-      name: "sample user",
-      email: "sample@gmail.com",
-      idUser: username
-    });
+    return this.http.get(this.baseDevUrl + "User/GetUser/" + username);
   }
 
-  public saveUserInfo(userInfo: any): any {
-    // TODO: Post data to Server and get Token
-    // Hack: Fix return token
-    return Observable.of({
-      token: "some-token-here"
-    });
+  public saveUserInfo(userInfo: any): Observable<any> {
+    return this.http.post(this.baseDevUrl + "User/CheckGuidUser", userInfo);
   }
 }
 
