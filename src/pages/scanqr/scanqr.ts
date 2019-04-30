@@ -89,29 +89,11 @@ export class ScanqrPage {
               setTimeout(() => {
                 this.qrScanner.hide();
               }, 60000);
-              // if (text.length >= 7) {
-              //   let alert = this.alertCtrl.create({
-              //     title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
-              //   });
-              //   alert.present();
-
-              //   this.appState.userId = text.substr(0, 7);
-
-              //   setTimeout(() => {
-              //     alert.dismiss();
-              //     this.qrScanner.hide();
-              //     this.navCtrl.push("ConfirmloginPage")
-              //   }, 900);
-              // } else {
-              //   let alert = this.alertCtrl.create({
-              //     title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
-              //   });
-              //   alert.present();
-              // }
 
               let dataSplited = text.split("$");
               let guid = dataSplited[0];
               let username = dataSplited[1];
+              this.appState.userId = username;
 
               setTimeout(() => {
                 this.qrScanner.hide();
