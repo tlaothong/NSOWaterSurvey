@@ -24,7 +24,8 @@ export class ScanqrPage {
   constructor(public navCtrl: NavController,
     private alertCtrl: AlertController, private platform: Platform,
     private qrScanner: QRScanner, public navParams: NavParams,
-    private store: Store<LoggingState>, private appState: AppStateProvider) {
+    private store: Store<LoggingState>, private appState: AppStateProvider,
+    private appstate: AppStateProvider) {
   }
 
   ionViewDidLoad() {
@@ -74,7 +75,6 @@ export class ScanqrPage {
   //     .catch((e: any) => console.log('Error is', e));
   // }
 
-
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
@@ -93,17 +93,24 @@ export class ScanqrPage {
               let dataSplited = text.split("$");
               let guid = dataSplited[0];
               let username = dataSplited[1];
-              this.appState.userId = username;
+              let rawData = guid + "$" + username;
+              let signature = dataSplited[2];
+              let result = this.appstate.Verify(rawData, signature)
+              if (result) {
+                this.appState.userId = username;
+                setTimeout(() => {
+                  this.qrScanner.hide();
+                  this.navCtrl.push("ConfirmloginPage", { username: username, guid: guid })
+                }, 900);
 
-              setTimeout(() => {
-                this.qrScanner.hide();
-                this.navCtrl.push("ConfirmloginPage", { username: username, guid: guid })
-              }, 900);
-
-              // this.scanData = text;
-              this.qrScanner.hide(); // hide camera preview
-              scanSub.unsubscribe(); // stop scanning
-              ionApp.style.display = "block";
+                // this.scanData = text;
+                this.qrScanner.hide(); // hide camera preview
+                scanSub.unsubscribe(); // stop scanning
+                ionApp.style.display = "block";
+              }
+              else {
+                // TODO: Handle verify is false
+              }
             });
 
             // show camera preview
@@ -143,4 +150,5 @@ export class ScanqrPage {
 
     }
   }
+
 }

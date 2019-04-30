@@ -25,7 +25,8 @@ export class FirstloginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>,
     private fb: FormBuilder, private alertCtrl: AlertController, private appState: AppStateProvider,
-    private dataStore: DataStoreProvider, private device: Device, private cloud: CloudSyncProvider) {
+    private dataStore: DataStoreProvider, private device: Device, private cloud: CloudSyncProvider,
+    private appstate: AppStateProvider) {
 
     this.f = this.fb.group({
       '_idqr': null,
@@ -69,10 +70,17 @@ export class FirstloginPage {
         // TODO: Check decode encription token
         var isTokenValid = response != null && response.token != null;
         if (isTokenValid) {
-          let token = response.token;
-          let username = this.f.get('idUser').value;
-          this.dataStore.saveUser(username, password, token);
-          this.navCtrl.setRoot("LoginPage");
+          let token = response.token.token;
+          let signature = response.signed;
+          let result = this.appstate.Verify(token, signature)
+          if (result) {
+            let username = this.f.get('idUser').value;
+            this.dataStore.saveUser(username, password, token);
+            this.navCtrl.setRoot("LoginPage");
+          }
+          else {
+            // TODO: Handle verify is false
+          }
         }
         else {
           // TODO: Alert error token is null
