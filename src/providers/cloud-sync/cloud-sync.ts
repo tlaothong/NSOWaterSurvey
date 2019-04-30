@@ -24,12 +24,12 @@ export class CloudSyncProvider {
    * ของเก่า
    *************************/
 
-   LoadWorkByIdEASuccess(payload: any): any {
+  LoadWorkByIdEASuccess(payload: any): any {
     throw new Error("Method not implemented.");
   }
 
   public setHouseHold(data: any): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
   }
 
   public loadHouseHoldSampleTestData(id: string): Observable<any> {
@@ -109,6 +109,23 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/' + id);
   }
 
+  public getUserInfo(username: string): Observable<any> {
+    // TODO: Get user info from Server
+    // Hack: Fix return data
+    return Observable.of({
+      name: "sample user",
+      email: "sample@gmail.com",
+      idUser: username
+    });
+  }
+
+  public saveUserInfo(userInfo: any): any {
+    // TODO: Post data to Server and get Token
+    // Hack: Fix return token
+    return Observable.of({
+      token: "some-token-here"
+    });
+  }
 }
 
 export interface DeviceToCloudInfo {
