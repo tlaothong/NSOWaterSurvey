@@ -8,6 +8,7 @@ import { } from '../../states/bootup';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { LoginUser } from '../../states/bootup/bootup.actions';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,7 @@ export class LoginPage {
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
-    private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
+    private dataStore: DataStoreProvider, private alertCtrl: AlertController, private file: File) {
     this.userData = null;
   }
 
@@ -54,7 +55,17 @@ export class LoginPage {
       buttons: ['ตกลง']
     });
 
-    if (userId == "4050001" && password == "1234") {
+    let readData: any;
+    this.file.readAsText(this.file.dataDirectory, "userdata.json").then(result => {
+      readData = JSON.parse(String(result));
+    }).catch(err => {
+      console.log(err);
+    });
+
+    var isLoginValid = readData.username == userId && password == password;
+    if (!isLoginValid) {
+      wrongPassword.present();
+    } else {
       this.store.dispatch(new LoginUser(userId));
       this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
         if (hasDownloaded) {
@@ -65,26 +76,7 @@ export class LoginPage {
           this.navCtrl.push("GetworkPage");
         }
       });
-      return;
     }
-
-    this.dataStore.validateUser(userId, password).then(valid => {
-      if (!valid) {
-        wrongPassword.present();
-      } else {
-        this.store.dispatch(new LoginUser(userId));
-        this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
-          if (hasDownloaded) {
-            // this.store.dispatch(new DownloadUserToMobile());
-            this.navCtrl.setRoot("SelectEaPage");
-            //  this.presentLoading();
-          } else {
-            this.navCtrl.push("GetworkPage");
-          }
-        });
-      }
-    })
-
 
     /********************** */
     // let data = {

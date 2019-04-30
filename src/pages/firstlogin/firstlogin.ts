@@ -10,6 +10,7 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 import { Device } from '@ionic-native/device';
 import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,7 @@ export class FirstloginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>,
     private fb: FormBuilder, private alertCtrl: AlertController, private appState: AppStateProvider,
-    private dataStore: DataStoreProvider, private device: Device, private cloud: CloudSyncProvider) {
+    private dataStore: DataStoreProvider, private device: Device, private cloud: CloudSyncProvider, private file: File) {
 
     this.f = this.fb.group({
       '_idqr': null,
@@ -58,7 +59,7 @@ export class FirstloginPage {
     });
 
     if (password == confirmPassword) {
-      
+
       let deviceId = this.device.serial;
       this.cloud.saveUserInfo({
         userId: this.f.get('idUser').value,
@@ -67,10 +68,20 @@ export class FirstloginPage {
       }).subscribe((response: any) => {
 
         // TODO: Check decode encription token
-        var token = response.token;
-
-        // TODO: Save token file
-        this.navCtrl.setRoot("LoginPage");
+        var isTokenValid = response != null && response.token != null;
+        if (isTokenValid) {
+          let token = response.token;
+          var data = {
+            username: this.f.get('idUser').value,
+            password: this.f.get('password').value,
+            token: token
+          };
+          this.file.writeFile(this.file.dataDirectory, "userdata.json", JSON.stringify(data), { replace: true })
+          this.navCtrl.setRoot("LoginPage");
+        }
+        else {
+          // TODO: Alert error token is null
+        }
       })
     }
     else {
