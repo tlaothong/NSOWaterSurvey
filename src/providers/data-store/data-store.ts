@@ -45,8 +45,9 @@ export class DataStoreProvider {
   /**
   * ชั่วคราว ๆ
   */
-  public saveUser(userId: string, password: string) {
+  public saveUser(userId: string, password: string, token: string) {
     this.storage.set('ulogin' + userId, password);
+    this.storage.set('tokenlogin' + userId, token);
   }
 
   public async validateUser(userId: string, password: string) {
@@ -123,9 +124,9 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.set("user" + userId, lastname));
   }
 
-   /**
-    * เรียกนามสกุลที่บันทึกไว้
-    */
+  /**
+   * เรียกนามสกุลที่บันทึกไว้
+   */
   public loadLastName(userId: string): Observable<any> {
     return Observable.fromPromise(this.storage.get("user" + userId));
   }
@@ -147,7 +148,7 @@ export class DataStoreProvider {
   /**
     * เรียกข้อมูล Community
     */
-  public loadCommunity(communityId:string): Observable<any> {
+  public loadCommunity(communityId: string): Observable<any> {
     return Observable.fromPromise(this.storage.get(communityId));
   }
 

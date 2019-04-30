@@ -26,7 +26,7 @@ export class FirstloginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<LoggingState>,
     private fb: FormBuilder, private alertCtrl: AlertController, private appState: AppStateProvider,
-    private dataStore: DataStoreProvider, private device: Device, private cloud: CloudSyncProvider, private file: File) {
+    private dataStore: DataStoreProvider, private device: Device, private cloud: CloudSyncProvider) {
 
     this.f = this.fb.group({
       '_idqr': null,
@@ -71,12 +71,8 @@ export class FirstloginPage {
         var isTokenValid = response != null && response.token != null;
         if (isTokenValid) {
           let token = response.token;
-          var data = {
-            username: this.f.get('idUser').value,
-            password: this.f.get('password').value,
-            token: token
-          };
-          this.file.writeFile(this.file.dataDirectory, "userdata.json", JSON.stringify(data), { replace: true })
+          let username = this.f.get('idUser').value;
+          this.dataStore.saveUser(username, password, token);
           this.navCtrl.setRoot("LoginPage");
         }
         else {
