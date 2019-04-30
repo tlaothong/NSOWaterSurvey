@@ -46,13 +46,23 @@ export class DataStoreProvider {
   * ชั่วคราว ๆ
   */
   public saveUser(userId: string, password: string, token: string) {
-    this.storage.set('ulogin' + userId, password);
+    this.storage.set('ulogin' + userId, this.hashCode(password + userId));
     this.storage.set('tokenlogin' + userId, token);
   }
 
   public async validateUser(userId: string, password: string) {
+    var pwdHash = this.hashCode(password + userId)
     let pwd = await this.storage.get('ulogin' + userId);
-    return pwd == password;
+    return pwd == pwdHash;
+  }
+
+  private hashCode(str: string) {
+    var hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash += Math.pow(str.charCodeAt(i) * 31, str.length - i);
+      hash = hash & hash;
+    }
+    return hash;
   }
 
   /*********** */
