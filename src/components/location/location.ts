@@ -16,6 +16,8 @@ export class LocationComponent implements ISubmitRequestable {
   public province: any;
   public district: any;
   public subDistrict: any
+  public provinceCode:any;
+
   @Input() public FormItem: FormGroup;
   @Input("isAnimal") public isAnimal: boolean;
   private submitRequested: boolean;
@@ -80,6 +82,7 @@ export class LocationComponent implements ISubmitRequestable {
 
   onChange(name: any) {
     let code = provinceData.find(it => it.name == name) || null;
+    this.provinceCode = code.codeProvince;
     if (code != null) {
       let order = LocationDataProvider.getDistric(code.codeProvince);
       this.district = order.sort((a, b) => a.name.localeCompare(b.name))
@@ -87,7 +90,7 @@ export class LocationComponent implements ISubmitRequestable {
   }
 
   onChange1(name: any) {
-    var code = districtData.find(it => it.name == name) || null;
+    var code = districtData.find(it => it.name == name && it.codeProvince == this.provinceCode) || null;
     if (code != null) {
       let order = LocationDataProvider.getSubdistric(code.codeDistrict);
       this.subDistrict = order.sort((a, b) => a.name.localeCompare(b.name))
