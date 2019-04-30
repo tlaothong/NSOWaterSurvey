@@ -41,6 +41,7 @@ export class BuildingInformation1Page {
 
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
+    this.setupCountChangesForLogs();
 
     this.f.get('ea').setValue(this.appState.eaCode);
     this.f.get('_id').setValue(navParams.get('id'));
@@ -62,12 +63,10 @@ export class BuildingInformation1Page {
       'accesses': fb.array([]),
       'vacancyCount': [null, Validators],
       'abandonedCount': [null, Validators],
-      'comments': fb.array([]),
-      'recCtrl': fb.array([]),
-      'vacantRoomCount': null,
       'unitCountComplete': 0,
       'unitCount': 0,
       'unitAccess': 0,
+      'vacantRoomCount': null,
       'occupiedRoomCount': null,
       'waterQuantity': fb.group({
         "waterQuantity": 0,
@@ -75,9 +74,19 @@ export class BuildingInformation1Page {
         "waterBill": null,
       }),
       'floorCount': null,
-      '_id': null,
+      'comments': fb.array([]),
+      'recCtrl': fb.group({
+        'createdDateTime': null,
+        'lastModified': null,
+        'deletedDateTime': null,
+        'lastUpload': null,
+        'lastDownload': null,
+        'logCount': 0,
+        'logs': fb.array([])
+      }),
       'status': null,
-      'lastUpdate': null,
+      '_id': null,
+      // 'lastUpdate': null,
     }, {
         validator: BuildingInformation1Page.checkAnyOrOther()
       });
@@ -225,8 +234,8 @@ export class BuildingInformation1Page {
       fgac.at(index).setValue(this.access);
       fgcm.at(index).setValue({ 'at': Date.now(), 'text': this.comment });
     }
-    this.f.get('lastUpdate').setValue(Date.now())
-    console.log(this.f.get('lastUpdate').value);
+    // this.f.get('lastUpdate').setValue(Date.now())
+    // console.log(this.f.get('lastUpdate').value);
 
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
@@ -323,8 +332,15 @@ export class BuildingInformation1Page {
 
   public static CreateComment(fb: FormBuilder): FormGroup {
     return fb.group({
-      'at': [null],
-      'text': [null],
+      'at': null,
+      'text': null,
+    });
+  }
+
+  public static CreateLog(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'at': null,
+      'operationCode': null,
     });
   }
 
@@ -401,6 +417,36 @@ export class BuildingInformation1Page {
         farr.push(ctrl);
       }
       this.f.setControl(componentFormArray, farr);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupCountChangesForLogs() {
+    const componentFormArray: string = "recCtrl.logs";
+    const componentCount: string = "recCtrl.logCount";
+
+    var onComponentCountChanges = () => {
+      var comments = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < comments.length) {
+          const fld = comments[i];
+          ctrl = fld;
+        } else {
+          ctrl = BuildingInformation1Page.CreateLog(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      (this.f.get('recCtrl') as FormGroup).setControl('logs', farr);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());

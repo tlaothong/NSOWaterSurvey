@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { NavParams, NavController, ViewController, AlertController } from 'ionic-angular';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { Store } from '@ngrx/store';
-import { SetBackToRoot } from '../../states/household/household.actions';
+import { SetBackToRoot, SaveHouseHold } from '../../states/household/household.actions';
 import { BuildingState } from '../../states/building/building.reducer';
-import { getRecieveDataFromBuilding } from '../../states/building';
+import { getRecieveDataFromBuilding, getBuildingSample } from '../../states/building';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { HouseHoldState } from '../../states/household/household.reducer';
+import { SaveBuilding } from '../../states/building/building.actions';
 
 @Component({
   selector: 'questionnaire-menu-popover',
@@ -26,12 +27,13 @@ export class QuestionnaireMenuPopoverComponent {
   public isCommunity: boolean;
   public Pop: boolean;
   public No: string;
+  private dataBuilding: any;
 
-  constructor(public alertCtrl: AlertController, public navParams: NavParams, 
-      public viewCtrl: ViewController, 
-      private store: Store<LoggingState>, private storeBuild: Store<BuildingState>,
-      private storeUnit: Store<HouseHoldState>,
-      private appState: AppStateProvider) {
+  constructor(public alertCtrl: AlertController, public navParams: NavParams,
+    public viewCtrl: ViewController,
+    private store: Store<LoggingState>, private storeBuild: Store<BuildingState>,
+    private storeUnit: Store<HouseHoldState>,
+    private appState: AppStateProvider) {
 
     console.log('Hello QuestionnaireMenuPopoverComponent Component');
     this.navCtrl = navParams.get('nav');
@@ -114,6 +116,19 @@ export class QuestionnaireMenuPopoverComponent {
               console.log("isDisabled: " + this.isDisabled);
               console.log("unitCount: " + this.unitCount);
               this.storeUnit.dispatch(new SetBackToRoot(true));
+
+              if (!this.isCommunity) {
+                if (this.isDisabled) {
+                  console.log("BD");
+                  this.store.select(getBuildingSample).subscribe(data => this.dataBuilding = data);
+                  this.store.dispatch(new SaveBuilding(this.dataBuilding));
+                } else {
+                  console.log("Unit");
+                  let originalHouseHold = this.appState.houseHoldUnit;
+                  this.store.dispatch(new SaveHouseHold(originalHouseHold));
+                }
+              }
+
               // (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
               if (this.isDisabled || this.isCommunity || this.unitCount == 1)
                 this.navCtrl.popToRoot();

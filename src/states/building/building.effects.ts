@@ -18,9 +18,9 @@ import { getHouseHoldUnitList } from "../household";
 
 @Injectable()
 export class BuildingEffects {
-    constructor(private action$: Actions, 
+    constructor(private action$: Actions,
         private store: Store<BuildingState>, private storeBoot: Store<BootupState>,
-        private storeUnit: Store<HouseHoldState>, private cloudSync: CloudSyncProvider, 
+        private storeUnit: Store<HouseHoldState>, private cloudSync: CloudSyncProvider,
         private dataStore: DataStoreProvider, private appState: AppStateProvider) {
     }
 
@@ -44,7 +44,7 @@ export class BuildingEffects {
         tap((action: NewBuilding) => {
             this.appState.buildingId = '';
         }),
-        switchMap((action: NewBuilding) => [ new SaveBuildingSuccess({
+        switchMap((action: NewBuilding) => [new SaveBuildingSuccess({
             _id: '',
             accessCount: 0,
             ea: this.appState.eaCode,
@@ -54,7 +54,7 @@ export class BuildingEffects {
             unitCount: null,
             accesses: [],
         }),
-            new LoadHouseHoldList('no-building') ]),
+        new LoadHouseHoldList('no-building')]),
     );
 
     @Effect()
@@ -64,7 +64,7 @@ export class BuildingEffects {
         tap(bld => {
             this.appState.buildingId = bld ? bld._id : '';
         }),
-        switchMap(bld => [ new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id) ]),
+        switchMap(bld => [new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id)]),
     );
 
     @Effect()
@@ -98,7 +98,36 @@ export class BuildingEffects {
             }
             bld.status = status;
 
-            return new SaveBuilding({ ...bld, status: status });
+            let log: { at: Date | string, operationCode: string };
+            let createdDateTime = bld.recCtrl && bld.recCtrl.createdDateTime;
+            let lastModified = bld.recCtrl && bld.recCtrl.lastModified;
+            let logs = bld.recCtrl && bld.recCtrl.logs;
+            if (bld.recCtrl.logs.length == 0) {
+                log = { at: new Date(), operationCode: 'create' };
+                createdDateTime = new Date();
+            }
+            else {
+                if (status == "done-all") {
+                    log = { at: new Date(), operationCode: 'done' };
+                }
+                else {
+                    log = { at: new Date(), operationCode: 'continue' };
+                }
+            }
+            lastModified = new Date();
+            logs.push(log);
+
+            let recCtrl = {
+                ...bld.recCtrl,
+                createdDateTime: createdDateTime,
+                lastModified: lastModified,
+                logCount: logs.length,
+                logs: logs,
+            };
+
+            bld.recCtrl = recCtrl;
+
+            return new SaveBuilding({ ...bld, status: status, recCtrl: recCtrl });
         }),
         // TODO: Save the building to local storage
         mergeMap(action => this.dataStore.saveBuilding(action.payload).mapTo(action)),
@@ -158,11 +187,11 @@ export class BuildingEffects {
                             case 3:
                                 status = "checkmark";
                                 break;
-                        
+
                             default:
                                 status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
-                                ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
-                                : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh": "pause"));
+                                    ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
+                                    : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh" : "pause"));
                                 break;
                         }
                     }
