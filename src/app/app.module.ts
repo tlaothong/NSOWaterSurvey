@@ -6,8 +6,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { IonicStorageModule } from '@ionic/storage';
 import { Device } from '@ionic-native/device';
-import { File } from '@ionic-native/file';
-
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -63,7 +61,6 @@ import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-erro
     Geolocation,
     IonicErrorHandler,
     Device,
-    File,
     // { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: ErrorHandler, useClass: AppErrorHandlerProvider },
     CloudSyncProvider,

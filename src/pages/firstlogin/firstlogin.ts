@@ -10,7 +10,6 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 import { Device } from '@ionic-native/device';
 import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
-import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
