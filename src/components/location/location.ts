@@ -17,7 +17,6 @@ export class LocationComponent implements ISubmitRequestable {
   public district: any;
   public subDistrict: any
   public provinceCode:any;
-  public districtCode:any;
 
   @Input() public FormItem: FormGroup;
   @Input("isAnimal") public isAnimal: boolean;
