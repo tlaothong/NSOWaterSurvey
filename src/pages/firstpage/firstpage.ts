@@ -19,7 +19,7 @@ export class FirstpagePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstpagePage');
-    alert(JSON.stringify(this.device));
+    alert(this.device.serial);
   }
 
 }
