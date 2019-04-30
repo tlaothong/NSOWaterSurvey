@@ -13,10 +13,10 @@ declare var AzureStorage;
 })
 export class SendPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-      private storage: Storage, private cloudSync: CloudSyncProvider, 
-      private appState: AppStateProvider, private loadingCtrl: LoadingController,
-      private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private storage: Storage, private cloudSync: CloudSyncProvider,
+    private appState: AppStateProvider, private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -57,14 +57,14 @@ export class SendPage {
         const showError = this.alertCtrl.create({
           'title': 'มีข้อผิดพลาด',
           'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
-          'buttons': [ "ตกลง" ],
+          'buttons': ["ตกลง"],
         });
         showError.present();
       } else {
         const showSuccess = this.alertCtrl.create({
           'title': 'ส่งข้อมูลเรียบร้อย',
           'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
-          'buttons': [ "ตกลง" ],
+          'buttons': ["ตกลง"],
         });
         showSuccess.present();
       }
@@ -72,12 +72,12 @@ export class SendPage {
       const showError = this.alertCtrl.create({
         'title': 'มีข้อผิดพลาด',
         'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
-        'buttons': [ "ตกลง" ],
+        'buttons': ["ตกลง"],
       });
       showError.present();
     });
   }
-  
+
   goBack() {
     this.navCtrl.pop();
   }

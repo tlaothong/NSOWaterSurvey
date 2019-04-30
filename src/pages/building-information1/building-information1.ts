@@ -26,13 +26,16 @@ export class BuildingInformation1Page {
   public access: number;
   public comment: string = '';
 
+  public lastAccess: number;
+  public unitCount: number;
+
   public checkFormButtonsForBuilding: boolean = true;
   private isCheckWarningBox: boolean;
 
   private dataBuilding$ = this.store.select(getBuildingSample);
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, 
-    private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
+    private alertCtrl: AlertController, private geolocation: Geolocation, public fb: FormBuilder,
     private store: Store<BuildingState>, private appState: AppStateProvider) {
     this.f = BuildingInformation1Page.CreateFormGroup(fb);
 
@@ -136,6 +139,9 @@ export class BuildingInformation1Page {
       })
     }
 
+    let accesses = this.f.get('accesses').value;
+    this.lastAccess = accesses.length > 0 ? accesses[accesses.length - 1] : null;
+    this.unitCount = this.f.get('unitCount').value;
     // this.storage.get(id).then((data) => {
     //   if (data != null) {
     //     console.log("DATA: " + JSON.stringify(data));
