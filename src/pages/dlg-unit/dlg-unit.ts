@@ -25,6 +25,7 @@ export class DlgUnitPage {
   public count: number;
   public oldStatus: string;
 
+  public lastAccess: number;
   // private fgac: FormArray;
   // private fgcm: FormArray;
 
@@ -44,6 +45,9 @@ export class DlgUnitPage {
     this.ff.patchValue(unitInfo);
 
     this.count = this.replaceMode ? unitInfo.subUnit.accessCount : Math.min(3, unitInfo.subUnit.accessCount + 1);
+
+    let accesses = this.ff.get('subUnit.accesses').value;
+    this.lastAccess = accesses.length > 0 ? accesses[accesses.length - 1] : null;
     // this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
 
     // this.setupAccessCountChanges();
