@@ -79,11 +79,17 @@ export class FirstloginPage {
             this.navCtrl.setRoot("LoginPage");
           }
           else {
-            // TODO: Handle verify is false
+            let alertVerifyFail = this.alertCtrl.create({
+              title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+            });
+            alertVerifyFail.present();
           }
         }
         else {
-          // TODO: Alert error token is null
+          let alertTokenNull = this.alertCtrl.create({
+            title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+          });
+          alertTokenNull.present();
         }
       })
     }

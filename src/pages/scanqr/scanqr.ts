@@ -109,7 +109,10 @@ export class ScanqrPage {
                 ionApp.style.display = "block";
               }
               else {
-                // TODO: Handle verify is false
+                let alertVerifyFail = this.alertCtrl.create({
+                  title: "พบข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+                });
+                alertVerifyFail.present();
               }
             });
 
