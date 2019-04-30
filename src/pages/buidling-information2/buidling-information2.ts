@@ -63,7 +63,15 @@ export class BuidlingInformation2Page {
       'abandonedCount': null,
       'comments': fb.array([
       ]),
-      'recCtrl': [null, Validators],
+      'recCtrl': fb.group({
+        'createdDateTime': null,
+        'lastModified': null,
+        'deletedDateTime': null,
+        'lastUpload': null,
+        'lastDownload': null,
+        'logCount': 0,
+        'logs': fb.array([])
+      }),
       'vacantRoomCount': [null, Validators],
       'unitCountComplete': 0,
       'unitCount': [0, Validators],
@@ -77,13 +85,13 @@ export class BuidlingInformation2Page {
       'floorCount': [null, [Validators, Validators.min(1)]],
       '_id': [null],
       'status': [null],
-      'lastUpdate': null,
+      // 'lastUpdate': null,
     }, {
         validator: BuidlingInformation2Page.checkAnyOrOther()
       });
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     // this.storage.get('key').then((val) => {
     //   console.log("do this", val);
 
@@ -107,7 +115,7 @@ export class BuidlingInformation2Page {
     console.log("House Hold Unit: " + this.appState.houseHoldUnit);
     this.submitRequested = true;
     this.count.forEach(it => it.submitRequest());
-    this.f.get('lastUpdate').setValue(Date.now())
+    // this.f.get('lastUpdate').setValue(Date.now())
 
     console.log(this.f);
     this.isCheckWarningBox = this.f.valid;
@@ -266,6 +274,7 @@ export class BuidlingInformation2Page {
   private setupCountChanges() {
     this.setupAccessCountChanges();
     this.setupAccessCountChangesForComments();
+    this.setupCountChangesForLogs();
   }
 
   private setupAccessCountChanges() {
@@ -321,6 +330,36 @@ export class BuidlingInformation2Page {
         farr.push(ctrl);
       }
       this.f.setControl(componentFormArray, farr);
+    };
+
+    this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupCountChangesForLogs() {
+    const componentFormArray: string = "recCtrl.logs";
+    const componentCount: string = "recCtrl.logCount";
+
+    var onComponentCountChanges = () => {
+      var comments = (this.f.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.f.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < comments.length) {
+          const fld = comments[i];
+          ctrl = fld;
+        } else {
+          ctrl = BuildingInformation1Page.CreateLog(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      (this.f.get('recCtrl') as FormGroup).setControl('logs', farr);
     };
 
     this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());

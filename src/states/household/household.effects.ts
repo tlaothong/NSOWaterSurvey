@@ -49,7 +49,7 @@ export class HouseHoldEffects {
         { title: 'ตอนที่ 6 ปัญหาอุทกภัย', name: "DisasterousPage", hasCompleted: false, isNeed: true },
         { title: 'แบบข้อมูลประชากร', name: "PopulationPage", hasCompleted: false, isNeed: true },
         { title: 'ข้อมูลพื้นฐานส่วนบุคคล', name: "UserPage", hasCompleted: false, isNeed: true },
-      ];
+    ];
 
 
     @Effect()
@@ -132,12 +132,12 @@ export class HouseHoldEffects {
 
                 const toGo = unitSurveys.filter(it => it.isNeed == true).length;
                 const completed = unitSurveys.filter(it => it.isNeed == true && it.hasCompleted == true).length;
-    
+
                 const progress = {
                     progressCompleted: completed,
                     progressToGo: toGo,
                 };
-    
+
                 return new UpdateProgress(index, progress);
             }
 
@@ -211,7 +211,15 @@ export class HouseHoldEffects {
             population: {},
             surveyCompleted: [],
             comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }] : [],
-            recCtrl: [],
+            recCtrl: {
+                createdDateTime: null,
+                lastModified: null,
+                deletedDateTime: null,
+                lastUpload: null,
+                lastDownload: null,
+                logCount: 0,
+                logs: []
+            },
         }
     }
 
@@ -223,8 +231,39 @@ export class HouseHoldEffects {
             const unit = action.payload;
             const state2set = this.deriveNewStateFromHouseHold(unit, state);
 
+            let log: { at: Date | string, operationCode: string };
+            let createdDateTime = unit.recCtrl && unit.recCtrl.createdDateTime;
+            let lastModified = unit.recCtrl && unit.recCtrl.lastModified;
+            let logs = unit.recCtrl && unit.recCtrl.logs;
+            let status = unit.status;
+            if (unit.recCtrl.logs.length == 0) {
+                log = { at: new Date(), operationCode: 'create' };
+                createdDateTime = new Date();
+            }
+            else {
+                if (status == "complete") {
+                    log = { at: new Date(), operationCode: 'done' };
+                }
+                else {
+                    log = { at: new Date(), operationCode: 'continue' };
+                }
+            }
+            lastModified = new Date();
+            logs.push(log);
+
+            let recCtrl = {
+                ...unit.recCtrl,
+                createdDateTime: createdDateTime,
+                lastModified: lastModified,
+                logCount: logs.length,
+                logs: logs,
+            };
+
+            unit.recCtrl = recCtrl;
+
             return new SaveHouseHoldSuccess({
                 ...action.payload,
+                recCtrl: recCtrl
             }, state2set);
         }),
         tap(action => this.appState.houseHoldUnit = action.payload),
@@ -436,10 +475,10 @@ export class HouseHoldEffects {
                 isFactorial: model.isFactorial,
                 isCommercial: model.isCommercial,
             };
-    
+
             numberRoomUnit = model.subUnit ? model.subUnit.roomNumber : 1;
         }
-    
+
         let objAgri = {};
         let ag = model && model.agriculture;
         let riceDoing = ag && ag.ricePlant && ag.ricePlant.doing;
@@ -448,8 +487,8 @@ export class HouseHoldEffects {
         let listAgronomy = []
         let listRubber = []
         let listPerennial
-    
-    
+
+
         if (ag) {
             objAgri = {
                 ricePlant: ag.ricePlant && ag.ricePlant.doing,
@@ -465,12 +504,12 @@ export class HouseHoldEffects {
             if (model.residence && model.residence.gardeningUse) {
                 garden = model.residence.gardeningUse;
             }
-    
+
             riceDoing = ag && ag.ricePlant && ag.ricePlant.doing;
             rubberDoing = ag && ag.rubberTree && ag.rubberTree.doing;
             listAgronomy = findListAgronomy(ag && ag.agronomyPlant);
             listPerennial = findListPerennial(ag && ag.perennialPlant);
-    
+
             if (riceDoing) {
                 listRice = EX_RICH_LIST;
             }
@@ -478,7 +517,7 @@ export class HouseHoldEffects {
                 listRubber = EX_RUBBER_LIST;
             }
         };
-    
+
         let wS = [];
         let wSPlant = [];
         let waterRes;
@@ -505,7 +544,7 @@ export class HouseHoldEffects {
         let waterMushroom = findWaterSourceMushroom(ag && ag.mushroomPlant);
         wS.push(waterMushroom);
         wSPlant.push(waterMushroom);
-    
+
         if (model.residence != null) {
             waterRes = model.residence && model.residence.waterSources;
             wS.push(waterRes);
@@ -522,15 +561,15 @@ export class HouseHoldEffects {
             let waterAnimalFarm = ag && ag.animalFarm.waterSources;
             wS.push(waterAnimalFarm);
             wSPlant.push(waterAnimalFarm);
-    
+
         }
-    
+
         let waterAquatic = findWaterSourceAquticAnimals(ag && ag.aquaticAnimals);
         wS.push(waterAquatic);
         wSPlant.push(waterAquatic);
-    
+
         // console.log("wSPlant", JSON.stringify(wSPlant));
-    
+
         let checkPlumbing: boolean;
         let checkRiver: boolean;
         let checkIrrigation: boolean;
@@ -548,7 +587,7 @@ export class HouseHoldEffects {
             hasOther: wSPlant.some(p => p && p.hasOther == true),
             other: "water",
         };
-    
+
         if (wS != null) {
             checkPlumbing = wS.some(it => it && it.plumbing == true);
             checkRiver = wS.some(it => it && it.river == true);
@@ -556,9 +595,9 @@ export class HouseHoldEffects {
             checkRain = wS.some(it => it && it.rain == true);
             checkBuying = wS.some(it => it && it.buying == true);
         }
-    
+
         return {
-    
+
             selectG1234: objG12345,
             isHouseHold: model && model.isHouseHold,
             isAgriculture: model && model.isAgriculture,
@@ -592,7 +631,7 @@ export class HouseHoldEffects {
         };
 
 
-    
+
         function findListAgronomy(list) {
             let fields = [];
             if (list && list.fields)
@@ -608,7 +647,7 @@ export class HouseHoldEffects {
             // console.log(selected);
             return selected;
         }
-        
+
         function findListPerennial(list) {
             let fields = [];
             if (list && list.fields)
@@ -624,8 +663,8 @@ export class HouseHoldEffects {
             // console.log(selected);
             return selected;
         }
-        
-        
+
+
         function findWaterSourceRice(water) {
             let fields = [];
             if (water && water.fields)
@@ -647,7 +686,7 @@ export class HouseHoldEffects {
             }
             return waterSourceRice
         }
-        
+
         function findWaterSourceDry(water) {
             let fields = [];
             if (water && water.fields)
@@ -669,7 +708,7 @@ export class HouseHoldEffects {
             }
             return waterSourceDry
         }
-        
+
         function findWaterSourceRubber(water) {
             let fields = [];
             if (water && water.fields)
@@ -691,7 +730,7 @@ export class HouseHoldEffects {
             }
             return waterSourceRubber
         }
-        
+
         function findWaterSourcePenrenial(water) {
             let fields = [];
             if (water && water.fields)
@@ -713,7 +752,7 @@ export class HouseHoldEffects {
             }
             return waterSourcePenrenial
         }
-        
+
         function findWaterSourceHerb(water) {
             let fields = [];
             if (water && water.fields)
@@ -735,7 +774,7 @@ export class HouseHoldEffects {
             }
             return waterSourceHerb
         }
-        
+
         function findWaterSourceFlower(water) {
             let fields = [];
             if (water && water.fields)
@@ -757,7 +796,7 @@ export class HouseHoldEffects {
             }
             return waterSourceFlower
         }
-        
+
         function findWaterSourceMushroom(water) {
             let fields = [];
             if (water && water.fields)
@@ -779,7 +818,7 @@ export class HouseHoldEffects {
             }
             return waterSourceMushroom
         }
-        
+
         function findWaterSourceAquticAnimals(water) {
             let fish = water && water.fish;
             let shrimp = water && water.shrimp;
@@ -791,8 +830,8 @@ export class HouseHoldEffects {
             let turtle = water && water.turtle;
             let reddish = water && water.reddish;
             let waterSourceAqutic = {}
-        
-        
+
+
             let arrAquatic = [];
             if (fish != null) {
                 arrAquatic.push(fish.waterSources)
@@ -821,7 +860,7 @@ export class HouseHoldEffects {
             if (reddish != null) {
                 arrAquatic.push(reddish.waterSources)
             }
-        
+
             if (arrAquatic != null) {
                 waterSourceAqutic = {
                     plumbing: arrAquatic.some(it => it.plumbing == true),
@@ -836,14 +875,14 @@ export class HouseHoldEffects {
                     other: "water",
                 };
             }
-        
+
             return waterSourceAqutic
         }
     }
-    
+
     listPagesToCheck(state: HouseHoldState): Array<boolean> {
         // console.log("เช็คหน้าต่อไป", JSON.stringify(state));
-    
+
         let arr: Array<boolean> = state.nextPageDirection;
         arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
         arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
@@ -854,7 +893,7 @@ export class HouseHoldEffects {
         for (let i = 2; i <= 10; i++) {
             arr[i] = arr[1]
         }
-    
+
         if (state.selectG1234.isAgriculture && state.arraySkipPageAgiculture) {
             arr[2] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.ricePlant) ? true : false;
             arr[3] = (state.arraySkipPageAgiculture && state.arraySkipPageAgiculture.agronomyPlant) ? true : false;
@@ -876,13 +915,13 @@ export class HouseHoldEffects {
             arr[9] = false;
             arr[10] = false;
         }
-    
+
         arr[13] = (state.checkWaterPlumbing) ? true : false;
         arr[15] = (state.checkWaterRiver) ? true : false;
         arr[17] = (state.checkWaterIrrigation) ? true : false;
         arr[18] = (state.checkWaterRain) ? true : false;
         arr[19] = (state.checkWaterBuying) ? true : false;
-    
+
         return arr;
     }
 }
