@@ -36,16 +36,16 @@ export class MyApp {
 
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
-      this.oneSignal.getIds().then(p => {
-        alert(JSON.stringify(p));
-      });
+      // this.oneSignal.getIds().then(p => {
+      //   // alert(JSON.stringify(p));
+      // });
 
       this.oneSignal.handleNotificationReceived().subscribe(v => {
-        alert(JSON.stringify(v));
+        // alert(JSON.stringify(v));
       });
 
       this.oneSignal.handleNotificationOpened().subscribe(v => {
-        alert(JSON.stringify(v));
+        // alert(JSON.stringify(v));
       });
 
       this.oneSignal.endInit();
