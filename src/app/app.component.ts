@@ -32,7 +32,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.oneSignal.startInit("202873334662", "73e3979b-f314-47c0-99e3-9087fe31cef1");
+      this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
 
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
