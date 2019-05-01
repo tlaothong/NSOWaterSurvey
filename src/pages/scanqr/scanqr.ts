@@ -82,24 +82,36 @@ export class ScanqrPage {
           if (status.authorized) {
             // camera permission was granted
             let ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
+            setTimeout(() => {
+              this.qrScanner.hide();
+            }, 60000);
 
             // start scanning
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
               //alert(text);
-              setTimeout(() => {
-                this.qrScanner.hide();
-              }, 60000);
 
-              let dataSplited = text.split("$");
-              let guid = dataSplited[0];
-              let username = dataSplited[1];
-              this.appState.userId = username;
+              if (text != null) {
+                let alert = this.alertCtrl.create({
+                  title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
+                });
+                alert.present();
 
-              setTimeout(() => {
-                this.qrScanner.hide();
-                this.navCtrl.push("ConfirmloginPage", { username: username, guid: guid })
-              }, 900);
+                let dataSplited = text.split("$");
+                let guid = dataSplited[0];
+                let username = dataSplited[1];
+                this.appState.userId = username;
 
+                setTimeout(() => {
+                  alert.dismiss();
+                  this.qrScanner.hide();
+                  this.navCtrl.push("ConfirmloginPage", { username: username, guid: guid })
+                }, 900);
+              } else {
+                let alert = this.alertCtrl.create({
+                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
+                });
+                alert.present();
+              }
               // this.scanData = text;
               this.qrScanner.hide(); // hide camera preview
               scanSub.unsubscribe(); // stop scanning
