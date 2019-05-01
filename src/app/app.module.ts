@@ -27,6 +27,7 @@ import { DirectivesModule } from '../directives/directives.module';
 import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AppStateProvider } from '../providers/app-state/app-state';
 import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-error-handler';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-erro
     StatusBar,
     SplashScreen,
     QRScanner,
+    OneSignal,
     Geolocation,
     IonicErrorHandler,
     Device,
@@ -67,7 +69,7 @@ import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-erro
     PumpDataProvider,
     LocationDataProvider,
     DataStoreProvider,
-    AppStateProvider,
+    AppStateProvider,    
   ]
 })
 export class AppModule { }

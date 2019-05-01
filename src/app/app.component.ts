@@ -3,6 +3,7 @@ import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OneSignal } from '@ionic-native/onesignal';
+import { Pro } from '@ionic/pro';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,23 +33,35 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
+      Pro.monitoring.init();
 
-      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      Pro.monitoring.call(() => {
+        // var notificationOpenedCallback = function(jsonData) {
+        //   console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+        // };
+    
+        // window["plugins"].OneSignal
+        //   .startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662")
+        //   .handleNotificationOpened(notificationOpenedCallback)
+        //   .endInit();
+        this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
 
-      // this.oneSignal.getIds().then(p => {
-      //   // alert(JSON.stringify(p));
-      // });
-
-      this.oneSignal.handleNotificationReceived().subscribe(v => {
-        // alert(JSON.stringify(v));
+        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+  
+        // this.oneSignal.getIds().then(p => {
+        //   // alert(JSON.stringify(p));
+        // });
+  
+        this.oneSignal.handleNotificationReceived().subscribe(v => {
+          // alert(JSON.stringify(v));
+        });
+  
+        this.oneSignal.handleNotificationOpened().subscribe(v => {
+          // alert(JSON.stringify(v));
+        });
+  
+        this.oneSignal.endInit();
       });
-
-      this.oneSignal.handleNotificationOpened().subscribe(v => {
-        // alert(JSON.stringify(v));
-      });
-
-      this.oneSignal.endInit();
     });
   }
 
