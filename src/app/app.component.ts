@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { OneSignal } from '@ionic-native/onesignal';
+import { OneSignal, OSNotificationPayload } from '@ionic-native/onesignal';
 import { Pro } from '@ionic/pro';
 import { DataStoreProvider } from '../providers/data-store/data-store';
 
@@ -58,37 +58,42 @@ export class MyApp {
     
           this.oneSignal.handleNotificationReceived().subscribe(v => {
             console.log('Noti received', v.payload);
-            let title = v.payload.title;
-            let message = v.payload.body;
-
-            let kind = v.payload.additionalData['k'];
-            let user = v.payload.additionalData['u'];
-            let actionId = v.payload.additionalData['id'];
-
-            alert('rcv:' + JSON.stringify(v.payload.additionalData));
-
-            switch (kind) {
-              case "updateReq":
-              case "appMsg":
-                this.dataStore.saveNotiAppMsg(kind, title, message, actionId);
-                break;      
-              default:
-                if (user) {
-                  // TODO: Implement this later
-                }
-                break;
-            }
+            this.processPayload(v.payload);
           });
     
           this.oneSignal.handleNotificationOpened().subscribe(v => {
             console.log('Noti opened', v.notification.payload.body);
             // v.notification.payload.additionalData[""];
+            this.processPayload(v.notification.payload);
           });
     
           this.oneSignal.endInit();
         });
       }
     });
+  }
+
+  private processPayload(p: OSNotificationPayload) {
+    let title = p.title;
+    let message = p.body;
+
+    const dx = p.additionalData;
+
+    let kind = dx['k'];
+    let user = dx['u'];
+    let actionId = dx['id'];
+
+    switch (kind) {
+      case "updateReq":
+      case "appMsg":
+        this.dataStore.saveNotiAppMsg(kind, title, message, actionId);
+        break;      
+      default:
+        if (user) {
+          // TODO: Implement this later
+        }
+        break;
+    }
   }
 
   openPage(page) {
