@@ -201,7 +201,7 @@ export class CommunityWaterManagementPage {
     }
 
     if (this.formDataCom.get('_id').value == null || this.formDataCom.get('_id').value == '') {
-      this.formDataCom.get('_id').setValue(this.appState.generateId('com'));
+      this.formDataCom.get('_id').setValue(this.appState.generateId('com1v'));
     }
 
     this.formDataCom.get('management').setValue(this.CommunityWaterManagement.value);

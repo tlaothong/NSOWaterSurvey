@@ -184,7 +184,7 @@ export class HouseHoldEffects {
         }
 
         return {
-            _id: this.appState.generateId('unt'),
+            _id: this.appState.generateId('unt1v'),
             ea: this.appState.eaCode,
             buildingId: this.appState.buildingId,
             subUnit: subUnit,

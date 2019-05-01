@@ -87,7 +87,10 @@ export class MyApp {
       case "updateReq":
       case "appMsg":
         this.dataStore.saveNotiAppMsg(kind, title, message, actionId);
-        break;      
+        break;
+      case "delMsg":
+        this.dataStore.deleteNotiAppMsg();
+        break;
       default:
         if (user) {
           // TODO: Implement this later

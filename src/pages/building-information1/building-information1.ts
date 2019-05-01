@@ -242,7 +242,7 @@ export class BuildingInformation1Page {
     // this.store.dispatch(new SetHomeBuilding(this.f.value));
 
     if (idBD == null || idBD == '') {
-      this.f.get('_id').setValue(this.appState.generateId('bld'));
+      this.f.get('_id').setValue(this.appState.generateId('bld1v'));
       // idBD = this.f.get('_id').value
     }
     console.log(this.f.value);
