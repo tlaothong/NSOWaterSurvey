@@ -28,7 +28,7 @@ export class SendPage {
    */
   public uploadToCloud() {
 
-    const blobUri = "https://nsodev.blob.core.windows.net"; // Or should have '/' ?
+    const blobUri = "https://nsostorage.blob.core.windows.net"; // Or should have '/' ?
     const loading = this.loadingCtrl.create({
       content: '',
       enableBackdropDismiss: false,
