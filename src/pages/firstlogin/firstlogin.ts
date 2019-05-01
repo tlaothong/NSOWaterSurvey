@@ -60,7 +60,7 @@ export class FirstloginPage {
 
     if (password == confirmPassword) {
 
-      this.dataStore.getNotiUid().subscribe(data => {
+      this.dataStore.getNotiUid().take(1).subscribe(data => {
         let deviceId = this.device.serial;
         let Uid = data.userId;
         let Pushtoken = data.pushToken;
