@@ -25,14 +25,6 @@ export class ScanqrPage {
     private alertCtrl: AlertController, private platform: Platform,
     private qrScanner: QRScanner, public navParams: NavParams,
     private store: Store<LoggingState>, private appState: AppStateProvider) {
-      var text = "c4f473a6-09ab-43fa-9123-7d2159148f0c$10300012$S0Ed1RjKKo5BwUYcyCKgFiYlGzWGMJpdhou1A7i479hAUBxvys6Sth6Cr4qKONl6PX0mh5QNnd2JxMya0jc62c47aiZiNl7zO4FPGrQEuQGyh5XWXezOzS3K2hyUtKLJOGGAxRHwOcOAaxKJb9nXbkSu2wBFyj5bcUa8wFvlo4SX3aOZvnLnq/luhHSAzw2BUrQFuJ8rUwFKMOiA63U3Q5ZosSKY4aSu9F7zbWsbvBiGvM9NGuaa2b8y3nC81y4VHS90OUHM1bLDnkopfFotzpqhg3GhdlHBc6io3RHapcEoTBttbzd93gMTf9cqKj2SG5jiUae0xM3MtwA==";
-      let dataSplited = text.split("$");
-      let guid = dataSplited[0];
-      let username = dataSplited[1];
-      let rawData = guid + "$" + username;
-      let signature = dataSplited[2];
-      let result = this.appState.Verify(rawData, signature)
-      console.log(result);
   }
 
   ionViewDidLoad() {
