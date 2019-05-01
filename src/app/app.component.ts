@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,7 +14,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private menuCtrl: MenuController) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private menuCtrl: MenuController, private oneSignal: OneSignal) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -30,6 +31,24 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.oneSignal.startInit("202873334662", "73e3979b-f314-47c0-99e3-9087fe31cef1");
+
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+      this.oneSignal.getIds().then(p => {
+        alert(JSON.stringify(p));
+      });
+
+      this.oneSignal.handleNotificationReceived().subscribe(v => {
+        alert(JSON.stringify(v));
+      });
+
+      this.oneSignal.handleNotificationOpened().subscribe(v => {
+        alert(JSON.stringify(v));
+      });
+
+      this.oneSignal.endInit();
     });
   }
 
