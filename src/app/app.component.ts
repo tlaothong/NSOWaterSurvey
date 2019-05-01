@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OneSignal } from '@ionic-native/onesignal';
 import { Pro } from '@ionic/pro';
+import { DataStoreProvider } from '../providers/data-store/data-store';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,7 +16,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private menuCtrl: MenuController, private oneSignal: OneSignal) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private menuCtrl: MenuController, private oneSignal: OneSignal, private dataStore: DataStoreProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -49,15 +50,14 @@ export class MyApp {
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
   
         this.oneSignal.getIds().then(p => {
-          alert("id:" + JSON.stringify(p));
+          if (p)
+            this.dataStore.saveNotiUid(p);
         });
   
         this.oneSignal.handleNotificationReceived().subscribe(v => {
-          alert("rcv:" + JSON.stringify(v));
         });
   
         this.oneSignal.handleNotificationOpened().subscribe(v => {
-          alert("open:" + JSON.stringify(v));
         });
   
         this.oneSignal.endInit();
