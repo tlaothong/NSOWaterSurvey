@@ -60,37 +60,43 @@ export class FirstloginPage {
 
     if (password == confirmPassword) {
 
-      let deviceId = this.device.serial;
-      this.cloud.saveUserInfo({
-        userId: this.f.get('idUser').value,
-        deviceId: deviceId,
-        guidId: this.guid
-      }).subscribe((response: any) => {
+      this.dataStore.getNotiUid().take(1).subscribe(data => {
+        let deviceId = this.device.serial;
+        let Uid = data.userId;
+        let Pushtoken = data.pushToken;
+        this.cloud.saveUserInfo({
+          userId: this.f.get('idUser').value,
+          deviceId: deviceId,
+          guidId: this.guid,
+          uid: Uid,
+          pushToken: Pushtoken
+        }).subscribe((response: any) => {
 
-        var isTokenValid = response != null && response.token != null;
-        if (isTokenValid) {
-          let token = response.token.token;
-          let signature = response.signed;
-          let result = this.appstate.Verify(token, signature)
-          if (result) {
-            let username = this.f.get('idUser').value;
-            this.dataStore.saveUser(username, password, token);
-            this.navCtrl.setRoot("LoginPage");
+          var isTokenValid = response != null && response.token != null;
+          if (isTokenValid) {
+            let token = response.token.token;
+            let signature = response.signed;
+            let result = this.appstate.Verify(token, signature)
+            if (result) {
+              let username = this.f.get('idUser').value;
+              this.dataStore.saveUser(username, password, token);
+              this.navCtrl.setRoot("LoginPage");
+            }
+            else {
+              let alertVerifyFail = this.alertCtrl.create({
+                title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+              });
+              alertVerifyFail.present();
+            }
           }
           else {
-            let alertVerifyFail = this.alertCtrl.create({
+            let alertTokenNull = this.alertCtrl.create({
               title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
             });
-            alertVerifyFail.present();
+            alertTokenNull.present();
           }
-        }
-        else {
-          let alertTokenNull = this.alertCtrl.create({
-            title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
-          });
-          alertTokenNull.present();
-        }
-      })
+        })
+      });
     }
     else {
       alert.present();
