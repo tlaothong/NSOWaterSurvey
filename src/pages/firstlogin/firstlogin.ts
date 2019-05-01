@@ -67,7 +67,6 @@ export class FirstloginPage {
         guidId: this.guid
       }).subscribe((response: any) => {
 
-        // TODO: Check decode encription token
         var isTokenValid = response != null && response.token != null;
         if (isTokenValid) {
           let token = response.token.token;
