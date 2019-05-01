@@ -51,14 +51,36 @@ export class MyApp {
           this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
     
           this.oneSignal.getIds().then(p => {
+            console.log('Get noti ids', p);
             if (p)
               this.dataStore.saveNotiUid(p);
           });
     
           this.oneSignal.handleNotificationReceived().subscribe(v => {
+            console.log('Noti received', v.payload);
+            let title = v.payload.title;
+            let message = v.payload.body;
+
+            let kind = v.payload.additionalData['k'];
+            let user = v.payload.additionalData['u'];
+            let actionId = v.payload.additionalData['id'];
+
+            switch (kind) {
+              case "updateReq":
+              case "appMsg":
+                this.dataStore.saveNotiAppMsg(kind, title, message, actionId);
+                break;      
+              default:
+                if (user) {
+                  // TODO: Implement this later
+                }
+                break;
+            }
           });
     
           this.oneSignal.handleNotificationOpened().subscribe(v => {
+            console.log('Noti opened', v.notification.payload.body);
+            // v.notification.payload.additionalData[""];
           });
     
           this.oneSignal.endInit();
