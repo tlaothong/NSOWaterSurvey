@@ -65,7 +65,7 @@ export class MyApp {
             let user = v.payload.additionalData['u'];
             let actionId = v.payload.additionalData['id'];
 
-            alert('rcv:' + v.url + '/ /' +JSON.stringify(v.payload.additionalData));
+            alert('rcv:' + JSON.stringify(v.payload.additionalData));
 
             switch (kind) {
               case "updateReq":
