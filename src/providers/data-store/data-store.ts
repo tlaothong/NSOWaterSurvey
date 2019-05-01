@@ -10,6 +10,7 @@ import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA, CommunityInLis
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+declare var CryptoJS;
 @Injectable()
 export class DataStoreProvider {
 
@@ -62,23 +63,14 @@ export class DataStoreProvider {
   * ชั่วคราว ๆ
   */
   public saveUser(userId: string, password: string, token: string) {
-    this.storage.set('ulogin' + userId, this.hashCode(password + userId));
+    this.storage.set('ulogin' + userId, CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(password + userId)).toString());
     this.storage.set('tokenlogin' + userId, token);
   }
 
   public async validateUser(userId: string, password: string) {
-    var pwdHash = this.hashCode(password + userId)
+    var pwdHash = CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(password + userId)).toString();
     let pwd = await this.storage.get('ulogin' + userId);
     return pwd == pwdHash;
-  }
-
-  private hashCode(str: string) {
-    var hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash += Math.pow(str.charCodeAt(i) * 31, str.length - i);
-      hash = hash & hash;
-    }
-    return hash;
   }
 
   /*********** */

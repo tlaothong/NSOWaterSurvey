@@ -6,8 +6,8 @@ import { EA } from '../../models/mobile/MobileModels';
 @Injectable()
 export class CloudSyncProvider {
 
-  private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
-  private readonly baseDevUrl: string = "https://nso-manage-dev.azurewebsites.net/api/";
+  // private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
+  private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
@@ -111,11 +111,11 @@ export class CloudSyncProvider {
   }
 
   public getUserInfo(username: string): Observable<any> {
-    return this.http.get(this.baseDevUrl + "User/GetUser/" + username);
+    return this.http.get(this.baseUrl + "User/GetUser/" + username);
   }
 
   public saveUserInfo(userInfo: any): Observable<any> {
-    return this.http.post(this.baseDevUrl + "User/CheckGuidUser", userInfo);
+    return this.http.post(this.baseUrl + "User/CheckGuidUser", userInfo);
   }
 }
 
