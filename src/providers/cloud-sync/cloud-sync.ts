@@ -7,6 +7,7 @@ import { EA } from '../../models/mobile/MobileModels';
 export class CloudSyncProvider {
 
   private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
+  private readonly baseDevUrl: string = "https://nso-manage-dev.azurewebsites.net/api/";
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
@@ -24,12 +25,12 @@ export class CloudSyncProvider {
    * ของเก่า
    *************************/
 
-   LoadWorkByIdEASuccess(payload: any): any {
+  LoadWorkByIdEASuccess(payload: any): any {
     throw new Error("Method not implemented.");
   }
 
   public setHouseHold(data: any): Observable<any> {
-    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit',data);
+    return this.http.post('http://nsovars.azurewebsites.net/api/Demo/CreateUnit', data);
   }
 
   public loadHouseHoldSampleTestData(id: string): Observable<any> {
@@ -109,6 +110,13 @@ export class CloudSyncProvider {
     return this.http.get('http://nsovars.azurewebsites.net/api/Demo/GetCommunity/' + id);
   }
 
+  public getUserInfo(username: string): Observable<any> {
+    return this.http.get(this.baseDevUrl + "User/GetUser/" + username);
+  }
+
+  public saveUserInfo(userInfo: any): Observable<any> {
+    return this.http.post(this.baseDevUrl + "User/CheckGuidUser", userInfo);
+  }
 }
 
 export interface DeviceToCloudInfo {

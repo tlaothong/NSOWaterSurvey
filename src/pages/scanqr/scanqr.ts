@@ -24,7 +24,8 @@ export class ScanqrPage {
   constructor(public navCtrl: NavController,
     private alertCtrl: AlertController, private platform: Platform,
     private qrScanner: QRScanner, public navParams: NavParams,
-    private store: Store<LoggingState>, private appState: AppStateProvider) {
+    private store: Store<LoggingState>, private appState: AppStateProvider,
+    private appstate: AppStateProvider) {
   }
 
   ionViewDidLoad() {
@@ -74,7 +75,6 @@ export class ScanqrPage {
   //     .catch((e: any) => console.log('Error is', e));
   // }
 
-
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
@@ -89,30 +89,31 @@ export class ScanqrPage {
               setTimeout(() => {
                 this.qrScanner.hide();
               }, 60000);
-              if (text.length >= 7) {
-                let alert = this.alertCtrl.create({
-                  title: "กำลังเชื่อมต่อกับระบบ กรุณารอสักครู่ . . .",
-                });
-                alert.present();
 
-                this.appState.userId = text.substr(0, 7);
-
+              let dataSplited = text.split("$");
+              let guid = dataSplited[0];
+              let username = dataSplited[1];
+              let rawData = guid + "$" + username;
+              let signature = dataSplited[2];
+              let result = this.appstate.Verify(rawData, signature)
+              if (result) {
+                this.appState.userId = username;
                 setTimeout(() => {
-                  alert.dismiss();
                   this.qrScanner.hide();
-                  this.navCtrl.push("ConfirmloginPage")
+                  this.navCtrl.push("ConfirmloginPage", { username: username, guid: guid })
                 }, 900);
-              } else {
-                let alert = this.alertCtrl.create({
-                  title: "Tablet เครื่องนี้ยังไม่ได้ลงทะเบียนในระบบ กรุณาตรวจสอบ",
-                });
-                alert.present();
-              }
 
-              // this.scanData = text;
-              this.qrScanner.hide(); // hide camera preview
-              scanSub.unsubscribe(); // stop scanning
-              ionApp.style.display = "block";
+                // this.scanData = text;
+                this.qrScanner.hide(); // hide camera preview
+                scanSub.unsubscribe(); // stop scanning
+                ionApp.style.display = "block";
+              }
+              else {
+                let alertVerifyFail = this.alertCtrl.create({
+                  title: "พบข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+                });
+                alertVerifyFail.present();
+              }
             });
 
             // show camera preview
@@ -152,4 +153,5 @@ export class ScanqrPage {
 
     }
   }
+
 }

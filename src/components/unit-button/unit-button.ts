@@ -78,6 +78,7 @@ export class UnitButtonComponent {
           this.FormItem.get('subUnit.accessCount').setValue(count);
           this.setupAccessCountChanges();
           this.setupAccessCountChangesForComments();
+          this.setupCountChangesForLogs();
           this.FormItem.patchValue(data[Number(this.unitNo) - 1]);
           console.log(this.FormItem.value);
           if (this.unitCount > 1) {
@@ -105,6 +106,7 @@ export class UnitButtonComponent {
     } else {
       this.setupAccessCountChanges();
       this.setupAccessCountChangesForComments();
+      this.setupCountChangesForLogs();
       this.FormItem.get('_id').setValue(Guid.create().toString());
 
       console.log(this.FormItem.value);
@@ -840,11 +842,12 @@ export class UnitButtonComponent {
         'serviceTypeCode': 0,
       }),
       'recCtrl': fb.group({
-        'createdDateTime': Date.now(),
-        'lastModified': Date.now(),
+        'createdDateTime': null,
+        'lastModified': null,
         'deletedDateTime': null,
         'lastUpload': null,
         'lastDownload': null,
+        'logCount': 0,
         'logs': fb.array([])
       }),
       'population': fb.group({
@@ -888,7 +891,7 @@ export class UnitButtonComponent {
   public deleteUnit(HH: any) {
     // let id = this.FormItem.get('_id').value;
     // this.storage.remove(id);
-  
+
     console.log(HH);
     let keyHH = HH._id;
     let keyBD = HH.buildingId;
@@ -939,6 +942,7 @@ export class UnitButtonComponent {
       this.FormItem.get('subUnit.accessCount').setValue(count);
       this.setupAccessCountChanges();
       this.setupAccessCountChangesForComments();
+      this.setupCountChangesForLogs();
 
       const modal = this.modalCtrl.create("DlgUnitPage", { FormItem: this.FormItem });
       modal.onDidDismiss(data => {
@@ -960,6 +964,7 @@ export class UnitButtonComponent {
           this.FormItem.get('subUnit.accessCount').setValue(count - 1);
           this.setupAccessCountChanges();
           this.setupAccessCountChangesForComments();
+          this.setupCountChangesForLogs();
         }
       });
       modal.present();
@@ -1043,6 +1048,13 @@ export class UnitButtonComponent {
     });
   }
 
+  public static CreateLog(fb: FormBuilder): FormGroup {
+    return fb.group({
+      'at': null,
+      'operationCode': null,
+    });
+  }
+
   private setupAccessCountChanges() {
     const componentFormArray: string = "subUnit.accesses";
     const componentCount: string = "subUnit.accessCount";
@@ -1097,6 +1109,36 @@ export class UnitButtonComponent {
         farr.push(ctrl);
       }
       this.FormItem.setControl(componentFormArray, farr);
+    };
+
+    this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
+
+    onComponentCountChanges();
+  }
+
+  private setupCountChangesForLogs() {
+    const componentFormArray: string = "recCtrl.logs";
+    const componentCount: string = "recCtrl.logCount";
+
+    var onComponentCountChanges = () => {
+      var comments = (this.FormItem.get(componentFormArray) as FormArray).controls || [];
+      var accessCount = this.FormItem.get(componentCount).value || 0;
+      var farr = this.fb.array([]);
+
+      accessCount = Math.max(0, accessCount);
+
+      for (let i = 0; i < accessCount; i++) {
+        var ctrl = null;
+        if (i < comments.length) {
+          const fld = comments[i];
+          ctrl = fld;
+        } else {
+          ctrl = UnitButtonComponent.CreateLog(this.fb);
+        }
+
+        farr.push(ctrl);
+      }
+      (this.FormItem.get('recCtrl') as FormGroup).setControl('logs', farr);
     };
 
     this.FormItem.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());

@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { IonicStorageModule } from '@ionic/storage';
+import { Device } from '@ionic-native/device';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -26,7 +27,6 @@ import { DirectivesModule } from '../directives/directives.module';
 import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AppStateProvider } from '../providers/app-state/app-state';
 import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-error-handler';
-
 
 @NgModule({
   declarations: [
@@ -60,6 +60,7 @@ import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-erro
     QRScanner,
     Geolocation,
     IonicErrorHandler,
+    Device,
     // { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: ErrorHandler, useClass: AppErrorHandlerProvider },
     CloudSyncProvider,
@@ -70,4 +71,3 @@ import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-erro
   ]
 })
 export class AppModule { }
-  
