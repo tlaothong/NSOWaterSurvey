@@ -96,6 +96,10 @@ export interface EA {
     Center: IGeometry;
 };
 
+export interface EAwStat extends EA {
+    status: string;
+}
+
 export interface IGeometry {
     coordinates: number[];
 }

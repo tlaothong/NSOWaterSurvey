@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
-import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA, CommunityInList } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA, CommunityInList, EAwStat } from '../../models/mobile/MobileModels';
 
 /*
   Generated class for the DataStoreProvider provider.
@@ -23,7 +23,7 @@ export class DataStoreProvider {
    */
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
     let x = this.cloudSync.downloadCloudUpdate(userId).retry(3)
-      .switchMap(update => Observable.of(this.storage.set('uea' + userId, update))
+      .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
         .mapTo(update));
     return x;
   }
@@ -31,15 +31,15 @@ export class DataStoreProvider {
   /**
    * รายการ EA ทั้งหมดที่ถูก download เรียบร้อยแล้ว
    */
-  public listDownloadedEAs(userId: string): Observable<EA[]> {
-    return Observable.fromPromise(this.storage.get('uea' + userId));
+  public listDownloadedEAs(userId: string): Observable<EAwStat[]> {
+    return Observable.fromPromise(this.storage.get('uea1v' + userId));
   }
 
   /**
    * รายการ EAs ได้ถูก Download แล้วหรือยัง?f
    */
   public hasEasDownloaded(userId: string): Observable<boolean> {
-    return Observable.fromPromise(this.storage.get('uea' + userId)).map(it => it != null);
+    return Observable.fromPromise(this.storage.get('uea1v' + userId)).map(it => it != null);
   }
 
   public saveNotiUid(notiIds): Promise<{}> {
@@ -57,19 +57,24 @@ export class DataStoreProvider {
   public getNotiAppMsg(): Observable<MsgNotiInfo> {
     return Observable.fromPromise(this.storage.get("notiAppMsg"));
   }
+
+  public deleteNotiAppMsg(): Promise<{}> {
+    return this.storage.remove("notiAppMsg");
+  }
+
   /*********** */
 
   /**
   * ชั่วคราว ๆ
   */
   public saveUser(userId: string, password: string, token: string) {
-    this.storage.set('ulogin' + userId, CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(password + userId)).toString());
+    this.storage.set('ulogin1v' + userId, CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(password + userId)).toString());
     this.storage.set('tokenlogin' + userId, token);
   }
 
   public async validateUser(userId: string, password: string) {
     var pwdHash = CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(password + userId)).toString();
-    let pwd = await this.storage.get('ulogin' + userId);
+    let pwd = await this.storage.get('ulogin1v' + userId);
     return pwd == pwdHash;
   }
 
@@ -89,14 +94,14 @@ export class DataStoreProvider {
    * บันทึกรายการ Building แบบบันทึกเป็น List
    */
   public saveBuildingList(eaCode: string, buildings: BuildingInList[]) {
-    return Observable.fromPromise(this.storage.set('bldlst' + eaCode, buildings));
+    return Observable.fromPromise(this.storage.set('bldlst1v' + eaCode, buildings));
   }
 
   /**
    * เรียกรายการ Buildings ที่เก็บไว้เป็น list สำหรับ EA ที่ระบุ
    */
   public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
-    return Observable.fromPromise(this.storage.get('bldlst' + eaCode));
+    return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode));
   }
 
   public getBuilding(buildingId: string): Observable<Building> {
@@ -107,11 +112,11 @@ export class DataStoreProvider {
    * เรียกรายการ house hold ที่อยู่ใน building ที่ระบุ
    */
   public listHouseHoldInBuilding(buildingId: string): Observable<UnitInList[]> {
-    return Observable.fromPromise(this.storage.get('unt4' + buildingId)).map((lst: UnitInList[]) => lst ? lst : []);
+    return Observable.fromPromise(this.storage.get('unt4b1v' + buildingId)).map((lst: UnitInList[]) => lst ? lst : []);
   }
 
   public saveHouseHoldInBuildingList(buildingId: string, unitsInBuilding: UnitInList[]) {
-    return Observable.fromPromise(this.storage.set('unt4' + buildingId, unitsInBuilding));
+    return Observable.fromPromise(this.storage.set('unt4b1v' + buildingId, unitsInBuilding));
   }
 
   /**
@@ -131,22 +136,28 @@ export class DataStoreProvider {
   /**
     * บันทึกสถานะการสำรวจของ User ใน EA นั้น
     */
-  public saveUserEAStatus(eaCode: string, userId: string, status: string): Observable<any> {
-    return Observable.fromPromise(this.storage.set("eastate" + eaCode + userId, status));
+  public async saveUserEAStatus(eaCode: string, userId: string, status: string): Promise<any> {
+    const key = 'uea1v' + userId;
+    let eaList = <EAwStat[]>await this.storage.get(key);
+    let ea = eaList.find((it, idx) => it.code == eaCode);
+    if (ea) {
+      ea.status = status;
+      await this.storage.set(key, eaList);
+    }
   }
 
   /**
     * บันทึกนามสกุล
     */
   public saveLastName(userId: string, lastname: string[]): Observable<any> {
-    return Observable.fromPromise(this.storage.set("user" + userId, lastname));
+    return Observable.fromPromise(this.storage.set("user1v" + userId, lastname));
   }
 
   /**
    * เรียกนามสกุลที่บันทึกไว้
    */
   public loadLastName(userId: string): Observable<any> {
-    return Observable.fromPromise(this.storage.get("user" + userId));
+    return Observable.fromPromise(this.storage.get("user1v" + userId));
   }
 
   /**
@@ -160,7 +171,7 @@ export class DataStoreProvider {
     * บันทึก Community แบบ เป็น List
     */
   public saveCommunityList(eaCode: string, community: CommunityInList[]): Observable<any> {
-    return Observable.fromPromise(this.storage.set("comlst" + eaCode, community));
+    return Observable.fromPromise(this.storage.set("comlst1v" + eaCode, community));
   }
 
   /**
@@ -174,45 +185,9 @@ export class DataStoreProvider {
     * เรียกข้อมูล Community แบบ เป็น List
     */
   public loadCommunityList(eaCode: string): Observable<any> {
-    return Observable.fromPromise(this.storage.get("comlst" + eaCode));
+    return Observable.fromPromise(this.storage.get("comlst1v" + eaCode));
   }
   /*********** */
-
-  /**
-   * setEaForTest
-   */
-  public setEaForTest(userId: string): Observable<any> {
-    return Observable.fromPromise(this.storage.set('uea' + userId, [{
-      code: "11001011000002",
-      "Area_Code": "100101",
-      "REG": "1",
-      "REG_NAME": "กรุงเทพมหานคร",
-      "CWT": "10",
-      "CWT_NAME": "กรุงเทพมหานคร",
-      "AMP": "01",
-      "AMP_NAME": "พระนคร",
-      "TAM": "01",
-      "TAM_NAME": "พระบรมมหาราชวัง",
-      "DISTRICT": 1,
-      "MUN": "000",
-      "MUN_NAME": "กรุงเทพมหานคร",
-      "TAO": "",
-      "TAO_NAME": "",
-      "EA": "002",
-      "VIL": "00",
-      "VIL_NAME": "",
-      "MAP_STATUS": 1,
-      "Building": 75,
-      "Household": 73,
-      "population": 405,
-      "Agricultural_HH": 0,
-      "ES_BUSI": "93",
-      "ES_INDUS": "5",
-      "ES_HOTEL": "",
-      "ES_PV_HOS": "",
-      "REMARK": "วัด 1 แห่ง  , สถานที่ราชการ 1 แห่ง ,โรงเรียน 1 แห่ง, มหาวิทยาลัย 1 แห่ง",
-    }])).switchMap(_ => this.listDownloadedEAs(userId));
-  }
 }
 
 

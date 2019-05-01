@@ -28,7 +28,7 @@ export class SendPage {
    */
   public uploadToCloud() {
 
-    const blobUri = "https://nsomap.blob.core.windows.net"; // Or should have '/' ?
+    const blobUri = "https://nsodev.blob.core.windows.net"; // Or should have '/' ?
     const loading = this.loadingCtrl.create({
       content: '',
       enableBackdropDismiss: false,
@@ -42,6 +42,9 @@ export class SendPage {
       const keys = await this.storage.keys();
 
       for (const k of keys) {
+        if (k.startsWith('ulogin1v')) {
+          continue; // ignore login file
+        }
         let txt = await this.storage.get(k);
         blob.createBlockBlobFromText(d2c.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
           if (!resp.isSuccessful) {
