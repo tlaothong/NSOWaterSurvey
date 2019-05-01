@@ -45,13 +45,24 @@ export class DataStoreProvider {
   /**
   * ชั่วคราว ๆ
   */
-  public saveUser(userId: string, password: string) {
-    this.storage.set('ulogin' + userId, password);
+  public saveUser(userId: string, password: string, token: string) {
+    this.storage.set('ulogin' + userId, this.hashCode(password + userId));
+    this.storage.set('tokenlogin' + userId, token);
   }
 
   public async validateUser(userId: string, password: string) {
+    var pwdHash = this.hashCode(password + userId)
     let pwd = await this.storage.get('ulogin' + userId);
-    return pwd == password;
+    return pwd == pwdHash;
+  }
+
+  private hashCode(str: string) {
+    var hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash += Math.pow(str.charCodeAt(i) * 31, str.length - i);
+      hash = hash & hash;
+    }
+    return hash;
   }
 
   /*********** */
@@ -123,9 +134,9 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.set("user" + userId, lastname));
   }
 
-   /**
-    * เรียกนามสกุลที่บันทึกไว้
-    */
+  /**
+   * เรียกนามสกุลที่บันทึกไว้
+   */
   public loadLastName(userId: string): Observable<any> {
     return Observable.fromPromise(this.storage.get("user" + userId));
   }
@@ -147,7 +158,7 @@ export class DataStoreProvider {
   /**
     * เรียกข้อมูล Community
     */
-  public loadCommunity(communityId:string): Observable<any> {
+  public loadCommunity(communityId: string): Observable<any> {
     return Observable.fromPromise(this.storage.get(communityId));
   }
 
