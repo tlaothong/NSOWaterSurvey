@@ -34,34 +34,36 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      Pro.monitoring.init();
+      if (this.platform.is("cordova")) {
+        Pro.monitoring.init();
 
-      Pro.monitoring.call(() => {
-        // var notificationOpenedCallback = function(jsonData) {
-        //   console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-        // };
+        Pro.monitoring.call(() => {
+          // var notificationOpenedCallback = function(jsonData) {
+          //   console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+          // };
+      
+          // window["plugins"].OneSignal
+          //   .startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662")
+          //   .handleNotificationOpened(notificationOpenedCallback)
+          //   .endInit();
+          this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
+  
+          this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
     
-        // window["plugins"].OneSignal
-        //   .startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662")
-        //   .handleNotificationOpened(notificationOpenedCallback)
-        //   .endInit();
-        this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
-
-        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-  
-        this.oneSignal.getIds().then(p => {
-          if (p)
-            this.dataStore.saveNotiUid(p);
+          this.oneSignal.getIds().then(p => {
+            if (p)
+              this.dataStore.saveNotiUid(p);
+          });
+    
+          this.oneSignal.handleNotificationReceived().subscribe(v => {
+          });
+    
+          this.oneSignal.handleNotificationOpened().subscribe(v => {
+          });
+    
+          this.oneSignal.endInit();
         });
-  
-        this.oneSignal.handleNotificationReceived().subscribe(v => {
-        });
-  
-        this.oneSignal.handleNotificationOpened().subscribe(v => {
-        });
-  
-        this.oneSignal.endInit();
-      });
+      }
     });
   }
 
