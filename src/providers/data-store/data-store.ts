@@ -40,6 +40,14 @@ export class DataStoreProvider {
   public hasEasDownloaded(userId: string): Observable<boolean> {
     return Observable.fromPromise(this.storage.get('uea' + userId)).map(it => it != null);
   }
+
+  public saveNotiUid(notiIds): Promise<{}> {
+    return this.storage.set("notiOneIds", notiIds);
+  }
+
+  public getNotiUid(): Observable<PushUserId> {
+    return Observable.fromPromise(this.storage.get("notiOneIds"));
+  }
   /*********** */
 
   /**
@@ -205,4 +213,10 @@ export class DataStoreProvider {
       "REMARK": "วัด 1 แห่ง  , สถานที่ราชการ 1 แห่ง ,โรงเรียน 1 แห่ง, มหาวิทยาลัย 1 แห่ง",
     }])).switchMap(_ => this.listDownloadedEAs(userId));
   }
+}
+
+
+export interface PushUserId {
+  userId: string;
+  pushToken: string;
 }
