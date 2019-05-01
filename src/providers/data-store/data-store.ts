@@ -48,6 +48,14 @@ export class DataStoreProvider {
   public getNotiUid(): Observable<PushUserId> {
     return Observable.fromPromise(this.storage.get("notiOneIds"));
   }
+
+  public saveNotiAppMsg(kind: string, title: string, msg: string, actionId: string): Promise<{}> {
+    return this.storage.set("notiAppMsg", { kind: kind, title: title, msg: msg, actionId: actionId });
+  }
+
+  public getNotiAppMsg(): Observable<MsgNotiInfo> {
+    return Observable.fromPromise(this.storage.get("notiAppMsg"));
+  }
   /*********** */
 
   /**
@@ -219,4 +227,11 @@ export class DataStoreProvider {
 export interface PushUserId {
   userId: string;
   pushToken: string;
+}
+
+export interface MsgNotiInfo {
+  kind: string;
+  title: string;
+  msg: string;
+  actionId: string;
 }
