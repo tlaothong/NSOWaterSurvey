@@ -6,18 +6,16 @@ import { SubDistrict, subDistrictData } from '../../models/SubDistrictData';
 @Injectable()
 export class LocationDataProvider {
 
-  static getDistric(code: number): District[] {
+  static getDistric(code: string): District[] {
     return districtData.filter(it => it.codeProvince == code);
   }
 
-  static getSubdistric(code: number): SubDistrict[] {
+  static getSubdistric(code: string): SubDistrict[] {
     return subDistrictData.filter(it => it.codeDistrict == code);
   }
 
   constructor(public http: HttpClient) {
     console.log('Hello LocationDataProvider Provider');
   }
-
-
 
 }
