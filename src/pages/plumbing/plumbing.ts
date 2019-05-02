@@ -8,9 +8,9 @@ import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsFactorial, getIsHouseHold, getIsAgriculture } from '../../states/household';
 import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
-import { subDistrictData } from '../../models/SubDistrictData';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { Observable } from 'rxjs';
+import { subDistrictDataPump } from '../../models/SubDistrictDataPump';
 
 @IonicPage()
 @Component({
@@ -144,7 +144,7 @@ export class PlumbingPage {
 
       var cwtamptam = this.appState.eaCode.substr(1, 6);
       console.log(cwtamptam);
-      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(cwtamptam));
+      this.subDistrict = subDistrictDataPump.find(it => it.codeSubDistrict == Number(cwtamptam));
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
 
