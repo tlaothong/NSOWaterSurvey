@@ -91,7 +91,7 @@ export class FirstloginPage {
           }
           else {
             let alertTokenNull = this.alertCtrl.create({
-              title: "ไม่พบข้อมูลตอบกลับ กรุณาลองใหม่อีกครั้ง",
+              title: "ไม่พบข้อมูลตอบกลับ กรุณาลองใหม่อีกครั้ง" + response.errorMessage,
             });
             alertTokenNull.present();
           }
