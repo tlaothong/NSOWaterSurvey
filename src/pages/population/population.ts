@@ -161,7 +161,7 @@ export class PopulationPage {
 
       console.log(this.f.get(componentCount).value);
 
-      personCount = Math.max(0, personCount);
+      personCount = Math.max(0, Math.min(30, personCount));
 
       for (let i = 0; i < personCount; i++) {
         var ctrl = null;
