@@ -84,14 +84,16 @@ export class FirstloginPage {
             }
             else {
               let alertVerifyFail = this.alertCtrl.create({
-                title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+                title: "ข้อมูลไม่สมบูรณ์",
+                message:"ข้อมูลที่ได้รับไม่ถูกต้อง"
               });
               alertVerifyFail.present();
             }
           }
           else {
             let alertTokenNull = this.alertCtrl.create({
-              title: "พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+              title: "ไม่พบข้อมูล",
+              message: response.errorMessage
             });
             alertTokenNull.present();
           }

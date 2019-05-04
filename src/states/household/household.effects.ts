@@ -396,7 +396,7 @@ export class HouseHoldEffects {
         mergeMap((uid) => {
             return this.dataStore.loadLastName(uid)
         }),
-        map(data => new SaveLastNameSuccess(data))
+        map(data => new SaveLastNameSuccess(data ? data : []))
     )
 
     private deriveNewStateFromHouseHold(unit: HouseHoldUnit, state: HouseHoldState): HouseHoldState {

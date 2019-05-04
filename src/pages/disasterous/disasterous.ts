@@ -112,17 +112,16 @@ export class DisasterousPage {
 
           checkYearsDisasterous++;
         }
-
-        if (flooded.value == null) {
-          return { 'flooded': true };
-        }
-
-        if (flooded.value && checkYearsDisasterous == 0) {
-          return { 'checkYearsDisasterous': true }
-        }
-
-        return null;
       }
+      if (flooded.value == null) {
+        return { 'flooded': true };
+      }
+
+      if (flooded.value && checkYearsDisasterous == 0) {
+        return { 'checkYearsDisasterous': true }
+      }
+
+      return null;
     }
   }
 

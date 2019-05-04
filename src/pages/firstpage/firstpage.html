@@ -21,12 +21,13 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-note>Version 1.2.1</ion-note>
+      <ion-note>Version 1.2.2d</ion-note>
     </ion-row>
     <ion-row *ngIf="appMsg$ | async as appMsg">
       <ion-col text-center>
         <h1>{{ appMsg.title }}</h1>
         <p>{{ appMsg.msg }}</p>
+        <p *ngIf="appMsg.uri"><a [href]="appMsg.uri">ดูเพิ่มเติม...</a></p>
       </ion-col>
     </ion-row>
   </ion-grid>

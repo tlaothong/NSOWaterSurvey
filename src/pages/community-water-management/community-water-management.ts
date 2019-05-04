@@ -9,10 +9,10 @@ import { CommunityState } from '../../states/community/community.reducer';
 import { Store } from '@ngrx/store';
 import { LoggingState } from '../../states/logging/logging.reducer';
 import { getCommunitySample } from '../../states/community';
-import { subDistrictData } from '../../models/SubDistrictData';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
 import { SaveCommunity } from '../../states/community/community.actions';
+import { subDistrictDataPump } from '../../models/SubDistrictDataPump';
 
 @IonicPage()
 @Component({
@@ -116,7 +116,7 @@ export class CommunityWaterManagementPage {
 
     var cwtamptam = this.appState.eaCode.substr(1, 6);
     console.log(cwtamptam);
-    this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(cwtamptam));
+    this.subDistrict = subDistrictDataPump.find(it => it.codeSubDistrict == Number(cwtamptam));
     this.MWA = this.subDistrict.MWA;
     this.PWA = this.subDistrict.PWA;
     if (this.MWA == false) {

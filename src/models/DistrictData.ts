@@ -1,4648 +1,6506 @@
 export interface District {
-    codeProvince: number;
-    codeDistrict: number;
+    codeProvince: string;
+    codeDistrict: string;
     name: string;
+    codeProvince_NAME: string;
+    AMP: string;
 }
 
 export const districtData: District[] = [
     {
-        codeProvince: 10,
-        codeDistrict: 1001,
-        name: 'พระนคร'
+        codeDistrict: "1001",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "01",
+        name: "พระนคร"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1002,
-        name: 'ดุสิต'
+        codeDistrict: "1002",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "02",
+        name: "ดุสิต"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1003,
-        name: 'หนองจอก'
+        codeDistrict: "1003",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "03",
+        name: "หนองจอก"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1004,
-        name: 'บางรัก'
+        codeDistrict: "1004",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "04",
+        name: "บางรัก"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1005,
-        name: 'บางเขน'
+        codeDistrict: "1005",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "05",
+        name: "บางเขน"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1006,
-        name: 'บางกะปิ'
+        codeDistrict: "1006",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "06",
+        name: "บางกะปิ"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1007,
-        name: 'ปทุมวัน'
+        codeDistrict: "1007",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "07",
+        name: "ปทุมวัน"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1008,
-        name: 'ป้อมปราบศัตรูพ่าย'
+        codeDistrict: "1008",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "08",
+        name: "ป้อมปราบศัตรูพ่าย"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1009,
-        name: 'พระโขนง'
+        codeDistrict: "1009",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "09",
+        name: "พระโขนง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1010,
-        name: 'มีนบุรี'
+        codeDistrict: "1010",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "10",
+        name: "มีนบุรี"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1011,
-        name: 'ลาดกระบัง'
+        codeDistrict: "1011",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "11",
+        name: "ลาดกระบัง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1012,
-        name: 'ยานนาวา'
+        codeDistrict: "1012",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "12",
+        name: "ยานนาวา"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1013,
-        name: 'สัมพันธวงศ์'
+        codeDistrict: "1013",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "13",
+        name: "สัมพันธวงศ์"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1014,
-        name: 'พญาไท'
+        codeDistrict: "1014",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "14",
+        name: "พญาไท"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1015,
-        name: 'ธนบุรี'
+        codeDistrict: "1015",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "15",
+        name: "ธนบุรี"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1016,
-        name: 'บางกอกใหญ่'
+        codeDistrict: "1016",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "16",
+        name: "บางกอกใหญ่"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1017,
-        name: 'ห้วยขวาง'
+        codeDistrict: "1017",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "17",
+        name: "ห้วยขวาง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1018,
-        name: 'คลองสาน'
+        codeDistrict: "1018",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "18",
+        name: "คลองสาน"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1019,
-        name: 'ตลิ่งชัน'
+        codeDistrict: "1019",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "19",
+        name: "ตลิ่งชัน"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1020,
-        name: 'บางกอกน้อย'
+        codeDistrict: "1020",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "20",
+        name: "บางกอกน้อย"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1021,
-        name: 'บางขุนเทียน'
+        codeDistrict: "1021",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "21",
+        name: "บางขุนเทียน"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1022,
-        name: 'ภาษีเจริญ'
+        codeDistrict: "1022",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "22",
+        name: "ภาษีเจริญ"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1023,
-        name: 'หนองแขม'
+        codeDistrict: "1023",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "23",
+        name: "หนองแขม"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1024,
-        name: 'ราษฎร์บูรณะ'
+        codeDistrict: "1024",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "24",
+        name: "ราษฎร์บูรณะ"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1025,
-        name: 'บางพลัด'
+        codeDistrict: "1025",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "25",
+        name: "บางพลัด"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1026,
-        name: 'ดินแดง'
+        codeDistrict: "1026",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "26",
+        name: "ดินแดง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1027,
-        name: 'บึงกุ่ม'
+        codeDistrict: "1027",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "27",
+        name: "บึงกุ่ม"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1028,
-        name: 'สาทร'
+        codeDistrict: "1028",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "28",
+        name: "สาทร"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1029,
-        name: 'บางซื่อ'
+        codeDistrict: "1029",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "29",
+        name: "บางซื่อ"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1030,
-        name: 'จตุจักร'
+        codeDistrict: "1030",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "30",
+        name: "จตุจักร"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1031,
-        name: 'บางคอแหลม'
+        codeDistrict: "1031",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "31",
+        name: "บางคอแหลม"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1032,
-        name: 'ประเวศ'
+        codeDistrict: "1032",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "32",
+        name: "ประเวศ"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1033,
-        name: 'คลองเตย'
+        codeDistrict: "1033",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "33",
+        name: "คลองเตย"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1034,
-        name: 'สวนหลวง'
+        codeDistrict: "1034",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "34",
+        name: "สวนหลวง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1035,
-        name: 'จอมทอง'
+        codeDistrict: "1035",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "35",
+        name: "จอมทอง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1036,
-        name: 'ดอนเมือง'
+        codeDistrict: "1036",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "36",
+        name: "ดอนเมือง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1037,
-        name: 'ราชเทวี'
+        codeDistrict: "1037",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "37",
+        name: "ราชเทวี"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1038,
-        name: 'ลาดพร้าว'
+        codeDistrict: "1038",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "38",
+        name: "ลาดพร้าว"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1039,
-        name: 'วัฒนา'
+        codeDistrict: "1039",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "39",
+        name: "วัฒนา"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1040,
-        name: 'บางแค'
+        codeDistrict: "1040",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "40",
+        name: "บางแค"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1041,
-        name: 'หลักสี่'
+        codeDistrict: "1041",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "41",
+        name: "หลักสี่"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1042,
-        name: 'สายไหม'
+        codeDistrict: "1042",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "42",
+        name: "สายไหม"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1043,
-        name: 'คันนายาว'
+        codeDistrict: "1043",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "43",
+        name: "คันนายาว"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1044,
-        name: 'สะพานสูง'
+        codeDistrict: "1044",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "44",
+        name: "สะพานสูง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1045,
-        name: 'วังทองหลาง'
+        codeDistrict: "1045",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "45",
+        name: "วังทองหลาง"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1046,
-        name: 'คลองสามวา'
+        codeDistrict: "1046",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "46",
+        name: "คลองสามวา"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1047,
-        name: 'บางนา'
+        codeDistrict: "1047",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "47",
+        name: "บางนา"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1048,
-        name: 'ทวีวัฒนา'
+        codeDistrict: "1048",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "48",
+        name: "ทวีวัฒนา"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1049,
-        name: 'ทุ่งครุ'
+        codeDistrict: "1049",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "49",
+        name: "ทุ่งครุ"
     },
     {
-        codeProvince: 10,
-        codeDistrict: 1050,
-        name: 'บางบอน'
+        codeDistrict: "1050",
+        codeProvince: "10",
+        codeProvince_NAME: "กรุงเทพมหานคร",
+        AMP: "50",
+        name: "บางบอน"
     },
     {
-        codeProvince: 11,
-        codeDistrict: 1101,
-        name: 'เมืองสมุทรปราการ'
+        codeDistrict: "1101",
+        codeProvince: "11",
+        codeProvince_NAME: "สมุทรปราการ",
+        AMP: "01",
+        name: "เมืองสมุทรปราการ"
     },
     {
-        codeProvince: 11,
-        codeDistrict: 1102,
-        name: 'บางบ่อ'
+        codeDistrict: "1102",
+        codeProvince: "11",
+        codeProvince_NAME: "สมุทรปราการ",
+        AMP: "02",
+        name: "บางบ่อ"
     },
     {
-        codeProvince: 11,
-        codeDistrict: 1103,
-        name: 'บางพลี'
+        codeDistrict: "1103",
+        codeProvince: "11",
+        codeProvince_NAME: "สมุทรปราการ",
+        AMP: "03",
+        name: "บางพลี"
     },
     {
-        codeProvince: 11,
-        codeDistrict: 1104,
-        name: 'พระประแดง'
+        codeDistrict: "1104",
+        codeProvince: "11",
+        codeProvince_NAME: "สมุทรปราการ",
+        AMP: "04",
+        name: "พระประแดง"
     },
     {
-        codeProvince: 11,
-        codeDistrict: 1105,
-        name: 'พระสมุทรเจดีย์'
+        codeDistrict: "1105",
+        codeProvince: "11",
+        codeProvince_NAME: "สมุทรปราการ",
+        AMP: "05",
+        name: "พระสมุทรเจดีย์"
     },
     {
-        codeProvince: 11,
-        codeDistrict: 1106,
-        name: 'บางเสาธง'
+        codeDistrict: "1106",
+        codeProvince: "11",
+        codeProvince_NAME: "สมุทรปราการ",
+        AMP: "06",
+        name: "บางเสาธง"
     },
     {
-        codeProvince: 12,
-        codeDistrict: 1201,
-        name: 'เมืองนนทบุรี'
+        codeDistrict: "1201",
+        codeProvince: "12",
+        codeProvince_NAME: "นนทบุรี",
+        AMP: "01",
+        name: "เมืองนนทบุรี"
     },
     {
-        codeProvince: 12,
-        codeDistrict: 1202,
-        name: 'บางกรวย'
+        codeDistrict: "1202",
+        codeProvince: "12",
+        codeProvince_NAME: "นนทบุรี",
+        AMP: "02",
+        name: "บางกรวย"
     },
     {
-        codeProvince: 12,
-        codeDistrict: 1203,
-        name: 'บางใหญ่'
+        codeDistrict: "1203",
+        codeProvince: "12",
+        codeProvince_NAME: "นนทบุรี",
+        AMP: "03",
+        name: "บางใหญ่"
     },
     {
-        codeProvince: 12,
-        codeDistrict: 1204,
-        name: 'บางบัวทอง'
+        codeDistrict: "1204",
+        codeProvince: "12",
+        codeProvince_NAME: "นนทบุรี",
+        AMP: "04",
+        name: "บางบัวทอง"
     },
     {
-        codeProvince: 12,
-        codeDistrict: 1205,
-        name: 'ไทรน้อย'
+        codeDistrict: "1205",
+        codeProvince: "12",
+        codeProvince_NAME: "นนทบุรี",
+        AMP: "05",
+        name: "ไทรน้อย"
     },
     {
-        codeProvince: 12,
-        codeDistrict: 1206,
-        name: 'ปากเกร็ด'
+        codeDistrict: "1206",
+        codeProvince: "12",
+        codeProvince_NAME: "นนทบุรี",
+        AMP: "06",
+        name: "ปากเกร็ด"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1301,
-        name: 'เมืองปทุมธานี'
+        codeDistrict: "1301",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "01",
+        name: "เมืองปทุมธานี"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1302,
-        name: 'คลองหลวง'
+        codeDistrict: "1302",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "02",
+        name: "คลองหลวง"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1303,
-        name: 'ธัญบุรี'
+        codeDistrict: "1303",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "03",
+        name: "ธัญบุรี"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1304,
-        name: 'หนองเสือ'
+        codeDistrict: "1304",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "04",
+        name: "หนองเสือ"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1305,
-        name: 'ลาดหลุมแก้ว'
+        codeDistrict: "1305",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "05",
+        name: "ลาดหลุมแก้ว"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1306,
-        name: 'ลำลูกกา'
+        codeDistrict: "1306",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "06",
+        name: "ลำลูกกา"
     },
     {
-        codeProvince: 13,
-        codeDistrict: 1307,
-        name: 'สามโคก'
+        codeDistrict: "1307",
+        codeProvince: "13",
+        codeProvince_NAME: "ปทุมธานี",
+        AMP: "07",
+        name: "สามโคก"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1401,
-        name: 'พระนครศรีอยุธยา'
+        codeDistrict: "1401",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "01",
+        name: "พระนครศรีอยุธยา"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1402,
-        name: 'ท่าเรือ'
+        codeDistrict: "1402",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "02",
+        name: "ท่าเรือ"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1403,
-        name: 'นครหลวง'
+        codeDistrict: "1403",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "03",
+        name: "นครหลวง"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1404,
-        name: 'บางไทร'
+        codeDistrict: "1404",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "04",
+        name: "บางไทร"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1405,
-        name: 'บางบาล'
+        codeDistrict: "1405",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "05",
+        name: "บางบาล"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1406,
-        name: 'บางปะอิน'
+        codeDistrict: "1406",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "06",
+        name: "บางปะอิน"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1407,
-        name: 'บางปะหัน'
+        codeDistrict: "1407",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "07",
+        name: "บางปะหัน"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1408,
-        name: 'ผักไห่'
+        codeDistrict: "1408",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "08",
+        name: "ผักไห่"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1409,
-        name: 'ภาชี'
+        codeDistrict: "1409",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "09",
+        name: "ภาชี"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1410,
-        name: 'ลาดบัวหลวง'
+        codeDistrict: "1410",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "10",
+        name: "ลาดบัวหลวง"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1411,
-        name: 'วังน้อย'
+        codeDistrict: "1411",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "11",
+        name: "วังน้อย"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1412,
-        name: 'เสนา'
+        codeDistrict: "1412",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "12",
+        name: "เสนา"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1413,
-        name: 'บางซ้าย'
+        codeDistrict: "1413",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "13",
+        name: "บางซ้าย"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1414,
-        name: 'อุทัย'
+        codeDistrict: "1414",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "14",
+        name: "อุทัย"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1415,
-        name: 'มหาราช'
+        codeDistrict: "1415",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "15",
+        name: "มหาราช"
     },
     {
-        codeProvince: 14,
-        codeDistrict: 1416,
-        name: 'บ้านแพรก'
+        codeDistrict: "1416",
+        codeProvince: "14",
+        codeProvince_NAME: "พระนครศรีอยุธยา",
+        AMP: "16",
+        name: "บ้านแพรก"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1501,
-        name: 'เมืองอ่างทอง'
+        codeDistrict: "1501",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "01",
+        name: "เมืองอ่างทอง"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1502,
-        name: 'ไชโย'
+        codeDistrict: "1502",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "02",
+        name: "ไชโย"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1503,
-        name: 'ป่าโมก'
+        codeDistrict: "1503",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "03",
+        name: "ป่าโมก"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1504,
-        name: 'โพธิ์ทอง'
+        codeDistrict: "1504",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "04",
+        name: "โพธิ์ทอง"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1505,
-        name: 'แสวงหา'
+        codeDistrict: "1505",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "05",
+        name: "แสวงหา"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1506,
-        name: 'วิเศษชัยชาญ'
+        codeDistrict: "1506",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "06",
+        name: "วิเศษชัยชาญ"
     },
     {
-        codeProvince: 15,
-        codeDistrict: 1507,
-        name: 'สามโก้'
+        codeDistrict: "1507",
+        codeProvince: "15",
+        codeProvince_NAME: "อ่างทอง",
+        AMP: "07",
+        name: "สามโก้"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1601,
-        name: 'เมืองลพบุรี'
+        codeDistrict: "1601",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "01",
+        name: "เมืองลพบุรี"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1602,
-        name: 'พัฒนานิคม'
+        codeDistrict: "1602",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "02",
+        name: "พัฒนานิคม"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1603,
-        name: 'โคกสำโรง'
+        codeDistrict: "1603",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "03",
+        name: "โคกสำโรง"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1604,
-        name: 'ชัยบาดาล'
+        codeDistrict: "1604",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "04",
+        name: "ชัยบาดาล"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1605,
-        name: 'ท่าวุ้ง'
+        codeDistrict: "1605",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "05",
+        name: "ท่าวุ้ง"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1606,
-        name: 'บ้านหมี่'
+        codeDistrict: "1606",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "06",
+        name: "บ้านหมี่"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1607,
-        name: 'ท่าหลวง'
+        codeDistrict: "1607",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "07",
+        name: "ท่าหลวง"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1608,
-        name: 'สระโบสถ์'
+        codeDistrict: "1608",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "08",
+        name: "สระโบสถ์"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1609,
-        name: 'โคกเจริญ'
+        codeDistrict: "1609",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "09",
+        name: "โคกเจริญ"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1610,
-        name: 'ลำสนธิ'
+        codeDistrict: "1610",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "10",
+        name: "ลำสนธิ"
     },
     {
-        codeProvince: 16,
-        codeDistrict: 1611,
-        name: 'หนองม่วง'
+        codeDistrict: "1611",
+        codeProvince: "16",
+        codeProvince_NAME: "ลพบุรี",
+        AMP: "11",
+        name: "หนองม่วง"
     },
     {
-        codeProvince: 17,
-        codeDistrict: 1701,
-        name: 'เมืองสิงห์บุรี'
+        codeDistrict: "1701",
+        codeProvince: "17",
+        codeProvince_NAME: "สิงห์บุรี",
+        AMP: "01",
+        name: "เมืองสิงห์บุรี"
     },
     {
-        codeProvince: 17,
-        codeDistrict: 1702,
-        name: 'บางระจัน'
+        codeDistrict: "1702",
+        codeProvince: "17",
+        codeProvince_NAME: "สิงห์บุรี",
+        AMP: "02",
+        name: "บางระจัน"
     },
     {
-        codeProvince: 17,
-        codeDistrict: 1703,
-        name: 'ค่ายบางระจัน'
+        codeDistrict: "1703",
+        codeProvince: "17",
+        codeProvince_NAME: "สิงห์บุรี",
+        AMP: "03",
+        name: "ค่ายบางระจัน"
     },
     {
-        codeProvince: 17,
-        codeDistrict: 1704,
-        name: 'พรหมบุรี'
+        codeDistrict: "1704",
+        codeProvince: "17",
+        codeProvince_NAME: "สิงห์บุรี",
+        AMP: "04",
+        name: "พรหมบุรี"
     },
     {
-        codeProvince: 17,
-        codeDistrict: 1705,
-        name: 'ท่าช้าง'
+        codeDistrict: "1705",
+        codeProvince: "17",
+        codeProvince_NAME: "สิงห์บุรี",
+        AMP: "05",
+        name: "ท่าช้าง"
     },
     {
-        codeProvince: 17,
-        codeDistrict: 1706,
-        name: 'อินทร์บุรี'
+        codeDistrict: "1706",
+        codeProvince: "17",
+        codeProvince_NAME: "สิงห์บุรี",
+        AMP: "06",
+        name: "อินทร์บุรี"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1801,
-        name: 'เมืองชัยนาท'
+        codeDistrict: "1801",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "01",
+        name: "เมืองชัยนาท"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1802,
-        name: 'มโนรมย์'
+        codeDistrict: "1802",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "02",
+        name: "มโนรมย์"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1803,
-        name: 'วัดสิงห์'
+        codeDistrict: "1803",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "03",
+        name: "วัดสิงห์"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1804,
-        name: 'สรรพยา'
+        codeDistrict: "1804",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "04",
+        name: "สรรพยา"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1805,
-        name: 'สรรคบุรี'
+        codeDistrict: "1805",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "05",
+        name: "สรรคบุรี"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1806,
-        name: 'หันคา'
+        codeDistrict: "1806",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "06",
+        name: "หันคา"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1807,
-        name: 'หนองมะโมง'
+        codeDistrict: "1807",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "07",
+        name: "หนองมะโมง"
     },
     {
-        codeProvince: 18,
-        codeDistrict: 1808,
-        name: 'เนินขาม'
+        codeDistrict: "1808",
+        codeProvince: "18",
+        codeProvince_NAME: "ชัยนาท",
+        AMP: "08",
+        name: "เนินขาม"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1901,
-        name: 'เมืองสระบุรี'
+        codeDistrict: "1901",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "01",
+        name: "เมืองสระบุรี"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1902,
-        name: 'แก่งคอย'
+        codeDistrict: "1902",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "02",
+        name: "แก่งคอย"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1903,
-        name: 'หนองแค'
+        codeDistrict: "1903",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "03",
+        name: "หนองแค"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1904,
-        name: 'วิหารแดง'
+        codeDistrict: "1904",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "04",
+        name: "วิหารแดง"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1905,
-        name: 'หนองแซง'
+        codeDistrict: "1905",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "05",
+        name: "หนองแซง"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1906,
-        name: 'บ้านหมอ'
+        codeDistrict: "1906",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "06",
+        name: "บ้านหมอ"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1907,
-        name: 'ดอนพุด'
+        codeDistrict: "1907",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "07",
+        name: "ดอนพุด"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1908,
-        name: 'หนองโดน'
+        codeDistrict: "1908",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "08",
+        name: "หนองโดน"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1909,
-        name: 'พระพุทธบาท'
+        codeDistrict: "1909",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "09",
+        name: "พระพุทธบาท"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1910,
-        name: 'เสาไห้'
+        codeDistrict: "1910",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "10",
+        name: "เสาไห้"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1911,
-        name: 'มวกเหล็ก'
+        codeDistrict: "1911",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "11",
+        name: "มวกเหล็ก"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1912,
-        name: 'วังม่วง'
+        codeDistrict: "1912",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "12",
+        name: "วังม่วง"
     },
     {
-        codeProvince: 19,
-        codeDistrict: 1913,
-        name: 'เฉลิมพระเกียรติ'
+        codeDistrict: "1913",
+        codeProvince: "19",
+        codeProvince_NAME: "สระบุรี",
+        AMP: "13",
+        name: "เฉลิมพระเกียรติ"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2001,
-        name: 'เมืองชลบุรี'
+        codeDistrict: "2001",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "01",
+        name: "เมืองชลบุรี"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2002,
-        name: 'บ้านบึง'
+        codeDistrict: "2002",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "02",
+        name: "บ้านบึง"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2003,
-        name: 'หนองใหญ่'
+        codeDistrict: "2003",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "03",
+        name: "หนองใหญ่"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2004,
-        name: 'บางละมุง'
+        codeDistrict: "2004",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "04",
+        name: "บางละมุง"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2005,
-        name: 'พานทอง'
+        codeDistrict: "2005",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "05",
+        name: "พานทอง"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2006,
-        name: 'พนัสนิคม'
+        codeDistrict: "2006",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "06",
+        name: "พนัสนิคม"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2007,
-        name: 'ศรีราชา'
+        codeDistrict: "2007",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "07",
+        name: "ศรีราชา"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2008,
-        name: 'เกาะสีชัง'
+        codeDistrict: "2008",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "08",
+        name: "เกาะสีชัง"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2009,
-        name: 'สัตหีบ'
+        codeDistrict: "2009",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "09",
+        name: "สัตหีบ"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2010,
-        name: 'บ่อทอง'
+        codeDistrict: "2010",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "10",
+        name: "บ่อทอง"
     },
     {
-        codeProvince: 20,
-        codeDistrict: 2011,
-        name: 'เกาะจันทร์'
+        codeDistrict: "2011",
+        codeProvince: "20",
+        codeProvince_NAME: "ชลบุรี",
+        AMP: "11",
+        name: "เกาะจันทร์"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2101,
-        name: 'เมืองระยอง'
+        codeDistrict: "2101",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "01",
+        name: "เมืองระยอง"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2102,
-        name: 'บ้านฉาง'
+        codeDistrict: "2102",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "02",
+        name: "บ้านฉาง"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2103,
-        name: 'แกลง'
+        codeDistrict: "2103",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "03",
+        name: "แกลง"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2104,
-        name: 'วังจันทร์'
+        codeDistrict: "2104",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "04",
+        name: "วังจันทร์"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2105,
-        name: 'บ้านค่าย'
+        codeDistrict: "2105",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "05",
+        name: "บ้านค่าย"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2106,
-        name: 'ปลวกแดง'
+        codeDistrict: "2106",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "06",
+        name: "ปลวกแดง"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2107,
-        name: 'เขาชะเมา'
+        codeDistrict: "2107",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "07",
+        name: "เขาชะเมา"
     },
     {
-        codeProvince: 21,
-        codeDistrict: 2108,
-        name: 'นิคมพัฒนา'
+        codeDistrict: "2108",
+        codeProvince: "21",
+        codeProvince_NAME: "ระยอง",
+        AMP: "08",
+        name: "นิคมพัฒนา"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2201,
-        name: 'เมืองจันทบุรี'
+        codeDistrict: "2201",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "01",
+        name: "เมืองจันทบุรี"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2202,
-        name: 'ขลุง'
+        codeDistrict: "2202",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "02",
+        name: "ขลุง"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2203,
-        name: 'ท่าใหม่'
+        codeDistrict: "2203",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "03",
+        name: "ท่าใหม่"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2204,
-        name: 'โป่งน้ำร้อน'
+        codeDistrict: "2204",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "04",
+        name: "โป่งน้ำร้อน"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2205,
-        name: 'มะขาม'
+        codeDistrict: "2205",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "05",
+        name: "มะขาม"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2206,
-        name: 'แหลมสิงห์'
+        codeDistrict: "2206",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "06",
+        name: "แหลมสิงห์"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2207,
-        name: 'สอยดาว'
+        codeDistrict: "2207",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "07",
+        name: "สอยดาว"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2208,
-        name: 'แก่งหางแมว'
+        codeDistrict: "2208",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "08",
+        name: "แก่งหางแมว"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2209,
-        name: 'นายายอาม'
+        codeDistrict: "2209",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "09",
+        name: "นายายอาม"
     },
     {
-        codeProvince: 22,
-        codeDistrict: 2210,
-        name: 'เขาคิชฌกูฏ'
+        codeDistrict: "2210",
+        codeProvince: "22",
+        codeProvince_NAME: "จันทบุรี",
+        AMP: "10",
+        name: "เขาคิชฌกูฏ"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2301,
-        name: 'เมืองตราด'
+        codeDistrict: "2301",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "01",
+        name: "เมืองตราด"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2302,
-        name: 'คลองใหญ่'
+        codeDistrict: "2302",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "02",
+        name: "คลองใหญ่"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2303,
-        name: 'เขาสมิง'
+        codeDistrict: "2303",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "03",
+        name: "เขาสมิง"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2304,
-        name: 'บ่อไร่'
+        codeDistrict: "2304",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "04",
+        name: "บ่อไร่"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2305,
-        name: 'แหลมงอบ'
+        codeDistrict: "2305",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "05",
+        name: "แหลมงอบ"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2306,
-        name: 'เกาะกูด'
+        codeDistrict: "2306",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "06",
+        name: "เกาะกูด"
     },
     {
-        codeProvince: 23,
-        codeDistrict: 2307,
-        name: 'เกาะช้าง'
+        codeDistrict: "2307",
+        codeProvince: "23",
+        codeProvince_NAME: "ตราด",
+        AMP: "07",
+        name: "เกาะช้าง"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2401,
-        name: 'เมืองฉะเชิงเทรา'
+        codeDistrict: "2401",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "01",
+        name: "เมืองฉะเชิงเทรา"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2402,
-        name: 'บางคล้า'
+        codeDistrict: "2402",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "02",
+        name: "บางคล้า"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2403,
-        name: 'บางน้ำเปรี้ยว'
+        codeDistrict: "2403",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "03",
+        name: "บางน้ำเปรี้ยว"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2404,
-        name: 'บางปะกง'
+        codeDistrict: "2404",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "04",
+        name: "บางปะกง"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2405,
-        name: 'บ้านโพธิ์'
+        codeDistrict: "2405",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "05",
+        name: "บ้านโพธิ์"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2406,
-        name: 'พนมสารคาม'
+        codeDistrict: "2406",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "06",
+        name: "พนมสารคาม"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2407,
-        name: 'ราชสาส์น'
+        codeDistrict: "2407",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "07",
+        name: "ราชสาส์น"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2408,
-        name: 'สนามชัยเขต'
+        codeDistrict: "2408",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "08",
+        name: "สนามชัยเขต"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2409,
-        name: 'แปลงยาว'
+        codeDistrict: "2409",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "09",
+        name: "แปลงยาว"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2410,
-        name: 'ท่าตะเกียบ'
+        codeDistrict: "2410",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "10",
+        name: "ท่าตะเกียบ"
     },
     {
-        codeProvince: 24,
-        codeDistrict: 2411,
-        name: 'คลองเขื่อน'
+        codeDistrict: "2411",
+        codeProvince: "24",
+        codeProvince_NAME: "ฉะเชิงเทรา",
+        AMP: "11",
+        name: "คลองเขื่อน"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2501,
-        name: 'เมืองปราจีนบุรี'
+        codeDistrict: "2501",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "01",
+        name: "เมืองปราจีนบุรี"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2502,
-        name: 'กบินทร์บุรี'
+        codeDistrict: "2502",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "02",
+        name: "กบินทร์บุรี"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2503,
-        name: 'นาดี'
+        codeDistrict: "2503",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "03",
+        name: "นาดี"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2506,
-        name: 'บ้านสร้าง'
+        codeDistrict: "2506",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "06",
+        name: "บ้านสร้าง"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2507,
-        name: 'ประจันตคาม'
+        codeDistrict: "2507",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "07",
+        name: "ประจันตคาม"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2508,
-        name: 'ศรีมหาโพธิ'
+        codeDistrict: "2508",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "08",
+        name: "ศรีมหาโพธิ"
     },
     {
-        codeProvince: 25,
-        codeDistrict: 2509,
-        name: 'ศรีมโหสถ'
+        codeDistrict: "2509",
+        codeProvince: "25",
+        codeProvince_NAME: "ปราจีนบุรี",
+        AMP: "09",
+        name: "ศรีมโหสถ"
     },
     {
-        codeProvince: 26,
-        codeDistrict: 2601,
-        name: 'เมืองนครนายก'
+        codeDistrict: "2601",
+        codeProvince: "26",
+        codeProvince_NAME: "นครนายก",
+        AMP: "01",
+        name: "เมืองนครนายก"
     },
     {
-        codeProvince: 26,
-        codeDistrict: 2602,
-        name: 'ปากพลี'
+        codeDistrict: "2602",
+        codeProvince: "26",
+        codeProvince_NAME: "นครนายก",
+        AMP: "02",
+        name: "ปากพลี"
     },
     {
-        codeProvince: 26,
-        codeDistrict: 2603,
-        name: 'บ้านนา'
+        codeDistrict: "2603",
+        codeProvince: "26",
+        codeProvince_NAME: "นครนายก",
+        AMP: "03",
+        name: "บ้านนา"
     },
     {
-        codeProvince: 26,
-        codeDistrict: 2604,
-        name: 'องครักษ์'
+        codeDistrict: "2604",
+        codeProvince: "26",
+        codeProvince_NAME: "นครนายก",
+        AMP: "04",
+        name: "องครักษ์"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2701,
-        name: 'เมืองสระแก้ว'
+        codeDistrict: "2701",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "01",
+        name: "เมืองสระแก้ว"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2702,
-        name: 'คลองหาด'
+        codeDistrict: "2702",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "02",
+        name: "คลองหาด"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2703,
-        name: 'ตาพระยา'
+        codeDistrict: "2703",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "03",
+        name: "ตาพระยา"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2704,
-        name: 'วังน้ำเย็น'
+        codeDistrict: "2704",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "04",
+        name: "วังน้ำเย็น"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2705,
-        name: 'วัฒนานคร'
+        codeDistrict: "2705",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "05",
+        name: "วัฒนานคร"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2706,
-        name: 'อรัญประเทศ'
+        codeDistrict: "2706",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "06",
+        name: "อรัญประเทศ"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2707,
-        name: 'เขาฉกรรจ์'
+        codeDistrict: "2707",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "07",
+        name: "เขาฉกรรจ์"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2708,
-        name: 'โคกสูง'
+        codeDistrict: "2708",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "08",
+        name: "โคกสูง"
     },
     {
-        codeProvince: 27,
-        codeDistrict: 2709,
-        name: 'วังสมบูรณ์'
+        codeDistrict: "2709",
+        codeProvince: "27",
+        codeProvince_NAME: "สระแก้ว",
+        AMP: "09",
+        name: "วังสมบูรณ์"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3001,
-        name: 'เมืองนครราชสีมา'
+        codeDistrict: "3001",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "01",
+        name: "เมืองนครราชสีมา"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3002,
-        name: 'ครบุรี'
+        codeDistrict: "3002",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "02",
+        name: "ครบุรี"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3003,
-        name: 'เสิงสาง'
+        codeDistrict: "3003",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "03",
+        name: "เสิงสาง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3004,
-        name: 'คง'
+        codeDistrict: "3004",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "04",
+        name: "คง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3005,
-        name: 'บ้านเหลื่อม'
+        codeDistrict: "3005",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "05",
+        name: "บ้านเหลื่อม"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3006,
-        name: 'จักราช'
+        codeDistrict: "3006",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "06",
+        name: "จักราช"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3007,
-        name: 'โชคชัย'
+        codeDistrict: "3007",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "07",
+        name: "โชคชัย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3008,
-        name: 'ด่านขุนทด'
+        codeDistrict: "3008",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "08",
+        name: "ด่านขุนทด"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3009,
-        name: 'โนนไทย'
+        codeDistrict: "3009",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "09",
+        name: "โนนไทย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3010,
-        name: 'โนนสูง'
+        codeDistrict: "3010",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "10",
+        name: "โนนสูง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3011,
-        name: 'ขามสะแกแสง'
+        codeDistrict: "3011",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "11",
+        name: "ขามสะแกแสง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3012,
-        name: 'บัวใหญ่'
+        codeDistrict: "3012",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "12",
+        name: "บัวใหญ่"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3013,
-        name: 'ประทาย'
+        codeDistrict: "3013",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "13",
+        name: "ประทาย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3014,
-        name: 'ปักธงชัย'
+        codeDistrict: "3014",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "14",
+        name: "ปักธงชัย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3015,
-        name: 'พิมาย'
+        codeDistrict: "3015",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "15",
+        name: "พิมาย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3016,
-        name: 'ห้วยแถลง'
+        codeDistrict: "3016",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "16",
+        name: "ห้วยแถลง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3017,
-        name: 'ชุมพวง'
+        codeDistrict: "3017",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "17",
+        name: "ชุมพวง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3018,
-        name: 'สูงเนิน'
+        codeDistrict: "3018",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "18",
+        name: "สูงเนิน"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3019,
-        name: 'ขามทะเลสอ'
+        codeDistrict: "3019",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "19",
+        name: "ขามทะเลสอ"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3020,
-        name: 'สีคิ้ว'
+        codeDistrict: "3020",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "20",
+        name: "สีคิ้ว"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3021,
-        name: 'ปากช่อง'
+        codeDistrict: "3021",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "21",
+        name: "ปากช่อง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3022,
-        name: 'หนองบุญมาก'
+        codeDistrict: "3022",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "22",
+        name: "หนองบุญมาก"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3023,
-        name: 'แก้งสนามนาง'
+        codeDistrict: "3023",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "23",
+        name: "แก้งสนามนาง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3024,
-        name: 'โนนแดง'
+        codeDistrict: "3024",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "24",
+        name: "โนนแดง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3025,
-        name: 'วังน้ำเขียว'
+        codeDistrict: "3025",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "25",
+        name: "วังน้ำเขียว"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3026,
-        name: 'เทพารักษ์'
+        codeDistrict: "3026",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "26",
+        name: "เทพารักษ์"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3027,
-        name: 'เมืองยาง'
+        codeDistrict: "3027",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "27",
+        name: "เมืองยาง"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3028,
-        name: 'พระทองคำ'
+        codeDistrict: "3028",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "28",
+        name: "พระทองคำ"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3029,
-        name: 'ลำทะเมนชัย'
+        codeDistrict: "3029",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "29",
+        name: "ลำทะเมนชัย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3030,
-        name: 'บัวลาย'
+        codeDistrict: "3030",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "30",
+        name: "บัวลาย"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3031,
-        name: 'สีดา'
+        codeDistrict: "3031",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "31",
+        name: "สีดา"
     },
     {
-        codeProvince: 30,
-        codeDistrict: 3032,
-        name: 'เฉลิมพระเกียรติ'
+        codeDistrict: "3032",
+        codeProvince: "30",
+        codeProvince_NAME: "นครราชสีมา",
+        AMP: "32",
+        name: "เฉลิมพระเกียรติ"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3101,
-        name: 'เมืองบุรีรัมย์'
+        codeDistrict: "3101",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "01",
+        name: "เมืองบุรีรัมย์"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3102,
-        name: 'คูเมือง'
+        codeDistrict: "3102",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "02",
+        name: "คูเมือง"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3103,
-        name: 'กระสัง'
+        codeDistrict: "3103",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "03",
+        name: "กระสัง"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3104,
-        name: 'นางรอง'
+        codeDistrict: "3104",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "04",
+        name: "นางรอง"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3105,
-        name: 'หนองกี่'
+        codeDistrict: "3105",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "05",
+        name: "หนองกี่"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3106,
-        name: 'ละหานทราย'
+        codeDistrict: "3106",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "06",
+        name: "ละหานทราย"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3107,
-        name: 'ประโคนชัย'
+        codeDistrict: "3107",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "07",
+        name: "ประโคนชัย"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3108,
-        name: 'บ้านกรวด'
+        codeDistrict: "3108",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "08",
+        name: "บ้านกรวด"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3109,
-        name: 'พุทไธสง'
+        codeDistrict: "3109",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "09",
+        name: "พุทไธสง"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3110,
-        name: 'ลำปลายมาศ'
+        codeDistrict: "3110",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "10",
+        name: "ลำปลายมาศ"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3111,
-        name: 'สตึก'
+        codeDistrict: "3111",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "11",
+        name: "สตึก"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3112,
-        name: 'ปะคำ'
+        codeDistrict: "3112",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "12",
+        name: "ปะคำ"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3113,
-        name: 'นาโพธิ์'
+        codeDistrict: "3113",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "13",
+        name: "นาโพธิ์"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3114,
-        name: 'หนองหงส์'
+        codeDistrict: "3114",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "14",
+        name: "หนองหงส์"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3115,
-        name: 'พลับพลาชัย'
+        codeDistrict: "3115",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "15",
+        name: "พลับพลาชัย"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3116,
-        name: 'ห้วยราช'
+        codeDistrict: "3116",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "16",
+        name: "ห้วยราช"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3117,
-        name: 'โนนสุวรรณ'
+        codeDistrict: "3117",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "17",
+        name: "โนนสุวรรณ"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3118,
-        name: 'ชำนิ'
+        codeDistrict: "3118",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "18",
+        name: "ชำนิ"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3119,
-        name: 'บ้านใหม่ไชยพจน์'
+        codeDistrict: "3119",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "19",
+        name: "บ้านใหม่ไชยพจน์"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3120,
-        name: 'โนนดินแดง'
+        codeDistrict: "3120",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "20",
+        name: "โนนดินแดง"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3121,
-        name: 'บ้านด่าน'
+        codeDistrict: "3121",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "21",
+        name: "บ้านด่าน"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3122,
-        name: 'แคนดง'
+        codeDistrict: "3122",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "22",
+        name: "แคนดง"
     },
     {
-        codeProvince: 31,
-        codeDistrict: 3123,
-        name: 'เฉลิมพระเกียรติ'
+        codeDistrict: "3123",
+        codeProvince: "31",
+        codeProvince_NAME: "บุรีรัมย์",
+        AMP: "23",
+        name: "เฉลิมพระเกียรติ"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3201,
-        name: 'เมืองสุรินทร์'
+        codeDistrict: "3201",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "01",
+        name: "เมืองสุรินทร์"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3202,
-        name: 'ชุมพลบุรี'
+        codeDistrict: "3202",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "02",
+        name: "ชุมพลบุรี"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3203,
-        name: 'ท่าตูม'
+        codeDistrict: "3203",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "03",
+        name: "ท่าตูม"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3204,
-        name: 'จอมพระ'
+        codeDistrict: "3204",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "04",
+        name: "จอมพระ"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3205,
-        name: 'ปราสาท'
+        codeDistrict: "3205",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "05",
+        name: "ปราสาท"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3206,
-        name: 'กาบเชิง'
+        codeDistrict: "3206",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "06",
+        name: "กาบเชิง"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3207,
-        name: 'รัตนบุรี'
+        codeDistrict: "3207",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "07",
+        name: "รัตนบุรี"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3208,
-        name: 'สนม'
+        codeDistrict: "3208",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "08",
+        name: "สนม"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3209,
-        name: 'ศีขรภูมิ'
+        codeDistrict: "3209",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "09",
+        name: "ศรีขรภูมิ"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3210,
-        name: 'สังขะ'
+        codeDistrict: "3210",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "10",
+        name: "สังขะ"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3211,
-        name: 'ลำดวน'
+        codeDistrict: "3211",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "11",
+        name: "ลำดวน"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3212,
-        name: 'สำโรงทาบ'
+        codeDistrict: "3212",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "12",
+        name: "สำโรงทาบ"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3213,
-        name: 'บัวเชด'
+        codeDistrict: "3213",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "13",
+        name: "บัวเชด"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3214,
-        name: 'พนมดงรัก'
+        codeDistrict: "3214",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "14",
+        name: "พนมดงรัก"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3215,
-        name: 'ศรีณรงค์'
+        codeDistrict: "3215",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "15",
+        name: "ศรีณรงค์"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3216,
-        name: 'เขวาสินรินทร์'
+        codeDistrict: "3216",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "16",
+        name: "เขวาสินรินทร์"
     },
     {
-        codeProvince: 32,
-        codeDistrict: 3217,
-        name: 'โนนนารายณ์'
+        codeDistrict: "3217",
+        codeProvince: "32",
+        codeProvince_NAME: "สุรินทร์",
+        AMP: "17",
+        name: "โนนนารายณ์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3301,
-        name: 'เมืองศรีสะเกษ'
+        codeDistrict: "3301",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "01",
+        name: "เมืองศรีสะเกษ"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3302,
-        name: 'ยางชุมน้อย'
+        codeDistrict: "3302",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "02",
+        name: "ยางชุมน้อย"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3303,
-        name: 'กันทรารมย์'
+        codeDistrict: "3303",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "03",
+        name: "กันทรารมย์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3304,
-        name: 'กันทรลักษ์'
+        codeDistrict: "3304",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "04",
+        name: "กันทรลักษ์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3305,
-        name: 'ขุขันธ์'
+        codeDistrict: "3305",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "05",
+        name: "ขุขันธ์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3306,
-        name: 'ไพรบึง'
+        codeDistrict: "3306",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "06",
+        name: "ไพรบึง"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3307,
-        name: 'ปรางค์กู่'
+        codeDistrict: "3307",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "07",
+        name: "ปรางค์กู่"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3308,
-        name: 'ขุนหาญ'
+        codeDistrict: "3308",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "08",
+        name: "ขุนหาญ"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3309,
-        name: 'ราษีไศล'
+        codeDistrict: "3309",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "09",
+        name: "ราษีไศล"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3310,
-        name: 'อุทุมพรพิสัย'
+        codeDistrict: "3310",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "10",
+        name: "อุทุมพรพิสัย"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3311,
-        name: 'บึงบูรพ์'
+        codeDistrict: "3311",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "11",
+        name: "บึงบูรพ์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3312,
-        name: 'ห้วยทับทัน'
+        codeDistrict: "3312",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "12",
+        name: "ห้วยทับทัน"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3313,
-        name: 'โนนคูณ'
+        codeDistrict: "3313",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "13",
+        name: "โนนคูณ"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3314,
-        name: 'ศรีรัตนะ'
+        codeDistrict: "3314",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "14",
+        name: "ศรีรัตนะ"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3315,
-        name: 'น้ำเกลี้ยง'
+        codeDistrict: "3315",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "15",
+        name: "น้ำเกลี้ยง"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3316,
-        name: 'วังหิน'
+        codeDistrict: "3316",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "16",
+        name: "วังหิน"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3317,
-        name: 'ภูสิงห์'
+        codeDistrict: "3317",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "17",
+        name: "ภูสิงห์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3318,
-        name: 'เมืองจันทร์'
+        codeDistrict: "3318",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "18",
+        name: "เมืองจันทร์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3319,
-        name: 'เบญจลักษ์'
+        codeDistrict: "3319",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "19",
+        name: "เบญจลักษ์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3320,
-        name: 'พยุห์'
+        codeDistrict: "3320",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "20",
+        name: "พยุห์"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3321,
-        name: 'โพธิ์ศรีสุวรรณ'
+        codeDistrict: "3321",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "21",
+        name: "โพธิ์ศรีสุวรรณ"
     },
     {
-        codeProvince: 33,
-        codeDistrict: 3322,
-        name: 'ศิลาลาด'
+        codeDistrict: "3322",
+        codeProvince: "33",
+        codeProvince_NAME: "ศรีสะเกษ",
+        AMP: "22",
+        name: "ศิลาลาด"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3401,
-        name: 'เมืองอุบลราชธานี'
+        codeDistrict: "3401",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "01",
+        name: "เมืองอุบลราชธานี"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3402,
-        name: 'ศรีเมืองใหม่'
+        codeDistrict: "3402",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "02",
+        name: "ศรีเมืองใหม่"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3403,
-        name: 'โขงเจียม'
+        codeDistrict: "3403",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "03",
+        name: "โขงเจียม"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3404,
-        name: 'เขื่องใน'
+        codeDistrict: "3404",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "04",
+        name: "เขื่องใน"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3405,
-        name: 'เขมราฐ'
+        codeDistrict: "3405",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "05",
+        name: "เขมราฐ"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3407,
-        name: 'เดชอุดม'
+        codeDistrict: "3407",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "07",
+        name: "เดชอุดม"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3408,
-        name: 'นาจะหลวย'
+        codeDistrict: "3408",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "08",
+        name: "นาจะหลวย"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3409,
-        name: 'น้ำยืน'
+        codeDistrict: "3409",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "09",
+        name: "น้ำยืน"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3410,
-        name: 'บุณฑริก'
+        codeDistrict: "3410",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "10",
+        name: "บุณฑริก"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3411,
-        name: 'ตระการพืชผล'
+        codeDistrict: "3411",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "11",
+        name: "ตระการพืชผล"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3412,
-        name: 'กุดข้าวปุ้น'
+        codeDistrict: "3412",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "12",
+        name: "กุดข้าวปุ้น"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3414,
-        name: 'ม่วงสามสิบ'
+        codeDistrict: "3414",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "14",
+        name: "ม่วงสามสิบ"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3415,
-        name: 'วารินชำราบ'
+        codeDistrict: "3415",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "15",
+        name: "วารินชำราบ"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3419,
-        name: 'พิบูลมังสาหาร'
+        codeDistrict: "3419",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "19",
+        name: "พิบูลมังสาหาร"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3420,
-        name: 'ตาลสุม'
+        codeDistrict: "3420",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "20",
+        name: "ตาลสุม"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3421,
-        name: 'โพธิ์ไทร'
+        codeDistrict: "3421",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "21",
+        name: "โพธิ์ไทร"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3422,
-        name: 'สำโรง'
+        codeDistrict: "3422",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "22",
+        name: "สำโรง"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3424,
-        name: 'ดอนมดแดง'
+        codeDistrict: "3424",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "24",
+        name: "ดอนมดแดง"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3425,
-        name: 'สิรินธร'
+        codeDistrict: "3425",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "25",
+        name: "สิรินธร"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3426,
-        name: 'ทุ่งศรีอุดม'
+        codeDistrict: "3426",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "26",
+        name: "ทุ่งศรีอุดม"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3429,
-        name: 'นาเยีย'
+        codeDistrict: "3429",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "29",
+        name: "นาเยีย"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3430,
-        name: 'นาตาล'
+        codeDistrict: "3430",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "30",
+        name: "นาตาล"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3431,
-        name: 'เหล่าเสือโก้ก'
+        codeDistrict: "3431",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "31",
+        name: "เหล่าเสือโก้ก"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3432,
-        name: 'สว่างวีระวงศ์'
+        codeDistrict: "3432",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "32",
+        name: "สว่างวีระวงศ์"
     },
     {
-        codeProvince: 34,
-        codeDistrict: 3433,
-        name: 'น้ำขุ่น'
+        codeDistrict: "3433",
+        codeProvince: "34",
+        codeProvince_NAME: "อุบลราชธานี",
+        AMP: "33",
+        name: "น้ำขุ่น"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3501,
-        name: 'เมืองยโสธร'
+        codeDistrict: "3501",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "01",
+        name: "เมืองยโสธร"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3502,
-        name: 'ทรายมูล'
+        codeDistrict: "3502",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "02",
+        name: "ทรายมูล"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3503,
-        name: 'กุดชุม'
+        codeDistrict: "3503",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "03",
+        name: "กุดชุม"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3504,
-        name: 'คำเขื่อนแก้ว'
+        codeDistrict: "3504",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "04",
+        name: "คำเขื่อนแก้ว"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3505,
-        name: 'ป่าติ้ว'
+        codeDistrict: "3505",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "05",
+        name: "ป่าติ้ว"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3506,
-        name: 'มหาชนะชัย'
+        codeDistrict: "3506",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "06",
+        name: "มหาชนะชัย"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3507,
-        name: 'ค้อวัง'
+        codeDistrict: "3507",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "07",
+        name: "ค้อวัง"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3508,
-        name: 'เลิงนกทา'
+        codeDistrict: "3508",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "08",
+        name: "เลิงนกทา"
     },
     {
-        codeProvince: 35,
-        codeDistrict: 3509,
-        name: 'ไทยเจริญ'
+        codeDistrict: "3509",
+        codeProvince: "35",
+        codeProvince_NAME: "ยโสธร",
+        AMP: "09",
+        name: "ไทยเจริญ"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3601,
-        name: 'เมืองชัยภูมิ'
+        codeDistrict: "3601",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "01",
+        name: "เมืองชัยภูมิ"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3602,
-        name: 'บ้านเขว้า'
+        codeDistrict: "3602",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "02",
+        name: "บ้านเขว้า"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3603,
-        name: 'คอนสวรรค์'
+        codeDistrict: "3603",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "03",
+        name: "คอนสวรรค์"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3604,
-        name: 'เกษตรสมบูรณ์'
+        codeDistrict: "3604",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "04",
+        name: "เกษตรสมบูรณ์"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3605,
-        name: 'หนองบัวแดง'
+        codeDistrict: "3605",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "05",
+        name: "หนองบัวแดง"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3606,
-        name: 'จัตุรัส'
+        codeDistrict: "3606",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "06",
+        name: "จัตุรัส"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3607,
-        name: 'บำเหน็จณรงค์'
+        codeDistrict: "3607",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "07",
+        name: "บำเหน็จณรงค์"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3608,
-        name: 'หนองบัวระเหว'
+        codeDistrict: "3608",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "08",
+        name: "หนองบัวระเหว"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3609,
-        name: 'เทพสถิต'
+        codeDistrict: "3609",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "09",
+        name: "เทพสถิต"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3610,
-        name: 'ภูเขียว'
+        codeDistrict: "3610",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "10",
+        name: "ภูเขียว"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3611,
-        name: 'บ้านแท่น'
+        codeDistrict: "3611",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "11",
+        name: "บ้านแท่น"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3612,
-        name: 'แก้งคร้อ'
+        codeDistrict: "3612",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "12",
+        name: "แก้งคร้อ"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3613,
-        name: 'คอนสาร'
+        codeDistrict: "3613",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "13",
+        name: "คอนสาร"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3614,
-        name: 'ภักดีชุมพล'
+        codeDistrict: "3614",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "14",
+        name: "ภักดีชุมพล"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3615,
-        name: 'เนินสง่า'
+        codeDistrict: "3615",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "15",
+        name: "เนินสง่า"
     },
     {
-        codeProvince: 36,
-        codeDistrict: 3616,
-        name: 'ซับใหญ่'
+        codeDistrict: "3616",
+        codeProvince: "36",
+        codeProvince_NAME: "ชัยภูมิ",
+        AMP: "16",
+        name: "ซับใหญ่"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3701,
-        name: 'เมืองอำนาจเจริญ'
+        codeDistrict: "3701",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "01",
+        name: "เมืองอำนาจเจริญ"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3702,
-        name: 'ชานุมาน'
+        codeDistrict: "3702",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "02",
+        name: "ชานุมาน"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3703,
-        name: 'ปทุมราชวงศา'
+        codeDistrict: "3703",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "03",
+        name: "ปทุมราชวงศา"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3704,
-        name: 'พนา'
+        codeDistrict: "3704",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "04",
+        name: "พนา"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3705,
-        name: 'เสนางคนิคม'
+        codeDistrict: "3705",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "05",
+        name: "เสนางคนิคม"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3706,
-        name: 'หัวตะพาน'
+        codeDistrict: "3706",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "06",
+        name: "หัวตะพาน"
     },
     {
-        codeProvince: 37,
-        codeDistrict: 3707,
-        name: 'ลืออำนาจ'
+        codeDistrict: "3707",
+        codeProvince: "37",
+        codeProvince_NAME: "อำนาจเจริญ",
+        AMP: "07",
+        name: "ลืออำนาจ"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3801,
-        name: 'เมืองบึงกาฬ'
+        codeDistrict: "3801",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "01",
+        name: "เมืองบึงกาฬ"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3802,
-        name: 'พรเจริญ'
+        codeDistrict: "3802",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "02",
+        name: "พรเจริญ"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3803,
-        name: 'โซ่พิสัย'
+        codeDistrict: "3803",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "03",
+        name: "โซ่พิสัย"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3804,
-        name: 'เซกา'
+        codeDistrict: "3804",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "04",
+        name: "เซกา"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3805,
-        name: 'ปากคาด'
+        codeDistrict: "3805",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "05",
+        name: "ปากคาด"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3806,
-        name: 'บึงโขงหลง'
+        codeDistrict: "3806",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "06",
+        name: "บึงโขงหลง"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3807,
-        name: 'ศรีวิไล'
+        codeDistrict: "3807",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "07",
+        name: "ศรีวิไล"
     },
     {
-        codeProvince: 38,
-        codeDistrict: 3808,
-        name: 'บุ่งคล้า'
+        codeDistrict: "3808",
+        codeProvince: "38",
+        codeProvince_NAME: "บึงกาฬ",
+        AMP: "08",
+        name: "บุ่งคล้า"
     },
     {
-        codeProvince: 39,
-        codeDistrict: 3901,
-        name: 'เมืองหนองบัวลำภู'
+        codeDistrict: "3901",
+        codeProvince: "39",
+        codeProvince_NAME: "หนองบัวลำภู",
+        AMP: "01",
+        name: "เมืองหนองบัวลำภู"
     },
     {
-        codeProvince: 39,
-        codeDistrict: 3902,
-        name: 'นากลาง'
+        codeDistrict: "3902",
+        codeProvince: "39",
+        codeProvince_NAME: "หนองบัวลำภู",
+        AMP: "02",
+        name: "นากลาง"
     },
     {
-        codeProvince: 39,
-        codeDistrict: 3903,
-        name: 'โนนสัง'
+        codeDistrict: "3903",
+        codeProvince: "39",
+        codeProvince_NAME: "หนองบัวลำภู",
+        AMP: "03",
+        name: "โนนสัง"
     },
     {
-        codeProvince: 39,
-        codeDistrict: 3904,
-        name: 'ศรีบุญเรือง'
+        codeDistrict: "3904",
+        codeProvince: "39",
+        codeProvince_NAME: "หนองบัวลำภู",
+        AMP: "04",
+        name: "ศรีบุญเรือง"
     },
     {
-        codeProvince: 39,
-        codeDistrict: 3905,
-        name: 'สุวรรณคูหา'
+        codeDistrict: "3905",
+        codeProvince: "39",
+        codeProvince_NAME: "หนองบัวลำภู",
+        AMP: "05",
+        name: "สุวรรณคูหา"
     },
     {
-        codeProvince: 39,
-        codeDistrict: 3906,
-        name: 'นาวัง'
+        codeDistrict: "3906",
+        codeProvince: "39",
+        codeProvince_NAME: "หนองบัวลำภู",
+        AMP: "06",
+        name: "นาวัง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4001,
-        name: 'เมืองขอนแก่น'
+        codeDistrict: "4001",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "01",
+        name: "เมืองขอนแก่น"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4002,
-        name: 'บ้านฝาง'
+        codeDistrict: "4002",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "02",
+        name: "บ้านฝาง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4003,
-        name: 'พระยืน'
+        codeDistrict: "4003",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "03",
+        name: "พระยืน"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4004,
-        name: 'หนองเรือ'
+        codeDistrict: "4004",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "04",
+        name: "หนองเรือ"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4005,
-        name: 'ชุมแพ'
+        codeDistrict: "4005",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "05",
+        name: "ชุมแพ"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4006,
-        name: 'สีชมพู'
+        codeDistrict: "4006",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "06",
+        name: "สีชมพู"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4007,
-        name: 'น้ำพอง'
+        codeDistrict: "4007",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "07",
+        name: "น้ำพอง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4008,
-        name: 'อุบลรัตน์'
+        codeDistrict: "4008",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "08",
+        name: "อุบลรัตน์"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4009,
-        name: 'กระนวน'
+        codeDistrict: "4009",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "09",
+        name: "กระนวน"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4010,
-        name: 'บ้านไผ่'
+        codeDistrict: "4010",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "10",
+        name: "บ้านไผ่"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4011,
-        name: 'เปือยน้อย'
+        codeDistrict: "4011",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "11",
+        name: "เปือยน้อย"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4012,
-        name: 'พล'
+        codeDistrict: "4012",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "12",
+        name: "พล"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4013,
-        name: 'แวงใหญ่'
+        codeDistrict: "4013",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "13",
+        name: "แวงใหญ่"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4014,
-        name: 'แวงน้อย'
+        codeDistrict: "4014",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "14",
+        name: "แวงน้อย"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4015,
-        name: 'หนองสองห้อง'
+        codeDistrict: "4015",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "15",
+        name: "หนองสองห้อง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4016,
-        name: 'ภูเวียง'
+        codeDistrict: "4016",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "16",
+        name: "ภูเวียง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4017,
-        name: 'มัญจาคีรี'
+        codeDistrict: "4017",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "17",
+        name: "มัญจาคีรี"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4018,
-        name: 'ชนบท'
+        codeDistrict: "4018",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "18",
+        name: "ชนบท"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4019,
-        name: 'เขาสวนกวาง'
+        codeDistrict: "4019",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "19",
+        name: "เขาสวนกวาง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4020,
-        name: 'ภูผาม่าน'
+        codeDistrict: "4020",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "20",
+        name: "ภูผาม่าน"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4021,
-        name: 'ซำสูง'
+        codeDistrict: "4021",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "21",
+        name: "ซำสูง"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4022,
-        name: 'โคกโพธิ์ไชย'
+        codeDistrict: "4022",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "22",
+        name: "โคกโพธิ์ไชย"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4023,
-        name: 'หนองนาคำ'
+        codeDistrict: "4023",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "23",
+        name: "หนองนาคำ"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4024,
-        name: 'บ้านแฮด'
+        codeDistrict: "4024",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "24",
+        name: "บ้านแฮด"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4025,
-        name: 'โนนศิลา'
+        codeDistrict: "4025",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "25",
+        name: "โนนศิลา"
     },
     {
-        codeProvince: 40,
-        codeDistrict: 4029,
-        name: 'เวียงเก่า'
+        codeDistrict: "4029",
+        codeProvince: "40",
+        codeProvince_NAME: "ขอนแก่น",
+        AMP: "29",
+        name: "เวียงเก่า"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4101,
-        name: 'เมืองอุดรธานี'
+        codeDistrict: "4101",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "01",
+        name: "เมืองอุดรธานี"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4102,
-        name: 'กุดจับ'
+        codeDistrict: "4102",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "02",
+        name: "กุดจับ"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4103,
-        name: 'หนองวัวซอ'
+        codeDistrict: "4103",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "03",
+        name: "หนองวัวซอ"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4104,
-        name: 'กุมภวาปี'
+        codeDistrict: "4104",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "04",
+        name: "กุมภวาปี"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4105,
-        name: 'โนนสะอาด'
+        codeDistrict: "4105",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "05",
+        name: "โนนสะอาด"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4106,
-        name: 'หนองหาน'
+        codeDistrict: "4106",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "06",
+        name: "หนองหาน"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4107,
-        name: 'ทุ่งฝน'
+        codeDistrict: "4107",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "07",
+        name: "ทุ่งฝน"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4108,
-        name: 'ไชยวาน'
+        codeDistrict: "4108",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "08",
+        name: "ไชยวาน"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4109,
-        name: 'ศรีธาตุ'
+        codeDistrict: "4109",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "09",
+        name: "ศรีธาตุ"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4110,
-        name: 'วังสามหมอ'
+        codeDistrict: "4110",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "10",
+        name: "วังสามหมอ"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4111,
-        name: 'บ้านดุง'
+        codeDistrict: "4111",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "11",
+        name: "บ้านดุง"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4117,
-        name: 'บ้านผือ'
+        codeDistrict: "4117",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "17",
+        name: "บ้านผือ"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4118,
-        name: 'น้ำโสม'
+        codeDistrict: "4118",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "18",
+        name: "น้ำโสม"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4119,
-        name: 'เพ็ญ'
+        codeDistrict: "4119",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "19",
+        name: "เพ็ญ"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4120,
-        name: 'สร้างคอม'
+        codeDistrict: "4120",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "20",
+        name: "สร้างคอม"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4121,
-        name: 'หนองแสง'
+        codeDistrict: "4121",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "21",
+        name: "หนองแสง"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4122,
-        name: 'นายูง'
+        codeDistrict: "4122",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "22",
+        name: "นายูง"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4123,
-        name: 'พิบูลย์รักษ์'
+        codeDistrict: "4123",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "23",
+        name: "พิบูลย์รักษ์"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4124,
-        name: 'กู่แก้ว'
+        codeDistrict: "4124",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "24",
+        name: "กู่แก้ว"
     },
     {
-        codeProvince: 41,
-        codeDistrict: 4125,
-        name: 'ประจักษ์ศิลปาคม'
+        codeDistrict: "4125",
+        codeProvince: "41",
+        codeProvince_NAME: "อุดรธานี",
+        AMP: "25",
+        name: "ประจักษ์ศิลปาคม"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4201,
-        name: 'เมืองเลย'
+        codeDistrict: "4201",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "01",
+        name: "เมืองเลย"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4202,
-        name: 'นาด้วง'
+        codeDistrict: "4202",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "02",
+        name: "นาด้วง"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4203,
-        name: 'เชียงคาน'
+        codeDistrict: "4203",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "03",
+        name: "เชียงคาน"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4204,
-        name: 'ปากชม'
+        codeDistrict: "4204",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "04",
+        name: "ปากชม"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4205,
-        name: 'ด่านซ้าย'
+        codeDistrict: "4205",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "05",
+        name: "ด่านซ้าย"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4206,
-        name: 'นาแห้ว'
+        codeDistrict: "4206",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "06",
+        name: "นาแห้ว"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4207,
-        name: 'ภูเรือ'
+        codeDistrict: "4207",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "07",
+        name: "ภูเรือ"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4208,
-        name: 'ท่าลี่'
+        codeDistrict: "4208",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "08",
+        name: "ท่าลี่"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4209,
-        name: 'วังสะพุง'
+        codeDistrict: "4209",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "09",
+        name: "วังสะพุง"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4210,
-        name: 'ภูกระดึง'
+        codeDistrict: "4210",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "10",
+        name: "ภูกระดึง"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4211,
-        name: 'ภูหลวง'
+        codeDistrict: "4211",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "11",
+        name: "ภูหลวง"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4212,
-        name: 'ผาขาว'
+        codeDistrict: "4212",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "12",
+        name: "ผาขาว"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4213,
-        name: 'เอราวัณ'
+        codeDistrict: "4213",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "13",
+        name: "เอราวัณ"
     },
     {
-        codeProvince: 42,
-        codeDistrict: 4214,
-        name: 'หนองหิน'
+        codeDistrict: "4214",
+        codeProvince: "42",
+        codeProvince_NAME: "เลย",
+        AMP: "14",
+        name: "หนองหิน"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4301,
-        name: 'เมืองหนองคาย'
+        codeDistrict: "4301",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "01",
+        name: "เมืองหนองคาย"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4302,
-        name: 'ท่าบ่อ'
+        codeDistrict: "4302",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "02",
+        name: "ท่าบ่อ"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4305,
-        name: 'โพนพิสัย'
+        codeDistrict: "4305",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "05",
+        name: "โพนพิสัย"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4307,
-        name: 'ศรีเชียงใหม่'
+        codeDistrict: "4307",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "07",
+        name: "ศรีเชียงใหม่"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4308,
-        name: 'สังคม'
+        codeDistrict: "4308",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "08",
+        name: "สังคม"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4314,
-        name: 'สระใคร'
+        codeDistrict: "4314",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "14",
+        name: "สระใคร"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4315,
-        name: 'เฝ้าไร่'
+        codeDistrict: "4315",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "15",
+        name: "เฝ้าไร่"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4316,
-        name: 'รัตนวาปี'
+        codeDistrict: "4316",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "16",
+        name: "รัตนวาปี"
     },
     {
-        codeProvince: 43,
-        codeDistrict: 4317,
-        name: 'โพธิ์ตาก'
+        codeDistrict: "4317",
+        codeProvince: "43",
+        codeProvince_NAME: "หนองคาย",
+        AMP: "17",
+        name: "โพธิ์ตาก"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4401,
-        name: 'เมืองมหาสารคาม'
+        codeDistrict: "4401",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "01",
+        name: "เมืองมหาสารคาม"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4402,
-        name: 'แกดำ'
+        codeDistrict: "4402",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "02",
+        name: "แกดำ"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4403,
-        name: 'โกสุมพิสัย'
+        codeDistrict: "4403",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "03",
+        name: "โกสุมพิสัย"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4404,
-        name: 'กันทรวิชัย'
+        codeDistrict: "4404",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "04",
+        name: "กันทรวิชัย"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4405,
-        name: 'เชียงยืน'
+        codeDistrict: "4405",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "05",
+        name: "เชียงยืน"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4406,
-        name: 'บรบือ'
+        codeDistrict: "4406",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "06",
+        name: "บรบือ"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4407,
-        name: 'นาเชือก'
+        codeDistrict: "4407",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "07",
+        name: "นาเชือก"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4408,
-        name: 'พยัคฆภูมิพิสัย'
+        codeDistrict: "4408",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "08",
+        name: "พยัคฆภูมิพิสัย"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4409,
-        name: 'วาปีปทุม'
+        codeDistrict: "4409",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "09",
+        name: "วาปีปทุม"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4410,
-        name: 'นาดูน'
+        codeDistrict: "4410",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "10",
+        name: "นาดูน"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4411,
-        name: 'ยางสีสุราช'
+        codeDistrict: "4411",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "11",
+        name: "ยางสีสุราช"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4412,
-        name: 'กุดรัง'
+        codeDistrict: "4412",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "12",
+        name: "กุดรัง"
     },
     {
-        codeProvince: 44,
-        codeDistrict: 4413,
-        name: 'ชื่นชม'
+        codeDistrict: "4413",
+        codeProvince: "44",
+        codeProvince_NAME: "มหาสารคาม",
+        AMP: "13",
+        name: "ชื่นชม"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4501,
-        name: 'เมืองร้อยเอ็ด'
+        codeDistrict: "4501",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "01",
+        name: "เมืองร้อยเอ็ด"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4502,
-        name: 'เกษตรวิสัย'
+        codeDistrict: "4502",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "02",
+        name: "เกษตรวิสัย"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4503,
-        name: 'ปทุมรัตต์'
+        codeDistrict: "4503",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "03",
+        name: "ปทุมรัตน์"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4504,
-        name: 'จตุรพักตรพิมาน'
+        codeDistrict: "4504",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "04",
+        name: "จตุรพักตรพิมาน"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4505,
-        name: 'ธวัชบุรี'
+        codeDistrict: "4505",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "05",
+        name: "ธวัชบุรี"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4506,
-        name: 'พนมไพร'
+        codeDistrict: "4506",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "06",
+        name: "พนมไพร"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4507,
-        name: 'โพนทอง'
+        codeDistrict: "4507",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "07",
+        name: "โพนทอง"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4508,
-        name: 'โพธิ์ชัย'
+        codeDistrict: "4508",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "08",
+        name: "โพธิ์ชัย"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4509,
-        name: 'หนองพอก'
+        codeDistrict: "4509",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "09",
+        name: "หนองพอก"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4510,
-        name: 'เสลภูมิ'
+        codeDistrict: "4510",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "10",
+        name: "เสลภูมิ"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4511,
-        name: 'สุวรรณภูมิ'
+        codeDistrict: "4511",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "11",
+        name: "สุวรรณภูมิ"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4512,
-        name: 'เมืองสรวง'
+        codeDistrict: "4512",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "12",
+        name: "เมืองสรวง"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4513,
-        name: 'โพนทราย'
+        codeDistrict: "4513",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "13",
+        name: "โพนทราย"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4514,
-        name: 'อาจสามารถ'
+        codeDistrict: "4514",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "14",
+        name: "อาจสามารถ"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4515,
-        name: 'เมยวดี'
+        codeDistrict: "4515",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "15",
+        name: "เมยวดี"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4516,
-        name: 'ศรีสมเด็จ'
+        codeDistrict: "4516",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "16",
+        name: "ศรีสมเด็จ"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4517,
-        name: 'จังหาร'
+        codeDistrict: "4517",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "17",
+        name: "จังหาร"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4518,
-        name: 'เชียงขวัญ'
+        codeDistrict: "4518",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "18",
+        name: "เชียงขวัญ"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4519,
-        name: 'หนองฮี'
+        codeDistrict: "4519",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "19",
+        name: "หนองฮี"
     },
     {
-        codeProvince: 45,
-        codeDistrict: 4520,
-        name: 'ทุ่งเขาหลวง'
+        codeDistrict: "4520",
+        codeProvince: "45",
+        codeProvince_NAME: "ร้อยเอ็ด",
+        AMP: "20",
+        name: "ทุ่งเขาหลวง"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4601,
-        name: 'เมืองกาฬสินธุ์'
+        codeDistrict: "4601",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "01",
+        name: "เมืองกาฬสินธุ์"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4602,
-        name: 'นามน'
+        codeDistrict: "4602",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "02",
+        name: "นามน"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4603,
-        name: 'กมลาไสย'
+        codeDistrict: "4603",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "03",
+        name: "กมลาไสย"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4604,
-        name: 'ร่องคำ'
+        codeDistrict: "4604",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "04",
+        name: "ร่องคำ"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4605,
-        name: 'กุฉินารายณ์'
+        codeDistrict: "4605",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "05",
+        name: "กุฉินารายณ์"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4606,
-        name: 'เขาวง'
+        codeDistrict: "4606",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "06",
+        name: "เขาวง"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4607,
-        name: 'ยางตลาด'
+        codeDistrict: "4607",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "07",
+        name: "ยางตลาด"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4608,
-        name: 'ห้วยเม็ก'
+        codeDistrict: "4608",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "08",
+        name: "ห้วยเม็ก"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4609,
-        name: 'สหัสขันธ์'
+        codeDistrict: "4609",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "09",
+        name: "สหัสขันธ์"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4610,
-        name: 'คำม่วง'
+        codeDistrict: "4610",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "10",
+        name: "คำม่วง"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4611,
-        name: 'ท่าคันโท'
+        codeDistrict: "4611",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "11",
+        name: "ท่าคันโท"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4612,
-        name: 'หนองกุงศรี'
+        codeDistrict: "4612",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "12",
+        name: "หนองกุงศรี"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4613,
-        name: 'สมเด็จ'
+        codeDistrict: "4613",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "13",
+        name: "สมเด็จ"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4614,
-        name: 'ห้วยผึ้ง'
+        codeDistrict: "4614",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "14",
+        name: "ห้วยผึ้ง"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4615,
-        name: 'สามชัย'
+        codeDistrict: "4615",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "15",
+        name: "สามชัย"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4616,
-        name: 'นาคู'
+        codeDistrict: "4616",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "16",
+        name: "นาคู"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4617,
-        name: 'ดอนจาน'
+        codeDistrict: "4617",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "17",
+        name: "ดอนจาน"
     },
     {
-        codeProvince: 46,
-        codeDistrict: 4618,
-        name: 'ฆ้องชัย'
+        codeDistrict: "4618",
+        codeProvince: "46",
+        codeProvince_NAME: "กาฬสินธุ์",
+        AMP: "18",
+        name: "ฆ้องชัย"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4701,
-        name: 'เมืองสกลนคร'
+        codeDistrict: "4701",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "01",
+        name: "เมืองสกลนคร"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4702,
-        name: 'กุสุมาลย์'
+        codeDistrict: "4702",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "02",
+        name: "กุสุมาลย์"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4703,
-        name: 'กุดบาก'
+        codeDistrict: "4703",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "03",
+        name: "กุดบาก"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4704,
-        name: 'พรรณานิคม'
+        codeDistrict: "4704",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "04",
+        name: "พรรณานิคม"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4705,
-        name: 'พังโคน'
+        codeDistrict: "4705",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "05",
+        name: "พังโคน"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4706,
-        name: 'วาริชภูมิ'
+        codeDistrict: "4706",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "06",
+        name: "วาริชภูมิ"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4707,
-        name: 'นิคมน้ำอูน'
+        codeDistrict: "4707",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "07",
+        name: "นิคมน้ำอูน"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4708,
-        name: 'วานรนิวาส'
+        codeDistrict: "4708",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "08",
+        name: "วานรนิวาส"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4709,
-        name: 'คำตากล้า'
+        codeDistrict: "4709",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "09",
+        name: "คำตากล้า"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4710,
-        name: 'บ้านม่วง'
+        codeDistrict: "4710",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "10",
+        name: "บ้านม่วง"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4711,
-        name: 'อากาศอำนวย'
+        codeDistrict: "4711",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "11",
+        name: "อากาศอำนวย"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4712,
-        name: 'สว่างแดนดิน'
+        codeDistrict: "4712",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "12",
+        name: "สว่างแดนดิน"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4713,
-        name: 'ส่องดาว'
+        codeDistrict: "4713",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "13",
+        name: "ส่องดาว"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4714,
-        name: 'เต่างอย'
+        codeDistrict: "4714",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "14",
+        name: "เต่างอย"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4715,
-        name: 'โคกศรีสุพรรณ'
+        codeDistrict: "4715",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "15",
+        name: "โคกศรีสุพรรณ"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4716,
-        name: 'เจริญศิลป์'
+        codeDistrict: "4716",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "16",
+        name: "เจริญศิลป์"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4717,
-        name: 'โพนนาแก้ว'
+        codeDistrict: "4717",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "17",
+        name: "โพนนาแก้ว"
     },
     {
-        codeProvince: 47,
-        codeDistrict: 4718,
-        name: 'ภูพาน'
+        codeDistrict: "4718",
+        codeProvince: "47",
+        codeProvince_NAME: "สกลนคร",
+        AMP: "18",
+        name: "ภูพาน"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4801,
-        name: 'เมืองนครพนม'
+        codeDistrict: "4801",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "01",
+        name: "เมืองนครพนม"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4802,
-        name: 'ปลาปาก'
+        codeDistrict: "4802",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "02",
+        name: "ปลาปาก"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4803,
-        name: 'ท่าอุเทน'
+        codeDistrict: "4803",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "03",
+        name: "ท่าอุเทน"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4804,
-        name: 'บ้านแพง'
+        codeDistrict: "4804",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "04",
+        name: "บ้านแพง"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4805,
-        name: 'ธาตุพนม'
+        codeDistrict: "4805",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "05",
+        name: "ธาตุพนม"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4806,
-        name: 'เรณูนคร'
+        codeDistrict: "4806",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "06",
+        name: "เรณูนคร"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4807,
-        name: 'นาแก'
+        codeDistrict: "4807",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "07",
+        name: "นาแก"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4808,
-        name: 'ศรีสงคราม'
+        codeDistrict: "4808",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "08",
+        name: "ศรีสงคราม"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4809,
-        name: 'นาหว้า'
+        codeDistrict: "4809",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "09",
+        name: "นาหว้า"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4810,
-        name: 'โพนสวรรค์'
+        codeDistrict: "4810",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "10",
+        name: "โพนสวรรค์"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4811,
-        name: 'นาทม'
+        codeDistrict: "4811",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "11",
+        name: "นาทม"
     },
     {
-        codeProvince: 48,
-        codeDistrict: 4812,
-        name: 'วังยาง'
+        codeDistrict: "4812",
+        codeProvince: "48",
+        codeProvince_NAME: "นครพนม",
+        AMP: "12",
+        name: "วังยาง"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4901,
-        name: 'เมืองมุกดาหาร'
+        codeDistrict: "4901",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "01",
+        name: "เมืองมุกดาหาร"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4902,
-        name: 'นิคมคำสร้อย'
+        codeDistrict: "4902",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "02",
+        name: "นิคมคำสร้อย"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4903,
-        name: 'ดอนตาล'
+        codeDistrict: "4903",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "03",
+        name: "ดอนตาล"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4904,
-        name: 'ดงหลวง'
+        codeDistrict: "4904",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "04",
+        name: "ดงหลวง"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4905,
-        name: 'คำชะอี'
+        codeDistrict: "4905",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "05",
+        name: "คำชะอี"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4906,
-        name: 'หว้านใหญ่'
+        codeDistrict: "4906",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "06",
+        name: "หว้านใหญ่"
     },
     {
-        codeProvince: 49,
-        codeDistrict: 4907,
-        name: 'หนองสูง'
+        codeDistrict: "4907",
+        codeProvince: "49",
+        codeProvince_NAME: "มุกดาหาร",
+        AMP: "07",
+        name: "หนองสูง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5001,
-        name: 'เมืองเชียงใหม่'
+        codeDistrict: "5001",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "01",
+        name: "เมืองเชียงใหม่"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5002,
-        name: 'จอมทอง'
+        codeDistrict: "5002",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "02",
+        name: "จอมทอง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5003,
-        name: 'แม่แจ่ม'
+        codeDistrict: "5003",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "03",
+        name: "แม่แจ่ม"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5004,
-        name: 'เชียงดาว'
+        codeDistrict: "5004",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "04",
+        name: "เชียงดาว"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5005,
-        name: 'ดอยสะเก็ด'
+        codeDistrict: "5005",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "05",
+        name: "ดอยสะเก็ด"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5006,
-        name: 'แม่แตง'
+        codeDistrict: "5006",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "06",
+        name: "แม่แตง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5007,
-        name: 'แม่ริม'
+        codeDistrict: "5007",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "07",
+        name: "แม่ริม"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5008,
-        name: 'สะเมิง'
+        codeDistrict: "5008",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "08",
+        name: "สะเมิง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5009,
-        name: 'ฝาง'
+        codeDistrict: "5009",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "09",
+        name: "ฝาง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5010,
-        name: 'แม่อาย'
+        codeDistrict: "5010",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "10",
+        name: "แม่อาย"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5011,
-        name: 'พร้าว'
+        codeDistrict: "5011",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "11",
+        name: "พร้าว"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5012,
-        name: 'สันป่าตอง'
+        codeDistrict: "5012",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "12",
+        name: "สันป่าตอง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5013,
-        name: 'สันกำแพง'
+        codeDistrict: "5013",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "13",
+        name: "สันกำแพง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5014,
-        name: 'สันทราย'
+        codeDistrict: "5014",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "14",
+        name: "สันทราย"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5015,
-        name: 'หางดง'
+        codeDistrict: "5015",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "15",
+        name: "หางดง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5016,
-        name: 'ฮอด'
+        codeDistrict: "5016",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "16",
+        name: "ฮอด"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5017,
-        name: 'ดอยเต่า'
+        codeDistrict: "5017",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "17",
+        name: "ดอยเต่า"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5018,
-        name: 'อมก๋อย'
+        codeDistrict: "5018",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "18",
+        name: "อมก๋อย"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5019,
-        name: 'สารภี'
+        codeDistrict: "5019",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "19",
+        name: "สารภี"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5020,
-        name: 'เวียงแหง'
+        codeDistrict: "5020",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "20",
+        name: "เวียงแหง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5021,
-        name: 'ไชยปราการ'
+        codeDistrict: "5021",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "21",
+        name: "ไชยปราการ"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5022,
-        name: 'แม่วาง'
+        codeDistrict: "5022",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "22",
+        name: "แม่วาง"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5023,
-        name: 'แม่ออน'
+        codeDistrict: "5023",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "23",
+        name: "แม่ออน"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5024,
-        name: 'ดอยหล่อ'
+        codeDistrict: "5024",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "24",
+        name: "ดอยหล่อ"
     },
     {
-        codeProvince: 50,
-        codeDistrict: 5025,
-        name: 'กัลยาณิวัฒนา'
+        codeDistrict: "5025",
+        codeProvince: "50",
+        codeProvince_NAME: "เชียงใหม่",
+        AMP: "25",
+        name: "กัลยาณิวัฒนา"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5101,
-        name: 'เมืองลำพูน'
+        codeDistrict: "5101",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "01",
+        name: "เมืองลำพูน"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5102,
-        name: 'แม่ทา'
+        codeDistrict: "5102",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "02",
+        name: "แม่ทา"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5103,
-        name: 'บ้านโฮ่ง'
+        codeDistrict: "5103",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "03",
+        name: "บ้านโฮ่ง"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5104,
-        name: 'ลี้'
+        codeDistrict: "5104",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "04",
+        name: "ลี้"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5105,
-        name: 'ทุ่งหัวช้าง'
+        codeDistrict: "5105",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "05",
+        name: "ทุ่งหัวช้าง"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5106,
-        name: 'ป่าซาง'
+        codeDistrict: "5106",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "06",
+        name: "ป่าซาง"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5107,
-        name: 'บ้านธิ'
+        codeDistrict: "5107",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "07",
+        name: "บ้านธิ"
     },
     {
-        codeProvince: 51,
-        codeDistrict: 5108,
-        name: 'เวียงหนองล่อง'
+        codeDistrict: "5108",
+        codeProvince: "51",
+        codeProvince_NAME: "ลำพูน",
+        AMP: "08",
+        name: "เวียงหนองล่อง"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5201,
-        name: 'เมืองลำปาง'
+        codeDistrict: "5201",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "01",
+        name: "เมืองลำปาง"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5202,
-        name: 'แม่เมาะ'
+        codeDistrict: "5202",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "02",
+        name: "แม่เมาะ"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5203,
-        name: 'เกาะคา'
+        codeDistrict: "5203",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "03",
+        name: "เกาะคา"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5204,
-        name: 'เสริมงาม'
+        codeDistrict: "5204",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "04",
+        name: "เสริมงาม"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5205,
-        name: 'งาว'
+        codeDistrict: "5205",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "05",
+        name: "งาว"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5206,
-        name: 'แจ้ห่ม'
+        codeDistrict: "5206",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "06",
+        name: "แจ้ห่ม"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5207,
-        name: 'วังเหนือ'
+        codeDistrict: "5207",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "07",
+        name: "วังเหนือ"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5208,
-        name: 'เถิน'
+        codeDistrict: "5208",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "08",
+        name: "เถิน"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5209,
-        name: 'แม่พริก'
+        codeDistrict: "5209",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "09",
+        name: "แม่พริก"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5210,
-        name: 'แม่ทะ'
+        codeDistrict: "5210",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "10",
+        name: "แม่ทะ"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5211,
-        name: 'สบปราบ'
+        codeDistrict: "5211",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "11",
+        name: "สบปราบ"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5212,
-        name: 'ห้างฉัตร'
+        codeDistrict: "5212",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "12",
+        name: "ห้างฉัตร"
     },
     {
-        codeProvince: 52,
-        codeDistrict: 5213,
-        name: 'เมืองปาน'
+        codeDistrict: "5213",
+        codeProvince: "52",
+        codeProvince_NAME: "ลำปาง",
+        AMP: "13",
+        name: "เมืองปาน"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5301,
-        name: 'เมืองอุตรดิตถ์'
+        codeDistrict: "5301",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "01",
+        name: "เมืองอุตรดิตถ์"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5302,
-        name: 'ตรอน'
+        codeDistrict: "5302",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "02",
+        name: "ตรอน"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5303,
-        name: 'ท่าปลา'
+        codeDistrict: "5303",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "03",
+        name: "ท่าปลา"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5304,
-        name: 'น้ำปาด'
+        codeDistrict: "5304",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "04",
+        name: "น้ำปาด"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5305,
-        name: 'ฟากท่า'
+        codeDistrict: "5305",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "05",
+        name: "ฟากท่า"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5306,
-        name: 'บ้านโคก'
+        codeDistrict: "5306",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "06",
+        name: "บ้านโคก"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5307,
-        name: 'พิชัย'
+        codeDistrict: "5307",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "07",
+        name: "พิชัย"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5308,
-        name: 'ลับแล'
+        codeDistrict: "5308",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "08",
+        name: "ลับแล"
     },
     {
-        codeProvince: 53,
-        codeDistrict: 5309,
-        name: 'ทองแสนขัน'
+        codeDistrict: "5309",
+        codeProvince: "53",
+        codeProvince_NAME: "อุตรดิตถ์",
+        AMP: "09",
+        name: "ทองแสนขัน"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5401,
-        name: 'เมืองแพร่'
+        codeDistrict: "5401",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "01",
+        name: "เมืองแพร่"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5402,
-        name: 'ร้องกวาง'
+        codeDistrict: "5402",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "02",
+        name: "ร้องกวาง"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5403,
-        name: 'ลอง'
+        codeDistrict: "5403",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "03",
+        name: "ลอง"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5404,
-        name: 'สูงเม่น'
+        codeDistrict: "5404",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "04",
+        name: "สูงเม่น"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5405,
-        name: 'เด่นชัย'
+        codeDistrict: "5405",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "05",
+        name: "เด่นชัย"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5406,
-        name: 'สอง'
+        codeDistrict: "5406",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "06",
+        name: "สอง"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5407,
-        name: 'วังชิ้น'
+        codeDistrict: "5407",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "07",
+        name: "วังชิ้น"
     },
     {
-        codeProvince: 54,
-        codeDistrict: 5408,
-        name: 'หนองม่วงไข่'
+        codeDistrict: "5408",
+        codeProvince: "54",
+        codeProvince_NAME: "แพร่",
+        AMP: "08",
+        name: "หนองม่วงไข่"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5501,
-        name: 'เมืองน่าน'
+        codeDistrict: "5501",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "01",
+        name: "เมืองน่าน"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5502,
-        name: 'แม่จริม'
+        codeDistrict: "5502",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "02",
+        name: "แม่จริม"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5503,
-        name: 'บ้านหลวง'
+        codeDistrict: "5503",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "03",
+        name: "บ้านหลวง"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5504,
-        name: 'นาน้อย'
+        codeDistrict: "5504",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "04",
+        name: "นาน้อย"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5505,
-        name: 'ปัว'
+        codeDistrict: "5505",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "05",
+        name: "ปัว"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5506,
-        name: 'ท่าวังผา'
+        codeDistrict: "5506",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "06",
+        name: "ท่าวังผา"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5507,
-        name: 'เวียงสา'
+        codeDistrict: "5507",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "07",
+        name: "เวียงสา"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5508,
-        name: 'ทุ่งช้าง'
+        codeDistrict: "5508",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "08",
+        name: "ทุ่งช้าง"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5509,
-        name: 'เชียงกลาง'
+        codeDistrict: "5509",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "09",
+        name: "เชียงกลาง"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5510,
-        name: 'นาหมื่น'
+        codeDistrict: "5510",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "10",
+        name: "นาหมื่น"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5511,
-        name: 'สันติสุข'
+        codeDistrict: "5511",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "11",
+        name: "สันติสุข"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5512,
-        name: 'บ่อเกลือ'
+        codeDistrict: "5512",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "12",
+        name: "บ่อเกลือ"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5513,
-        name: 'สองแคว'
+        codeDistrict: "5513",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "13",
+        name: "สองแคว"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5514,
-        name: 'ภูเพียง'
+        codeDistrict: "5514",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "14",
+        name: "ภูเพียง"
     },
     {
-        codeProvince: 55,
-        codeDistrict: 5515,
-        name: 'เฉลิมพระเกียรติ'
+        codeDistrict: "5515",
+        codeProvince: "55",
+        codeProvince_NAME: "น่าน",
+        AMP: "15",
+        name: "เฉลิมพระเกียรติ"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5601,
-        name: 'เมืองพะเยา'
+        codeDistrict: "5601",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "01",
+        name: "เมืองพะเยา"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5602,
-        name: 'จุน'
+        codeDistrict: "5602",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "02",
+        name: "จุน"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5603,
-        name: 'เชียงคำ'
+        codeDistrict: "5603",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "03",
+        name: "เชียงคำ"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5604,
-        name: 'เชียงม่วน'
+        codeDistrict: "5604",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "04",
+        name: "เชียงม่วน"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5605,
-        name: 'ดอกคำใต้'
+        codeDistrict: "5605",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "05",
+        name: "ดอกคำใต้"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5606,
-        name: 'ปง'
+        codeDistrict: "5606",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "06",
+        name: "ปง"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5607,
-        name: 'แม่ใจ'
+        codeDistrict: "5607",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "07",
+        name: "แม่ใจ"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5608,
-        name: 'ภูซาง'
+        codeDistrict: "5608",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "08",
+        name: "ภูซาง"
     },
     {
-        codeProvince: 56,
-        codeDistrict: 5609,
-        name: 'ภูกามยาว'
+        codeDistrict: "5609",
+        codeProvince: "56",
+        codeProvince_NAME: "พะเยา",
+        AMP: "09",
+        name: "ภูกามยาว"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5701,
-        name: 'เมืองเชียงราย'
+        codeDistrict: "5701",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "01",
+        name: "เมืองเชียงราย"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5702,
-        name: 'เวียงชัย'
+        codeDistrict: "5702",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "02",
+        name: "เวียงชัย"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5703,
-        name: 'เชียงของ'
+        codeDistrict: "5703",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "03",
+        name: "เชียงของ"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5704,
-        name: 'เทิง'
+        codeDistrict: "5704",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "04",
+        name: "เทิง"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5705,
-        name: 'พาน'
+        codeDistrict: "5705",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "05",
+        name: "พาน"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5706,
-        name: 'ป่าแดด'
+        codeDistrict: "5706",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "06",
+        name: "ป่าแดด"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5707,
-        name: 'แม่จัน'
+        codeDistrict: "5707",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "07",
+        name: "แม่จัน"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5708,
-        name: 'เชียงแสน'
+        codeDistrict: "5708",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "08",
+        name: "เชียงแสน"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5709,
-        name: 'แม่สาย'
+        codeDistrict: "5709",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "09",
+        name: "แม่สาย"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5710,
-        name: 'แม่สรวย'
+        codeDistrict: "5710",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "10",
+        name: "แม่สรวย"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5711,
-        name: 'เวียงป่าเป้า'
+        codeDistrict: "5711",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "11",
+        name: "เวียงป่าเป้า"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5712,
-        name: 'พญาเม็งราย'
+        codeDistrict: "5712",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "12",
+        name: "พญาเม็งราย"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5713,
-        name: 'เวียงแก่น'
+        codeDistrict: "5713",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "13",
+        name: "เวียงแก่น"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5714,
-        name: 'ขุนตาล'
+        codeDistrict: "5714",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "14",
+        name: "ขุนตาล"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5715,
-        name: 'แม่ฟ้าหลวง'
+        codeDistrict: "5715",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "15",
+        name: "แม่ฟ้าหลวง"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5716,
-        name: 'แม่ลาว'
+        codeDistrict: "5716",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "16",
+        name: "แม่ลาว"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5717,
-        name: 'เวียงเชียงรุ้ง'
+        codeDistrict: "5717",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "17",
+        name: "เวียงเชียงรุ้ง"
     },
     {
-        codeProvince: 57,
-        codeDistrict: 5718,
-        name: 'ดอยหลวง'
+        codeDistrict: "5718",
+        codeProvince: "57",
+        codeProvince_NAME: "เชียงราย",
+        AMP: "18",
+        name: "ดอยหลวง"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5801,
-        name: 'เมืองแม่ฮ่องสอน'
+        codeDistrict: "5801",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "01",
+        name: "เมืองแม่ฮ่องสอน"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5802,
-        name: 'ขุนยวม'
+        codeDistrict: "5802",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "02",
+        name: "ขุนยวม"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5803,
-        name: 'ปาย'
+        codeDistrict: "5803",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "03",
+        name: "ปาย"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5804,
-        name: 'แม่สะเรียง'
+        codeDistrict: "5804",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "04",
+        name: "แม่สะเรียง"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5805,
-        name: 'แม่ลาน้อย'
+        codeDistrict: "5805",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "05",
+        name: "แม่ลาน้อย"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5806,
-        name: 'สบเมย'
+        codeDistrict: "5806",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "06",
+        name: "สบเมย"
     },
     {
-        codeProvince: 58,
-        codeDistrict: 5807,
-        name: 'ปางมะผ้า'
+        codeDistrict: "5807",
+        codeProvince: "58",
+        codeProvince_NAME: "แม่ฮ่องสอน",
+        AMP: "07",
+        name: "ปางมะผ้า"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6001,
-        name: 'เมืองนครสวรรค์'
+        codeDistrict: "6001",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "01",
+        name: "เมืองนครสวรรค์"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6002,
-        name: 'โกรกพระ'
+        codeDistrict: "6002",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "02",
+        name: "โกรกพระ"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6003,
-        name: 'ชุมแสง'
+        codeDistrict: "6003",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "03",
+        name: "ชุมแสง"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6004,
-        name: 'หนองบัว'
+        codeDistrict: "6004",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "04",
+        name: "หนองบัว"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6005,
-        name: 'บรรพตพิสัย'
+        codeDistrict: "6005",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "05",
+        name: "บรรพตพิสัย"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6006,
-        name: 'เก้าเลี้ยว'
+        codeDistrict: "6006",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "06",
+        name: "เก้าเลี้ยว"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6007,
-        name: 'ตาคลี'
+        codeDistrict: "6007",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "07",
+        name: "ตาคลี"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6008,
-        name: 'ท่าตะโก'
+        codeDistrict: "6008",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "08",
+        name: "ท่าตะโก"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6009,
-        name: 'ไพศาลี'
+        codeDistrict: "6009",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "09",
+        name: "ไพศาลี"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6010,
-        name: 'พยุหะคีรี'
+        codeDistrict: "6010",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "10",
+        name: "พยุหะคีรี"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6011,
-        name: 'ลาดยาว'
+        codeDistrict: "6011",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "11",
+        name: "ลาดยาว"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6012,
-        name: 'ตากฟ้า'
+        codeDistrict: "6012",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "12",
+        name: "ตากฟ้า"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6013,
-        name: 'แม่วงก์'
+        codeDistrict: "6013",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "13",
+        name: "แม่วงก์"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6014,
-        name: 'แม่เปิน'
+        codeDistrict: "6014",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "14",
+        name: "แม่เปิน"
     },
     {
-        codeProvince: 60,
-        codeDistrict: 6015,
-        name: 'ชุมตาบง'
+        codeDistrict: "6015",
+        codeProvince: "60",
+        codeProvince_NAME: "นครสวรรค์",
+        AMP: "15",
+        name: "ชุมตาบง"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6101,
-        name: 'เมืองอุทัยธานี'
+        codeDistrict: "6101",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "01",
+        name: "เมืองอุทัยธานี"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6102,
-        name: 'ทัพทัน'
+        codeDistrict: "6102",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "02",
+        name: "ทัพทัน"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6103,
-        name: 'สว่างอารมณ์'
+        codeDistrict: "6103",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "03",
+        name: "สว่างอารมณ์"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6104,
-        name: 'หนองฉาง'
+        codeDistrict: "6104",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "04",
+        name: "หนองฉาง"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6105,
-        name: 'หนองขาหย่าง'
+        codeDistrict: "6105",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "05",
+        name: "หนองขาหย่าง"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6106,
-        name: 'บ้านไร่'
+        codeDistrict: "6106",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "06",
+        name: "บ้านไร่"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6107,
-        name: 'ลานสัก'
+        codeDistrict: "6107",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "07",
+        name: "ลานสัก"
     },
     {
-        codeProvince: 61,
-        codeDistrict: 6108,
-        name: 'ห้วยคต'
+        codeDistrict: "6108",
+        codeProvince: "61",
+        codeProvince_NAME: "อุทัยธานี",
+        AMP: "08",
+        name: "ห้วยคต"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6201,
-        name: 'เมืองกำแพงเพชร'
+        codeDistrict: "6201",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "01",
+        name: "เมืองกำแพงเพชร"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6202,
-        name: 'ไทรงาม'
+        codeDistrict: "6202",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "02",
+        name: "ไทรงาม"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6203,
-        name: 'คลองลาน'
+        codeDistrict: "6203",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "03",
+        name: "คลองลาน"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6204,
-        name: 'ขาณุวรลักษบุรี'
+        codeDistrict: "6204",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "04",
+        name: "ขาณุวรลักษบุรี"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6205,
-        name: 'คลองขลุง'
+        codeDistrict: "6205",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "05",
+        name: "คลองขลุง"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6206,
-        name: 'พรานกระต่าย'
+        codeDistrict: "6206",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "06",
+        name: "พรานกระต่าย"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6207,
-        name: 'ลานกระบือ'
+        codeDistrict: "6207",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "07",
+        name: "ลานกระบือ"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6208,
-        name: 'ทรายทองวัฒนา'
+        codeDistrict: "6208",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "08",
+        name: "ทรายทองวัฒนา"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6209,
-        name: 'ปางศิลาทอง'
+        codeDistrict: "6209",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "09",
+        name: "ปางศิลาทอง"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6210,
-        name: 'บึงสามัคคี'
+        codeDistrict: "6210",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "10",
+        name: "บึงสามัคคี"
     },
     {
-        codeProvince: 62,
-        codeDistrict: 6211,
-        name: 'โกสัมพีนคร'
+        codeDistrict: "6211",
+        codeProvince: "62",
+        codeProvince_NAME: "กำแพงเพชร",
+        AMP: "11",
+        name: "โกสัมพีนคร"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6301,
-        name: 'เมืองตาก'
+        codeDistrict: "6301",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "01",
+        name: "เมืองตาก"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6302,
-        name: 'บ้านตาก'
+        codeDistrict: "6302",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "02",
+        name: "บ้านตาก"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6303,
-        name: 'สามเงา'
+        codeDistrict: "6303",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "03",
+        name: "สามเงา"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6304,
-        name: 'แม่ระมาด'
+        codeDistrict: "6304",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "04",
+        name: "แม่ระมาด"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6305,
-        name: 'ท่าสองยาง'
+        codeDistrict: "6305",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "05",
+        name: "ท่าสองยาง"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6306,
-        name: 'แม่สอด'
+        codeDistrict: "6306",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "06",
+        name: "แม่สอด"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6307,
-        name: 'พบพระ'
+        codeDistrict: "6307",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "07",
+        name: "พบพระ"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6308,
-        name: 'อุ้มผาง'
+        codeDistrict: "6308",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "08",
+        name: "อุ้มผาง"
     },
     {
-        codeProvince: 63,
-        codeDistrict: 6309,
-        name: 'วังเจ้า'
+        codeDistrict: "6309",
+        codeProvince: "63",
+        codeProvince_NAME: "ตาก",
+        AMP: "09",
+        name: "วังเจ้า"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6401,
-        name: 'เมืองสุโขทัย'
+        codeDistrict: "6401",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "01",
+        name: "เมืองสุโขทัย"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6402,
-        name: 'บ้านด่านลานหอย'
+        codeDistrict: "6402",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "02",
+        name: "บ้านด่านลานหอย"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6403,
-        name: 'คีรีมาศ'
+        codeDistrict: "6403",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "03",
+        name: "คีรีมาศ"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6404,
-        name: 'กงไกรลาศ'
+        codeDistrict: "6404",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "04",
+        name: "กงไกรลาศ"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6405,
-        name: 'ศรีสัชนาลัย'
+        codeDistrict: "6405",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "05",
+        name: "ศรีสัชนาลัย"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6406,
-        name: 'ศรีสำโรง'
+        codeDistrict: "6406",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "06",
+        name: "ศรีสำโรง"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6407,
-        name: 'สวรรคโลก'
+        codeDistrict: "6407",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "07",
+        name: "สวรรคโลก"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6408,
-        name: 'ศรีนคร'
+        codeDistrict: "6408",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "08",
+        name: "ศรีนคร"
     },
     {
-        codeProvince: 64,
-        codeDistrict: 6409,
-        name: 'ทุ่งเสลี่ยม'
+        codeDistrict: "6409",
+        codeProvince: "64",
+        codeProvince_NAME: "สุโขทัย",
+        AMP: "09",
+        name: "ทุ่งเสลี่ยม"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6501,
-        name: 'เมืองพิษณุโลก'
+        codeDistrict: "6501",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "01",
+        name: "เมืองพิษณุโลก"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6502,
-        name: 'นครไทย'
+        codeDistrict: "6502",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "02",
+        name: "นครไทย"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6503,
-        name: 'ชาติตระการ'
+        codeDistrict: "6503",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "03",
+        name: "ชาติตระการ"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6504,
-        name: 'บางระกำ'
+        codeDistrict: "6504",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "04",
+        name: "บางระกำ"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6505,
-        name: 'บางกระทุ่ม'
+        codeDistrict: "6505",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "05",
+        name: "บางกระทุ่ม"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6506,
-        name: 'พรหมพิราม'
+        codeDistrict: "6506",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "06",
+        name: "พรหมพิราม"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6507,
-        name: 'วัดโบสถ์'
+        codeDistrict: "6507",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "07",
+        name: "วัดโบสถ์"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6508,
-        name: 'วังทอง'
+        codeDistrict: "6508",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "08",
+        name: "วังทอง"
     },
     {
-        codeProvince: 65,
-        codeDistrict: 6509,
-        name: 'เนินมะปราง'
+        codeDistrict: "6509",
+        codeProvince: "65",
+        codeProvince_NAME: "พิษณุโลก",
+        AMP: "09",
+        name: "เนินมะปราง"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6601,
-        name: 'เมืองพิจิตร'
+        codeDistrict: "6601",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "01",
+        name: "เมืองพิจิตร"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6602,
-        name: 'วังทรายพูน'
+        codeDistrict: "6602",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "02",
+        name: "วังทรายพูน"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6603,
-        name: 'โพธิ์ประทับช้าง'
+        codeDistrict: "6603",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "03",
+        name: "โพธิ์ประทับช้าง"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6604,
-        name: 'ตะพานหิน'
+        codeDistrict: "6604",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "04",
+        name: "ตะพานหิน"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6605,
-        name: 'บางมูลนาก'
+        codeDistrict: "6605",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "05",
+        name: "บางมูลนาก"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6606,
-        name: 'โพทะเล'
+        codeDistrict: "6606",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "06",
+        name: "โพทะเล"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6607,
-        name: 'สามง่าม'
+        codeDistrict: "6607",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "07",
+        name: "สามง่าม"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6608,
-        name: 'ทับคล้อ'
+        codeDistrict: "6608",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "08",
+        name: "ทับคล้อ"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6609,
-        name: 'สากเหล็ก'
+        codeDistrict: "6609",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "09",
+        name: "สากเหล็ก"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6610,
-        name: 'บึงนาราง'
+        codeDistrict: "6610",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "10",
+        name: "บึงนาราง"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6611,
-        name: 'ดงเจริญ'
+        codeDistrict: "6611",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "11",
+        name: "ดงเจริญ"
     },
     {
-        codeProvince: 66,
-        codeDistrict: 6612,
-        name: 'วชิรบารมี'
+        codeDistrict: "6612",
+        codeProvince: "66",
+        codeProvince_NAME: "พิจิตร",
+        AMP: "12",
+        name: "วชิรบารมี"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6701,
-        name: 'เมืองเพชรบูรณ์'
+        codeDistrict: "6701",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "01",
+        name: "เมืองเพชรบูรณ์"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6702,
-        name: 'ชนแดน'
+        codeDistrict: "6702",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "02",
+        name: "ชนแดน"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6703,
-        name: 'หล่มสัก'
+        codeDistrict: "6703",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "03",
+        name: "หล่มสัก"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6704,
-        name: 'หล่มเก่า'
+        codeDistrict: "6704",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "04",
+        name: "หล่มเก่า"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6705,
-        name: 'วิเชียรบุรี'
+        codeDistrict: "6705",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "05",
+        name: "วิเชียรบุรี"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6706,
-        name: 'ศรีเทพ'
+        codeDistrict: "6706",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "06",
+        name: "ศรีเทพ"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6707,
-        name: 'หนองไผ่'
+        codeDistrict: "6707",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "07",
+        name: "หนองไผ่"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6708,
-        name: 'บึงสามพัน'
+        codeDistrict: "6708",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "08",
+        name: "บึงสามพัน"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6709,
-        name: 'น้ำหนาว'
+        codeDistrict: "6709",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "09",
+        name: "น้ำหนาว"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6710,
-        name: 'วังโป่ง'
+        codeDistrict: "6710",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "10",
+        name: "วังโป่ง"
     },
     {
-        codeProvince: 67,
-        codeDistrict: 6711,
-        name: 'เขาค้อ'
+        codeDistrict: "6711",
+        codeProvince: "67",
+        codeProvince_NAME: "เพชรบูรณ์",
+        AMP: "11",
+        name: "เขาค้อ"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7001,
-        name: 'เมืองราชบุรี'
+        codeDistrict: "7001",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "01",
+        name: "เมืองราชบุรี"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7002,
-        name: 'จอมบึง'
+        codeDistrict: "7002",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "02",
+        name: "จอมบึง"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7003,
-        name: 'สวนผึ้ง'
+        codeDistrict: "7003",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "03",
+        name: "สวนผึ้ง"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7004,
-        name: 'ดำเนินสะดวก'
+        codeDistrict: "7004",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "04",
+        name: "ดำเนินสะดวก"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7005,
-        name: 'บ้านโป่ง'
+        codeDistrict: "7005",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "05",
+        name: "บ้านโป่ง"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7006,
-        name: 'บางแพ'
+        codeDistrict: "7006",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "06",
+        name: "บางแพ"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7007,
-        name: 'โพธาราม'
+        codeDistrict: "7007",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "07",
+        name: "โพธาราม"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7008,
-        name: 'ปากท่อ'
+        codeDistrict: "7008",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "08",
+        name: "ปากท่อ"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7009,
-        name: 'วัดเพลง'
+        codeDistrict: "7009",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "09",
+        name: "วัดเพลง"
     },
     {
-        codeProvince: 70,
-        codeDistrict: 7010,
-        name: 'บ้านคา'
+        codeDistrict: "7010",
+        codeProvince: "70",
+        codeProvince_NAME: "ราชบุรี",
+        AMP: "10",
+        name: "บ้านคา"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7101,
-        name: 'เมืองกาญจนบุรี'
+        codeDistrict: "7101",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "01",
+        name: "เมืองกาญจนบุรี"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7102,
-        name: 'ไทรโยค'
+        codeDistrict: "7102",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "02",
+        name: "ไทรโยค"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7103,
-        name: 'บ่อพลอย'
+        codeDistrict: "7103",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "03",
+        name: "บ่อพลอย"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7104,
-        name: 'ศรีสวัสดิ์'
+        codeDistrict: "7104",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "04",
+        name: "ศรีสวัสดิ์"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7105,
-        name: 'ท่ามะกา'
+        codeDistrict: "7105",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "05",
+        name: "ท่ามะกา"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7106,
-        name: 'ท่าม่วง'
+        codeDistrict: "7106",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "06",
+        name: "ท่าม่วง"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7107,
-        name: 'ทองผาภูมิ'
+        codeDistrict: "7107",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "07",
+        name: "ทองผาภูมิ"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7108,
-        name: 'สังขละบุรี'
+        codeDistrict: "7108",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "08",
+        name: "สังขละบุรี"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7109,
-        name: 'พนมทวน'
+        codeDistrict: "7109",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "09",
+        name: "พนมทวน"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7110,
-        name: 'เลาขวัญ'
+        codeDistrict: "7110",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "10",
+        name: "เลาขวัญ"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7111,
-        name: 'ด่านมะขามเตี้ย'
+        codeDistrict: "7111",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "11",
+        name: "ด่านมะขามเตี้ย"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7112,
-        name: 'หนองปรือ'
+        codeDistrict: "7112",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "12",
+        name: "หนองปรือ"
     },
     {
-        codeProvince: 71,
-        codeDistrict: 7113,
-        name: 'ห้วยกระเจา'
+        codeDistrict: "7113",
+        codeProvince: "71",
+        codeProvince_NAME: "กาญจนบุรี",
+        AMP: "13",
+        name: "ห้วยกระเจา"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7201,
-        name: 'เมืองสุพรรณบุรี'
+        codeDistrict: "7201",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "01",
+        name: "เมืองสุพรรณบุรี"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7202,
-        name: 'เดิมบางนางบวช'
+        codeDistrict: "7202",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "02",
+        name: "เดิมบางนางบวช"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7203,
-        name: 'ด่านช้าง'
+        codeDistrict: "7203",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "03",
+        name: "ด่านช้าง"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7204,
-        name: 'บางปลาม้า'
+        codeDistrict: "7204",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "04",
+        name: "บางปลาม้า"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7205,
-        name: 'ศรีประจันต์'
+        codeDistrict: "7205",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "05",
+        name: "ศรีประจันต์"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7206,
-        name: 'ดอนเจดีย์'
+        codeDistrict: "7206",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "06",
+        name: "ดอนเจดีย์"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7207,
-        name: 'สองพี่น้อง'
+        codeDistrict: "7207",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "07",
+        name: "สองพี่น้อง"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7208,
-        name: 'สามชุก'
+        codeDistrict: "7208",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "08",
+        name: "สามชุก"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7209,
-        name: 'อู่ทอง'
+        codeDistrict: "7209",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "09",
+        name: "อู่ทอง"
     },
     {
-        codeProvince: 72,
-        codeDistrict: 7210,
-        name: 'หนองหญ้าไซ'
+        codeDistrict: "7210",
+        codeProvince: "72",
+        codeProvince_NAME: "สุพรรณบุรี",
+        AMP: "10",
+        name: "หนองหญ้าไซ"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7301,
-        name: 'เมืองนครปฐม'
+        codeDistrict: "7301",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "01",
+        name: "เมืองนครปฐม"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7302,
-        name: 'กำแพงแสน'
+        codeDistrict: "7302",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "02",
+        name: "กำแพงแสน"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7303,
-        name: 'นครชัยศรี'
+        codeDistrict: "7303",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "03",
+        name: "นครชัยศรี"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7304,
-        name: 'ดอนตูม'
+        codeDistrict: "7304",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "04",
+        name: "ดอนตูม"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7305,
-        name: 'บางเลน'
+        codeDistrict: "7305",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "05",
+        name: "บางเลน"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7306,
-        name: 'สามพราน'
+        codeDistrict: "7306",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "06",
+        name: "สามพราน"
     },
     {
-        codeProvince: 73,
-        codeDistrict: 7307,
-        name: 'พุทธมณฑล'
+        codeDistrict: "7307",
+        codeProvince: "73",
+        codeProvince_NAME: "นครปฐม",
+        AMP: "07",
+        name: "พุทธมณฑล"
     },
     {
-        codeProvince: 74,
-        codeDistrict: 7401,
-        name: 'เมืองสมุทรสาคร'
+        codeDistrict: "7401",
+        codeProvince: "74",
+        codeProvince_NAME: "สมุทรสาคร",
+        AMP: "01",
+        name: "เมืองสมุทรสาคร"
     },
     {
-        codeProvince: 74,
-        codeDistrict: 7402,
-        name: 'กระทุ่มแบน'
+        codeDistrict: "7402",
+        codeProvince: "74",
+        codeProvince_NAME: "สมุทรสาคร",
+        AMP: "02",
+        name: "กระทุ่มแบน"
     },
     {
-        codeProvince: 74,
-        codeDistrict: 7403,
-        name: 'บ้านแพ้ว'
+        codeDistrict: "7403",
+        codeProvince: "74",
+        codeProvince_NAME: "สมุทรสาคร",
+        AMP: "03",
+        name: "บ้านแพ้ว"
     },
     {
-        codeProvince: 75,
-        codeDistrict: 7501,
-        name: 'เมืองสมุทรสงคราม'
+        codeDistrict: "7501",
+        codeProvince: "75",
+        codeProvince_NAME: "สมุทรสงคราม",
+        AMP: "01",
+        name: "เมืองสมุทรสงคราม"
     },
     {
-        codeProvince: 75,
-        codeDistrict: 7502,
-        name: 'บางคนที'
+        codeDistrict: "7502",
+        codeProvince: "75",
+        codeProvince_NAME: "สมุทรสงคราม",
+        AMP: "02",
+        name: "บางคนที"
     },
     {
-        codeProvince: 75,
-        codeDistrict: 7503,
-        name: 'อัมพวา'
+        codeDistrict: "7503",
+        codeProvince: "75",
+        codeProvince_NAME: "สมุทรสงคราม",
+        AMP: "03",
+        name: "อัมพวา"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7601,
-        name: 'เมืองเพชรบุรี'
+        codeDistrict: "7601",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "01",
+        name: "เมืองเพชรบุรี"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7602,
-        name: 'เขาย้อย'
+        codeDistrict: "7602",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "02",
+        name: "เขาย้อย"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7603,
-        name: 'หนองหญ้าปล้อง'
+        codeDistrict: "7603",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "03",
+        name: "หนองหญ้าปล้อง"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7604,
-        name: 'ชะอำ'
+        codeDistrict: "7604",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "04",
+        name: "ชะอำ"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7605,
-        name: 'ท่ายาง'
+        codeDistrict: "7605",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "05",
+        name: "ท่ายาง"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7606,
-        name: 'บ้านลาด'
+        codeDistrict: "7606",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "06",
+        name: "บ้านลาด"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7607,
-        name: 'บ้านแหลม'
+        codeDistrict: "7607",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "07",
+        name: "บ้านแหลม"
     },
     {
-        codeProvince: 76,
-        codeDistrict: 7608,
-        name: 'แก่งกระจาน'
+        codeDistrict: "7608",
+        codeProvince: "76",
+        codeProvince_NAME: "เพชรบุรี",
+        AMP: "08",
+        name: "แก่งกระจาน"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7701,
-        name: 'เมืองประจวบคีรีขันธ์'
+        codeDistrict: "7701",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "01",
+        name: "เมืองประจวบคีรีขันธ์"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7702,
-        name: 'กุยบุรี'
+        codeDistrict: "7702",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "02",
+        name: "กุยบุรี"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7703,
-        name: 'ทับสะแก'
+        codeDistrict: "7703",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "03",
+        name: "ทับสะแก"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7704,
-        name: 'บางสะพาน'
+        codeDistrict: "7704",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "04",
+        name: "บางสะพาน"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7705,
-        name: 'บางสะพานน้อย'
+        codeDistrict: "7705",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "05",
+        name: "บางสะพานน้อย"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7706,
-        name: 'ปราณบุรี'
+        codeDistrict: "7706",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "06",
+        name: "ปราณบุรี"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7707,
-        name: 'หัวหิน'
+        codeDistrict: "7707",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "07",
+        name: "หัวหิน"
     },
     {
-        codeProvince: 77,
-        codeDistrict: 7708,
-        name: 'สามร้อยยอด'
+        codeDistrict: "7708",
+        codeProvince: "77",
+        codeProvince_NAME: "ประจวบคีรีขันธ์",
+        AMP: "08",
+        name: "สามร้อยยอด"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8001,
-        name: 'เมืองนครศรีธรรมราช'
+        codeDistrict: "8001",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "01",
+        name: "เมืองนครศรีธรรมราช"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8002,
-        name: 'พรหมคีรี'
+        codeDistrict: "8002",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "02",
+        name: "พรหมคีรี"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8003,
-        name: 'ลานสกา'
+        codeDistrict: "8003",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "03",
+        name: "ลานสะกา"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8004,
-        name: 'ฉวาง'
+        codeDistrict: "8004",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "04",
+        name: "ฉวาง"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8005,
-        name: 'พิปูน'
+        codeDistrict: "8005",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "05",
+        name: "พิปูน"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8006,
-        name: 'เชียรใหญ่'
+        codeDistrict: "8006",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "06",
+        name: "เชียรใหญ่"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8007,
-        name: 'ชะอวด'
+        codeDistrict: "8007",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "07",
+        name: "ชะอวด"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8008,
-        name: 'ท่าศาลา'
+        codeDistrict: "8008",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "08",
+        name: "ท่าศาลา"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8009,
-        name: 'ทุ่งสง'
+        codeDistrict: "8009",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "09",
+        name: "ทุ่งสง"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8010,
-        name: 'นาบอน'
+        codeDistrict: "8010",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "10",
+        name: "นาบอน"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8011,
-        name: 'ทุ่งใหญ่'
+        codeDistrict: "8011",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "11",
+        name: "ทุ่งใหญ่"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8012,
-        name: 'ปากพนัง'
+        codeDistrict: "8012",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "12",
+        name: "ปากพนัง"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8013,
-        name: 'ร่อนพิบูลย์'
+        codeDistrict: "8013",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "13",
+        name: "ร่อนพิบูลย์"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8014,
-        name: 'สิชล'
+        codeDistrict: "8014",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "14",
+        name: "สิชล"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8015,
-        name: 'ขนอม'
+        codeDistrict: "8015",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "15",
+        name: "ขนอม"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8016,
-        name: 'หัวไทร'
+        codeDistrict: "8016",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "16",
+        name: "หัวไทร"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8017,
-        name: 'บางขัน'
+        codeDistrict: "8017",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "17",
+        name: "บางขัน"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8018,
-        name: 'ถ้ำพรรณรา'
+        codeDistrict: "8018",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "18",
+        name: "ถ้ำพรรณรา"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8019,
-        name: 'จุฬาภรณ์'
+        codeDistrict: "8019",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "19",
+        name: "จุฬาภรณ์"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8020,
-        name: 'พระพรหม'
+        codeDistrict: "8020",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "20",
+        name: "พระพรหม"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8021,
-        name: 'นบพิตำ'
+        codeDistrict: "8021",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "21",
+        name: "นบพิตำ"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8022,
-        name: 'ช้างกลาง'
+        codeDistrict: "8022",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "22",
+        name: "ช้างกลาง"
     },
     {
-        codeProvince: 80,
-        codeDistrict: 8023,
-        name: 'เฉลิมพระเกียรติ'
+        codeDistrict: "8023",
+        codeProvince: "80",
+        codeProvince_NAME: "นครศรีธรรมราช",
+        AMP: "23",
+        name: "เฉลิมพระเกียรติ"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8101,
-        name: 'เมืองกระบี่'
+        codeDistrict: "8101",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "01",
+        name: "เมืองกระบี่"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8102,
-        name: 'เขาพนม'
+        codeDistrict: "8102",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "02",
+        name: "เขาพนม"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8103,
-        name: 'เกาะลันตา'
+        codeDistrict: "8103",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "03",
+        name: "เกาะลันตา"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8104,
-        name: 'คลองท่อม'
+        codeDistrict: "8104",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "04",
+        name: "คลองท่อม"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8105,
-        name: 'อ่าวลึก'
+        codeDistrict: "8105",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "05",
+        name: "อ่าวลึก"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8106,
-        name: 'ปลายพระยา'
+        codeDistrict: "8106",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "06",
+        name: "ปลายพระยา"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8107,
-        name: 'ลำทับ'
+        codeDistrict: "8107",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "07",
+        name: "ลำทับ"
     },
     {
-        codeProvince: 81,
-        codeDistrict: 8108,
-        name: 'เหนือคลอง'
+        codeDistrict: "8108",
+        codeProvince: "81",
+        codeProvince_NAME: "กระบี่",
+        AMP: "08",
+        name: "เหนือคลอง"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8201,
-        name: 'เมืองพังงา'
+        codeDistrict: "8201",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "01",
+        name: "เมืองพังงา"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8202,
-        name: 'เกาะยาว'
+        codeDistrict: "8202",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "02",
+        name: "เกาะยาว"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8203,
-        name: 'กะปง'
+        codeDistrict: "8203",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "03",
+        name: "กะปง"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8204,
-        name: 'ตะกั่วทุ่ง'
+        codeDistrict: "8204",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "04",
+        name: "ตะกั่วทุ่ง"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8205,
-        name: 'ตะกั่วป่า'
+        codeDistrict: "8205",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "05",
+        name: "ตะกั่วป่า"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8206,
-        name: 'คุระบุรี'
+        codeDistrict: "8206",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "06",
+        name: "คุระบุรี"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8207,
-        name: 'ทับปุด'
+        codeDistrict: "8207",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "07",
+        name: "ทับปุด"
     },
     {
-        codeProvince: 82,
-        codeDistrict: 8208,
-        name: 'ท้ายเหมือง'
+        codeDistrict: "8208",
+        codeProvince: "82",
+        codeProvince_NAME: "พังงา",
+        AMP: "08",
+        name: "ท้ายเหมือง"
     },
     {
-        codeProvince: 83,
-        codeDistrict: 8301,
-        name: 'เมืองภูเก็ต'
+        codeDistrict: "8301",
+        codeProvince: "83",
+        codeProvince_NAME: "ภูเก็ต",
+        AMP: "01",
+        name: "เมืองภูเก็ต"
     },
     {
-        codeProvince: 83,
-        codeDistrict: 8302,
-        name: 'กะทู้'
+        codeDistrict: "8302",
+        codeProvince: "83",
+        codeProvince_NAME: "ภูเก็ต",
+        AMP: "02",
+        name: "กะทู้"
     },
     {
-        codeProvince: 83,
-        codeDistrict: 8303,
-        name: 'ถลาง'
+        codeDistrict: "8303",
+        codeProvince: "83",
+        codeProvince_NAME: "ภูเก็ต",
+        AMP: "03",
+        name: "ถลาง"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8401,
-        name: 'เมืองสุราษฎร์ธานี'
+        codeDistrict: "8401",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "01",
+        name: "เมืองสุราษฎร์ธานี"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8402,
-        name: 'กาญจนดิษฐ์'
+        codeDistrict: "8402",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "02",
+        name: "กาญจนดิษฐ์"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8403,
-        name: 'ดอนสัก'
+        codeDistrict: "8403",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "03",
+        name: "ดอนสัก"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8404,
-        name: 'เกาะสมุย'
+        codeDistrict: "8404",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "04",
+        name: "เกาะสมุย"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8405,
-        name: 'เกาะพะงัน'
+        codeDistrict: "8405",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "05",
+        name: "เกาะพะงัน"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8406,
-        name: 'ไชยา'
+        codeDistrict: "8406",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "06",
+        name: "ไชยา"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8407,
-        name: 'ท่าชนะ'
+        codeDistrict: "8407",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "07",
+        name: "ท่าชนะ"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8408,
-        name: 'คีรีรัฐนิคม'
+        codeDistrict: "8408",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "08",
+        name: "คีรีรัฐนิคม"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8409,
-        name: 'บ้านตาขุน'
+        codeDistrict: "8409",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "09",
+        name: "บ้านตาขุน"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8410,
-        name: 'พนม'
+        codeDistrict: "8410",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "10",
+        name: "พนม"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8411,
-        name: 'ท่าฉาง'
+        codeDistrict: "8411",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "11",
+        name: "ท่าฉาง"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8412,
-        name: 'บ้านนาสาร'
+        codeDistrict: "8412",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "12",
+        name: "บ้านนาสาร"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8413,
-        name: 'บ้านนาเดิม'
+        codeDistrict: "8413",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "13",
+        name: "บ้านนาเดิม"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8414,
-        name: 'เคียนซา'
+        codeDistrict: "8414",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "14",
+        name: "เคียนซา"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8415,
-        name: 'เวียงสระ'
+        codeDistrict: "8415",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "15",
+        name: "เวียงสระ"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8416,
-        name: 'พระแสง'
+        codeDistrict: "8416",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "16",
+        name: "พระแสง"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8417,
-        name: 'พุนพิน'
+        codeDistrict: "8417",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "17",
+        name: "พุนพิน"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8418,
-        name: 'ชัยบุรี'
+        codeDistrict: "8418",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "18",
+        name: "ชัยบุรี"
     },
     {
-        codeProvince: 84,
-        codeDistrict: 8419,
-        name: 'วิภาวดี'
+        codeDistrict: "8419",
+        codeProvince: "84",
+        codeProvince_NAME: "สุราษฎร์ธานี",
+        AMP: "19",
+        name: "วิภาวดี"
     },
     {
-        codeProvince: 85,
-        codeDistrict: 8501,
-        name: 'เมืองระนอง'
+        codeDistrict: "8501",
+        codeProvince: "85",
+        codeProvince_NAME: "ระนอง",
+        AMP: "01",
+        name: "เมืองระนอง"
     },
     {
-        codeProvince: 85,
-        codeDistrict: 8502,
-        name: 'ละอุ่น'
+        codeDistrict: "8502",
+        codeProvince: "85",
+        codeProvince_NAME: "ระนอง",
+        AMP: "02",
+        name: "ละอุ่น"
     },
     {
-        codeProvince: 85,
-        codeDistrict: 8503,
-        name: 'กะเปอร์'
+        codeDistrict: "8503",
+        codeProvince: "85",
+        codeProvince_NAME: "ระนอง",
+        AMP: "03",
+        name: "กะเปอร์"
     },
     {
-        codeProvince: 85,
-        codeDistrict: 8504,
-        name: 'กระบุรี'
+        codeDistrict: "8504",
+        codeProvince: "85",
+        codeProvince_NAME: "ระนอง",
+        AMP: "04",
+        name: "กระบุรี"
     },
     {
-        codeProvince: 85,
-        codeDistrict: 8505,
-        name: 'สุขสำราญ'
+        codeDistrict: "8505",
+        codeProvince: "85",
+        codeProvince_NAME: "ระนอง",
+        AMP: "05",
+        name: "สุขสำราญ"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8601,
-        name: 'เมืองชุมพร'
+        codeDistrict: "8601",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "01",
+        name: "เมืองชุมพร"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8602,
-        name: 'ท่าแซะ'
+        codeDistrict: "8602",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "02",
+        name: "ท่าแซะ"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8603,
-        name: 'ปะทิว'
+        codeDistrict: "8603",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "03",
+        name: "ปะทิว"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8604,
-        name: 'หลังสวน'
+        codeDistrict: "8604",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "04",
+        name: "หลังสวน"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8605,
-        name: 'ละแม'
+        codeDistrict: "8605",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "05",
+        name: "ละแม"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8606,
-        name: 'พะโต๊ะ'
+        codeDistrict: "8606",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "06",
+        name: "พะโต๊ะ"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8607,
-        name: 'สวี'
+        codeDistrict: "8607",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "07",
+        name: "สวี"
     },
     {
-        codeProvince: 86,
-        codeDistrict: 8608,
-        name: 'ทุ่งตะโก'
+        codeDistrict: "8608",
+        codeProvince: "86",
+        codeProvince_NAME: "ชุมพร",
+        AMP: "08",
+        name: "ทุ่งตะโก"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9001,
-        name: 'เมืองสงขลา'
+        codeDistrict: "9001",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "01",
+        name: "เมืองสงขลา"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9002,
-        name: 'สทิงพระ'
+        codeDistrict: "9002",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "02",
+        name: "สทิงพระ"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9003,
-        name: 'จะนะ'
+        codeDistrict: "9003",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "03",
+        name: "จะนะ"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9004,
-        name: 'นาทวี'
+        codeDistrict: "9004",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "04",
+        name: "นาทวี"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9005,
-        name: 'เทพา'
+        codeDistrict: "9005",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "05",
+        name: "เทพา"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9006,
-        name: 'สะบ้าย้อย'
+        codeDistrict: "9006",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "06",
+        name: "สะบ้าย้อย"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9007,
-        name: 'ระโนด'
+        codeDistrict: "9007",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "07",
+        name: "ระโนด"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9008,
-        name: 'กระแสสินธุ์'
+        codeDistrict: "9008",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "08",
+        name: "กระแสสินธุ์"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9009,
-        name: 'รัตภูมิ'
+        codeDistrict: "9009",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "09",
+        name: "รัตภูมิ"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9010,
-        name: 'สะเดา'
+        codeDistrict: "9010",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "10",
+        name: "สะเดา"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9011,
-        name: 'หาดใหญ่'
+        codeDistrict: "9011",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "11",
+        name: "หาดใหญ่"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9012,
-        name: 'นาหม่อม'
+        codeDistrict: "9012",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "12",
+        name: "นาหม่อม"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9013,
-        name: 'ควนเนียง'
+        codeDistrict: "9013",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "13",
+        name: "ควนเนียง"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9014,
-        name: 'บางกล่ำ'
+        codeDistrict: "9014",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "14",
+        name: "บางกล่ำ"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9015,
-        name: 'สิงหนคร'
+        codeDistrict: "9015",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "15",
+        name: "สิงหนคร"
     },
     {
-        codeProvince: 90,
-        codeDistrict: 9016,
-        name: 'คลองหอยโข่ง'
+        codeDistrict: "9016",
+        codeProvince: "90",
+        codeProvince_NAME: "สงขลา",
+        AMP: "16",
+        name: "คลองหอยโข่ง"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9101,
-        name: 'เมืองสตูล'
+        codeDistrict: "9101",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "01",
+        name: "เมืองสตูล"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9102,
-        name: 'ควนโดน'
+        codeDistrict: "9102",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "02",
+        name: "ควนโดน"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9103,
-        name: 'ควนกาหลง'
+        codeDistrict: "9103",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "03",
+        name: "ควนกาหลง"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9104,
-        name: 'ท่าแพ'
+        codeDistrict: "9104",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "04",
+        name: "ท่าแพ"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9105,
-        name: 'ละงู'
+        codeDistrict: "9105",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "05",
+        name: "ละงู"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9106,
-        name: 'ทุ่งหว้า'
+        codeDistrict: "9106",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "06",
+        name: "ทุ่งหว้า"
     },
     {
-        codeProvince: 91,
-        codeDistrict: 9107,
-        name: 'มะนัง'
+        codeDistrict: "9107",
+        codeProvince: "91",
+        codeProvince_NAME: "สตูล",
+        AMP: "07",
+        name: "มะนัง"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9201,
-        name: 'เมืองตรัง'
+        codeDistrict: "9201",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "01",
+        name: "เมืองตรัง"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9202,
-        name: 'กันตัง'
+        codeDistrict: "9202",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "02",
+        name: "กันตัง"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9203,
-        name: 'ย่านตาขาว'
+        codeDistrict: "9203",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "03",
+        name: "ย่านตาขาว"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9204,
-        name: 'ปะเหลียน'
+        codeDistrict: "9204",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "04",
+        name: "ปะเหลียน"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9205,
-        name: 'สิเกา'
+        codeDistrict: "9205",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "05",
+        name: "สิเกา"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9206,
-        name: 'ห้วยยอด'
+        codeDistrict: "9206",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "06",
+        name: "ห้วยยอด"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9207,
-        name: 'วังวิเศษ'
+        codeDistrict: "9207",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "07",
+        name: "วังวิเศษ"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9208,
-        name: 'นาโยง'
+        codeDistrict: "9208",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "08",
+        name: "นาโยง"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9209,
-        name: 'รัษฎา'
+        codeDistrict: "9209",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "09",
+        name: "รัษฎา"
     },
     {
-        codeProvince: 92,
-        codeDistrict: 9210,
-        name: 'หาดสำราญ'
+        codeDistrict: "9210",
+        codeProvince: "92",
+        codeProvince_NAME: "ตรัง",
+        AMP: "10",
+        name: "หาดสำราญ"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9301,
-        name: 'เมืองพัทลุง'
+        codeDistrict: "9301",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "01",
+        name: "เมืองพัทลุง"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9302,
-        name: 'กงหรา'
+        codeDistrict: "9302",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "02",
+        name: "กงหรา"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9303,
-        name: 'เขาชัยสน'
+        codeDistrict: "9303",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "03",
+        name: "เขาชัยสน"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9304,
-        name: 'ตะโหมด'
+        codeDistrict: "9304",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "04",
+        name: "ตะโหมด"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9305,
-        name: 'ควนขนุน'
+        codeDistrict: "9305",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "05",
+        name: "ควนขนุน"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9306,
-        name: 'ปากพะยูน'
+        codeDistrict: "9306",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "06",
+        name: "ปากพะยูน"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9307,
-        name: 'ศรีบรรพต'
+        codeDistrict: "9307",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "07",
+        name: "ศรีบรรพต"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9308,
-        name: 'ป่าบอน'
+        codeDistrict: "9308",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "08",
+        name: "ป่าบอน"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9309,
-        name: 'บางแก้ว'
+        codeDistrict: "9309",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "09",
+        name: "บางแก้ว"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9310,
-        name: 'ป่าพะยอม'
+        codeDistrict: "9310",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "10",
+        name: "ป่าพะยอม"
     },
     {
-        codeProvince: 93,
-        codeDistrict: 9311,
-        name: 'ศรีนครินทร์'
+        codeDistrict: "9311",
+        codeProvince: "93",
+        codeProvince_NAME: "พัทลุง",
+        AMP: "11",
+        name: "ศรีนครินทร์"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9401,
-        name: 'เมืองปัตตานี'
+        codeDistrict: "9401",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "01",
+        name: "เมืองปัตตานี"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9402,
-        name: 'โคกโพธิ์'
+        codeDistrict: "9402",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "02",
+        name: "โคกโพธิ์"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9403,
-        name: 'หนองจิก'
+        codeDistrict: "9403",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "03",
+        name: "หนองจิก"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9404,
-        name: 'ปะนาเระ'
+        codeDistrict: "9404",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "04",
+        name: "ปะนาเระ"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9405,
-        name: 'มายอ'
+        codeDistrict: "9405",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "05",
+        name: "มายอ"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9406,
-        name: 'ทุ่งยางแดง'
+        codeDistrict: "9406",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "06",
+        name: "ทุ่งยางแดง"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9407,
-        name: 'สายบุรี'
+        codeDistrict: "9407",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "07",
+        name: "สายบุรี"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9408,
-        name: 'ไม้แก่น'
+        codeDistrict: "9408",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "08",
+        name: "ไม้แก่น"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9409,
-        name: 'ยะหริ่ง'
+        codeDistrict: "9409",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "09",
+        name: "ยะหริ่ง"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9410,
-        name: 'ยะรัง'
+        codeDistrict: "9410",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "10",
+        name: "ยะรัง"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9411,
-        name: 'กะพ้อ'
+        codeDistrict: "9411",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "11",
+        name: "กะพ้อ"
     },
     {
-        codeProvince: 94,
-        codeDistrict: 9412,
-        name: 'แม่ลาน'
+        codeDistrict: "9412",
+        codeProvince: "94",
+        codeProvince_NAME: "ปัตตานี",
+        AMP: "12",
+        name: "แม่ลาน"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9501,
-        name: 'เมืองยะลา'
+        codeDistrict: "9501",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "01",
+        name: "เมืองยะลา"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9502,
-        name: 'เบตง'
+        codeDistrict: "9502",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "02",
+        name: "เบตง"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9503,
-        name: 'บันนังสตา'
+        codeDistrict: "9503",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "03",
+        name: "บันนังสตา"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9504,
-        name: 'ธารโต'
+        codeDistrict: "9504",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "04",
+        name: "ธารโต"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9505,
-        name: 'ยะหา'
+        codeDistrict: "9505",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "05",
+        name: "ยะหา"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9506,
-        name: 'รามัน'
+        codeDistrict: "9506",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "06",
+        name: "รามัน"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9507,
-        name: 'กาบัง'
+        codeDistrict: "9507",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "07",
+        name: "กาบัง"
     },
     {
-        codeProvince: 95,
-        codeDistrict: 9508,
-        name: 'กรงปินัง'
+        codeDistrict: "9508",
+        codeProvince: "95",
+        codeProvince_NAME: "ยะลา",
+        AMP: "08",
+        name: "กรงปินัง"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9601,
-        name: 'เมืองนราธิวาส'
+        codeDistrict: "9601",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "01",
+        name: "เมืองนราธิวาส"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9602,
-        name: 'ตากใบ'
+        codeDistrict: "9602",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "02",
+        name: "ตากใบ"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9603,
-        name: 'บาเจาะ'
+        codeDistrict: "9603",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "03",
+        name: "บาเจาะ"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9604,
-        name: 'ยี่งอ'
+        codeDistrict: "9604",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "04",
+        name: "ยี่งอ"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9605,
-        name: 'ระแงะ'
+        codeDistrict: "9605",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "05",
+        name: "ระแงะ"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9606,
-        name: 'รือเสาะ'
+        codeDistrict: "9606",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "06",
+        name: "รือเสาะ"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9607,
-        name: 'ศรีสาคร'
+        codeDistrict: "9607",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "07",
+        name: "ศรีสาคร"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9608,
-        name: 'แว้ง'
+        codeDistrict: "9608",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "08",
+        name: "แว้ง"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9609,
-        name: 'สุคิริน'
+        codeDistrict: "9609",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "09",
+        name: "สุคิริน"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9610,
-        name: 'สุไหงโกลก'
+        codeDistrict: "9610",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "10",
+        name: "สุไหงโก-ลก"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9611,
-        name: 'สุไหงปาดี'
+        codeDistrict: "9611",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "11",
+        name: "สุไหงปาดี"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9612,
-        name: 'จะแนะ'
+        codeDistrict: "9612",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "12",
+        name: "จะแนะ"
     },
     {
-        codeProvince: 96,
-        codeDistrict: 9613,
-        name: 'เจาะไอร้อง'
-    },
+        codeDistrict: "9613",
+        codeProvince: "96",
+        codeProvince_NAME: "นราธิวาส",
+        AMP: "13",
+        name: "เจาะไอร้อง"
+    }
 ]
