@@ -82,11 +82,12 @@ export class MyApp {
     let kind = dx['k'];
     let user = dx['u'];
     let actionId = dx['id'];
+    let link = dx['l'];
 
     switch (kind) {
       case "updateReq":
       case "appMsg":
-        this.dataStore.saveNotiAppMsg(kind, title, message, actionId);
+        this.dataStore.saveNotiAppMsg(kind, title, message, actionId, link);
         break;
       case "delMsg":
         this.dataStore.deleteNotiAppMsg();
