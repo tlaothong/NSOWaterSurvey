@@ -27,7 +27,7 @@
       <ion-col text-center>
         <h1>{{ appMsg.title }}</h1>
         <p>{{ appMsg.msg }}</p>
-        <a *ngIf="appMsg.uri" [href]="appMsg.uri">ดูเพิ่มเติม...</a>
+        <p *ngIf="appMsg.uri"><a [href]="appMsg.uri">ดูเพิ่มเติม...</a></p>
       </ion-col>
     </ion-row>
   </ion-grid>
