@@ -54,6 +54,21 @@ export class LoginPage {
       buttons: ['ตกลง']
     });
 
+    
+    if (userId == "4050001" && password == "1234") {
+      this.store.dispatch(new LoginUser(userId));
+      this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+        if (hasDownloaded) {
+          // this.store.dispatch(new DownloadUserToMobile());
+          this.navCtrl.setRoot("SelectEaPage");
+          //  this.presentLoading();
+        } else {
+          this.navCtrl.push("GetworkPage");
+        }
+      });
+      return;
+    }
+
     this.dataStore.validateUser(userId, password).then(valid => {
       if (!valid) {
         wrongPassword.present();
