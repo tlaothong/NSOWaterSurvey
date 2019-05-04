@@ -46,7 +46,7 @@ export class MyApp {
           //   .startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662")
           //   .handleNotificationOpened(notificationOpenedCallback)
           //   .endInit();
-          this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
+          this.oneSignal.startInit("fa22470b-96b7-41e6-a8cd-be09fed9c3b0", "55019668476");
   
           this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
     
