@@ -12,7 +12,7 @@ import { DataStoreProvider } from '../../providers/data-store/data-store';
 export class FirstpagePage {
 
   private appMsg$ = this.dataStore.getNotiAppMsg();
-  private mustStop = false;
+  // private mustStop = false;
 
   constructor(public navCtrl: NavController, private store: Store<BootupState>, public navParams: NavParams, private platform: Platform, private dataStore: DataStoreProvider) {
     this.store.dispatch(new LoadBootstrap());
@@ -21,13 +21,13 @@ export class FirstpagePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstpagePage');
 
-    this.appMsg$.take(1).subscribe(appMsg => {
-      if (appMsg) {
-        if (appMsg.kind == "updateReq") {
-          this.mustStop = true;
-        }
-      }
-    });
+    // this.appMsg$.take(1).subscribe(appMsg => {
+    //   if (appMsg) {
+    //     if (appMsg.kind == "updateReq") {
+    //       this.mustStop = true;
+    //     }
+    //   }
+    // });
   }
 
 }
