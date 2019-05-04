@@ -50,8 +50,8 @@ export class DataStoreProvider {
     return Observable.fromPromise(this.storage.get("notiOneIds"));
   }
 
-  public saveNotiAppMsg(kind: string, title: string, msg: string, actionId: string): Promise<{}> {
-    return this.storage.set("notiAppMsg", { kind: kind, title: title, msg: msg, actionId: actionId });
+  public saveNotiAppMsg(kind: string, title: string, msg: string, actionId: string, link: string): Promise<{}> {
+    return this.storage.set("notiAppMsg", { kind: kind, title: title, msg: msg, actionId: actionId, uri: link });
   }
 
   public getNotiAppMsg(): Observable<MsgNotiInfo> {
@@ -201,4 +201,5 @@ export interface MsgNotiInfo {
   title: string;
   msg: string;
   actionId: string;
+  uri: string;
 }
