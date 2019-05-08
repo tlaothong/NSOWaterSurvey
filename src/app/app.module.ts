@@ -28,6 +28,7 @@ import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AppStateProvider } from '../providers/app-state/app-state';
 import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-error-handler';
 import { OneSignal } from '@ionic-native/onesignal';
+import { WebStateProvider } from '../providers/web-state/web-state';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { OneSignal } from '@ionic-native/onesignal';
     PumpDataProvider,
     LocationDataProvider,
     DataStoreProvider,
-    AppStateProvider,    
+    AppStateProvider,
+    WebStateProvider,    
   ]
 })
 export class AppModule { }

@@ -28,57 +28,64 @@ export class SendPage {
    */
   public uploadToCloud() {
 
-    const blobUri = "https://nsodev.blob.core.windows.net"; // Or should have '/' ?
-    const loading = this.loadingCtrl.create({
-      content: '',
-      enableBackdropDismiss: false,
+    const showError = this.alertCtrl.create({
+      'title': 'มีข้อผิดพลาด',
+      'message': 'ไม่อนุญาตให้ FS แก้ไขและส่งข้อมูลโดยตรง',
+      'buttons': ["ตกลง"],
     });
-    loading.present();
+    showError.present();
 
-    let hasError = false;
-    this.cloudSync.getUploadToCloud(this.appState.userId).take(1).subscribe(async d2c => {
-      let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, d2c.complementary);
+    // const blobUri = "https://nsodev.blob.core.windows.net"; // Or should have '/' ?
+    // const loading = this.loadingCtrl.create({
+    //   content: '',
+    //   enableBackdropDismiss: false,
+    // });
+    // loading.present();
 
-      const keys = await this.storage.keys();
+    // let hasError = false;
+    // this.cloudSync.getUploadToCloud(this.appState.userId).take(1).subscribe(async d2c => {
+    //   let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, d2c.complementary);
 
-      for (const k of keys) {
-        if (k.startsWith('ulogin1v')) {
-          continue; // ignore login file
-        }
-        let txt = await this.storage.get(k);
-        blob.createBlockBlobFromText(d2c.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
-          if (!resp.isSuccessful) {
-            // err != null?
-            hasError = true;
-          }
-        });
-      }
+    //   const keys = await this.storage.keys();
 
-      loading.dismiss();
+    //   for (const k of keys) {
+    //     if (k.startsWith('ulogin1v')) {
+    //       continue; // ignore login file
+    //     }
+    //     let txt = await this.storage.get(k);
+    //     blob.createBlockBlobFromText(d2c.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
+    //       if (!resp.isSuccessful) {
+    //         // err != null?
+    //         hasError = true;
+    //       }
+    //     });
+    //   }
 
-      if (hasError) {
-        const showError = this.alertCtrl.create({
-          'title': 'มีข้อผิดพลาด',
-          'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
-          'buttons': ["ตกลง"],
-        });
-        showError.present();
-      } else {
-        const showSuccess = this.alertCtrl.create({
-          'title': 'ส่งข้อมูลเรียบร้อย',
-          'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
-          'buttons': ["ตกลง"],
-        });
-        showSuccess.present();
-      }
-    }, error => {
-      const showError = this.alertCtrl.create({
-        'title': 'มีข้อผิดพลาด',
-        'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
-        'buttons': ["ตกลง"],
-      });
-      showError.present();
-    });
+    //   loading.dismiss();
+
+    //   if (hasError) {
+    //     const showError = this.alertCtrl.create({
+    //       'title': 'มีข้อผิดพลาด',
+    //       'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
+    //       'buttons': ["ตกลง"],
+    //     });
+    //     showError.present();
+    //   } else {
+    //     const showSuccess = this.alertCtrl.create({
+    //       'title': 'ส่งข้อมูลเรียบร้อย',
+    //       'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
+    //       'buttons': ["ตกลง"],
+    //     });
+    //     showSuccess.present();
+    //   }
+    // }, error => {
+    //   const showError = this.alertCtrl.create({
+    //     'title': 'มีข้อผิดพลาด',
+    //     'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
+    //     'buttons': ["ตกลง"],
+    //   });
+    //   showError.present();
+    // });
   }
 
   goBack() {
