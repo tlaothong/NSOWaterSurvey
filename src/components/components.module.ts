@@ -53,6 +53,7 @@ import { CountComponent } from './count/count';
 import { UnitButtonPopoverComponent } from './unit-button-popover/unit-button-popover';
 import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-commu';
 import { WarningComponent } from './warning/warning';
+import { PictureShowComponent } from './picture-show/picture-show';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
@@ -109,6 +110,7 @@ import { WarningComponent } from './warning/warning';
     UnitButtonPopoverComponent,
     PoolAreaForCommuComponent,
     WarningComponent,
+    PictureShowComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -173,6 +175,7 @@ import { WarningComponent } from './warning/warning';
     UnitButtonPopoverComponent,
     PoolAreaForCommuComponent,
     WarningComponent,
+    PictureShowComponent,
   ]
 })
 export class ComponentsModule { }
