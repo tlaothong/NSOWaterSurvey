@@ -16,8 +16,9 @@
         <br><br>
         <h4>ระบบการจัดเก็บข้อมูลในครัวเรือน <br>ครัวเรือนเกษตร<br> สถานประกอบการ และพื้นที่ย่อย</h4>
         <br><br>
-        <button ion-button full color="secondary" [navPush]="'ScanqrPage'" [disabled]="mustStop">เปิดใช้งาน TABLET</button>
-        <button ion-button full color="light" [navPush]="'LoginPage'" [disabled]="mustStop">เข้าสู่ระบบ</button>
+        <button ion-button full color="secondary" [disabled]="true">เปิดใช้งาน TABLET</button>
+        <!-- <button ion-button full color="light" [navPush]="'LoginPage'" [disabled]="mustStop">เข้าสู่ระบบ</button> -->
+        <button ion-button full color="light" [disabled]="false" (click)="viewSurvey()">เปิดดูข้อมูล</button>
       </ion-col>
     </ion-row>
     <ion-row>
