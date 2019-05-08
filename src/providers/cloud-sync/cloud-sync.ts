@@ -21,6 +21,10 @@ export class CloudSyncProvider {
     return <Observable<any>>this.http.post(this.baseUrl + 'MobileConnect/up2cloud/' + userId, {});
   }
 
+  public uploadFinish(userId: string, containerName: string) {
+    return this.http.put(this.baseUrl + 'MobileConnect/up2cloud/' + userId, { containerName: containerName });
+  }
+
   /*************************
    * ของเก่า
    *************************/
