@@ -48,6 +48,10 @@ export class CloudSyncProvider {
     return unit;
   }
 
+  public uploadFinish(userId: string, containerName: string) {
+    return this.http.put(this.baseUrl + 'MobileConnect/up2cloud/' + userId, { containerName: containerName });
+  }
+
   /*************************
    * ของเก่า
    *************************/
