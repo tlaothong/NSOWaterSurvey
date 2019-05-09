@@ -8,7 +8,7 @@ import { WebStateProvider } from '../web-state/web-state';
 export class CloudSyncProvider {
 
   // private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
-  private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
+  private readonly baseUrl: string = "https://nso-manage.azurewebsites.net/api/"; // dev url
 
   constructor(private http: HttpClient, private webState: WebStateProvider) {
     console.log('Create CloudSyncProvider Provider');
