@@ -12,6 +12,7 @@ declare var AzureStorage;
   templateUrl: 'send.html',
 })
 export class SendPage {
+  public checkDownload: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private storage: Storage, private cloudSync: CloudSyncProvider,
@@ -41,18 +42,18 @@ export class SendPage {
 
       const keys = await this.storage.keys();
 
-      for (const k of keys) {
-        if (k.startsWith('ulogin1v')) {
-          continue; // ignore login file
-        }
-        let txt = await this.storage.get(k);
-        blob.createBlockBlobFromText(d2c.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
-          if (!resp.isSuccessful) {
-            // err != null?
-            hasError = true;
-          }
-        });
-      }
+      // for (const k of keys) {
+      //   if (k.startsWith('ulogin1v')) {
+      //     continue; // ignore login file
+      //   }
+      //   let txt = await this.storage.get(k);
+      //   blob.createBlockBlobFromText(d2c.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
+      //     if (!resp.isSuccessful) {
+      //       // err != null?
+      //       hasError = true;
+      //     }
+      //   });
+      // }
 
       loading.dismiss();
 
@@ -64,14 +65,17 @@ export class SendPage {
         });
         showError.present();
       } else {
-        this.cloudSync.uploadFinish(this.appState.userId, d2c.containerName).take(1).subscribe(done => {
-          const showSuccess = this.alertCtrl.create({
-            'title': 'ส่งข้อมูลเรียบร้อย',
-            'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
-            'buttons': ["ตกลง"],
-          });
-          showSuccess.present();
+        // this.cloudSync.uploadFinish(this.appState.userId, d2c.containerName).take(1).subscribe(done => {
+        const showSuccess = this.alertCtrl.create({
+          'title': 'ส่งข้อมูลเรียบร้อย',
+          'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
+          'buttons': ["ตกลง"],
         });
+        // showSuccess.present();
+        // });
+        showSuccess.present();
+        this.checkDownload = false;
+
       }
     }, error => {
       const showError = this.alertCtrl.create({
@@ -81,6 +85,28 @@ export class SendPage {
       });
       showError.present();
     });
+  }
+
+  downloadwork() {
+    const showDownload = this.alertCtrl.create();
+    showDownload.setTitle('กรุณาเลือกความต้องการ');
+    showDownload.setSubTitle('หากคุณต้องการให้ข้อมูลงานผู้อื่นรวมกับของคุณกรุณาเลือก ต้องการทับงานของตัวเอง')
+    
+    showDownload.addInput({
+      type: 'checkbox',
+      label: 'ต้องการทับงานของตัวเอง?',
+      value: 'value2',
+      checked: false
+    });
+    showDownload.addButton('ยกเลิก');
+    showDownload.addButton({
+      text: 'ตกลง',
+      handler: data => {
+       
+      }
+    });
+
+    showDownload.present();
   }
 
   goBack() {
