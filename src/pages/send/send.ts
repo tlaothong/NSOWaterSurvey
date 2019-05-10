@@ -64,12 +64,14 @@ export class SendPage {
         });
         showError.present();
       } else {
-        const showSuccess = this.alertCtrl.create({
-          'title': 'ส่งข้อมูลเรียบร้อย',
-          'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
-          'buttons': ["ตกลง"],
+        this.cloudSync.uploadFinish(this.appState.userId, d2c.containerName).take(1).subscribe(done => {
+          const showSuccess = this.alertCtrl.create({
+            'title': 'ส่งข้อมูลเรียบร้อย',
+            'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
+            'buttons': ["ตกลง"],
+          });
+          showSuccess.present();
         });
-        showSuccess.present();
       }
     }, error => {
       const showError = this.alertCtrl.create({
