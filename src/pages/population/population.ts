@@ -182,6 +182,36 @@ export class PopulationPage {
     onComponentCountChanges();
   }
 
+  ok() {
+    console.log("data");
+    const confirmChanged = this.alertCtrl.create({
+      title: 'แจ้งเตือน',
+      message: 'ต้องการลบข้อมูลที่ไม่ประสงค์ให้ข้อมูลใช่หรือไม่',
+      buttons: [
+        "ยกเลิก",
+        {
+          text: "ยืนยัน",
+          handler: () => {
+            let persons = this.f.get('persons') as FormArray;
+            let count = 0;
+            let data = persons.value
+            console.log("count");
+            console.log(persons);
+            for (let index = 0; index < data.length; index++) {
+              if (data[index].firstName == null) {
+                count++;
+              }
+            }
+            console.log(count);
+            let total = this.f.get('personCount').value
+            this.f.get('personCount').setValue(total - count);
+          },
+        },
+      ]
+    });
+    confirmChanged.present();
+  }
+
   // presentAlertPopulation(num) {
   //   const alert = this.alertController.create({
   //     title: 'คุณต้องการจะลบข้อมูลหรือไม่',
