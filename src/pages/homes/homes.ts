@@ -15,6 +15,7 @@ import { BuildingInList, CommunityInList } from '../../models/mobile/MobileModel
 import { CommunityState } from '../../states/community/community.reducer';
 import { SetCurrentWorkingCommunity, NewCommunity, DeleteCommunity } from '../../states/community/community.actions';
 import { getCommunityList } from '../../states/community';
+import { DataStoreProvider, StatusEA } from '../../providers/data-store/data-store';
 
 
 
@@ -24,7 +25,7 @@ import { getCommunityList } from '../../states/community';
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  data: any;
+  // data: StatusEA ;
   formItem: FormGroup;
   office: string = "building";
   x: number = 0;
@@ -39,7 +40,7 @@ export class HomesPage {
   private dataBuilding$ = this.storeBuild.select(getHomeBuilding);
   private dataCommunity$ = this.storeCom.select(getCommunityList);
   // private dataCommunity: any;
-  public statusEa: any = 1;
+  public statusEa: any;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
   public buildings$ = this.storeBuild.select(getBuildingList);
@@ -56,7 +57,7 @@ export class HomesPage {
     public navParams: NavParams, private popoverCtrl: PopoverController,
     private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
     private storeCom: Store<CommunityState>, private storeBuild: Store<BuildingState>,
-    private appState: AppStateProvider) {
+    private appState: AppStateProvider, private dataStore: DataStoreProvider) {
     this.initializeItems();
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
@@ -73,6 +74,25 @@ export class HomesPage {
   ionViewDidEnter() {
     let eaCode = this.appState.eaCode;
     this.switchListMode();
+    let statusEa$ = this.dataStore.loadStatusEA(eaCode);
+    statusEa$.take(1).subscribe(data => {
+      if (data == null) {
+        this.statusEa = 1;
+      }else{
+        const data2: StatusEA = {
+          status: data.status,
+          date: data.date,
+        }
+        this.statusEa = data2.status;
+      }
+    });
+    console.log(this.statusEa);
+
+    // const data: StatusEA = {
+    //   status: this.statusEa,
+    //   date: Date.now(),
+    // }
+
   }
 
   presentLoading() {
@@ -85,7 +105,19 @@ export class HomesPage {
 
   changeEaStatus() {
     this.statusEa = 2
-    console.log(this.statusEa);
+    const data: StatusEA = {
+      status: this.statusEa,
+      date: Date.now(),
+    }
+    console.log(data);
+
+    // if (this.data.status == undefined || this.data.date == undefined) {
+    //   this.data.status = this.statusEa;
+    //   this.data.date = new Date();
+    // }
+    // console.log(this.data);
+
+    this.dataStore.saveStatusEA(this.appState.eaCode, data);
   }
 
   // TODO: Will be handled this
@@ -138,7 +170,7 @@ export class HomesPage {
       this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
     }
     else if (this.office == 'areayoi') {
-    
+
     }
     // this.presentLoading();
   }
@@ -146,7 +178,7 @@ export class HomesPage {
   goEditCommunityInfo(item: CommunityInList) {
     console.log(item.communityId);
     console.log(item);
-    
+
     this.storeCom.dispatch(new SetCurrentWorkingCommunity(item.communityId));
     this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: item.communityId })
   }
