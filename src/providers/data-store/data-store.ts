@@ -187,6 +187,14 @@ export class DataStoreProvider {
   public loadCommunityList(eaCode: string): Observable<any> {
     return Observable.fromPromise(this.storage.get("comlst1v" + eaCode));
   }
+
+  public saveStatusEA(eaCode: string, status: StatusEA): Observable<any> {
+    return Observable.fromPromise(this.storage.set('bldsta1v' + eaCode, status));
+  }
+
+  public loadStatusEA(eaCode: string): Observable<any> {
+    return Observable.fromPromise(this.storage.get('bldsta1v' + eaCode));
+  }
   /*********** */
 }
 
@@ -203,3 +211,9 @@ export interface MsgNotiInfo {
   actionId: string;
   uri: string;
 }
+
+export interface StatusEA {
+  status: any;
+  date: any;
+}
+

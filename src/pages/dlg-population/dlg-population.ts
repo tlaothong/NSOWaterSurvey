@@ -185,7 +185,7 @@ export class DlgPopulationPage {
     let use = 'ใช้';
     let dc = '"';
     let btn = [];
-    lastName$.subscribe(data => {
+    lastName$.take(1).subscribe(data => {
       this.lastName = data;
       console.log(this.lastName);
       
@@ -212,6 +212,7 @@ export class DlgPopulationPage {
       actionSheet.present();
       this.lastName.reverse()
     });
+
   }
 }
 
