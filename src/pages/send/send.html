@@ -9,6 +9,18 @@
 
 <ion-content padding>
   
+  <ion-item>
+    <ion-label *ngIf="currentEA$ | async as ea">
+      {{ ea.CWT_NAME }}
+      {{ ea.AMP_NAME }}
+      {{ ea.TAM_NAME }}
+      {{ (ea.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
+      {{ ea.MUN_NAME }}{{ ea.TAO_NAME }}
+      &nbsp;
+      <b>{{ ea.EA }}</b>
+    </ion-label>
+  </ion-item> 
+
   <ion-card>
     <ion-row>
       <ion-col>
@@ -19,40 +31,40 @@
       <ion-col col-1>
       </ion-col>
       <ion-col>
-        <ion-label>ข้อมูลอาคาร ทั้งหมด : </ion-label>
+        <ion-label>ข้อมูลอาคาร ทั้งหมด : {{ item.allbld }}</ion-label>
       </ion-col>
       <ion-col>
-        <ion-label>ข้อมูลอาคาร ที่สำรวจเสร็จ : </ion-label>
+        <ion-label>ข้อมูลอาคาร ที่สำรวจเสร็จ : {{ bldcomplete }}</ion-label>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-1>
       </ion-col>
       <ion-col>
-        <ion-label>ข้อมูลอาคาร ว่าง : </ion-label>
+        <ion-label>ข้อมูลอาคาร ว่าง/ร้าง : {{ item.bldVacancyCount }}</ion-label>
+      </ion-col>
+      <!-- <ion-col>
+        <ion-label>ข้อมูลอาคาร ร้าง : {{ item.bldAbandonedCount }}</ion-label>
+      </ion-col> -->
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
       </ion-col>
       <ion-col>
-        <ion-label>ข้อมูลอาคาร ร้าง : </ion-label>
+        <ion-label>ครัวเรือน ทั้งหมด : {{ item.allunt }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>ครัวเรือน ที่สำรวจเสร็จ : {{ item.untComplete }}</ion-label>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-1>
       </ion-col>
       <ion-col>
-        <ion-label>ครัวเรือน ทั้งหมด : </ion-label>
+        <ion-label>ครัวเรือน ว่าง : {{ item.bldVacancyCount }}</ion-label>
       </ion-col>
       <ion-col>
-        <ion-label>ครัวเรือน ที่สำรวจเสร็จ : </ion-label>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-1>
-      </ion-col>
-      <ion-col>
-        <ion-label>ครัวเรือน ว่าง : </ion-label>
-      </ion-col>
-      <ion-col>
-        <ion-label>ครัวเรือน ร้าง : </ion-label>
+        <ion-label>ครัวเรือน ร้าง : {{ item.untAbandonedCount }}</ion-label>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -66,10 +78,10 @@
       <ion-col col-1>
       </ion-col>
       <ion-col>
-        <ion-label>หมู่บ้าน/ชุมชน ทั้งหมด : </ion-label>
+        <ion-label>หมู่บ้าน/ชุมชน ทั้งหมด : {{ item.allcmn }}</ion-label>
       </ion-col>
       <ion-col>
-        <ion-label>หมู่บ้าน/ชุมชน ที่สำรวจเสร็จ : </ion-label>
+        <ion-label>หมู่บ้าน/ชุมชน ที่สำรวจเสร็จ : {{ item.cmnComplete }}</ion-label>
       </ion-col>
     </ion-row>
   </ion-card>

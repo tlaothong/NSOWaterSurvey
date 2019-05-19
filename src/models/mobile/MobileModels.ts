@@ -25,6 +25,36 @@ export interface UnitInList {
     status: string; // formerly 'class'
 }
 
+export interface upload1 {
+    containerName: string;
+    complementary: string;
+    sessionId: string;
+}
+
+export interface donwloadBlob {
+    baseUrl: string;
+    complementary: string;
+    data: downloadEA[];
+}
+
+export interface downloadEA {
+    ea: string;
+    items: downloadFile[];
+}
+
+export interface downloadFile {
+    _id: string;
+    userId: string;
+    url: string;
+}
+
+// export interface downloadFile {
+//     fileUrl: string;
+//     eaCode: string;
+//     buildingId: string;
+//     userId: string;
+// }
+
 export interface Building {
     _id: string;
     ea: string;
@@ -102,4 +132,17 @@ export interface EAwStat extends EA {
 
 export interface IGeometry {
     coordinates: number[];
+}
+
+export interface ItemInSendPage {
+    allbld: number;
+    bldComplete: number;
+    bldVacancyCount: number;
+    bldAbandonedCount: number;
+    allunt: number;
+    untComplete: number;
+    untVacancyCount: number;
+    untAbandonedCount: number;
+    allcmn: number;
+    cmnComplete: number;
 }

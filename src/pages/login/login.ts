@@ -55,35 +55,35 @@ export class LoginPage {
     });
 
 
-    // if(userId=="10400064" && password=="1234"){
-    //   this.store.dispatch(new LoginUser(userId));
-    //   this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
-    //     if (hasDownloaded) {
-    //       // this.store.dispatch(new DownloadUserToMobile());
-    //       this.navCtrl.setRoot("SelectEaPage");
-    //       //  this.presentLoading();
-    //     } else {
-    //       this.navCtrl.push("GetworkPage");
-    //     }
-    //   });
+    if(userId=="10500701" && password=="1234"){
+      this.store.dispatch(new LoginUser(userId));
+      this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+        if (hasDownloaded) {
+          // this.store.dispatch(new DownloadUserToMobile());
+          this.navCtrl.setRoot("SelectEaPage");
+          //  this.presentLoading();
+        } else {
+          this.navCtrl.push("GetworkPage");
+        }
+      });
 
-    // }
-    this.dataStore.validateUser(userId, password).then(valid => {
-      if (!valid) {
-        wrongPassword.present();
-      } else {
-        this.store.dispatch(new LoginUser(userId));
-        this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
-          if (hasDownloaded) {
-            // this.store.dispatch(new DownloadUserToMobile());
-            this.navCtrl.setRoot("SelectEaPage");
-            //  this.presentLoading();
-          } else {
-            this.navCtrl.push("GetworkPage");
-          }
-        });
-      }
-    });
+    }
+    // this.dataStore.validateUser(userId, password).then(valid => {
+    //   if (!valid) {
+    //     wrongPassword.present();
+    //   } else {
+    //     this.store.dispatch(new LoginUser(userId));
+    //     this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+    //       if (hasDownloaded) {
+    //         // this.store.dispatch(new DownloadUserToMobile());
+    //         this.navCtrl.setRoot("SelectEaPage");
+    //         //  this.presentLoading();
+    //       } else {
+    //         this.navCtrl.push("GetworkPage");
+    //       }
+    //     });
+    //   }
+    // });
 
 
     /********************** */
