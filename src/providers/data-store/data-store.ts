@@ -94,6 +94,8 @@ export class DataStoreProvider {
    * บันทึกรายการ Building แบบบันทึกเป็น List
    */
   public saveBuildingList(eaCode: string, buildings: BuildingInList[]) {
+    console.log(buildings);
+    
     return Observable.fromPromise(this.storage.set('bldlst1v' + eaCode, buildings));
   }
 

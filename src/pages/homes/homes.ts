@@ -62,6 +62,11 @@ export class HomesPage {
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
+    this.buildingList$.subscribe(it =>{
+      console.log(it);
+      
+    })
+    
   }
 
   public showQuickMenu(myEvent) {

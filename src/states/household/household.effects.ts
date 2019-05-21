@@ -194,6 +194,7 @@ export class HouseHoldEffects {
             isAgriculture: null,
             isFactorial: null,
             isCommercial: null,
+            residence: {},
             agriculture: {
                 ricePlant: {},
                 agronomyPlant: {},
@@ -454,16 +455,16 @@ export class HouseHoldEffects {
             checkWaterRain: s.checkWaterRain,
             checkWaterBuying: s.checkWaterBuying,
             numberRoom: s.numberRoom,
-            memberCount: unit.residence ? unit.residence.memberCount : null,
+            memberCount: unit && unit.residence ? unit.residence.memberCount : null,
         };
         const pages2check = this.listPagesToCheck(newState);
-        let surveys = unit.surveyCompleted;
-
+        let surveys = unit && unit.surveyCompleted;
+        
         for (let idx = 0; idx < pages2check.length; idx++) {
             const shouldCheck = pages2check[idx];
             const form = this.surveyForms[idx];
 
-            let survey = surveys.find(it => it.name == form.name);
+            let survey = surveys && surveys.find(it => it.name == form.name);
 
             if (survey) {
                 survey.isNeed = shouldCheck;
@@ -565,15 +566,15 @@ export class HouseHoldEffects {
         wS.push(waterMushroom);
         wSPlant.push(waterMushroom);
 
-        if (model.residence != null) {
+        if (model && model.residence != null) {
             waterRes = model.residence && model.residence.waterSources;
             wS.push(waterRes);
         }
-        if (model.factory != null) {
+        if (model && model.factory != null) {
             waterFac = model.factory && model.factory.waterSources;
             wS.push(waterFac);
         }
-        if (model.commerce != null) {
+        if (model && model.commerce != null) {
             waterCom = model.commerce && model.commerce.waterSources;
             wS.push(waterCom);
         }
