@@ -29,6 +29,7 @@ export class AppStateProvider {
   public communityData: any;
 
   public houseHoldUnit: HouseHoldUnit;
+  public statusEa: any;
 
   public deviceID: any;
 
