@@ -7,7 +7,7 @@ import { EA } from '../../models/mobile/MobileModels';
 export class CloudSyncProvider {
 
   // private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
-  private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
+  private readonly baseUrl: string = "https://localhost:5001/api/"; // dev url
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');

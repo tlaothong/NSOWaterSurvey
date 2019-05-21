@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { Storage } from '@ionic/storage';
 import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { SetCurrentStatusState } from '../../states/bootup/bootup.actions';
+import { Store } from '@ngrx/store';
+import { BootupState } from '../../states/bootup/bootup.reducer';
 
 declare var AzureStorage;
 
@@ -15,12 +18,13 @@ export class SendPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private storage: Storage, private cloudSync: CloudSyncProvider,
-    private appState: AppStateProvider, private loadingCtrl: LoadingController,
+    private appState: AppStateProvider, private store: Store<BootupState>, private loadingCtrl: LoadingController,
     private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SendPage');
+    this.store.dispatch(new SetCurrentStatusState("Sycn"));
   }
 
   /**

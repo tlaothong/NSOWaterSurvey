@@ -1,3 +1,4 @@
+import { BootupState } from './../bootup/bootup.reducer';
 import { Observable } from "rxjs";
 import { Action, Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
@@ -14,6 +15,7 @@ import { BuildingState } from "../building/building.reducer";
 import { getBuildingSample } from "../building";
 import { UpdateBuildingList } from "../building/building.actions";
 import { EX_RICH_LIST, EX_RUBBER_LIST } from "../../models/tree";
+import { getCurrentStatusState } from '../bootup';
 
 
 @Injectable()
@@ -22,7 +24,7 @@ export class HouseHoldEffects {
     constructor(private action$: Actions,
         private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
         private dataStore: DataStoreProvider, private cloudSync: CloudSyncProvider,
-        private appState: AppStateProvider) {
+        private appState: AppStateProvider, private storeBoot: Store<BootupState>) {
     }
 
     private surveyForms = [
@@ -227,13 +229,15 @@ export class HouseHoldEffects {
     public saveHouseHold$: Observable<Action> = this.action$.pipe(
         ofType<SaveHouseHold>(HouseHoldTypes.SaveHouseHold),
         withLatestFrom(this.store.select(getHouseHoldFeatureState)),
-        map(([action, state]) => {
+        withLatestFrom(this.storeBoot.select(getCurrentStatusState)),
+        map(([[action, state], curState]) => {
             const unit = action.payload;
             const state2set = this.deriveNewStateFromHouseHold(unit, state);
 
             let log: { at: Date | string, operationCode: string };
             let createdDateTime = unit.recCtrl && unit.recCtrl.createdDateTime;
             let lastModified = unit.recCtrl && unit.recCtrl.lastModified;
+            let lastDownload = unit.recCtrl && unit.recCtrl.lastDownload;
             let logs = unit.recCtrl && unit.recCtrl.logs;
             let status = unit.status;
             if (unit.recCtrl.logs.length == 0) {
@@ -248,13 +252,29 @@ export class HouseHoldEffects {
                     log = { at: new Date(), operationCode: 'continue' };
                 }
             }
-            lastModified = new Date();
+
+            if (curState == "Survey") {
+                lastModified = new Date();
+            }
+            else if (curState == "Sycn") {
+                lastDownload = new Date();
+            } else{
+                lastModified = null;
+                lastDownload = null;
+            }
+            
+
+                console.log("curState", curState);
+            console.log("lastModified", lastModified);
+            console.log("lastDownload", lastDownload);
+
             logs.push(log);
 
             let recCtrl = {
                 ...unit.recCtrl,
                 createdDateTime: createdDateTime,
                 lastModified: lastModified,
+                lastDownload: lastDownload,
                 logCount: logs.length,
                 logs: logs,
             };
