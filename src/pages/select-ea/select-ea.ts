@@ -4,7 +4,7 @@ import { getListOfEAs } from '../../states/bootup';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import { EaComponent } from '../../components/ea/ea';
 import { BootupState } from '../../states/bootup/bootup.reducer';
-import { SetCurrentWorkingEA } from '../../states/bootup/bootup.actions';
+import { SetCurrentWorkingEA, SetCurrentStatusState } from '../../states/bootup/bootup.actions';
 import { EA } from '../../models/mobile/MobileModels';
 
 @IonicPage()
@@ -22,10 +22,12 @@ export class SelectEaPage {
   private listOfEAs$ = this.store.select(getListOfEAs);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>) {
+
   }
 
   ionViewDidLoad() {
     console.log('Loaded SelectEaPage');
+    this.store.dispatch(new SetCurrentStatusState("Survey"));
   }
 
   goConfirmSeletEAPage(selectedEa: EA) {
