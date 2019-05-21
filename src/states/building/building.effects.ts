@@ -64,7 +64,7 @@ export class BuildingEffects {
         tap(bld => {
             this.appState.buildingId = bld ? bld._id : '';
         }),
-        switchMap(bld => [new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id)]),
+        switchMap(bld => [new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld && bld._id)]),
     );
 
     @Effect()
@@ -79,7 +79,7 @@ export class BuildingEffects {
             const accesses = bld.accesses;
             let access = 0;
             console.log("111111111");
-            
+
             if (accesses && accesses.length > 0) {
                 access = accesses[accesses.length - 1];
             }
@@ -127,7 +127,7 @@ export class BuildingEffects {
             };
 
             bld.recCtrl = recCtrl;
-            
+
             return new SaveBuilding({ ...bld, status: status, recCtrl: recCtrl });
         }),
         // TODO: Save the building to local storage

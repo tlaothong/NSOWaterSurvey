@@ -44,9 +44,10 @@ export class SendPage {
 
   public item: any = [];
   public bldcomplete: any;
+  private aaaa: any;
 
-  public bld = [];
-  public unt = [];
+  public bld: any[] = [];
+  public unt: any[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private cloudSync: CloudSyncProvider,
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
@@ -230,33 +231,53 @@ export class SendPage {
 
           data.data.forEach(it => {
             it.items.forEach(it2 => {
-              console.log(this.counttest);
-              this.counttest = this.counttest + 1;
               let downloadUrl = data.baseUrl + it2.url + data.complementary;
               console.log(downloadUrl);
               this.http.get<any>(downloadUrl).take(1).subscribe(response => {
-                console.log(this.counttest, response);
-                let item = response;
-                console.log(item);
-                console.log(item._id);
-               
-                if (item._id.startsWith("bld1v")) {
-                  this.bld.push(item)
-                  console.log(this.bld);
-
-                  this.storeBoost.dispatch(new SetCurrentWorkingEA(item.ea));
-                  this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(item._id));
-                  this.storeBuilding.dispatch(new SaveBuilding(item));
+                if (response != null) {
+                  this.aaaa = response;
+                  console.log(this.aaaa);
                 }
-                if (item._id.startsWith("unt1v")) {
-                  this.unt.push(item)
-                  console.log(this.unt);
-
-                  this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
-                  this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(item._id));
-                  this.storeHousehold.dispatch(new SaveHouseHold(item));
-
+                if (this.aaaa._id.startsWith("bld1v")) {
+                  this.bld.push(this.aaaa)
                 }
+
+                if (this.aaaa._id.startsWith("unt1v")) {
+                  this.unt.push(this.aaaa)
+                }
+                // if (this.aaaa._id.startsWith("bld1v")) {
+                //   this.bld.push(this.aaaa)
+                //   console.log(this.bld);
+
+                //   this.storeBoost.dispatch(new SetCurrentWorkingEA(this.aaaa.ea));
+                //   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(this.aaaa._id));
+                //   this.storeBuilding.dispatch(new SaveBuilding(this.aaaa));
+                // }
+                // if (this.aaaa._id.startsWith("unt1v")) {
+                //   this.unt.push(this.aaaa)
+                //   console.log(this.unt);
+
+                //   this.storeBoost.dispatch(new SetCurrentWorkingEA(this.aaaa.ea));
+                //   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(this.aaaa.buildingId));
+                //   this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(this.aaaa._id));
+                //   this.storeHousehold.dispatch(new SaveHouseHold(this.aaaa));
+                // }
+                console.log(this.bld);
+                console.log(this.unt);
+
+                this.bld.forEach(b => {
+                  this.storeBoost.dispatch(new SetCurrentWorkingEA(b.ea));
+                  this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(b._id));
+                  this.storeBuilding.dispatch(new SaveBuilding(b));
+                  this.unt.forEach(u => {
+                    // this.storeBoost.dispatch(new SetCurrentWorkingEA(u.ea));
+                    if (u.buildingId == b._id) {
+                      this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(u.buildingId));
+                      this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(u._id));
+                      this.storeHousehold.dispatch(new SaveHouseHold(u));
+                    }
+                  });
+                });
                 // if (this.checkTub == false && item._id.startsWith("bld1v")) {
                 //   this.storeBuilding.dispatch(new LoadBuildingList(item.ea));
                 //   let dataBuilding$ = this.storeBuilding.select(getBuildingList);
@@ -278,11 +299,9 @@ export class SendPage {
                 //     }
                 //   });
                 // } else 
-
               });
             });
           });
-
           this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
             console.log("download2");
             console.log(data);
@@ -298,6 +317,10 @@ export class SendPage {
     });
 
     showDownload.present();
+
+    if (showDownload.dismiss()) {
+
+    }
   }
 
   goBack() {

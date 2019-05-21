@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  
+
   <ion-item>
     <ion-label *ngIf="currentEA$ | async as ea">
       {{ ea.CWT_NAME }}
@@ -19,7 +19,7 @@
       &nbsp;
       <b>{{ ea.EA }}</b>
     </ion-label>
-  </ion-item> 
+  </ion-item>
 
   <ion-card>
     <ion-row>
@@ -86,7 +86,9 @@
     </ion-row>
   </ion-card>
 
-  <p>ท่านสามารถส่งข้อมูลได้ตามปกติ แต่สถานะข้อมูลที่บันทึกทางทีมงานกำลังเร่งทำงานในส่วนนี้อยู่และไม่มีผลกระทบกับการส่งข้อมูลใดๆทั้งสิ้น หวังว่าเมื่อ update โปรแกรมคราวหน้าส่วนนี้จะแสดงผลข้อมูลได้ถูกต้อง</p>
+  <p>ท่านสามารถส่งข้อมูลได้ตามปกติ
+    แต่สถานะข้อมูลที่บันทึกทางทีมงานกำลังเร่งทำงานในส่วนนี้อยู่และไม่มีผลกระทบกับการส่งข้อมูลใดๆทั้งสิ้น หวังว่าเมื่อ
+    update โปรแกรมคราวหน้าส่วนนี้จะแสดงผลข้อมูลได้ถูกต้อง</p>
   <!-- <ion-item>
     <ion-label>สน. 1</ion-label>
   </ion-item>
@@ -113,7 +115,7 @@
 
   <ion-row padding>
     <button ion-button full color="secondary" (click)="uploadToCloud()">ส่งงาน</button>
-      <button ion-button full (click)="downloadwork()" [disabled]="checkDownload">ดาวน์โหลดงาน</button>
+    <button ion-button full (click)="downloadwork()" [disabled]="checkDownload">ดาวน์โหลดงาน</button>
     <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
   </ion-row>
 
