@@ -33,10 +33,10 @@ export class BootupEffects {
         ofType<LoginUser>(BootupTypes.Login),
         tap(action => this.appState.userId = action.userId),
         mergeMap(action => this.dataStore.listDownloadedEAs(action.userId)
-            .map((aes, i) => { return { action: action, aes: aes }})),
-        switchMap(it => it.aes 
-            ? [ new LoginUserSuccess(it.action.userId), new DownloadUserToMobileSuccess(it.aes) ]
-            : [ new LoginUserSuccess(it.action.userId)]),
+            .map((aes, i) => { return { action: action, aes: aes } })),
+        switchMap(it => it.aes
+            ? [new LoginUserSuccess(it.action.userId), new DownloadUserToMobileSuccess(it.aes)]
+            : [new LoginUserSuccess(it.action.userId)]),
     );
 
     @Effect()
@@ -52,10 +52,11 @@ export class BootupEffects {
     public setCurrentWorkingEA$: Observable<Action> = this.action$.pipe(
         ofType(BootupTypes.SetCurrentWorkingEA),
         tap((action: SetCurrentWorkingEA) => {
+            console.log(action.payload);
             this.appState.eaCode = action.payload;
             this.appState.buildingId = '';
         }),
-        switchMap((action: SetCurrentWorkingEA) => 
+        switchMap((action: SetCurrentWorkingEA) =>
             [
                 new CurrentWorkingEaChanged(action.payload),
                 new LoadBuildingList(action.payload),

@@ -229,9 +229,8 @@ export class HouseHoldEffects {
     @Effect()
     public saveHouseHold$: Observable<Action> = this.action$.pipe(
         ofType<SaveHouseHold>(HouseHoldTypes.SaveHouseHold),
-        withLatestFrom(this.store.select(getHouseHoldFeatureState)),
-        withLatestFrom(this.storeBoot.select(getCurrentStatusState)),
-        map(([[action, state], curState]) => {
+        withLatestFrom(this.store.select(getHouseHoldFeatureState),this.storeBoot.select(getCurrentStatusState)),
+        map(([action, state, curState]) => {
             const unit = action.payload;
             const state2set = this.deriveNewStateFromHouseHold(unit, state);
 

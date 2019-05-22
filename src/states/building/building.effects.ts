@@ -165,6 +165,11 @@ export class BuildingEffects {
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
             this.storeUnit.select(getHouseHoldUnitList)),
         mergeMap(([bld, lst, ea, ulist]) => {
+            console.log("bld",bld);
+            console.log("lst",lst);
+            console.log("ea",ea);
+            console.log("ulist",ulist);
+            
             const accesses = bld.accesses;
             let access = 0;
 
