@@ -235,38 +235,26 @@ export class SendPage {
             await new Promise((rsv, rjt) => setTimeout(() => {
               this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
                 if (it.ea == ea.code) {
-                  // console.log("=====>ea$$", ea);
                   for (const it2 of it.items) {
                     if (it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v")) {
-                      // setTimeout(async () => {
+
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
                       this.storeBuilding.dispatch(new SaveBuilding(cnt));
-                      // await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+
                     }
                     if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
+
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                      // console.log("$$$$@@@@@", cnt);
-
                       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+
                       await new Promise((rsv, rjt) => setTimeout(() => {
+
                         this.storeHousehold.dispatch(new SaveHouseHold(cnt));
                         rsv({});
-                      }, 50));
 
-                      // await new Promise((rsv, rjt) => setTimeout(async () => {
-                      // await new Promise((rsv, rjt) => setTimeout(() => {
-                      // this.storeBuilding.select(getBuildingSample).subscribe(async bld => {
-                      // if (bld && bld._id == cnt.buildingId && bld && bld.ea == ea.code) {
-                      // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
-                      // await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-                      // rsv({});
-                      // }, 50));
-                      // }
-                      // });
-                      // rsv({});
-                      // }, 50));
+                      }, 50));
                     }
                     await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                   }
@@ -276,126 +264,26 @@ export class SendPage {
             }, 50));
           }
 
-          // data.data.forEach(it => {
-          //   it.items.forEach(async it2 => {
-          //     console.log(it.ea, ea.code);
-
-          //     if (it2._id.startsWith("bld1v")) {
-          //       // setTimeout(async () => {
-          //       let downloadUrl = data.baseUrl + it2.url + data.complementary;
-          //       let cnt = await this.http.get<any>(downloadUrl).toPromise();
-          //       this.storeBuilding.dispatch(await new SaveBuilding(cnt));
-          //       // }, 1000);
-          //       // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-          //       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
-
-          // setTimeout(() => {
-          //   this.count++;
-          //   console.log("Ea: ", this.count);
-
-          // }, 2000);
-
-          // await Promise
-          // this.http.get<any>(downloadUrl).take(1).subscribe(async response => {
-          //   var dataRes = response;
-          //   console.log(dataRes);
-          //   this.storeBuilding.dispatch(new SaveBuilding(await dataRes));
-          // });
-          // }
-          // if (it2._id.startsWith("unt1v")) {
-          //   let downloadUrl = data.baseUrl + it2.url + data.complementary;
-          //   let cnt = await this.http.get<any>(downloadUrl).toPromise();
-          //   console.log("unt", cnt);
-
-          // this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-          // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-          // this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-          // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
-          // }
-          //       }
-          //         });
-          //   });
-          // });
-          // data.data.forEach(it => {
-          //   var D1 = it;
-          //   D1.items.forEach(it2 => {
-          //     var D2 = it2;
-          //     let downloadUrl = data.baseUrl + D2.url + data.complementary;
-          //     console.log(downloadUrl);
-          //     this.http.get<any>(downloadUrl).take(1).subscribe(response => {
-          //       if (response != null) {
-          //         var dataRes = response;
-          //         console.log(dataRes);
-          //         if (dataRes._id.startsWith("bld1v")) {
-          //           this.storeBoost.dispatch(new SetCurrentWorkingEA(D1.ea));
-          //           this.storeBoost.select(getCurrentWorkingEA).take(1).subscribe(ea => {
-          //             console.log(ea);
-          //             var eaRes = ea;
-          //             if (eaRes && eaRes.code == D1.ea) {
-          //               this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(dataRes._id));
-
-          //               this.storeBuilding.select(getBuildingSample).take(1).subscribe(data => {
-          //                 var bld = data
-          //                 console.log(bld);
-
-          //                 if (bld && bld._id == dataRes._id) {
-          //                 this.storeBuilding.dispatch(new SaveBuilding(dataRes));
-          //                 }
-          //               });
-          //             }
-          //           });
-          //         }
-          //       }
-          //     });
-          //   });
-          // });
-          // if (dataRes._id.startsWith("unt1v")) {
-          //   this.unt.push(dataRes)
-          //   console.log(this.unt);
-
-          //   this.storeBoost.dispatch(new SetCurrentWorkingEA(dataRes.ea));
-          //   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(dataRes.buildingId));
-          //   this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(dataRes._id));
-          //   this.storeHousehold.dispatch(new SaveHouseHold(dataRes));
-          // }
-
-          // if (this.checkTub == false && item._id.startsWith("bld1v")) {
-          //   this.storeBuilding.dispatch(new LoadBuildingList(item.ea));
-          //   let dataBuilding$ = this.storeBuilding.select(getBuildingList);
-          //   dataBuilding$.take(1).subscribe(data => {
-          //     this.buildingList = data;
-          //     let bldList = this.buildingList.find(it => it.buildingId == item.buildingId);
-          //     if (bldList == null) {
-          //       this.storeBuilding.dispatch(new SaveBuilding(item));
-          //     }
-          //   });
-          // } else if (this.checkTub == false && item._id.startsWith("unt1v")) {
-          //   this.storeHousehold.dispatch(new LoadHouseHoldList(item.buildingId));
-          //   let dataHousehold$ = this.storeHousehold.select(getHouseHoldUnitList);
-          //   dataHousehold$.take(1).subscribe(data => {
-          //     this.hh = data;
-          //     let hhList = this.hh.find(it => it.houseHoldId == item.houseHoldId);
-          //     if (hhList == null) {
-          //       this.storeBuilding.dispatch(new SaveBuilding(item));
-          //     }
-          //   });
-          // } else 
+          this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
+            console.log("download2");
+            console.log(data);
+          });
 
 
-          // this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
-          //   console.log("download2");
-          //   console.log(data);
-          //   const showDownloadsucess = this.alertCtrl.create();
-          //   showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-          //   showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-          //   showDownload.addButton('ตกลง');
-
-          // });
         });
+
+        setTimeout(() => {
+          const showDownloadsucess = this.alertCtrl.create();
+          showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
+          showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
+          showDownloadsucess.addButton('ตกลง');
+          showDownloadsucess.present();
+        }, 2000);
       }
     });
-
     showDownload.present();
+
+
   }
 
   goBack() {
