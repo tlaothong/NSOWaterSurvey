@@ -250,18 +250,28 @@ export class SendPage {
                     if (it2._id.startsWith("unt1v")) {
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                      console.log("$$$$@@@@@", cnt);
+                      // console.log("$$$$@@@@@", cnt);
 
                       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-                      // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
-                      this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                      await new Promise((rsv, rjt) => setTimeout(async () => {
+                        // await new Promise((rsv, rjt) => setTimeout(() => {
+                        // this.storeBuilding.select(getBuildingSample).subscribe(async bld => {
+                        // if (bld && bld._id == cnt.buildingId && bld && bld.ea == ea.code) {
+                        this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+                        this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
+                        await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                        rsv({});
+                      }, 50));
+                      // }
+                      // });
+                      // rsv({});
+                      // }, 50));
                     }
                   }
                   rsv({});
                 }
               });
-            }, 50));
+            }, 3000));
           }
 
           // data.data.forEach(it => {
