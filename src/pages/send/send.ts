@@ -235,38 +235,35 @@ export class SendPage {
             await new Promise((rsv, rjt) => setTimeout(() => {
               this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
                 if (it.ea == ea.code) {
-
                   // console.log("=====>ea$$", ea);
-
                   for (const it2 of it.items) {
-                    if (it2._id.startsWith("bld1v")) {
+                    if (it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v")) {
                       // setTimeout(async () => {
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
                       this.storeBuilding.dispatch(new SaveBuilding(cnt));
-
-                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                      // this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+                      // await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                     }
-                    if (it2._id.startsWith("unt1v")) {
+                    if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
                       // console.log("$$$$@@@@@", cnt);
-
-                      this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-                      await new Promise((rsv, rjt) => setTimeout(async () => {
-                        // await new Promise((rsv, rjt) => setTimeout(() => {
-                        // this.storeBuilding.select(getBuildingSample).subscribe(async bld => {
-                        // if (bld && bld._id == cnt.buildingId && bld && bld.ea == ea.code) {
-                        this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-                        this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
-                        await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-                        rsv({});
-                      }, 50));
+                      this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+                      // await new Promise((rsv, rjt) => setTimeout(async () => {
+                      // await new Promise((rsv, rjt) => setTimeout(() => {
+                      // this.storeBuilding.select(getBuildingSample).subscribe(async bld => {
+                      // if (bld && bld._id == cnt.buildingId && bld && bld.ea == ea.code) {
+                      // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
+                      // await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                      // rsv({});
+                      // }, 50));
                       // }
                       // });
                       // rsv({});
                       // }, 50));
                     }
+                    await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                   }
                   rsv({});
                 }
