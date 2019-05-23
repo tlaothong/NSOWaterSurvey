@@ -78,7 +78,6 @@ export class BuildingEffects {
             let bld = action.payload;
             const accesses = bld.accesses;
             let access = 0;
-            console.log("111111111");
 
             if (accesses && accesses.length > 0) {
                 access = accesses[accesses.length - 1];
@@ -167,7 +166,6 @@ export class BuildingEffects {
         mergeMap(([bld, lst, ea, ulist]) => {
             console.log("bld",bld);
             console.log("lst",lst);
-            console.log("ea",ea);
             console.log("ulist",ulist);
             
             const accesses = bld.accesses;

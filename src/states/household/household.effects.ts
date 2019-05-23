@@ -306,8 +306,8 @@ export class HouseHoldEffects {
         map((action: UpdateUnitList) => action.payload),
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([unit, lst]) => {
-            console.log(unit);
-            console.log(lst);
+            // console.log(unit);
+            // console.log(lst);
 
             const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
             let lastAccess = 0;

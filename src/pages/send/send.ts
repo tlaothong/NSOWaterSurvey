@@ -254,7 +254,7 @@ export class SendPage {
                         this.storeHousehold.dispatch(new SaveHouseHold(cnt));
                         rsv({});
 
-                      }, 50));
+                      }, 100));
                     }
                     await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                   }
