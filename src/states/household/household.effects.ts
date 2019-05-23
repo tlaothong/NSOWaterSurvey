@@ -229,7 +229,7 @@ export class HouseHoldEffects {
     @Effect()
     public saveHouseHold$: Observable<Action> = this.action$.pipe(
         ofType<SaveHouseHold>(HouseHoldTypes.SaveHouseHold),
-        withLatestFrom(this.store.select(getHouseHoldFeatureState),this.storeBoot.select(getCurrentStatusState)),
+        withLatestFrom(this.store.select(getHouseHoldFeatureState), this.storeBoot.select(getCurrentStatusState)),
         map(([action, state, curState]) => {
             const unit = action.payload;
             const state2set = this.deriveNewStateFromHouseHold(unit, state);
@@ -258,15 +258,15 @@ export class HouseHoldEffects {
             }
             else if (curState == "Sycn") {
                 lastDownload = new Date();
-            } else{
+            } else {
                 lastModified = null;
                 lastDownload = null;
             }
-            
 
-                console.log("curState", curState);
-            console.log("lastModified", lastModified);
-            console.log("lastDownload", lastDownload);
+
+            // console.log("curState", curState);
+            // console.log("lastModified", lastModified);
+            // console.log("lastDownload", lastDownload);
 
             logs.push(log);
 
@@ -306,6 +306,9 @@ export class HouseHoldEffects {
         map((action: UpdateUnitList) => action.payload),
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([unit, lst]) => {
+            console.log(unit);
+            console.log(lst);
+
             const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
             let lastAccess = 0;
             if (unit.subUnit && accCnt > 0) {
@@ -458,7 +461,7 @@ export class HouseHoldEffects {
         };
         const pages2check = this.listPagesToCheck(newState);
         let surveys = unit && unit.surveyCompleted;
-        
+
         for (let idx = 0; idx < pages2check.length; idx++) {
             const shouldCheck = pages2check[idx];
             const form = this.surveyForms[idx];

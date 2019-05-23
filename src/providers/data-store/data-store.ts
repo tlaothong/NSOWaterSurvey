@@ -84,8 +84,8 @@ export class DataStoreProvider {
   * บันทึกข้อมูล Building 1 อาคาร
   */
   public saveBuilding(dataBuilding: Building): Observable<any> {
-    console.log(dataBuilding._id);
-    console.log("BLD Data: " + JSON.stringify(dataBuilding));
+    // console.log(dataBuilding._id);
+    // console.log("BLD Data: " + JSON.stringify(dataBuilding));
 
     return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }

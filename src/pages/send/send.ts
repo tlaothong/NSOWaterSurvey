@@ -227,53 +227,84 @@ export class SendPage {
       handler: data => {
         // this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID
         console.log(this.getUpload1.sessionId);
-        this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe((data: donwloadBlob) => {
+        this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
           console.log(data);
 
-          data.data.forEach(it => {
+          for (const it of data.data) {
             this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-            this.storeBoost.select(getCurrentWorkingEA).take(1).subscribe(async ea => {
-              console.log("ea", ea);
-              it.items.forEach(async it2 => {
+            await new Promise((rsv, rjt) => setTimeout(() => {
+              this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
                 if (it.ea == ea.code) {
-                  console.log(it.ea, ea.code);
 
-                  if (it2._id.startsWith("bld1v")) {
-                    // setTimeout(async () => {
-                    let downloadUrl = data.baseUrl + it2.url + data.complementary;
-                    let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                    this.storeBuilding.dispatch(await new SaveBuilding(cnt));
-                    // }, 1000);
-                    this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-                    this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+                  console.log("=====>ea$$", ea);
 
-                    setTimeout(() => {
-                      this.count++;
-                      console.log("Ea: ", this.count);
+                  for (const it2 of it.items) {
+                    if (it2._id.startsWith("bld1v")) {
+                      // setTimeout(async () => {
+                      let downloadUrl = data.baseUrl + it2.url + data.complementary;
+                      let cnt = await this.http.get<any>(downloadUrl).toPromise();
+                      console.log("$$$$@@@@@", cnt);
+                      // this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+                      this.storeBuilding.dispatch(new SaveBuilding(cnt));
 
-                    }, 2000);
+                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                    }
+                    if (it2._id.startsWith("unt1v")) {
+                      let downloadUrl = data.baseUrl + it2.url + data.complementary;
+                      let cnt = await this.http.get<any>(downloadUrl).toPromise();
 
-                    // await Promise
-                    // this.http.get<any>(downloadUrl).take(1).subscribe(async response => {
-                    //   var dataRes = response;
-                    //   console.log(dataRes);
-                    //   this.storeBuilding.dispatch(new SaveBuilding(await dataRes));
-                    // });
+                      this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+                      // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
+                      this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                    }
                   }
-                  // if (it2._id.startsWith("unt1v")) {
-                  //   let downloadUrl = data.baseUrl + it2.url + data.complementary;
-                  //   let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                  //   console.log("unt", cnt);
-
-                  // this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-                  // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-                  // this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-                  // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
-                  // }
+                  rsv({});
                 }
               });
-            });
-          });
+            }, 50));
+          }
+
+          // data.data.forEach(it => {
+          //   it.items.forEach(async it2 => {
+          //     console.log(it.ea, ea.code);
+
+          //     if (it2._id.startsWith("bld1v")) {
+          //       // setTimeout(async () => {
+          //       let downloadUrl = data.baseUrl + it2.url + data.complementary;
+          //       let cnt = await this.http.get<any>(downloadUrl).toPromise();
+          //       this.storeBuilding.dispatch(await new SaveBuilding(cnt));
+          //       // }, 1000);
+          //       // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
+          //       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+
+          // setTimeout(() => {
+          //   this.count++;
+          //   console.log("Ea: ", this.count);
+
+          // }, 2000);
+
+          // await Promise
+          // this.http.get<any>(downloadUrl).take(1).subscribe(async response => {
+          //   var dataRes = response;
+          //   console.log(dataRes);
+          //   this.storeBuilding.dispatch(new SaveBuilding(await dataRes));
+          // });
+          // }
+          // if (it2._id.startsWith("unt1v")) {
+          //   let downloadUrl = data.baseUrl + it2.url + data.complementary;
+          //   let cnt = await this.http.get<any>(downloadUrl).toPromise();
+          //   console.log("unt", cnt);
+
+          // this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+          // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
+          // this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+          // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
+          // }
+          //       }
+          //         });
+          //   });
+          // });
           // data.data.forEach(it => {
           //   var D1 = it;
           //   D1.items.forEach(it2 => {
