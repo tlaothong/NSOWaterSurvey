@@ -236,15 +236,13 @@ export class SendPage {
               this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
                 if (it.ea == ea.code) {
 
-                  console.log("=====>ea$$", ea);
+                  // console.log("=====>ea$$", ea);
 
                   for (const it2 of it.items) {
                     if (it2._id.startsWith("bld1v")) {
                       // setTimeout(async () => {
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                      console.log("$$$$@@@@@", cnt);
-                      // this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
                       this.storeBuilding.dispatch(new SaveBuilding(cnt));
 
                       await new Promise((resvr, rjt) => setTimeout(resvr, 50));
@@ -252,6 +250,7 @@ export class SendPage {
                     if (it2._id.startsWith("unt1v")) {
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
+                      console.log("$$$$@@@@@", cnt);
 
                       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
                       // this.storeHousehold.dispatch(new SetCurrentWorkingHouseHold(cnt._id));
