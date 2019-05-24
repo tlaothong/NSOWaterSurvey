@@ -240,15 +240,20 @@ export class SendPage {
 
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                      this.storeBuilding.dispatch(new SaveBuilding(cnt));
-
+                      this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+                      await new Promise((rsv, rjt) => setTimeout(() => {
+                        
+                        this.storeBuilding.dispatch(new SaveBuilding(cnt));
+                        rsv({});
+                        
+                      }, 100));
                     }
                     if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-
+                      
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
+                      
                       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-
                       await new Promise((rsv, rjt) => setTimeout(() => {
 
                         this.storeHousehold.dispatch(new SaveHouseHold(cnt));
