@@ -246,7 +246,7 @@ export class SendPage {
                         this.storeBuilding.dispatch(new SaveBuilding(cnt));
                         rsv({});
                         
-                      }, 100));
+                      }, 50));
                     }
                     if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
                       
@@ -259,7 +259,7 @@ export class SendPage {
                         this.storeHousehold.dispatch(new SaveHouseHold(cnt));
                         rsv({});
 
-                      }, 100));
+                      }, 50));
                     }
                     await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                   }
