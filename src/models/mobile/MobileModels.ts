@@ -44,16 +44,16 @@ export interface downloadEA {
 }
 export interface ResolutionsEA {
     _id: string;
-    SurveyId: string;
-    BuildingId: string;
-    Suggestion: string;
-    CreationDateTime: Date;
-    CreateBy: string;
-    ResolvedDateTime: Date;
-    ResolvedBy: string;
-    IsApproved: boolean;
-    ContainerName: string;
-    BlobName: string;
+    surveyId: string;
+    buildingId: string;
+    suggestion: string;
+    creationDateTime: Date;
+    createBy: string;
+    resolvedDateTime: Date;
+    resolvedBy: string;
+    isApproved: boolean;
+    containerName: string;
+    blobName: string;
 }
 
 

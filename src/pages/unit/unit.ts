@@ -36,9 +36,6 @@ export class UnitPage {
     private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
     private dataStore: DataStoreProvider, private appState: AppStateProvider) {
 
-    let obs = this.unitList$.subscribe(_ => {
-      console.log('TAKE TAKE');
-    });
 
 
 

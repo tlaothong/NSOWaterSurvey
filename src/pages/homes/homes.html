@@ -245,7 +245,7 @@
 
 
 
-      <div *ngFor="let item of buildingList$ | async; let i = index;">
+      <div *ngFor="let item of dataResolutions ; let i = index;">
         <ion-row text-center align-items-center>
           <ion-col col-1 (click)="goEditBuildingInfo(item)">
             <ion-icon disabled="false" [name]="item.status"></ion-icon>
