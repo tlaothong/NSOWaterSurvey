@@ -1,5 +1,5 @@
 import { BuildingActionsType, BuildingTypes, LoadBuildingListSuccess } from "./building.actions";
-import { BuildingInList, Building } from "../../models/mobile/MobileModels";
+import { BuildingInList, Building, ResolutionsEA } from "../../models/mobile/MobileModels";
 
 
 export interface BuildingState {
@@ -11,6 +11,7 @@ export interface BuildingState {
     setDataBuilding: any,
     otherBuildingType: any,
     unitCount: number,
+    arrResol: ResolutionsEA[],
 }
 
 const initialState: BuildingState = {
@@ -22,6 +23,7 @@ const initialState: BuildingState = {
     setDataBuilding: null,
     otherBuildingType: null,
     unitCount: 0,
+    arrResol: [],
 };
 
 export function reducer(state: BuildingState = initialState, action: BuildingActionsType): BuildingState {
@@ -73,6 +75,11 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
                 otherBuildingType: action.payload,
             };
 
+        case BuildingTypes.SetArrResol:
+            return {
+                ...state,
+                arrResol: action.payload,
+            };
         default:
             return state;
     }

@@ -40,7 +40,22 @@ export interface donwloadBlob {
 export interface downloadEA {
     ea: string;
     items: downloadFile[];
+    resolutions: ResolutionsEA[];
 }
+export interface ResolutionsEA {
+    _id: string;
+    SurveyId: string;
+    BuildingId: string;
+    Suggestion: string;
+    CreationDateTime: Date;
+    CreateBy: string;
+    ResolvedDateTime: Date;
+    ResolvedBy: string;
+    IsApproved: boolean;
+    ContainerName: string;
+    BlobName: string;
+}
+
 
 export interface downloadFile {
     _id: string;

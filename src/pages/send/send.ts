@@ -6,10 +6,10 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 import { SetCurrentStatusState } from '../../states/bootup/bootup.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
-import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage } from '../../models/mobile/MobileModels';
+import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, ResolutionsEA } from '../../models/mobile/MobileModels';
 import { HttpClient } from '@angular/common/http';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SaveBuilding, LoadBuildingSample, LoadBuildingList, BuildingInList, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
+import { SaveBuilding, LoadBuildingSample, LoadBuildingList, BuildingInList, SetCurrentWorkingBuilding, SetArrResol } from '../../states/building/building.actions';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { SaveHouseHold, LoadUnitByIdBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold } from '../../states/household/household.actions';
 import { getBuildingList, getBuildingSample } from '../../states/building';
@@ -49,6 +49,7 @@ export class SendPage {
   private count: number = 0;
   public bld: any[] = [];
   public unt: any[] = [];
+  private arrResol: ResolutionsEA[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private cloudSync: CloudSyncProvider,
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
@@ -242,17 +243,17 @@ export class SendPage {
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
                       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
                       await new Promise((rsv, rjt) => setTimeout(() => {
-                        
+
                         this.storeBuilding.dispatch(new SaveBuilding(cnt));
                         rsv({});
-                        
+
                       }, 50));
                     }
                     if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-                      
+
                       let downloadUrl = data.baseUrl + it2.url + data.complementary;
                       let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                      
+
                       this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
                       await new Promise((rsv, rjt) => setTimeout(() => {
 
@@ -263,10 +264,16 @@ export class SendPage {
                     }
                     await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                   }
+
                   rsv({});
                 }
               });
             }, 50));
+
+            for (const resol of it.resolutions) {
+              console.log(resol);
+              this.arrResol.push(resol);
+            }
           }
 
           this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
@@ -289,6 +296,14 @@ export class SendPage {
     showDownload.present();
 
 
+  }
+
+  ngOnDestroy() {
+    console.log("this page have been closed");
+    if (this.arrResol.length > 0) {
+      console.log("Pass if send arrResol", this.arrResol);
+      this.storeBuilding.dispatch(new SetArrResol(this.arrResol));
+    }
   }
 
   goBack() {

@@ -62,11 +62,11 @@ export class HomesPage {
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
-    this.buildingList$.subscribe(it =>{
+    this.buildingList$.subscribe(it => {
       console.log(it);
-      
+
     })
-    
+
   }
 
   public showQuickMenu(myEvent) {
@@ -83,7 +83,7 @@ export class HomesPage {
     statusEa$.take(1).subscribe(data => {
       if (data == null) {
         this.statusEa = 1;
-      }else{
+      } else {
         const data2: StatusEA = {
           status: data.status,
           date: data.date,
@@ -170,12 +170,11 @@ export class HomesPage {
   }
 
   goEditBuildingInfo(item: BuildingInList, no: number) {
-    if (this.office == 'building') {
+    if (this.office == 'building' || this.office == 'fsedit') {
       this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
       this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
     }
     else if (this.office == 'areayoi') {
-
     }
     // this.presentLoading();
   }

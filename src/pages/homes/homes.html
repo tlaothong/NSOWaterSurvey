@@ -55,7 +55,7 @@
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
-    <ion-col >
+    <ion-col>
       <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
       </button>
@@ -172,7 +172,7 @@
       </div>
     </ng-container>
 
-    <div *ngSwitchCase="'areayoi'" style="padding-top: 10px">
+    <ng-container *ngSwitchCase="'areayoi'" style="padding-top: 10px">
 
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -210,9 +210,10 @@
           </ion-col>
         </ion-row>
       </div>
-    </div>
+    </ng-container>
 
     <ng-container *ngSwitchCase="'fsedit'">
+      
       <ion-row text-center align-items-center>
         <ion-col col-2>
           ลำดับที่
@@ -242,6 +243,36 @@
       </ion-row>
       <hr>
 
+
+
+      <div *ngFor="let item of buildingList$ | async; let i = index;">
+        <ion-row text-center align-items-center>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            <ion-icon disabled="false" [name]="item.status"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.houseNo}}
+          </ion-col>
+          <ion-col col-3 (click)="goEditBuildingInfo(item)">
+            {{item.name}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.completedCount}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.unitCount}}
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button clear icon-only type="button" color="danger" (click)="DeleteBuilding(item)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
+
       <hr>
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -256,6 +287,30 @@
         <ion-col col-1> </ion-col>
       </ion-row>
       <hr>
+
+
+
+      <div *ngFor="let itemCom of dataCommunity$ | async; let i = index">
+        <ion-row text-center align-items-center>
+          <ion-col col-1 (click)="goEditCommunityInfo(itemCom)">
+            <ion-icon disabled="false" [name]="itemCom.status"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditCommunityInfo(itemCom)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditCommunityInfo(itemCom)">
+            {{ itemCom.vil }}
+          </ion-col>
+          <ion-col col-7 (click)="goEditCommunityInfo(itemCom)">
+            {{ itemCom.name }}
+          </ion-col>
+          <ion-col col-1>
+            <button ion-button type="button" color="danger" (click)="deleteCommu(itemCom)">
+              ลบ
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
     </ng-container>
   </ng-container>
 
