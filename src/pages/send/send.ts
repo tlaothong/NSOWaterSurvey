@@ -290,7 +290,7 @@ export class SendPage {
           showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
           showDownloadsucess.addButton('ตกลง');
           showDownloadsucess.present();
-        }, 2000);
+        }, 3000 );
       }
     });
     showDownload.present();

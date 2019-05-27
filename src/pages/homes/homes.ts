@@ -104,10 +104,9 @@ export class HomesPage {
         for (const it1 of this.dataBuilding) {
           for (const it2 of dataRes) {
 
-            let check = await this.dataResolutions && this.dataResolutions.some(it => it == it1);
-            await console.log(check);
+            let check = await this.dataResolutions && this.dataResolutions.some(data => data.buildingId == it1.buildingId);
 
-            if (!check || this.dataResolutions.length == 0) {
+            if (check == false || this.dataResolutions.length == 0) {
               if (it1.buildingId == it2.buildingId) {
                 await this.dataResolutions.push(it1);
               }
