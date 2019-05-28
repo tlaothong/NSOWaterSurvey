@@ -38,6 +38,7 @@ export class UnitPage {
     private modalCtrl: ModalController, private actionSheetCtrl: ActionSheetController,
     private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
     private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+    this.unitList$.subscribe(data => console.log(data));
   }
 
 
