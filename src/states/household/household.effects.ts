@@ -12,7 +12,7 @@ import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileMo
 import { getHouseHoldUnitList, getHouseHoldSample, getProgress, getHouseHoldFeatureState, getLastName } from ".";
 import { HouseHoldState } from "./household.reducer";
 import { BuildingState } from "../building/building.reducer";
-import { getBuildingSample } from "../building";
+import { getBuildingSample, getArrResol } from "../building";
 import { UpdateBuildingList } from "../building/building.actions";
 import { EX_RICH_LIST, EX_RUBBER_LIST } from "../../models/tree";
 import { getCurrentStatusState } from '../bootup';
@@ -304,8 +304,8 @@ export class HouseHoldEffects {
 
         filter((action: any, i) => action.payload),
         map((action: UpdateUnitList) => action.payload),
-        withLatestFrom(this.store.select(getHouseHoldUnitList)),
-        mergeMap(([unit, lst]) => {
+        withLatestFrom(this.store.select(getHouseHoldUnitList), this.storeBuild.select(getArrResol)),
+        mergeMap(([unit, lst, arrResol]) => {
             // console.log(unit);
             // console.log(lst);
 
@@ -335,6 +335,12 @@ export class HouseHoldEffects {
                     status = allCompleted == true ? "complete" : "pause";
                     break;
             }
+
+            var findDataIsApproved = arrResol && arrResol.findIndex(it => it.blobName.substring(0, it.blobName.indexOf(".txt")) == unit._id);
+            var isApproved = null;
+            if (findDataIsApproved >= 0) {
+                isApproved = arrResol[findDataIsApproved];
+            }
             let untInList: UnitInList = {
                 "houseHoldId": unit._id,
                 "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
@@ -343,6 +349,7 @@ export class HouseHoldEffects {
                 "lastAccess": lastAccess,
                 "comments": unit.comments,
                 "status": status,
+                "isApproved": isApproved,
             };
             let idx = lst.findIndex(it => it.houseHoldId == unit._id);
             if (idx >= 0) {

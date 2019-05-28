@@ -7,8 +7,8 @@ import { NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUn
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getHouseHoldUnitList } from '../../states/household';
 import { Observable } from 'rxjs';
-import { UnitInList } from '../../models/mobile/MobileModels';
-import { getUnitCount } from '../../states/building';
+import { UnitInList, ResolutionsEA } from '../../models/mobile/MobileModels';
+import { getUnitCount, getArrResol } from '../../states/building';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @IonicPage()
@@ -28,38 +28,22 @@ export class UnitPage {
 
   public unitList$ = this.store.select(getHouseHoldUnitList);
   public unitCount$ = this.storeBuild.select(getUnitCount);
+  private dataArrayResolutions$ = this.storeBuild.select(getArrResol);
+  private dataArrayResolutions: ResolutionsEA[] = [];
   public emptyUnits$ = Observable.of([]);
+  private isShowWarning: boolean;
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, private alertCtrl: AlertController,
     private modalCtrl: ModalController, private actionSheetCtrl: ActionSheetController,
     private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
     private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+  }
 
 
-
-
-    // this.emptyUnits$ = this.unitList$
-    //   .withLatestFrom(this.store.select(getUnitCount))
-    //   .map(([it, untCnt]) => {
-    //       const start = it.length + 1;
-    //     const len = untCnt - it.length;
-    //     if(len > 0)
-    //     {
-    //       let arr: number[] = [];
-    //       for (let idx = 0; idx < len; ++idx) {
-    //         arr.push(idx + start);
-    //       }
-    //       return arr;
-    //     }
-    //     else return [];
-    //   });
-
-
-    // this.f = this.fb.group({
-    //   'unitCount': null,
-    //   'units': this.fb.array([]),
-    // });
+  public showSuggestionUnit(reSol: ResolutionsEA) {
+    let showSuggestion = this.modalCtrl.create("DlgShowSuggestionUnitPage", { suggestion: reSol.suggestion });
+    showSuggestion.present();
   }
 
   public updateTheEmptyList() {
@@ -77,9 +61,6 @@ export class UnitPage {
         }
         else return [];
       });
-  }
-
-  ngOnDestroy() {
   }
 
   public showUnitButtonPopover(unit: UnitInList) {
@@ -232,33 +213,6 @@ export class UnitPage {
     //   buttons: ["OK"],
     // });
     // alertUnderConstruction.present();
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad UnitPage');
-    // this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
-    // console.log(this.f.get('unitCount').value);
-    // this.setupUnitsCountChanges();
-    // this.dataHomeBuilding$.subscribe(data => {
-    //   console.log(data);
-    //   if (data != null) {
-    //     this.id_BD = data._id
-    //     let key = "BL" + this.id_BD
-    //     this.storage.get(key).then((val) => {
-    //       console.log(val);
-    //       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-    //     })
-    //   }
-    // });
-
-    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    // let key = this.appState.buildingId;
-    // this.storage.get(key).then((val) => {
-    //   console.log(val);
-    //   this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-    // });
-    // console.log(this.f.get('units').value);
-    // this.presentLoading();
   }
 
   // private setupUnitsCountChanges() {

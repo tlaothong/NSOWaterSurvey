@@ -23,6 +23,7 @@ export interface UnitInList {
     lastAccess: number;
     comments: CommentInList[];
     status: string; // formerly 'class'
+    isApproved: boolean;
 }
 
 export interface upload1 {
