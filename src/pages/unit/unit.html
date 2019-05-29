@@ -19,7 +19,8 @@
               <ion-col text-left>
                 <h3># {{ i + 1 }}</h3>
               </ion-col>
-              <ion-col text-center *ngIf="unt.isApproved && unt.isApproved.isApproved == false"  (click)="showSuggestionUnit(unt.isApproved, $event)" >
+              <ion-col text-center *ngIf="showIconWaring(unt.houseHoldId)"
+                (click)="showSuggestionUnit(unt.houseHoldId, $event)">
                 <ion-icon md="md-warning" class="warning" style="zoom: 1.5;"></ion-icon>
               </ion-col>
               <ion-col text-right (click)="showUnitButtonPopover(unt, $event)">

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { EaComponent } from '../../components/ea/ea';
-import { BuildingInList, Building, ResolutionsEA } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, resolutionsEA } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
@@ -129,7 +129,7 @@ export class DeleteBuilding implements Action {
 export class SetArrResol implements Action {
     readonly type = BuildingTypes.SetArrResol;
 
-    constructor(public payload: ResolutionsEA[]) {
+    constructor(public payload: resolutionsEA[]) {
 
     }
 }

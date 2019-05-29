@@ -6,7 +6,7 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 import { SetCurrentStatusState } from '../../states/bootup/bootup.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
-import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, ResolutionsEA } from '../../models/mobile/MobileModels';
+import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA } from '../../models/mobile/MobileModels';
 import { HttpClient } from '@angular/common/http';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SaveBuilding, LoadBuildingSample, LoadBuildingList, BuildingInList, SetCurrentWorkingBuilding, SetArrResol } from '../../states/building/building.actions';
@@ -49,7 +49,7 @@ export class SendPage {
   private count: number = 0;
   public bld: any[] = [];
   public unt: any[] = [];
-  private arrResol: ResolutionsEA[] = [];
+  private arrResol: resolutionsEA[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private cloudSync: CloudSyncProvider,
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,

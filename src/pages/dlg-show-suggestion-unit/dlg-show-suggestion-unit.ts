@@ -15,16 +15,16 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class DlgShowSuggestionUnitPage {
 
-  public suggestion: string;
-  public suggestions: string[];
+  public suggestions: string;
+  public suggestion: string[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
-    this.suggestion = this.navParams.get("suggestion");
-    this.suggestions = this.suggestion.split(',');
+    this.suggestions = this.navParams.get("suggestions");
+    this.suggestion = this.suggestions.split(',');
   }
 
   public dismiss() {
