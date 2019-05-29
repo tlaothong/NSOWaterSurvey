@@ -170,9 +170,6 @@ export class SendPage {
           }
         });
       }
-      loading.dismiss();
-      this.checkDownload = false;
-
       if (hasError) {
         const showError = this.alertCtrl.create({
           'title': 'มีข้อผิดพลาด',
@@ -180,23 +177,27 @@ export class SendPage {
           'buttons': ["ตกลง"],
         });
         showError.present();
-        loading.dismiss();
       } else {
-        // this.cloudSync.uploadFinish(this.appState.userId, d2c.containerName).take(1).subscribe(done => {
-        //   const showSuccess = this.alertCtrl.create({
-        //     'title': 'ส่งข้อมูลเรียบร้อย',
-        //     'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
-        //     'buttons': ["ตกลง"],
-        //   });
-        //   showSuccess.present();
-        //   loading.dismiss();
-        // });
+        this.cloudSync.uploadFinish(this.appState.userId, d2c.containerName).take(1).subscribe(done => {
+
+        });
         console.log(this.getUpload1.sessionId);
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
           this.delayTime = data
           setTimeout(_ => {
             console.log("upload sucess");
+            const showSuccess = this.alertCtrl.create({
+              'title': 'ส่งข้อมูลเรียบร้อย',
+              'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
+              'buttons': ["ตกลง"],
+            });
+            loading.dismiss();
+            showSuccess.present();
           }, this.delayTime);
+          if (this.getUpload1.sessionId != null) {
+            this.checkDownload = false;
+            console.log(this.checkDownload);
+          }
         });
       }
     }, error => {
