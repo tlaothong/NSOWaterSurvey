@@ -1,3 +1,5 @@
+import { DateTime } from "ionic-angular";
+
 export interface BuildingInList {
     buildingId: string;
     status: string;
@@ -23,7 +25,6 @@ export interface UnitInList {
     lastAccess: number;
     comments: CommentInList[];
     status: string; // formerly 'class'
-    isApproved: boolean;
 }
 
 export interface upload1 {
@@ -41,20 +42,27 @@ export interface donwloadBlob {
 export interface downloadEA {
     ea: string;
     items: downloadFile[];
-    resolutions: ResolutionsEA[];
+    resolutions: resolutionsEA[];
 }
-export interface ResolutionsEA {
-    _id: string;
-    surveyId: string;
+
+export interface resolutionsEA {
     buildingId: string;
-    suggestion: string;
-    creationDateTime: Date;
-    createBy: string;
-    resolvedDateTime: Date;
-    resolvedBy: string;
-    isApproved: boolean;
-    containerName: string;
+    unitResolutions: unitResolutions[];
+}
+
+export interface unitResolutions {
     blobName: string;
+    buildingId: string;
+    containerName: string;
+    createBy: string;
+    creationDateTime: Date | string;
+    isApproved: boolean;
+    resolvedBy: string
+    resolvedDateTime: Date | string;
+    suggestion: string;
+    surveyId: string;
+    unitId: string;
+    _id: string;
 }
 
 

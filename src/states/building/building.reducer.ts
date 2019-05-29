@@ -1,5 +1,5 @@
 import { BuildingActionsType, BuildingTypes, LoadBuildingListSuccess } from "./building.actions";
-import { BuildingInList, Building, ResolutionsEA } from "../../models/mobile/MobileModels";
+import { BuildingInList, Building, resolutionsEA } from "../../models/mobile/MobileModels";
 
 
 export interface BuildingState {
@@ -11,7 +11,7 @@ export interface BuildingState {
     setDataBuilding: any,
     otherBuildingType: any,
     unitCount: number,
-    arrResol: ResolutionsEA[],
+    arrResol: resolutionsEA[],
 }
 
 const initialState: BuildingState = {

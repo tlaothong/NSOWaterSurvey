@@ -304,8 +304,8 @@ export class HouseHoldEffects {
 
         filter((action: any, i) => action.payload),
         map((action: UpdateUnitList) => action.payload),
-        withLatestFrom(this.store.select(getHouseHoldUnitList), this.storeBuild.select(getArrResol)),
-        mergeMap(([unit, lst, arrResol]) => {
+        withLatestFrom(this.store.select(getHouseHoldUnitList)),
+        mergeMap(([unit, lst]) => {
             // console.log(unit);
             // console.log(lst);
 
@@ -336,11 +336,7 @@ export class HouseHoldEffects {
                     break;
             }
 
-            var findDataIsApproved = arrResol && arrResol.findIndex(it => it.blobName.substring(0, it.blobName.indexOf(".txt")) == unit._id);
-            var isApproved = null;
-            if (findDataIsApproved >= 0) {
-                isApproved = arrResol[findDataIsApproved];
-            }
+            
             let untInList: UnitInList = {
                 "houseHoldId": unit._id,
                 "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
@@ -349,7 +345,6 @@ export class HouseHoldEffects {
                 "lastAccess": lastAccess,
                 "comments": unit.comments,
                 "status": status,
-                "isApproved": isApproved,
             };
             let idx = lst.findIndex(it => it.houseHoldId == unit._id);
             if (idx >= 0) {
