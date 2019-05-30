@@ -156,14 +156,14 @@ export class SendPage {
       // console.log("d2c: " + d2c.sessionId);
       // console.log("get: " + this.getUpload1.sessionId);
 
-      let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, d2c.complementary);
+      let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
       for (const k of keys) {
         if (k.startsWith('ulogin1v')) {
           continue; // ignore login file
         }
         let txt = await this.storage.get(k);
-        blob.createBlockBlobFromText(d2c.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
+        blob.createBlockBlobFromText(this.getUpload1.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
           if (!resp.isSuccessful) {
             // err != null?
             hasError = true;
@@ -178,12 +178,13 @@ export class SendPage {
         });
         showError.present();
       } else {
-        this.cloudSync.uploadFinish(this.appState.userId, d2c.containerName).take(1).subscribe(done => {
+        // this.cloudSync.uploadFinish(this.appState.userId, this.getUpload1.containerName).take(1).subscribe(done => {
 
-        });
+        // });
         console.log(this.getUpload1.sessionId);
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
           this.delayTime = data
+          this.checkDownload = true;
           setTimeout(_ => {
             console.log("upload sucess");
             const showSuccess = this.alertCtrl.create({
@@ -196,7 +197,6 @@ export class SendPage {
           }, this.delayTime);
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = false;
-            console.log(this.checkDownload);
           }
         });
       }
@@ -220,18 +220,22 @@ export class SendPage {
     showDownload.addInput({
       type: 'checkbox',
       label: 'ต้องการทับงานของตัวเอง?',
-      value: 'true',
-      checked: false
+      value: 'checktub',
+      checked: false,
     });
     showDownload.addButton('ยกเลิก');
     showDownload.addButton({
       text: 'ตกลง',
-      handler: data => {
+      handler: dataAlert => {
+        console.log(dataAlert);
+        // if (dataAlert == 'checktub') {
+        //   this.checkTub = true;
+        // }
         // this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID
         console.log(this.getUpload1.sessionId);
-        if (data.length == 0) {
+        if (dataAlert.length == 0) {
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
-            
+
             console.log(data);
             for (const it of data.data) {
               this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
@@ -286,8 +290,75 @@ export class SendPage {
 
           });
         }
-        if (data == 'true') {
-          alert("Hello! I am an alert box!!");
+
+        if (dataAlert == 'checktub') {
+          this.checkTub = true;
+          this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
+            console.log(this.appState.userId);
+
+            console.log(data);
+            for (const it of data.data) {
+              this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
+              await new Promise((rsv, rjt) => setTimeout(() => {
+                this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
+                  if (it.ea == ea.code) {
+                    for (const it2 of it.items) {
+                      if ((it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v"))) {
+
+                        if (it2._id.search(this.appState.userId) < 0) {
+                          console.log(it2._id);
+                          console.log("bld ไม่ทับ");
+                          let downloadUrl = data.baseUrl + it2.url + data.complementary;
+                          let cnt = await this.http.get<any>(downloadUrl).toPromise();
+                          this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+                          await new Promise((rsv, rjt) => setTimeout(() => {
+
+                            this.storeBuilding.dispatch(new SaveBuilding(cnt));
+                            rsv({});
+
+                          }, 50));
+                        }
+                      }
+                      if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
+
+                        if (it2._id.search(this.appState.userId) < 0) {
+                          console.log("uld ไม่ทับ");
+                          console.log(it2._id);
+
+                          let downloadUrl = data.baseUrl + it2.url + data.complementary;
+                          let cnt = await this.http.get<any>(downloadUrl).toPromise();
+
+                          this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+                          await new Promise((rsv, rjt) => setTimeout(() => {
+
+                            this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+                            rsv({});
+
+                          }, 50));
+                        }
+                      }
+                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+                    }
+
+                    rsv({});
+                  }
+                });
+              }, 50));
+
+              for (const resol of it.resolutions) {
+                console.log(resol);
+                this.arrResol.push(resol);
+              }
+            }
+
+            this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
+              console.log("download2");
+              console.log(data);
+            });
+
+
+          });
+
         }
         setTimeout(() => {
           const showDownloadsucess = this.alertCtrl.create();
@@ -295,7 +366,7 @@ export class SendPage {
           showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
           showDownloadsucess.addButton('ตกลง');
           showDownloadsucess.present();
-        }, 30000);
+        }, 15000);
       }
     });
     showDownload.present();

@@ -23,9 +23,9 @@ export class CloudSyncProvider {
     return <Observable<any>>this.http.post(this.baseUrl + 'MobileConnect/up2cloud/' + userId, {});
   }
 
-  public uploadFinish(userId: string, containerName: string) {
-    return this.http.put(this.baseUrl + 'MobileConnect/up2cloud/' + userId, { containerName: containerName });
-  }
+  // public uploadFinish(userId: string, containerName: string) {
+  //   return this.http.put(this.baseUrl + 'MobileConnect/up2cloud/' + userId, { containerName: containerName });
+  // }
 
   public uploadTocloud1(userId: string, deviceID: any) {
     return this.http.post<upload1>(this.baseUrl + 'mobileconnect/up2cloud/' + userId, { "deviceID":deviceID });
