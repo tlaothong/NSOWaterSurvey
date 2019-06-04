@@ -35,7 +35,6 @@ export class SendPage {
   public getDownload1: downloadFile;
   public delayTime: any;
 
-  public checkTub: boolean = false;
   public buildingList: BuildingInList[];
   public hh: UnitInList[];
   public counttest: number = 0;
@@ -228,12 +227,8 @@ export class SendPage {
       text: 'ตกลง',
       handler: dataAlert => {
         console.log(dataAlert);
-        // if (dataAlert == 'checktub') {
-        //   this.checkTub = true;
-        // }
-        // this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID
         console.log(this.getUpload1.sessionId);
-        if (dataAlert.length == 0) {
+        if (dataAlert.length == 0) { //ไม่ทับ
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
 
             console.log(data);
@@ -291,8 +286,7 @@ export class SendPage {
           });
         }
 
-        if (dataAlert == 'checktub') {
-          this.checkTub = true;
+        if (dataAlert == 'checktub') {    //ทับ
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
             console.log(this.appState.userId);
 
