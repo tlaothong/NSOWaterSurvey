@@ -37,6 +37,7 @@ export interface donwloadBlob {
     baseUrl: string;
     complementary: string;
     data: downloadEA[];
+    totalSurveys: number;
 }
 
 export interface downloadEA {

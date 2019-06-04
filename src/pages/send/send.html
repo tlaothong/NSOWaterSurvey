@@ -115,7 +115,13 @@
 
   <ion-row padding>
     <button ion-button full color="secondary" (click)="uploadToCloud()">ส่งงาน</button>
-    <button ion-button full (click)="downloadwork()" [disabled]="checkDownload">ดาวน์โหลดงาน</button>
+    <button ion-button full (click)="downloadwork()" [disabled]="checkDownload == false">ดาวน์โหลดงาน</button>
+    <div class="progress-outer" *ngIf="countItemTotal > 0">
+      <!-- <div class="progress-outer" *ngIf="countItemTotal > 0" [style.max-width]="totalItem + '%' "> -->
+      <div class="progress-inner" [style.width]="countItemTotal + '%'">
+        {{ countItem }} / {{totalItem}}
+      </div>
+    </div>
     <button ion-button full color="light" (click)="goBack()">ย้อนกลับ</button>
   </ion-row>
 

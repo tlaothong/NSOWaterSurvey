@@ -42,7 +42,9 @@ export class SendPage {
   public bldList: any[] = [];
   public untList: any[] = [];
   public cmnList: any[] = [];
-
+  private countItem: number = 0;
+  private totalItem: number = 0;
+  private countItemTotal: number = 0;
   public item: any = [];
   public bldcomplete: any;
   private count: number = 0;
@@ -195,7 +197,7 @@ export class SendPage {
             showSuccess.present();
           }, this.delayTime);
           if (this.getUpload1.sessionId != null) {
-            this.checkDownload = false;
+            this.checkDownload = true;
           }
         });
       }
@@ -232,6 +234,7 @@ export class SendPage {
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
 
             console.log(data);
+            this.totalItem = await data.totalSurveys - 1;
             for (const it of data.data) {
               this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
               await new Promise((rsv, rjt) => setTimeout(() => {
@@ -246,6 +249,11 @@ export class SendPage {
                         await new Promise((rsv, rjt) => setTimeout(() => {
 
                           this.storeBuilding.dispatch(new SaveBuilding(cnt));
+                          this.countItem++;
+                          this.countItemTotal = (this.countItem * 100) / this.totalItem;
+                          console.log(this.countItem);
+                          console.log(this.countItemTotal);
+
                           rsv({});
 
                         }, 50));
@@ -259,6 +267,10 @@ export class SendPage {
                         await new Promise((rsv, rjt) => setTimeout(() => {
 
                           this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+                          this.countItem++;
+                          this.countItemTotal = (this.countItem * 100) / this.totalItem;
+                          console.log(this.countItem);
+                          console.log(this.countItemTotal);
                           rsv({});
 
                         }, 50));
@@ -291,6 +303,7 @@ export class SendPage {
             console.log(this.appState.userId);
 
             console.log(data);
+            this.totalItem = await data.totalSurveys - 1;
             for (const it of data.data) {
               this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
               await new Promise((rsv, rjt) => setTimeout(() => {
@@ -308,6 +321,10 @@ export class SendPage {
                           await new Promise((rsv, rjt) => setTimeout(() => {
 
                             this.storeBuilding.dispatch(new SaveBuilding(cnt));
+                            this.countItem++;
+                            this.countItemTotal = (this.countItem * 100) / this.totalItem;
+                            console.log(this.countItem);
+                            console.log(this.countItemTotal);
                             rsv({});
 
                           }, 50));
@@ -326,6 +343,10 @@ export class SendPage {
                           await new Promise((rsv, rjt) => setTimeout(() => {
 
                             this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+                            this.countItem++;
+                            this.countItemTotal = (this.countItem * 100) / this.totalItem;
+                            console.log(this.countItem);
+                            console.log(this.countItemTotal);
                             rsv({});
 
                           }, 50));
@@ -347,6 +368,7 @@ export class SendPage {
 
             this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
               console.log("download2");
+              console.log(this.totalItem);
               console.log(data);
             });
 
@@ -354,15 +376,21 @@ export class SendPage {
           });
 
         }
-        setTimeout(() => {
+
+        new Promise((rsv, rjt) => setTimeout(() => {
           const showDownloadsucess = this.alertCtrl.create();
           showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
           showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
           showDownloadsucess.addButton('ตกลง');
           showDownloadsucess.present();
-        }, 15000);
+
+          rsv({});
+        }, 3000)
+        );
       }
     });
+
+
     showDownload.present();
 
 
