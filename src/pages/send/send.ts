@@ -50,9 +50,16 @@ export class SendPage {
           if (!resp.isSuccessful) {
             // err != null?
             hasError = true;
+            // break
           }
         });
       }
+
+      this.cloudSync.getUploadToCloud2(d2c.sessionId, keys.length).take(1).subscribe(data =>{
+        if(data.isCompleted == false){
+          console.log(data.errorStatus); // Show alert 
+        }
+      })
 
       loading.dismiss();
 

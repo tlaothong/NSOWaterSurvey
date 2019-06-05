@@ -25,6 +25,11 @@ export class CloudSyncProvider {
     return this.http.put(this.baseUrl + 'MobileConnect/up2cloud/' + userId, { containerName: containerName });
   }
 
+  public getUploadToCloud2(ssId: string, file: number):Observable<isSuccess> {
+    return <Observable<any>>this.http.get(this.baseUrl + 'MobileConnect/up2cloud/' + ssId + '/' + file);
+
+  }
+
   /*************************
    * ของเก่า
    *************************/
@@ -126,4 +131,10 @@ export class CloudSyncProvider {
 export interface DeviceToCloudInfo {
   containerName: string;
   complementary: string;
+  sessionId: string;
+}
+
+export interface isSuccess {
+  isCompleted: boolean,
+  errorStatus: string
 }
