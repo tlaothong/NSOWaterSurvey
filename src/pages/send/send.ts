@@ -230,9 +230,12 @@ export class SendPage {
       handler: dataAlert => {
         console.log(dataAlert);
         console.log(this.getUpload1.sessionId);
+        this.loader = this.loadingCtrl.create({
+          content: "Please wait...",
+        });
+        this.loader.present();
         if (dataAlert.length == 0) { //ไม่ทับ
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
-
             console.log(data);
             this.totalItem = await data.totalSurveys - 1;
             for (const it of data.data) {
@@ -242,30 +245,23 @@ export class SendPage {
                   if (it.ea == ea.code) {
                     for (const it2 of it.items) {
                       if (it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v")) {
-
                         let downloadUrl = data.baseUrl + it2.url + data.complementary;
                         let cnt = await this.http.get<any>(downloadUrl).toPromise();
                         this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
                         await new Promise((rsv, rjt) => setTimeout(() => {
-
                           this.storeBuilding.dispatch(new SaveBuilding(cnt));
                           this.countItem++;
                           this.countItemTotal = (this.countItem * 100) / this.totalItem;
                           console.log(this.countItem);
                           console.log(this.countItemTotal);
-
                           rsv({});
-
                         }, 50));
                       }
                       if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-
                         let downloadUrl = data.baseUrl + it2.url + data.complementary;
                         let cnt = await this.http.get<any>(downloadUrl).toPromise();
-
                         this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
                         await new Promise((rsv, rjt) => setTimeout(() => {
-
                           this.storeHousehold.dispatch(new SaveHouseHold(cnt));
                           this.countItem++;
                           this.countItemTotal = (this.countItem * 100) / this.totalItem;
@@ -277,31 +273,31 @@ export class SendPage {
                       }
                       await new Promise((resvr, rjt) => setTimeout(resvr, 50));
                     }
-
                     rsv({});
                   }
                 });
               }, 50));
-
               for (const resol of it.resolutions) {
                 console.log(resol);
                 this.arrResol.push(resol);
               }
             }
-
             this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
               console.log("download2");
               console.log(data);
             });
-
-
+            this.loader.dismiss();
+            const showDownloadsucess = this.alertCtrl.create();
+            showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
+            showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
+            showDownloadsucess.addButton('ตกลง');
+            showDownloadsucess.present();
           });
         }
 
         if (dataAlert == 'checktub') {    //ทับ
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
             console.log(this.appState.userId);
-
             console.log(data);
             this.totalItem = await data.totalSurveys - 1;
             for (const it of data.data) {
@@ -365,35 +361,22 @@ export class SendPage {
                 this.arrResol.push(resol);
               }
             }
-
             this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
               console.log("download2");
               console.log(this.totalItem);
               console.log(data);
             });
-
-
+            this.loader.dismiss();
+            const showDownloadsucess = this.alertCtrl.create();
+            showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
+            showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
+            showDownloadsucess.addButton('ตกลง');
+            showDownloadsucess.present();
           });
-
         }
-
-        new Promise((rsv, rjt) => setTimeout(() => {
-          const showDownloadsucess = this.alertCtrl.create();
-          showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-          showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-          showDownloadsucess.addButton('ตกลง');
-          showDownloadsucess.present();
-
-          rsv({});
-        }, 3000)
-        );
       }
     });
-
-
     showDownload.present();
-
-
   }
 
   ngOnDestroy() {
