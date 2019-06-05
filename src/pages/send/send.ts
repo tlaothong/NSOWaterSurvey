@@ -168,9 +168,31 @@ export class SendPage {
           if (!resp.isSuccessful) {
             // err != null?
             hasError = true;
+            // break
+            return;
           }
         });
       }
+
+      this.cloudSync.getUploadToCloud2(d2c.sessionId, keys.length).take(1).subscribe(data => {
+        if (data.isCompleted == false) {
+          const showError = this.alertCtrl.create({
+            'title': 'มีข้อผิดพลาด',
+            'message': data.errorStatus + 'กรุณาอัพโหลดใหม่อีกครั้ง',
+            'buttons': ["ตกลง"],
+          });
+          showError.present();
+        } else {
+          const showError = this.alertCtrl.create({
+            'title': 'อัพโหลดงานสำเร็จ',
+            'message': data.errorStatus + 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว',
+            'buttons': ["ตกลง"],
+          });
+          showError.present();
+        }
+      });
+
+
       if (hasError) {
         const showError = this.alertCtrl.create({
           'title': 'มีข้อผิดพลาด',
