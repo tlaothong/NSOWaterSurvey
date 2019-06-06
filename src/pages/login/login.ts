@@ -55,7 +55,7 @@ export class LoginPage {
     });
 
 
-    if (userId == "40500039" && password == "55555") {
+    if (userId == "52500034" && password == "55555") {
       this.store.dispatch(new LoginUser(userId));
       this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
         if (hasDownloaded) {
