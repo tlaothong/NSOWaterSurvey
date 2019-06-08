@@ -300,6 +300,9 @@ export class HouseHoldEffects {
                 case 5:
                     status = "abandoned";
                     break;
+                case 6:
+                    status = "stopped";
+                    break;
                 case 2:
                 case 3:
                     status = (accCnt < 3) ? "return" : "complete";

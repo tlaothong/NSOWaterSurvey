@@ -87,6 +87,9 @@ export class BuildingEffects {
                 case 4:
                     status = "eye-off";
                     break;
+                case 5:
+                    status = "mic-off";
+                    break;
                 case 2:
                 case 3:
                     status = bld.accessCount < 3 ? "refresh" : "sad";
@@ -174,6 +177,9 @@ export class BuildingEffects {
             switch (access) {
                 case 4:
                     status = "eye-off";
+                    break;
+                case 5:
+                    status = "mic-off";
                     break;
                 case 2:
                 case 3:
