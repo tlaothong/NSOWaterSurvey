@@ -50,7 +50,7 @@
         <ion-option [value]=5>
           5. ห้อง/บ้าน/อาคาร ร้าง/นับรวมกับครัวเรือนอื่น
         </ion-option>
-        <ion-option [value]=6 *ngIf="lastAccess == 1">
+        <ion-option [value]=6 *ngIf="(lastAccess == 1 || lastAccess == 6)">
           6. ไม่สามารถเก็บข้อมูลต่อได้
         </ion-option>
       </ion-select>
