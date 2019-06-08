@@ -128,7 +128,7 @@ export class BuildingEffects {
     );
 
 
-    private static ComposeBuilding(bld: Building, curState: string) {
+    public static ComposeBuilding(bld: Building, curState: string) {
         const accesses = bld.accesses;
         let access = 0;
 
@@ -179,7 +179,7 @@ export class BuildingEffects {
             logs: logs,
         };
         
-        if (curState == "Sycn") {
+        if (curState == "Sync") {
             recCtrl.lastDownload = lastModified;
         } else {
             recCtrl.lastModified = lastModified;
@@ -188,7 +188,7 @@ export class BuildingEffects {
         bld.recCtrl = recCtrl;
     }
 
-    private static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
+    public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
         // console.log("bld",bld);
         // console.log("lst",lst);
         // console.log("ulist",ulist);

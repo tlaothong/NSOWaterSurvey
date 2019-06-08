@@ -6,7 +6,7 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 import { SetCurrentStatusState } from '../../states/bootup/bootup.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
-import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA } from '../../models/mobile/MobileModels';
+import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA, HouseHoldUnit } from '../../models/mobile/MobileModels';
 import { HttpClient } from '@angular/common/http';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SaveBuilding, LoadBuildingSample, LoadBuildingList, BuildingInList, SetCurrentWorkingBuilding, SetArrResol } from '../../states/building/building.actions';
@@ -18,6 +18,9 @@ import { Storage } from '@ionic/storage';
 import { SetCurrentWorkingEA } from '../../states/bootup/bootup.actions';
 import { timeout } from 'rxjs/operator/timeout';
 import { delay } from 'rxjs/operators';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { BuildingEffects } from '../../states/building/building.effects';
+import { HouseHoldEffects } from '../../states/household/household.effects';
 
 declare var AzureStorage;
 
@@ -55,15 +58,14 @@ export class SendPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private cloudSync: CloudSyncProvider,
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
     private alertCtrl: AlertController, private store: Store<BootupState>,
-    private http: HttpClient, private storeBuilding: Store<BuildingState>,
-    private storeHousehold: Store<HouseHoldState>, private storeBoost: Store<BootupState>, private loadding: LoadingController) {
+    private http: HttpClient, private dataStore: DataStoreProvider) {
 
     //TODO: delete it when finsish
     this.appState.deviceID = "HGAFPPNZ";
   }
 
   ionViewDidLoad() {
-    this.store.dispatch(new SetCurrentStatusState("Sycn"));
+    this.store.dispatch(new SetCurrentStatusState("Sync"));
     this.storage.keys().then(val => {
       let keys = val
       for (let k of keys) {
@@ -237,7 +239,7 @@ export class SendPage {
   downloadwork() {
     const showDownload = this.alertCtrl.create();
     showDownload.setTitle('กรุณาเลือกความต้องการ');
-    showDownload.setSubTitle('หากคุณต้องการให้ข้อมูลงานผู้อื่นรวมกับของคุณกรุณาเลือก ต้องการทับงานของตัวเอง')
+    showDownload.setSubTitle('หากคุณต้องการข้อมูลของคุณจากเครื่องอื่นกรุณาเลือก ต้องการทับงานของตัวเอง')
 
     showDownload.addInput({
       type: 'checkbox',
@@ -255,158 +257,210 @@ export class SendPage {
           content: "Please wait...",
         });
         loader.present();
-        if (dataAlert.length == 0) { //ไม่ทับ
+        // if (dataAlert.length == 0) { //ไม่ทับ
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
             console.log(data);
-            this.totalItem = await data.totalSurveys - 1;
+            this.totalItem = Math.max(1, data.totalSurveys - 1);
             for (const it of data.data) {
-              this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-              await new Promise((rsv, rjt) => setTimeout(() => {
-                this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
-                  if (it.ea == ea.code) {
-                    for (const it2 of it.items) {
-                      if (it2._id.startsWith("bld1v")) {
-                        let downloadUrl = data.baseUrl + it2.url + data.complementary;
-                        let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                        this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
-                        await new Promise((rsv, rjt) => setTimeout(() => {
-                          this.storeBuilding.dispatch(new SaveBuilding(cnt));
-                          this.countItem++;
-                          this.countItemTotal = (this.countItem * 100) / this.totalItem;
-                          console.log(this.countItem);
-                          console.log(this.countItemTotal);
-                          rsv({});
-                        }, 50));
-                      }
-                      if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-                        let downloadUrl = data.baseUrl + it2.url + data.complementary;
-                        let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                        this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-                        await new Promise((rsv, rjt) => setTimeout(() => {
-                          this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-                          this.countItem++;
-                          this.countItemTotal = (this.countItem * 100) / this.totalItem;
-                          console.log(this.countItem);
-                          console.log(this.countItemTotal);
-                          rsv({});
+              let eaCode = it.ea;
 
-                        }, 50));
-                      }
-                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-                    }
-                    rsv({});
+              this.countItem++;
+              this.countItemTotal = (this.countItem * 100) / this.totalItem;
+              
+              let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
+
+              for (const sample of it.items) {
+                let downloadUrl = data.baseUrl + sample.url + data.complementary;
+                if (dataAlert == 'checktub' || sample._id.search(this.appState.userId) >= 0)
+                  continue;
+
+                if (sample._id.startsWith("bld1v")) {
+                  if (ulist) {
+                    await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
                   }
-                });
-              }, 50));
-              for (const resol of it.resolutions) {
-                console.log(resol);
-                this.arrResol.push(resol);
+                  var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();
+                  let cnt = await this.http.get<Building>(downloadUrl).toPromise();
+                  var bld = cnt;
+                  BuildingEffects.ComposeBuilding(bld, "Sync");
+                  BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
+                  // save building
+                  this.dataStore.saveBuilding(bld);
+                }
+
+                if (sample._id.startsWith("unt")) {
+                  let cnt = await this.http.get<HouseHoldUnit>(downloadUrl).toPromise();
+                  let unit = cnt;
+
+                  HouseHoldEffects.ComposeUnit(unit, "Sync");
+                  HouseHoldEffects.ComposeUnitList(unit, ulist);
+                  // save unit
+                  this.dataStore.saveHouseHold(unit);
+                }
               }
+
+              if (bldlst) {
+                await this.dataStore.saveBuildingList(eaCode, bldlst).toPromise();
+              }
+              if (bld && ulist) {
+                await this.dataStore.saveHouseHoldInBuildingList(bld._id, ulist).toPromise();
+              }
+
+              // for (const resol of it.resolutions) {
+              //   console.log(resol);
+              //   this.arrResol.push(resol);
+              // }
+              if (it.resolutions && it.resolutions.length > 0) {
+                console.log("Pass if send arrResol", it.resolutions);
+                this.storeBuilding.dispatch(new SetArrResol(it.resolutions));
+              }
+
+              // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
+              // await new Promise((rsv, rjt) => setTimeout(() => {
+              //   this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
+              //     if (it.ea == ea.code) {
+              //       for (const it2 of it.items) {
+              //         if (it2._id.startsWith("bld1v")) {
+              //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
+              //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
+              //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+              //           await new Promise((rsv, rjt) => setTimeout(() => {
+              //             this.storeBuilding.dispatch(new SaveBuilding(cnt));
+              //             this.countItem++;
+              //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
+              //             console.log(this.countItem);
+              //             console.log(this.countItemTotal);
+              //             rsv({});
+              //           }, 50));
+              //         }
+              //         if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
+              //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
+              //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
+              //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+              //           await new Promise((rsv, rjt) => setTimeout(() => {
+              //             this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+              //             this.countItem++;
+              //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
+              //             console.log(this.countItem);
+              //             console.log(this.countItemTotal);
+              //             rsv({});
+
+              //           }, 50));
+              //         }
+              //         await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+              //       }
+              //       rsv({});
+              //     }
+              //   });
+              // }, 50));
+              // for (const resol of it.resolutions) {
+              //   console.log(resol);
+              //   this.arrResol.push(resol);
+              // }
             }
             this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
               console.log("download2");
               console.log(data);
+              loader.dismiss();
+              const showDownloadsucess = this.alertCtrl.create();
+              showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
+              showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
+              showDownloadsucess.addButton('ตกลง');
+              showDownloadsucess.present();
             });
-            loader.dismiss();
-            const showDownloadsucess = this.alertCtrl.create();
-            showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-            showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-            showDownloadsucess.addButton('ตกลง');
-            showDownloadsucess.present();
           });
-        }
+        // }
 
-        else if (dataAlert == 'checktub') {    //ทับ
-          this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
-            console.log(this.appState.userId);
-            console.log(data);
-            this.totalItem = await data.totalSurveys - 1;
-            for (const it of data.data) {
-              this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-              await new Promise((rsv, rjt) => setTimeout(() => {
-                this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
-                  if (it.ea == ea.code) {
-                    for (const it2 of it.items) {
-                      if ((it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v"))) {
+        // else if (dataAlert == 'checktub') {    //ทับ
+        //   this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
+        //     console.log(this.appState.userId);
+        //     console.log(data);
+        //     this.totalItem = await data.totalSurveys - 1;
+        //     for (const it of data.data) {
+        //       this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
+        //       await new Promise((rsv, rjt) => setTimeout(() => {
+        //         this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
+        //           if (it.ea == ea.code) {
+        //             for (const it2 of it.items) {
+        //               if ((it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v"))) {
 
-                        if (it2._id.search(this.appState.userId) < 0) {
-                          console.log(it2._id);
-                          console.log("bld ไม่ทับ");
-                          let downloadUrl = data.baseUrl + it2.url + data.complementary;
-                          let cnt = await this.http.get<any>(downloadUrl).toPromise();
-                          this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
-                          await new Promise((rsv, rjt) => setTimeout(() => {
+        //                 if (it2._id.search(this.appState.userId) < 0) {
+        //                   console.log(it2._id);
+        //                   console.log("bld ไม่ทับ");
+        //                   let downloadUrl = data.baseUrl + it2.url + data.complementary;
+        //                   let cnt = await this.http.get<any>(downloadUrl).toPromise();
+        //                   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+        //                   await new Promise((rsv, rjt) => setTimeout(() => {
 
-                            this.storeBuilding.dispatch(new SaveBuilding(cnt));
-                            this.countItem++;
-                            this.countItemTotal = (this.countItem * 100) / this.totalItem;
-                            console.log(this.countItem);
-                            console.log(this.countItemTotal);
-                            rsv({});
+        //                     this.storeBuilding.dispatch(new SaveBuilding(cnt));
+        //                     this.countItem++;
+        //                     this.countItemTotal = (this.countItem * 100) / this.totalItem;
+        //                     console.log(this.countItem);
+        //                     console.log(this.countItemTotal);
+        //                     rsv({});
 
-                          }, 50));
-                        }
-                      }
-                      if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
+        //                   }, 50));
+        //                 }
+        //               }
+        //               if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
 
-                        if (it2._id.search(this.appState.userId) < 0) {
-                          console.log("uld ไม่ทับ");
-                          console.log(it2._id);
+        //                 if (it2._id.search(this.appState.userId) < 0) {
+        //                   console.log("uld ไม่ทับ");
+        //                   console.log(it2._id);
 
-                          let downloadUrl = data.baseUrl + it2.url + data.complementary;
-                          let cnt = await this.http.get<any>(downloadUrl).toPromise();
+        //                   let downloadUrl = data.baseUrl + it2.url + data.complementary;
+        //                   let cnt = await this.http.get<any>(downloadUrl).toPromise();
 
-                          this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-                          await new Promise((rsv, rjt) => setTimeout(() => {
+        //                   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+        //                   await new Promise((rsv, rjt) => setTimeout(() => {
 
-                            this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-                            this.countItem++;
-                            this.countItemTotal = (this.countItem * 100) / this.totalItem;
-                            console.log(this.countItem);
-                            console.log(this.countItemTotal);
-                            rsv({});
+        //                     this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+        //                     this.countItem++;
+        //                     this.countItemTotal = (this.countItem * 100) / this.totalItem;
+        //                     console.log(this.countItem);
+        //                     console.log(this.countItemTotal);
+        //                     rsv({});
 
-                          }, 50));
-                        }
-                      }
-                      await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-                    }
+        //                   }, 50));
+        //                 }
+        //               }
+        //               await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+        //             }
 
-                    rsv({});
-                  }
-                });
-              }, 50));
+        //             rsv({});
+        //           }
+        //         });
+        //       }, 50));
 
-              for (const resol of it.resolutions) {
-                console.log(resol);
-                this.arrResol.push(resol);
-              }
-            }
-            this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
-              console.log("download2");
-              console.log(this.totalItem);
-              console.log(data);
-            });
-            loader.dismiss();
-            const showDownloadsucess = this.alertCtrl.create();
-            showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-            showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-            showDownloadsucess.addButton('ตกลง');
-            showDownloadsucess.present();
-          });
-        }
+        //       for (const resol of it.resolutions) {
+        //         console.log(resol);
+        //         this.arrResol.push(resol);
+        //       }
+        //     }
+        //     this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
+        //       console.log("download2");
+        //       console.log(this.totalItem);
+        //       console.log(data);
+        //     });
+        //     loader.dismiss();
+        //     const showDownloadsucess = this.alertCtrl.create();
+        //     showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
+        //     showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
+        //     showDownloadsucess.addButton('ตกลง');
+        //     showDownloadsucess.present();
+        //   });
+        // }
       }
     });
     showDownload.present();
   }
 
-  ngOnDestroy() {
-    console.log("this page have been closed");
-    if (this.arrResol.length > 0) {
-      console.log("Pass if send arrResol", this.arrResol);
-      this.storeBuilding.dispatch(new SetArrResol(this.arrResol));
-    }
-  }
+  // ngOnDestroy() {
+  //   console.log("this page have been closed");
+  //   if (this.arrResol.length > 0) {
+  //     console.log("Pass if send arrResol", this.arrResol);
+  //     this.storeBuilding.dispatch(new SetArrResol(this.arrResol));
+  //   }
+  // }
 
   goBack() {
     this.navCtrl.pop();

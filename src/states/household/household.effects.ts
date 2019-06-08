@@ -861,23 +861,24 @@ export class HouseHoldEffects {
         return arr;
     }
 
-    private static ComposeUnit(unit: HouseHoldUnit, curState: string) {
+    public static ComposeUnit(unit: HouseHoldUnit, curState: string) {
         let log: { at: Date | string, operationCode: string };
         let createdDateTime = unit.recCtrl && unit.recCtrl.createdDateTime;
-        let lastModified = unit.recCtrl && unit.recCtrl.lastModified;
-        let lastDownload = unit.recCtrl && unit.recCtrl.lastDownload;
+        let shouldSetCreated = false;
+        let lastModified = new Date();
         let logs = unit.recCtrl && unit.recCtrl.logs;
         let status = unit.status;
         if (unit.recCtrl.logs.length == 0) {
-            log = { at: new Date(), operationCode: 'create' };
-            createdDateTime = new Date();
+            log = { at: lastModified, operationCode: 'create' };
+            createdDateTime = lastModified;
+            shouldSetCreated = true;
         }
         else {
             if (status == "complete") {
-                log = { at: new Date(), operationCode: 'done' };
+                log = { at: lastModified, operationCode: 'done' };
             }
             else {
-                log = { at: new Date(), operationCode: 'continue' };
+                log = { at: lastModified, operationCode: 'continue' };
             }
         }
 
@@ -885,21 +886,24 @@ export class HouseHoldEffects {
 
         let recCtrl = {
             ...unit.recCtrl,
-            createdDateTime: createdDateTime,
             logCount: logs.length,
             logs: logs,
         };
 
-        if (curState == "Sycn") {
-            recCtrl.lastDownload = new Date();
+        if (!recCtrl.createdDateTime || shouldSetCreated) {
+            recCtrl.createdDateTime = lastModified;
+        }
+
+        if (curState == "Sync") {
+            recCtrl.lastDownload = lastModified;
         } else {
-            recCtrl.lastModified = new Date();
+            recCtrl.lastModified = lastModified;
         }
 
         unit.recCtrl = recCtrl;
     }
 
-    private static ComposeUnitList(unit: HouseHoldUnit, lst: UnitInList[]) {
+    public static ComposeUnitList(unit: HouseHoldUnit, lst: UnitInList[]) {
         const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
         let lastAccess = 0;
         if (unit.subUnit && accCnt > 0) {
