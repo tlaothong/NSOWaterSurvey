@@ -27,7 +27,7 @@ export class HouseHoldEffects {
         private appState: AppStateProvider, private storeBoot: Store<BootupState>) {
     }
 
-    private surveyForms = [
+    private static surveyForms = [
         { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', name: "ResidentialPage", hasCompleted: false, isNeed: true },
         { title: 'ตอนที่ 2 การทำการเกษตร ', name: "AgriculturePage", hasCompleted: false, isNeed: true },
         { title: 'ตอนที่ 2.1 ข้าว ', name: "RicePage", hasCompleted: false, isNeed: true },
@@ -116,8 +116,8 @@ export class HouseHoldEffects {
         map(([action, exProgress]) => {
             const index = action.payload;
 
-            if (index >= 0 && index < this.surveyForms.length && this.appState && this.appState.houseHoldUnit) {
-                const surveyForm = this.surveyForms[index];
+            if (index >= 0 && index < HouseHoldEffects.surveyForms.length && this.appState && this.appState.houseHoldUnit) {
+                const surveyForm = HouseHoldEffects.surveyForms[index];
                 let unitSurveys = this.appState.houseHoldUnit.surveyCompleted;
                 let surveyInUnit = unitSurveys.find(it => it.name == surveyForm.name);
 
@@ -232,57 +232,13 @@ export class HouseHoldEffects {
         withLatestFrom(this.store.select(getHouseHoldFeatureState), this.storeBoot.select(getCurrentStatusState)),
         map(([action, state, curState]) => {
             const unit = action.payload;
-            const state2set = this.deriveNewStateFromHouseHold(unit, state);
+            const state2set = HouseHoldEffects.deriveNewStateFromHouseHold(unit, state);
+            HouseHoldEffects.ComposeUnit(unit, curState);
 
-            let log: { at: Date | string, operationCode: string };
-            let createdDateTime = unit.recCtrl && unit.recCtrl.createdDateTime;
-            let lastModified = unit.recCtrl && unit.recCtrl.lastModified;
-            let lastDownload = unit.recCtrl && unit.recCtrl.lastDownload;
-            let logs = unit.recCtrl && unit.recCtrl.logs;
-            let status = unit.status;
-            if (unit.recCtrl.logs.length == 0) {
-                log = { at: new Date(), operationCode: 'create' };
-                createdDateTime = new Date();
-            }
-            else {
-                if (status == "complete") {
-                    log = { at: new Date(), operationCode: 'done' };
-                }
-                else {
-                    log = { at: new Date(), operationCode: 'continue' };
-                }
-            }
-
-            if (curState == "Survey") {
-                lastModified = new Date();
-            }
-            else if (curState == "Sycn") {
-                lastDownload = new Date();
-            } else {
-                lastModified = null;
-                lastDownload = null;
-            }
-
-
-            // console.log("curState", curState);
-            // console.log("lastModified", lastModified);
-            // console.log("lastDownload", lastDownload);
-
-            logs.push(log);
-
-            let recCtrl = {
-                ...unit.recCtrl,
-                createdDateTime: createdDateTime,
-                lastModified: lastModified,
-                lastDownload: lastDownload,
-                logCount: logs.length,
-                logs: logs,
-            };
-
-            unit.recCtrl = recCtrl;
+            let recCtrl = unit.recCtrl;
 
             return new SaveHouseHoldSuccess({
-                ...action.payload,
+                ...unit,
                 recCtrl: recCtrl
             }, state2set);
         }),
@@ -306,56 +262,8 @@ export class HouseHoldEffects {
         map((action: UpdateUnitList) => action.payload),
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([unit, lst]) => {
-            // console.log(unit);
-            // console.log(lst);
-
-            const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
-            let lastAccess = 0;
-            if (unit.subUnit && accCnt > 0) {
-                lastAccess = unit.subUnit.accesses[accCnt - 1];
-            }
-            // TODO: Work with status
-            let status = "pause";
-            switch (lastAccess) {
-                case 4:
-                    status = "empty";
-                    break;
-                case 5:
-                    status = "abandoned";
-                    break;
-                case 6:
-                    status = "stopped";
-                    break;
-                case 2:
-                case 3:
-                    status = (accCnt < 3) ? "return" : "complete";
-                    break;
-                default:
-                    const completedSurveys = unit.surveyCompleted;
-                    const countedOnSurveys = completedSurveys.filter(it => it.isNeed == true);
-                    const allCompleted = countedOnSurveys.length > 0
-                        && countedOnSurveys.every(it => it.hasCompleted);
-                    status = allCompleted == true ? "complete" : "pause";
-                    break;
-            }
-
+            HouseHoldEffects.ComposeUnitList(unit, lst);
             
-            let untInList: UnitInList = {
-                "houseHoldId": unit._id,
-                "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
-                "subUnit": unit.subUnit,
-                "accessCount": accCnt,
-                "lastAccess": lastAccess,
-                "comments": unit.comments,
-                "status": status,
-            };
-            let idx = lst.findIndex(it => it.houseHoldId == unit._id);
-            if (idx >= 0) {
-                lst[idx] = untInList;
-            } else {
-                lst.push(untInList);
-            }
-            // TODO: Save the building list
             return this.dataStore.saveHouseHoldInBuildingList(this.appState.buildingId, lst)
                 .mapTo(lst);
         }),
@@ -373,7 +281,7 @@ export class HouseHoldEffects {
         tap(unt => this.appState.houseHoldUnit = unt),
         withLatestFrom(this.store.select(getHouseHoldFeatureState)),
         map(([unt, state]) => {
-            const state2set = this.deriveNewStateFromHouseHold(unt, state);
+            const state2set = HouseHoldEffects.deriveNewStateFromHouseHold(unt, state);
             return new SaveHouseHoldSuccess(unt, state2set);
         }),
     );
@@ -427,7 +335,7 @@ export class HouseHoldEffects {
         map(data => new SaveLastNameSuccess(data ? data : []))
     )
 
-    private deriveNewStateFromHouseHold(unit: HouseHoldUnit, state: HouseHoldState): HouseHoldState {
+    private static deriveNewStateFromHouseHold(unit: HouseHoldUnit, state: HouseHoldState): HouseHoldState {
         const s = this.computeStatesForModel(unit);
         const newState = {
             ...state,
@@ -492,7 +400,7 @@ export class HouseHoldEffects {
         return state2set;
     }
 
-    private computeStatesForModel(model: HouseHoldUnit): any {
+    private static computeStatesForModel(model: HouseHoldUnit): any {
         let objG12345 = {};
         let garden: any;
         let numberRoomUnit: any;
@@ -908,7 +816,7 @@ export class HouseHoldEffects {
         }
     }
 
-    listPagesToCheck(state: HouseHoldState): Array<boolean> {
+    private static listPagesToCheck(state: HouseHoldState): Array<boolean> {
         // console.log("เช็คหน้าต่อไป", JSON.stringify(state));
 
         let arr: Array<boolean> = state.nextPageDirection;
@@ -951,6 +859,93 @@ export class HouseHoldEffects {
         arr[19] = (state.checkWaterBuying) ? true : false;
 
         return arr;
+    }
+
+    private static ComposeUnit(unit: HouseHoldUnit, curState: string) {
+        let log: { at: Date | string, operationCode: string };
+        let createdDateTime = unit.recCtrl && unit.recCtrl.createdDateTime;
+        let lastModified = unit.recCtrl && unit.recCtrl.lastModified;
+        let lastDownload = unit.recCtrl && unit.recCtrl.lastDownload;
+        let logs = unit.recCtrl && unit.recCtrl.logs;
+        let status = unit.status;
+        if (unit.recCtrl.logs.length == 0) {
+            log = { at: new Date(), operationCode: 'create' };
+            createdDateTime = new Date();
+        }
+        else {
+            if (status == "complete") {
+                log = { at: new Date(), operationCode: 'done' };
+            }
+            else {
+                log = { at: new Date(), operationCode: 'continue' };
+            }
+        }
+
+        logs.push(log);
+
+        let recCtrl = {
+            ...unit.recCtrl,
+            createdDateTime: createdDateTime,
+            logCount: logs.length,
+            logs: logs,
+        };
+
+        if (curState == "Sycn") {
+            recCtrl.lastDownload = new Date();
+        } else {
+            recCtrl.lastModified = new Date();
+        }
+
+        unit.recCtrl = recCtrl;
+    }
+
+    private static ComposeUnitList(unit: HouseHoldUnit, lst: UnitInList[]) {
+        const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
+        let lastAccess = 0;
+        if (unit.subUnit && accCnt > 0) {
+            lastAccess = unit.subUnit.accesses[accCnt - 1];
+        }
+        // TODO: Work with status
+        let status = "pause";
+        switch (lastAccess) {
+            case 4:
+                status = "empty";
+                break;
+            case 5:
+                status = "abandoned";
+                break;
+            case 6:
+                status = "stopped";
+                break;
+            case 2:
+            case 3:
+                status = (accCnt < 3) ? "return" : "complete";
+                break;
+            default:
+                const completedSurveys = unit.surveyCompleted;
+                const countedOnSurveys = completedSurveys.filter(it => it.isNeed == true);
+                const allCompleted = countedOnSurveys.length > 0
+                    && countedOnSurveys.every(it => it.hasCompleted);
+                status = allCompleted == true ? "complete" : "pause";
+                break;
+        }
+
+        
+        let untInList: UnitInList = {
+            "houseHoldId": unit._id,
+            "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
+            "subUnit": unit.subUnit,
+            "accessCount": accCnt,
+            "lastAccess": lastAccess,
+            "comments": unit.comments,
+            "status": status,
+        };
+        let idx = lst.findIndex(it => it.houseHoldId == unit._id);
+        if (idx >= 0) {
+            lst[idx] = untInList;
+        } else {
+            lst.push(untInList);
+        }
     }
 }
 
