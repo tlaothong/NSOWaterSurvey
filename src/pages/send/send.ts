@@ -251,10 +251,10 @@ export class SendPage {
       handler: dataAlert => {
         console.log(dataAlert);
         console.log(this.getUpload1.sessionId);
-        this.loader = this.loadingCtrl.create({
+        let loader = this.loadingCtrl.create({
           content: "Please wait...",
         });
-        this.loader.present();
+        loader.present();
         if (dataAlert.length == 0) { //ไม่ทับ
           this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
             console.log(data);
@@ -265,7 +265,7 @@ export class SendPage {
                 this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
                   if (it.ea == ea.code) {
                     for (const it2 of it.items) {
-                      if (it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v")) {
+                      if (it2._id.startsWith("bld1v")) {
                         let downloadUrl = data.baseUrl + it2.url + data.complementary;
                         let cnt = await this.http.get<any>(downloadUrl).toPromise();
                         this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
@@ -307,7 +307,7 @@ export class SendPage {
               console.log("download2");
               console.log(data);
             });
-            this.loader.dismiss();
+            loader.dismiss();
             const showDownloadsucess = this.alertCtrl.create();
             showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
             showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
@@ -387,7 +387,7 @@ export class SendPage {
               console.log(this.totalItem);
               console.log(data);
             });
-            this.loader.dismiss();
+            loader.dismiss();
             const showDownloadsucess = this.alertCtrl.create();
             showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
             showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
