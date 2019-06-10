@@ -58,7 +58,7 @@ export class SendPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private cloudSync: CloudSyncProvider,
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
     private alertCtrl: AlertController, private store: Store<BootupState>,
-    private http: HttpClient, private dataStore: DataStoreProvider) {
+    private http: HttpClient, private dataStore: DataStoreProvider, private storeBuilding: Store<BuildingState>) {
 
     //TODO: delete it when finsish
     this.appState.deviceID = "HGAFPPNZ";
@@ -258,116 +258,119 @@ export class SendPage {
         });
         loader.present();
         // if (dataAlert.length == 0) { //ไม่ทับ
-          this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
-            console.log(data);
-            this.totalItem = Math.max(1, data.totalSurveys - 1);
-            for (const it of data.data) {
-              let eaCode = it.ea;
+        this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
+          console.log(data);
+          this.totalItem = Math.max(1, data.totalSurveys - 1);
+          for (const it of data.data) {
+            let eaCode = it.ea;
 
-              this.countItem++;
-              this.countItemTotal = (this.countItem * 100) / this.totalItem;
-              
-              let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
+            this.countItem++;
+            this.countItemTotal = (this.countItem * 100) / this.totalItem;
 
-              for (const sample of it.items) {
-                let downloadUrl = data.baseUrl + sample.url + data.complementary;
-                if (dataAlert == 'checktub' || sample._id.search(this.appState.userId) >= 0)
-                  continue;
+            let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
 
-                if (sample._id.startsWith("bld1v")) {
-                  if (ulist) {
-                    await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
-                  }
-                  var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();
-                  let cnt = await this.http.get<Building>(downloadUrl).toPromise();
-                  var bld = cnt;
-                  BuildingEffects.ComposeBuilding(bld, "Sync");
-                  BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
-                  // save building
-                  this.dataStore.saveBuilding(bld);
+            for (const sample of it.items) {
+              let downloadUrl = data.baseUrl + sample.url + data.complementary;
+              if (dataAlert != 'checktub' && sample._id.search(this.appState.userId) >= 0) {
+                console.log("ก่อน");
+                continue;
+              }
+
+              if (sample._id.startsWith("bld1v")) {
+                if (ulist) {
+                  console.log("หลัง");
+                  await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
                 }
-
-                if (sample._id.startsWith("unt")) {
-                  let cnt = await this.http.get<HouseHoldUnit>(downloadUrl).toPromise();
-                  let unit = cnt;
-
-                  HouseHoldEffects.ComposeUnit(unit, "Sync");
-                  HouseHoldEffects.ComposeUnitList(unit, ulist);
-                  // save unit
-                  this.dataStore.saveHouseHold(unit);
-                }
+                var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();
+                let cnt = await this.http.get<Building>(downloadUrl).toPromise();
+                var bld = cnt;
+                BuildingEffects.ComposeBuilding(bld, "Sync");
+                BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
+                // save building
+                this.dataStore.saveBuilding(bld);
               }
 
-              if (bldlst) {
-                await this.dataStore.saveBuildingList(eaCode, bldlst).toPromise();
-              }
-              if (bld && ulist) {
-                await this.dataStore.saveHouseHoldInBuildingList(bld._id, ulist).toPromise();
-              }
+              if (sample._id.startsWith("unt")) {
+                let cnt = await this.http.get<HouseHoldUnit>(downloadUrl).toPromise();
+                let unit = cnt;
 
-              // for (const resol of it.resolutions) {
-              //   console.log(resol);
-              //   this.arrResol.push(resol);
-              // }
-              if (it.resolutions && it.resolutions.length > 0) {
-                console.log("Pass if send arrResol", it.resolutions);
-                this.storeBuilding.dispatch(new SetArrResol(it.resolutions));
+                HouseHoldEffects.ComposeUnit(unit, "Sync");
+                HouseHoldEffects.ComposeUnitList(unit, ulist);
+                // save unit
+                this.dataStore.saveHouseHold(unit);
               }
-
-              // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-              // await new Promise((rsv, rjt) => setTimeout(() => {
-              //   this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
-              //     if (it.ea == ea.code) {
-              //       for (const it2 of it.items) {
-              //         if (it2._id.startsWith("bld1v")) {
-              //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
-              //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
-              //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
-              //           await new Promise((rsv, rjt) => setTimeout(() => {
-              //             this.storeBuilding.dispatch(new SaveBuilding(cnt));
-              //             this.countItem++;
-              //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
-              //             console.log(this.countItem);
-              //             console.log(this.countItemTotal);
-              //             rsv({});
-              //           }, 50));
-              //         }
-              //         if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-              //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
-              //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
-              //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-              //           await new Promise((rsv, rjt) => setTimeout(() => {
-              //             this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-              //             this.countItem++;
-              //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
-              //             console.log(this.countItem);
-              //             console.log(this.countItemTotal);
-              //             rsv({});
-
-              //           }, 50));
-              //         }
-              //         await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-              //       }
-              //       rsv({});
-              //     }
-              //   });
-              // }, 50));
-              // for (const resol of it.resolutions) {
-              //   console.log(resol);
-              //   this.arrResol.push(resol);
-              // }
             }
-            this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
-              console.log("download2");
-              console.log(data);
-              loader.dismiss();
-              const showDownloadsucess = this.alertCtrl.create();
-              showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-              showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-              showDownloadsucess.addButton('ตกลง');
-              showDownloadsucess.present();
-            });
+
+            if (bldlst) {
+              await this.dataStore.saveBuildingList(eaCode, bldlst).toPromise();
+            }
+            if (bld && ulist) {
+              await this.dataStore.saveHouseHoldInBuildingList(bld._id, ulist).toPromise();
+            }
+
+            // for (const resol of it.resolutions) {
+            //   console.log(resol);
+            //   this.arrResol.push(resol);
+            // }
+            if (it.resolutions && it.resolutions.length > 0) {
+              console.log("Pass if send arrResol", it.resolutions);
+              this.storeBuilding.dispatch(new SetArrResol(it && it.resolutions));
+            }
+
+            // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
+            // await new Promise((rsv, rjt) => setTimeout(() => {
+            //   this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
+            //     if (it.ea == ea.code) {
+            //       for (const it2 of it.items) {
+            //         if (it2._id.startsWith("bld1v")) {
+            //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
+            //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
+            //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
+            //           await new Promise((rsv, rjt) => setTimeout(() => {
+            //             this.storeBuilding.dispatch(new SaveBuilding(cnt));
+            //             this.countItem++;
+            //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
+            //             console.log(this.countItem);
+            //             console.log(this.countItemTotal);
+            //             rsv({});
+            //           }, 50));
+            //         }
+            //         if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
+            //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
+            //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
+            //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
+            //           await new Promise((rsv, rjt) => setTimeout(() => {
+            //             this.storeHousehold.dispatch(new SaveHouseHold(cnt));
+            //             this.countItem++;
+            //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
+            //             console.log(this.countItem);
+            //             console.log(this.countItemTotal);
+            //             rsv({});
+
+            //           }, 50));
+            //         }
+            //         await new Promise((resvr, rjt) => setTimeout(resvr, 50));
+            //       }
+            //       rsv({});
+            //     }
+            //   });
+            // }, 50));
+            // for (const resol of it.resolutions) {
+            //   console.log(resol);
+            //   this.arrResol.push(resol);
+            // }
+          }
+          this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
+            console.log("download2");
+            console.log(data);
+            loader.dismiss();
+            const showDownloadsucess = this.alertCtrl.create();
+            showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
+            showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
+            showDownloadsucess.addButton('ตกลง');
+            showDownloadsucess.present();
           });
+        });
         // }
 
         // else if (dataAlert == 'checktub') {    //ทับ
