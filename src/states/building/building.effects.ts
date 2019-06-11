@@ -189,12 +189,9 @@ export class BuildingEffects {
     }
 
     public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
-        // console.log("bld",bld);
+        console.log("bld", bld);
         // console.log("lst", lst);
-        // console.log("ulist",ulist);
-        if (lst == null) {
-            lst = [];
-        }
+        console.log("ulist", ulist);
         const accesses = bld.accesses;
         let access = 0;
 
@@ -238,12 +235,12 @@ export class BuildingEffects {
             "houseNo": bld.houseNo,
             "name": bld.name,
             "status": bld.status,
-            "completedCount": ulist.filter(it => it.status != "return" && it.status != "pause").length,
+            "completedCount": ulist && ulist.filter(it => it.status != "return" && it.status != "pause").length,
             "unitCount": bld.unitCount,
             "lastUpdate": Date.now(),
         };
         let idx = lst && lst.findIndex(it => it.buildingId == bld._id);
-        if (idx >= 0 ) {
+        if (idx >= 0) {
             lst[idx] = bInList;
         } else {
             lst.push(bInList);

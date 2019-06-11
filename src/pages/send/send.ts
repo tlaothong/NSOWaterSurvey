@@ -265,11 +265,11 @@ export class SendPage {
           for (const it of data.data) {
             let eaCode = it.ea;
 
-            
-            
+
+
             let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
             // console.log("bldlst in send ", bldlst);
-            
+
             for (const sample of it.items) {
               let downloadUrl = data.baseUrl + sample.url + data.complementary;
               this.countItem++;
@@ -281,17 +281,20 @@ export class SendPage {
               }
 
               if (sample._id.startsWith("bld1v")) {
+                var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();
+                let cnt = await this.http.get<Building>(downloadUrl).toPromise();
+                var bld = cnt;
+                
                 if (ulist) {
                   // console.log("หลัง");
                   await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
                 }
-                var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();
-                let cnt = await this.http.get<Building>(downloadUrl).toPromise();
-                var bld = cnt;
                 BuildingEffects.ComposeBuilding(bld, "Sync");
                 BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
                 // save building
                 this.dataStore.saveBuilding(bld);
+                console.log("-----------------------------------------------------------------------------------------------");
+
               }
 
               if (sample._id.startsWith("unt")) {
@@ -302,6 +305,7 @@ export class SendPage {
                 HouseHoldEffects.ComposeUnitList(unit, ulist);
                 // save unit
                 this.dataStore.saveHouseHold(unit);
+                console.log("-----------------------------------------------------------------------------------------------");
               }
             }
 

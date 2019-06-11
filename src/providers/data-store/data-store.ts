@@ -104,7 +104,7 @@ export class DataStoreProvider {
    */
   public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
 
-    return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode));
+    return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode)).map((lst: BuildingInList[]) => lst ? lst : []);
   }
 
   public getBuilding(buildingId: string): Observable<Building> {
