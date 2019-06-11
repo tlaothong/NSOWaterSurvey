@@ -263,7 +263,7 @@ export class HouseHoldEffects {
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([unit, lst]) => {
             HouseHoldEffects.ComposeUnitList(unit, lst);
-            
+
             return this.dataStore.saveHouseHoldInBuildingList(this.appState.buildingId, lst)
                 .mapTo(lst);
         }),
@@ -934,7 +934,7 @@ export class HouseHoldEffects {
                 break;
         }
 
-        
+
         let untInList: UnitInList = {
             "houseHoldId": unit._id,
             "roomNumber": unit.subUnit ? unit.subUnit.roomNumber : null,
@@ -945,16 +945,11 @@ export class HouseHoldEffects {
             "status": status,
         };
         let idx = lst.findIndex(it => it.houseHoldId == unit._id);
-        i
-        
-         
-            
+        if (idx >= 0) {
+            lst[idx] = untInList;
+        } else {
+            lst.push(untInList);
         }
-        
-         
-            
-        }
-        
     }
 }
 
