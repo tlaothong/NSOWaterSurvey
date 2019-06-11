@@ -190,7 +190,7 @@ export class BuildingEffects {
 
     public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
         // console.log("bld",bld);
-        console.log("lst", lst);
+        // console.log("lst", lst);
         // console.log("ulist",ulist);
         if (lst == null) {
             lst = [];

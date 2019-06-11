@@ -945,11 +945,16 @@ export class HouseHoldEffects {
             "status": status,
         };
         let idx = lst.findIndex(it => it.houseHoldId == unit._id);
-        if (idx >= 0) {
-            lst[idx] = untInList;
-        } else {
-            lst.push(untInList);
+        i
+        
+         
+            
         }
+        
+         
+            
+        }
+        
     }
 }
 

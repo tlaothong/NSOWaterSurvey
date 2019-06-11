@@ -23,7 +23,7 @@
   <div class="progress-outer" *ngIf="countItemTotal > 0">
     <!-- <div class="progress-outer" *ngIf="countItemTotal > 0" [style.max-width]="totalItem + '%' "> -->
     <div class="progress-inner" [style.width]="countItemTotal + '%'">
-      {{ countItem }} / {{totalItem}}
+      {{ countItemTotal.toFixed(2) }} / 100 %
     </div>
   </div><br>
   <ion-card>

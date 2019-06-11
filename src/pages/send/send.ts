@@ -265,22 +265,24 @@ export class SendPage {
           for (const it of data.data) {
             let eaCode = it.ea;
 
-            this.countItem++;
-            this.countItemTotal = (this.countItem * 100) / this.totalItem;
-
+            
+            
             let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
-            console.log("bldlst in send ", bldlst);
-
+            // console.log("bldlst in send ", bldlst);
+            
             for (const sample of it.items) {
               let downloadUrl = data.baseUrl + sample.url + data.complementary;
+              this.countItem++;
+              this.countItemTotal = (this.countItem * 100) / this.totalItem;
+              console.log(this.countItemTotal);
               if (dataAlert != 'checktub' && sample._id.search(this.appState.userId) >= 0) {
-                console.log("ก่อน");
+                // console.log("ก่อน");
                 continue;
               }
 
               if (sample._id.startsWith("bld1v")) {
                 if (ulist) {
-                  console.log("หลัง");
+                  // console.log("หลัง");
                   await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
                 }
                 var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();

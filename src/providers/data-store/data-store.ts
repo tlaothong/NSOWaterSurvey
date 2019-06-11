@@ -15,7 +15,7 @@ declare var CryptoJS;
 export class DataStoreProvider {
 
   constructor(private storage: Storage, private cloudSync: CloudSyncProvider) {
-    console.log('Hello DataStoreProvider Provider');
+    // console.log('Hello DataStoreProvider Provider');
   }
 
   /**
@@ -85,7 +85,7 @@ export class DataStoreProvider {
   */
   public saveBuilding(dataBuilding: Building): Observable<any> {
     // console.log(dataBuilding._id);
-    console.log("BLD Data: " + JSON.stringify(dataBuilding));
+    // console.log("BLD Data: " + JSON.stringify(dataBuilding));
 
     return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }
@@ -94,7 +94,7 @@ export class DataStoreProvider {
    * บันทึกรายการ Building แบบบันทึกเป็น List
    */
   public saveBuildingList(eaCode: string, buildings: BuildingInList[]) {
-    console.log(buildings);
+    // console.log(buildings);
 
     return Observable.fromPromise(this.storage.set('bldlst1v' + eaCode, buildings));
   }
@@ -103,7 +103,6 @@ export class DataStoreProvider {
    * เรียกรายการ Buildings ที่เก็บไว้เป็น list สำหรับ EA ที่ระบุ
    */
   public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
-    console.log(eaCode);
 
     return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode));
   }
@@ -120,7 +119,7 @@ export class DataStoreProvider {
   }
 
   public saveHouseHoldInBuildingList(buildingId: string, unitsInBuilding: UnitInList[]) {
-    console.log(unitsInBuilding);
+    // console.log(unitsInBuilding);
 
     return Observable.fromPromise(this.storage.set('unt4b1v' + buildingId, unitsInBuilding));
   }
@@ -136,7 +135,7 @@ export class DataStoreProvider {
    * บันทึกรายการ household 1 unit
    */
   public saveHouseHold(household: HouseHoldUnit): Observable<any> {
-    console.log("UNT Data: " + JSON.stringify(household));
+    // console.log("UNT Data: " + JSON.stringify(household));
 
     return Observable.fromPromise(this.storage.set(household._id, household));
   }
