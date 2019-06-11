@@ -178,7 +178,7 @@ export class BuildingEffects {
             logCount: logs.length,
             logs: logs,
         };
-        
+
         if (curState == "Sync") {
             recCtrl.lastDownload = lastModified;
         } else {
@@ -190,9 +190,11 @@ export class BuildingEffects {
 
     public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
         // console.log("bld",bld);
-        // console.log("lst",lst);
+        console.log("lst", lst);
         // console.log("ulist",ulist);
-        
+        if (lst == null) {
+            lst = [];
+        }
         const accesses = bld.accesses;
         let access = 0;
 
@@ -240,8 +242,8 @@ export class BuildingEffects {
             "unitCount": bld.unitCount,
             "lastUpdate": Date.now(),
         };
-        let idx = lst.findIndex(it => it.buildingId == bld._id);
-        if (idx >= 0) {
+        let idx = lst && lst.findIndex(it => it.buildingId == bld._id);
+        if (idx >= 0 ) {
             lst[idx] = bInList;
         } else {
             lst.push(bInList);

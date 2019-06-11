@@ -210,12 +210,13 @@ export class SendPage {
           this.checkDownload = true;
           setTimeout(_ => {
             console.log("upload sucess");
-            // const showSuccess = this.alertCtrl.create({
-            //   'title': 'ส่งข้อมูลเรียบร้อย',
-            //   'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
-            //   'buttons': ["ตกลง"],
-            // });
+            const showSuccess = this.alertCtrl.create({
+              'title': 'ส่งข้อมูลเรียบร้อย',
+              'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
+              'buttons': ["ตกลง"],
+            });
             loading.dismiss();
+            showSuccess.present();
             // showSuccess.present();
           }, this.delayTime);
           if (this.getUpload1.sessionId != null) {
@@ -268,6 +269,7 @@ export class SendPage {
             this.countItemTotal = (this.countItem * 100) / this.totalItem;
 
             let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
+            console.log("bldlst in send ", bldlst);
 
             for (const sample of it.items) {
               let downloadUrl = data.baseUrl + sample.url + data.complementary;

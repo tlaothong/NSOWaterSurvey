@@ -7,8 +7,8 @@ import { EA, upload1, downloadFile } from '../../models/mobile/MobileModels';
 export class CloudSyncProvider {
 
   // private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
-  private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
-  // private readonly baseUrl: string = "http://localhost:51361/api/"; // local 
+  // private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
+  private readonly baseUrl: string = "http://localhost:51361/api/"; // local 
   // private readonly baseUrl: string = "https://nso-manage.azurewebsites.net/api/";
 
   constructor(private http: HttpClient) {
