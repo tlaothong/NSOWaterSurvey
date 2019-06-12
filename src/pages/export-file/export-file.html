@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>สำรองข้อมูล</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button full color="secondary" (click)="exportJSON()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ Text ไฟล์</button>
+  <button ion-button full (click)="exportCSV()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ CSV ไฟลล์</button>
+  <button ion-button full color="light" (click)="import()">นำเข้าข้อมูลจากหน่วยความจำภายนอก</button>
+</ion-content>
