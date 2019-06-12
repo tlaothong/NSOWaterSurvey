@@ -22,7 +22,7 @@ export class BuildingEffects {
     constructor(private action$: Actions,
         private store: Store<BuildingState>, private storeBoot: Store<BootupState>,
         private storeUnit: Store<HouseHoldState>, private cloudSync: CloudSyncProvider,
-        private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+        private dataStore: DataStoreProvider, private appState: AppStateProvider, ) {
     }
 
     @Effect()
@@ -130,6 +130,8 @@ export class BuildingEffects {
 
     public static ComposeBuilding(bld: Building, curState: string) {
         const accesses = bld.accesses;
+        console.log(accesses);
+
         let access = 0;
 
         if (accesses && accesses.length > 0) {
@@ -153,6 +155,7 @@ export class BuildingEffects {
             }
         }
         bld.status = status;
+        console.log(bld.status);
 
         let log: { at: Date | string, operationCode: string };
         let createdDateTime = bld.recCtrl && bld.recCtrl.createdDateTime;
@@ -189,9 +192,10 @@ export class BuildingEffects {
     }
 
     public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
+
         console.log("bld", bld);
         // console.log("lst", lst);
-        console.log("ulist", ulist);
+        // console.log("ulist", ulist);
         const accesses = bld.accesses;
         let access = 0;
 
@@ -222,7 +226,7 @@ export class BuildingEffects {
                         default:
                             status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
                                 ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
-                                : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh" : "pause"));
+                                : (ulist.length == Number(bld.unitCount) ? "done-all" : (ulist.length == 0 ? "refresh" : "pause"));
                             break;
                     }
                 }
@@ -239,6 +243,8 @@ export class BuildingEffects {
             "unitCount": bld.unitCount,
             "lastUpdate": Date.now(),
         };
+        console.log(bInList);
+
         let idx = lst && lst.findIndex(it => it.buildingId == bld._id);
         if (idx >= 0) {
             lst[idx] = bInList;

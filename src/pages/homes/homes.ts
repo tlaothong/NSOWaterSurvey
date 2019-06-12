@@ -91,11 +91,12 @@ export class HomesPage {
         this.statusEa = data2.status;
       }
     });
-    console.log(this.buildings$.toPromise());
 
     this.buildings$.take(1).subscribe(async data => {
       if (data != null) {
         this.dataBuilding = await data;
+        console.log(this.dataBuilding);
+
       }
     });
 

@@ -904,6 +904,9 @@ export class HouseHoldEffects {
     }
 
     public static ComposeUnitList(unit: HouseHoldUnit, lst: UnitInList[]) {
+        console.log("ComposeUnitList", lst);
+
+
         const accCnt = unit.subUnit ? unit.subUnit.accessCount : 0;
         let lastAccess = 0;
         if (unit.subUnit && accCnt > 0) {
@@ -944,6 +947,8 @@ export class HouseHoldEffects {
             "comments": unit.comments,
             "status": status,
         };
+        console.log(untInList);
+
         let idx = lst.findIndex(it => it.houseHoldId == unit._id);
         if (idx >= 0) {
             lst[idx] = untInList;

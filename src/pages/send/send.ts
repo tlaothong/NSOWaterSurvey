@@ -281,14 +281,17 @@ export class SendPage {
               }
 
               if (sample._id.startsWith("bld1v")) {
+
                 var ulist = await this.dataStore.listHouseHoldInBuilding(sample._id).toPromise();
                 let cnt = await this.http.get<Building>(downloadUrl).toPromise();
                 var bld = cnt;
-                
+
                 if (ulist) {
                   // console.log("หลัง");
                   await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
                 }
+
+
                 BuildingEffects.ComposeBuilding(bld, "Sync");
                 BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
                 // save building
@@ -305,6 +308,9 @@ export class SendPage {
                 HouseHoldEffects.ComposeUnitList(unit, ulist);
                 // save unit
                 this.dataStore.saveHouseHold(unit);
+                await this.dataStore.saveHouseHoldInBuildingList(unit.buildingId, ulist).toPromise();
+                BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
+
                 console.log("-----------------------------------------------------------------------------------------------");
               }
             }
