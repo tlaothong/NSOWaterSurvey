@@ -154,10 +154,7 @@ export class SendPage {
     let hasError = false;
     this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
       this.getUpload1 = d2c;
-      // this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID;
       console.log(this.getUpload1);
-      // console.log("d2c: " + d2c.sessionId);
-      // console.log("get: " + this.getUpload1.sessionId);
 
       let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
@@ -183,28 +180,6 @@ export class SendPage {
         });
         showError.present();
       } else {
-        // this.cloudSync.uploadFinish(this.appState.userId, this.getUpload1.containerName).take(1).subscribe(done => {
-        // });
-        //3
-        // console.log(d2c.sessionId, keys.length);
-        // this.cloudSync.getUploadToCloud2(d2c.sessionId, keys.length).take(1).subscribe(async data => {
-
-        //   if (await data.isCompleted == false) {
-        //     const showError = this.alertCtrl.create({
-        //       'title': 'มีข้อผิดพลาด',
-        //       'message': data.errorStatus + 'กรุณาอัพโหลดใหม่อีกครั้ง',
-        //       'buttons': ["ตกลง"],
-        //     });
-        //     showError.present();
-        //   } else {
-        //     const showError = this.alertCtrl.create({
-        //       'title': 'ส่งข้อมูลเรียบร้อย',
-        //       'message': data.errorStatus + 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
-        //       'buttons': ["ตกลง"],
-        //     });
-        //     showError.present();
-        //   }
-        //   console.log(this.getUpload1.sessionId);
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
           this.delayTime = data
           this.checkDownload = true;
