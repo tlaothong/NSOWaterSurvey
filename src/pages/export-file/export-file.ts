@@ -47,16 +47,17 @@ export class ExportFilePage {
           let txt = val;
           let fileName = k + '.txt';
           let fileData = JSON.stringify(txt);
-          const ROOT_DIRECTORY = 'file:///sdcard//';
+          const ROOT_DIRECTORY = this.file.externalRootDirectory;
+          // 'file:///sdcard//';
           const folderName = 'water';
           console.log(txt);
           console.log(fileName);
           console.log(fileData);
-          this.file.createDir(ROOT_DIRECTORY + folderName + '//', folderName, true)
+          this.file.createDir(ROOT_DIRECTORY, folderName, true)
             .then((entries) => {
-              this.file.createFile(ROOT_DIRECTORY + folderName + '//', fileName, true)
+              this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
                 .then((en) => {
-                  this.file.writeFile(ROOT_DIRECTORY + folderName + '//', fileName, fileData)
+                  this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
                     .then((en) => {
 
                     })
@@ -128,13 +129,14 @@ export class ExportFilePage {
     });
 
     let fileName = name + '.csv';
-    const ROOT_DIRECTORY = 'file:///sdcard//';
+    const ROOT_DIRECTORY = this.file.externalRootDirectory;
+    // 'file:///sdcard//';
     const folderName = 'water'
-    this.file.createDir(ROOT_DIRECTORY + folderName + '//', folderName, true)
+    this.file.createDir(ROOT_DIRECTORY, folderName, true)
       .then((entries) => {
-        this.file.createFile(ROOT_DIRECTORY + folderName + '//', fileName, true)
+        this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
           .then((en) => {
-            this.file.writeFile(ROOT_DIRECTORY + folderName + '//', fileName, fileData)
+            this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
               .then((en) => {
 
               })
