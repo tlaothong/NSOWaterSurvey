@@ -296,163 +296,28 @@ export class SendPage {
             if (bld && ulist) {
               await this.dataStore.saveHouseHoldInBuildingList(bld._id, ulist).toPromise();
             }
-
-            // for (const resol of it.resolutions) {
-            //   console.log(resol);
-            //   this.arrResol.push(resol);
-            // }
             if (it.resolutions && it.resolutions.length > 0) {
               console.log("Pass if send arrResol", it.resolutions);
               this.storeBuilding.dispatch(new SetArrResol(it && it.resolutions));
             }
-
-            // this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-            // await new Promise((rsv, rjt) => setTimeout(() => {
-            //   this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
-            //     if (it.ea == ea.code) {
-            //       for (const it2 of it.items) {
-            //         if (it2._id.startsWith("bld1v")) {
-            //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
-            //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
-            //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
-            //           await new Promise((rsv, rjt) => setTimeout(() => {
-            //             this.storeBuilding.dispatch(new SaveBuilding(cnt));
-            //             this.countItem++;
-            //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
-            //             console.log(this.countItem);
-            //             console.log(this.countItemTotal);
-            //             rsv({});
-            //           }, 50));
-            //         }
-            //         if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-            //           let downloadUrl = data.baseUrl + it2.url + data.complementary;
-            //           let cnt = await this.http.get<any>(downloadUrl).toPromise();
-            //           this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-            //           await new Promise((rsv, rjt) => setTimeout(() => {
-            //             this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-            //             this.countItem++;
-            //             this.countItemTotal = (this.countItem * 100) / this.totalItem;
-            //             console.log(this.countItem);
-            //             console.log(this.countItemTotal);
-            //             rsv({});
-
-            //           }, 50));
-            //         }
-            //         await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-            //       }
-            //       rsv({});
-            //     }
-            //   });
-            // }, 50));
-            // for (const resol of it.resolutions) {
-            //   console.log(resol);
-            //   this.arrResol.push(resol);
-            // }
           }
           this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
             console.log("download2");
             console.log(data);
+            const showDownloadsucess = this.alertCtrl.create({
+              'title': 'ดาวน์โหลดไฟล์',
+              'message': 'คุณได้ทำการดาวน์โหลดสำเร็จแล้ว',
+              'buttons': ["ตกลง"],
+            });
             loader.dismiss();
-            const showDownloadsucess = this.alertCtrl.create();
-            showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-            showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-            showDownloadsucess.addButton('ตกลง');
             showDownloadsucess.present();
           });
         });
-        // }
 
-        // else if (dataAlert == 'checktub') {    //ทับ
-        //   this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
-        //     console.log(this.appState.userId);
-        //     console.log(data);
-        //     this.totalItem = await data.totalSurveys - 1;
-        //     for (const it of data.data) {
-        //       this.storeBoost.dispatch(new SetCurrentWorkingEA(it.ea));
-        //       await new Promise((rsv, rjt) => setTimeout(() => {
-        //         this.storeBoost.select(getCurrentWorkingEA).subscribe(async ea => {
-        //           if (it.ea == ea.code) {
-        //             for (const it2 of it.items) {
-        //               if ((it2._id.startsWith("bld1v") || it2._id.startsWith("bld2v"))) {
-
-        //                 if (it2._id.search(this.appState.userId) < 0) {
-        //                   console.log(it2._id);
-        //                   console.log("bld ไม่ทับ");
-        //                   let downloadUrl = data.baseUrl + it2.url + data.complementary;
-        //                   let cnt = await this.http.get<any>(downloadUrl).toPromise();
-        //                   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt._id));
-        //                   await new Promise((rsv, rjt) => setTimeout(() => {
-
-        //                     this.storeBuilding.dispatch(new SaveBuilding(cnt));
-        //                     this.countItem++;
-        //                     this.countItemTotal = (this.countItem * 100) / this.totalItem;
-        //                     console.log(this.countItem);
-        //                     console.log(this.countItemTotal);
-        //                     rsv({});
-
-        //                   }, 50));
-        //                 }
-        //               }
-        //               if (it2._id.startsWith("unt1v") || it2._id.startsWith("unt2v")) {
-
-        //                 if (it2._id.search(this.appState.userId) < 0) {
-        //                   console.log("uld ไม่ทับ");
-        //                   console.log(it2._id);
-
-        //                   let downloadUrl = data.baseUrl + it2.url + data.complementary;
-        //                   let cnt = await this.http.get<any>(downloadUrl).toPromise();
-
-        //                   this.storeBuilding.dispatch(new SetCurrentWorkingBuilding(cnt.buildingId));
-        //                   await new Promise((rsv, rjt) => setTimeout(() => {
-
-        //                     this.storeHousehold.dispatch(new SaveHouseHold(cnt));
-        //                     this.countItem++;
-        //                     this.countItemTotal = (this.countItem * 100) / this.totalItem;
-        //                     console.log(this.countItem);
-        //                     console.log(this.countItemTotal);
-        //                     rsv({});
-
-        //                   }, 50));
-        //                 }
-        //               }
-        //               await new Promise((resvr, rjt) => setTimeout(resvr, 50));
-        //             }
-
-        //             rsv({});
-        //           }
-        //         });
-        //       }, 50));
-
-        //       for (const resol of it.resolutions) {
-        //         console.log(resol);
-        //         this.arrResol.push(resol);
-        //       }
-        //     }
-        //     this.cloudSync.downloadFromCloud2(this.getUpload1.sessionId).take(1).subscribe(async data => {
-        //       console.log("download2");
-        //       console.log(this.totalItem);
-        //       console.log(data);
-        //     });
-        //     loader.dismiss();
-        //     const showDownloadsucess = this.alertCtrl.create();
-        //     showDownloadsucess.setTitle('ดาวน์โหลดไฟล์');
-        //     showDownloadsucess.setSubTitle('คุณได้ทำการดาวน์โหลดสำเร็จแล้ว');
-        //     showDownloadsucess.addButton('ตกลง');
-        //     showDownloadsucess.present();
-        //   });
-        // }
       }
     });
     showDownload.present();
   }
-
-  // ngOnDestroy() {
-  //   console.log("this page have been closed");
-  //   if (this.arrResol.length > 0) {
-  //     console.log("Pass if send arrResol", this.arrResol);
-  //     this.storeBuilding.dispatch(new SetArrResol(this.arrResol));
-  //   }
-  // }
 
   goBack() {
     this.navCtrl.pop();
