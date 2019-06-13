@@ -13,7 +13,7 @@ import { HomePage } from '../pages/home/home';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 import { ComponentsModule } from '../components/components.module';
@@ -63,6 +63,7 @@ import { OneSignal } from '@ionic-native/onesignal';
     Geolocation,
     IonicErrorHandler,
     Device,
+    HttpClient,
     // { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: ErrorHandler, useClass: AppErrorHandlerProvider },
     CloudSyncProvider,

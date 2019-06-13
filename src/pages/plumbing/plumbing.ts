@@ -10,8 +10,7 @@ import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsF
 import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { Observable } from 'rxjs';
-import { subDistrictDataPump } from '../../models/SubDistrictDataPump';
-
+import { subDistrictData } from '../../models/SubDistrictData';
 @IonicPage()
 @Component({
   selector: 'page-plumbing',
@@ -144,7 +143,7 @@ export class PlumbingPage {
 
       var cwtamptam = this.appState.eaCode.substr(1, 6);
       console.log(cwtamptam);
-      this.subDistrict = subDistrictDataPump.find(it => it.codeSubDistrict == Number(cwtamptam));
+      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
 
