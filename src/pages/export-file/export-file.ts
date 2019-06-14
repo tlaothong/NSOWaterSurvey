@@ -52,7 +52,7 @@ export class ExportFilePage {
 
       try {
         let fileName = k + '.txt';
-        let fileEntry = await this.file.createFile(dirEntry, fileName, true);
+        let fileEntry = await this.file.createFile(dirEntry.path, fileName, true);
         let writer = fileEntry.createWriter();
 
         let txt = await this.storage.get(k);
