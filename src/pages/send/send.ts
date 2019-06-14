@@ -59,9 +59,6 @@ export class SendPage {
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
     private alertCtrl: AlertController, private store: Store<BootupState>,
     private http: HttpClient, private dataStore: DataStoreProvider, private storeBuilding: Store<BuildingState>) {
-
-    //TODO: delete it when finsish
-    this.appState.deviceID = "HGAFPPNZ";
   }
 
   ionViewDidLoad() {
