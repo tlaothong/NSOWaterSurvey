@@ -53,12 +53,14 @@ export class ExportFilePage {
       try {
         let fileName = k + '.txt';
         let fileEntry = await this.file.createFile(dirEntry.fullPath, fileName, true);
-        let writer = fileEntry.createWriter();
-
-        let txt = await this.storage.get(k);
-        let fileData = JSON.stringify(txt);
-        let dataObj = new Blob([fileData], { type: 'text/plain' });
-        await writer.write(dataObj);
+        fileEntry.createWriter(async writer => {
+          let txt = await this.storage.get(k);
+          let fileData = JSON.stringify(txt);
+          let dataObj = new Blob([fileData], { type: 'text/plain' });
+          await writer.write(dataObj);
+        }, errors => {
+          alertFail.present();
+        });
       } catch(exception) {
         alert(exception);
       }
