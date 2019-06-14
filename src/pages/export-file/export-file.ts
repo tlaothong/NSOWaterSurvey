@@ -18,7 +18,7 @@ export class ExportFilePage {
     console.log('ionViewDidLoad ExportFilePage');
   }
 
-  exportJSON() {
+  async exportJSON() {
     let alert = this.alert.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
@@ -34,53 +34,35 @@ export class ExportFilePage {
       enableBackdropDismiss: false,
     });
 
-    this.storage.keys().then(val => {
-      let keys = val;
-      console.log(keys);
-
-      for (let k of keys) {
-        if (k.startsWith('ulogin1v')) {
-          continue; // ignore login file
-        }
-        console.log(k);
-        this.storage.get(k).then(val => {
-          let txt = val;
-          let fileName = k + '.txt';
-          let fileData = JSON.stringify(txt);
-          const ROOT_DIRECTORY = this.file.externalRootDirectory;
-          // 'file:///sdcard//';
-          const folderName = 'water';
-          console.log(txt);
-          console.log(fileName);
-          console.log(fileData);
-          this.file.createDir(ROOT_DIRECTORY, folderName, true)
-            .then((entries) => {
-              this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
-                .then((en) => {
-                  this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
-                    .then((en) => {
-
-                    })
-                    .catch((error) => {
-                      load.dismiss();
-                      alert.present();
-                    })
-                })
-                .catch((error) => {
-                  load.dismiss();
-                  alert.present();
-                })
-            })
-            .catch((error) => {
-              load.dismiss();
-              alert.present();
-            });
-        });
-      }
-      load.dismiss();
-      success.present();
-    });
     load.present();
+
+    const ROOT_DIRECTORY = this.file.externalRootDirectory;
+    // 'file:///sdcard//';
+    const folderName = 'water';
+    let dirEntry = this.file.createDir(ROOT_DIRECTORY, folderName, true);
+
+    let keys = await this.storage.keys();
+
+    for (const k of keys) {
+      if (k.startsWith('ulogin1v')) {
+        continue; // ignore login file
+      }
+      console.log('k', k);
+
+      try {
+        let fileName = k + '.txt';
+        let fileEntry = await this.file.createFile(dirEntry, fileName, true);
+        let writer = fileEntry.createWriter();
+
+        let txt = await this.storage.get(k);
+        let fileData = JSON.stringify(txt);
+        let dataObj = new Blob([fileData], { type: 'text/plain' });
+        await writer.write(dataObj);
+      } catch(exception) {
+        alert(exception);
+      }
+    }
+    load.dismiss();
   }
 
   exportCSV() {
