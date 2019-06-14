@@ -69,6 +69,14 @@ export class MyApp {
           });
 
           this.oneSignal.endInit();
+
+          this.dataStore.getNotiAppMsg().take(1).subscribe(msg => {
+            if (msg != null) {
+              if (msg.actionId == "u10300") {
+                this.dataStore.deleteNotiAppMsg();
+              }
+            }
+          });
         });
       }
     });
