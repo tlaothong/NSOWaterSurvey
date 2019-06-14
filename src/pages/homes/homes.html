@@ -56,7 +56,7 @@
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
-    <ion-col >
+    <ion-col>
       <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
       </button>
@@ -70,6 +70,7 @@
       </ion-segment-button>
       <ion-segment-button value="fsedit">
         FS ให้แก้ไข
+        <ion-icon *ngIf="dataResolutions.length > 0" md="md-warning" class="warning" style="zoom: 0.5;"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="areayoi">
         สน.2 พื้นที่ย่อย
@@ -173,7 +174,7 @@
       </div>
     </ng-container>
 
-    <div *ngSwitchCase="'areayoi'" style="padding-top: 10px">
+    <ng-container *ngSwitchCase="'areayoi'" style="padding-top: 10px">
 
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -211,9 +212,10 @@
           </ion-col>
         </ion-row>
       </div>
-    </div>
+    </ng-container>
 
     <ng-container *ngSwitchCase="'fsedit'">
+
       <ion-row text-center align-items-center>
         <ion-col col-2>
           ลำดับที่
@@ -243,21 +245,29 @@
       </ion-row>
       <hr>
 
-      <hr>
-      <ion-row text-center align-items-center>
-        <ion-col col-2>
-          ลำดับที่
-        </ion-col>
-        <ion-col col-2>
-          หมู่ที่
-        </ion-col>
-        <ion-col col-7>
-          ชื่อหมู่บ้าน
-        </ion-col>
-        <ion-col col-1> </ion-col>
-      </ion-row>
-      <hr>
+      <div *ngFor="let item of dataResolutions ; let i = index;">
+        <ion-row text-center align-items-center>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            <ion-icon disabled="false" [name]="item.status"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.houseNo}}
+          </ion-col>
+          <ion-col col-3 (click)="goEditBuildingInfo(item)">
+            {{item.name}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.completedCount}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.unitCount}}
+          </ion-col>
+        </ion-row>
+      </div>
+
     </ng-container>
   </ng-container>
-
 </ion-content>

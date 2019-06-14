@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EA } from '../../models/mobile/MobileModels';
+import { EA, upload1, downloadFile } from '../../models/mobile/MobileModels';
 
 @Injectable()
 export class CloudSyncProvider {
 
   // private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
   private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
+  // private readonly baseUrl: string = "https://localhost:5001/api/"; // local 
+  // private readonly baseUrl: string = "https://nso-manage.azurewebsites.net/api/";
 
   constructor(private http: HttpClient) {
     console.log('Create CloudSyncProvider Provider');
@@ -16,13 +18,39 @@ export class CloudSyncProvider {
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
     return <Observable<any>>(this.http.get(this.baseUrl + 'MobileConnect/' + userId));
   }
-
+  //1 get session
   public getUploadToCloud(userId: string): Observable<DeviceToCloudInfo> {
     return <Observable<any>>this.http.post(this.baseUrl + 'MobileConnect/up2cloud/' + userId, {});
   }
 
-  public uploadFinish(userId: string, containerName: string) {
-    return this.http.put(this.baseUrl + 'MobileConnect/up2cloud/' + userId, { containerName: containerName });
+  //1  get session
+  public uploadTocloud1(userId: string, deviceID: any) {
+    return this.http.post<upload1>(this.baseUrl + 'mobileconnect/up2cloud/' + userId, { "deviceID": deviceID });
+  }
+  public uploadcloud2(sessionId: string) {
+    console.log(this.baseUrl + 'mobileconnect/up2cloud/' + sessionId);
+    return this.http.put(this.baseUrl + 'mobileconnect/up2cloud/' + sessionId, {});
+  }
+  //3
+  public getUploadToCloud2(ssId: string, file: number): Observable<isSuccess> {
+    console.log(ssId, file);
+    return <Observable<any>>this.http.get(this.baseUrl + 'MobileConnect/up2cloud/' + ssId + '/' + file);
+  }
+
+  // public uploadcloud2(sessionId: string, diviceID: any) {
+  //   return this.http.put(this.baseUrl + 'mobileconnect/up2cloud/' + sessionId + diviceID, {});
+  // }
+
+  // public downloadFromCloud1(sessionId: string, diviceID: any): Observable<any> {
+  //   return this.http.post<downloadFile>(this.baseUrl + 'mobileconnect/downfromcloud/' + sessionId + diviceID, {});
+  // }
+
+  public downloadFromCloud1(sessionId: string): Observable<any> {
+    return this.http.post<downloadFile>(this.baseUrl + 'mobileconnect/downfromcloud/' + sessionId, {});
+  }
+
+  public downloadFromCloud2(sessionId: string): Observable<any> {
+    return this.http.put(this.baseUrl + 'mobileconnect/downfromcloud/' + sessionId, {});
   }
 
   /*************************
@@ -126,4 +154,10 @@ export class CloudSyncProvider {
 export interface DeviceToCloudInfo {
   containerName: string;
   complementary: string;
+  sessionId: string;
+}
+
+export interface isSuccess {
+  isCompleted: boolean,
+  errorStatus: string
 }

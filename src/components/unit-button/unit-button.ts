@@ -852,7 +852,10 @@ export class UnitButtonComponent {
       }),
       'population': fb.group({
         'personCount': 0,
-        'persons': fb.array([])
+        'persons': fb.array([]),
+        'allPersonCount': null,
+        'malePerson': null,
+        'femalePerson': null,
       }),
     });
   }

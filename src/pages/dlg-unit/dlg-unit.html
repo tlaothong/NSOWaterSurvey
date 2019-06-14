@@ -50,7 +50,7 @@
         <ion-option [value]=5>
           5. ห้อง/บ้าน/อาคาร ร้าง
         </ion-option>
-        <ion-option [value]=6 *ngIf="lastAccess == 1">
+        <ion-option [value]=6 *ngIf="(lastAccess == 1 || lastAccess == 6)">
           6. ยุติการให้ข้อมูลระหว่างการสัมภาษณ์
         </ion-option>
       </ion-select>

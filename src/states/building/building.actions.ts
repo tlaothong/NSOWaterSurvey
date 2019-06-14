@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 import { EaComponent } from '../../components/ea/ea';
-import { BuildingInList, Building } from '../../models/mobile/MobileModels';
+import { BuildingInList, Building, resolutionsEA } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
-    
+
     LoadList = "[BLD] Load List",
     LoadListSuccess = "[BLD] Load List Success",
     NewBuilding = "[BLD] Create New HomeBuilding",
@@ -20,7 +20,8 @@ export enum BuildingTypes {
     UpdateBuildingList = "[BLD] Update or Insert the Building into the List",
     UpdateBuildingListSuccess = "[BLD] Update the Building List Success",
     DeleteBuilding = "[BLD] Delete Building",
-    SetOtherBuildingType = "[BLD] Set Other Building Type"
+    SetOtherBuildingType = "[BLD] Set Other Building Type",
+    SetArrResol = "[BLD] Set Array Resolutions from Download Data",
 }
 
 export class LoadBuildingList implements Action {
@@ -121,7 +122,14 @@ export class SetOtherBuildingType implements Action {
 export class DeleteBuilding implements Action {
     readonly type = BuildingTypes.DeleteBuilding;
 
-    constructor(public payload: any){
+    constructor(public payload: any) {
+
+    }
+}
+export class SetArrResol implements Action {
+    readonly type = BuildingTypes.SetArrResol;
+
+    constructor(public payload: resolutionsEA[]) {
 
     }
 }
@@ -140,7 +148,8 @@ export type BuildingActionsType =
     | UpdateBuildingList
     | SetOtherBuildingType
     | DeleteBuilding
-   
+    | SetArrResol
+
     ;
 
 export interface BuildingInList {
