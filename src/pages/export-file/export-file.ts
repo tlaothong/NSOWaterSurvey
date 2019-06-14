@@ -40,7 +40,7 @@ export class ExportFilePage {
     // 'file:///sdcard//';
     const folderName = 'water';
     alert(ROOT_DIRECTORY);
-    let dirEntry = this.file.createDir(ROOT_DIRECTORY, folderName, true);
+    let dirEntry = await this.file.createDir(ROOT_DIRECTORY, folderName, true);
 
     let keys = await this.storage.keys();
 
