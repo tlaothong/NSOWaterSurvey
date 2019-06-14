@@ -73645,7 +73645,7 @@ export const subDistrictData: SubDistrict[] =
             TAM: "01",
             name: "มหาชัย",
             MWA: false,
-            PWA: true,
+            PWA: true, 
         },
         {
             codeSubDistrict: "740102",
@@ -73788,8 +73788,8 @@ export const subDistrictData: SubDistrict[] =
             AMP_NAME: "เมืองสมุทรสาคร",
             TAM: "13",
             name: "พันท้ายนรสิงห์",
-            MWA: false,
-            PWA: true,
+            MWA: true,
+            PWA: false,
         },
         {
             codeSubDistrict: "740114",
@@ -73872,8 +73872,8 @@ export const subDistrictData: SubDistrict[] =
             AMP_NAME: "กระทุ่มแบน",
             TAM: "02",
             name: "อ้อมน้อย",
-            MWA: true,
-            PWA: false,
+            MWA: false,
+            PWA: true,
         },
         {
             codeSubDistrict: "740203",
