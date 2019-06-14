@@ -53,7 +53,7 @@ export class LoginPage {
       message: 'รหัสผ่านไม่ถูกต้อง',
       buttons: ['ตกลง']
     });
-
+   
     this.dataStore.validateUser(userId, password).then(valid => {
       if (!valid) {
         wrongPassword.present();

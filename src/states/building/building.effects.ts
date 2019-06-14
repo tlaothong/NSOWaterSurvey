@@ -10,10 +10,11 @@ import { BuildingState } from "./building.reducer";
 import { getBuildingList } from ".";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { BootupState } from "../bootup/bootup.reducer";
-import { getCurrentWorkingEA } from "../bootup";
+import { getCurrentWorkingEA, getCurrentStatusState } from "../bootup";
 import { LoadHouseHoldList } from "../household/household.actions";
 import { HouseHoldState } from "../household/household.reducer";
 import { getHouseHoldUnitList } from "../household";
+import { Building, BuildingInList, UnitInList } from "../../models/mobile/MobileModels";
 
 
 @Injectable()
@@ -21,7 +22,7 @@ export class BuildingEffects {
     constructor(private action$: Actions,
         private store: Store<BuildingState>, private storeBoot: Store<BootupState>,
         private storeUnit: Store<HouseHoldState>, private cloudSync: CloudSyncProvider,
-        private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+        private dataStore: DataStoreProvider, private appState: AppStateProvider, ) {
     }
 
     @Effect()
@@ -64,7 +65,7 @@ export class BuildingEffects {
         tap(bld => {
             this.appState.buildingId = bld ? bld._id : '';
         }),
-        switchMap(bld => [new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld._id)]),
+        switchMap(bld => [new SaveBuildingSuccess(bld), new LoadHouseHoldList(bld && bld._id)]),
     );
 
     @Effect()
@@ -74,62 +75,16 @@ export class BuildingEffects {
         tap(action => {
             this.appState.buildingId = action.payload ? action.payload._id : '';
         }),
-        map(action => {
+        withLatestFrom(this.storeBoot.select(getCurrentStatusState)),
+        map(([action, curState]) => {
             let bld = action.payload;
-            const accesses = bld.accesses;
-            let access = 0;
-
-            if (accesses && accesses.length > 0) {
-                access = accesses[accesses.length - 1];
-            }
-            let status = "pause";
-            switch (access) {
-                case 4:
-                    status = "eye-off";
-                    break;
-                case 2:
-                case 3:
-                    status = bld.accessCount < 3 ? "refresh" : "sad";
-                    break;
-                default: {
-                    status = "pause";
-                    break;
-                }
-            }
-            bld.status = status;
-
-            let log: { at: Date | string, operationCode: string };
-            let createdDateTime = bld.recCtrl && bld.recCtrl.createdDateTime;
-            let lastModified = bld.recCtrl && bld.recCtrl.lastModified;
-            let logs = bld.recCtrl && bld.recCtrl.logs;
-            if (bld.recCtrl.logs.length == 0) {
-                log = { at: new Date(), operationCode: 'create' };
-                createdDateTime = new Date();
-            }
-            else {
-                if (status == "done-all") {
-                    log = { at: new Date(), operationCode: 'done' };
-                }
-                else {
-                    log = { at: new Date(), operationCode: 'continue' };
-                }
-            }
-            lastModified = new Date();
-            logs.push(log);
-
-            let recCtrl = {
-                ...bld.recCtrl,
-                createdDateTime: createdDateTime,
-                lastModified: lastModified,
-                logCount: logs.length,
-                logs: logs,
-            };
-
-            bld.recCtrl = recCtrl;
+            BuildingEffects.ComposeBuilding(bld, curState);
+            let status = bld.status;
+            let recCtrl = bld.recCtrl;
 
             return new SaveBuilding({ ...bld, status: status, recCtrl: recCtrl });
         }),
-        // TODO: Save the building to local storage
+
         mergeMap(action => this.dataStore.saveBuilding(action.payload).mapTo(action)),
         switchMap(action => [
             new SaveBuildingSuccess(action.payload),
@@ -164,60 +119,137 @@ export class BuildingEffects {
         withLatestFrom(this.store.select(getBuildingList), this.storeBoot.select(getCurrentWorkingEA),
             this.storeUnit.select(getHouseHoldUnitList)),
         mergeMap(([bld, lst, ea, ulist]) => {
-            const accesses = bld.accesses;
-            let access = 0;
+            BuildingEffects.ComposeBuildingList(bld, lst, ulist);
 
-            if (accesses && accesses.length > 0) {
-                access = accesses[accesses.length - 1];
-            }
-            let status = "pause";
-            switch (access) {
-                case 4:
-                    status = "eye-off";
-                    break;
-                case 2:
-                case 3:
-                    status = bld.accessCount < 3 ? "refresh" : "sad";
-                    break;
-                default: {
-                    if (status != "done-all") {
-                        const uacc = bld.unitAccess;
-                        switch (uacc) {
-                            case 2:
-                            case 3:
-                                status = "checkmark";
-                                break;
-
-                            default:
-                                status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
-                                    ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
-                                    : (ulist.length == bld.unitCount ? "done-all" : (ulist.length == 0 ? "refresh" : "pause"));
-                                break;
-                        }
-                    }
-                    break;
-                }
-            }
-            bld.status = status;
-            let bInList = {
-                "buildingId": bld._id,
-                "houseNo": bld.houseNo,
-                "name": bld.name,
-                "status": bld.status,
-                "completedCount": ulist.filter(it => it.status != "return" && it.status != "pause").length,
-                "unitCount": bld.unitCount,
-                "lastUpdate": Date.now(),
-            };
-            let idx = lst.findIndex(it => it.buildingId == bld._id);
-            if (idx >= 0) {
-                lst[idx] = bInList;
-            } else {
-                lst.push(bInList);
-            }
-            // TODO: Save the building list
             return this.dataStore.saveBuildingList(ea.code, lst)
                 .mapTo(lst);
         }),
         map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),
     );
+
+
+    public static ComposeBuilding(bld: Building, curState: string) {
+        const accesses = bld.accesses;
+        console.log(accesses);
+
+        let access = 0;
+
+        if (accesses && accesses.length > 0) {
+            access = accesses[accesses.length - 1];
+        }
+        let status = "pause";
+        switch (access) {
+            case 4:
+                status = "eye-off";
+                break;
+            case 5:
+                status = "mic-off";
+                break;
+            case 2:
+            case 3:
+                status = bld.accessCount < 3 ? "refresh" : "sad";
+                break;
+            default: {
+                status = "pause";
+                break;
+            }
+        }
+        bld.status = status;
+        console.log(bld.status);
+
+        let log: { at: Date | string, operationCode: string };
+        let createdDateTime = bld.recCtrl && bld.recCtrl.createdDateTime;
+        let lastModified = new Date();
+        let logs = bld.recCtrl && bld.recCtrl.logs;
+        if (bld.recCtrl.logs.length == 0) {
+            log = { at: lastModified, operationCode: 'create' };
+            createdDateTime = new Date();
+        }
+        else {
+            if (status == "done-all") {
+                log = { at: lastModified, operationCode: 'done' };
+            }
+            else {
+                log = { at: lastModified, operationCode: 'continue' };
+            }
+        }
+        logs.push(log);
+
+        let recCtrl = {
+            ...bld.recCtrl,
+            createdDateTime: createdDateTime,
+            logCount: logs.length,
+            logs: logs,
+        };
+
+        if (curState == "Sync") {
+            recCtrl.lastDownload = lastModified;
+        } else {
+            recCtrl.lastModified = lastModified;
+        }
+
+        bld.recCtrl = recCtrl;
+    }
+
+    public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
+
+        console.log("bld", bld);
+        // console.log("lst", lst);
+        // console.log("ulist", ulist);
+        const accesses = bld.accesses;
+        let access = 0;
+
+        if (accesses && accesses.length > 0) {
+            access = accesses[accesses.length - 1];
+        }
+        let status = "pause";
+        switch (access) {
+            case 4:
+                status = "eye-off";
+                break;
+            case 5:
+                status = "mic-off";
+                break;
+            case 2:
+            case 3:
+                status = bld.accessCount < 3 ? "refresh" : "sad";
+                break;
+            default: {
+                if (status != "done-all") {
+                    const uacc = bld.unitAccess;
+                    switch (uacc) {
+                        case 2:
+                        case 3:
+                            status = "checkmark";
+                            break;
+
+                        default:
+                            status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
+                                ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
+                                : (ulist.length == Number(bld.unitCount) ? "done-all" : (ulist.length == 0 ? "refresh" : "pause"));
+                            break;
+                    }
+                }
+                break;
+            }
+        }
+        bld.status = status;
+        let bInList = {
+            "buildingId": bld._id,
+            "houseNo": bld.houseNo,
+            "name": bld.name,
+            "status": bld.status,
+            "completedCount": ulist && ulist.filter(it => it.status != "return" && it.status != "pause").length,
+            "unitCount": bld.unitCount,
+            "lastUpdate": Date.now(),
+        };
+        console.log(bInList);
+
+        let idx = lst && lst.findIndex(it => it.buildingId == bld._id);
+        if (idx >= 0) {
+            lst[idx] = bInList;
+        } else {
+            lst.push(bInList);
+        }
+    }
 }

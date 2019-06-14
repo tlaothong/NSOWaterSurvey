@@ -82,8 +82,10 @@ export class LocationComponent implements ISubmitRequestable {
 
   onChange(name: any) {
     let code = provinceData.find(it => it.name == name) || null;
-    this.provinceCode = code.codeProvince;
+    console.log(code);
+    
     if (code != null) {
+      this.provinceCode = code.codeProvince;
       let order = LocationDataProvider.getDistric(code.codeProvince);
       this.district = order.sort((a, b) => a.name.localeCompare(b.name))
     }

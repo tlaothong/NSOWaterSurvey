@@ -13,6 +13,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = "FirstpagePage";
+  //rootPage: any = "SendPage";
 
   pages: Array<{ title: string, component: any }>;
 
@@ -41,33 +42,41 @@ export class MyApp {
           // var notificationOpenedCallback = function(jsonData) {
           //   console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
           // };
-      
+
           // window["plugins"].OneSignal
           //   .startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662")
           //   .handleNotificationOpened(notificationOpenedCallback)
           //   .endInit();
           this.oneSignal.startInit("73e3979b-f314-47c0-99e3-9087fe31cef1", "202873334662");
-  
+
           this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-    
+
           this.oneSignal.getIds().then(p => {
             console.log('Get noti ids', p);
             if (p)
               this.dataStore.saveNotiUid(p);
           });
-    
+
           this.oneSignal.handleNotificationReceived().subscribe(v => {
             console.log('Noti received', v.payload);
             this.processPayload(v.payload);
           });
-    
+
           this.oneSignal.handleNotificationOpened().subscribe(v => {
             console.log('Noti opened', v.notification.payload.body);
             // v.notification.payload.additionalData[""];
             this.processPayload(v.notification.payload);
           });
-    
+
           this.oneSignal.endInit();
+
+          this.dataStore.getNotiAppMsg().take(1).subscribe(msg => {
+            if (msg != null) {
+              if (msg.actionId == "u10300") {
+                this.dataStore.deleteNotiAppMsg();
+              }
+            }
+          });
         });
       }
     });
@@ -109,17 +118,22 @@ export class MyApp {
   goGetworkPage() {
     // this.nav.pop();
     this.menuCtrl.close();
-    this.nav.setRoot("GetworkPage")
+    this.nav.setRoot("GetworkPage");
   }
 
   goSelectEaPage() {
     this.menuCtrl.close();
-    this.nav.setRoot("SelectEaPage")
+    this.nav.setRoot("SelectEaPage");
   }
 
   goSendPage() {
     this.menuCtrl.close();
-    this.nav.push("SendPage")
+    this.nav.push("SendPage");
+  }
+
+  goExportPage(){
+    this.menuCtrl.close();
+    this.nav.push("ExportFilePage");
   }
 
   /**
@@ -135,7 +149,7 @@ export class MyApp {
   public updateApp() {
     this.nav.push("UpdateAppPage");
   }
-  
+
   logOut() {
     this.menuCtrl.close();
     this.nav.setRoot("FirstpagePage");

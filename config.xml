@@ -96,4 +96,5 @@
         <variable name="CHANNEL_NAME" value="Production" />
         <variable name="UPDATE_METHOD" value="none" />
     </plugin>
+    <plugin name="cordova-plugin-file" spec="~6.0.1" />
 </widget>

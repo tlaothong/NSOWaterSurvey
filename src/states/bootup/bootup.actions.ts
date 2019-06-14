@@ -11,6 +11,7 @@ export enum BootupTypes {
     DownloadUserToMobileSuccess = "[BT] User Cloud Data Downloaded To Mobile Successfully",
     SetCurrentWorkingEA = "[BT] Set Current Working EA",
     CurrentWorkingEaChanged = "[BT] Current Working EA has Changed",
+    SetCurrentStatusState = "[BT] Current Status State ",
 }
 
 export class LoadBootstrap implements Action {
@@ -72,6 +73,13 @@ export class CurrentWorkingEaChanged implements Action {
     }
 }
 
+export class SetCurrentStatusState implements Action {
+    readonly type = BootupTypes.SetCurrentStatusState;
+
+    constructor(public payload: string) {
+    }
+}
+
 export type BootupActionsType =
     LoadBootstrap
     | LoadBootstrapSuccess
@@ -81,4 +89,5 @@ export type BootupActionsType =
     | DownloadUserToMobileSuccess
     | SetCurrentWorkingEA
     | CurrentWorkingEaChanged
+    | SetCurrentStatusState
     ;
