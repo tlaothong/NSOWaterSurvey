@@ -19,7 +19,7 @@ export class ExportFilePage {
   }
 
   exportJSON() {
-    let alert = this.alert.create({
+    let alertFail = this.alert.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
     });
@@ -53,6 +53,7 @@ export class ExportFilePage {
           console.log(txt);
           console.log(fileName);
           console.log(fileData);
+          alert(ROOT_DIRECTORY);
           this.file.createDir(ROOT_DIRECTORY, folderName, true)
             .then((entries) => {
               this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
@@ -62,25 +63,25 @@ export class ExportFilePage {
 
                     })
                     .catch((error) => {
-                      load.dismiss();
-                      alert.present();
+                      // load.dismiss();
+                      alertFail.present();
                     })
                 })
                 .catch((error) => {
-                  load.dismiss();
-                  alert.present();
+                  // load.dismiss();
+                  alertFail.present();
                 })
             })
             .catch((error) => {
-              load.dismiss();
-              alert.present();
+              // load.dismiss();
+              alertFail.present();
             });
         });
       }
-      load.dismiss();
-      success.present();
+      // load.dismiss();
+      // success.present();
     });
-    load.present();
+    // load.present();
   }
 
   exportCSV() {
