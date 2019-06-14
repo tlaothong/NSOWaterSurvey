@@ -19,7 +19,7 @@ export class ExportFilePage {
   }
 
   async exportJSON() {
-    let alert = this.alert.create({
+    let alertFail = this.alert.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
     });
@@ -39,6 +39,7 @@ export class ExportFilePage {
     const ROOT_DIRECTORY = this.file.externalRootDirectory;
     // 'file:///sdcard//';
     const folderName = 'water';
+    alert(ROOT_DIRECTORY);
     let dirEntry = this.file.createDir(ROOT_DIRECTORY, folderName, true);
 
     let keys = await this.storage.keys();
