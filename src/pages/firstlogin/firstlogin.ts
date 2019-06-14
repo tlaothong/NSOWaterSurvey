@@ -62,6 +62,7 @@ export class FirstloginPage {
 
       this.dataStore.getNotiUid().take(1).subscribe(data => {
         let deviceId = this.device.serial;
+        this.appState.deviceID = this.device.serial;
         let Uid = data.userId;
         let Pushtoken = data.pushToken;
         this.cloud.saveUserInfo({

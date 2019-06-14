@@ -10,12 +10,13 @@ import { NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../st
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
-import { getBuildingList } from '../../states/building';
+import { getBuildingList, getArrResol } from '../../states/building';
 import { BuildingInList, CommunityInList } from '../../models/mobile/MobileModels';
 import { CommunityState } from '../../states/community/community.reducer';
 import { SetCurrentWorkingCommunity, NewCommunity, DeleteCommunity } from '../../states/community/community.actions';
 import { getCommunityList } from '../../states/community';
 import { DataStoreProvider, StatusEA } from '../../providers/data-store/data-store';
+import { take } from 'rxjs/operator/take';
 
 
 
@@ -39,6 +40,9 @@ export class HomesPage {
   private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.storeBuild.select(getHomeBuilding);
   private dataCommunity$ = this.storeCom.select(getCommunityList);
+  private dataArrayResolutions$ = this.storeBuild.select(getArrResol);
+  private dataResolutions: any[] = [];
+  private dataBuilding: any[] = [];
   // private dataCommunity: any;
   public statusEa: any;
 
@@ -62,6 +66,7 @@ export class HomesPage {
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
+
   }
 
   public showQuickMenu(myEvent) {
@@ -78,7 +83,7 @@ export class HomesPage {
     statusEa$.take(1).subscribe(data => {
       if (data == null) {
         this.statusEa = 1;
-      }else{
+      } else {
         const data2: StatusEA = {
           status: data.status,
           date: data.date,
@@ -86,13 +91,36 @@ export class HomesPage {
         this.statusEa = data2.status;
       }
     });
-    console.log(this.statusEa);
 
-    // const data: StatusEA = {
-    //   status: this.statusEa,
-    //   date: Date.now(),
-    // }
+    this.buildings$.take(1).subscribe(async data => {
+      if (data != null) {
+        this.dataBuilding = await data;
+        console.log(this.dataBuilding);
 
+      }
+    });
+
+    this.dataArrayResolutions$.take(1).subscribe(async it => {
+      if (it != null) {
+        var dataRes = await it;
+        for (const it1 of this.dataBuilding) {
+          for (const it2 of dataRes) {
+
+            let check = await this.dataResolutions && this.dataResolutions.some(data => data.buildingId == it1.buildingId);
+
+            if (check == false || this.dataResolutions.length == 0) {
+              if (it1.buildingId == it2.buildingId) {
+                await this.dataResolutions.push(it1);
+              }
+            }
+          }
+        }
+      }
+    });
+
+    setTimeout(() => {
+      console.log("dataResolutionsAll", this.dataResolutions);
+    }, 50);
   }
 
   presentLoading() {
@@ -146,6 +174,8 @@ export class HomesPage {
         this.buildingList$ = this.buildingListAll$;
         break;
     }
+
+
   }
 
   // changeNum(num: string) {
@@ -165,12 +195,11 @@ export class HomesPage {
   }
 
   goEditBuildingInfo(item: BuildingInList, no: number) {
-    if (this.office == 'building') {
+    if (this.office == 'building' || this.office == 'fsedit') {
       this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
       this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
     }
     else if (this.office == 'areayoi') {
-
     }
     // this.presentLoading();
   }
