@@ -10,49 +10,55 @@
 <ion-content padding>
 
   <ion-row text-center align-items-center>
-    <ion-col col-2>
+    <ion-col>
       <b>จังหวัด</b>
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       <b>อำเภอ</b>
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       <b>ตำบล</b>
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       <b>เขตการปกครอง</b>
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       <b>เทศบาล</b>
     </ion-col>
-    <ion-col col-1>
+    <ion-col>
+      <b>หมู่บ้าน</b>
+    </ion-col>
+    <ion-col>
       <b>EA</b>
     </ion-col>
-    <ion-col col-1>
+    <ion-col>
     </ion-col>
   </ion-row>
   <hr>
 
   <ion-row *ngFor="let item of listOfEAs$ | async" text-center align-items-center>
-    <ion-col col-2>
+    <ion-col>
       {{ item.CWT_NAME }}
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       {{ item.AMP_NAME }}
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       {{ item.TAM_NAME }}
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       {{ (item.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
     </ion-col>
-    <ion-col col-2>
+    <ion-col>
       {{ item.MUN_NAME }}{{ item.TAO_NAME }}
     </ion-col>
-    <ion-col col-1>
+    <ion-col>
+      {{ item.VIL_NAME}}
+    </ion-col>
+    <ion-col>
       {{ item.EA }}
     </ion-col>
-    <ion-col col-1>
+    <ion-col>
       <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
         เลือก
       </button>

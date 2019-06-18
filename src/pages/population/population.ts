@@ -47,7 +47,10 @@ export class PopulationPage {
     return fb.group({
       'skip': [null, Validators.required],
       'personCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
-      'persons': fb.array([])
+      'persons': fb.array([]),
+      'allPersonCount': null,
+      'malePerson': null,
+      'femalePerson': null,
     }, {
         validator: PopulationPage.checkAnyOrOther()
       });
