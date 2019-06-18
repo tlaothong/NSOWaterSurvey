@@ -220,7 +220,7 @@ export class ExportFilePage {
 
   cacheDirectory(){
      let path = this.file.cacheDirectory;
-    let folderName = 'water3';
+    let folderName = 'water4';
     this.file.createDir(path, folderName, true)
       .then(ty => {
         this.paths = "YYY"
@@ -256,5 +256,15 @@ export class ExportFilePage {
   externalDataDirectory() {
     this.paths = "externalDataDirectory" + this.file.externalDataDirectory;
   }
+
+  cacheDirectory2222(){
+    this.paths = this.file.cacheDirectory;
+    const alert = this.alert.create({
+      title: 'New Friend!',
+      subTitle: this.paths,
+      buttons: ['OK']
+    });
+    alert.present();
+ }
 
 }
