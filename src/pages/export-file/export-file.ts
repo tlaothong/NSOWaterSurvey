@@ -172,6 +172,7 @@ export class ExportFilePage {
 
   externalRootDirectory() {
     this.paths = "externalRootDirectory" + this.file.externalRootDirectory;
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   sdcardPath() {
@@ -184,6 +185,7 @@ export class ExportFilePage {
       .catch(en => {
         this.paths = "nooooo";
       })
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   storagePath() {
@@ -204,6 +206,7 @@ export class ExportFilePage {
       .catch(en => {
         this.paths = "Nooooo2"
       })
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   externalRootDirectoryPath() {
@@ -216,6 +219,7 @@ export class ExportFilePage {
       .catch(en => {
         this.paths = "NN"
       })
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   cacheDirectory(){
@@ -228,10 +232,12 @@ export class ExportFilePage {
       .catch(en => {
         this.paths = "NNN"
       })
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   applicationStorageDirectory() {
     this.paths = "applicationStorageDirectory" + this.file.applicationStorageDirectory;
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   other() {
@@ -243,28 +249,33 @@ export class ExportFilePage {
       .catch(en => {
       this.paths = en;
       })
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   externalApplicationStorageDirectory() {
     this.paths = "externalApplicationStorageDirectory" + this.file.externalApplicationStorageDirectory;
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   dataDirectory() {
     this.paths = "dataDirectory" + this.file.dataDirectory;
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   externalDataDirectory() {
     this.paths = "externalDataDirectory" + this.file.externalDataDirectory;
+    alert("Hello! I am an alert box!"+this.paths);
   }
 
   cacheDirectory2222(){
     this.paths = this.file.cacheDirectory;
-    const alert = this.alert.create({
+    const alert2 = this.alert.create({
       title: 'New Friend!',
       subTitle: this.paths,
       buttons: ['OK']
     });
-    alert.present();
+    alert2.present();
+    alert("Hello! I am an alert box!"+this.paths);
  }
 
 }
