@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ExportFilePage {
 
+  public paths: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private file: File, private storage: Storage,
     private alert: AlertController, private load: LoadingController) {
   }
@@ -34,12 +35,10 @@ export class ExportFilePage {
       enableBackdropDismiss: false,
     });
 
-    load.present();
 
-    const ROOT_DIRECTORY = this.file.externalRootDirectory;
+    const ROOT_DIRECTORY = this.file.cacheDirectory;
     // 'file:///sdcard//';
     const folderName = 'water';
-    alert(ROOT_DIRECTORY);
     let dirEntry = await this.file.createDir(ROOT_DIRECTORY, folderName, true);
 
     let keys = await this.storage.keys();
@@ -65,7 +64,6 @@ export class ExportFilePage {
         alert(exception);
       }
     }
-    load.dismiss();
   }
 
   exportCSV() {
@@ -173,32 +171,18 @@ export class ExportFilePage {
   }
 
   externalRootDirectory() {
-    let rootpath = this.file.externalRootDirectory;
-    let alert = this.alert.create({
-      message: rootpath,
-      buttons: ['ตกลง']
-    });
-    alert.present();
+    this.paths = "externalRootDirectory" + this.file.externalRootDirectory;
   }
 
   sdcardPath() {
     let path = 'file:///sdcard//';
     let folderName = 'water';
-    let alertYes = this.alert.create({
-      message: 'yesssss',
-      buttons: ['ตกลง']
-    });
-    let alertNo = this.alert.create({
-      message: 'nooooooo',
-      buttons: ['ตกลง']
-    });
     this.file.createDir(path, folderName, true)
       .then(ty => {
-        
-        alertYes.present();
+        this.paths = "yessss";
       })
       .catch(en => {
-        alertNo.present();
+        this.paths = "nooooo";
       })
   }
 
@@ -215,88 +199,62 @@ export class ExportFilePage {
     });
     this.file.createDir(path, folderName, true)
       .then(ty => {
-        alertYes.present();
+        this.paths = "Yessss2"
       })
       .catch(en => {
-        alertNo.present();
+        this.paths = "Nooooo2"
       })
   }
 
   externalRootDirectoryPath() {
     let path = this.file.externalRootDirectory;
     let folderName = 'water3';
-    let alertYes = this.alert.create({
-      message: 'yesssss',
-      buttons: ['ตกลง']
-    });
-    let alertNo = this.alert.create({
-      message: 'nooooooo',
-      buttons: ['ตกลง']
-    });
     this.file.createDir(path, folderName, true)
       .then(ty => {
-        alertYes.present();
+        this.paths = "YY"
       })
       .catch(en => {
-        alertNo.present();
+        this.paths = "NN"
+      })
+  }
+
+  cacheDirectory(){
+     let path = this.file.cacheDirectory;
+    let folderName = 'water3';
+    this.file.createDir(path, folderName, true)
+      .then(ty => {
+        this.paths = "YYY"
+      })
+      .catch(en => {
+        this.paths = "NNN"
       })
   }
 
   applicationStorageDirectory() {
-    let path = this.file.applicationStorageDirectory;
-    let alertYes = this.alert.create({
-      message: path,
-      buttons: ['ตกลง']
-    });
-    alertYes.present();
+    this.paths = "applicationStorageDirectory" + this.file.applicationStorageDirectory;
   }
 
   other() {
     let path = this.file.externalRootDirectory;
     let folder = 'water';
     this.file.checkDir(path, folder).then(en => {
-      let alertYes = this.alert.create({
-        title:'yesss',
-        message: en.valueOf.toString(),
-        buttons: ['ตกลง']
-      });
-      alertYes.present();
+      this.paths = en.valueOf.toString();
     })
       .catch(en => {
-        let alertNo = this.alert.create({
-          title:'nooooooooo',
-          message: en,
-          buttons: ['ตกลง']
-        });
-        alertNo.present();
+      this.paths = en;
       })
   }
 
   externalApplicationStorageDirectory() {
-    let path = this.file.externalApplicationStorageDirectory;
-    let alertNo = this.alert.create({
-      message: path,
-      buttons: ['ตกลง']
-    });
-    alertNo.present();
+    this.paths = "externalApplicationStorageDirectory" + this.file.externalApplicationStorageDirectory;
   }
 
   dataDirectory() {
-    let path = this.file.dataDirectory;
-    let alertNo = this.alert.create({
-      message: path,
-      buttons: ['ตกลง']
-    });
-    alertNo.present();
+    this.paths = "dataDirectory" + this.file.dataDirectory;
   }
 
   externalDataDirectory() {
-    let path = this.file.externalDataDirectory;
-    let alertNo = this.alert.create({
-      message: path,
-      buttons: ['ตกลง']
-    });
-    alertNo.present();
+    this.paths = "externalDataDirectory" + this.file.externalDataDirectory;
   }
 
 }

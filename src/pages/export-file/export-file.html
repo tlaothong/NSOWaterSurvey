@@ -20,9 +20,12 @@
   <button ion-button full color="secondary" (click)="externalApplicationStorageDirectory()">look externalApplicationStorageDirectory</button>
   <button ion-button full color="secondary" (click)="dataDirectory()">dataDirectory</button>
   <button ion-button full color="secondary" (click)="externalDataDirectory()">externalDataDirectory</button>
-  
+   <button ion-button full color="secondary" (click)="cacheDirectory()">Create dir with cacheDirectory</button>
+   
+  {{ path }}
 
-  <!-- <button ion-button full color="secondary" (click)="exportJSON()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ Text ไฟล์</button>
+  <button ion-button full color="secondary" (click)="exportJSON()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ Text ไฟล์</button>
+  <!-- 
   <button ion-button full (click)="exportCSV()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ CSV ไฟลล์</button>
   <button ion-button full color="light" (click)="import()">นำเข้าข้อมูลจากหน่วยความจำภายนอก</button> -->
 </ion-content>
