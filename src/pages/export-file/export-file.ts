@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'export-file.html',
 })
 export class ExportFilePage {
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private file: File, private storage: Storage,
     private alert: AlertController, private load: LoadingController) {
   }
@@ -61,7 +61,7 @@ export class ExportFilePage {
         }, errors => {
           alertFail.present();
         });
-      } catch(exception) {
+      } catch (exception) {
         alert(exception);
       }
     }
@@ -88,7 +88,7 @@ export class ExportFilePage {
             let fileDataBld = this.convertJsonToCsv(txt);
             console.log(fileDataBld);
             this.creatCSV('BuildingList', fileDataBld);
-           
+
           });
         }
         if (k.startsWith('unt4b1v')) {
@@ -97,7 +97,7 @@ export class ExportFilePage {
             let fileDataUnt = this.convertJsonToCsv(txt);
             console.log(fileDataUnt);
             this.creatCSV('HouseholdList', fileDataUnt);
-            
+
           });
         }
       }
@@ -170,6 +170,133 @@ export class ExportFilePage {
       buttons: ['ตกลง']
     });
     alert.present();
+  }
+
+  externalRootDirectory() {
+    let rootpath = this.file.externalRootDirectory;
+    let alert = this.alert.create({
+      message: rootpath,
+      buttons: ['ตกลง']
+    });
+    alert.present();
+  }
+
+  sdcardPath() {
+    let path = 'file:///sdcard//';
+    let folderName = 'water';
+    let alertYes = this.alert.create({
+      message: 'yesssss',
+      buttons: ['ตกลง']
+    });
+    let alertNo = this.alert.create({
+      message: 'nooooooo',
+      buttons: ['ตกลง']
+    });
+    this.file.createDir(path, folderName, true)
+      .then(ty => {
+        
+        alertYes.present();
+      })
+      .catch(en => {
+        alertNo.present();
+      })
+  }
+
+  storagePath() {
+    let path = 'file:///storage//';
+    let folderName = 'water2';
+    let alertYes = this.alert.create({
+      message: 'yesssss',
+      buttons: ['ตกลง']
+    });
+    let alertNo = this.alert.create({
+      message: 'nooooooo',
+      buttons: ['ตกลง']
+    });
+    this.file.createDir(path, folderName, true)
+      .then(ty => {
+        alertYes.present();
+      })
+      .catch(en => {
+        alertNo.present();
+      })
+  }
+
+  externalRootDirectoryPath() {
+    let path = this.file.externalRootDirectory;
+    let folderName = 'water3';
+    let alertYes = this.alert.create({
+      message: 'yesssss',
+      buttons: ['ตกลง']
+    });
+    let alertNo = this.alert.create({
+      message: 'nooooooo',
+      buttons: ['ตกลง']
+    });
+    this.file.createDir(path, folderName, true)
+      .then(ty => {
+        alertYes.present();
+      })
+      .catch(en => {
+        alertNo.present();
+      })
+  }
+
+  applicationStorageDirectory() {
+    let path = this.file.applicationStorageDirectory;
+    let alertYes = this.alert.create({
+      message: path,
+      buttons: ['ตกลง']
+    });
+    alertYes.present();
+  }
+
+  other() {
+    let path = this.file.externalRootDirectory;
+    let folder = 'water';
+    this.file.checkDir(path, folder).then(en => {
+      let alertYes = this.alert.create({
+        title:'yesss',
+        message: en.valueOf.toString(),
+        buttons: ['ตกลง']
+      });
+      alertYes.present();
+    })
+      .catch(en => {
+        let alertNo = this.alert.create({
+          title:'nooooooooo',
+          message: en,
+          buttons: ['ตกลง']
+        });
+        alertNo.present();
+      })
+  }
+
+  externalApplicationStorageDirectory() {
+    let path = this.file.externalApplicationStorageDirectory;
+    let alertNo = this.alert.create({
+      message: path,
+      buttons: ['ตกลง']
+    });
+    alertNo.present();
+  }
+
+  dataDirectory() {
+    let path = this.file.dataDirectory;
+    let alertNo = this.alert.create({
+      message: path,
+      buttons: ['ตกลง']
+    });
+    alertNo.present();
+  }
+
+  externalDataDirectory() {
+    let path = this.file.externalDataDirectory;
+    let alertNo = this.alert.create({
+      message: path,
+      buttons: ['ตกลง']
+    });
+    alertNo.present();
   }
 
 }
