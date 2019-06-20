@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'export-file.html',
 })
 export class ExportFilePage {
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private file: File, private storage: Storage,
     private alert: AlertController, private load: LoadingController) {
   }
@@ -34,57 +34,84 @@ export class ExportFilePage {
       enableBackdropDismiss: false,
     });
 
-    this.storage.keys().then(val => {
-      let keys = val;
-      console.log(keys);
-
-      for (let k of keys) {
-        if (k.startsWith('ulogin1v')) {
-          continue; // ignore login file
-        }
-        console.log(k);
-        this.storage.get(k).then(val => {
-          let txt = val;
-          let fileName = k + '.txt';
-          let fileData = JSON.stringify(txt);
-          const ROOT_DIRECTORY = this.file.externalRootDirectory;
-          // 'file:///sdcard//';
-          const folderName = 'water';
-          console.log(txt);
-          console.log(fileName);
-          console.log(fileData);
-          alert(ROOT_DIRECTORY);
-          this.file.createDir(ROOT_DIRECTORY, folderName, true)
-            .then((entries) => {
-              this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
-                .then((en) => {
-                  this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
+    load.present();
+    let directory = this.file.dataDirectory;
+    let folder = 'Water';
+    this.file.checkDir(directory, folder)
+      .then(en => {
+        if (en == true) {
+          this.storage.keys().then(val => {
+            let keys = val;
+            console.log(keys);
+            for (let k of keys) {
+              if (k.startsWith('ulogin1v')) {
+                continue; // ignore login file
+              }
+              let fileName = k + '.txt';
+              if (k.startsWith('bld1v') || k.startsWith('unt1v') || k.startsWith('bld2v') || k.startsWith('unt2v')) {
+                this.storage.get(k).then(val => {
+                  let txt = val;
+                  let fileData = JSON.stringify(txt);
+                  this.file.writeFile(directory + '/' + folder, fileName, fileData)
                     .then((en) => {
 
                     })
                     .catch((error) => {
-                      // load.dismiss();
+                      load.dismiss();
                       alertFail.present();
                     })
                 })
-                .catch((error) => {
-                  // load.dismiss();
-                  alertFail.present();
-                })
-            })
-            .catch((error) => {
-              // load.dismiss();
+              }
+              load.dismiss();
+              success.present();
+            }
+          })
+        } else {
+          this.file.createDir(directory, folder, true)
+            .then(en => {
+              this.storage.keys().then(val => {
+                let keys = val;
+                for (let k of keys) {
+                  if (k.startsWith('ulogin1v')) {
+                    continue; // ignore login file
+                  }
+                  if (k.startsWith('bld1v') || k.startsWith('unt1v') || k.startsWith('bld2v') || k.startsWith('unt2v')) {
+                    this.storage.get(k).then(val => {
+                      let txt = val;
+                      let fileName = k + '.txt';
+                      let fileData = JSON.stringify(txt);
+                      this.file.writeFile(directory + '/' + folder, fileName, fileData)
+                        .then((en) => {
+
+                        })
+                        .catch((error) => {
+                          load.dismiss();
+                          alertFail.present();
+                        })
+                    })
+                  }
+                  load.dismiss();
+                  success.present();
+                }
+              })
+            }).catch((error) => {
+              load.dismiss();
               alertFail.present();
-            });
-        });
-      }
-      // load.dismiss();
-      // success.present();
-    });
-    // load.present();
+            })
+        }
+      })
+      .catch((error) => {
+        load.dismiss();
+        alertFail.present();
+      })
   }
 
   exportCSV() {
+    let alertFail = this.alert.create({
+      title: 'ไม่พบหน่วยความจำภายนอก',
+      buttons: ['ตกลง'],
+    });
+
     let load = this.load.create({
       content: 'กำลังสำรองข้อมูลไปยังหน่วยความจำภายนอก',
       enableBackdropDismiss: false,
@@ -93,65 +120,76 @@ export class ExportFilePage {
       title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
       buttons: ['ตกลง'],
     });
-    this.storage.keys().then(val => {
-      let keys = val;
-      console.log(keys);
 
-      for (let k of keys) {
-        if (k.startsWith('bldlst1v')) {
-          this.storage.get(k).then(val => {
-            let txt = val;
-            let fileDataBld = this.convertJsonToCsv(txt);
-            console.log(fileDataBld);
-            this.creatCSV('BuildingList', fileDataBld);
-           
-          });
-        }
-        if (k.startsWith('unt4b1v')) {
-          this.storage.get(k).then(val => {
-            let txt = val;
-            let fileDataUnt = this.convertJsonToCsv(txt);
-            console.log(fileDataUnt);
-            this.creatCSV('HouseholdList', fileDataUnt);
-            
-          });
-        }
-      }
-      load.dismiss();
-      success.present();
-    });
     load.present();
-  }
+    let directory = this.file.dataDirectory;
+    let folder = 'Water';
+    this.file.checkDir(directory, folder)
+      .then(en => {
+        if (en == true) {
+          this.storage.keys().then(val => {
+            let keys = val;
+            for (let k of keys) {
+              if (k.startsWith('ulogin1v')) {
+                continue; // ignore login file
+              }
+              if (k.startsWith('bldlst1v') || k.startsWith('unt4b1v') || k.startsWith('bldlst2v') || k.startsWith('unt4b2v')) {
+                this.storage.get(k).then(val => {
+                  let txt = val;
+                  let fileData = this.convertJsonToCsv(txt);
+                  let fileName = k + '.csv';
+                  this.file.writeFile(directory + '/' + folder, fileName, fileData)
+                    .then((en) => {
 
-  creatCSV(name: string, fileData) {
-    let alert = this.alert.create({
-      title: 'ไม่พบหน่วยความจำภายนอก',
-      buttons: ['ตกลง'],
-    });
-
-    let fileName = name + '.csv';
-    const ROOT_DIRECTORY = this.file.externalRootDirectory;
-    // 'file:///sdcard//';
-    const folderName = 'water'
-    this.file.createDir(ROOT_DIRECTORY, folderName, true)
-      .then((entries) => {
-        this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
-          .then((en) => {
-            this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
-              .then((en) => {
-
-              })
-              .catch((error) => {
-                alert.present();
-              })
+                    })
+                    .catch((error) => {
+                      load.dismiss();
+                      alertFail.present();
+                    })
+                })
+              }
+              load.dismiss();
+              success.present();
+            }
           })
-          .catch((error) => {
-            alert.present();
-          })
+        } else {
+          this.file.createDir(directory, folder, true)
+            .then(en => {
+              this.storage.keys().then(val => {
+                let keys = val;
+                for (let k of keys) {
+                  if (k.startsWith('ulogin1v')) {
+                    continue; // ignore login file
+                  }
+                  if (k.startsWith('bldlst1v') || k.startsWith('unt4b1v') || k.startsWith('bldlst2v') || k.startsWith('unt4b2v')) {
+                    this.storage.get(k).then(val => {
+                      let txt = val;
+                      let fileData = this.convertJsonToCsv(txt);
+                      let fileName = k + '.csv';
+                      this.file.writeFile(directory + '/' + folder, fileName, fileData)
+                        .then((en) => {
+
+                        })
+                        .catch((error) => {
+                          load.dismiss();
+                          alertFail.present();
+                        })
+                    })
+                  }
+                  load.dismiss();
+                  success.present();
+                }
+              })
+            })
+            .catch((error) => {
+              load.dismiss();
+              alertFail.present();
+            })
+        }
+      }).catch((error) => {
+        load.dismiss();
+        alertFail.present();
       })
-      .catch((error) => {
-        alert.present();
-      });
   }
 
   convertJsonToCsv(fileData) {
