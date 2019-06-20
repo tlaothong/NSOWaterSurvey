@@ -16,9 +16,6 @@ export class ExportFilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private file: File, private storage: Storage,
     private alert2: AlertController, private load: LoadingController, private plt: Platform) {
     this.plt.ready().then(() => {
-      console.log("2");
-
-      // make sure this is on a device, not an emulation (e.g. chrome tools device mode)
       if (this.plt.is('ios')) {
         alert("IOS")
       }
@@ -62,20 +59,19 @@ export class ExportFilePage {
             if (k.startsWith('ulogin1v')) {
               continue; // ignore login file
             }
-            if (k.startsWith('bld1v') || k.startsWith('unt1v') || k.startsWith('bld2v') || k.startsWith('unt2v')) {
-              this.storage.get(k).then(val => {
-                let txt = val;
-                let fileName = k + '.txt';
-                let fileData = JSON.stringify(txt);
-                this.file.writeFile(directory + '/' + folder, fileName, fileData)
-                  .then((en) => {
-                  })
-                  .catch((error) => {
-                    load.dismiss();
-                    alertFail.present();
-                  })
-              })
-            }
+            this.storage.get(k).then(val => {
+              let txt = val;
+              let fileName = k + '.txt';
+              let fileData = JSON.stringify(txt);
+              this.file.writeFile(directory + '/' + folder, fileName, fileData, { replace: true })
+                .then((en) => {
+                })
+                .catch((error) => {
+                  load.dismiss();
+                  alertFail.present();
+                })
+            })
+
             load.dismiss();
             success.present();
           }
@@ -117,7 +113,7 @@ export class ExportFilePage {
                 let txt = val;
                 let fileData = this.convertJsonToCsv(txt);
                 let fileName = k + '.csv';
-                this.file.writeFile(directory + '/' + folder, fileName, fileData)
+                this.file.writeFile(directory + '/' + folder, fileName, fileData, { replace: true })
                   .then((en) => {
 
                   })
@@ -166,7 +162,7 @@ export class ExportFilePage {
 
   import() {
     let alert = this.alert2.create({
-      message: 'templete error invalid feild!!!',
+      message: 'ความสามารถนี้อยู่ใน Manu ส่งงาน',
       buttons: ['ตกลง']
     });
     alert.present();

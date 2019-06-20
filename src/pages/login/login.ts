@@ -53,24 +53,9 @@ export class LoginPage {
       message: 'รหัสผ่านไม่ถูกต้อง',
       buttons: ['ตกลง']
     });
-   
-    if (userId == '40500026' && password == '1234') {
-      this.store.dispatch(new LoginUser(userId));
-        this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
-          if (hasDownloaded) {
-            // this.store.dispatch(new DownloadUserToMobile());
-            this.navCtrl.setRoot("SelectEaPage");
-            //  this.presentLoading();
-          } else {
-            this.navCtrl.push("GetworkPage");
-          }
-        });
-    }
-    // this.dataStore.validateUser(userId, password).then(valid => {
-    //   if (!valid) {
-    //     wrongPassword.present();
-    //   } else {
-    //     this.store.dispatch(new LoginUser(userId));
+
+    // if (userId == '40500026' && password == '1234') {
+    //   this.store.dispatch(new LoginUser(userId));
     //     this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
     //       if (hasDownloaded) {
     //         // this.store.dispatch(new DownloadUserToMobile());
@@ -80,8 +65,21 @@ export class LoginPage {
     //         this.navCtrl.push("GetworkPage");
     //       }
     //     });
-    //   }
-    // });
+    // }
+    this.dataStore.validateUser(userId, password).then(valid => {
+      if (!valid) {
+        wrongPassword.present();
+      } else {
+        this.store.dispatch(new LoginUser(userId));
+        this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+          if (hasDownloaded) {
+            this.navCtrl.setRoot("SelectEaPage");
+          } else {
+            this.navCtrl.push("GetworkPage");
+          }
+        });
+      }
+    });
 
 
     /********************** */
