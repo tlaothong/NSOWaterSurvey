@@ -11,21 +11,10 @@
 
 
 <ion-content padding>
-  <button ion-button full color="secondary" (click)="externalRootDirectory()">Look externalRootDirectory</button>
-  <button ion-button full color="secondary" (click)="cacheDirectory2222()">Look cacheDirectory2222</button>
-  <button ion-button full color="secondary" (click)="sdcardPath()">Create dir sdcardPath</button>
-  <button ion-button full color="secondary" (click)="storagePath()">Create dir storagePath</button>
-  <button ion-button full color="secondary" (click)="externalRootDirectoryPath()">Create dir externalRootDirectoryPath</button>
-  <button ion-button full color="secondary" (click)="applicationStorageDirectory()">Look applicationStorageDirectory</button>
-  <button ion-button full color="secondary" (click)="other()">check dir with externalRootDirectory</button>
-  <button ion-button full color="secondary" (click)="externalApplicationStorageDirectory()">look externalApplicationStorageDirectory</button>
-  <button ion-button full color="secondary" (click)="dataDirectory()">dataDirectory</button>
-  <button ion-button full color="secondary" (click)="externalDataDirectory()">externalDataDirectory</button>
-   <button ion-button full color="secondary" (click)="cacheDirectory()">Create dir with cacheDirectory</button>
-   <ion-label>{{ paths }}</ion-label>
-  {{ paths }}
-
-  <button ion-button full color="secondary" (click)="exportJSON()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ Text ไฟล์</button>
+  <button ion-button full color="secondary" (click)="exportJSON()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ Text
+    ไฟล์</button>
+  <button ion-button full (click)="exportCSV()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ CSV ไฟลล์</button>
+  <button ion-button full color="light" (click)="import()">นำเข้าข้อมูลจากหน่วยความจำภายนอก</button>
   <!-- 
   <button ion-button full (click)="exportCSV()">สำรองข้อมูลไปยังหน่วยความจำภายนอก ในรูปแบบ CSV ไฟลล์</button>
   <button ion-button full color="light" (click)="import()">นำเข้าข้อมูลจากหน่วยความจำภายนอก</button> -->

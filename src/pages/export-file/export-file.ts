@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
+import { Platform } from 'ionic-angular/platform/platform';
 
 @IonicPage()
 @Component({
@@ -10,22 +11,37 @@ import { Storage } from '@ionic/storage';
 })
 export class ExportFilePage {
 
-  public paths: string;
+  public storageDirectory: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private file: File, private storage: Storage,
-    private alert: AlertController, private load: LoadingController) {
+    private alert2: AlertController, private load: LoadingController, private plt: Platform) {
+    this.plt.ready().then(() => {
+      console.log("2");
+
+      // make sure this is on a device, not an emulation (e.g. chrome tools device mode)
+      if (this.plt.is('ios')) {
+        alert("IOS")
+      }
+      else if (this.plt.is('android')) {
+        this.storageDirectory = this.file.externalRootDirectory;
+      }
+      else {
+        return false;
+      }
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExportFilePage');
   }
 
-  async exportJSON() {
-    let alertFail = this.alert.create({
+  exportJSON() {
+    let alertFail = this.alert2.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
     });
 
-    let success = this.alert.create({
+    let success = this.alert2.create({
       title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
       buttons: ['ตกลง'],
     });
@@ -35,105 +51,91 @@ export class ExportFilePage {
       enableBackdropDismiss: false,
     });
 
-
-    const ROOT_DIRECTORY = this.file.cacheDirectory;
-    // 'file:///sdcard//';
-    const folderName = 'water';
-    let dirEntry = await this.file.createDir(ROOT_DIRECTORY, folderName, true);
-
-    let keys = await this.storage.keys();
-
-    for (const k of keys) {
-      if (k.startsWith('ulogin1v')) {
-        continue; // ignore login file
-      }
-      console.log('k', k);
-
-      try {
-        let fileName = k + '.txt';
-        let fileEntry = await this.file.createFile(dirEntry.fullPath, fileName, true);
-        fileEntry.createWriter(async writer => {
-          let txt = await this.storage.get(k);
-          let fileData = JSON.stringify(txt);
-          let dataObj = new Blob([fileData], { type: 'text/plain' });
-          await writer.write(dataObj);
-        }, errors => {
-          alertFail.present();
-        });
-      } catch (exception) {
-        alert(exception);
-      }
-    }
+    load.present();
+    let directory = this.storageDirectory;
+    let folder = 'Water';
+    this.file.createDir(directory, folder, true)
+      .then(en => {
+        this.storage.keys().then(val => {
+          let keys = val;
+          for (let k of keys) {
+            if (k.startsWith('ulogin1v')) {
+              continue; // ignore login file
+            }
+            if (k.startsWith('bld1v') || k.startsWith('unt1v') || k.startsWith('bld2v') || k.startsWith('unt2v')) {
+              this.storage.get(k).then(val => {
+                let txt = val;
+                let fileName = k + '.txt';
+                let fileData = JSON.stringify(txt);
+                this.file.writeFile(directory + '/' + folder, fileName, fileData)
+                  .then((en) => {
+                  })
+                  .catch((error) => {
+                    load.dismiss();
+                    alertFail.present();
+                  })
+              })
+            }
+            load.dismiss();
+            success.present();
+          }
+        })
+      }).catch((error) => {
+        load.dismiss();
+        alertFail.present();
+      })
   }
 
   exportCSV() {
-    let load = this.load.create({
-      content: 'กำลังสำรองข้อมูลไปยังหน่วยความจำภายนอก',
-      enableBackdropDismiss: false,
-    });
-    let success = this.alert.create({
-      title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
-      buttons: ['ตกลง'],
-    });
-    this.storage.keys().then(val => {
-      let keys = val;
-      console.log(keys);
-
-      for (let k of keys) {
-        if (k.startsWith('bldlst1v')) {
-          this.storage.get(k).then(val => {
-            let txt = val;
-            let fileDataBld = this.convertJsonToCsv(txt);
-            console.log(fileDataBld);
-            this.creatCSV('BuildingList', fileDataBld);
-
-          });
-        }
-        if (k.startsWith('unt4b1v')) {
-          this.storage.get(k).then(val => {
-            let txt = val;
-            let fileDataUnt = this.convertJsonToCsv(txt);
-            console.log(fileDataUnt);
-            this.creatCSV('HouseholdList', fileDataUnt);
-
-          });
-        }
-      }
-      load.dismiss();
-      success.present();
-    });
-    load.present();
-  }
-
-  creatCSV(name: string, fileData) {
-    let alert = this.alert.create({
+    let alertFail = this.alert2.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
     });
 
-    let fileName = name + '.csv';
-    const ROOT_DIRECTORY = this.file.externalRootDirectory;
-    // 'file:///sdcard//';
-    const folderName = 'water'
-    this.file.createDir(ROOT_DIRECTORY, folderName, true)
-      .then((entries) => {
-        this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
-          .then((en) => {
-            this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
-              .then((en) => {
+    let load = this.load.create({
+      content: 'กำลังสำรองข้อมูลไปยังหน่วยความจำภายนอก',
+      enableBackdropDismiss: false,
+    });
+    let success = this.alert2.create({
+      title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
+      buttons: ['ตกลง'],
+    });
 
+    load.present();
+    let directory = this.storageDirectory;
+    let folder = 'Water';
+    this.file.createDir(directory, folder, true)
+      .then(en => {
+        this.storage.keys().then(val => {
+          let keys = val;
+          for (let k of keys) {
+            if (k.startsWith('ulogin1v')) {
+              continue; // ignore login file
+            }
+            if (k.startsWith('bldlst1v') || k.startsWith('unt4b1v') || k.startsWith('bldlst2v') || k.startsWith('unt4b2v')) {
+              this.storage.get(k).then(val => {
+                let txt = val;
+                let fileData = this.convertJsonToCsv(txt);
+                let fileName = k + '.csv';
+                this.file.writeFile(directory + '/' + folder, fileName, fileData)
+                  .then((en) => {
+
+                  })
+                  .catch((error) => {
+                    load.dismiss();
+                    alertFail.present();
+                  })
               })
-              .catch((error) => {
-                alert.present();
-              })
-          })
-          .catch((error) => {
-            alert.present();
-          })
+            }
+            load.dismiss();
+            success.present();
+          }
+        })
       })
       .catch((error) => {
-        alert.present();
-      });
+        load.dismiss();
+        alertFail.present();
+      })
   }
 
   convertJsonToCsv(fileData) {
@@ -163,119 +165,11 @@ export class ExportFilePage {
   }
 
   import() {
-    let alert = this.alert.create({
+    let alert = this.alert2.create({
       message: 'templete error invalid feild!!!',
       buttons: ['ตกลง']
     });
     alert.present();
   }
-
-  externalRootDirectory() {
-    this.paths = "externalRootDirectory" + this.file.externalRootDirectory;
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  sdcardPath() {
-    let path = 'file:///sdcard//';
-    let folderName = 'water';
-    this.file.createDir(path, folderName, true)
-      .then(ty => {
-        this.paths = "yessss";
-      })
-      .catch(en => {
-        this.paths = "nooooo";
-      })
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  storagePath() {
-    let path = 'file:///storage//';
-    let folderName = 'water2';
-    let alertYes = this.alert.create({
-      message: 'yesssss',
-      buttons: ['ตกลง']
-    });
-    let alertNo = this.alert.create({
-      message: 'nooooooo',
-      buttons: ['ตกลง']
-    });
-    this.file.createDir(path, folderName, true)
-      .then(ty => {
-        this.paths = "Yessss2"
-      })
-      .catch(en => {
-        this.paths = "Nooooo2"
-      })
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  externalRootDirectoryPath() {
-    let path = this.file.externalRootDirectory;
-    let folderName = 'water3';
-    this.file.createDir(path, folderName, true)
-      .then(ty => {
-        this.paths = "YY"
-      })
-      .catch(en => {
-        this.paths = "NN"
-      })
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  cacheDirectory(){
-     let path = this.file.cacheDirectory;
-    let folderName = 'water4';
-    this.file.createDir(path, folderName, true)
-      .then(ty => {
-        this.paths = "YYY"
-      })
-      .catch(en => {
-        this.paths = "NNN"
-      })
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  applicationStorageDirectory() {
-    this.paths = "applicationStorageDirectory" + this.file.applicationStorageDirectory;
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  other() {
-    let path = this.file.externalRootDirectory;
-    let folder = 'water';
-    this.file.checkDir(path, folder).then(en => {
-      this.paths = en.valueOf.toString();
-    })
-      .catch(en => {
-      this.paths = en;
-      })
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  externalApplicationStorageDirectory() {
-    this.paths = "externalApplicationStorageDirectory" + this.file.externalApplicationStorageDirectory;
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  dataDirectory() {
-    this.paths = "dataDirectory" + this.file.dataDirectory;
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  externalDataDirectory() {
-    this.paths = "externalDataDirectory" + this.file.externalDataDirectory;
-    alert("Hello! I am an alert box!"+this.paths);
-  }
-
-  cacheDirectory2222(){
-    this.paths = this.file.cacheDirectory;
-    const alert2 = this.alert.create({
-      title: 'New Friend!',
-      subTitle: this.paths,
-      buttons: ['OK']
-    });
-    alert2.present();
-    alert("Hello! I am an alert box!"+this.paths);
- }
 
 }
