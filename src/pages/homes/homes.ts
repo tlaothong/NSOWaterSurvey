@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, AlertController, LoadingController } from 'ionic-angular';
 import { QuestionnaireHomeComponent } from '../../components/questionnaire-home/questionnaire-home';
 import { Store } from '@ngrx/store';
@@ -214,7 +214,7 @@ export class HomesPage {
 
   async presentAlertBD(item) {
     const alert = await this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: '<b style="font-size:30px">(การลบข้อมูลที่มีความถูกต้องอยู่แล้ว จะทำให้สถานะข้อมูลผิดพลาดและไม่เกิดประโยชน์ใดๆ)</b><br>ต้องการจะลบใช่หรือไม่',
       buttons: [
         {
           text: 'ยกเลิก',
