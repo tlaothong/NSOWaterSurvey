@@ -83,7 +83,7 @@ export class BuidlingInformation2Page {
         'waterBill': [null, Validators],
       }),
       'floorCount': [null, [Validators, Validators.min(1)]],
-      'peopleCount': [null, [Validators.min(1)]],
+      'peopleCount': null,
       '_id': [null],
       'status': [null],
       // 'lastUpdate': null,
