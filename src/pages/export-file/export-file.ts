@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
+import { Platform } from 'ionic-angular/platform/platform';
 
 @IonicPage()
 @Component({
@@ -9,9 +10,22 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'export-file.html',
 })
 export class ExportFilePage {
-  
+
+  public storageDirectory: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private file: File, private storage: Storage,
-    private alert: AlertController, private load: LoadingController) {
+    private alert2: AlertController, private load: LoadingController, private plt: Platform) {
+    this.plt.ready().then(() => {
+      if (this.plt.is('ios')) {
+        alert("IOS")
+      }
+      else if (this.plt.is('android')) {
+        this.storageDirectory = this.file.externalRootDirectory;
+      }
+      else {
+        return false;
+      }
+    });
   }
 
   ionViewDidLoad() {
@@ -19,12 +33,12 @@ export class ExportFilePage {
   }
 
   exportJSON() {
-    let alert = this.alert.create({
+    let alertFail = this.alert2.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
     });
 
-    let success = this.alert.create({
+    let success = this.alert2.create({
       title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
       buttons: ['ตกลง'],
     });
@@ -34,123 +48,90 @@ export class ExportFilePage {
       enableBackdropDismiss: false,
     });
 
-    this.storage.keys().then(val => {
-      let keys = val;
-      console.log(keys);
-
-      for (let k of keys) {
-        if (k.startsWith('ulogin1v')) {
-          continue; // ignore login file
-        }
-        console.log(k);
-        this.storage.get(k).then(val => {
-          let txt = val;
-          let fileName = k + '.txt';
-          let fileData = JSON.stringify(txt);
-          const ROOT_DIRECTORY = this.file.externalRootDirectory;
-          // 'file:///sdcard//';
-          const folderName = 'water';
-          console.log(txt);
-          console.log(fileName);
-          console.log(fileData);
-          this.file.createDir(ROOT_DIRECTORY, folderName, true)
-            .then((entries) => {
-              this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
+    load.present();
+    let directory = this.storageDirectory;
+    let folder = 'Water';
+    this.file.createDir(directory, folder, true)
+      .then(en => {
+        this.storage.keys().then(val => {
+          let keys = val;
+          for (let k of keys) {
+            if (k.startsWith('ulogin1v')) {
+              continue; // ignore login file
+            }
+            this.storage.get(k).then(val => {
+              let txt = val;
+              let fileName = k + '.txt';
+              let fileData = JSON.stringify(txt);
+              this.file.writeFile(directory + '/' + folder, fileName, fileData, { replace: true })
                 .then((en) => {
-                  this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
-                    .then((en) => {
-
-                    })
-                    .catch((error) => {
-                      load.dismiss();
-                      alert.present();
-                    })
                 })
                 .catch((error) => {
                   load.dismiss();
-                  alert.present();
+                  alertFail.present();
                 })
             })
-            .catch((error) => {
-              load.dismiss();
-              alert.present();
-            });
-        });
-      }
-      load.dismiss();
-      success.present();
-    });
-    load.present();
+
+            load.dismiss();
+            success.present();
+          }
+        })
+      }).catch((error) => {
+        load.dismiss();
+        alertFail.present();
+      })
   }
 
   exportCSV() {
-    let load = this.load.create({
-      content: 'กำลังสำรองข้อมูลไปยังหน่วยความจำภายนอก',
-      enableBackdropDismiss: false,
-    });
-    let success = this.alert.create({
-      title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
-      buttons: ['ตกลง'],
-    });
-    this.storage.keys().then(val => {
-      let keys = val;
-      console.log(keys);
-
-      for (let k of keys) {
-        if (k.startsWith('bldlst1v')) {
-          this.storage.get(k).then(val => {
-            let txt = val;
-            let fileDataBld = this.convertJsonToCsv(txt);
-            console.log(fileDataBld);
-            this.creatCSV('BuildingList', fileDataBld);
-           
-          });
-        }
-        if (k.startsWith('unt4b1v')) {
-          this.storage.get(k).then(val => {
-            let txt = val;
-            let fileDataUnt = this.convertJsonToCsv(txt);
-            console.log(fileDataUnt);
-            this.creatCSV('HouseholdList', fileDataUnt);
-            
-          });
-        }
-      }
-      load.dismiss();
-      success.present();
-    });
-    load.present();
-  }
-
-  creatCSV(name: string, fileData) {
-    let alert = this.alert.create({
+    let alertFail = this.alert2.create({
       title: 'ไม่พบหน่วยความจำภายนอก',
       buttons: ['ตกลง'],
     });
 
-    let fileName = name + '.csv';
-    const ROOT_DIRECTORY = this.file.externalRootDirectory;
-    // 'file:///sdcard//';
-    const folderName = 'water'
-    this.file.createDir(ROOT_DIRECTORY, folderName, true)
-      .then((entries) => {
-        this.file.createFile(ROOT_DIRECTORY + folderName + '/', fileName, true)
-          .then((en) => {
-            this.file.writeFile(ROOT_DIRECTORY + folderName + '/', fileName, fileData)
-              .then((en) => {
+    let load = this.load.create({
+      content: 'กำลังสำรองข้อมูลไปยังหน่วยความจำภายนอก',
+      enableBackdropDismiss: false,
+    });
+    let success = this.alert2.create({
+      title: 'สำรองข้อมูลไปยังหน่วยความจำภายนอกเรียบร้อยแล้ว',
+      buttons: ['ตกลง'],
+    });
 
+    load.present();
+    let directory = this.storageDirectory;
+    let folder = 'Water';
+    this.file.createDir(directory, folder, true)
+      .then(en => {
+        this.storage.keys().then(val => {
+          let keys = val;
+          for (let k of keys) {
+            if (k.startsWith('ulogin1v')) {
+              continue; // ignore login file
+            }
+            if (k.startsWith('bldlst1v') || k.startsWith('unt4b1v') || k.startsWith('bldlst2v') || k.startsWith('unt4b2v')) {
+              this.storage.get(k).then(val => {
+                let txt = val;
+                let fileData = this.convertJsonToCsv(txt);
+                let fileName = k + '.csv';
+                this.file.writeFile(directory + '/' + folder, fileName, fileData, { replace: true })
+                  .then((en) => {
+
+                  })
+                  .catch((error) => {
+                    load.dismiss();
+                    alertFail.present();
+                  })
               })
-              .catch((error) => {
-                alert.present();
-              })
-          })
-          .catch((error) => {
-            alert.present();
-          })
+            }
+            load.dismiss();
+            success.present();
+          }
+        })
       })
       .catch((error) => {
-        alert.present();
-      });
+        load.dismiss();
+        alertFail.present();
+      })
   }
 
   convertJsonToCsv(fileData) {
@@ -180,8 +161,8 @@ export class ExportFilePage {
   }
 
   import() {
-    let alert = this.alert.create({
-      message: 'templete error invalid feild!!!',
+    let alert = this.alert2.create({
+      message: 'ความสามารถนี้อยู่ใน Manu ส่งงาน',
       buttons: ['ตกลง']
     });
     alert.present();

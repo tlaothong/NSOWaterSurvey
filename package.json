@@ -23,7 +23,7 @@
     "@ionic-native/app-center-push": "^4.20.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/device": "^4.20.0",
-    "@ionic-native/file": "^5.8.0",
+    "@ionic-native/file": "^4.20.0",
     "@ionic-native/geolocation": "^4.20.0",
     "@ionic-native/onesignal": "^4.20.0",
     "@ionic-native/qr-scanner": "^4.20.0",

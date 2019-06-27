@@ -216,7 +216,7 @@ export class HomesPage {
 
   async presentAlertBD(item) {
     const alert = await this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: 'ต้องการจะลบใช่หรือไม่<br><b style="font-size:25px">(โปรดระวัง ! การลบข้อมูลที่สมบูรณ์ในแท็บเล็ต จะมีผลต่อข้อมูลที่ส่งขึ้นระบบเว็บไปแล้ว จะถูกลบไปด้วย)</b>',
       buttons: [
         {
           text: 'ยกเลิก',
