@@ -218,7 +218,7 @@ export class SendPage {
       type: 'checkbox',
       label: 'ต้องการทับงานของตัวเอง?',
       value: 'checktub',
-      checked: false,
+      checked: true,
     });
     showDownload.addButton('ยกเลิก');
     showDownload.addButton({
@@ -233,7 +233,7 @@ export class SendPage {
         // if (dataAlert.length == 0) { //ไม่ทับ
         this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
           console.log(data);
-          this.totalItem = Math.max(1, data.totalSurveys - 1);
+          this.totalItem = Math.max(1, data.totalSurveys);
           for (const it of data.data) {
             let eaCode = it.ea;
 

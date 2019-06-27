@@ -17,6 +17,7 @@ import { SetCurrentWorkingCommunity, NewCommunity, DeleteCommunity } from '../..
 import { getCommunityList } from '../../states/community';
 import { DataStoreProvider, StatusEA } from '../../providers/data-store/data-store';
 import { take } from 'rxjs/operator/take';
+import { Observable } from 'rxjs';
 
 
 
@@ -28,7 +29,7 @@ import { take } from 'rxjs/operator/take';
 export class HomesPage {
   // data: StatusEA ;
   formItem: FormGroup;
-  office: string = "building";
+  office = "building";
   x: number = 0;
   // public dataEa: any;
   public datap: any[];
@@ -158,7 +159,8 @@ export class HomesPage {
   }
 
   switchListMode() {
-    this.buildingList$ = this.buildings$;
+
+    // this.buildingList$ = this.buildings$;
     switch (this.listMode) {
       case "recent":
         this.buildingList$ = this.buildingListRecentlyUse$;
@@ -214,7 +216,7 @@ export class HomesPage {
 
   async presentAlertBD(item) {
     const alert = await this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: 'ต้องการจะลบใช่หรือไม่<br><b style="font-size:25px">(โปรดระวัง ! การลบข้อมูลที่สมบูรณ์ในแท็บเล็ต จะมีผลต่อข้อมูลที่ส่งขึ้นระบบเว็บไปแล้ว จะถูกลบไปด้วย)</b>',
       buttons: [
         {
           text: 'ยกเลิก',

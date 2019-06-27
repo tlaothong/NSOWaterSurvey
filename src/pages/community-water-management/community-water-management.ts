@@ -12,7 +12,7 @@ import { getCommunitySample } from '../../states/community';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
 import { SaveCommunity } from '../../states/community/community.actions';
-import { subDistrictDataPump } from '../../models/SubDistrictDataPump';
+import { SubDistrict, subDistrictData } from '../../models/SubDistrictData';
 
 @IonicPage()
 @Component({
@@ -41,6 +41,7 @@ export class CommunityWaterManagementPage {
   // private getIdHomes$ = this.store.select(getIdEsWorkHomes);
   // private getIdHomes: any;
   public subDistrict: any;
+  public subDistrictData: SubDistrict[] = subDistrictData;
   public MWA: boolean;
   public PWA: boolean;
   public isCheckWarningBox: boolean;
@@ -116,7 +117,7 @@ export class CommunityWaterManagementPage {
 
     var cwtamptam = this.appState.eaCode.substr(1, 6);
     console.log(cwtamptam);
-    this.subDistrict = subDistrictDataPump.find(it => it.codeSubDistrict == Number(cwtamptam));
+    this.subDistrict = this.subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
     this.MWA = this.subDistrict.MWA;
     this.PWA = this.subDistrict.PWA;
     if (this.MWA == false) {
