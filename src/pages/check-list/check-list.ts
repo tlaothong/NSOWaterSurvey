@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
-import { SetSelectorIndex, SetBackToRoot, SetBack } from '../../states/household/household.actions';
+import { SetSelectorIndex2, SetBackToRoot, SetBack } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -105,7 +105,7 @@ export class CheckListPage {
     for (let i = this.index + 1; i <= 23; i++) {
       if (arrayNextPage[i]) {
         console.log("goNextPage");
-        this.store.dispatch(new SetSelectorIndex(i));
+        this.store.dispatch(new SetSelectorIndex2(i));
         console.log("i", i);
 
         this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
@@ -118,7 +118,7 @@ export class CheckListPage {
     for (let i = this.index - 1; i >= 0; i--) {
       if (arrayNextPage[i]) {
         console.log("goBackPage");
-        this.store.dispatch(new SetSelectorIndex(i));
+        this.store.dispatch(new SetSelectorIndex2(i));
         this.store.dispatch(new SetBack(false));
         this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
         break;
@@ -175,7 +175,7 @@ export class CheckListPage {
   public openPage(page, index) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.store.dispatch(new SetSelectorIndex(index));
+    this.store.dispatch(new SetSelectorIndex2(index));
     this.store.dispatch(new SetBackToRoot(false));
     this.store.dispatch(new SetBack(false));
     this.navCtrl.push(page.component);
