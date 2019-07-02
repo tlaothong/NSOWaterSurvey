@@ -120,6 +120,7 @@ export class HouseHoldEffects {
                 const surveyForm = HouseHoldEffects.surveyForms[index];
                 let unitSurveys = this.appState.houseHoldUnit.surveyCompleted;
                 let surveyInUnit = unitSurveys.find(it => it.name == surveyForm.name);
+                console.log("setSelectorIndex", unitSurveys);
 
                 if (surveyInUnit) {
                     surveyInUnit.hasCompleted = true;
@@ -131,6 +132,34 @@ export class HouseHoldEffects {
                     };
                     unitSurveys.push(surveyInUnit);
                 }
+
+                const toGo = unitSurveys.filter(it => it.isNeed == true).length;
+                const completed = unitSurveys.filter(it => it.isNeed == true && it.hasCompleted == true).length;
+
+                const progress = {
+                    progressCompleted: completed,
+                    progressToGo: toGo,
+                };
+
+                return new UpdateProgress(index, progress);
+            }
+
+            return new UpdateProgress(index, exProgress);
+        }),
+    );
+
+    @Effect()
+    public setSelectorIndex2$: Observable<Action> = this.action$.pipe(
+        ofType<SetSelectorIndex>(HouseHoldTypes.SetSelectorIndex2),
+        withLatestFrom(this.store.select(getProgress)),
+        map(([action, exProgress]) => {
+            const index = action.payload;
+
+            if (index >= 0 && index < HouseHoldEffects.surveyForms.length && this.appState && this.appState.houseHoldUnit) {
+                const surveyForm = HouseHoldEffects.surveyForms[index];
+                let unitSurveys = this.appState.houseHoldUnit.surveyCompleted;
+                console.log("setSelectorIndex2", unitSurveys);
+
 
                 const toGo = unitSurveys.filter(it => it.isNeed == true).length;
                 const completed = unitSurveys.filter(it => it.isNeed == true && it.hasCompleted == true).length;
