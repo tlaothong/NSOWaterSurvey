@@ -6,7 +6,7 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 import { SetCurrentStatusState } from '../../states/bootup/bootup.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
-import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA, HouseHoldUnit } from '../../models/mobile/MobileModels';
+import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA, HouseHoldUnit, delayTime } from '../../models/mobile/MobileModels';
 import { HttpClient } from '@angular/common/http';
 import { BuildingState } from '../../states/building/building.reducer';
 import { SaveBuilding, LoadBuildingSample, LoadBuildingList, BuildingInList, SetCurrentWorkingBuilding, SetArrResol } from '../../states/building/building.actions';
@@ -161,7 +161,7 @@ export class SendPage {
     this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
       this.getUpload1 = d2c;
       console.log(this.getUpload1);
-      
+
       let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
       this.countUploadAll = Math.max(1, keys.length);
@@ -192,7 +192,9 @@ export class SendPage {
         showError.present();
       } else {
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
-          this.delayTime = data;
+          this.delayTime = data.delayTime;
+          console.log(this.delayTime);
+
           this.checkDownload = true;
           setTimeout(_ => {
             console.log("upload sucess");
@@ -204,7 +206,7 @@ export class SendPage {
             loading.dismiss();
             showSuccess.present();
             // showSuccess.present();
-          }, 4500);
+          }, this.delayTime);
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = true;
           }
