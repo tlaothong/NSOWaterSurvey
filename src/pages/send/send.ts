@@ -204,7 +204,7 @@ export class SendPage {
             loading.dismiss();
             showSuccess.present();
             // showSuccess.present();
-          }, 3000);
+          }, 4500);
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = true;
           }
