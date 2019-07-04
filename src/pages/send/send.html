@@ -20,7 +20,14 @@
       <b>{{ ea.EA }}</b>
     </ion-label>
   </ion-item><br>
-  <div class="progress-outer" *ngIf="countItemTotal > 0">
+  <div class="progress-outer" *ngIf="countUpload > 0 && uploadShow">
+    <!-- <div class="progress-outer" *ngIf="countItemTotal > 0" [style.max-width]="totalItem + '%' "> -->
+    <div class="progress-inner" [style.width]="countUpload + '%'">
+      {{ countUpload.toFixed(2) }} / 100 %
+    </div>
+  </div><br>
+
+  <div class="progress-outer" *ngIf="countItemTotal > 0 && downloadShow">
     <!-- <div class="progress-outer" *ngIf="countItemTotal > 0" [style.max-width]="totalItem + '%' "> -->
     <div class="progress-inner" [style.width]="countItemTotal + '%'">
       {{ countItemTotal.toFixed(2) }} / 100 %

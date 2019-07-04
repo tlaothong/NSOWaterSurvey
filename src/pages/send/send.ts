@@ -45,6 +45,11 @@ export class SendPage {
   public bldList: any[] = [];
   public untList: any[] = [];
   public cmnList: any[] = [];
+  private uploadShow: boolean = false;
+  private downloadShow: boolean = false;
+  private countUpload: number = 0;
+  private countItemUpload: number = 0;
+  private countUploadAll: number = 0;
   private countItem: number = 0;
   private totalItem: number = 0;
   private countItemTotal: number = 0;
@@ -67,12 +72,12 @@ export class SendPage {
   ionViewDidLoad() {
     this.store.dispatch(new SetCurrentStatusState("Sync"));
     this.storage.keys().then(val => {
-      let keys = val
+      let keys = val;
       for (let k of keys) {
-        if (k.startsWith('bldlst1v')) {
 
+        if (k.startsWith('bldlst1v')) {
           this.storage.get(k).then(val => {
-            let txt = val
+            let txt = val;
             console.log(txt);
             this.bldcomplete = txt.filter(it => it.status == "done-all").length;
             txt.forEach(item => {
@@ -150,15 +155,21 @@ export class SendPage {
     //   this.getUpload1 = data
     //   console.log(this.getUpload1);
     //   this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID;
-
+    this.uploadShow = true;
+    this.downloadShow = true;
     let hasError = false;
     this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
       this.getUpload1 = d2c;
       console.log(this.getUpload1);
-
+      
       let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
+      this.countUploadAll = Math.max(1, keys.length);
+      this.countItemUpload = 0;
       for (const k of keys) {
+        this.countItemUpload++;
+        this.countUpload = (this.countItemUpload * 100) / this.countUploadAll;
+
         if (k.startsWith('ulogin1v')) {
           continue; // ignore login file
         }
@@ -181,7 +192,7 @@ export class SendPage {
         showError.present();
       } else {
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
-          this.delayTime = data
+          this.delayTime = data;
           this.checkDownload = true;
           setTimeout(_ => {
             console.log("upload sucess");
@@ -193,7 +204,7 @@ export class SendPage {
             loading.dismiss();
             showSuccess.present();
             // showSuccess.present();
-          }, this.delayTime);
+          }, 4500);
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = true;
           }
@@ -227,8 +238,7 @@ export class SendPage {
     showDownload.addButton({
       text: 'ตกลง',
       handler: dataAlert => {
-        console.log(dataAlert);
-        console.log(this.getUpload1.sessionId);
+        this.uploadShow = false;
         let loader = this.loadingCtrl.create({
           content: "Please wait...",
         });
@@ -237,6 +247,7 @@ export class SendPage {
         this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
           console.log(data);
           this.totalItem = Math.max(1, data.totalSurveys);
+          this.countItem = 0;
           for (const it of data.data) {
             let eaCode = it.ea;
 
