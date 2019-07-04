@@ -192,8 +192,9 @@ export class SendPage {
         showError.present();
       } else {
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
-          this.delayTime = data.delayTime;
-          console.log(this.delayTime);
+
+          this.delayTime = data;
+          console.log(this.delayTime.delayTime);
 
           this.checkDownload = true;
           setTimeout(_ => {
@@ -206,7 +207,7 @@ export class SendPage {
             loading.dismiss();
             showSuccess.present();
             // showSuccess.present();
-          }, this.delayTime);
+          }, this.delayTime.delayTime);
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = true;
           }
