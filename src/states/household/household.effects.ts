@@ -330,7 +330,7 @@ export class HouseHoldEffects {
         map((action: DeleteHouseHold) => action.payload),
         withLatestFrom(this.store.select(getHouseHoldUnitList)),
         mergeMap(([hld, lst]) => {
-            let idx = lst.findIndex(it => it.houseHoldId == hld.houseHoldId);
+            let idx = lst && lst.findIndex(it => it.houseHoldId == hld.houseHoldId);
             lst.splice(idx, 1);
             return this.dataStore.saveHouseHoldInBuildingList(this.appState.buildingId, lst).mapTo(lst);
         }),
@@ -978,11 +978,11 @@ export class HouseHoldEffects {
         };
         console.log(untInList);
 
-        let idx = lst.findIndex(it => it.houseHoldId == unit._id);
+        let idx = lst && lst.findIndex(it => it.houseHoldId == unit._id);
         if (idx >= 0) {
             lst[idx] = untInList;
         } else {
-            lst.push(untInList);
+            lst && lst.push(untInList);
         }
     }
 }

@@ -196,7 +196,7 @@ export class BuildingEffects {
         console.log("bld", bld);
         // console.log("lst", lst);
         // console.log("ulist", ulist);
-        const accesses = bld.accesses;
+        const accesses = bld && bld.accesses;
         let access = 0;
 
         if (accesses && accesses.length > 0) {
@@ -212,11 +212,11 @@ export class BuildingEffects {
                 break;
             case 2:
             case 3:
-                status = bld.accessCount < 3 ? "refresh" : "sad";
+                status = bld && bld.accessCount < 3 ? "refresh" : "sad";
                 break;
             default: {
                 if (status != "done-all") {
-                    const uacc = bld.unitAccess;
+                    const uacc = bld && bld.unitAccess;
                     switch (uacc) {
                         case 2:
                         case 3:
@@ -224,9 +224,9 @@ export class BuildingEffects {
                             break;
 
                         default:
-                            status = ulist.length > 0 && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
-                                ? (ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
-                                : (ulist.length == Number(bld.unitCount) ? "done-all" : (ulist.length == 0 ? "refresh" : "pause"));
+                            status = ulist && ulist.length > 0 && ulist && ulist.some((it, i, c) => it.status == "refresh" || it.status == "pause")
+                                ? (ulist && ulist.some((it, i, c) => it.status == "pause") ? "pause" : "refresh")
+                                : (ulist && ulist.length == Number(bld.unitCount) ? "done-all" : (ulist && ulist.length == 0 ? "refresh" : "pause"));
                             break;
                     }
                 }
