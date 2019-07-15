@@ -73,6 +73,11 @@ export class SendPage {
     this.store.dispatch(new SetCurrentStatusState("Sync"));
     this.storage.keys().then(val => {
       let keys = val;
+      const firstLoading = this.loadingCtrl.create({
+        content: '',
+        enableBackdropDismiss: false,
+      });
+      firstLoading.present();
       for (let k of keys) {
 
         if (k.startsWith('bldlst1v')) {
@@ -134,8 +139,8 @@ export class SendPage {
         }
         this.item = item2;
         console.log(item2);
-
-      }, 1000);
+        firstLoading.dismiss();
+      }, 5000);
     });
   }
 
