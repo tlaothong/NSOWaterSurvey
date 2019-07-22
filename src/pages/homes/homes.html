@@ -24,6 +24,7 @@
         {{ ea.TAM_NAME }}
         {{ (ea.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
         {{ ea.MUN_NAME }}{{ ea.TAO_NAME }}
+        <b>{{ ea.VIL_NAME}}</b>
         &nbsp;
         <b>{{ ea.EA }}</b>
       </ion-label>
@@ -55,7 +56,7 @@
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
-    <ion-col >
+    <ion-col>
       <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
       </button>
@@ -69,6 +70,7 @@
       </ion-segment-button>
       <ion-segment-button value="fsedit">
         FS ให้แก้ไข
+        <ion-icon *ngIf="dataResolutions.length > 0" md="md-warning" class="warning" style="zoom: 0.5;"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="areayoi">
         สน.2 พื้นที่ย่อย
@@ -76,103 +78,103 @@
     </ion-segment>
   </div>
 
-  <ng-container [ngSwitch]="office">
-    <ng-container *ngSwitchCase="'building'">
+  <div [style.display]="office == 'building' ? 'block' : 'none'">
 
-      <ion-row align-items-center>
-        <ion-col col-11>
-          <!-- <ion-searchbar (ionChange)="setFilteredItems($event)"></ion-searchbar> -->
-          <ion-searchbar (ionInput)="searchItem($event)"></ion-searchbar>
+    <ion-row align-items-center>
+      <ion-col col-11>
+        <!-- <ion-searchbar (ionChange)="setFilteredItems($event)"></ion-searchbar> -->
+        <ion-searchbar (ionInput)="searchItem($event)"></ion-searchbar>
+      </ion-col>
+      <ion-col col-1>
+        <button ion-button type="button" color="light">
+          <ion-icon name="md-search"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-segment icon-start [(ngModel)]="listMode">
+      <ion-segment-button value="recent" (click)="switchListMode()">
+        <ion-icon name="md-create"></ion-icon>
+        ข้อมูลล่าสุด
+      </ion-segment-button>
+      <ion-segment-button value="all" (click)="switchListMode()">
+        <ion-icon name="folder"></ion-icon>
+        ข้อมูลทั้งหมด
+      </ion-segment-button>
+
+      <ion-segment-button value="paused" (click)="switchListMode()">
+        <ion-icon name="md-pause"></ion-icon>
+        หยุดชั่วคราว
+      </ion-segment-button>
+
+      <ion-segment-button value="revisit" (click)="switchListMode()">
+        <ion-icon name="md-eye"></ion-icon>
+        สำรวจครั้งที่ 2,3
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-row text-center align-items-center>
+      <ion-col col-2>
+        ลำดับที่
+      </ion-col>
+      <ion-col col-2>
+        บ้านเลขที่
+      </ion-col>
+      <ion-col col-3>
+        ชื่อสถานที่
+      </ion-col>
+      <ion-col col-4>
+        <ion-row align-items-center>
+          <ion-label>
+            ครัวเรือน<br>สถานประกอบการ
+
+          </ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            สำรวจแล้ว
+          </ion-col>
+          <ion-col col-6>
+            ทั้งหมด
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+    <hr>
+
+
+    <div [virtualScroll]="buildingList$ | async" [approxItemHeight]="'40px'">
+      <ion-row text-center align-items-center *virtualItem="let item; let i = index" style="width: 100%">
+        <ion-col col-1 (click)="goEditBuildingInfo(item)">
+          <ion-icon disabled="false" [name]="item.status"></ion-icon>
+        </ion-col>
+        <ion-col col-1 (click)="goEditBuildingInfo(item)">
+          {{i+1}}
+        </ion-col>
+        <ion-col col-2 (click)="goEditBuildingInfo(item)">
+          {{item.houseNo}}
+        </ion-col>
+        <ion-col col-3 (click)="goEditBuildingInfo(item)">
+          {{item.name}}
+        </ion-col>
+        <ion-col col-2 (click)="goEditBuildingInfo(item)">
+          {{item.completedCount}}
+        </ion-col>
+        <ion-col col-2 (click)="goEditBuildingInfo(item)">
+          {{item.unitCount}}
         </ion-col>
         <ion-col col-1>
-          <button ion-button type="button" color="light">
-            <ion-icon name="md-search"></ion-icon>
+          <button ion-button clear icon-only type="button" color="danger" (click)="DeleteBuilding(item)">
+            <ion-icon name="trash"></ion-icon>
           </button>
         </ion-col>
       </ion-row>
+    </div>
+  </div>
 
-      <ion-segment icon-start [(ngModel)]="listMode">
-        <ion-segment-button value="recent" (click)="switchListMode()">
-          <ion-icon name="md-create"></ion-icon>
-          ข้อมูลล่าสุด
-        </ion-segment-button>
-        <ion-segment-button value="all" (click)="switchListMode()">
-          <ion-icon name="folder"></ion-icon>
-          ข้อมูลทั้งหมด
-        </ion-segment-button>
-
-        <ion-segment-button value="paused" (click)="switchListMode()">
-          <ion-icon name="md-pause"></ion-icon>
-          หยุดชั่วคราว
-        </ion-segment-button>
-
-        <ion-segment-button value="revisit" (click)="switchListMode()">
-          <ion-icon name="md-eye"></ion-icon>
-          สำรวจครั้งที่ 2,3
-        </ion-segment-button>
-      </ion-segment>
-
-      <ion-row text-center align-items-center>
-        <ion-col col-2>
-          ลำดับที่
-        </ion-col>
-        <ion-col col-2>
-          บ้านเลขที่
-        </ion-col>
-        <ion-col col-3>
-          ชื่อสถานที่
-        </ion-col>
-        <ion-col col-4>
-          <ion-row align-items-center>
-            <ion-label>
-              ครัวเรือน<br>สถานประกอบการ
-
-            </ion-label>
-          </ion-row>
-          <ion-row>
-            <ion-col col-6>
-              สำรวจแล้ว
-            </ion-col>
-            <ion-col col-6>
-              ทั้งหมด
-            </ion-col>
-          </ion-row>
-        </ion-col>
-        <ion-col col-1></ion-col>
-      </ion-row>
-      <hr>
-
-
-      <div *ngFor="let item of buildingList$ | async; let i = index;">
-        <ion-row text-center align-items-center>
-          <ion-col col-1 (click)="goEditBuildingInfo(item)">
-            <ion-icon disabled="false" [name]="item.status"></ion-icon>
-          </ion-col>
-          <ion-col col-1 (click)="goEditBuildingInfo(item)">
-            {{i+1}}
-          </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item)">
-            {{item.houseNo}}
-          </ion-col>
-          <ion-col col-3 (click)="goEditBuildingInfo(item)">
-            {{item.name}}
-          </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item)">
-            {{item.completedCount}}
-          </ion-col>
-          <ion-col col-2 (click)="goEditBuildingInfo(item)">
-            {{item.unitCount}}
-          </ion-col>
-          <ion-col col-1>
-            <button ion-button clear icon-only type="button" color="danger" (click)="DeleteBuilding(item)">
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      </div>
-    </ng-container>
-
-    <div *ngSwitchCase="'areayoi'" style="padding-top: 10px">
+  <ng-container [ngSwitch]="office">
+    <ng-container *ngSwitchCase="'areayoi'" style="padding-top: 10px">
 
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -210,9 +212,10 @@
           </ion-col>
         </ion-row>
       </div>
-    </div>
+    </ng-container>
 
     <ng-container *ngSwitchCase="'fsedit'">
+
       <ion-row text-center align-items-center>
         <ion-col col-2>
           ลำดับที่
@@ -242,21 +245,29 @@
       </ion-row>
       <hr>
 
-      <hr>
-      <ion-row text-center align-items-center>
-        <ion-col col-2>
-          ลำดับที่
-        </ion-col>
-        <ion-col col-2>
-          หมู่ที่
-        </ion-col>
-        <ion-col col-7>
-          ชื่อหมู่บ้าน
-        </ion-col>
-        <ion-col col-1> </ion-col>
-      </ion-row>
-      <hr>
+      <div *ngFor="let item of dataResolutions ; let i = index;">
+        <ion-row text-center align-items-center>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            <ion-icon disabled="false" [name]="item.status"></ion-icon>
+          </ion-col>
+          <ion-col col-1 (click)="goEditBuildingInfo(item)">
+            {{i+1}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.houseNo}}
+          </ion-col>
+          <ion-col col-3 (click)="goEditBuildingInfo(item)">
+            {{item.name}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.completedCount}}
+          </ion-col>
+          <ion-col col-2 (click)="goEditBuildingInfo(item)">
+            {{item.unitCount}}
+          </ion-col>
+        </ion-row>
+      </div>
+
     </ng-container>
   </ng-container>
-
 </ion-content>

@@ -39,4 +39,9 @@ export const getUnitCount = createSelector(
     state => state.unitCount,
 );
 
+export const getArrResol = createSelector(
+    getBuildingFeatureState,
+    state => state.arrResol,
+);
+
 

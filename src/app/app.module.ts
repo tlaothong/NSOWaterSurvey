@@ -10,11 +10,9 @@ import { Device } from '@ionic-native/device';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { ComponentsModule } from '../components/components.module';
 import { StoreModule } from '@ngrx/store';
@@ -28,6 +26,7 @@ import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AppStateProvider } from '../providers/app-state/app-state';
 import { AppErrorHandlerProvider } from '../providers/app-error-handler/app-error-handler';
 import { OneSignal } from '@ionic-native/onesignal';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -63,6 +62,7 @@ import { OneSignal } from '@ionic-native/onesignal';
     Geolocation,
     IonicErrorHandler,
     Device,
+    HttpClient,
     // { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: ErrorHandler, useClass: AppErrorHandlerProvider },
     CloudSyncProvider,
@@ -70,6 +70,7 @@ import { OneSignal } from '@ionic-native/onesignal';
     LocationDataProvider,
     DataStoreProvider,
     AppStateProvider,    
+    File,
   ]
 })
 export class AppModule { }
