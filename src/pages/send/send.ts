@@ -45,6 +45,11 @@ export class SendPage {
   public bldList: any[] = [];
   public untList: any[] = [];
   public cmnList: any[] = [];
+  private uploadShow: boolean = false;
+  private downloadShow: boolean = false;
+  private countUpload: number = 0;
+  private countItemUpload: number = 0;
+  private countUploadAll: number = 0;
   private countItem: number = 0;
   private totalItem: number = 0;
   private countItemTotal: number = 0;
@@ -64,15 +69,20 @@ export class SendPage {
   ionViewDidLoad() {
     this.store.dispatch(new SetCurrentStatusState("Sync"));
     this.storage.keys().then(val => {
-      let keys = val
+      let keys = val;
+      const firstLoading = this.loadingCtrl.create({
+        content: '',
+        enableBackdropDismiss: false,
+      });
+      firstLoading.present();
       for (let k of keys) {
-        if (k.startsWith('bldlst1v')) {
 
+        if (k.startsWith('bldlst1v')) {
           this.storage.get(k).then(val => {
-            let txt = val
+            let txt = val;
             console.log(txt);
             this.bldcomplete = txt.filter(it => it.status == "done-all").length;
-            txt.forEach(item => {
+            txt && txt.forEach(item => {
               this.storage.get(item.buildingId).then(val => {
                 this.bldList.push(val);
                 console.log(this.bldList);
@@ -85,7 +95,7 @@ export class SendPage {
         } else if (k.startsWith('unt4b1v')) {
           this.storage.get(k).then(val => {
             let txt = val
-            txt.forEach(item => {
+            txt && txt.forEach(item => {
               this.storage.get(item.houseHoldId).then(val => {
                 this.untList.push(val);
                 console.log(this.untList);
@@ -97,7 +107,7 @@ export class SendPage {
         } else if (k.startsWith('comlst1v')) {
           this.storage.get(k).then(val => {
             let txt = val
-            txt.forEach(item => {
+            txt && txt.forEach(item => {
               this.storage.get(item.communityId).then(val => {
                 this.cmnList.push(val);
                 console.log(this.cmnList);
@@ -126,8 +136,8 @@ export class SendPage {
         }
         this.item = item2;
         console.log(item2);
-
-      }, 1000);
+        firstLoading.dismiss();
+      }, 5000);
     });
   }
 
@@ -147,7 +157,8 @@ export class SendPage {
     //   this.getUpload1 = data
     //   console.log(this.getUpload1);
     //   this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID;
-
+    this.uploadShow = true;
+    this.downloadShow = true;
     let hasError = false;
     this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
       this.getUpload1 = d2c;
@@ -155,7 +166,12 @@ export class SendPage {
 
       let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
+      this.countUploadAll = Math.max(1, keys.length);
+      this.countItemUpload = 0;
       for (const k of keys) {
+        this.countItemUpload++;
+        this.countUpload = (this.countItemUpload * 60) / this.countUploadAll;
+
         if (k.startsWith('ulogin1v')) {
           continue; // ignore login file
         }
@@ -178,19 +194,31 @@ export class SendPage {
         showError.present();
       } else {
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
-          this.delayTime = data
           this.checkDownload = true;
-          setTimeout(_ => {
-            console.log("upload sucess");
-            const showSuccess = this.alertCtrl.create({
-              'title': 'ส่งข้อมูลเรียบร้อย',
-              'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
-              'buttons': ["ตกลง"],
-            });
-            loading.dismiss();
-            showSuccess.present();
-            // showSuccess.present();
-          }, this.delayTime);
+          this.delayTime = data;
+          console.log(this.delayTime.delayTime);
+          let extraTime = 45 * 60;
+
+          for (let index = 1; index <= extraTime; index++) {
+            setTimeout(() => {
+              this.countItemUpload++;
+              this.countUpload += 40 / 2700;
+            }, 1000 / 60 + (index * 1000 / 60));
+            if (index == extraTime) {
+              setTimeout(_ => {
+                console.log("upload sucess");
+                const showSuccess = this.alertCtrl.create({
+                  'title': 'ส่งข้อมูลเรียบร้อย',
+                  'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
+                  'buttons': ["ตกลง"],
+                });
+                loading.dismiss();
+                showSuccess.present();
+              }, this.delayTime.delayTime);
+            }
+          }
+
+
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = true;
           }
@@ -224,8 +252,7 @@ export class SendPage {
     showDownload.addButton({
       text: 'ตกลง',
       handler: dataAlert => {
-        console.log(dataAlert);
-        console.log(this.getUpload1.sessionId);
+        this.uploadShow = false;
         let loader = this.loadingCtrl.create({
           content: "Please wait...",
         });
@@ -234,6 +261,7 @@ export class SendPage {
         this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
           console.log(data);
           this.totalItem = Math.max(1, data.totalSurveys);
+          this.countItem = 0;
           for (const it of data.data) {
             let eaCode = it.ea;
 
@@ -247,6 +275,7 @@ export class SendPage {
               this.countItem++;
               this.countItemTotal = (this.countItem * 100) / this.totalItem;
               console.log(this.countItemTotal);
+              console.log(sample);
               if (dataAlert != 'checktub' && sample._id.search(this.appState.userId) >= 0) {
                 // console.log("ก่อน");
                 continue;
@@ -308,7 +337,23 @@ export class SendPage {
             });
             loader.dismiss();
             showDownloadsucess.present();
+          }, error => {
+            const showError = this.alertCtrl.create({
+              'title': 'มีข้อผิดพลาด',
+              'message': 'เกิดข้อผิดพลาดในการโหลดข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถโหลดข้อมูลได้',
+              'buttons': ["ตกลง"],
+            });
+            showError.present();
+            loader.dismiss();
           });
+        }, error => {
+          const showError = this.alertCtrl.create({
+            'title': 'มีข้อผิดพลาด',
+            'message': 'เกิดข้อผิดพลาดในการโหลดข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถโหลดข้อมูลได้',
+            'buttons': ["ตกลง"],
+          });
+          showError.present();
+          loader.dismiss();
         });
 
       }

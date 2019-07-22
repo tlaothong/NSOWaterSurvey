@@ -66,6 +66,7 @@ export enum HouseHoldTypes {
     SetNextPageDirection = "[HH] Set Next Page Direction",
     SetArrayIsCheck = "[HH] Set Array IsCheck",
     SetSelectorIndex = "[HH] Set Selector Index",
+    SetSelectorIndex2 = "[HH] Set Selector Index 2",
     LoadUnitByIdBuilding = "[HH] Load Unit By IdBuilding",
     LoadUnitByIdBuildingSuccess = "[HH] Load Unit By IdBuilding Success",
     SetBackToRoot = "[HH] Set Back To Root",
@@ -390,6 +391,11 @@ export class SetSelectorIndex implements Action {
     constructor(public payload: any) {
     }
 }
+export class SetSelectorIndex2 implements Action {
+    readonly type = HouseHoldTypes.SetSelectorIndex2;
+    constructor(public payload: any) {
+    }
+}
 export class LoadUnitByIdBuilding implements Action {
     readonly type = HouseHoldTypes.LoadUnitByIdBuilding;
     constructor(public payload: string) {
@@ -504,6 +510,7 @@ export type HouseHoldActionsType =
     | SetNextPageDirection
     | SetArrayIsCheck
     | SetSelectorIndex
+    | SetSelectorIndex2
     | LoadUnitByIdBuilding
     | LoadUnitByIdBuildingSuccess
     | SetBackToRoot
