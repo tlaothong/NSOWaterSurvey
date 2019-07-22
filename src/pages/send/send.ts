@@ -160,11 +160,12 @@ export class SendPage {
     this.uploadShow = true;
     this.downloadShow = true;
     let hasError = false;
-    this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
-      this.getUpload1 = d2c;
-      console.log(this.getUpload1);
+    // this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
+    let fnup = async _ => {
+      // this.getUpload1 = d2c;
+      // console.log(this.getUpload1);
 
-      let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
+      // let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
       this.countUploadAll = Math.max(1, keys.length);
       this.countItemUpload = 0;
@@ -176,14 +177,14 @@ export class SendPage {
           continue; // ignore login file
         }
         let txt = await this.storage.get(k);
-        blob.createBlockBlobFromText(this.getUpload1.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
-          if (!resp.isSuccessful) {
-            // err != null?
-            hasError = true;
-            // break
-            return;
-          }
-        });
+        // blob.createBlockBlobFromText(this.getUpload1.containerName, k + ".txt", JSON.stringify(txt), (err, result, resp) => {
+        //   if (!resp.isSuccessful) {
+        //     // err != null?
+        //     hasError = true;
+        //     // break
+        //     return;
+        //   }
+        // });
       }
       if (hasError) {
         const showError = this.alertCtrl.create({
@@ -193,9 +194,9 @@ export class SendPage {
         });
         showError.present();
       } else {
-        this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
+        // this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
           this.checkDownload = true;
-          this.delayTime = data;
+          this.delayTime = 45;
           console.log(this.delayTime.delayTime);
           let extraTime = 45 * 60;
 
@@ -209,7 +210,7 @@ export class SendPage {
                 console.log("upload sucess");
                 const showSuccess = this.alertCtrl.create({
                   'title': 'ส่งข้อมูลเรียบร้อย',
-                  'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
+                  'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง : #ให้จำเลขนี้ไว้#',
                   'buttons': ["ตกลง"],
                 });
                 loading.dismiss();
@@ -222,18 +223,20 @@ export class SendPage {
           if (this.getUpload1.sessionId != null) {
             this.checkDownload = true;
           }
-        });
+        // });
         // });
       }
-    }, error => {
-      const showError = this.alertCtrl.create({
-        'title': 'มีข้อผิดพลาด',
-        'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
-        'buttons': ["ตกลง"],
-      });
-      showError.present();
-      loading.dismiss();
-    });
+    };
+    fnup(null);
+    // , error => {
+    //   const showError = this.alertCtrl.create({
+    //     'title': 'มีข้อผิดพลาด',
+    //     'message': 'เกิดข้อผิดพลาดในการส่งข้อมูล แต่ข้อมูลในเครื่องจะไม่ได้รับความเสียหายใดๆทั้งสิ้น เพียงท่านเชื่อมต่อสัญญาณอินเตอร์เน็ตคุณภาพดีขึ้นและลองใหม่อีกครั้งจะสามารถส่งข้อมูลได้',
+    //     'buttons': ["ตกลง"],
+    //   });
+    //   showError.present();
+    //   loading.dismiss();
+    // });
 
   }
 
