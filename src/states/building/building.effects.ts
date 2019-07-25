@@ -121,7 +121,7 @@ export class BuildingEffects {
         mergeMap(([bld, lst, ea, ulist]) => {
             BuildingEffects.ComposeBuildingList(bld, lst, ulist);
 
-            return this.dataStore.saveBuildingList(ea.code, lst)
+            return this.dataStore.saveBuildingList(ea.code, lst), this.dataStore.saveBuilding(bld).mapTo(bld)
                 .mapTo(lst);
         }),
         map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),
@@ -195,7 +195,7 @@ export class BuildingEffects {
 
         console.log("bld", bld);
         // console.log("lst", lst);
-        // console.log("ulist", ulist);
+        console.log("ulist", ulist);
         const accesses = bld && bld.accesses;
         let access = 0;
 

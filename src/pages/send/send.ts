@@ -84,7 +84,6 @@ export class SendPage {
           this.storage.get(k).then(val => {
             let txt = val;
             console.log(txt);
-            this.bldcomplete = txt.filter(it => it.status == "done-all").length;
             txt && txt.forEach(item => {
               this.storage.get(item.buildingId).then(val => {
                 this.bldList.push(val);
