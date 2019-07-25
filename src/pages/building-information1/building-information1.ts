@@ -208,7 +208,6 @@ export class BuildingInformation1Page {
     this.f.get('status').setValue('');
     this.dispatch();
     this.isCheckWarningBox = this.f.valid;
-    console.log(this.f);
 
     if (this.f.valid) {
       (this.access == 1) ? this.navCtrl.push("BuidlingInformation2Page", { f: this.f }) : this.navCtrl.push("HomesPage", { f: this.f });
