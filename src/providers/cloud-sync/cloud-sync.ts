@@ -15,6 +15,10 @@ export class CloudSyncProvider {
     console.log('Create CloudSyncProvider Provider');
   }
 
+  public checkLogin(UserID: string, Password: string) {
+    return this.http.post<Usermanage>(this.baseUrl + 'User/Login', { "userID": UserID, "password": Password });
+  }
+
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
     return <Observable<any>>(this.http.get(this.baseUrl + 'MobileConnect/' + userId));
   }
@@ -160,4 +164,33 @@ export interface DeviceToCloudInfo {
 export interface isSuccess {
   isCompleted: boolean,
   errorStatus: string
+}
+
+
+export class Usermanage {
+  titleName: string;
+  firstName: string;
+  lastName: string;
+  idCard: number;
+  email: string;
+  telephoneNumber: string;
+  province: string;
+  userType: string;
+  userID: string;
+  password: string;
+  bankAccountNo: string;
+  bankAccountType: string;
+  bankAccountHolderName: string;
+  bankName: string;
+  bankBranchName: string;
+  address: string;
+  street: string;
+  district: string;
+  subDistrict: string;
+  provinceName:string;
+  zipCode:string;
+  status: boolean;
+  _id: string;
+  isChecked: boolean;
+  eaCodes: string[];
 }

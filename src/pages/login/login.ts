@@ -8,6 +8,7 @@ import { } from '../../states/bootup';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { LoginUser } from '../../states/bootup/bootup.actions';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,8 @@ export class LoginPage {
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
-    private dataStore: DataStoreProvider, private alertCtrl: AlertController) {
+    private dataStore: DataStoreProvider, private alertCtrl: AlertController,
+    private cloudApi: CloudSyncProvider) {
     this.userData = null;
   }
 
@@ -54,7 +56,7 @@ export class LoginPage {
       buttons: ['ตกลง']
     });
    
-    this.dataStore.validateUser(userId, password).then(valid => {
+    this.cloudApi.checkLogin(userId, password).then(valid => {
       if (!valid) {
         wrongPassword.present();
       } else {
