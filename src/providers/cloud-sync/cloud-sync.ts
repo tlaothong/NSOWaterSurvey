@@ -16,7 +16,7 @@ export class CloudSyncProvider {
   }
 
   public checkLogin(UserID: string, Password: string) {
-    return this.http.post<Usermanage>(this.baseUrl + 'User/Login', { "userID": UserID, "password": Password });
+    return this.http.post<Usermanage>(this.baseUrl + 'User/FiLogin', { "userID": UserID, "password": Password }).toPromise();
   }
 
   public downloadCloudUpdate(userId: string): Observable<EA[]> {
