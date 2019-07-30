@@ -19,17 +19,9 @@
         <ion-icon name="cloud-upload"></ion-icon>
         รับ-ส่งข้อมูล
       </button>
-      <button ion-button block icon-start type="button" menuClose (click)="updateApp()">
-        <ion-icon name="code-download"></ion-icon>
-        อัพเดทโปรแกรม
-      </button>
       <button ion-button block icon-start type="button" (click)="openManual()">
         <ion-icon name="md-document"></ion-icon>
         คู่มือการใช้งาน
-      </button>
-      <button ion-button block icon-start type="button" (click)="goExportPage()">
-        <ion-icon name="md-paper"></ion-icon>
-        สำรองข้อมูล
       </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
