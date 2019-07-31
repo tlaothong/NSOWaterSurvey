@@ -64,9 +64,6 @@ export class SendPage {
     private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
     private alertCtrl: AlertController, private store: Store<BootupState>,
     private http: HttpClient, private dataStore: DataStoreProvider, private storeBuilding: Store<BuildingState>) {
-
-    //TODO: delete it when finsish
-    this.appState.deviceID = "HGAFPPNZ";
   }
 
   ionViewDidLoad() {
@@ -147,8 +144,7 @@ export class SendPage {
    * Upload ข้อมูลขึ้นไปเก็บไว้บน cloud server
    */
   public uploadToCloud() {
-
-    const blobUri = "https://nsodev.blob.core.windows.net"; // Or should have '/' ?
+    const blobUri = "https://nsostorage.blob.core.windows.net"; // Or should have '/' ?
     const loading = this.loadingCtrl.create({
       content: '',
       enableBackdropDismiss: false,
