@@ -98,10 +98,7 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.dataPop.population = this.f.value
-    // this.dataPop.status = "complete"
     this.isCheckWarningBox = this.f.valid;
-    console.log(this.f);
 
     if (this.f.valid) {
       this.arrayIsCheckMethod();
@@ -214,36 +211,4 @@ export class PopulationPage {
     });
     confirmChanged.present();
   }
-
-  // presentAlertPopulation(num) {
-  //   const alert = this.alertController.create({
-  //     title: 'คุณต้องการจะลบข้อมูลหรือไม่',
-  //     buttons: [
-  //       {
-  //         text: 'ยกเลิก',
-  //         handler: data => {
-  //         }
-  //       },
-  //       {
-  //         text: 'ยืนยัน',
-  //         handler: data => {
-  //           let del = this.f.get('persons') as FormArray;
-  //           del.removeAt(num);
-  //           let count = this.f.get('personCount').value;
-  //           this.f.get('personCount').setValue(count);
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   alert.present();
-  // }
-
-  // deleteData(num: any) {
-  //   this.presentAlertPopulation(num);
-  // }
-
-  // let del = this.f.get('persons') as FormArray;
-  //   del.removeAt(num);
-  //   let count = this.f.get('personCount').value;
-  //   this.f.get('personCount').setValue(count);
 }

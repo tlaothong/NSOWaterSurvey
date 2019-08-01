@@ -90,11 +90,6 @@ export class BuildingEffects {
             new SaveBuildingSuccess(action.payload),
             new UpdateBuildingList(action.payload),
         ]),
-
-        // mergeMap((action: SetHomeBuilding) => Observable.of(new SetHomeBuildingSuccess(action.payload))),
-        // mergeMap((action: SetHomeBuilding) => this.cloudSync.setHomeBuilding(action.payload).pipe(
-        //     map(data => new SetHomeBuildingSuccess(data)),
-        // )),
     );
 
     @Effect()
@@ -192,10 +187,6 @@ export class BuildingEffects {
     }
 
     public static ComposeBuildingList(bld: Building, lst: BuildingInList[], ulist: UnitInList[]) {
-
-        console.log("bld", bld);
-        // console.log("lst", lst);
-        console.log("ulist", ulist);
         const accesses = bld && bld.accesses;
         let access = 0;
 

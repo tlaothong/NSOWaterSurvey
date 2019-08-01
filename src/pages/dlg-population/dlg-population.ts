@@ -94,8 +94,6 @@ export class DlgPopulationPage {
         {
           text: 'ยืนยัน',
           handler: data => {
-            // this.FormItem.reset();
-            // this.viewCtrl.dismiss(this.FormItem);
             this.viewCtrl.dismiss('delete');
           }
         }
@@ -117,7 +115,6 @@ export class DlgPopulationPage {
   }
 
   public isDisabled(): boolean {
-    // console.log("otherProvine", this.FormItem.get('otherProvince').value + "====" + this.proName)
     if (this.FormItem.get('nameTitle').value == '6' && this.FormItem.get('otherTitle').value == null
       || this.FormItem.get('registration').value == '3' && this.FormItem.get('otherProvince').value == null
       || (this.FormItem.get('relationship').value == 7) && (this.FormItem.get('age').value < 13 && this.FormItem.get('age').value != null)

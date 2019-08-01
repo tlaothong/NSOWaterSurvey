@@ -102,9 +102,6 @@ export class MyApp {
         this.dataStore.deleteNotiAppMsg();
         break;
       default:
-        if (user) {
-          // TODO: Implement this later
-        }
         break;
     }
   }

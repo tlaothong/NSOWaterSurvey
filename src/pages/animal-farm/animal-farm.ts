@@ -21,9 +21,7 @@ export class AnimalFarmPage {
 
   private submitRequested: boolean;
   public f: FormGroup;
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$ = this.store.select(getHouseHoldSample);
-  // public dataAni: any;
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
@@ -51,14 +49,6 @@ export class AnimalFarmPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnimalFarmPage');
-
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.agriculture.animalFarm)
-    //     this.dataAni = data;
-    //   }
-    // })
-
   }
 
   public handleSubmit() {
@@ -88,17 +78,6 @@ export class AnimalFarmPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(9));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 9)) {
-    //       arrayIsCheck.push(9);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public isValid(name: string): boolean {

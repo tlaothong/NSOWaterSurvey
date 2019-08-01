@@ -155,9 +155,6 @@ export class SearchDropdownPage {
     if (isRice || isDry || isRub || isPeren || isHerb || isFlower) {
       this.isNotFound = true;
     }
-    // if (ricePlant.some(it => it.name == this.searchTerm.toLowerCase())) {
-    //   this.searchDisplayOtherPlant = [{ name: "พืชที่ search ไม่มีอยู่ในหมวดนี้ (อยู่หมวดข้าว)" }];
-    // }
   }
 
   alertNotFoundPlant() {

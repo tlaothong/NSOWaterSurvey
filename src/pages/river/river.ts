@@ -25,11 +25,7 @@ export class RiverPage {
   @ViewChildren(WaterActivity6Component) private waterActivity6: WaterActivity6Component[];
   @ViewChildren(WaterProblem4Component) private waterProblem4: WaterProblem4Component[];
   @ViewChildren(CountComponent) private count: CountComponent[];
-
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  // private formData: any;
-
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -97,12 +93,6 @@ export class RiverPage {
       this.activityCommercial = (data != null) ? data.river : null;
     });
     this.changeValueActivity();
-    console.log("activityResidential", this.activityResidential);
-    console.log("activityWateringRes", this.activityWateringRes);
-    console.log("activityRice", this.activityRice);
-    console.log("activityAgiculture", this.activityAgiculture);
-    console.log("activityFactory", this.activityFactory);
-    console.log("activityCommercial", this.activityCommercial);
   }
 
   changeValueActivity() {
@@ -184,10 +174,6 @@ export class RiverPage {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.pumpCount && (ctrl.dirty || this.submitRequested);
     }
-    // if (name == 'waterActivities') {
-    //   let ctrls = this.f;
-    //   return ctrls.errors && ctrls.errors.waterActivities && (ctrl.dirty || this.submitRequested);
-    // }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -195,7 +181,6 @@ export class RiverPage {
     return (c: AbstractControl): ValidationErrors | null => {
       const hasPump = c.get('hasPump');
       const pumpCount = c.get('pumpCount');
-      // const waterActivities = c.get('waterActivities');
       const qualityProblem = c.get('qualityProblem');
 
       if (hasPump.value == null) {
@@ -204,26 +189,12 @@ export class RiverPage {
       if ((hasPump.value == true) && ((pumpCount.value == null) || (pumpCount.value <= 0))) {
         return { 'pumpCount': true };
       }
-      // if (waterActivities.  ) {
-      //   return { 'waterActivities': true };
-      // }
       return null;
     }
   }
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(15));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 15)) {
-    //       arrayIsCheck.push(15);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   private setupPumpCountChanges() {

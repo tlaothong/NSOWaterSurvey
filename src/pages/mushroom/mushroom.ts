@@ -20,9 +20,7 @@ export class MushroomPage {
   private frontNum: any;
   private backNum: any;
   private isCheckWarningBox: boolean;
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
 
   @ViewChildren(FieldMushroomComponent) private fieldMushroom: FieldMushroomComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
@@ -40,7 +38,6 @@ export class MushroomPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MushroomPage');
-
   }
 
   public handleSubmit() {

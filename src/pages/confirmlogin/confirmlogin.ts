@@ -48,11 +48,6 @@ export class ConfirmloginPage {
     this.guid = this.navParams.data.guid;
   }
 
-  ionViewDidLoad() {
-    // this.formData$.subscribe(data => this.userData = data);
-    // this.fg.setValue(this.userData);
-  }
-
   goGetworkPage() {
     this.navCtrl.push("FirstloginPage", { form: this.fg.value, guid: this.guid });
   }

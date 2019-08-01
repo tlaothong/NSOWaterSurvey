@@ -64,8 +64,5 @@ export class GetworkPage {
   goConfirmDownLoadPage() {
     this.store.dispatch(new DownloadUserToMobile());
     this.navCtrl.setRoot("SelectEaPage");
-    // this.store.dispatch(new LoadDataWorkEAByUserId(this.userInfo));
-    // this.store.dispatch(new LoadCountOfWorks(this.userInfo));
-  
   }
 }

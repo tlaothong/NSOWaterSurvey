@@ -27,16 +27,12 @@ import { Observable } from 'rxjs';
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  // data: StatusEA ;
   formItem: FormGroup;
   office = "building";
   x: number = 0;
-  // public dataEa: any;
   public datap: any[];
-  // public dataWorkEARow: any;
   public str: string;
   public comunity: any;
-  // public num: string = "1";
   public listFilter: any;
   private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.storeBuild.select(getHomeBuilding);
@@ -44,7 +40,6 @@ export class HomesPage {
   private dataArrayResolutions$ = this.storeBuild.select(getArrResol);
   private dataResolutions: any[] = [];
   private dataBuilding: any[] = [];
-  // private dataCommunity: any;
   public statusEa: any;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
@@ -138,20 +133,11 @@ export class HomesPage {
       status: this.statusEa,
       date: Date.now(),
     }
-    console.log(data);
-
-    // if (this.data.status == undefined || this.data.date == undefined) {
-    //   this.data.status = this.statusEa;
-    //   this.data.date = new Date();
-    // }
-    // console.log(this.data);
-
     this.dataStore.saveStatusEA(this.appState.eaCode, data);
   }
 
   // TODO: Will be handled this
   initializeItems() {
-    // this.listFilter = this.dataEa;
     this.buildingListAll$ = this.buildings$.map(lst => lst.sort((l, r) => +l.buildingId.substring(3) - +r.buildingId.substring(3)));
     this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort((l, r) => r.lastUpdate - l.lastUpdate));
     this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
@@ -159,8 +145,6 @@ export class HomesPage {
   }
 
   switchListMode() {
-
-    // this.buildingList$ = this.buildings$;
     switch (this.listMode) {
       case "recent":
         this.buildingList$ = this.buildingListRecentlyUse$;
@@ -180,17 +164,11 @@ export class HomesPage {
 
   }
 
-  // changeNum(num: string) {
-  //   this.num = num;
-  // }
-
   goBuildingInfo() {
     if (this.office == 'building') {
-      // this.storeBuild.dispatch(new SetHomeBuilding(null));
       this.storeBuild.dispatch(new NewBuilding());
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.office == 'areayoi') {
-      // let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.storeCom.dispatch(new NewCommunity());
       this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: null })
     }
@@ -203,7 +181,6 @@ export class HomesPage {
     }
     else if (this.office == 'areayoi') {
     }
-    // this.presentLoading();
   }
 
   goEditCommunityInfo(item: CommunityInList) {

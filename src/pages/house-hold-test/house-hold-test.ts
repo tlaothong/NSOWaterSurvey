@@ -24,7 +24,6 @@ export class HouseHoldTestPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HouseHoldTestPage');
-    // this.store.dispatch(new LoadHouseHoldSample());
     this.navCtrl.push('UnitPage');
   }
 

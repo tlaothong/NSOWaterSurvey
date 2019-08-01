@@ -27,8 +27,6 @@ export class IrrigationPage {
   @ViewChildren(CountComponent) private count: CountComponent[];
 
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -237,17 +235,6 @@ export class IrrigationPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(17));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 17)) {
-    //       arrayIsCheck.push(17);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   private setupPumpCountChanges() {

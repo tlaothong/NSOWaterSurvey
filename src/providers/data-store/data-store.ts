@@ -84,8 +84,6 @@ export class DataStoreProvider {
   * บันทึกข้อมูล Building 1 อาคาร
   */
   public saveBuilding(dataBuilding: Building): Observable<any> {
-    // console.log(dataBuilding._id);
-    // console.log("BLD Data: " + JSON.stringify(dataBuilding));
 
     return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }
@@ -94,7 +92,6 @@ export class DataStoreProvider {
    * บันทึกรายการ Building แบบบันทึกเป็น List
    */
   public saveBuildingList(eaCode: string, buildings: BuildingInList[]) {
-    // console.log(buildings);
 
     return Observable.fromPromise(this.storage.set('bldlst1v' + eaCode, buildings));
   }
@@ -136,9 +133,6 @@ export class DataStoreProvider {
    */
   public saveHouseHold(household: HouseHoldUnit): Observable<any> {
     console.log("saveHouseHold", household);
-
-    // console.log("UNT Data: " + JSON.stringify(household));
-
     return Observable.fromPromise(this.storage.set(household._id, household));
   }
 

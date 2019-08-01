@@ -26,10 +26,6 @@ export class CommunityEffects {
         ofType(CommunityTypes.Load),
         mergeMap((action: LoadCommunitySample) => this.dataStore.loadCommunity(action.payload)),
         map(comData => new LoadCommunitySampleSuccess(comData)),
-        // mergeMap(action => this.cloudSync.loadCommunitySampleTestData().pipe(
-        //     map(data => new LoadCommunitySampleSuccess(data)),
-        // )
-        // ),
     );
 
     @Effect()
@@ -87,10 +83,6 @@ export class CommunityEffects {
             new SaveCommunitySuccess(action.payload),
             new UpdateCommunityList(action.payload),
         ]),
-        // mergeMap(action => this.cloudSync.setCommunity((<SetCommunity>action).payload).pipe(
-        //         map(data => new SetCommunitySuccess(data)),
-        //     )
-        // ),
     );
 
     @Effect()
@@ -100,8 +92,6 @@ export class CommunityEffects {
         map((action: UpdateCommunityList) => action.payload),
         withLatestFrom(this.storeCom.select(getCommunityList), this.storeBoot.select(getCurrentWorkingEA)),
         mergeMap(([com, lst, ea]) => {
-            console.log(com);
-            console.log(lst);
 
             let comlst = {
                 "communityId": com._id,

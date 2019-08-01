@@ -27,9 +27,7 @@ export class GroundWaterPage {
   public f: FormGroup;
   public G: boolean = true;
 
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -87,14 +85,6 @@ export class GroundWaterPage {
   }
 
   ionViewDidLoad() {
-    
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.groundWater);
-    //     this.formData = data;
-    //   }
-    // })
-
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.riceDoing$.subscribe(data => this.riceDoing = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
@@ -162,13 +152,6 @@ export class GroundWaterPage {
     this.groundWaterUsage.forEach(it => it.submitRequest());
     this.groundWaterUsagePublic.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.formData.waterUsage.groundWater = this.f.value;
-
-    console.log(this.isCheckPrivate());
-    console.log(this.isCheckPublic());
-    console.log(this.isCheckBoth());
-    console.log(this.isCheckActivity());
-
     this.isCheckWarningBox = this.isCheck();
     if (this.isCheck()) {
       this.arrayIsCheckMethod();
@@ -241,17 +224,6 @@ export class GroundWaterPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(14));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 14)) {
-    //       arrayIsCheck.push(14);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public checkValid(): boolean {

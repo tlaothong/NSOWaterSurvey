@@ -9,15 +9,8 @@ import { getCurrentWorkingEA } from '../../states/bootup';
 import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA, HouseHoldUnit } from '../../models/mobile/MobileModels';
 import { HttpClient } from '@angular/common/http';
 import { BuildingState } from '../../states/building/building.reducer';
-import { SaveBuilding, LoadBuildingSample, LoadBuildingList, BuildingInList, SetCurrentWorkingBuilding, SetArrResol } from '../../states/building/building.actions';
-import { HouseHoldState } from '../../states/household/household.reducer';
-import { SaveHouseHold, LoadUnitByIdBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold } from '../../states/household/household.actions';
-import { getBuildingList, getBuildingSample } from '../../states/building';
-import { getHouseHoldUnitList } from '../../states/household';
+import { BuildingInList, SetArrResol } from '../../states/building/building.actions';
 import { Storage } from '@ionic/storage';
-import { SetCurrentWorkingEA } from '../../states/bootup/bootup.actions';
-import { timeout } from 'rxjs/operator/timeout';
-import { delay } from 'rxjs/operators';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 import { BuildingEffects } from '../../states/building/building.effects';
 import { HouseHoldEffects } from '../../states/household/household.effects';
@@ -65,8 +58,6 @@ export class SendPage {
     private alertCtrl: AlertController, private store: Store<BootupState>,
     private http: HttpClient, private dataStore: DataStoreProvider, private storeBuilding: Store<BuildingState>) {
 
-    //TODO: delete it when finsish
-    this.appState.deviceID = "HGAFPPNZ";
   }
 
   ionViewDidLoad() {
@@ -89,7 +80,6 @@ export class SendPage {
                 this.bldList.push(val);
                 console.log(this.bldList);
                 console.log(this.bldList.length);
-
               });
             });
 
@@ -101,8 +91,6 @@ export class SendPage {
               this.storage.get(item.houseHoldId).then(val => {
                 this.untList.push(val);
                 console.log(this.untList);
-                // console.log(this.untList.find(it => it.subUnit.accesses[0] == 3));
-
               });
             });
           });
@@ -155,16 +143,11 @@ export class SendPage {
     });
     loading.present();
 
-    // this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(data => {
-    //   this.getUpload1 = data
-    //   console.log(this.getUpload1);
-    //   this.getUpload1.sessionId = this.getUpload1.sessionId + this.appState.deviceID;
     this.uploadShow = true;
     this.downloadShow = true;
     let hasError = false;
     this.cloudSync.uploadTocloud1(this.appState.userId, this.appState.deviceID).take(1).subscribe(async d2c => {
       this.getUpload1 = d2c;
-      console.log(this.getUpload1);
 
       let blob = AzureStorage.Blob.createBlobServiceWithSas(blobUri, this.getUpload1.complementary);
       const keys = await this.storage.keys();
@@ -198,7 +181,6 @@ export class SendPage {
         this.cloudSync.uploadcloud2(this.getUpload1.sessionId).take(1).subscribe(data => {
           this.checkDownload = true;
           this.delayTime = data;
-          console.log(this.delayTime.delayTime);
           let extraTime = 45 * 60;
 
           for (let index = 1; index <= extraTime; index++) {
@@ -208,7 +190,6 @@ export class SendPage {
             }, 1000 / 60 + (index * 1000 / 60));
             if (index == extraTime) {
               setTimeout(_ => {
-                console.log("upload sucess");
                 const showSuccess = this.alertCtrl.create({
                   'title': 'ส่งข้อมูลเรียบร้อย',
                   'message': 'ข้อมูลทั้งหมดในเครื่องของท่าน ได้ถูกส่งไปสำรองไว้ (ส่งงาน) บนระบบคลาวด์ของสำนักงานสถิติฯ เรียบร้อยแล้ว<br>รหัสผู้ใช้งาน :' + this.appState.userId + '<br>รหัสอ้างอิง :' + this.getUpload1.sessionId,
@@ -259,18 +240,13 @@ export class SendPage {
           content: "Please wait...",
         });
         loader.present();
-        // if (dataAlert.length == 0) { //ไม่ทับ
         this.cloudSync.downloadFromCloud1(this.getUpload1.sessionId).take(1).subscribe(async (data: donwloadBlob) => {
           console.log(data);
           this.totalItem = Math.max(1, data.totalSurveys);
           this.countItem = 0;
           for (const it of data.data) {
             let eaCode = it.ea;
-
-
-
             let bldlst = await this.dataStore.listBuildingsForEA(eaCode).toPromise();
-            // console.log("bldlst in send ", bldlst);
 
             for (const sample of it.items) {
               let downloadUrl = data.baseUrl + sample.url + data.complementary;
@@ -279,7 +255,6 @@ export class SendPage {
               console.log(this.countItemTotal);
               console.log(sample);
               if (dataAlert != 'checktub' && sample._id.search(this.appState.userId) >= 0) {
-                // console.log("ก่อน");
                 continue;
               }
 
@@ -290,10 +265,8 @@ export class SendPage {
                 var bld = cnt;
 
                 if (ulist) {
-                  // console.log("หลัง");
                   await this.dataStore.saveHouseHoldInBuildingList(sample._id, ulist).toPromise();
                 }
-
 
                 BuildingEffects.ComposeBuilding(bld, "Sync");
                 BuildingEffects.ComposeBuildingList(bld, bldlst, ulist);
@@ -357,7 +330,6 @@ export class SendPage {
           showError.present();
           loader.dismiss();
         });
-
       }
     });
     showDownload.present();

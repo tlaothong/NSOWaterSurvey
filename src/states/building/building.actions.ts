@@ -1,17 +1,14 @@
 import { Action } from '@ngrx/store';
-import { EaComponent } from '../../components/ea/ea';
 import { BuildingInList, Building, resolutionsEA } from '../../models/mobile/MobileModels';
 
 export enum BuildingTypes {
     StateName = "Building",
-
     LoadList = "[BLD] Load List",
     LoadListSuccess = "[BLD] Load List Success",
     NewBuilding = "[BLD] Create New HomeBuilding",
     SaveBuilding = "[BLD] Set Building",
     SaveBuildingSuccess = "[BLD] Set Building Success",
     SetCurrentWorkingBuilding = "[BLD] Set the Current Working Building",
-
     Load = "[BLD] Load",
     LoadSuccess = "[BLD] Load Success",
     SetSendDataBuilding = "[BLD] Send Data Building",
@@ -23,21 +20,18 @@ export enum BuildingTypes {
     SetOtherBuildingType = "[BLD] Set Other Building Type",
     SetArrResol = "[BLD] Set Array Resolutions from Download Data",
 }
-
 export class LoadBuildingList implements Action {
     readonly type = BuildingTypes.LoadList;
 
     constructor(public eaCode: string) {
     }
 }
-
 export class LoadBuildingListSuccess implements Action {
     readonly type = BuildingTypes.LoadListSuccess;
 
     constructor(public payload: BuildingInList[]) {
     }
 }
-
 export class NewBuilding implements Action {
     readonly type = BuildingTypes.NewBuilding;
 
@@ -56,22 +50,18 @@ export class SaveBuildingSuccess implements Action {
     constructor(public payload: Building) {
     }
 }
-
 export class SetCurrentWorkingBuilding implements Action {
     readonly type = BuildingTypes.SetCurrentWorkingBuilding;
 
     constructor(public buildingId: string) {
     }
 }
-
-
 export class LoadBuildingSample implements Action {
     readonly type = BuildingTypes.Load;
 
     constructor() {
     }
 }
-
 export class LoadBuildingSampleSuccess implements Action {
     readonly type = BuildingTypes.LoadSuccess;
 
@@ -84,7 +74,6 @@ export class SetRecieveDataFromBuilding implements Action {
     constructor(public payload: any) {
     }
 }
-
 export class SetSendBuildingType implements Action {
     readonly type = BuildingTypes.SetSendBuildingType;
 
@@ -149,7 +138,6 @@ export type BuildingActionsType =
     | SetOtherBuildingType
     | DeleteBuilding
     | SetArrResol
-
     ;
 
 export interface BuildingInList {

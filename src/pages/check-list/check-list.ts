@@ -24,10 +24,6 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 export class CheckListPage {
   pages: Array<{ title: string, component: any, isCheck: boolean, isShow: boolean }>;
   private index: any;
-  // private objSkipPage: any;
-  // private arrayNextPage: any[];
-  // private indexBack: any;
-
   private backToRoot: boolean;
   private back: boolean;
   private selectorIndex: number;
@@ -43,7 +39,6 @@ export class CheckListPage {
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
       public navParams: NavParams, private store: Store<HouseHoldState>,
       private appState: AppStateProvider) {
-    // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false, isShow: true },
@@ -126,17 +121,6 @@ export class CheckListPage {
     }
   }
 
-  // arrayNextPageMethod(arrayNextPage) {
-  //   // let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-  //   // selectorIndex$.subscribe(data => this.index = data);
-  //   // console.log("index select", this.index)
-  //   // let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-  //     if (arrayNextPage != null) {
-  //       this.skipPageMedthod();
-  //       console.log("boolean arr", this.arrayNextPage);
-  //     }
-  // }
-
   updatePagesStatus(arrayIsCheck, arrayNextPageForHide) {
     if (this.appState && this.appState.houseHoldUnit) {
       const completedSurveys = this.appState.houseHoldUnit.surveyCompleted;
@@ -153,23 +137,7 @@ export class CheckListPage {
         }
       }
     }
-    // if (arrayIsCheck != null) {
-    //   console.log("arrayIsCheck", arrayIsCheck);
-
-    //   for (let i = 0; i < arrayIsCheck.length; i++) {
-    //     this.pages[arrayIsCheck[i]].isCheck = true;
-    //   }
-    // }
-    // console.log("next page",arrayNextPageForHide);
-
-    // if (arrayNextPageForHide != null) {
-    //   for (let i = 0; i < arrayNextPageForHide.length; i++) {
-    //     if (arrayNextPageForHide[i] == false) {
-    //       this.pages[i].isShow = false;
-    //     } else
-    //       this.pages[i].isShow = true;
-    //   }
-    // }
+   
   }
 
   public openPage(page, index) {
