@@ -41,7 +41,6 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
 
     modal.onDidDismiss(data => {
       if (data) {
-        // this.FormItem = data;
         var fg = <FormGroup>data;
         this.FormItem.setValue(fg.value);
       }
@@ -53,19 +52,10 @@ export class TableCheckItemCountComponent implements ISubmitRequestable {
     this.submitRequested = true;
   }
 
-  // public isValid(name: string): boolean {
-  //   var ctrl = this.FormItem.get(name);
-  //   if (name == 'anycheck') {
-  //     ctrl = this.FormItem;
-  //     return ctrl.errors && ctrl.errors.anycheck && (ctrl.touched || this.submitRequested);
-  //   }
-  //   return ctrl.invalid && (ctrl.touched || this.submitRequested);
-  // }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
       const hasItem = c.get('hasItem');
-      // const itemCount = c.get('itemCount');
       if (!hasItem.value) {
         return { 'anycheck': true };
       }

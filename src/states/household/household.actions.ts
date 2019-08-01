@@ -4,40 +4,29 @@ import { HouseHoldState } from './household.reducer';
 
 export enum HouseHoldTypes {
     StateName = "HouseHold",
-
     LoadHouseHoldSample = "[HH] Load HouseHold",
     LoadHouseHoldSampleSuccess = "[HH] Load HouseHold Success",
-
     CreateHouseHoldFor1UnitBuilding = "[HH] Create House Hold for Building w 1 Unit", // สร้าง HH ที่ไม่มี subUnit
     NewHouseHoldWithSubUnit = "[HH] New House Hold with Empty Sub Unit", // สร้าง HH สำหรับใส่ข้อมูล subUnit ใน dialog
     LoadSelectedHouseHold = "[HH] Load a Selected House Hold",
-
     SetCurrentWorkingHouseHold = "[HH] Set Current Working House Hold",
-
     SaveHouseHoldSubUnit = "[HH] Save the Updated SubUnit for House Hold",
-
     SaveHouseHold = "[HH] Save House Hold",
     SaveHouseHoldSuccess = "[HH] Save House Hold Success",
-
     UpdateUnitList = "[HH] Update the List of House Hold Units",
-
     UpdateProgress = "[HH] Update the Survey Progress for House Hold",
-
     LoadList = "[HH] Load House Hold List For Building",
     LoadListSuccess = "[HH] Load List For Building Success",
-
     SaveLastName = "[HH] Set Last Name",
     SaveLastNameSuccess = "[HH] Set Last Name Success",
     LoadLastName = "[HH] Load Last Name",
     DeleteHouseHold = "[HH] Delete House Hold",
-
     SetRiceDoing = "[HH] Set Rice Donig",
     SetSelectG1234 = "[HH] Set SelectG1234",
     SetIsFactorial = "[HH] Set IsFactorial",
     SetIsHouseHold = "[HH] Set IsHouseHold",
     SetIsCommercial = "[HH] Set IsCommercial",
     SetIsAgriculture = "[HH] Set IsAgriculture",
-    LoadUserByQrCode = "[HH] Load User By QrCode",
     SetFactorialCategory = "[HH] Set Factorial Category",
     SetRicePlantSelectPlant = "[HH] Set RicePlant Select Plant",
     LoadUserByQrCodeSuccess = "[HH] Load User By QrCode Success",
@@ -50,13 +39,6 @@ export enum HouseHoldTypes {
     SetAgiSelectAgronomy = "[HH] Set Agiculture Select Agronomy",
     SetAgiSelectRubber = "[HH] Set Agiculture Select Rubber",
     SetAgiSelectPerennial = "[HH] Set Agiculture Select Perennial",
-    SetArraySkipPageWaterSources = "[HH] Set Array Skip Page WaterSources ",
-    SetArraySkipPageAgiculture = "[HH] Set Array Skip Page Agicultures",
-    SetCheckWaterPlumbing = "[HH] Set Check Water Plumbing",
-    SetCheckWaterRiver = "[HH]Set Check Water River",
-    SetCheckWaterIrrigation = "[HH] Set Check Water Irrigation",
-    SetCheckWaterRain = "[HH] Set Check Water Rain",
-    SetCheckWaterBuying = "[HH] Set Check Water Buying",
     SetWateringResidential = "[HH] Set Watering Residential",
     SetWaterSourcesResidential = "[HH] Set WaterSources Residential",
     SetWaterSourcesRice = "[HH] Set WaterSources Rice ",
@@ -167,20 +149,12 @@ export class UpdateProgress implements Action {
     }
 }
 
-
 export class SetSelectG1234 implements Action {
     readonly type = HouseHoldTypes.SetSelectG1234;
 
     constructor(public payload: HouseHoldUnit) {
     }
 }
-
-// export interface IG1234 {
-//     g1: boolean;
-//     g2: boolean;
-//     g3: boolean;
-//     g4: boolean;
-// }
 
 export class SetIsHouseHold implements Action {
     readonly type = HouseHoldTypes.SetIsHouseHold;
@@ -290,49 +264,6 @@ export class SetAgiSelectRubber implements Action {
 
 export class SetAgiSelectPerennial implements Action {
     readonly type = HouseHoldTypes.SetAgiSelectPerennial;
-
-    constructor(public payload: any) {
-    }
-}
-
-export class SetArraySkipPageWaterSources implements Action {
-    readonly type = HouseHoldTypes.SetArraySkipPageWaterSources;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetArraySkipPageAgiculture implements Action {
-    readonly type = HouseHoldTypes.SetArraySkipPageAgiculture;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetCheckWaterPlumbing implements Action {
-    readonly type = HouseHoldTypes.SetCheckWaterPlumbing;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetCheckWaterRiver implements Action {
-    readonly type = HouseHoldTypes.SetCheckWaterRiver;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetCheckWaterIrrigation implements Action {
-    readonly type = HouseHoldTypes.SetCheckWaterIrrigation;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetCheckWaterRain implements Action {
-    readonly type = HouseHoldTypes.SetCheckWaterRain;
-
-    constructor(public payload: any) {
-    }
-}
-export class SetCheckWaterBuying implements Action {
-    readonly type = HouseHoldTypes.SetCheckWaterBuying;
 
     constructor(public payload: any) {
     }
@@ -475,7 +406,6 @@ export type HouseHoldActionsType =
     | SaveHouseHoldSuccess
     | UpdateUnitList
     | UpdateProgress
-
     | SetSelectG1234
     | SetIsHouseHold
     | SetIsAgriculture
@@ -494,13 +424,6 @@ export type HouseHoldActionsType =
     | SetAgiSelectAgronomy
     | SetAgiSelectRubber
     | SetAgiSelectPerennial
-    | SetArraySkipPageWaterSources
-    | SetArraySkipPageAgiculture
-    | SetCheckWaterPlumbing
-    | SetCheckWaterRiver
-    | SetCheckWaterIrrigation
-    | SetCheckWaterRain
-    | SetCheckWaterBuying
     | SetWateringResidential
     | SetWaterSourcesResidential
     | SetWaterSourcesRice

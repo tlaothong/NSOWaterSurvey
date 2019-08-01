@@ -40,17 +40,8 @@ export class FirstloginPage {
     this.guid = this.navParams.data.guid;
   }
 
-  ionViewDidLoad() {
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data)
-    //   }
-    // });
-  }
-
   goConfirmloginPage(confirmPassword: any) {
 
-    // let _idqr = this.f.get('_idqr').value;
     let password = this.f.get('password').value;
 
     let alert = this.alertCtrl.create({

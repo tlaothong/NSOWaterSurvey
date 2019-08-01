@@ -19,22 +19,11 @@ export class ManagementForFarmingPage {
 
   @ViewChildren(DetailManagementForFarmingComponent) private detailManagementForFarming: DetailManagementForFarmingComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
-  // @ViewChildren(CommunityWaterManagementPage) private communityWaterManagement: CommunityWaterManagementPage;
-
   public managementforfarming: FormGroup;
   private submitRequested: boolean;
   private isCheckWarningBox: boolean;
-
-  // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s.communityProject));
-
   private formData$ = this.store.select(getCommunitySample);
-  // private dataCommunuty$ = this.store.select(getSetCommunity);
-  // private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
-  // private DataStoreWorkEaOneRecord: any;
-
-  // private getSetCommunity$ = this.store.select(getSetCommunity);
   public getSetCommunity: FormGroup;
-
   private formData: any;
   
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, 
@@ -53,17 +42,6 @@ export class ManagementForFarmingPage {
     }, {
         validator: ManagementForFarmingPage.checkAnyOrOther()
       });
-  }
-
-  ionViewDidLoad() {
-    // console.log('ionViewDidLoad ManagementForFarmingPage');
-    // this.formData = this.navParams.get('formData');
-    // console.log("ก่อนส่ง: ", this.formData);
-
-    // if (this.formData.communityProject) {
-    //   this.managementforfarming.setValue(this.formData.communityProject)
-    // }
-
   }
 
   public handleSubmit() {

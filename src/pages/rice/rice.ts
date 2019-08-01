@@ -21,15 +21,11 @@ export class RicePage {
 
   private frontNum: any;
   private backNum: any;
-  // private itWater: any;
   @ViewChildren(FieldFarmingComponent) private fieldFarmings: FieldFarmingComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
   private isCheckWarningBox: boolean;
   public DataList = EX_RICH_LIST;
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
-  // private data: any
-  // formData$: any;
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public fb: FormBuilder, private store: Store<HouseHoldState>, private appState: AppStateProvider) {
     this.f = this.fb.group({

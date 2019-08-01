@@ -47,11 +47,6 @@ export class QuestionnaireMenuPopoverComponent {
     console.log("Pop: " + this.Pop);
     console.log("No: " + this.No);
 
-    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
-    //   if (data != null) {
-    //     this.dataWorkEARow = data
-    //   }
-    // });
   }
 
   public openMap() {
@@ -129,7 +124,6 @@ export class QuestionnaireMenuPopoverComponent {
                 }
               }
 
-              // (this.isDisabled || this.isCommunity || this.unitCount == 1) ? this.navCtrl.popToRoot() : this.navCtrl.popTo(this.navCtrl.getByIndex(3));
               if (this.isDisabled || this.isCommunity || this.unitCount == 1)
                 this.navCtrl.popToRoot();
               else

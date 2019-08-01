@@ -20,9 +20,7 @@ export class HerbsPlantPage {
   public f: FormGroup;
   public shownData: string[];
   public Plant: string[];
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.agriculture));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
   private GetPlantDrycrop$ = this.store.select(getAgronomyPlantSelectPlant);
   private GetPlantPerennial$ = this.store.select(getPerennialPlantSelectPlant);
   private GetPlantRice$ = this.store.select(getRicePlantSelectPlant);
@@ -115,19 +113,7 @@ export class HerbsPlantPage {
     this.submitRequested = true;
     this.fieldHerbsPlant.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // let fields = this.f.get('fields').value as Array<any>;
-    // let selectedMap = new Map<string, any>();
-    // fields.forEach(f => {
-    //   if (f.plantings && f.plantings.plants) {
-    //     f.plantings.plants.forEach(p => selectedMap.set(p.code, p));
-    //   }
-    // });
-    // let selected = [];
-    // selectedMap.forEach(v => selected.push(v));
-    
     this.isCheckWarningBox = ((this.f.valid));
-    console.log(this.f);
-
 
     if ((this.f.valid)) {
       this.arrayIsCheckMethod();
@@ -169,17 +155,6 @@ export class HerbsPlantPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(6));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 6)) {
-    //       arrayIsCheck.push(6);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public static checkAnyOrOther(): ValidatorFn {

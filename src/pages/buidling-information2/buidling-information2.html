@@ -1,9 +1,5 @@
 <ion-header>
-
-  <!-- <questionnaire-menu title="ตอนที่ 2 ข้อมูครัวเรือน/สถานประกอบการในบ้าน/อาคาร/สิ่งปลูกสร้าง"></questionnaire-menu> -->
   <questionnaire-menu title=" " isDisabled="true"></questionnaire-menu>
-
-
 </ion-header>
 
 <ion-content padding>
@@ -19,12 +15,6 @@
         </ion-item>
 
         <count [title]="'จำนวนทั้งหมด'" [beUnitCount]="true" [FormItem]="f" [count]="'unitCount'"></count>
-
-        <!-- <ion-item>
-          <ion-input type="number" placeholder="กรอกข้อมูล" formControlName="unitCount"
-            #numOfUnits id="numOfUnits" select-all
-            [class.invalid]="isValid('unitCount')"></ion-input>
-        </ion-item> -->
 
         <ion-item *ngIf="isValid('unitCount')">
           <span class="invalid-msg">

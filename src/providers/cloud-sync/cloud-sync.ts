@@ -37,14 +37,6 @@ export class CloudSyncProvider {
     return <Observable<any>>this.http.get(this.baseUrl + 'MobileConnect/up2cloud/' + ssId + '/' + file);
   }
 
-  // public uploadcloud2(sessionId: string, diviceID: any) {
-  //   return this.http.put(this.baseUrl + 'mobileconnect/up2cloud/' + sessionId + diviceID, {});
-  // }
-
-  // public downloadFromCloud1(sessionId: string, diviceID: any): Observable<any> {
-  //   return this.http.post<downloadFile>(this.baseUrl + 'mobileconnect/downfromcloud/' + sessionId + diviceID, {});
-  // }
-
   public downloadFromCloud1(sessionId: string): Observable<any> {
     return this.http.post<downloadFile>(this.baseUrl + 'mobileconnect/downfromcloud/' + sessionId, {});
   }

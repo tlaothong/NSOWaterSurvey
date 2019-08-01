@@ -2,7 +2,6 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { getListOfEAs } from '../../states/bootup';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { EaComponent } from '../../components/ea/ea';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { SetCurrentWorkingEA, SetCurrentStatusState } from '../../states/bootup/bootup.actions';
 import { EA } from '../../models/mobile/MobileModels';
@@ -15,10 +14,6 @@ import { EA } from '../../models/mobile/MobileModels';
 
 export class SelectEaPage {
 
-  // @ViewChildren(EaComponent) private ea: EaComponent[];
-  // private formDataUser$ = this.store.select(getUserData).pipe(map(s => s));
-  // private formDataEa$ = this.store.select(getDataWorkEA).pipe(map(s => s));
-  // public dataEa: any;
   private listOfEAs$ = this.store.select(getListOfEAs);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>) {

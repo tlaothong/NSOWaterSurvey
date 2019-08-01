@@ -91,20 +91,6 @@ export class RubberTreePage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(4));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-
-    //     if (arrayIsCheck.every(it => it != 4)) {
-    //       arrayIsCheck.push(4);
-    //     }
-
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public static checkAnyOrOther(): ValidatorFn {

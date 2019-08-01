@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 import { mergeMap, map, tap, withLatestFrom, switchMap, filter } from "rxjs/operators";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";
-import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, LoadSelectedHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit, DeleteHouseHold, SetSelectorIndex, UpdateProgress, SaveLastNameSuccess, SaveLastName, LoadLastName } from "./household.actions";
+import { HouseHoldTypes, LoadHouseHoldListSuccess, LoadHouseHoldSampleSuccess, LoadUnitByIdBuilding, LoadUnitByIdBuildingSuccess, LoadHouseHoldSample, SaveHouseHold, SaveHouseHoldSuccess, CreateHouseHoldFor1UnitBuilding, LoadHouseHoldList, SetCurrentWorkingHouseHold, UpdateUnitList, NewHouseHoldWithSubUnit, SaveHouseHoldSubUnit, DeleteHouseHold, SetSelectorIndex, UpdateProgress, SaveLastNameSuccess, SaveLastName, LoadLastName } from "./household.actions";
 import { AppStateProvider } from "../../providers/app-state/app-state";
 import { DataStoreProvider } from "../../providers/data-store/data-store";
 import { HouseHoldUnit, UnitInList, SubUnit } from "../../models/mobile/MobileModels";
@@ -74,9 +74,6 @@ export class HouseHoldEffects {
             this.appState.houseHoldUnit = action.payload;
         }),
         map((action: LoadHouseHoldSample) => new LoadHouseHoldSampleSuccess(action.payload))
-        // mergeMap(action => this.cloudSync.loadHouseHoldSampleTestData((<LoadHouseHoldSample>action).payload).pipe(
-        //     map(data => new LoadHouseHoldSampleSuccess(data))),
-        // ),
     );
 
     @Effect()
@@ -277,10 +274,6 @@ export class HouseHoldEffects {
             new SaveHouseHoldSuccess(action.payload, action.state),
             new UpdateUnitList(action.payload)
         ]),
-        // mergeMap(action => this.cloudSync.setHouseHold((<SetHouseHold>action).payload).pipe(
-        //     map(data => new SetHouseHoldSuccess(data)),
-        // )
-        // ),
     );
 
     @Effect()
@@ -532,9 +525,6 @@ export class HouseHoldEffects {
         let waterAquatic = findWaterSourceAquticAnimals(ag && ag.aquaticAnimals);
         wS.push(waterAquatic);
         wSPlant.push(waterAquatic);
-
-        // console.log("wSPlant", JSON.stringify(wSPlant));
-
         let checkPlumbing: boolean;
         let checkRiver: boolean;
         let checkIrrigation: boolean;
@@ -609,7 +599,6 @@ export class HouseHoldEffects {
             });
             let selected = [];
             selectedMap.forEach(v => selected.push(v));
-            // console.log(selected);
             return selected;
         }
 
@@ -625,7 +614,6 @@ export class HouseHoldEffects {
             });
             let selected = [];
             selectedMap.forEach(v => selected.push(v));
-            // console.log(selected);
             return selected;
         }
 
@@ -846,7 +834,6 @@ export class HouseHoldEffects {
     }
 
     private static listPagesToCheck(state: HouseHoldState): Array<boolean> {
-        // console.log("เช็คหน้าต่อไป", JSON.stringify(state));
 
         let arr: Array<boolean> = state.nextPageDirection;
         arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;

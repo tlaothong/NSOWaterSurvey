@@ -1,5 +1,4 @@
 import { HouseHoldActionsType, HouseHoldTypes, SurveyProgress } from "./household.actions";
-import { EX_RICH_LIST, EX_RUBBER_LIST } from "../../models/tree";
 import { HouseHoldUnit, UnitInList } from "../../models/mobile/MobileModels";
 
 export interface HouseHoldState {
@@ -40,7 +39,6 @@ export interface HouseHoldState {
     unitByIdBuilding: any,
     backToRoot: any,
     back: any,
-    // dataOfUnit: any,
     numberRoom: string,
     unitNo: string,
     memberCount: number,
@@ -86,7 +84,6 @@ const initialState: HouseHoldState = {
     unitByIdBuilding: [],
     backToRoot: null,
     back: null,
-    // dataOfUnit: null,
     numberRoom: null,
     unitNo: null,
     memberCount: null,
@@ -104,50 +101,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
             };
         case HouseHoldTypes.SaveHouseHoldSuccess: {
             return action.state;
-            // let s = resetStatesForModel(action.payload);
-            // // console.log("Payload", JSON.stringify(action.payload));
-            // // console.log(JSON.stringify(s));
-
-            // let hh = {
-            //     ...state,
-            //     houseHoldSample: action.payload,
-            //     selectG1234: s.selectG1234,
-            //     isHouseHold: s.isHouseHold,
-            //     isAgriculture: s.isAgriculture,
-            //     isFactorial: s.isFactorial,
-            //     isCommercial: s.isCommercial,
-            //     residentialGardeningUse: s.residentialGardeningUse,
-            //     wateringResidential: s.wateringResidential,
-            //     waterSourcesResidential: s.waterSourcesResidential,
-            //     waterSourcesRice: s.waterSourcesRice,
-            //     waterSourcesAgiculture: s.waterSourcesAgiculture,
-            //     waterSourcesFactory: s.waterSourcesFactory,
-            //     waterSourcesCommercial: s.waterSourcesCommercial,
-            //     arraySkipPageAgiculture: s.agi,
-            //     riceDoing: s.riceDoing,
-            //     agiSelectRice: s.agiSelectRice,
-            //     agiSelectAgronomy: s.agiSelectAgronomy,
-            //     agiSelectRubber: s.agiSelectRubber,
-            //     agiSelectPerennial: s.agiSelectPerennial,
-            //     ricePlantSelectPlant: s.ricePlantSelectPlant,
-            //     agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
-            //     rubberTreeSelectPlant: s.rubberTreeSelectPlant,
-            //     perennialPlantSelectPlant: s.perennialPlantSelectPlant,
-            //     factorialCategory: s.factorialCategory,
-            //     commercialServiceType: s.commercialServiceType,
-            //     checkWaterPlumbing: s.checkWaterPlumbing,
-            //     checkWaterRiver: s.checkWaterRiver,
-            //     checkWaterIrrigation: s.checkWaterIrrigation,
-            //     checkWaterRain: s.checkWaterRain,
-            //     checkWaterBuying: s.checkWaterBuying,
-            //     numberRoom: s.numberRoom,
-            //     memberCount: action.payload.residence ? action.payload.residence.memberCount : null,
-            // };
-
-            // return {
-            //     ...hh,
-            //     nextPageDirection: listPagesToCheck(hh),
-            // };
         }
         case HouseHoldTypes.UpdateProgress:
             return {
@@ -155,21 +108,15 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 selectorIndex: action.index,
                 progress: action.progress,
             };
-
         case HouseHoldTypes.LoadSelectedHouseHold:
             return {
                 ...state,
                 houseHoldSample: action.payload,
             };
-
         case HouseHoldTypes.SetSelectG1234:
             return {
                 ...state,
                 selectG1234: action.payload,
-                // nextPageDirection: listPagesToCheck({
-                //     ...state,
-                //     selectG1234: action.payload
-                // }),
             };
         case HouseHoldTypes.SetIsHouseHold:
             return {
@@ -257,60 +204,6 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 agiSelectPerennial: action.payload,
             };
-        // case HouseHoldTypes.SetArraySkipPageAgiculture:
-        //     return {
-        //         ...state,
-        //         arraySkipPageAgiculture: action.payload,
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             // arraySkipPageAgiculture: action.payload,
-        //         }),
-        //     };
-        // case HouseHoldTypes.SetCheckWaterPlumbing:
-        //     return {
-        //         ...state,
-        //         checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             checkWaterPlumbing: isCheckWater(state.checkWaterPlumbing, action.payload),
-        //         }),
-        //     };
-        // case HouseHoldTypes.SetCheckWaterRiver:
-        //     return {
-        //         ...state,
-        //         checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             checkWaterRiver: isCheckWater(state.checkWaterRiver, action.payload),
-        //         }),
-        //     };
-        // case HouseHoldTypes.SetCheckWaterIrrigation:
-        //     return {
-        //         ...state,
-        //         checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             checkWaterIrrigation: isCheckWater(state.checkWaterIrrigation, action.payload),
-        //         }),
-        //     };
-        // case HouseHoldTypes.SetCheckWaterRain:
-        //     return {
-        //         ...state,
-        //         checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             checkWaterRain: isCheckWater(state.checkWaterRain, action.payload),
-        //         }),
-        //     };
-        // case HouseHoldTypes.SetCheckWaterBuying:
-        //     return {
-        //         ...state,
-        //         checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             checkWaterBuying: isCheckWater(state.checkWaterBuying, action.payload),
-        //         }),
-        //     };
         case HouseHoldTypes.SetWateringResidential:
             return {
                 ...state,
@@ -381,84 +274,10 @@ export function reducer(state: HouseHoldState = initialState, action: HouseHoldA
                 ...state,
                 lastName: action.payload,
             };
-        // case HouseHoldTypes.LoadHouseHoldSampleSuccess:
-        //     let s = resetStatesForModel(action.payload);
-        //     // console.log("Payload", JSON.stringify(action.payload));
-        //     // console.log(JSON.stringify(s));
-
-        //     return {
-        //         ...state,
-        //         houseHoldSample: action.payload,
-        //         selectG1234: s.selectG1234,
-        //         isHouseHold: s.isHouseHold,
-        //         isAgriculture: s.isAgriculture,
-        //         isFactorial: s.isFactorial,
-        //         isCommercial: s.isCommercial,
-        //         residentialGardeningUse: s.residentialGardeningUse,
-        //         wateringResidential: s.wateringResidential,
-        //         waterSourcesResidential: s.waterSourcesResidential,
-        //         waterSourcesRice: s.waterSourcesRice,
-        //         waterSourcesAgiculture: s.waterSourcesAgiculture,
-        //         waterSourcesFactory: s.waterSourcesFactory,
-        //         waterSourcesCommercial: s.waterSourcesCommercial,
-        //         arraySkipPageAgiculture: s.agi,
-        //         riceDoing: s.riceDoing,
-        //         agiSelectRice: s.agiSelectRice,
-        //         agiSelectAgronomy: s.agiSelectAgronomy,
-        //         agiSelectRubber: s.agiSelectRubber,
-        //         agiSelectPerennial: s.agiSelectPerennial,
-        //         ricePlantSelectPlant: s.ricePlantSelectPlant,
-        //         agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
-        //         rubberTreeSelectPlant: s.rubberTreeSelectPlant,
-        //         perennialPlantSelectPlant: s.perennialPlantSelectPlant,
-        //         factorialCategory: s.factorialCategory,
-        //         commercialServiceType: s.commercialServiceType,
-        //         checkWaterPlumbing: s.checkWaterPlumbing,
-        //         checkWaterRiver: s.checkWaterRiver,
-        //         checkWaterIrrigation: s.checkWaterIrrigation,
-        //         checkWaterRain: s.checkWaterRain,
-        //         checkWaterBuying: s.checkWaterBuying,
-        //         numberRoom: s.numberRoom,
-        //         nextPageDirection: listPagesToCheck({
-        //             ...state,
-        //             houseHoldSample: action.payload,
-        //             selectG1234: s.selectG1234,
-        //             isHouseHold: s.isHouseHold,
-        //             isAgriculture: s.isAgriculture,
-        //             isFactorial: s.isFactorial,
-        //             isCommercial: s.isCommercial,
-        //             residentialGardeningUse: s.residentialGardeningUse,
-        //             wateringResidential: s.wateringResidential,
-        //             waterSourcesResidential: s.waterSourcesResidential,
-        //             waterSourcesRice: s.waterSourcesRice,
-        //             waterSourcesAgiculture: s.waterSourcesAgiculture,
-        //             waterSourcesFactory: s.waterSourcesFactory,
-        //             waterSourcesCommercial: s.waterSourcesCommercial,
-        //             arraySkipPageAgiculture: s.agi,
-        //             riceDoing: s.riceDoing,
-        //             agiSelectRice: s.agiSelectRice,
-        //             agiSelectAgronomy: s.agiSelectAgronomy,
-        //             agiSelectRubber: s.agiSelectRubber,
-        //             agiSelectPerennial: s.agiSelectPerennial,
-        //             ricePlantSelectPlant: s.ricePlantSelectPlant,
-        //             agronomyPlantSelectPlant: s.agronomyPlantSelectPlant,
-        //             rubberTreeSelectPlant: s.rubberTreeSelectPlant,
-        //             perennialPlantSelectPlant: s.perennialPlantSelectPlant,
-        //             factorialCategory: s.factorialCategory,
-        //             commercialServiceType: s.commercialServiceType,
-        //             checkWaterPlumbing: s.checkWaterPlumbing,
-        //             checkWaterRiver: s.checkWaterRiver,
-        //             checkWaterIrrigation: s.checkWaterIrrigation,
-        //             checkWaterRain: s.checkWaterRain,
-        //             checkWaterBuying: s.checkWaterBuying,
-        //             numberRoom: s.numberRoom,
-        //         }),
-        //     };
         default:
             return state;
     }
 }
-
 
 function isCheckWater(checkWater: boolean, payload: boolean): boolean {
     return checkWater ? true : payload;

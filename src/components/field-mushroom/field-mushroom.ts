@@ -4,7 +4,6 @@ import { LocationComponent } from '../location/location';
 import { WaterSources9Component } from '../water-sources9/water-sources9';
 import { Store } from '@ngrx/store';
 import { HouseHoldState } from '../../states/household/household.reducer';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @Component({
   selector: 'field-mushroom',

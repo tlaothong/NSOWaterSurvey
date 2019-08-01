@@ -57,7 +57,6 @@ export function reducer(state: BuildingState = initialState, action: BuildingAct
         //------bigest---------
         case BuildingTypes.SaveBuildingSuccess:
             let b = switchStateBuilding(action.payload);
-            // console.log(JSON.stringify(action.payload));
 
             return {
                 ...state,

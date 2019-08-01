@@ -19,9 +19,7 @@ export class BuyingPage {
   @ViewChildren(TableBuyingComponent) private tableBuying: TableBuyingComponent[];
   @ViewChildren(TableBuyingOtherComponent) private tableBuyingOther: TableBuyingOtherComponent[];
   BuyingForm: FormGroup;
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
   private getIsHouseHold$ = this.store.select(getIsHouseHold);
   public getIsHouseHold: boolean;
   private getIsAgriculture$ = this.store.select(getIsAgriculture);
@@ -79,12 +77,6 @@ export class BuyingPage {
   }
 
   ionViewDidLoad() {
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.BuyingForm.patchValue(data.waterUsage.buying);
-    //     this.formData = data;
-    //   }
-    // })
     this.getIsHouseHold$.subscribe(data => this.getIsHouseHold = data);
     this.getIsAgriculture$.subscribe(data => this.getIsAgriculture = data);
     this.getIsFactorial$.subscribe(data => this.getIsFactorial = data);
@@ -94,10 +86,7 @@ export class BuyingPage {
 
   public handleSubmit() {
     this.submitRequested = true;
-    // this.formData.waterUsage.buying = this.BuyingForm.value;
     this.isCheckWarningBox = this.BuyingForm.valid;
-
-    console.log(this.BuyingForm);
 
     if (this.BuyingForm.valid) {
       this.arrayIsCheckMethod();
@@ -126,16 +115,5 @@ export class BuyingPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(19));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.some(it => it != 19)) {
-    //       arrayIsCheck.push(19);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 }

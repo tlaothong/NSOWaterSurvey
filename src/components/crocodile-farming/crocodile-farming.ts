@@ -83,7 +83,6 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       const other = c.get('other');
       const fieldCount = c.get('fieldCount');
       const fieldsAreSameSize = c.get('fieldsAreSameSize');
-      // const animalsCount = c.get('animalsCount');
 
       if (!depression.value && !hasOther.value) {
         return { 'anycheck': true };
@@ -96,9 +95,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       if (depression.value && (fieldsAreSameSize.value == null && fieldCount.value != 1)) {
         return { 'fieldsAreSameSize': true };
       }
-      // if ((depression.value || hasOther.value) && (animalsCount.value == null)) {
-      //   return { 'animalsCount': true };
-      // }
+      
       return null;
     }
   }
@@ -120,10 +117,7 @@ export class CrocodileFarmingComponent implements ISubmitRequestable {
       let ctrls = this.FormItem;
       return ctrls.errors && ctrls.errors.fieldsAreSameSize && (ctrl.dirty || this.submitRequested);
     }
-    // if (name == 'animalsCount') {
-    //   let ctrls = this.FormItem;
-    //   return ctrls.errors && ctrls.errors.animalsCount && (ctrl.dirty || this.submitRequested);
-    // }
+    
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 

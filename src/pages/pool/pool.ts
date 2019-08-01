@@ -23,8 +23,6 @@ export class PoolPage {
   @ViewChildren(CountComponent) private count: CountComponent[];
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private riceDoing$ = this.store.select(getRiceDoing);
@@ -109,13 +107,6 @@ export class PoolPage {
     PoolPage.checkActivityAgiculture = this.activityAgiculture;
     PoolPage.checkActivityFactory = this.activityFactory;
     PoolPage.checkActivityCommercial = this.activityCommercial;
-
-    console.log("activityResidential", this.activityResidential);
-    console.log("activityWateringRes", this.activityWateringRes);
-    console.log("activityRice", this.activityRice);
-    console.log("activityAgiculture", this.activityAgiculture);
-    console.log("activityFactory", this.activityFactory);
-    console.log("activityCommercial", this.activityCommercial);
   }
 
   check(): boolean {
@@ -156,7 +147,6 @@ export class PoolPage {
   }
 
   public checkValid(): boolean {
-    // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
     if (this.f.get('doing').valid == true) {
       if (this.f.get('doing').value) {
         return this.isCheckPool() && this.isCheckWaterResources()
@@ -175,7 +165,6 @@ export class PoolPage {
   }
 
   public isCheckWaterResources(): boolean {
-    // let isCheckPoolUsage = this.poolUsage.find(it => !it.checkValid()) ? false : true;
     let isCheckPoolUsage = !this.poolUsage.some(it => it.checkValid() == false);;
     let isCheckWaterResourceCount = this.isCheckActivity() ? this.f.get('waterResourceCount').value > 0 : this.f.get('waterResourceCount').valid;
     return this.f.get('waterResourceCount').value <= this.f.get('poolCount').value && isCheckPoolUsage && isCheckWaterResourceCount;
@@ -216,10 +205,6 @@ export class PoolPage {
 
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
-    // if (name == 'doing') {
-    //   let ctrls = this.f;
-    //   return ctrls.errors && ctrls.errors.doing && (ctrl.dirty || this.submitRequested);
-    // }
     if (name == 'poolCount') {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.poolCount && (ctrl.dirty || this.submitRequested);
@@ -239,17 +224,6 @@ export class PoolPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(16));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 16)) {
-    //       arrayIsCheck.push(16);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   changeValueActivity() {

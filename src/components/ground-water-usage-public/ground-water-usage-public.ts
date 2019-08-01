@@ -76,7 +76,6 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
 
   public isCheckValidwaterAct(): boolean {
     let isCheckWaterAct = !this.waterActivity6.some(it => it.isCheck == false);
-    // let isCheckWaterAct = this.waterActivity6.find(it => it.totalSum != 100) ? false : true;
     return (this.gardeningUse || this.riceDoing || this.commerceUse || this.factoryUse || this.residenceUse || this.agricultureUse) ?
       isCheckWaterAct : true;
   }
@@ -91,8 +90,6 @@ export class GroundWaterUsagePublicComponent implements ISubmitRequestable {
   }
 
   setDefult() {
-    // this.FormItem.get('hasPump').setValue(null);
-    // this.FormItem.get('pumpCount').setValue(null);
   }
 
   submitRequest() {

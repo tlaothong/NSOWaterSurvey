@@ -35,7 +35,6 @@ export class EaMapPage {
 
   markCurrentLocation() {
     let mapOptions = {
-      // center: new google.maps.LatLng('13.754599', '100.492011'),
       center: new google.maps.LatLng(this.mapCenter),
       zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -61,7 +60,6 @@ export class EaMapPage {
 
   loadInitialMap(nativeElemt) {
     let mapOptions = {
-      // center: new google.maps.LatLng('13.754599', '100.492011'),
       center: new google.maps.LatLng(this.mapCenter),
       zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP,

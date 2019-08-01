@@ -13,26 +13,12 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 })
 export class DlgUnitPage {
   public submitRequested: boolean;
-  // public FormItem: FormGroup;
   public ff: FormGroup;
-
   private replaceMode: boolean = false;
-
-  // public index: number;
-  // public access: number;
   public static accessValid: number;
-  // public comment: string = null;
   public count: number;
   public oldStatus: string;
-
   public lastAccess: number;
-  // private fgac: FormArray;
-  // private fgcm: FormArray;
-
-  // public id_BD: string;
-
-  // private dataHomeBuilding$ = this.storeBuilding.select(setHomeBuilding);
-  // public dataHouseHold$ = this.store.select(getHouseHoldSample);
 
   constructor(public navCtrl: NavController, private store: Store<HouseHoldState>,
     private storeBuilding: Store<HouseHoldState>, public navParams: NavParams,
@@ -48,21 +34,6 @@ export class DlgUnitPage {
 
     let accesses = this.ff.get('subUnit.accesses').value;
     this.lastAccess = accesses.length > 0 ? accesses[accesses.length - 1] : null;
-    // this.ff.get('subUnit.accessCount').setValue(this.FormItem.get('subUnit.accessCount').value);
-
-    // this.setupAccessCountChanges();
-
-    // this.ff.get('subUnit').setValue(this.FormItem.get('subUnit').value);
-
-    // this.dataHomeBuilding$.subscribe(data => {
-    //   if (data != null) {
-    //     this.id_BD = data._id
-    //     this.FormItem.controls['buildingId'].setValue(this.id_BD);
-    //   }
-    // });
-
-    // this.FormItem.controls['buildingId'].setValue(this.appState.buildingId);
-    // this.setEnvironment();
   }
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
@@ -82,17 +53,6 @@ export class DlgUnitPage {
     }, {
         validator: DlgUnitPage.checkAnyOrOther()
       });
-  }
-
-  ionViewDidLoad() {
-    // this.store.dispatch(new LoadDataOfUnit(this.FormItem.get('_id').value));
-    // this.dataHouseHold$.subscribe(data => {
-    //   if (data != null) {
-    //     this.FormItem.setValue(data);
-    //     console.log(data);
-    //     this.setEnvironment();
-    //   }
-    // });
   }
 
   public closeDialog() {
@@ -124,37 +84,7 @@ export class DlgUnitPage {
         comment: formValue.comment,
       });
     }
-
-    // DlgUnitPage.accessValid = this.access;
-    // console.log(DlgUnitPage.accessValid);
-    // this.FormItem.get('subUnit').setValue(this.ff.get('subUnit').value)
-    // this.store.dispatch(new SetNumberRoom(this.FormItem.get('subUnit.roomNumber').value));
-    // if (this.access == 1) {
-    //   if (this.ff.valid && this.access != null) {
-    //     this.setAccesses();
-    //     this.AddUnit();
-    //     this.viewCtrl.dismiss(this.FormItem);
-    //   }
-    // } else {
-    //   if (this.ff.get('subUnit.roomNumber').value != null) {
-    //     this.setAccesses();
-    //     this.AddUnit();
-    //     this.viewCtrl.dismiss(this.FormItem);
-    //   }
-    // }
-
   }
-
-  // public setValue(name: string) {
-  //   var ctrl = this.FormItem.get(name);
-  //   if (name == "hasPlumbing" ) {
-  //     this.FormItem.get('hasPlumbingMeter').setValue(false);
-  //     this.FormItem.get('isPlumbingMeterXWA').setValue(false);
-  //   }
-  //   if (name == "hasGroundWater") {
-  //     this.FormItem.get('hasGroundWaterMeter').setValue(false);
-  //   }
-  // }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {
@@ -224,50 +154,4 @@ export class DlgUnitPage {
     }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
-
-  // public setAccesses() {
-  //   this.FormItem.get('subUnit.accessCount').setValue(this.count);
-  //   this.fgac.at(this.index).setValue(this.access);
-  //   this.fgcm.at(this.index).setValue({ 'at': Date.now(), 'text': this.comment, });
-  //   this.updateStatus();
-  // }
-
-  // public updateStatus() {
-  //   this.oldStatus = this.FormItem.get('status').value;
-  //   let status: string;
-  //   switch (this.access) {
-  //     case 1:
-  //       status = "pause";
-  //       break;
-  //     case 2:
-  //     case 3:
-  //       status = (this.index < 2) ? "return" : "complete";
-  //       break;
-  //     default:
-  //       status = "complete";
-  //       break;
-  //   }
-  //   console.log(status);
-
-  //   this.FormItem.get('status').setValue(status);
-  // }
-
-  // public setEnvironment() {
-  //   this.count = this.FormItem.get('subUnit.accessCount').value;
-  //   this.index = this.count - 1;
-
-  //   this.fgac = this.FormItem.get('subUnit.accesses') as FormArray;
-  //   this.fgcm = this.FormItem.get('comments') as FormArray;
-
-  //   this.access = this.fgac.at(this.index).value;
-  //   this.comment = this.fgcm.at(this.index).value.text;
-  // }
-
-  // AddUnit() {
-  //   let id = this.FormItem.get('_id').value;
-  //   this.store.dispatch(new LoadHouseHoldSample(this.FormItem.value));
-  //   let key = this.appState.buildingId;
-  //   console.log(this.appState.buildingId);
-
-  //   this.local.updateListUnit(this.FormItem.get('buildingId').value, this.FormItem.value);
 }

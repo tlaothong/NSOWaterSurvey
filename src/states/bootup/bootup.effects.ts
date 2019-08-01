@@ -21,10 +21,6 @@ export class BootupEffects {
     @Effect()
     public loadCommunitySample$: Observable<Action> = this.action$.pipe(
         ofType(BootupTypes.Load),
-        // mergeMap(action => this.cloudSync.loadCommunitySampleTestData().pipe(
-        //         map(data => new LoadBootstrapSuccess(data)),
-        //     )
-        // ),
         mergeMap(_ => Observable.of(new LoadBootstrapSuccess(null))),
     );
 

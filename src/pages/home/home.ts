@@ -57,7 +57,6 @@ export class HomePage {
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage" },//38
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage" },
       { title: 'แบบสอบถามสำมะโนประชากรและเคหะ', component: "PopulationPage" },//40
-      // { title: 'Disaster', component: "DisasterPage", value: 23 },
       { title: 'การจัดการน้ำในหมู่บ้านชุมชน', component: "CommunityWaterManagementPage" },
       { title: 'โครงการจัดการน้ำเพื่อการเกษตรชุมชน โดยใช้พื้นที่สาธารณะ', component: "ManagementForFarmingPage" },//42
       { title: 'หน้าเลือก activity', component: "WaterActivityUnitPage" },
