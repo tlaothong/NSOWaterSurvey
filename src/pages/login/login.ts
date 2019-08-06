@@ -53,11 +53,11 @@ export class LoginPage {
       message: 'รหัสผ่านไม่ถูกต้อง',
       buttons: ['ตกลง']
     });
-   
-    // this.dataStore.validateUser(userId, password).then(valid => {
-    //   if (!valid) {
-    //     wrongPassword.present();
-    //   } else {
+
+    this.dataStore.validateUser(userId, password).then(valid => {
+      if (!valid) {
+        wrongPassword.present();
+      } else {
         this.store.dispatch(new LoginUser(userId));
         this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
           if (hasDownloaded) {
@@ -66,8 +66,8 @@ export class LoginPage {
             this.navCtrl.push("GetworkPage");
           }
         });
-    //   }
-    // });
+      }
+    });
   }
 
 }
