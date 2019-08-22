@@ -3,6 +3,7 @@ import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 import { CloudSyncProvider } from '../cloud-sync/cloud-sync';
 import { BuildingInList, Building, HouseHoldUnit, UnitInList, EA, CommunityInList, EAwStat } from '../../models/mobile/MobileModels';
+import { WebStateProvider } from '../web-state/web-state';
 
 /*
   Generated class for the DataStoreProvider provider.
@@ -14,8 +15,8 @@ declare var CryptoJS;
 @Injectable()
 export class DataStoreProvider {
 
-  constructor(private storage: Storage, private cloudSync: CloudSyncProvider) {
-    // console.log('Hello DataStoreProvider Provider');
+  constructor(private storage: Storage, private cloudSync: CloudSyncProvider, private webState: WebStateProvider) {
+    console.log('Hello DataStoreProvider Provider');
   }
 
   /**
@@ -32,14 +33,14 @@ export class DataStoreProvider {
    * รายการ EA ทั้งหมดที่ถูก download เรียบร้อยแล้ว
    */
   public listDownloadedEAs(userId: string): Observable<EAwStat[]> {
-    return Observable.fromPromise(this.storage.get('uea1v' + userId));
+    return Observable.of([ this.webState.ea ]);
   }
 
   /**
    * รายการ EAs ได้ถูก Download แล้วหรือยัง?f
    */
   public hasEasDownloaded(userId: string): Observable<boolean> {
-    return Observable.fromPromise(this.storage.get('uea1v' + userId)).map(it => it != null);
+    return Observable.of(true);
   }
 
   public saveNotiUid(notiIds): Promise<{}> {

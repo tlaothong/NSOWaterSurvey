@@ -1,17 +1,17 @@
+import { upload1, downloadFile } from './../../models/mobile/MobileModels';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EA, upload1, downloadFile } from '../../models/mobile/MobileModels';
+import { EA, Building, HouseHoldUnit } from '../../models/mobile/MobileModels';
+import { WebStateProvider } from '../web-state/web-state';
 
 @Injectable()
 export class CloudSyncProvider {
 
   // private readonly baseUrl: string = "https://watersurveyapi.azurewebsites.net/api/";
-  private readonly baseUrl: string = "https://nso-manage-dev.azurewebsites.net/api/"; // dev url
-  // private readonly baseUrl: string = "https://localhost:5001/api/"; // local 
-  // private readonly baseUrl: string = "https://nso-manage.azurewebsites.net/api/";
+  private readonly baseUrl: string = "https://nso-manage.azurewebsites.net/api/"; // dev url
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private webState: WebStateProvider) {
     console.log('Create CloudSyncProvider Provider');
   }
 
@@ -20,7 +20,33 @@ export class CloudSyncProvider {
   }
   //1 get session
   public getUploadToCloud(userId: string): Observable<DeviceToCloudInfo> {
-    return <Observable<any>>this.http.post(this.baseUrl + 'MobileConnect/up2cloud/' + userId, {});
+    return Observable.of(null);
+  }
+
+  public async getWebState(sessionId: string) {
+    let getState = this.http.get(this.baseUrl + 'WebConnect/' + sessionId).toPromise();
+    let wstate: any = await getState;
+    if (wstate) {
+      this.webState.sessionId = sessionId;
+      this.webState.userId = wstate.userId;
+      this.webState.eaCode = wstate.eaCode;
+      this.webState.buildingId = wstate.buildingId;
+      this.webState.baseUri = wstate.baseUri;
+      this.webState.cmp = wstate.cmp;
+      this.webState.units = wstate.units;
+      this.webState.ea = wstate.ea;
+    }
+
+    let result: any = await this.http.get(this.webState.baseUri + this.webState.buildingId + ".txt" + this.webState.cmp).toPromise();
+    let bld:Building = result;
+    return Promise.resolve(bld);
+  }
+
+  public async getWebUnit(id: string) {
+    let uri = this.webState.baseUri + id + '.txt' + this.webState.cmp;
+    let result:any = await this.http.get(uri).toPromise();
+    let unit: HouseHoldUnit = result;
+    return unit;
   }
 
   //1  get session
