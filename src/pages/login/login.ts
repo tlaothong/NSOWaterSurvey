@@ -61,64 +61,13 @@ export class LoginPage {
         this.store.dispatch(new LoginUser(userId));
         this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
           if (hasDownloaded) {
-            // this.store.dispatch(new DownloadUserToMobile());
             this.navCtrl.setRoot("SelectEaPage");
-            //  this.presentLoading();
           } else {
             this.navCtrl.push("GetworkPage");
           }
         });
       }
     });
-
-
-    /********************** */
-    // let data = {
-    //   idUser: event.idUser._value,
-    //   password: event.password._value
-    // }
-    // this.storeLogging.dispatch(new SetLogin(data));
-    // this.getDataLogin$.subscribe(data => {
-    //   if (data != null) {
-    //     this.getDataLogin = data
-    //     console.log(this.getDataLogin);
-    //     if (this.getDataLogin == true) {
-    //       this.storeLogging.dispatch(new LoadUserDataById(event.idUser._value));
-    //       this.formDataUser$.subscribe(data => {
-    //         if (data != null) {
-    //           this.userObj = data
-    //           console.log(this.userObj);
-    //           this.storage.set('UserInfo',this.userObj);
-    //         }
-
-    //       });
-    //       this.navCtrl.push("GetworkPage");
-    //     }
-    //     else {
-    //       notFoundUser.present();
-    //     }
-    //   }
-
-    // });
-
-    // // let wrongPassword = this.alertCtrl.create({
-    // //   message: 'รหัสผ่านไม่ถูกต้อง',
-    // //   buttons: ['ตกลง']
-    // // });
-    // let notFoundUser = this.alertCtrl.create({
-    //   message: 'ไม่พบผู้ใช่',
-    //   buttons: ['ตกลง']
-    // });
-
-
-
-    // // if (typeof (this.userData) == 'undefined' || this.userData == null) {
-    // //   notFoundUser.present();
-    // // } else if (this.userData.password != event.password._value) {
-    // //   wrongPassword.present();
-    // // } else {
-    // //   this.navCtrl.push("ConfirmloginPage");
-    // // }
   }
 
 }

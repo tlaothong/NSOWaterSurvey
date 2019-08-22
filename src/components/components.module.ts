@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { WaterSources8AComponent } from './water-sources8-a/water-sources8-a';
-import { DemoNaComponent } from './demo-na/demo-na';
 import { PumpComponent } from './pump/pump';
 import { WaterSources8BComponent } from './water-sources8-b/water-sources8-b';
 import { WaterSources9Component } from './water-sources9/water-sources9';
@@ -44,20 +43,15 @@ import { ModalPlantComponent } from './modal-plant/modal-plant';
 import { UnitButtonComponent } from './unit-button/unit-button';
 import { TablePopulationComponent } from './table-population/table-population';
 import { QuestionnaireHomeComponent } from './questionnaire-home/questionnaire-home';
-import { EAlistComponent } from './e-alist/e-alist';
-import { EaComponent } from './ea/ea';
 import { BackToRootComponent } from './back-to-root/back-to-root';
 import { BackToRootLoginComponent } from './back-to-root-login/back-to-root-login';
-import { InputNumberOfArrayComponent } from './input-number-of-array/input-number-of-array';
 import { CountComponent } from './count/count';
 import { UnitButtonPopoverComponent } from './unit-button-popover/unit-button-popover';
 import { PoolAreaForCommuComponent } from './pool-area-for-commu/pool-area-for-commu';
 import { WarningComponent } from './warning/warning';
-import { PictureShowComponent } from './picture-show/picture-show';
 
 @NgModule({
   declarations: [WaterSources8AComponent,
-    DemoNaComponent,
     PumpComponent,
     WaterSources8BComponent,
     WaterSources9Component,
@@ -101,16 +95,12 @@ import { PictureShowComponent } from './picture-show/picture-show';
     UnitButtonComponent,
     TablePopulationComponent,
     QuestionnaireHomeComponent,
-    EAlistComponent,
-    EaComponent,
     BackToRootComponent,
     BackToRootLoginComponent,
-    InputNumberOfArrayComponent,
     CountComponent,
     UnitButtonPopoverComponent,
     PoolAreaForCommuComponent,
     WarningComponent,
-    PictureShowComponent,
   ],
   imports: [
     IonicPageModule.forChild(QuestionnaireMenuPopoverComponent),
@@ -122,7 +112,6 @@ import { PictureShowComponent } from './picture-show/picture-show';
     UnitButtonPopoverComponent,
   ],
   exports: [WaterSources8AComponent,
-    DemoNaComponent,
     PumpComponent,
     WaterSources8BComponent,
     WaterSources9Component,
@@ -166,16 +155,12 @@ import { PictureShowComponent } from './picture-show/picture-show';
     UnitButtonComponent,
     TablePopulationComponent,
     QuestionnaireHomeComponent,
-    EAlistComponent,
-    EaComponent,
     BackToRootComponent,
     BackToRootLoginComponent,
-    InputNumberOfArrayComponent,
     CountComponent,
     UnitButtonPopoverComponent,
     PoolAreaForCommuComponent,
     WarningComponent,
-    PictureShowComponent,
   ]
 })
 export class ComponentsModule { }

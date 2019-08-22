@@ -29,6 +29,9 @@ export class AppStateProvider {
   public communityData: any;
 
   public houseHoldUnit: HouseHoldUnit;
+  public statusEa: any;
+
+  public deviceID: any;
 
   /**
    * สร้าง Id สำหรับใช้กับข้อมูลต่างๆ โดยใช้เวลาและคนมาประกอบกัน

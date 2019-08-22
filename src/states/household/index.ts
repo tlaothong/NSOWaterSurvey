@@ -14,11 +14,6 @@ export const getHouseHoldSample = createSelector(
     state => state.houseHoldSample,
 );
 
-// export const getHouseHoldSample = createSelector(
-//     getHouseHoldFeatureState,
-//     state => state.houseHoldSample,
-// );
-
 export const getSelectG1234 = createSelector(
     getHouseHoldFeatureState,
     state => state.selectG1234,

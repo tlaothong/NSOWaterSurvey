@@ -85,8 +85,6 @@ export class DataStoreProvider {
   * บันทึกข้อมูล Building 1 อาคาร
   */
   public saveBuilding(dataBuilding: Building): Observable<any> {
-    console.log(dataBuilding._id);
-    console.log("BLD Data: " + JSON.stringify(dataBuilding));
 
     return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }
@@ -95,6 +93,7 @@ export class DataStoreProvider {
    * บันทึกรายการ Building แบบบันทึกเป็น List
    */
   public saveBuildingList(eaCode: string, buildings: BuildingInList[]) {
+
     return Observable.fromPromise(this.storage.set('bldlst1v' + eaCode, buildings));
   }
 
@@ -102,7 +101,8 @@ export class DataStoreProvider {
    * เรียกรายการ Buildings ที่เก็บไว้เป็น list สำหรับ EA ที่ระบุ
    */
   public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
-    return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode));
+
+    return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode)).map((lst: BuildingInList[]) => lst ? lst : []);
   }
 
   public getBuilding(buildingId: string): Observable<Building> {
@@ -117,6 +117,8 @@ export class DataStoreProvider {
   }
 
   public saveHouseHoldInBuildingList(buildingId: string, unitsInBuilding: UnitInList[]) {
+    console.log("saveHouseHoldInBuildingList", unitsInBuilding);
+
     return Observable.fromPromise(this.storage.set('unt4b1v' + buildingId, unitsInBuilding));
   }
 
@@ -131,6 +133,7 @@ export class DataStoreProvider {
    * บันทึกรายการ household 1 unit
    */
   public saveHouseHold(household: HouseHoldUnit): Observable<any> {
+    console.log("saveHouseHold", household);
     return Observable.fromPromise(this.storage.set(household._id, household));
   }
 
@@ -188,6 +191,14 @@ export class DataStoreProvider {
   public loadCommunityList(eaCode: string): Observable<any> {
     return Observable.fromPromise(this.storage.get("comlst1v" + eaCode));
   }
+
+  public saveStatusEA(eaCode: string, status: StatusEA): Observable<any> {
+    return Observable.fromPromise(this.storage.set('bldsta1v' + eaCode, status));
+  }
+
+  public loadStatusEA(eaCode: string): Observable<any> {
+    return Observable.fromPromise(this.storage.get('bldsta1v' + eaCode));
+  }
   /*********** */
 }
 
@@ -204,3 +215,9 @@ export interface MsgNotiInfo {
   actionId: string;
   uri: string;
 }
+
+export interface StatusEA {
+  status: any;
+  date: any;
+}
+

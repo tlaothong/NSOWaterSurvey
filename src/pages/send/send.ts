@@ -1,8 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { Store } from '@ngrx/store';
 import { CloudSyncProvider } from '../../providers/cloud-sync/cloud-sync';
 import { AppStateProvider } from '../../providers/app-state/app-state';
+import { SetCurrentStatusState } from '../../states/bootup/bootup.actions';
+import { BootupState } from '../../states/bootup/bootup.reducer';
+import { getCurrentWorkingEA } from '../../states/bootup';
+import { upload1, downloadFile, donwloadBlob, Building, UnitInList, ItemInSendPage, resolutionsEA, HouseHoldUnit } from '../../models/mobile/MobileModels';
+import { HttpClient } from '@angular/common/http';
+import { BuildingState } from '../../states/building/building.reducer';
+import { BuildingInList, SetArrResol } from '../../states/building/building.actions';
+import { Storage } from '@ionic/storage';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { BuildingEffects } from '../../states/building/building.effects';
+import { HouseHoldEffects } from '../../states/household/household.effects';
 
 declare var AzureStorage;
 
@@ -12,15 +23,112 @@ declare var AzureStorage;
   templateUrl: 'send.html',
 })
 export class SendPage {
+  [x: string]: any;
+  public checkDownload: boolean = false;
+  public currentEA$ = this.store.select(getCurrentWorkingEA);
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage: Storage, private cloudSync: CloudSyncProvider,
-    private appState: AppStateProvider, private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
+  public getUpload1: upload1;
+  public getDownload1: downloadFile;
+  public delayTime: any;
+
+  public buildingList: BuildingInList[];
+  public hh: UnitInList[];
+  public counttest: number = 0;
+
+  public bldList: any[] = [];
+  public untList: any[] = [];
+  public cmnList: any[] = [];
+  private uploadShow: boolean = false;
+  private downloadShow: boolean = false;
+  private countUpload: number = 0;
+  private countItemUpload: number = 0;
+  private countUploadAll: number = 0;
+  private countItem: number = 0;
+  private totalItem: number = 0;
+  private countItemTotal: number = 0;
+  public item: any = [];
+  public bldcomplete: any;
+  private count: number = 0;
+  public bld: any[] = [];
+  public unt: any[] = [];
+  private arrResol: resolutionsEA[] = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cloudSync: CloudSyncProvider,
+    private appState: AppStateProvider, private loadingCtrl: LoadingController, private storage: Storage,
+    private alertCtrl: AlertController, private store: Store<BootupState>,
+    private http: HttpClient, private dataStore: DataStoreProvider, private storeBuilding: Store<BuildingState>) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SendPage');
+    this.store.dispatch(new SetCurrentStatusState("Sync"));
+    this.storage.keys().then(val => {
+      let keys = val;
+      const firstLoading = this.loadingCtrl.create({
+        content: '',
+        enableBackdropDismiss: false,
+      });
+      firstLoading.present();
+      for (let k of keys) {
+
+        if (k.startsWith('bldlst1v')) {
+          this.storage.get(k).then(val => {
+            let txt = val;
+            console.log(txt);
+            txt && txt.forEach(item => {
+              this.storage.get(item.buildingId).then(val => {
+                this.bldList.push(val);
+                console.log(this.bldList);
+                console.log(this.bldList.length);
+              });
+            });
+
+          });
+        } else if (k.startsWith('unt4b1v')) {
+          this.storage.get(k).then(val => {
+            let txt = val
+            txt && txt.forEach(item => {
+              this.storage.get(item.houseHoldId).then(val => {
+                this.untList.push(val);
+                console.log(this.untList);
+              });
+            });
+          });
+        } else if (k.startsWith('comlst1v')) {
+          this.storage.get(k).then(val => {
+            let txt = val
+            txt && txt.forEach(item => {
+              this.storage.get(item.communityId).then(val => {
+                this.cmnList.push(val);
+                console.log(this.cmnList);
+
+              });
+            });
+          });
+        }
+      }
+
+      setTimeout(() => {
+        const item2: ItemInSendPage = {
+          allbld: this.bldList.length,
+          allunt: this.untList.length,
+          allcmn: this.cmnList.length,
+
+          bldComplete: this.bldList.filter(it => it.status == "done-all").length,
+          untComplete: this.untList.filter(it => it.status == "complete").length,
+          cmnComplete: this.cmnList.filter(it => it.status == "done-all").length,
+
+          bldAbandonedCount: this.bldList.filter(it => it.abandonedCount != null).length,
+          bldVacancyCount: this.bldList.filter(it => it.vacancyCount != null).length,
+
+          untAbandonedCount: this.untList.filter(it => it.subUnit.accesses == 5).length,
+          untVacancyCount: this.untList.filter(it => it.subUnit.accesses == 4).length,
+        }
+        this.item = item2;
+        console.log(item2);
+        firstLoading.dismiss();
+      }, 5000);
+    });
   }
 
   /**

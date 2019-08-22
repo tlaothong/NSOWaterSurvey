@@ -9,7 +9,6 @@ import { EX_TREETON_LIST } from '../../models/tree';
 import { ModalPlantComponent } from '../modal-plant/modal-plant';
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
-import { SetCheckWaterPlumbing, SetCheckWaterRiver, SetCheckWaterIrrigation, SetCheckWaterRain, SetCheckWaterBuying } from '../../states/household/household.actions';
 
 @Component({
   selector: 'field-perenial-planting',

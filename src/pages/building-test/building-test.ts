@@ -35,7 +35,6 @@ export class BuildingTestPage {
           break;
         case 'pause':
           this.store.dispatch(new SetRecieveDataFromBuilding(item.unitCount));
-          // this.store.dispatch(new SetHomeBuilding(item));
           this.store.dispatch(new SaveBuildingSuccess(item));
           this.navCtrl.push("HouseHoldTestPage");
           break;
@@ -45,12 +44,9 @@ export class BuildingTestPage {
     } else {
       this.navCtrl.push('BuildingInformation1Page', { ea: this.navParams.get('id') });
     }
-
   }
 
   public openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
   }
 }

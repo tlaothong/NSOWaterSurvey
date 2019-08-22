@@ -22,10 +22,6 @@ export class DlgPoolAreaPage {
     this.head = navParams.get("head");
     this.isAnimal = navParams.get("isAnimal");
     this.isCommunity = navParams.get("isCommunity");
-
-    // this.FormItem = PoolAreaComponent.CreateFormGroup(this.fb);
-    //const datain = navParams.get('FormItem') as FormGroup;
-    // this.FormItem.setValue(datain.value);
   }
 
   public closeDialog() {

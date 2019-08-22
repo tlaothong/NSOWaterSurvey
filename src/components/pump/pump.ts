@@ -27,6 +27,10 @@ export class PumpComponent implements ISubmitRequestable {
   public suctionPipeData: any;
   public pipeLineData: any;
 
+  public codePump: any;
+  public codePumpType: any;
+  public codeWattHp: any;
+
   constructor(private modalCtrl: ModalController, public navCtrl: NavController,
     public navParams: NavParams, public fb: FormBuilder) {
     this.FormItem = PumpComponent.CreateFormGroup(this.fb);
@@ -197,23 +201,30 @@ export class PumpComponent implements ISubmitRequestable {
 
   onChange(code: any) {
     console.log(code);
-
+    this.codePump = code;
     if (this.G == true) {
       this.pumpTypes = PumpDataProvider.getGroundWaterPumpTypeData(code);
     }
     else {
       this.pumpTypes = PumpDataProvider.getSurfacePumpTypeData(code);
     }
+    console.log(this.pumpTypes);
 
   }
 
   onChange1(name: string) {
+    console.log(name);
+
     if (this.G == true) {
-      let code = groundWaterPumpTypeData.find(it => it.name == name);
+      let code = groundWaterPumpTypeData.find(it => it.name == name && it.codePowerSource == this.codePump);
+      console.log(code);
+      this.codePumpType = code;
       this.wattHpData = PumpDataProvider.getGroundWaterWattHpData(code.codePumpType);
     }
     else {
-      let code = surfacePumpTypeData.find(it => it.name == name);
+      let code = surfacePumpTypeData.find(it => it.name == name && it.codePowerSource == this.codePump);
+      console.log(code);
+      this.codePumpType = code;
       this.wattHpData = PumpDataProvider.getSurfaceWattHpData(code.codePumpType);
     }
     console.log(this.wattHpData)
@@ -221,11 +232,15 @@ export class PumpComponent implements ISubmitRequestable {
 
   onChange2(name: string) {
     if (this.G == true) {
-      let code = groundWaterWattHpData.find(it => it.name == name);
+      let code = groundWaterWattHpData.find(it => it.name == name && it.codePumpType == this.codePumpType.codePumpType);
+      console.log(code);
+      this.codeWattHp = code;
       this.suctionPipeData = PumpDataProvider.getGroundWaterSuctionPipeData(code.codeWattHp);
     }
     else {
-      let code = surfaceWattHpData.find(it => it.name == name);
+      let code = surfaceWattHpData.find(it => it.name == name && it.codePumpType == this.codePumpType.codePumpType);
+      console.log(code);
+      this.codeWattHp = code;
       this.suctionPipeData = PumpDataProvider.getSurfaceSuctionPipeData(code.codeWattHp);
     }
     console.log(this.suctionPipeData)
@@ -233,11 +248,15 @@ export class PumpComponent implements ISubmitRequestable {
 
   onChange3(name: string) {
     if (this.G == true) {
-      let code = groundWaterSuctionPipeData.find(it => it.name == name);
+      let code = groundWaterSuctionPipeData.find(it => it.name == name && it.codeWattHp == this.codeWattHp.codeWattHp);
+      console.log(code);
+
       this.pipeLineData = PumpDataProvider.getGroundWaterPipeLineData(code.codeSuction);
     }
     else {
-      let code = surfaceSuctionPipeData.find(it => it.name == name);
+      let code = surfaceSuctionPipeData.find(it => it.name == name && it.codeWattHp == this.codeWattHp.codeWattHp);
+      console.log(code);
+
       this.pipeLineData = PumpDataProvider.getSurfacePipeLineData(code.codeSuctionPipe);
     }
     console.log(this.pipeLineData);

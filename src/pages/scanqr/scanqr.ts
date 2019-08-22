@@ -28,53 +28,6 @@ export class ScanqrPage {
     private appstate: AppStateProvider) {
   }
 
-  ionViewDidLoad() {
-
-  }
-
-  goFirstLogin() {
-    // this.navCtrl.push("FirstpagePage")
-    // this.qrCode = "f30d8fca-e7ad-4838-93b9-90179cfe9295";
-    // this.qrCode = "40500841234";
-    // this.store.dispatch(new LoadUserDataById("4050084"));
-    // this.formDataUser$.subscribe(data => {
-    //   if (data != null) {
-    //     this.userObj = data
-    //     console.log(this.userObj);
-    //     this.storage.set('UserInfo', this.userObj);
-    //   }
-    // });
-    // this.store.dispatch(new LoadUserDataByQRCode(this.qrCode));
-    // this.navCtrl.pop();
-
-  }
-
-  // Scan() {
-  //   this.qrScanner.prepare()
-  //     .then((status: QRScannerStatus) => {
-  //       if (status.authorized) {
-  //         // camera permission was granted
-
-
-  //         // start scanning
-  //         let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-  //           console.log('Scanned something', text);
-
-  //           this.qrScanner.hide(); // hide camera preview
-  //           scanSub.unsubscribe(); // stop scanning
-  //         });
-
-  //       } else if (status.denied) {
-  //         // camera permission was permanently denied
-  //         // you must use QRScanner.openSettings() method to guide the user to the settings page
-  //         // then they can grant the permission from there
-  //       } else {
-  //         // permission was denied, but not permanently. You can ask for permission again at a later time.
-  //       }
-  //     })
-  //     .catch((e: any) => console.log('Error is', e));
-  // }
-
   Scan() {
     if (this.platform.is('cordova')) {
       this.qrScanner.prepare()
@@ -85,7 +38,6 @@ export class ScanqrPage {
 
             // start scanning
             let scanSub = this.qrScanner.scan().timeout(60000).subscribe((text: string) => {
-              //alert(text);
               setTimeout(() => {
                 this.qrScanner.hide();
               }, 60000);
@@ -103,7 +55,6 @@ export class ScanqrPage {
                   this.navCtrl.push("ConfirmloginPage", { username: username, guid: guid })
                 }, 900);
 
-                // this.scanData = text;
                 this.qrScanner.hide(); // hide camera preview
                 scanSub.unsubscribe(); // stop scanning
                 ionApp.style.display = "block";
@@ -119,11 +70,6 @@ export class ScanqrPage {
             // show camera preview
             ionApp.style.display = "none";
             this.qrScanner.show();
-            // setTimeout(() => {
-            //     ionApp.style.display = "block";
-            //     scanSub.unsubscribe(); // stop scanning
-            //     this.qrScanner.hide();
-            //   }, 5000);
             // wait for user to scan something, then the observable callback will be called
 
           } else if (status.denied) {

@@ -20,10 +20,7 @@ export class BuidlingInformation2Page {
   private submitRequested: boolean;
   private isCheckWarningBox: boolean;
   private formData$ = this.store.select(getBuildingSample);
-  // private formDataFromBuilding1$ = this.store.select(setHomeBuilding).pipe(map(s => s));
-
-  // private getBuildingType$ = this.store.select(getSendBuildingType);
-  // private dataHomeBuilding$ = this.store.select(setHomeBuilding).pipe(map(s => s));
+  
 
   @ViewChildren(BuildingInformation1Page) private buildingInformation1: BuildingInformation1Page[];
   @ViewChildren(CountComponent) private count: CountComponent[];
@@ -33,14 +30,6 @@ export class BuidlingInformation2Page {
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private store: Store<BuildingState>,
     private appState: AppStateProvider) {
     this.f = BuidlingInformation2Page.CreateFormGroup(fb);
-    // this.dataHomeBuilding$.subscribe(data => {
-    //   if (data != null) {
-    //     console.log(data);
-
-    //     this.f.get('accessCount').setValue(data.accessCount);
-    //     this.f.setValue(data);
-    //   }
-    // });
     this.setupCountChanges();
   }
 
@@ -83,39 +72,18 @@ export class BuidlingInformation2Page {
         'waterBill': [null, Validators],
       }),
       'floorCount': [null, [Validators, Validators.min(1)]],
+      'peopleCount': null,
       '_id': [null],
       'status': [null],
-      // 'lastUpdate': null,
     }, {
         validator: BuidlingInformation2Page.checkAnyOrOther()
       });
-  }
-
-  ionViewDidEnter() {
-    // this.storage.get('key').then((val) => {
-    //   console.log("do this", val);
-
-    // })
-    // this.formDataFromBuilding1$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data)
-
-    // this.getBuildingType$.subscribe(data => console.log(data));
-    console.log(this.f.value);
-
-    // this.getBuildingType$.subscribe(data => {
-    //   this.f.get('buildingType').setValue(data);
-    //   setTimeout(() => this.numOfUnits._native.nativeElement.select(), 99);
-    // });
-    //   }
-    // });
   }
 
   public handleSubmit() {
     console.log("House Hold Unit: " + this.appState.houseHoldUnit);
     this.submitRequested = true;
     this.count.forEach(it => it.submitRequest());
-    // this.f.get('lastUpdate').setValue(Date.now())
 
     console.log(this.f);
     this.isCheckWarningBox = this.f.valid;
@@ -128,7 +96,6 @@ export class BuidlingInformation2Page {
 
   private saveThenSurveyUnit() {
     let unitCount = this.f.get('unitCount').value;
-    // this.store.dispatch(new SetRecieveDataFromBuilding(unitCount));
     this.store.dispatch(new SaveBuilding(this.f.value));
 
     if (unitCount == 1) {
@@ -143,36 +110,9 @@ export class BuidlingInformation2Page {
     let unitdone = this.f.get('unitCount').value;
     this.f.get('unitCountComplete').setValue(unitdone);
     this.f.get('status').setValue('done-all');
-    // this.localStorage();
     this.store.dispatch(new SaveBuilding(this.f.value));
     this.navCtrl.popToRoot();
   }
-
-  // localStorage() {
-  //   this.storage.set(this.f.get('_id').value, this.f.value);
-  //   this.storage.get(this.f.get('ea').value).then((data) => {
-  //     console.log("test: ", data);
-  //     let listBD = data
-  //     let idBD = this.f.get('_id').value;
-  //     if (listBD != null) {
-  //       let fin = listBD.find(it => it._id == idBD)
-  //       if (fin == null) {
-  //         listBD.push(this.f.value)
-  //         this.storage.set(this.f.get('ea').value, listBD)
-  //       } else {
-  //         let index = listBD.findIndex(it => it._id == idBD)
-  //         listBD.splice(index, 1, this.f.value);
-  //         // listBD.push(this.f.value);
-  //         this.storage.set(this.f.get('ea').value, listBD)
-  //       }
-  //     } else {
-  //       listBD = []
-  //       listBD.push(this.f.value)
-  //       this.storage.set(this.f.get('ea').value, listBD)
-  //     }
-  //     console.log(listBD);
-  //   })
-  // }
 
   public static checkAnyOrOther(): ValidatorFn {
     return (c: AbstractControl): ValidationErrors | null => {

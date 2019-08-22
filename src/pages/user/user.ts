@@ -17,9 +17,7 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 export class UserPage {
   public userInfo: FormGroup;
   private submitRequested: boolean;
-  // private formData$ = this.store.select(getHouseHoldSample).pipe(map(s => s.closing));
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formData: any;
   private factorialCategory$ = this.store.select(getFactorialCategory);
   public facCategory: string;
   private commercialServiceType$ = this.store.select(getCommercialServiceType);
@@ -113,33 +111,6 @@ export class UserPage {
       return null;
     }
   }
-
-  // public checkValidCommercialType(): boolean {
-  //   if (this.commercialServiceType == null) {
-  //     return true;
-  //   }
-  //   else {
-  //     if (this.userInfo.get('serviceTypeCode').valid) {
-  //       return true;
-  //     }
-  //     else
-  //       return false;
-  //   }
-  // }
-
-  // public checkValidFactorialType(): boolean {
-  //   // return this.f.get('doing').value ? (this.isCheckPool() && this.isCheckWaterResources()) : false;
-  //   if (this.facCategory == null) {
-  //     return true;
-  //   }
-  //   else {
-  //     if (this.userInfo.get('factorialCategoryCode').valid) {
-  //       return true;
-  //     }
-  //     else
-  //       return false;
-  //   }
-  // }
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(22));

@@ -36,7 +36,6 @@
     </ion-row>
  
     <ng-container *ngIf="eaList$ | async">{{ hideLoading() }}</ng-container>
-    <!-- รอ blind ข้อมูล -->
     <ion-row *ngFor="let item of eaList$ | async" text-center align-items-center>
         <ion-col col-2>
           {{ item.CWT_NAME }}
@@ -56,11 +55,6 @@
         <ion-col col-1>
           {{ item.EA }}
         </ion-col>
-        <!-- <ion-col col-1>
-          <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
-            เลือก
-          </button>
-        </ion-col> -->
       </ion-row>
 
   <ion-row padding>

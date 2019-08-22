@@ -12,7 +12,6 @@ export class TablePopulationComponent {
   @Input() public FormItem: FormGroup;
   @Input() public FormArray: FormArray;
   @Input('ProName') public proName: string;
-  // @Input('nameTitle') public nameTitle: FormGroup;
   private submitRequested: boolean;
 
   constructor(public modalCtrl: ModalController, public fb: FormBuilder, public navParams: NavParams) {

@@ -22,8 +22,6 @@ export class RainPage {
   RainFrm: FormGroup;
   private submitRequested: boolean;
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  // private formData: any;
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
   public gardeningUse: boolean;
   private commerceUse$ = this.store.select(getIsCommercial);
@@ -65,20 +63,11 @@ export class RainPage {
   }
 
   ionViewDidLoad() {
-
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.RainFrm.patchValue(data.waterUsage.rain);
-    //     this.formData = data;
-    //   }
-    // })
-
     this.gardeningUse$.subscribe(data => this.gardeningUse = data);
     this.commerceUse$.subscribe(data => this.commerceUse = data);
     this.factoryUse$.subscribe(data => this.factoryUse = data);
     this.residenceUse$.subscribe(data => this.residenceUse = data);
     this.agricultureUse$.subscribe(data => this.agricultureUse = data);
-    console.log('ionViewDidLoad RainPage');
     this.activityResidential$.subscribe(data => {
       this.activityResidential = (data != null) ? data.rain : null;
     });
@@ -95,11 +84,6 @@ export class RainPage {
       this.activityCommercial = (data != null) ? data.rain : null;
     });
     this.changeValueActivity();
-    console.log("activityResidential", this.activityResidential);
-    console.log("activityWateringRes", this.activityWateringRes);
-    console.log("activityAgiculture", this.activityAgiculture);
-    console.log("activityFactory", this.activityFactory);
-    console.log("activityCommercial", this.activityCommercial);
   }
 
   changeValueActivity() {
@@ -144,24 +128,11 @@ export class RainPage {
 
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(18));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 18)) {
-    //       arrayIsCheck.push(18);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public isValid(name: string): boolean {
     var ctrl = this.RainFrm.get(name);
     var isCheckRainStorage = this.rainStorage ? (this.rainStorage.some(it => it.FormItem.valid)) : false;
-    // var isCheckWaterActivity5 = this.waterActivity5 ? (this.waterActivity5.some(it => it.isCheck == false)) : false;
-    console.log(isCheckRainStorage);
     
     return (!isCheckRainStorage) && this.submitRequested;
   }

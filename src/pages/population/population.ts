@@ -47,7 +47,10 @@ export class PopulationPage {
     return fb.group({
       'skip': [null, Validators.required],
       'personCount': [0, Validators.compose([Validators.pattern('[0-9]*')])],
-      'persons': fb.array([])
+      'persons': fb.array([]),
+      'allPersonCount': null,
+      'malePerson': null,
+      'femalePerson': null,
     }, {
         validator: PopulationPage.checkAnyOrOther()
       });
@@ -95,10 +98,7 @@ export class PopulationPage {
     this.submitRequested = true;
     this.persons.forEach(it => it.submitRequest());
     this.count.forEach(it => it.submitRequest());
-    // this.dataPop.population = this.f.value
-    // this.dataPop.status = "complete"
     this.isCheckWarningBox = this.f.valid;
-    console.log(this.f);
 
     if (this.f.valid) {
       this.arrayIsCheckMethod();
@@ -182,35 +182,33 @@ export class PopulationPage {
     onComponentCountChanges();
   }
 
-  // presentAlertPopulation(num) {
-  //   const alert = this.alertController.create({
-  //     title: 'คุณต้องการจะลบข้อมูลหรือไม่',
-  //     buttons: [
-  //       {
-  //         text: 'ยกเลิก',
-  //         handler: data => {
-  //         }
-  //       },
-  //       {
-  //         text: 'ยืนยัน',
-  //         handler: data => {
-  //           let del = this.f.get('persons') as FormArray;
-  //           del.removeAt(num);
-  //           let count = this.f.get('personCount').value;
-  //           this.f.get('personCount').setValue(count);
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   alert.present();
-  // }
-
-  // deleteData(num: any) {
-  //   this.presentAlertPopulation(num);
-  // }
-
-  // let del = this.f.get('persons') as FormArray;
-  //   del.removeAt(num);
-  //   let count = this.f.get('personCount').value;
-  //   this.f.get('personCount').setValue(count);
+  ok() {
+    console.log("data");
+    const confirmChanged = this.alertCtrl.create({
+      title: 'แจ้งเตือน',
+      message: 'ต้องการลบข้อมูลที่ไม่ประสงค์ให้ข้อมูลใช่หรือไม่',
+      buttons: [
+        "ยกเลิก",
+        {
+          text: "ยืนยัน",
+          handler: () => {
+            let persons = this.f.get('persons') as FormArray;
+            let count = 0;
+            let data = persons.value
+            console.log("count");
+            console.log(persons);
+            for (let index = 0; index < data.length; index++) {
+              if (data[index].firstName == null) {
+                count++;
+              }
+            }
+            console.log(count);
+            let total = this.f.get('personCount').value
+            this.f.get('personCount').setValue(total - count);
+          },
+        },
+      ]
+    });
+    confirmChanged.present();
+  }
 }

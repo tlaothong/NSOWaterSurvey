@@ -1,3 +1,5 @@
+import { DateTime } from "ionic-angular";
+
 export interface BuildingInList {
     buildingId: string;
     status: string;
@@ -24,6 +26,59 @@ export interface UnitInList {
     comments: CommentInList[];
     status: string; // formerly 'class'
 }
+
+export interface upload1 {
+    containerName: string;
+    complementary: string;
+    sessionId: string;
+}
+
+export interface donwloadBlob {
+    baseUrl: string;
+    complementary: string;
+    data: downloadEA[];
+    totalSurveys: number;
+}
+
+export interface downloadEA {
+    ea: string;
+    items: downloadFile[];
+    resolutions: resolutionsEA[];
+}
+
+export interface resolutionsEA {
+    buildingId: string;
+    unitResolutions: unitResolutions[];
+}
+
+export interface unitResolutions {
+    blobName: string;
+    buildingId: string;
+    containerName: string;
+    createBy: string;
+    creationDateTime: Date | string;
+    isApproved: boolean;
+    resolvedBy: string
+    resolvedDateTime: Date | string;
+    suggestion: string;
+    surveyId: string;
+    unitId: string;
+    _id: string;
+}
+
+
+export interface downloadFile {
+    _id: string;
+    userId: string;
+    url: string;
+}
+
+// export interface downloadFile {
+//     fileUrl: string;
+//     eaCode: string;
+//     buildingId: string;
+//     userId: string;
+// }
 
 export interface Building {
     _id: string;
@@ -102,4 +157,17 @@ export interface EAwStat extends EA {
 
 export interface IGeometry {
     coordinates: number[];
+}
+
+export interface ItemInSendPage {
+    allbld: number;
+    bldComplete: number;
+    bldVacancyCount: number;
+    bldAbandonedCount: number;
+    allunt: number;
+    untComplete: number;
+    untVacancyCount: number;
+    untAbandonedCount: number;
+    allcmn: number;
+    cmnComplete: number;
 }

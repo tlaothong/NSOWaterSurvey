@@ -10,8 +10,7 @@ import { getHouseHoldSample, getResidentialGardeningUse, getIsCommercial, getIsF
 import { SetSelectorIndex, SaveHouseHold } from '../../states/household/household.actions';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { Observable } from 'rxjs';
-import { subDistrictDataPump } from '../../models/SubDistrictDataPump';
-
+import { subDistrictData } from '../../models/SubDistrictData';
 @IonicPage()
 @Component({
   selector: 'page-plumbing',
@@ -24,21 +23,12 @@ export class PlumbingPage {
 
   public f: FormGroup;
   private submitRequested: boolean;
-
   private formData$ = this.store.select(getHouseHoldSample);
-  // private formDataUnit$ = this.store.select(getHouseHoldSample).pipe(map(s => s.waterUsage));
-  // private formData: any;
-
   private gardeningUse$ = this.store.select(getResidentialGardeningUse);
-  // public gardeningUse: boolean;
   private commerceUse$ = this.store.select(getIsCommercial);
-  // public commerceUse: boolean;
   private factoryUse$ = this.store.select(getIsFactorial);
-  // public factoryUse: boolean;
   private residenceUse$ = this.store.select(getIsHouseHold);
-  // public residenceUse: boolean;
   private agricultureUse$ = this.store.select(getIsAgriculture);
-  // public agricultureUse: boolean;
   private activityResidential$ = this.store.select(getWaterSourcesResidential);
   private activityResidential: any;
   private activityWateringRes$ = this.store.select(getWateringResidential);
@@ -49,7 +39,6 @@ export class PlumbingPage {
   private activityFactory: any;
   private activityCommercial$ = this.store.select(getWaterSourcesCommercial);
   private activityCommercial: any;
-  // private getIdHomes$ = this.storeLog.select(getIdEsWorkHomes);
   private getIdHomes: any;
 
   public subDistrict: any;
@@ -105,20 +94,6 @@ export class PlumbingPage {
   }
 
   ionViewDidLoad() {
-    
-    // this.formDataUnit$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.patchValue(data.waterUsage.plumbing);
-    //     this.formData = data;
-    //   }
-    // })
-
-    // this.gardeningUse$.subscribe(data => this.gardeningUse = data);
-    // this.commerceUse$.subscribe(data => this.commerceUse = data);
-    // this.factoryUse$.subscribe(data => this.factoryUse = data);
-    // this.residenceUse$.subscribe(data => this.residenceUse = data);
-    // this.agricultureUse$.subscribe(data => this.agricultureUse = data);
-
     Observable.combineLatest(
       this.activityResidential$,
       this.activityWateringRes$,
@@ -144,7 +119,7 @@ export class PlumbingPage {
 
       var cwtamptam = this.appState.eaCode.substr(1, 6);
       console.log(cwtamptam);
-      this.subDistrict = subDistrictDataPump.find(it => it.codeSubDistrict == Number(cwtamptam));
+      this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
       this.MWA = this.subDistrict.MWA;
       this.PWA = this.subDistrict.PWA;
 
@@ -164,34 +139,6 @@ export class PlumbingPage {
 
       this.changeValueActivity();
     });
-    // this.activityResidential$.subscribe(data => {
-    //   this.activityResidential = (data != null) ? data.plumbing : null;
-    // });
-    // this.activityWateringRes$.subscribe(data => {
-    //   this.activityWateringRes = (data != null && this.activityResidential) ? data : null;
-    // });
-    // this.activityAgiculture$.subscribe(data => {
-    //   this.activityAgiculture = (data != null) ? data.plumbing : null;
-    // });
-    // this.activityFactory$.subscribe(data => {
-    //   this.activityFactory = (data != null) ? data.plumbing : null;
-    // });
-    // this.activityCommercial$.subscribe(data => {
-    //   this.activityCommercial = (data != null) ? data.plumbing : null;
-    // });
-
-
-    // this.getIdHomes$.subscribe(data => {
-    //   this.getIdHomes = data
-    //   console.log(this.getIdHomes);
-
-    //   this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == Number(this.getIdHomes));
-    //   console.log(this.subDistrict);
-
-    //   this.MWA = this.subDistrict.MWA;
-    //   this.PWA = this.subDistrict.PWA;
-    // })
-
   }
 
   changeValueActivity() {
@@ -232,7 +179,6 @@ export class PlumbingPage {
 
       this.store.dispatch(new SaveHouseHold(houseHold));
       this.navCtrl.popTo("CheckListPage");
-      // console.log("ผ่านแล้วจ้า");
     }
   }
 
@@ -272,21 +218,8 @@ export class PlumbingPage {
     }
   }
 
-  
-
   arrayIsCheckMethod() {
     this.store.dispatch(new SetSelectorIndex(13));
-    // let arrayIsCheck$ = this.store.select(getArrayIsCheck).pipe(map(s => s));
-    // let arrayIsCheck: Array<number>;
-    // arrayIsCheck$.subscribe(data => {
-    //   if (data != null) {
-    //     arrayIsCheck = data;
-    //     if (arrayIsCheck.every(it => it != 13)) {
-    //       arrayIsCheck.push(13);
-    //     }
-    //     console.log(arrayIsCheck);
-    //   }
-    // });
   }
 
   public isValid(name: string): boolean {

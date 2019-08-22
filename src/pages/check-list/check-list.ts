@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { HouseHoldState } from '../../states/household/household.reducer';
 import { Store } from '@ngrx/store';
 import { getNextPageDirection, getArrayIsCheck, getSelectorIndex } from '../../states/household';
-import { SetSelectorIndex, SetBackToRoot, SetBack } from '../../states/household/household.actions';
+import { SetSelectorIndex2, SetBackToRoot, SetBack } from '../../states/household/household.actions';
 import { Observable } from 'rxjs';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 
@@ -24,10 +24,6 @@ import { AppStateProvider } from '../../providers/app-state/app-state';
 export class CheckListPage {
   pages: Array<{ title: string, component: any, isCheck: boolean, isShow: boolean }>;
   private index: any;
-  // private objSkipPage: any;
-  // private arrayNextPage: any[];
-  // private indexBack: any;
-
   private backToRoot: boolean;
   private back: boolean;
   private selectorIndex: number;
@@ -43,7 +39,6 @@ export class CheckListPage {
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
       public navParams: NavParams, private store: Store<HouseHoldState>,
       private appState: AppStateProvider) {
-    // this.store.dispatch(new LoadHouseHoldSample(this.navParams.get('id')));
     this.pages = [
       { title: 'ตอนที่ 1 ครัวเรือนอยู่อาศัย', component: "ResidentialPage", isCheck: false, isShow: true },
       { title: 'ตอนที่ 2 การทำการเกษตร ', component: "AgriculturePage", isCheck: false, isShow: true },
@@ -105,7 +100,7 @@ export class CheckListPage {
     for (let i = this.index + 1; i <= 23; i++) {
       if (arrayNextPage[i]) {
         console.log("goNextPage");
-        this.store.dispatch(new SetSelectorIndex(i));
+        this.store.dispatch(new SetSelectorIndex2(i));
         console.log("i", i);
 
         this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
@@ -118,24 +113,13 @@ export class CheckListPage {
     for (let i = this.index - 1; i >= 0; i--) {
       if (arrayNextPage[i]) {
         console.log("goBackPage");
-        this.store.dispatch(new SetSelectorIndex(i));
+        this.store.dispatch(new SetSelectorIndex2(i));
         this.store.dispatch(new SetBack(false));
         this.navCtrl.push(this.pages[i].component, this.store.dispatch(new SetBackToRoot(false)));
         break;
       }
     }
   }
-
-  // arrayNextPageMethod(arrayNextPage) {
-  //   // let selectorIndex$ = this.store.select(getSelectorIndex).pipe(map(s => s));
-  //   // selectorIndex$.subscribe(data => this.index = data);
-  //   // console.log("index select", this.index)
-  //   // let arrayNextPage$ = this.store.select(getNextPageDirection).pipe(map(s => s));
-  //     if (arrayNextPage != null) {
-  //       this.skipPageMedthod();
-  //       console.log("boolean arr", this.arrayNextPage);
-  //     }
-  // }
 
   updatePagesStatus(arrayIsCheck, arrayNextPageForHide) {
     if (this.appState && this.appState.houseHoldUnit) {
@@ -153,29 +137,13 @@ export class CheckListPage {
         }
       }
     }
-    // if (arrayIsCheck != null) {
-    //   console.log("arrayIsCheck", arrayIsCheck);
-
-    //   for (let i = 0; i < arrayIsCheck.length; i++) {
-    //     this.pages[arrayIsCheck[i]].isCheck = true;
-    //   }
-    // }
-    // console.log("next page",arrayNextPageForHide);
-
-    // if (arrayNextPageForHide != null) {
-    //   for (let i = 0; i < arrayNextPageForHide.length; i++) {
-    //     if (arrayNextPageForHide[i] == false) {
-    //       this.pages[i].isShow = false;
-    //     } else
-    //       this.pages[i].isShow = true;
-    //   }
-    // }
+   
   }
 
   public openPage(page, index) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.store.dispatch(new SetSelectorIndex(index));
+    this.store.dispatch(new SetSelectorIndex2(index));
     this.store.dispatch(new SetBackToRoot(false));
     this.store.dispatch(new SetBack(false));
     this.navCtrl.push(page.component);

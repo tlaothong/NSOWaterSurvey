@@ -12,7 +12,7 @@ import { getCommunitySample } from '../../states/community';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { CountComponent } from '../../components/count/count';
 import { SaveCommunity } from '../../states/community/community.actions';
-import { subDistrictDataPump } from '../../models/SubDistrictDataPump';
+import { SubDistrict, subDistrictData } from '../../models/SubDistrictData';
 
 @IonicPage()
 @Component({
@@ -26,21 +26,15 @@ export class CommunityWaterManagementPage {
   @ViewChildren(DetailWaterManagementComponent) private detailWaterManagement: DetailWaterManagementComponent[];
   @ViewChildren(DetailOrgWaterSupplyComponent) private detailOrgWaterSupply: DetailOrgWaterSupplyComponent[];
   @ViewChildren(CountComponent) private count: CountComponent[];
-  // @ViewChildren(ManagementForFarmingPage) private managementForFarming: ManagementForFarmingPage;
 
   public CommunityWaterManagement: FormGroup;
   private submitRequested: boolean;
 
   private formData$ = this.store.select(getCommunitySample);
-  // private formDataCom$ = this.store.select(getLoadCommunityForEdit).pipe(map(s => s));
   private formDataCom: FormGroup;
-  // private DataStoreWorkEaOneRecord$ = this.store.select(getStoreWorkEaOneRecord);
-  // private DataStoreWorkEaOneRecord: any;
   public id: string;
-
-  // private getIdHomes$ = this.store.select(getIdEsWorkHomes);
-  // private getIdHomes: any;
   public subDistrict: any;
+  public subDistrictData: SubDistrict[] = subDistrictData;
   public MWA: boolean;
   public PWA: boolean;
   public isCheckWarningBox: boolean;
@@ -91,32 +85,9 @@ export class CommunityWaterManagementPage {
 
   ionViewDidLoad() {
 
-    // this.formDataCom = this.fb.group({
-    //   '_id': null,
-    //   'ea': null,
-    //   'management': null,
-    //   'communityProject': null,
-    //   'status': null
-    // })
-
-    // this.formDataCom$.subscribe(data => {
-    //   if (data != null) {
-    //     this.formDataCom.setValue(data);
-    //     this.CommunityWaterManagement.setValue(data.management);
-    //   }
-    // });
-
-    // this.DataStoreWorkEaOneRecord$.subscribe(data => {
-    //   if (data != null) {
-    //     this.DataStoreWorkEaOneRecord = data;
-    //     console.log(this.DataStoreWorkEaOneRecord);
-
-    //   }
-    // });
-
     var cwtamptam = this.appState.eaCode.substr(1, 6);
     console.log(cwtamptam);
-    this.subDistrict = subDistrictDataPump.find(it => it.codeSubDistrict == Number(cwtamptam));
+    this.subDistrict = this.subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
     this.MWA = this.subDistrict.MWA;
     this.PWA = this.subDistrict.PWA;
     if (this.MWA == false) {
@@ -460,16 +431,7 @@ export class CommunityWaterManagementPage {
         && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
-      // if (hasPublicWater.value != null && hasPublicWater.value == false && otherPlumbing.value == true && hasWaterService.value == true 
-      //   && waterServiceCount.value >1 ) {
-      //   return { 'waterServiceCount': true };
-      // }
-      // if (hasPublicWater.value != null && hasPublicWater.value == false && otherPlumbing.value == false) {
-      //   return { 'hasWaterTreatment': true };
-      // }
-      // if (hasPublicWater.value != null && hasPublicWater.value == false && otherPlumbing.value == false) {
-      //   return { 'hasWaterTreatment': true };
-      // }
+     
       return null;
 
 

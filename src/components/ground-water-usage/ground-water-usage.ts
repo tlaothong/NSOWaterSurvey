@@ -48,8 +48,6 @@ export class GroundWaterUsageComponent implements ISubmitRequestable {
         'usageCubicMeters': [null, Validators.required],
         'waterBill': [null, Validators.required],
       }),
-      // 'cubicMeterPerMonth': [null],
-      // 'waterBill': [null],
       'hasPump': [null, Validators.required],
       'pumpCount': [0, [Validators.required, Validators.min(1)]],
       'location': LocationComponent.CreateFormGroup(fb),

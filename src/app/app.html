@@ -17,7 +17,7 @@
       </button>
       <button ion-button block icon-start type="button" (click)="goSendPage()">
         <ion-icon name="cloud-upload"></ion-icon>
-        ส่งข้อมูล
+        รับ-ส่งข้อมูล
       </button>
       <button ion-button block icon-start type="button" menuClose (click)="updateApp()">
         <ion-icon name="code-download"></ion-icon>
@@ -26,6 +26,10 @@
       <button ion-button block icon-start type="button" (click)="openManual()">
         <ion-icon name="md-document"></ion-icon>
         คู่มือการใช้งาน
+      </button>
+      <button ion-button block icon-start type="button" (click)="goExportPage()">
+        <ion-icon name="md-paper"></ion-icon>
+        สำรองข้อมูล
       </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
@@ -37,7 +41,7 @@
       <ion-item>
         <ion-icon name="pricetag" item-start></ion-icon>
         แอพสำรวจน้ำ
-        <ion-note item-end >v.1.2.2d</ion-note><br>
+        <ion-note item-end >v.1.3.1</ion-note><br>
       </ion-item>
     </ion-list>
   </ion-content>

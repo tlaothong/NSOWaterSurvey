@@ -22,7 +22,6 @@ export class BuildingInformation1Page {
   public lat: any;
   public long: any;
 
-  // public index: number;
   public access: number;
   public comment: string = '';
 
@@ -86,7 +85,6 @@ export class BuildingInformation1Page {
       }),
       'status': null,
       '_id': null,
-      // 'lastUpdate': null,
     }, {
         validator: BuildingInformation1Page.checkAnyOrOther()
       });
@@ -118,14 +116,6 @@ export class BuildingInformation1Page {
   ionViewDidEnter() {
     console.log('ionViewDidEnter BuildingInformation1Page');
     this.loadMap()
-    // this.dataBuilding$.subscribe(data => {
-    //   if (data != null) {
-    //     console.log(data);
-    //     this.f.get('accessCount').setValue(data.accessCount);
-    //     this.setupCountChanges();
-    //     this.f.setValue(data);
-    //   }
-    // });
     let id = this.f.get('_id').value;
     this.setupCountChanges();
     console.log(id);
@@ -151,30 +141,6 @@ export class BuildingInformation1Page {
     let accesses = this.f.get('accesses').value;
     this.lastAccess = accesses.length > 0 ? accesses[accesses.length - 1] : null;
     this.unitCount = this.f.get('unitCount').value;
-    // this.storage.get(id).then((data) => {
-    //   if (data != null) {
-    //     console.log("DATA: " + JSON.stringify(data));
-    //     this.f.patchValue(data);
-    //     this.f.get('accessCount').setValue(data.accessCount);
-    //     this.setupCountChanges();
-    //   } else {
-    //     this.storage.get('road').then((val) => {
-    //       if (val != null) {
-    //         this.f.get('road').setValue(val);
-    //       }
-    //     })
-    //     this.storage.get('alley').then((val) => {
-    //       if (val != null) {
-    //         this.f.get('alley').setValue(val);
-    //       }
-    //     })
-    //     this.storage.get('name').then((val) => {
-    //       if (val != null) {
-    //         this.f.get('name').setValue(val);
-    //       }
-    //     })
-    //   }
-    // });
   }
 
   loadMap() {
@@ -208,20 +174,10 @@ export class BuildingInformation1Page {
     this.f.get('status').setValue('');
     this.dispatch();
     this.isCheckWarningBox = this.f.valid;
-    console.log(this.f);
 
     if (this.f.valid) {
       (this.access == 1) ? this.navCtrl.push("BuidlingInformation2Page", { f: this.f }) : this.navCtrl.push("HomesPage", { f: this.f });
     }
-
-    // if (this.f.valid && this.access == 1) {
-    //   this.navCtrl.push("BuidlingInformation2Page", { f: this.f });
-    //   // this.storage.set('key', this.f.value)
-    // }
-    // else if (this.f.valid && this.checkAccess()) {
-    //   // this.dispatch();
-    //   this.navCtrl.push("HomesPage", { f: this.f });
-    // }
   }
 
   public dispatch() {
@@ -234,51 +190,25 @@ export class BuildingInformation1Page {
       fgac.at(index).setValue(this.access);
       fgcm.at(index).setValue({ 'at': Date.now(), 'text': this.comment });
     }
-    // this.f.get('lastUpdate').setValue(Date.now())
-    // console.log(this.f.get('lastUpdate').value);
 
     this.store.dispatch(new SetSendBuildingType(this.f.get('buildingType').value));
     this.store.dispatch(new SetOtherBuildingType(this.f.get('other').value));
-    // this.store.dispatch(new SetHomeBuilding(this.f.value));
 
     if (idBD == null || idBD == '') {
       this.f.get('_id').setValue(this.appState.generateId('bld1v'));
-      // idBD = this.f.get('_id').value
     }
     console.log(this.f.value);
     this.storage.set('road', this.f.get('road').value)
     this.storage.set('alley', this.f.get('alley').value)
     this.storage.set('name', this.f.get('name').value)
 
-    // this.storage.set(idBD, this.f.value)
     this.store.dispatch(new SaveBuilding(this.f.value));
 
-    // this.storage.get(this.f.get('ea').value).then((data) => {
-    //   listBD = data
-    //   if (listBD != null) {
-    //     let fin = listBD.find(it => it._id == idBD)
-    //     if (fin == null) {
-    //       listBD.push(this.f.value)
-    //       this.storage.set(this.f.get('ea').value, listBD)
-    //     } else {
-    //       let index = listBD.findIndex(it => it._id == idBD)
-    //       listBD.splice(index, 1, this.f.value);
-    //       // listBD.push(this.f.value);
-    //       this.storage.set(this.f.get('ea').value, listBD)
-    //     }
-    //   } else {
-    //     listBD = []
-    //     listBD.push(this.f.value)
-    //     this.storage.set(this.f.get('ea').value, listBD)
-    //   }
-    // })
   }
 
   public updateStatus() {
     const index = this.f.get('accessCount').value;
-    // if (this.access)
-    //   this.f.get('access').setValue(this.access);
-
+    
     switch (this.access) {
       case 1:
         if (this.f.get('status').value == null) {
@@ -297,17 +227,6 @@ export class BuildingInformation1Page {
     }
   }
 
-  // public checkAccess() {
-  //   if (this.access != null) {
-  //     return (this.access == 4) ?
-  //       (this.f.get('vacancyCount').value > 0 || this.f.get('abandonedCount').value > 0)
-  //       && this.f.get('vacancyCount').value != null
-  //       && this.f.get('abandonedCount').value != null
-  //       : true;
-  //   }
-  //   return false;
-  // }
-
   public isValid(name: string): boolean {
     var ctrl = this.f.get(name);
     if (name == 'other') {
@@ -318,11 +237,6 @@ export class BuildingInformation1Page {
       let ctrls = this.f;
       return ctrls.errors && ctrls.errors.access4 && (ctrls.dirty || this.submitRequested);
     }
-    // if (name == 'vacancyCount' || name == 'abandonedCount') {
-    //   let vacancyCount = this.f.get('vacancyCount');
-    //   let abandonedCount = this.f.get('abandonedCount');
-    //   return (!(vacancyCount.value > 0 || abandonedCount.value > 0) || ctrl.value == null) && (ctrl.dirty || this.submitRequested);
-    // }
     return ctrl.invalid && (ctrl.dirty || this.submitRequested);
   }
 
@@ -360,8 +274,7 @@ export class BuildingInformation1Page {
       this.access = null;
       this.f.get('accessCount').setValue(accessCount + 1);
     }
-    // this.index = this.f.get('accessCount').value - 1;
-    // console.log('index', this.index);
+    
   }
 
   private setupAccessCountChanges() {

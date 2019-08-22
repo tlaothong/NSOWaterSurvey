@@ -7,7 +7,6 @@ import { HouseHoldState } from '../../states/household/household.reducer';
 import { getHouseHoldSample, getUnitByIdBuilding } from '../../states/household';
 import { LoadHouseHoldSample, SetUnitNo } from '../../states/household/household.actions';
 import { Guid } from "guid-typescript";
-// import { setHomeBuilding } from '../../states/building';
 import { Storage } from '@ionic/storage';
 import { UnitButtonPopoverComponent } from '../unit-button-popover/unit-button-popover';
 import { AppStateProvider } from '../../providers/app-state/app-state';
@@ -48,7 +47,6 @@ export class UnitButtonComponent {
 
 
   private GetUnitByIdBuilding$ = this.store.select(getUnitByIdBuilding);
-  // private dataHomeBuilding$ = this.storeBuild.select(setHomeBuilding);
   private formData$ = this.store.select(getHouseHoldSample);
 
 
@@ -58,11 +56,6 @@ export class UnitButtonComponent {
     private popoverCtrl: PopoverController, private appState: AppStateProvider
   ) {
     console.log('Hello UnitButtonComponent Component');
-    // this.dataHomeBuilding$.subscribe(data => {
-    //   if (data != null) {
-    //     this.id_BD = data._id
-    //   }
-    // });
     this.text = '';
   }
 
@@ -852,7 +845,10 @@ export class UnitButtonComponent {
       }),
       'population': fb.group({
         'personCount': 0,
-        'persons': fb.array([])
+        'persons': fb.array([]),
+        'allPersonCount': null,
+        'malePerson': null,
+        'femalePerson': null,
       }),
     });
   }
@@ -903,9 +899,6 @@ export class UnitButtonComponent {
       this.storage.remove(keyHH)
     })
     this.navCtrl.popTo(this.navCtrl.getByIndex(3));
-    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    // this.ngOnInit();
-    // this.navCtrl.getActive().component;
   }
 
   public showModalSetting() {

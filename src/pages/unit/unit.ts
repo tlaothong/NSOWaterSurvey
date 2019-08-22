@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operator/take';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ActionSheetController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
@@ -7,8 +8,8 @@ import { NewHouseHoldWithSubUnit, SetCurrentWorkingHouseHold, SaveHouseHoldSubUn
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getHouseHoldUnitList } from '../../states/household';
 import { Observable } from 'rxjs';
-import { UnitInList } from '../../models/mobile/MobileModels';
-import { getUnitCount } from '../../states/building';
+import { UnitInList, resolutionsEA } from '../../models/mobile/MobileModels';
+import { getUnitCount, getArrResol } from '../../states/building';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @IonicPage()
@@ -17,52 +18,54 @@ import { DataStoreProvider } from '../../providers/data-store/data-store';
   templateUrl: 'unit.html',
 })
 export class UnitPage {
-
-  // public f: FormGroup;
-  // public g: FormGroup;
-  // @ViewChildren(UnitButtonComponent) private unitButton: UnitButtonComponent[];
-  // private GetDataFromBuilding$ = this.storeBuild.select(getRecieveDataFromBuilding);
-  // private dataHomeBuilding$ = this.store.select(setHomeBuilding);
-  // public units: any;
-  // public FormItem: FormGroup;
-
   public unitList$ = this.store.select(getHouseHoldUnitList);
   public unitCount$ = this.storeBuild.select(getUnitCount);
+  private dataArrayResolutions$ = this.storeBuild.select(getArrResol);
+  private dataArrayResolutions: resolutionsEA[] = [];
   public emptyUnits$ = Observable.of([]);
+  private isShowWarning: boolean;
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController,
     public navParams: NavParams, private alertCtrl: AlertController,
     private modalCtrl: ModalController, private actionSheetCtrl: ActionSheetController,
     private store: Store<HouseHoldState>, private storeBuild: Store<BuildingState>,
     private dataStore: DataStoreProvider, private appState: AppStateProvider) {
+    this.unitList$.subscribe(data => console.log(data));
+  }
 
-    let obs = this.unitList$.subscribe(_ => {
-      console.log('TAKE TAKE');
-    });
+  ionViewDidLoad() {
+    this.dataArrayResolutions$.take(1).subscribe(data => {
+      if (data != null) {
+        this.dataArrayResolutions = data;
+      }
+    })
+  }
+  private showIconWaring(unitId: string): boolean {
+    var checkShow = false;
+    for (const it1 of this.dataArrayResolutions) {
+      for (const it2 of it1.unitResolutions) {
 
+        if (it2.unitId == unitId) {
+          checkShow = !(it2.isApproved);
+        }
+      }
+    }
 
+    return checkShow;
+  }
 
-    // this.emptyUnits$ = this.unitList$
-    //   .withLatestFrom(this.store.select(getUnitCount))
-    //   .map(([it, untCnt]) => {
-    //       const start = it.length + 1;
-    //     const len = untCnt - it.length;
-    //     if(len > 0)
-    //     {
-    //       let arr: number[] = [];
-    //       for (let idx = 0; idx < len; ++idx) {
-    //         arr.push(idx + start);
-    //       }
-    //       return arr;
-    //     }
-    //     else return [];
-    //   });
+  public showSuggestionUnit(unitId: string) {
 
-
-    // this.f = this.fb.group({
-    //   'unitCount': null,
-    //   'units': this.fb.array([]),
-    // });
+    var suggestionMessage = "";
+    for (const it1 of this.dataArrayResolutions) {
+      for (const it2 of it1.unitResolutions) {
+        if (it2.unitId == unitId) {
+          suggestionMessage = it2.suggestion;
+        }
+      }
+    }
+    let showSuggestion = this.modalCtrl.create("DlgShowSuggestionUnitPage", { suggestions: suggestionMessage });
+    showSuggestion.present();
   }
 
   public updateTheEmptyList() {
@@ -80,9 +83,6 @@ export class UnitPage {
         }
         else return [];
       });
-  }
-
-  ngOnDestroy() {
   }
 
   public showUnitButtonPopover(unit: UnitInList) {
@@ -142,15 +142,6 @@ export class UnitPage {
       ]
     });
     showConfirmation.present();
-    // let keyHH = HH._id;
-    // let keyBD = "BL" + HH.buildingId;
-    // this.storage.get(keyBD).then((val) => {
-    //   let BDList = val;
-    //   let index = BDList.findIndex(it => it._id == HH._id);
-    //   BDList.splice(index, 1);
-    //   this.storage.set(keyBD, BDList);
-    //   this.storage.remove(keyHH)
-    // })
   }
 
   public newUnit() {
@@ -188,11 +179,8 @@ export class UnitPage {
       return;
     } else if (unt.lastAccess == 2 || unt.lastAccess == 3) {
       if (unt.accessCount < 3) {
-        // TODO: Remove this HACK!
-
         this.dataStore.getHouseHold(unt.houseHoldId)
           .take(1).subscribe(sample => {
-
             const modal = this.modalCtrl.create("DlgUnitPage", {
               unitInfo: {
                 subUnit: sample.subUnit
@@ -225,93 +213,7 @@ export class UnitPage {
   }
 
   public showComments(unit: UnitInList) {
-
     let showComments = this.modalCtrl.create("DlgCommentListPage", { comments: unit.comments });
     showComments.present();
-
-    // let alertUnderConstruction = this.alertCtrl.create({
-    //   message: new Date(unit.comments[0].at) + '@ ' + unit.comments[0].text,
-    //   title: "กำลังปรับปรุง",
-    //   buttons: ["OK"],
-    // });
-    // alertUnderConstruction.present();
   }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad UnitPage');
-    // this.GetDataFromBuilding$.subscribe(data => this.f.get('unitCount').setValue(data));
-    // console.log(this.f.get('unitCount').value);
-    // this.setupUnitsCountChanges();
-    // this.dataHomeBuilding$.subscribe(data => {
-    //   console.log(data);
-    //   if (data != null) {
-    //     this.id_BD = data._id
-    //     let key = "BL" + this.id_BD
-    //     this.storage.get(key).then((val) => {
-    //       console.log(val);
-    //       this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-    //     })
-    //   }
-    // });
-
-    // this.store.dispatch(new LoadUnitByIdBuildingSuccess(null));
-    // let key = this.appState.buildingId;
-    // this.storage.get(key).then((val) => {
-    //   console.log(val);
-    //   this.store.dispatch(new LoadUnitByIdBuildingSuccess(val));
-    // });
-    // console.log(this.f.get('units').value);
-    // this.presentLoading();
-  }
-
-  // private setupUnitsCountChanges() {
-  //   const componentFormArray: string = "units";
-  //   const componentCount: string = "unitCount";
-
-  //   var onComponentCountChanges = () => {
-  //     var units = (this.f.get(componentFormArray) as FormArray).controls || [];
-  //     var unitCount = this.f.get(componentCount).value || 0;
-  //     var farr = this.fb.array([]);
-
-  //     unitCount = Math.max(0, unitCount);
-
-  //     for (let i = 0; i < unitCount; i++) {
-  //       var ctrl = null;
-  //       if (i < units.length) {
-  //         const fld = units[i];
-  //         ctrl = fld;
-  //       } else {
-  //         ctrl = UnitButtonComponent.CreateFormGroup(this.fb);
-  //       }
-
-  //       farr.push(ctrl);
-  //     }
-  //     this.f.setControl(componentFormArray, farr);
-  //   };
-
-  //   this.f.get(componentCount).valueChanges.subscribe(it => onComponentCountChanges());
-
-  //   onComponentCountChanges();
-  // }
-  // presentLoading() {
-  //   const loader = this.loadingCtrl.create({
-  //     content: "กรุณารอสักครู่...",
-  //     duration: 1500
-  //   });
-  //   loader.present();
-  // }
-
-  // deleteUnit(HH: any) {
-  // let keyHH = HH._id;
-  // let keyBD = "BL" + HH.buildingId;
-  // this.storage.get(keyBD).then((val) => {
-  //   let BDList = val;
-  //   let index = BDList.findIndex(it => it._id == HH._id);
-  //   BDList.splice(index, 1);
-  //   this.storage.set(keyBD, BDList);
-  //   this.storage.remove(keyHH)
-  // })
-
-  // }
-
 }

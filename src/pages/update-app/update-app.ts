@@ -43,7 +43,6 @@ export class UpdateAppPage {
     loading.present();
     const config = await Pro.deploy.getConfiguration();
     this.channel = config.channel;
-    // Pro.deploy.configure(config);
     const update = await Pro.deploy.checkForUpdate();
     this.updateAvailable = update.available;
     loading.dismiss();

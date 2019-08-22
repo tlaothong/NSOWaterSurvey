@@ -10,11 +10,14 @@ import { NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../st
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { getCurrentWorkingEA } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
-import { getBuildingList } from '../../states/building';
+import { getBuildingList, getArrResol } from '../../states/building';
 import { BuildingInList, CommunityInList } from '../../models/mobile/MobileModels';
 import { CommunityState } from '../../states/community/community.reducer';
 import { SetCurrentWorkingCommunity, NewCommunity, DeleteCommunity } from '../../states/community/community.actions';
 import { getCommunityList } from '../../states/community';
+import { DataStoreProvider, StatusEA } from '../../providers/data-store/data-store';
+import { take } from 'rxjs/operator/take';
+import { Observable } from 'rxjs';
 
 
 
@@ -24,22 +27,20 @@ import { getCommunityList } from '../../states/community';
   templateUrl: 'homes.html',
 })
 export class HomesPage {
-  data: any;
   formItem: FormGroup;
-  office: string = "building";
+  office = "building";
   x: number = 0;
-  // public dataEa: any;
   public datap: any[];
-  // public dataWorkEARow: any;
   public str: string;
   public comunity: any;
-  // public num: string = "1";
   public listFilter: any;
   private DataStoreWorkEaOneRecord$ = this.storeLogging.select(getStoreWorkEaOneRecord);
   private dataBuilding$ = this.storeBuild.select(getHomeBuilding);
   private dataCommunity$ = this.storeCom.select(getCommunityList);
-  // private dataCommunity: any;
-  public statusEa: any = 1;
+  private dataArrayResolutions$ = this.storeBuild.select(getArrResol);
+  private dataResolutions: any[] = [];
+  private dataBuilding: any[] = [];
+  public statusEa: any;
 
   public currentEA$ = this.store.select(getCurrentWorkingEA);
   public buildings$ = this.storeBuild.select(getBuildingList);
@@ -56,11 +57,12 @@ export class HomesPage {
     public navParams: NavParams, private popoverCtrl: PopoverController,
     private store: Store<BootupState>, private storeLogging: Store<LoggingState>,
     private storeCom: Store<CommunityState>, private storeBuild: Store<BuildingState>,
-    private appState: AppStateProvider) {
+    private appState: AppStateProvider, private dataStore: DataStoreProvider) {
     this.initializeItems();
     this.switchListMode();
     console.log('User Id: ' + this.appState.userId);
     console.log('EA Code: ' + this.appState.eaCode);
+
   }
 
   public showQuickMenu(myEvent) {
@@ -73,6 +75,48 @@ export class HomesPage {
   ionViewDidEnter() {
     let eaCode = this.appState.eaCode;
     this.switchListMode();
+    let statusEa$ = this.dataStore.loadStatusEA(eaCode);
+    statusEa$.take(1).subscribe(data => {
+      if (data == null) {
+        this.statusEa = 1;
+      } else {
+        const data2: StatusEA = {
+          status: data.status,
+          date: data.date,
+        }
+        this.statusEa = data2.status;
+      }
+    });
+
+    this.buildings$.take(1).subscribe(async data => {
+      if (data != null) {
+        this.dataBuilding = await data;
+        console.log(this.dataBuilding);
+
+      }
+    });
+
+    this.dataArrayResolutions$.take(1).subscribe(async it => {
+      if (it != null) {
+        var dataRes = await it;
+        for (const it1 of this.dataBuilding) {
+          for (const it2 of dataRes) {
+
+            let check = await this.dataResolutions && this.dataResolutions.some(data => data.buildingId == it1.buildingId);
+
+            if (check == false || this.dataResolutions.length == 0) {
+              if (it1.buildingId == it2.buildingId) {
+                await this.dataResolutions.push(it1);
+              }
+            }
+          }
+        }
+      }
+    });
+
+    setTimeout(() => {
+      console.log("dataResolutionsAll", this.dataResolutions);
+    }, 50);
   }
 
   presentLoading() {
@@ -85,12 +129,15 @@ export class HomesPage {
 
   changeEaStatus() {
     this.statusEa = 2
-    console.log(this.statusEa);
+    const data: StatusEA = {
+      status: this.statusEa,
+      date: Date.now(),
+    }
+    this.dataStore.saveStatusEA(this.appState.eaCode, data);
   }
 
   // TODO: Will be handled this
   initializeItems() {
-    // this.listFilter = this.dataEa;
     this.buildingListAll$ = this.buildings$.map(lst => lst.sort((l, r) => +l.buildingId.substring(3) - +r.buildingId.substring(3)));
     this.buildingListRecentlyUse$ = this.buildings$.map(lst => lst.sort((l, r) => r.lastUpdate - l.lastUpdate));
     this.buildingListRevisit$ = this.buildings$.map(lst => lst.filter(it => it.status == "refresh"));
@@ -98,7 +145,6 @@ export class HomesPage {
   }
 
   switchListMode() {
-    this.buildingList$ = this.buildings$;
     switch (this.listMode) {
       case "recent":
         this.buildingList$ = this.buildingListRecentlyUse$;
@@ -114,46 +160,40 @@ export class HomesPage {
         this.buildingList$ = this.buildingListAll$;
         break;
     }
-  }
 
-  // changeNum(num: string) {
-  //   this.num = num;
-  // }
+
+  }
 
   goBuildingInfo() {
     if (this.office == 'building') {
-      // this.storeBuild.dispatch(new SetHomeBuilding(null));
       this.storeBuild.dispatch(new NewBuilding());
       this.navCtrl.push("BuildingInformation1Page", { ea: this.appState.eaCode, id: null })
     } else if (this.office == 'areayoi') {
-      // let no = (this.dataCommunity) ? (this.dataCommunity.length + 1) : 1;
       this.storeCom.dispatch(new NewCommunity());
       this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: null })
     }
   }
 
   goEditBuildingInfo(item: BuildingInList, no: number) {
-    if (this.office == 'building') {
+    if (this.office == 'building' || this.office == 'fsedit') {
       this.store.dispatch(new SetCurrentWorkingBuilding(item.buildingId));
       this.navCtrl.push('BuildingInformation1Page', { ea: this.appState.eaCode, id: item.buildingId });
     }
     else if (this.office == 'areayoi') {
-    
     }
-    // this.presentLoading();
   }
 
   goEditCommunityInfo(item: CommunityInList) {
     console.log(item.communityId);
     console.log(item);
-    
+
     this.storeCom.dispatch(new SetCurrentWorkingCommunity(item.communityId));
     this.navCtrl.push("CommunityTestPage", { ea: this.appState.eaCode, id: item.communityId })
   }
 
   async presentAlertBD(item) {
     const alert = await this.alertController.create({
-      title: 'ต้องการจะลบใช่หรือไม่',
+      title: 'ต้องการจะลบใช่หรือไม่<br><b style="font-size:25px">(โปรดระวัง ! การลบข้อมูลที่สมบูรณ์ในแท็บเล็ต จะมีผลต่อข้อมูลที่ส่งขึ้นระบบเว็บไปแล้ว จะถูกลบไปด้วย)</b>',
       buttons: [
         {
           text: 'ยกเลิก',

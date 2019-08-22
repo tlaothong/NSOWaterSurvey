@@ -40,17 +40,8 @@ export class FirstloginPage {
     this.guid = this.navParams.data.guid;
   }
 
-  ionViewDidLoad() {
-    // this.formData$.subscribe(data => {
-    //   if (data != null) {
-    //     this.f.setValue(data)
-    //   }
-    // });
-  }
-
   goConfirmloginPage(confirmPassword: any) {
 
-    // let _idqr = this.f.get('_idqr').value;
     let password = this.f.get('password').value;
 
     let alert = this.alertCtrl.create({
@@ -62,6 +53,7 @@ export class FirstloginPage {
 
       this.dataStore.getNotiUid().take(1).subscribe(data => {
         let deviceId = this.device.serial;
+        this.appState.deviceID = this.device.serial;
         let Uid = data.userId;
         let Pushtoken = data.pushToken;
         this.cloud.saveUserInfo({
