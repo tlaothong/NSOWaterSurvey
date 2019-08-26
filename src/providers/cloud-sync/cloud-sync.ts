@@ -37,13 +37,13 @@ export class CloudSyncProvider {
       this.webState.ea = wstate.ea;
     }
 
-    let result: any = await this.http.get(this.webState.baseUri + this.webState.buildingId + ".txt" + this.webState.cmp).toPromise();
+    let result: any = await this.http.get(this.webState.baseUri + '/' + this.webState.buildingId + ".txt" + this.webState.cmp).toPromise();
     let bld:Building = result;
     return Promise.resolve(bld);
   }
 
   public async getWebUnit(id: string) {
-    let uri = this.webState.baseUri + id + '.txt' + this.webState.cmp;
+    let uri = this.webState.baseUri + '/' + id + '.txt' + this.webState.cmp;
     let result:any = await this.http.get(uri).toPromise();
     let unit: HouseHoldUnit = result;
     return unit;
