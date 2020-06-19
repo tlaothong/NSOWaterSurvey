@@ -8,7 +8,7 @@ import { getHomeBuilding, getStoreWorkEaOneRecord } from '../../states/logging';
 import { BuildingState } from '../../states/building/building.reducer';
 import { NewBuilding, DeleteBuilding, SetCurrentWorkingBuilding } from '../../states/building/building.actions';
 import { BootupState } from '../../states/bootup/bootup.reducer';
-import { getCurrentWorkingEA } from '../../states/bootup';
+import { getCurrentWorkingEA, getCurrentWorkingEA4NoLogin } from '../../states/bootup';
 import { AppStateProvider } from '../../providers/app-state/app-state';
 import { getBuildingList, getArrResol } from '../../states/building';
 import { BuildingInList, CommunityInList } from '../../models/mobile/MobileModels';
@@ -42,7 +42,8 @@ export class HomesPage {
   private dataBuilding: any[] = [];
   public statusEa: any;
 
-  public currentEA$ = this.store.select(getCurrentWorkingEA);
+  public currentEA$ = this.store.select(getCurrentWorkingEA4NoLogin);
+  // public currentEA$ = this.store.select(getCurrentWorkingEA);
   public buildings$ = this.storeBuild.select(getBuildingList);
   public buildingList$ = this.buildings$;
   public buildingListAll$;

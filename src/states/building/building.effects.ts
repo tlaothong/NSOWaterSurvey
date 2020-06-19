@@ -22,7 +22,7 @@ export class BuildingEffects {
     constructor(private action$: Actions,
         private store: Store<BuildingState>, private storeBoot: Store<BootupState>,
         private storeUnit: Store<HouseHoldState>, private cloudSync: CloudSyncProvider,
-        private dataStore: DataStoreProvider, private appState: AppStateProvider, ) {
+        private dataStore: DataStoreProvider, private appState: AppStateProvider,) {
     }
 
     @Effect()
@@ -116,7 +116,7 @@ export class BuildingEffects {
         mergeMap(([bld, lst, ea, ulist]) => {
             BuildingEffects.ComposeBuildingList(bld, lst, ulist);
 
-            return this.dataStore.saveBuildingList(ea.code, lst), this.dataStore.saveBuilding(bld).mapTo(bld)
+            return this.dataStore.saveBuildingList(ea && ea.code, lst), this.dataStore.saveBuilding(bld).mapTo(bld)
                 .mapTo(lst);
         }),
         map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),

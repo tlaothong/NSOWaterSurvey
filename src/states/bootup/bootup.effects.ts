@@ -1,7 +1,7 @@
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BootupTypes, LoadBootstrapSuccess, LoginUserSuccess, LoginUser, DownloadUserToMobile, DownloadUserToMobileSuccess, SetCurrentWorkingEA, CurrentWorkingEaChanged } from "./bootup.actions";
+import { BootupTypes, LoadBootstrapSuccess, LoginUserSuccess, LoginUser, DownloadUserToMobileSuccess, SetCurrentWorkingEA, CurrentWorkingEaChanged } from "./bootup.actions";
 import { mergeMap, map, withLatestFrom, tap, switchMap, zip } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
 import { CloudSyncProvider } from "../../providers/cloud-sync/cloud-sync";

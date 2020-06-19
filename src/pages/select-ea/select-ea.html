@@ -9,59 +9,41 @@
 
 <ion-content padding>
 
-  <ion-row text-center align-items-center>
-    <ion-col>
-      <b>จังหวัด</b>
-    </ion-col>
-    <ion-col>
-      <b>อำเภอ</b>
-    </ion-col>
-    <ion-col>
-      <b>ตำบล</b>
-    </ion-col>
-    <ion-col>
-      <b>เขตการปกครอง</b>
-    </ion-col>
-    <ion-col>
-      <b>เทศบาล</b>
-    </ion-col>
-    <ion-col>
-      <b>หมู่บ้าน</b>
-    </ion-col>
-    <ion-col>
-      <b>EA</b>
-    </ion-col>
-    <ion-col>
-    </ion-col>
-  </ion-row>
-  <hr>
-
-  <ion-row *ngFor="let item of listOfEAs$ | async" text-center align-items-center>
-    <ion-col>
-      {{ item.CWT_NAME }}
-    </ion-col>
-    <ion-col>
-      {{ item.AMP_NAME }}
-    </ion-col>
-    <ion-col>
-      {{ item.TAM_NAME }}
-    </ion-col>
-    <ion-col>
-      {{ (item.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
-    </ion-col>
-    <ion-col>
-      {{ item.MUN_NAME }}{{ item.TAO_NAME }}
-    </ion-col>
-    <ion-col>
-      {{ item.VIL_NAME}}
-    </ion-col>
-    <ion-col>
-      {{ item.EA }}
-    </ion-col>
-    <ion-col>
-      <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage(item)">
-        เลือก
-      </button>
-    </ion-col>
-  </ion-row>
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label col-2>
+              จังหวัด
+            </ion-label>
+            <ion-input [(ngModel)]="cwt" type="text" placeholder="กรอกข้อมูล"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label col-2>
+              อำเภอ
+            </ion-label>
+            <ion-input [(ngModel)]="amp" type="text" placeholder="กรอกข้อมูล"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label col-2>
+              ตำบล
+            </ion-label>
+            <ion-input [(ngModel)]="tam" type="text" placeholder="กรอกข้อมูล"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col text-center align-items-center>
+          <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage()">
+            บันทึก
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

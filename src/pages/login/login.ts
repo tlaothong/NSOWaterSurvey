@@ -54,20 +54,20 @@ export class LoginPage {
       buttons: ['ตกลง']
     });
 
-    this.dataStore.validateUser(userId, password).then(valid => {
-      if (!valid) {
-        wrongPassword.present();
-      } else {
-        this.store.dispatch(new LoginUser(userId));
-        this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
-          if (hasDownloaded) {
-            this.navCtrl.setRoot("SelectEaPage");
-          } else {
-            this.navCtrl.push("GetworkPage");
-          }
-        });
-      }
-    });
+    // this.dataStore.validateUser(userId, password).then(valid => {
+    //   if (!valid) {
+    //     wrongPassword.present();
+    //   } else {
+    this.store.dispatch(new LoginUser(userId));
+    // this.dataStore.hasEasDownloaded(userId).take(1).subscribe(hasDownloaded => {
+    // if (hasDownloaded) {
+    this.navCtrl.setRoot("SelectEaPage");
+    // } else {
+    // this.navCtrl.push("GetworkPage");
   }
+  // });
+  // }
+  //   });
+  // }
 
 }

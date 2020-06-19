@@ -107,7 +107,7 @@ export class CommunityEffects {
             } else {
                 lst.push(comlst);
             }
-            return this.dataStore.saveCommunityList(ea.code, lst).mapTo(lst);
+            return this.dataStore.saveCommunityList(ea && ea.code, lst).mapTo(lst);
         }),
         map(comlst => new LoadCommunityListSuccess(comlst ? comlst : [])),
     );
@@ -121,7 +121,7 @@ export class CommunityEffects {
         mergeMap(([com, lst, ea]) => {
             let idx = lst.findIndex(it => it.communityId == com.communityId);
             lst.splice(idx, 1);
-            return this.dataStore.saveCommunityList(ea.code, lst).mapTo(lst);
+            return this.dataStore.saveCommunityList(ea && ea.code, lst).mapTo(lst);
         }),
         map(comList => new LoadCommunityListSuccess(comList ? comList : [])),
     );
