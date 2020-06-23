@@ -42,8 +42,8 @@ export class HomesPage {
   private dataBuilding: any[] = [];
   public statusEa: any;
 
-  public currentEA$ = this.store.select(getCurrentWorkingEA4NoLogin);
-  // public currentEA$ = this.store.select(getCurrentWorkingEA);
+  // public currentEA$ = this.store.select(getCurrentWorkingEA4NoLogin);
+  public currentEA$ = this.store.select(getCurrentWorkingEA);
   public buildings$ = this.storeBuild.select(getBuildingList);
   public buildingList$ = this.buildings$;
   public buildingListAll$;
@@ -74,6 +74,9 @@ export class HomesPage {
   }
 
   ionViewDidEnter() {
+    this.currentEA$.subscribe((it: any) => {
+      console.log(it);
+    });
     let eaCode = this.appState.eaCode;
     this.switchListMode();
     let statusEa$ = this.dataStore.loadStatusEA(eaCode);

@@ -13,6 +13,8 @@ export enum BootupTypes {
     SetCurrentWorkingEA4NoLogin = "[BT] Set Current Working EA For No Login",
     CurrentWorkingEaChanged = "[BT] Current Working EA has Changed",
     SetCurrentStatusState = "[BT] Current Status State ",
+    SetStart = "[BT]  Set Start ",
+
 }
 
 export class LoadBootstrap implements Action {
@@ -76,10 +78,17 @@ export class CurrentWorkingEaChanged implements Action {
     }
 }
 
+export class SetStart implements Action {
+    readonly type = BootupTypes.SetStart;
+
+    constructor(public payload: string) {
+    }
+}
+
 export class SetCurrentWorkingEA4NoLogin implements Action {
     readonly type = BootupTypes.SetCurrentWorkingEA4NoLogin;
 
-    constructor(public payload: EA) {
+    constructor(public payload: string) {
     }
 }
 
@@ -101,4 +110,5 @@ export type BootupActionsType =
     | CurrentWorkingEaChanged
     | SetCurrentStatusState
     | SetCurrentWorkingEA4NoLogin
+    | SetStart
     ;

@@ -28,6 +28,38 @@ export class DataStoreProvider {
     return x;
   }
 
+  public DownloadedEAs(userId: string): Observable<EA[]> {
+    return Observable.fromPromise(this.storage.get('uea1v' + userId));
+  }
+
+  public savedEAs(userId: string, lstEA: EA[]): Observable<EA[]> {
+    this.storage.set('uea1v' + userId, lstEA);
+    return Observable.fromPromise(this.storage.get('uea1v' + userId));
+  }
+
+  public saveEaForNoLogin(userId: string): Observable<EA[]> {
+    let x = this.cloudSync.pilot()
+      .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
+        .mapTo(update));
+    return x;
+  }
+  // public saveEaForNoLogin(userId: string, selectedEa: EA): Observable<EA[]> {
+  //   let updateLst = this.cloudSync.pilot()
+  //   let x = this.cloudSync.pilot()
+  //     .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
+  //       .mapTo(update));
+  //   return x;
+  // }
+
+  // public saveEaForNoLogin(selectedEa: EA): Observable<EA> {
+  //   this.storage.set('uea1v' + selectedEa.code, selectedEa);
+  //   // let x = this.cloudSync.downloadCloudUpdate(userId).retry(3)
+  //   //   .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
+  //   //     .mapTo(update));
+  //   // return x;
+  //   return Observable.fromPromise(this.storage.get('uea1v' + selectedEa.code));
+  // }
+
   /**
    * รายการ EA ทั้งหมดที่ถูก download เรียบร้อยแล้ว
    */
@@ -100,6 +132,7 @@ export class DataStoreProvider {
    * เรียกรายการ Buildings ที่เก็บไว้เป็น list สำหรับ EA ที่ระบุ
    */
   public listBuildingsForEA(eaCode: string): Observable<BuildingInList[]> {
+    console.log("dataStore listBuildingsForEA", eaCode);
 
     return Observable.fromPromise(this.storage.get('bldlst1v' + eaCode)).map((lst: BuildingInList[]) => lst ? lst : []);
   }

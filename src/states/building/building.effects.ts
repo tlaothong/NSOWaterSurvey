@@ -30,6 +30,8 @@ export class BuildingEffects {
         ofType(BuildingTypes.LoadList),
         mergeMap((action: LoadBuildingList) => this.dataStore.listBuildingsForEA(action.eaCode)),
         map(bldList => new LoadBuildingListSuccess(bldList ? bldList : [])),
+        
+
     );
 
     @Effect()
