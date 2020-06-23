@@ -8,7 +8,7 @@ export interface BootupState {
     EAs: EA[];
     currentEaCode: string;
     currentStatusState: string;
-    currentWorkingEA4NoLogin: EA;
+    currentWorkingEA4NoLogin: string;
 }
 
 
