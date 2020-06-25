@@ -17,7 +17,10 @@
             <ion-label col-2>
               จังหวัด
             </ion-label>
-            <ion-input [(ngModel)]="cwt" type="text" placeholder="กรอกข้อมูล"></ion-input>
+            <ion-select interface="action-sheet" [(ngModel)]="cwt" (ionChange)="onChange($event)">
+              <ion-option *ngFor="let item of provinceData">{{ item.name }}</ion-option>
+            </ion-select>
+            <!-- <ion-input [(ngModel)]="cwt" type="text" placeholder="กรอกข้อมูล"></ion-input> -->
           </ion-item>
         </ion-col>
         <ion-col>
@@ -25,7 +28,10 @@
             <ion-label col-2>
               อำเภอ
             </ion-label>
-            <ion-input [(ngModel)]="amp" type="text" placeholder="กรอกข้อมูล"></ion-input>
+            <ion-select interface="action-sheet" [(ngModel)]="amp" (ionChange)="onChange1($event)">
+              <ion-option *ngFor="let item of district">{{ item.name }}</ion-option>
+            </ion-select>
+            <!-- <ion-input [(ngModel)]="amp" type="text" placeholder="กรอกข้อมูล"></ion-input> -->
           </ion-item>
         </ion-col>
       </ion-row>
@@ -35,7 +41,10 @@
             <ion-label col-2>
               ตำบล
             </ion-label>
-            <ion-input [(ngModel)]="tam" type="text" placeholder="กรอกข้อมูล"></ion-input>
+            <ion-select interface="action-sheet" [(ngModel)]="tam">
+              <ion-option *ngFor="let item of subDistrict">{{ item.name }}</ion-option>
+            </ion-select>
+            <!-- <ion-input [(ngModel)]="tam" type="text" placeholder="กรอกข้อมูล"></ion-input> -->
           </ion-item>
         </ion-col>
         <ion-col text-center align-items-center>

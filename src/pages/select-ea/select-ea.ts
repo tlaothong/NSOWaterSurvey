@@ -6,6 +6,9 @@ import { BootupState } from '../../states/bootup/bootup.reducer';
 import { SetCurrentWorkingEA, SetCurrentStatusState, LoginUser, DownloadUserToMobile, SetCurrentWorkingEA4NoLogin, SetStart } from '../../states/bootup/bootup.actions';
 import { EA } from '../../models/mobile/MobileModels';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { provinceData } from '../../models/ProvinceData';
+import { LocationDataProvider } from '../../providers/location-data/location-data';
+import { districtData } from '../../models/DistrictData';
 
 @IonicPage()
 @Component({
@@ -17,6 +20,11 @@ export class SelectEaPage {
 
   private listOfEAs$ = this.store.select(getListOfEAs);
   private listOfEAs: EA[] = [];
+  private provinceData: any;
+  private province: any;
+  private district: any;
+  private subDistrict: any
+  private provinceCode: any;
   cwt: string;
   amp: string;
   tam: string;
@@ -33,6 +41,41 @@ export class SelectEaPage {
     this.store.dispatch(new SetStart("32505940"));
     // this.store.dispatch(new DownloadUserToMobile());
     this.store.dispatch(new SetCurrentStatusState("Survey"));
+  }
+
+  procressSetLocation() {
+    this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name));
+    if (this.province == 999) {
+      this.province = null;
+      this.district = null;
+      this.subDistrict = null;
+      // this.FormItem.reset();
+    }
+    else if (this.province != 999) {
+      this.onChange(this.province);
+      if (this.district != 999) {
+        this.onChange1(this.district);
+      }
+    }
+  }
+
+  onChange(name: any) {
+    let code = provinceData.find(it => it.name == name) || null;
+
+    if (code != null) {
+      this.provinceCode = code.codeProvince;
+      let order = LocationDataProvider.getDistric(code.codeProvince);
+      this.district = order.sort((a, b) => a.name.localeCompare(b.name))
+    }
+  }
+
+  onChange1(name: any) {
+
+    var code = districtData.find(it => it.name == name && it.codeProvince == this.provinceCode) || null;
+    if (code != null) {
+      let order = LocationDataProvider.getSubdistric(code.codeDistrict);
+      this.subDistrict = order.sort((a, b) => a.name.localeCompare(b.name))
+    }
   }
 
   goConfirmSeletEAPage() {
