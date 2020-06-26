@@ -11,10 +11,15 @@
 
   <ion-card>
     <ion-card-content>
-      <ion-row>
+     
+
+      <ion-card-header>
+        <ion-card-title>สำรวจพื้นที่อื่น</ion-card-title>
+      </ion-card-header>
+      <ion-row text-center align-items-center>
         <ion-col>
           <ion-item>
-            <ion-label col-2>
+            <ion-label>
               จังหวัด
             </ion-label>
             <ion-select interface="action-sheet" [(ngModel)]="cwt" (ionChange)="onChange($event)">
@@ -25,7 +30,7 @@
         </ion-col>
         <ion-col>
           <ion-item>
-            <ion-label col-2>
+            <ion-label>
               อำเภอ
             </ion-label>
             <ion-select interface="action-sheet" [(ngModel)]="amp" (ionChange)="onChange1($event)">
@@ -34,11 +39,9 @@
             <!-- <ion-input [(ngModel)]="amp" type="text" placeholder="กรอกข้อมูล"></ion-input> -->
           </ion-item>
         </ion-col>
-      </ion-row>
-      <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label col-2>
+            <ion-label>
               ตำบล
             </ion-label>
             <ion-select interface="action-sheet" [(ngModel)]="tam" (ionChange)="onChange2($event)">
@@ -47,9 +50,68 @@
             <!-- <ion-input [(ngModel)]="tam" type="text" placeholder="กรอกข้อมูล"></ion-input> -->
           </ion-item>
         </ion-col>
-        <ion-col text-center align-items-center>
+        <ion-col>
           <button ion-button type="button" color="secondary" (click)="goConfirmSeletEAPage()">
             บันทึก
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-card-header>
+        <ion-card-title>สำรวจพื้นที่เดิม</ion-card-title>
+      </ion-card-header>
+      <ion-row text-center align-items-center>
+        <ion-col>
+          <b>จังหวัด</b>
+        </ion-col>
+        <ion-col>
+          <b>อำเภอ</b>
+        </ion-col>
+        <ion-col>
+          <b>ตำบล</b>
+        </ion-col>
+        <!-- <ion-col>
+          <b>เขตการปกครอง</b>
+        </ion-col>
+        <ion-col>
+          <b>เทศบาล</b>
+        </ion-col>
+        <ion-col>
+          <b>หมู่บ้าน</b>
+        </ion-col>
+        <ion-col>
+          <b>EA</b>
+        </ion-col> -->
+        <ion-col>
+        </ion-col>
+      </ion-row>
+      <hr>
+
+      <ion-row *ngFor="let item of listOfEAs " text-center align-items-center>
+        <ion-col>
+          {{ item.CWT_NAME }}
+        </ion-col>
+        <ion-col>
+          {{ item.AMP_NAME }}
+        </ion-col>
+        <ion-col>
+          {{ item.TAM_NAME }}
+        </ion-col>
+        <!-- <ion-col>
+          {{ (item.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}
+        </ion-col>
+        <ion-col>
+          {{ item.MUN_NAME }}{{ item.TAO_NAME }}
+        </ion-col>
+        <ion-col>
+          {{ item.VIL_NAME}}
+        </ion-col>
+        <ion-col>
+          {{ item.EA }}
+        </ion-col> -->
+        <ion-col>
+          <button ion-button type="button" color="secondary" (click)="goContinuseSeletEAPage(item)">
+            สำรวจต่อ
           </button>
         </ion-col>
       </ion-row>

@@ -113,10 +113,13 @@ export class SelectEaPage {
       this.navCtrl.setRoot("HomesPage");
     })
   }
-  // goConfirmSeletEAPage(selectedEa: EA) {
-  //   console.log(selectedEa);
-  //   this.store.dispatch(new SetCurrentWorkingEA(selectedEa.code));
-  //   this.navCtrl.setRoot("HomesPage");
-  // }
+
+  goContinuseSeletEAPage(selectedEa: EA) {
+    this.dataStore.savedEAs("32505940", this.listOfEAs).toPromise().then(_ => {
+      this.store.dispatch(new DownloadUserToMobileSuccess(this.listOfEAs));
+      this.store.dispatch(new SetCurrentWorkingEA(selectedEa.code));
+      this.navCtrl.setRoot("HomesPage");
+    })
+  }
 
 }
