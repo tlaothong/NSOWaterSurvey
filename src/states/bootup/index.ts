@@ -25,11 +25,6 @@ export const getCurrentWorkingEA = createSelector(
     (eas, code) => eas.find(it => it.code == code),
 );
 
-export const getCurrentWorkingEA4NoLogin = createSelector(
-    getBootstrapFeatureState,
-    state => state.currentWorkingEA4NoLogin,
-);
-
 export const getCurrentStatusState = createSelector(
     getBootstrapFeatureState,
     state => state.currentStatusState,

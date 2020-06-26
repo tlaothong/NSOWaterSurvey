@@ -8,7 +8,6 @@ export interface BootupState {
     EAs: EA[];
     currentEaCode: string;
     currentStatusState: string;
-    currentWorkingEA4NoLogin: string;
 }
 
 
@@ -17,7 +16,6 @@ const initialState: BootupState = {
     EAs: [],
     currentEaCode: null,
     currentStatusState: null,
-    currentWorkingEA4NoLogin: null
 };
 
 export function reducer(state: BootupState = initialState, action: BootupActionsType): BootupState {
@@ -36,11 +34,6 @@ export function reducer(state: BootupState = initialState, action: BootupActions
             return {
                 ...state,
                 currentEaCode: action.payload,
-            };
-        case BootupTypes.SetCurrentWorkingEA4NoLogin:
-            return {
-                ...state,
-                currentWorkingEA4NoLogin: action.payload,
             };
         case BootupTypes.SetCurrentStatusState:
             return {

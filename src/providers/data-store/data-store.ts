@@ -21,12 +21,12 @@ export class DataStoreProvider {
   /**
    * Download Cloud to Device update for sync
    */
-  public downloadCloudUpdate(userId: string): Observable<EA[]> {
-    let x = this.cloudSync.downloadCloudUpdate(userId).retry(3)
-      .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
-        .mapTo(update));
-    return x;
-  }
+  // public downloadCloudUpdate(userId: string): Observable<EA[]> {
+  //   let x = this.cloudSync.downloadCloudUpdate(userId).retry(3)
+  //     .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
+  //       .mapTo(update));
+  //   return x;
+  // }
 
   public DownloadedEAs(userId: string): Observable<EA[]> {
     return Observable.fromPromise(this.storage.get('uea1v' + userId));
@@ -38,7 +38,12 @@ export class DataStoreProvider {
   }
 
   public saveEaForNoLogin(userId: string): Observable<EA[]> {
-    let x = this.cloudSync.pilot()
+    let data
+    this.listDownloadedEAs(userId).subscribe(it => {
+      data = it as EA[];
+    })
+    let x = data ? this.listDownloadedEAs(userId) : this.cloudSync.pilot();
+    x.retry(3)
       .switchMap(update => Observable.of(this.storage.set('uea1v' + userId, update))
         .mapTo(update));
     return x;
@@ -63,7 +68,7 @@ export class DataStoreProvider {
   /**
    * รายการ EA ทั้งหมดที่ถูก download เรียบร้อยแล้ว
    */
-  public listDownloadedEAs(userId: string): Observable<EAwStat[]> {
+  public listDownloadedEAs(userId: string): Observable<EA[]> {
     return Observable.fromPromise(this.storage.get('uea1v' + userId));
   }
 

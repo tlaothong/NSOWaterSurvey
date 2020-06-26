@@ -10,10 +10,8 @@ export enum BootupTypes {
     DownloadUserToMobile = "[BT] Download User Cloud Data To Mobile",
     DownloadUserToMobileSuccess = "[BT] User Cloud Data Downloaded To Mobile Successfully",
     SetCurrentWorkingEA = "[BT] Set Current Working EA",
-    SetCurrentWorkingEA4NoLogin = "[BT] Set Current Working EA For No Login",
     CurrentWorkingEaChanged = "[BT] Current Working EA has Changed",
     SetCurrentStatusState = "[BT] Current Status State ",
-    SetStart = "[BT]  Set Start ",
 
 }
 
@@ -78,20 +76,6 @@ export class CurrentWorkingEaChanged implements Action {
     }
 }
 
-export class SetStart implements Action {
-    readonly type = BootupTypes.SetStart;
-
-    constructor(public payload: string) {
-    }
-}
-
-export class SetCurrentWorkingEA4NoLogin implements Action {
-    readonly type = BootupTypes.SetCurrentWorkingEA4NoLogin;
-
-    constructor(public payload: string) {
-    }
-}
-
 export class SetCurrentStatusState implements Action {
     readonly type = BootupTypes.SetCurrentStatusState;
 
@@ -109,6 +93,4 @@ export type BootupActionsType =
     | SetCurrentWorkingEA
     | CurrentWorkingEaChanged
     | SetCurrentStatusState
-    | SetCurrentWorkingEA4NoLogin
-    | SetStart
     ;

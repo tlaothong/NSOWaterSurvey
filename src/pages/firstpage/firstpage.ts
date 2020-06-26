@@ -19,7 +19,6 @@ export class FirstpagePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FirstpagePage');
 
     this.appMsg$.take(1).subscribe(appMsg => {
       if (appMsg) {

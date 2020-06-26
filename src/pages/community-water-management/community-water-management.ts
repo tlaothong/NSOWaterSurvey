@@ -41,7 +41,7 @@ export class CommunityWaterManagementPage {
   public isCommunity: boolean;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
-    public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>, 
+    public navParams: NavParams, private fb: FormBuilder, private storeCom: Store<CommunityState>,
     private store: Store<LoggingState>, private appState: AppStateProvider) {
     this.id = this.navParams.get('id');
     this.formDataCom = CommunityWaterManagementPage.CreateMainFormGroup(fb);
@@ -69,8 +69,8 @@ export class CommunityWaterManagementPage {
       'hasDisasterWarning': [null, Validators.required],
       'disasterWarningMethods': DisasterWarningMethodsComponent.CreateFormGroup(fb),
     }, {
-        validator: CommunityWaterManagementPage.checkAnyOrOther()
-      });
+      validator: CommunityWaterManagementPage.checkAnyOrOther()
+    });
   }
 
   public static CreateMainFormGroup(fb: FormBuilder): FormGroup {
@@ -88,8 +88,8 @@ export class CommunityWaterManagementPage {
     var cwtamptam = this.appState.eaCode.substr(1, 6);
     console.log(cwtamptam);
     this.subDistrict = this.subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
-    this.MWA = this.subDistrict.MWA;
-    this.PWA = this.subDistrict.PWA;
+    this.MWA = this.subDistrict && this.subDistrict.MWA;
+    this.PWA = this.subDistrict && this.subDistrict.PWA;
     if (this.MWA == false) {
       this.CommunityWaterManagement.get('mwa').setValue(this.MWA);
     }
@@ -431,7 +431,7 @@ export class CommunityWaterManagementPage {
         && hasDisasterWarning.value == null) {
         return { 'hasDisasterWarning': true };
       }
-     
+
       return null;
 
 

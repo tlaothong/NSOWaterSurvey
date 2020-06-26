@@ -41,7 +41,7 @@
             <ion-label col-2>
               ตำบล
             </ion-label>
-            <ion-select interface="action-sheet" [(ngModel)]="tam">
+            <ion-select interface="action-sheet" [(ngModel)]="tam" (ionChange)="onChange2($event)">
               <ion-option *ngFor="let item of subDistrict">{{ item.name }}</ion-option>
             </ion-select>
             <!-- <ion-input [(ngModel)]="tam" type="text" placeholder="กรอกข้อมูล"></ion-input> -->
