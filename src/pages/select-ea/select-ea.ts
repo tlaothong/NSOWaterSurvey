@@ -38,7 +38,7 @@ export class SelectEaPage {
   ionViewDidLoad() {
     this.procressSetLocation()
 
-    this.listOfEAs.push({ "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "กรุงเทพมหานคร", "CWT": "10", "CWT_NAME": "กรุงเทพมหานคร", "AMP": "01", "AMP_NAME": "พระนคร", "TAM": "01", "TAM_NAME": "พระบรมมหาราชวัง", "DISTRICT": 1, "MUN": "000", "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001", "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135, "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237", "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง", "Center": { "coordinates": [100.49042950774567, 13.758569035411838] } },
+    this.listOfEAs.push({ "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "", "CWT": "10", "CWT_NAME": "ไม่ระบุพื้นที่", "AMP": "01", "AMP_NAME": "", "TAM": "01", "TAM_NAME": "", "DISTRICT": 1, "MUN": "000", "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001", "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135, "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237", "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง", "Center": { "coordinates": [100.49042950774567, 13.758569035411838] } },
     );
     this.dataStore.listDownloadedEAs("32505940").subscribe(it => {
       this.oldLstEA = it
@@ -98,7 +98,14 @@ export class SelectEaPage {
 
   goConfirmSeletEAPage() {
     console.log(this.listOfEAs);
-    let selectedEa = { "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "กรุงเทพมหานคร", "CWT": "10", "CWT_NAME": "กรุงเทพมหานคร", "AMP": "01", "AMP_NAME": "พระนคร", "TAM": "01", "TAM_NAME": "พระบรมมหาราชวัง", "DISTRICT": 1, "MUN": "000", "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001", "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135, "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237", "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง", "Center": { "coordinates": [100.49042950774567, 13.758569035411838] } };
+    let selectedEa = { "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "", 
+    "CWT": "10", "CWT_NAME": "กรุงเทพมหานคร", "AMP": "01", "AMP_NAME": "พระนคร", 
+    "TAM": "01", "TAM_NAME": "พระบรมมหาราชวัง", "DISTRICT": 1, "MUN": "000", 
+    "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001", 
+    "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135, 
+    "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237", 
+    "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง", 
+    "Center": { "coordinates": [100.49042950774567, 13.758569035411838] } };
 
     selectedEa.CWT_NAME = this.cwt;
     selectedEa.AMP_NAME = this.amp;
