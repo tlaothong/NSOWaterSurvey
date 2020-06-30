@@ -108,7 +108,6 @@ export class CommunityWaterManagementPage {
         break;
     }
     // var cwtamptam = this.appState.eaCode.substr(1, 6);
-    console.log("subDistrict", this.subDistrict);
     this.MWA = this.subDistrict && this.subDistrict.MWA;
     this.PWA = this.subDistrict && this.subDistrict.PWA;
     if (this.MWA == false) {
@@ -205,7 +204,6 @@ export class CommunityWaterManagementPage {
     }
 
     this.isCheckWarningBox = this.checkValid();
-    console.log(this.CommunityWaterManagement);
 
     if (this.checkValid()) {
 
@@ -216,12 +214,6 @@ export class CommunityWaterManagementPage {
   }
 
   public checkValid(): boolean {
-    console.log("checkPublicWater", this.checkPublicWater());
-    console.log("checkHasDisaster", this.checkHasDisaster());
-    console.log("checkHasDisasterWarning", this.checkHasDisasterWarning());
-    console.log("checkWater", this.checkWater());
-    console.log("checkHas", this.checkHas());
-
     return this.CommunityWaterManagement.get('vil').valid
       && this.CommunityWaterManagement.get('vil_name').valid
       && this.CommunityWaterManagement.get('hasPublicWater').valid
@@ -234,17 +226,10 @@ export class CommunityWaterManagementPage {
 
   public checkPublicWater(): boolean {
     let isCheckDetail = this.detailWaterManagement.find(it => it.FormItem.invalid) ? false : true;
-    console.log(isCheckDetail);
-
     return (this.CommunityWaterManagement.get('hasPublicWater').value) ? isCheckDetail : true;
   }
 
   public checkWater(): boolean {
-    console.log("this.MWA", this.MWA);
-    console.log("this.CommunityWaterManagement.get('mwa').valid"), this.CommunityWaterManagement.get('mwa').valid;
-    console.log("this.CommunityWaterManagement.get('otherPlumbing').valid"), this.CommunityWaterManagement.get('otherPlumbing').valid;
-    console.log("this.checkOtherWater()", this.checkOtherWater());
-
     if (this.MWA) {
       return this.CommunityWaterManagement.get('mwa').valid
         && this.CommunityWaterManagement.get('otherPlumbing').valid

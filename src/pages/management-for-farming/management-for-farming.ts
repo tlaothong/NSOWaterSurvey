@@ -52,14 +52,12 @@ export class ManagementForFarmingPage {
     this.formData.get('communityProject').setValue(this.managementforfarming.value);
     this.isCheckWarningBox = this.managementforfarming.valid;
     if (this.managementforfarming.valid) {
-      console.log("ewfew");
       let originalCommunity = this.appState.communityData;
       let newCommunity = {
         ...originalCommunity,
         communityProject: this.managementforfarming.value,
         status: "done-all"
       };
-      console.log(newCommunity);
       
       this.store.dispatch(new SaveCommunity(newCommunity))
       this.navCtrl.popToRoot();
