@@ -84,10 +84,31 @@ export class CommunityWaterManagementPage {
   };
 
   ionViewDidLoad() {
+    this.setParamiterValue();
 
-    var cwtamptam = this.appState.eaCode.substr(1, 6);
-    console.log(cwtamptam);
-    this.subDistrict = this.subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
+
+  }
+
+  setParamiterValue() {
+    var cwtamptam = this.appState.eaCode;
+    switch (cwtamptam.length) {
+      case 6:
+        this.subDistrict = this.subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
+        break;
+      case 4:
+        this.subDistrict = this.subDistrictData.filter(it => it.codeDistrict == cwtamptam)[0]  ;
+        break;
+      case 2:
+        this.subDistrict = this.subDistrictData.filter(it => it.CWT == cwtamptam)[0]  ;
+        break;
+      case 1:
+        this.subDistrict = this.subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
+        break;
+      default:
+        break;
+    }
+    // var cwtamptam = this.appState.eaCode.substr(1, 6);
+    console.log("subDistrict", this.subDistrict);
     this.MWA = this.subDistrict && this.subDistrict.MWA;
     this.PWA = this.subDistrict && this.subDistrict.PWA;
     if (this.MWA == false) {
@@ -96,7 +117,6 @@ export class CommunityWaterManagementPage {
     if (this.PWA == false) {
       this.CommunityWaterManagement.get('pwa').setValue(this.PWA);
     }
-
   }
 
   private setupPublicWaterCountChanges() {
@@ -185,6 +205,8 @@ export class CommunityWaterManagementPage {
     }
 
     this.isCheckWarningBox = this.checkValid();
+    console.log(this.CommunityWaterManagement);
+
     if (this.checkValid()) {
 
       this.storeCom.dispatch(new SaveCommunity(this.formDataCom.value));
@@ -194,6 +216,12 @@ export class CommunityWaterManagementPage {
   }
 
   public checkValid(): boolean {
+    console.log("checkPublicWater", this.checkPublicWater());
+    console.log("checkHasDisaster", this.checkHasDisaster());
+    console.log("checkHasDisasterWarning", this.checkHasDisasterWarning());
+    console.log("checkWater", this.checkWater());
+    console.log("checkHas", this.checkHas());
+
     return this.CommunityWaterManagement.get('vil').valid
       && this.CommunityWaterManagement.get('vil_name').valid
       && this.CommunityWaterManagement.get('hasPublicWater').valid
@@ -212,6 +240,11 @@ export class CommunityWaterManagementPage {
   }
 
   public checkWater(): boolean {
+    console.log("this.MWA", this.MWA);
+    console.log("this.CommunityWaterManagement.get('mwa').valid"), this.CommunityWaterManagement.get('mwa').valid;
+    console.log("this.CommunityWaterManagement.get('otherPlumbing').valid"), this.CommunityWaterManagement.get('otherPlumbing').valid;
+    console.log("this.checkOtherWater()", this.checkOtherWater());
+
     if (this.MWA) {
       return this.CommunityWaterManagement.get('mwa').valid
         && this.CommunityWaterManagement.get('otherPlumbing').valid

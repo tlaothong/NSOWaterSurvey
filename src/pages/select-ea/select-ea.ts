@@ -26,11 +26,10 @@ export class SelectEaPage {
   private subDistrict: any
   private provinceCode: any;
   cwt: any;
-  cwtCode: any;
   amp: any;
   ampCode: any;
   tam: any;
-  code: any;
+  code: string;
   constructor(private dataStore: DataStoreProvider, public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>) {
 
   }
@@ -71,7 +70,7 @@ export class SelectEaPage {
     let code = provinceData.find(it => it.name == name) || null;
 
     if (code != null) {
-      this.cwtCode = code.codeProvince;
+      this.code = code.codeProvince;
       this.provinceCode = code.codeProvince;
       let order = LocationDataProvider.getDistric(code.codeProvince);
       this.district = order.sort((a, b) => a.name.localeCompare(b.name))
@@ -83,6 +82,7 @@ export class SelectEaPage {
 
     if (code != null) {
       this.ampCode = code.codeDistrict
+      if (code.AMP != undefined) this.code += code.AMP;
       let order = LocationDataProvider.getSubdistric(code.codeDistrict);
       this.subDistrict = order.sort((a, b) => a.name.localeCompare(b.name))
     }
@@ -92,20 +92,22 @@ export class SelectEaPage {
     var code = subDistrictData.find(it => it.name == name && it.codeDistrict == this.ampCode) || null;
 
     if (code != null) {
-      this.code = code.codeSubDistrict;
+      this.code += '0' + code.TAM;
     }
   }
 
   goConfirmSeletEAPage() {
     console.log(this.listOfEAs);
-    let selectedEa = { "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "", 
-    "CWT": "10", "CWT_NAME": "กรุงเทพมหานคร", "AMP": "01", "AMP_NAME": "พระนคร", 
-    "TAM": "01", "TAM_NAME": "พระบรมมหาราชวัง", "DISTRICT": 1, "MUN": "000", 
-    "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001", 
-    "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135, 
-    "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237", 
-    "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง", 
-    "Center": { "coordinates": [100.49042950774567, 13.758569035411838] } };
+    let selectedEa = {
+      "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "",
+      "CWT": "10", "CWT_NAME": "กรุงเทพมหานคร", "AMP": "01", "AMP_NAME": "พระนคร",
+      "TAM": "01", "TAM_NAME": "พระบรมมหาราชวัง", "DISTRICT": 1, "MUN": "000",
+      "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001",
+      "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135,
+      "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237",
+      "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง",
+      "Center": { "coordinates": [100.49042950774567, 13.758569035411838] }
+    };
 
     selectedEa.CWT_NAME = this.cwt;
     selectedEa.AMP_NAME = this.amp;

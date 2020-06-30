@@ -16,6 +16,18 @@ export interface SubDistrict {
 export const subDistrictData: SubDistrict[] =
   [
     {
+      codeSubDistrict: "1",
+      codeDistrict: "1001",
+      CWT: "99",
+      CWT_NAME: "ไม่ระบุพื้นที่",
+      AMP: "1",
+      AMP_NAME: "",
+      TAM: "1",
+      name: "",
+      MWA: true,
+      PWA: true,
+    },
+    {
       codeSubDistrict: "100101",
       codeDistrict: "1001",
       CWT: "10",
