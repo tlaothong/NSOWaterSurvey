@@ -121,10 +121,12 @@ export class DataStoreProvider {
   * บันทึกข้อมูล Building 1 อาคาร
   */
   public saveBuilding(dataBuilding: Building): Observable<any> {
-
     return Observable.fromPromise(this.storage.set(dataBuilding._id, dataBuilding));
   }
 
+  public delete(eaCode: string): Observable<any> {
+    return Observable.fromPromise(this.storage.remove('bldlst1v' + eaCode));
+  }
   /**
    * บันทึกรายการ Building แบบบันทึกเป็น List
    */

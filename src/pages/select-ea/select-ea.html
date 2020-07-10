@@ -11,7 +11,7 @@
 
   <ion-card>
     <ion-card-content>
-     
+
 
       <ion-card-header>
         <ion-card-title>สำรวจพื้นที่อื่น</ion-card-title>
@@ -112,6 +112,9 @@
         <ion-col>
           <button ion-button type="button" color="secondary" (click)="goContinuseSeletEAPage(item)">
             สำรวจต่อ
+          </button>
+          <button ion-button type="button" color="secondary" (click)="deleteEA(item.code)">
+            ลบ
           </button>
         </ion-col>
       </ion-row>

@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { getListOfEAs } from '../../states/bootup';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BootupState } from '../../states/bootup/bootup.reducer';
 import { SetCurrentWorkingEA, SetCurrentStatusState, LoginUser, DownloadUserToMobile, DownloadUserToMobileSuccess } from '../../states/bootup/bootup.actions';
 import { EA } from '../../models/mobile/MobileModels';
@@ -30,15 +30,28 @@ export class SelectEaPage {
   ampCode: any;
   tam: any;
   code: string;
-  constructor(private dataStore: DataStoreProvider, public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>) {
+  constructor(private alertCtrl: AlertController, private dataStore: DataStoreProvider, public navCtrl: NavController, public navParams: NavParams, private store: Store<BootupState>) {
 
   }
 
   ionViewDidLoad() {
-    this.procressSetLocation()
+    this.procressSetLocation();
 
     this.listOfEAs.push({ "code": "1", "Area_Code": "100101", "REG": "1", "REG_NAME": "", "CWT": "10", "CWT_NAME": "ไม่ระบุพื้นที่", "AMP": "01", "AMP_NAME": "", "TAM": "01", "TAM_NAME": "", "DISTRICT": 1, "MUN": "000", "MUN_NAME": "กรุงเทพมหานคร", "TAO": "", "TAO_NAME": "", "EA": "001", "VIL": "00", "VIL_NAME": "", "MAP_STATUS": 1, "Building": 135, "Household": 83, "population": 242, "Agricultural_HH": 0, "ES_BUSI": "237", "ES_INDUS": "8", "ES_HOTEL": "", "ES_PV_HOS": "", "REMARK": "มหาวิทยาลัย 1 แห่ง,  โรงเรียน 2 แห่ง, ตึก 3 ชั้น 14 ห้อง", "Center": { "coordinates": [100.49042950774567, 13.758569035411838] } },
     );
+    this.loadData();
+    // this.dataStore.listDownloadedEAs("32505940").subscribe(it => {
+    //   this.oldLstEA = it
+    //   this.listOfEAs = this.oldLstEA != null && this.oldLstEA != undefined ? this.oldLstEA : this.listOfEAs;
+    //   console.log("oldLst", this.oldLstEA);
+
+    //   this.store.dispatch(new LoginUser("32505940"));
+    //   this.store.dispatch(new DownloadUserToMobile());
+    //   this.store.dispatch(new SetCurrentStatusState("Survey"));
+    // });
+  }
+
+  loadData() {
     this.dataStore.listDownloadedEAs("32505940").subscribe(it => {
       this.oldLstEA = it
       this.listOfEAs = this.oldLstEA != null && this.oldLstEA != undefined ? this.oldLstEA : this.listOfEAs;
@@ -49,7 +62,6 @@ export class SelectEaPage {
       this.store.dispatch(new SetCurrentStatusState("Survey"));
     });
   }
-
   procressSetLocation() {
     this.provinceData = provinceData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -94,6 +106,26 @@ export class SelectEaPage {
     if (code != null) {
       this.code += '0' + code.TAM;
     }
+  }
+
+  async deleteEA(EA: string) {
+    const alert = await this.alertCtrl.create({
+      title: 'ต้องการจะลบใช่หรือไม่',
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          this.dataStore.delete(EA).toPromise().then(_ => {
+            let ea = this.listOfEAs.find(r => r.code == EA);
+            let index = this.listOfEAs.indexOf(ea);
+            this.listOfEAs.splice(index, 1);
+            // this.store.dispatch(new DownloadUserToMobileSuccess(this.listOfEAs));
+          });
+        }
+      }, {
+        text: 'ยกเลิก',
+      }]
+    });
+    alert.present();
   }
 
   goConfirmSeletEAPage() {
