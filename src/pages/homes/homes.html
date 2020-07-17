@@ -56,11 +56,11 @@
         สำรวจหน่วยต่อไป
       </button>
     </ion-col>
-    <ion-col>
+    <!-- <ion-col>
       <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
       </button>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
 
   <div>
@@ -68,13 +68,13 @@
       <ion-segment-button value="building">
         สน.1 ข้อมูลอาคาร
       </ion-segment-button>
-      <ion-segment-button value="fsedit">
+      <!-- <ion-segment-button value="fsedit">
         FS ให้แก้ไข
         <ion-icon *ngIf="dataResolutions.length > 0" md="md-warning" class="warning" style="zoom: 0.5;"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="areayoi">
         สน.2 พื้นที่ย่อย
-      </ion-segment-button>
+      </ion-segment-button> -->
     </ion-segment>
   </div>
 
@@ -173,7 +173,7 @@
   </div>
 
   <ng-container [ngSwitch]="office">
-    <ng-container *ngSwitchCase="'areayoi'" style="padding-top: 10px">
+    <!-- <ng-container *ngSwitchCase="'areayoi'" style="padding-top: 10px">
 
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -211,9 +211,9 @@
           </ion-col>
         </ion-row>
       </div>
-    </ng-container>
+    </ng-container> -->
 
-    <ng-container *ngSwitchCase="'fsedit'">
+    <!-- <ng-container *ngSwitchCase="'fsedit'">
 
       <ion-row text-center align-items-center>
         <ion-col col-2>
@@ -267,6 +267,6 @@
         </ion-row>
       </div>
 
-    </ng-container>
+    </ng-container> -->
   </ng-container>
 </ion-content>
