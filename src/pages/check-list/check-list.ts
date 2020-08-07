@@ -61,7 +61,7 @@ export class CheckListPage {
       { title: '5.6 การกักเก็บน้ำฝน', component: "RainPage", isCheck: false, isShow: true },
       { title: '5.7 น้ำที่ซื้อมาใช้', component: "BuyingPage", isCheck: false, isShow: true },
       { title: 'ตอนที่ 6 ปัญหาอุทกภัย', component: "DisasterousPage", isCheck: false, isShow: true },
-      { title: 'แบบข้อมูลประชากร', component: "PopulationPage", isCheck: false, isShow: true },
+      // { title: 'แบบข้อมูลประชากร', component: "PopulationPage", isCheck: false, isShow: true },
       { title: 'ข้อมูลพื้นฐานส่วนบุคคล', component: "UserPage", isCheck: false, isShow: true },
     ];
   }
@@ -97,7 +97,7 @@ export class CheckListPage {
   }
 
   goNextPage(arrayNextPage) {
-    for (let i = this.index + 1; i <= 23; i++) {
+    for (let i = this.index + 1; i <= 22; i++) {
       if (arrayNextPage[i]) {
         console.log("goNextPage");
         this.store.dispatch(new SetSelectorIndex2(i));

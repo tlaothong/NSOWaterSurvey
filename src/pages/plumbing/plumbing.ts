@@ -89,7 +89,7 @@ export class PlumbingPage {
       'waterActivityPWA': WaterActivity5Component.CreateFormGroup(this.fb),
       'waterActivityOther': WaterActivity5Component.CreateFormGroup(this.fb),
       'hasWaterNotRunning': [null, Validators.required],
-      'waterNotRunningCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required,  Validators.min(1), Validators.max(12)])]
+      'waterNotRunningCount': [null, Validators.compose([Validators.pattern('[0-9]*'), Validators.required, Validators.min(1), Validators.max(12)])]
     });
   }
 
@@ -120,10 +120,10 @@ export class PlumbingPage {
       var cwtamptam = this.appState.eaCode.substr(1, 6);
       console.log(cwtamptam);
       this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
-      this.MWA = this.subDistrict.MWA;
-      this.PWA = this.subDistrict.PWA;
+      this.MWA = this.subDistrict && this.subDistrict.MWA;
+      this.PWA = this.subDistrict && this.subDistrict.PWA;
 
-      const subUnit = it.subUnit;  
+      const subUnit = it.subUnit;
       if (subUnit && subUnit.hasPlumbingMeter == false) {
         const pwa = this.f.get('pwa.plumbingUsage.waterQuantity');
         const mwa = this.f.get('mwa.plumbingUsage.waterQuantity');
@@ -133,7 +133,7 @@ export class PlumbingPage {
           pwa.setValue(3);
         if (this.MWA)
           mwa.setValue(3);
-          
+
         owa.setValue(3);
       }
 
