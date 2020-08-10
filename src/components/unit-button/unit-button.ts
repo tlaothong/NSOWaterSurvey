@@ -843,13 +843,13 @@ export class UnitButtonComponent {
         'logCount': 0,
         'logs': fb.array([])
       }),
-      'population': fb.group({
-        'personCount': 0,
-        'persons': fb.array([]),
-        'allPersonCount': null,
-        'malePerson': null,
-        'femalePerson': null,
-      }),
+      // 'population': fb.group({
+      //   'personCount': 0,
+      //   'persons': fb.array([]),
+      //   'allPersonCount': null,
+      //   'malePerson': null,
+      //   'femalePerson': null,
+      // }),
     });
   }
 

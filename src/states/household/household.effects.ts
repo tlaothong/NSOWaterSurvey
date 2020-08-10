@@ -49,7 +49,7 @@ export class HouseHoldEffects {
         { title: '5.6 การกักเก็บน้ำฝน', name: "RainPage", hasCompleted: false, isNeed: true },
         { title: '5.7 น้ำที่ซื้อมาใช้', name: "BuyingPage", hasCompleted: false, isNeed: true },
         { title: 'ตอนที่ 6 ปัญหาอุทกภัย', name: "DisasterousPage", hasCompleted: false, isNeed: true },
-        { title: 'แบบข้อมูลประชากร', name: "PopulationPage", hasCompleted: false, isNeed: true },
+        // { title: 'แบบข้อมูลประชากร', name: "PopulationPage", hasCompleted: false, isNeed: true },
         { title: 'ข้อมูลพื้นฐานส่วนบุคคล', name: "UserPage", hasCompleted: false, isNeed: true },
     ];
 
@@ -117,7 +117,6 @@ export class HouseHoldEffects {
                 const surveyForm = HouseHoldEffects.surveyForms[index];
                 let unitSurveys = this.appState.houseHoldUnit.surveyCompleted;
                 let surveyInUnit = unitSurveys.find(it => it.name == surveyForm.name);
-                console.log("setSelectorIndex", unitSurveys);
 
                 if (surveyInUnit) {
                     surveyInUnit.hasCompleted = true;
@@ -237,7 +236,7 @@ export class HouseHoldEffects {
             waterUsage: {},
             disaster: {},
             closing: {},
-            population: {},
+            // population: {},
             surveyCompleted: [],
             comments: (comment && comment != '') ? [{ at: Date.now(), text: comment }] : [],
             recCtrl: {
@@ -400,8 +399,8 @@ export class HouseHoldEffects {
         for (let idx = 0; idx < pages2check.length; idx++) {
             const shouldCheck = pages2check[idx];
             const form = this.surveyForms[idx];
-
-            let survey = surveys && surveys.find(it => it.name == form.name);
+            let formName = form && form.name;
+            let survey = surveys && surveys.find(it => it.name == formName);
 
             if (survey) {
                 survey.isNeed = shouldCheck;
@@ -838,7 +837,7 @@ export class HouseHoldEffects {
         let arr: Array<boolean> = state.nextPageDirection;
         arr[0] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
         arr[20] = (state.selectG1234 && state.selectG1234.isHouseHold) ? true : false;
-        arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold && state.houseHoldSample && state.houseHoldSample.residence && state.houseHoldSample.residence.memberCount > 0) ? true : false;
+        // arr[21] = (state.selectG1234 && state.selectG1234.isHouseHold && state.houseHoldSample && state.houseHoldSample.residence && state.houseHoldSample.residence.memberCount > 0) ? true : false;
         arr[1] = (state.selectG1234 && state.selectG1234.isAgriculture) ? true : false;
         arr[11] = (state.selectG1234 && state.selectG1234.isFactorial) ? true : false;
         arr[12] = (state.selectG1234 && state.selectG1234.isCommercial) ? true : false;
@@ -946,6 +945,8 @@ export class HouseHoldEffects {
                 break;
             default:
                 const completedSurveys = unit.surveyCompleted;
+                console.log("check complete", completedSurveys);
+
                 const countedOnSurveys = completedSurveys.filter(it => it.isNeed == true);
                 const allCompleted = countedOnSurveys.length > 0
                     && countedOnSurveys.every(it => it.hasCompleted);

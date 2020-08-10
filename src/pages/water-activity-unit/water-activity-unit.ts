@@ -51,7 +51,7 @@ export class WaterActivityUnitPage {
   }
 
   arrayNextPageMedthod() {
-    let arrayNextPage: Array<boolean> = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+    let arrayNextPage: Array<boolean> = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
     this.store.dispatch(new SetNextPageDirection(arrayNextPage));
     this.store.dispatch(new SetSelectorIndex(-1));
     this.store.dispatch(new SetBackToRoot(false));

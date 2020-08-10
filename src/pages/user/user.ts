@@ -113,7 +113,7 @@ export class UserPage {
   }
 
   arrayIsCheckMethod() {
-    this.store.dispatch(new SetSelectorIndex(22));
+    this.store.dispatch(new SetSelectorIndex(21));
   }
 
   public isValid(name: string): boolean {

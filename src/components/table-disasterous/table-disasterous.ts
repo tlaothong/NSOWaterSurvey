@@ -21,13 +21,22 @@ export class TableDisasterousComponent {
 
   public static CreateFormGroup(fb: FormBuilder): FormGroup {
     return fb.group({
-      'count': [null, Validators.compose([Validators.pattern('[0-9]*')])],
-      'avgDay': [null, Validators.compose([Validators.pattern('[0-9]*')])],
-      'avgHour': [null, [Validators, Validators.min(1), Validators.max(23)]],
-      'waterHeightCm': [null, Validators.compose([Validators.pattern('[0-9]*')])],
-      'year': [null],
+      'count': null,
+      'avgDay': null,
+      'avgHour': null,
+      'waterHeightCm': null,
+      'year': null,
     });
   }
+  // public static CreateFormGroup(fb: FormBuilder): FormGroup {
+  //   return fb.group({
+  //     'count': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+  //     'avgDay': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+  //     'avgHour': [null, [Validators, Validators.min(1), Validators.max(23)]],
+  //     'waterHeightCm': [null, Validators.compose([Validators.pattern('[0-9]*')])],
+  //     'year': null,
+  //   });
+  // }
 
   public showModal() {
     const modal = this.modalCtrl.create("DlgTableDisasterousPage", { FormItem: this.FormItem, headline: this.year });
