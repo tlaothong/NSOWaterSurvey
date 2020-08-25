@@ -31,7 +31,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>สถานะของ EA:</ion-label>
+      <ion-label>สถานะของการสำรวจ :</ion-label>
       <ion-select interface="action-sheet" [(ngModel)]="statusEa" disabled="true">
         <ion-option [value]="1">
           กำลังสำรวจ
@@ -57,23 +57,23 @@
       </button>
     </ion-col>
     <!-- <ion-col>
-      <button ion-button block type="button" (click)="changeEaStatus()">
+      <!-- <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
-      </button>
+      </button> -->
     </ion-col> -->
   </ion-row>
 
   <div>
     <ion-segment [(ngModel)]="office" mode="ios" color="secondary">
       <ion-segment-button value="building">
-        สน.1 ข้อมูลอาคาร
+        ข้อมูลอาคาร
       </ion-segment-button>
       <!-- <ion-segment-button value="fsedit">
         FS ให้แก้ไข
         <ion-icon *ngIf="dataResolutions.length > 0" md="md-warning" class="warning" style="zoom: 0.5;"></ion-icon>
-      </ion-segment-button>
+      </ion-segment-button> -->
       <ion-segment-button value="areayoi">
-        สน.2 พื้นที่ย่อย
+        พื้นที่ย่อย
       </ion-segment-button> -->
     </ion-segment>
   </div>
