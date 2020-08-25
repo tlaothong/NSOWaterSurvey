@@ -3,13 +3,13 @@
     {{ ea.CWT_NAME }} <br />
     {{ ea.AMP_NAME }} <br />
     {{ ea.TAM_NAME }} <br />
-    {{ (ea.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}, {{ ea.MUN_NAME }}{{ ea.TAO_NAME }}<br />
+    <!-- {{ (ea.DISTRICT == 2 ? 'นอกเขตฯ' : 'ในเขตฯ') }}, {{ ea.MUN_NAME }}{{ ea.TAO_NAME }}<br />
     {{ ea.VIL_NAME }}<br />
     <br />
-    <span text-wrap>{{ ea.REMARK }}</span>
+    <span text-wrap>{{ ea.REMARK }}</span> -->
   </ion-list-header>
 
-  <div no-lines>
+  <!-- <div no-lines>
     <ion-item>
       <h3>
         EA: {{ ea.code.substr(0, 11) }} <b>{{ ea.EA }}</b>
@@ -17,16 +17,16 @@
       <div *ngIf="Pop && No">ครัวเรือน ลำดับที่ {{ No }}</div>
       <div *ngIf="!Pop && No">หน่วยตัวอย่าง ลำดับที่ {{ No }}</div>
     </ion-item>
-  </div>
+  </div> -->
 
   <button ion-item icon-start (click)="goHome()">
     <ion-icon name="home"></ion-icon>
     หน้าหลัก
   </button>
-  <button ion-item icon-start (click)="openMap()">
+  <!-- <button ion-item icon-start (click)="openMap()">
     <ion-icon name="map"></ion-icon>
     ดูแผนที่
-  </button>
+  </button> -->
   <button ion-item icon-start (click)="goMeasure()">
     <ion-icon name="flask"></ion-icon>
     มาตราวัด
