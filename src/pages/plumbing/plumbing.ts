@@ -120,8 +120,8 @@ export class PlumbingPage {
       var cwtamptam = this.appState.eaCode.substr(1, 6);
       console.log(cwtamptam);
       this.subDistrict = subDistrictData.find(it => it.codeSubDistrict == cwtamptam);
-      this.MWA = this.subDistrict && this.subDistrict.MWA;
-      this.PWA = this.subDistrict && this.subDistrict.PWA;
+      this.MWA = true;
+      this.PWA = true;
 
       const subUnit = it.subUnit;
       if (subUnit && subUnit.hasPlumbingMeter == false) {
