@@ -51,32 +51,32 @@
   </ion-row>
 
   <ion-row align-items-center>
-    <ion-col>
-      <button ion-button block type="button" (click)="goBuildingInfo()">
-        สำรวจหน่วยต่อไป
-      </button>
+    <button ion-button block type="button" (click)="goBuildingInfo()">
+      สำรวจหน่วยต่อไป
+    </button>
+    <!-- <ion-col>
     </ion-col>
     <ion-col>
-      <!-- <button ion-button block type="button" (click)="changeEaStatus()">
+      <button ion-button block type="button" (click)="changeEaStatus()">
         สำรวจครบทุกหน่วยใน EA
-      </button> -->
-    </ion-col>
+      </button>
+    </ion-col> -->
   </ion-row>
 
-  <div>
+  <!-- <div>
     <ion-segment [(ngModel)]="office" mode="ios" color="secondary">
       <ion-segment-button value="building">
         ข้อมูลอาคาร
       </ion-segment-button>
-      <!-- <ion-segment-button value="fsedit">
+      <ion-segment-button value="fsedit">
         FS ให้แก้ไข
         <ion-icon *ngIf="dataResolutions.length > 0" md="md-warning" class="warning" style="zoom: 0.5;"></ion-icon>
-      </ion-segment-button> -->
+      </ion-segment-button>
       <ion-segment-button value="areayoi">
         พื้นที่ย่อย
       </ion-segment-button>
     </ion-segment>
-  </div>
+  </div> -->
 
   <div [style.display]="office == 'building' ? 'block' : 'none'">
 
