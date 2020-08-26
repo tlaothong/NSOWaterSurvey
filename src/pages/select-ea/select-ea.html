@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>เลือก EA</ion-title>
+    <ion-title>เลือกพื้นที่</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -113,7 +113,7 @@
           <button ion-button type="button" color="secondary" (click)="goContinuseSeletEAPage(item)">
             สำรวจต่อ
           </button>
-          <button ion-button type="button" color="secondary" (click)="deleteEA(item.code)">
+          <button ion-button type="button" color="danger" (click)="deleteEA(item.code)">
             ลบ
           </button>
         </ion-col>
